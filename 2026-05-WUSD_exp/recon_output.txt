@@ -1,0 +1,32 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/WUSD_exp.sol:WUSDExploitTest
+[PASS] testRecon() (gas: 12377388)
+Logs:
+  === GLO/USDC pool ===
+  token0 : 0x70c5f366dB60A2a0C59C4C24754803Ee47Ed7284
+  token1 : 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+  fee    : 10000
+  GLO  reserve: 1047
+  USDC reserve: 63896
+  === GLO/USDT pool ===
+  token0 : 0x70c5f366dB60A2a0C59C4C24754803Ee47Ed7284
+  fee    : 10000
+  GLO  reserve: 1014
+  USDT reserve: 63454
+  GLO spot price (USDC, 1e6): 188
+  USDT funded to wrapper: 101000
+  
+=== after single fresh wrap ===
+  WUSD balance       : 100000
+  GLOVE balance      : 2000000000000000000
+  GLOVE creditlessOf : 2000000000000000000
+  
+=== after 101-epoch pump + full unwrap (vested) ===
+  GLOVE balance      : 2000000000000000000
+  GLOVE creditlessOf : 0
+  USDT recovered     : 100000
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 932.06ms (44.24ms CPU time)
+
+Ran 1 test suite in 933.22ms (932.06ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

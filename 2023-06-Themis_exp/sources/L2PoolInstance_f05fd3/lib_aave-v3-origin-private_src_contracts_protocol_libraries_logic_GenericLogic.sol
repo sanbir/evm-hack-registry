@@ -1,0 +1,258 @@
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity ^0.8.10;
+
+import {IScaledBalanceToken} from '../../../interfaces/IScaledBalanceToken.sol';
+import {IPriceOracleGetter} from '../../../interfaces/IPriceOracleGetter.sol';
+import {ReserveConfiguration} from '../configuration/ReserveConfiguration.sol';
+import {UserConfiguration} from '../configuration/UserConfiguration.sol';
+import {EModeConfiguration} from '../configuration/EModeConfiguration.sol';
+import {PercentageMath} from '../math/PercentageMath.sol';
+import {WadRayMath} from '../math/WadRayMath.sol';
+import {TokenMath} from '../helpers/TokenMath.sol';
+import {MathUtils} from '../math/MathUtils.sol';
+import {DataTypes} from '../types/DataTypes.sol';
+import {ReserveLogic} from './ReserveLogic.sol';
+import {ValidationLogic} from './ValidationLogic.sol';
+
+/**
+ * @title GenericLogic library
+ * @author Aave
+ * @notice Implements protocol-level logic to calculate and validate the state of a user
+ */
+library GenericLogic {
+  using ReserveLogic for DataTypes.ReserveData;
+  using TokenMath for uint256;
+  using WadRayMath for uint256;
+  using PercentageMath for uint256;
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+  using UserConfiguration for DataTypes.UserConfigurationMap;
+
+  struct CalculateUserAccountDataVars {
+    uint256 assetPrice;
+    uint256 assetUnit;
+    uint256 userBalanceInBaseCurrency;
+    uint256 unsafe_cachedUserConfig;
+    DataTypes.ReserveConfigurationMap configurationCache;
+    uint256 ltv;
+    uint256 liquidationThreshold;
+    uint256 i;
+    uint256 healthFactor;
+    uint256 totalCollateralInBaseCurrency;
+    uint256 totalDebtInBaseCurrency;
+    uint256 avgLtv;
+    uint256 avgLiquidationThreshold;
+    uint256 eModeLiqThreshold;
+    uint128 eModeCollateralBitmap;
+    address currentReserveAddress;
+    bool hasZeroLtvCollateral;
+  }
+
+  /**
+   * @notice Calculates the user data across the reserves.
+   * @dev It includes the total liquidity/collateral/borrow balances in the base currency used by the price feed,
+   * the average Loan To Value, the average Liquidation Ratio, and the Health factor.
+   * @param reservesData The state of all the reserves
+   * @param reservesList The addresses of all the active reserves
+   * @param eModeCategories The configuration of all the efficiency mode categories
+   * @param params Additional parameters needed for the calculation
+   * @return The total collateral of the user in the base currency used by the price feed
+   * @return The total debt of the user in the base currency used by the price feed
+   * @return The average ltv of the user
+   * @return The average liquidation threshold of the user
+   * @return The health factor of the user
+   * @return True if the ltv is zero, false otherwise
+   */
+  function calculateUserAccountData(
+    mapping(address => DataTypes.ReserveData) storage reservesData,
+    mapping(uint256 => address) storage reservesList,
+    mapping(uint8 => DataTypes.EModeCategory) storage eModeCategories,
+    DataTypes.CalculateUserAccountDataParams memory params
+  ) internal view returns (uint256, uint256, uint256, uint256, uint256, bool) {
+    if (params.userConfig.isEmpty()) {
+      return (0, 0, 0, 0, type(uint256).max, false);
+    }
+
+    CalculateUserAccountDataVars memory vars;
+
+    if (params.userEModeCategory != 0) {
+      vars.eModeLiqThreshold = eModeCategories[params.userEModeCategory].liquidationThreshold;
+      vars.eModeCollateralBitmap = eModeCategories[params.userEModeCategory].collateralBitmap;
+    }
+
+    vars.unsafe_cachedUserConfig = params.userConfig.data;
+    bool isBorrowed = false;
+    bool isEnabledAsCollateral = false;
+
+    while (vars.unsafe_cachedUserConfig != 0) {
+      (vars.unsafe_cachedUserConfig, isBorrowed, isEnabledAsCollateral) = UserConfiguration
+        .getNextFlags(vars.unsafe_cachedUserConfig);
+      if (isEnabledAsCollateral || isBorrowed) {
+        vars.currentReserveAddress = reservesList[vars.i];
+
+        // @dev legacy check from when dropReserve could leave gaps; see docs/3.7/drop-reserve-removal.md
+        if (vars.currentReserveAddress != address(0)) {
+          DataTypes.ReserveData storage currentReserve = reservesData[vars.currentReserveAddress];
+          vars.configurationCache = currentReserve.configuration;
+
+          unchecked {
+            vars.assetUnit = 10 ** vars.configurationCache.getDecimals();
+          }
+
+          vars.assetPrice = IPriceOracleGetter(params.oracle).getAssetPrice(
+            vars.currentReserveAddress
+          );
+
+          if (isEnabledAsCollateral) {
+            vars.userBalanceInBaseCurrency = _getUserBalanceInBaseCurrency(
+              params.user,
+              currentReserve,
+              vars.assetPrice,
+              vars.assetUnit
+            );
+
+            vars.totalCollateralInBaseCurrency += vars.userBalanceInBaseCurrency;
+
+            vars.ltv = ValidationLogic.getUserReserveLtv(
+              currentReserve,
+              eModeCategories[params.userEModeCategory],
+              params.userEModeCategory
+            );
+            if (vars.ltv == 0) {
+              vars.hasZeroLtvCollateral = true;
+            } else {
+              vars.avgLtv += vars.userBalanceInBaseCurrency * vars.ltv;
+            }
+
+            if (
+              params.userEModeCategory != 0 &&
+              EModeConfiguration.isReserveEnabledOnBitmap(vars.eModeCollateralBitmap, vars.i)
+            ) {
+              vars.liquidationThreshold = vars.eModeLiqThreshold;
+            } else {
+              vars.liquidationThreshold = vars.configurationCache.getLiquidationThreshold();
+            }
+
+            vars.avgLiquidationThreshold +=
+              vars.userBalanceInBaseCurrency *
+              vars.liquidationThreshold;
+          }
+
+          if (isBorrowed) {
+            vars.totalDebtInBaseCurrency += _getUserDebtInBaseCurrency(
+              params.user,
+              currentReserve,
+              vars.assetPrice,
+              vars.assetUnit
+            );
+          }
+        }
+      }
+
+      unchecked {
+        ++vars.i;
+      }
+    }
+
+    // @note At this point, `avgLiquidationThreshold` represents
+    // `SUM(collateral_base_value_i * liquidation_threshold_i)` for all collateral assets.
+    // It has 8 decimals (base currency) + 2 decimals (percentage) = 10 decimals.
+    // healthFactor has 18 decimals
+    // healthFactor = (avgLiquidationThreshold * WAD / totalDebtInBaseCurrency) / 100_00
+    // 18 decimals = (10 decimals * 18 decimals / 8 decimals) / 2 decimals = 18 decimals
+    vars.healthFactor = (vars.totalDebtInBaseCurrency == 0)
+      ? type(uint256).max
+      : vars.avgLiquidationThreshold.wadDiv(vars.totalDebtInBaseCurrency) / 100_00;
+
+    unchecked {
+      vars.avgLtv = vars.totalCollateralInBaseCurrency != 0
+        ? vars.avgLtv / vars.totalCollateralInBaseCurrency
+        : 0;
+      vars.avgLiquidationThreshold = vars.totalCollateralInBaseCurrency != 0
+        ? vars.avgLiquidationThreshold / vars.totalCollateralInBaseCurrency
+        : 0;
+    }
+
+    return (
+      vars.totalCollateralInBaseCurrency,
+      vars.totalDebtInBaseCurrency,
+      vars.avgLtv,
+      vars.avgLiquidationThreshold,
+      vars.healthFactor,
+      vars.hasZeroLtvCollateral
+    );
+  }
+
+  /**
+   * @notice Calculates the maximum amount that can be borrowed depending on the available collateral, the total debt
+   * and the average Loan To Value
+   * @param totalCollateralInBaseCurrency The total collateral in the base currency used by the price feed
+   * @param totalDebtInBaseCurrency The total borrow balance in the base currency used by the price feed
+   * @param ltv The average loan to value
+   * @return The amount available to borrow in the base currency of the used by the price feed
+   */
+  function calculateAvailableBorrows(
+    uint256 totalCollateralInBaseCurrency,
+    uint256 totalDebtInBaseCurrency,
+    uint256 ltv
+  ) internal pure returns (uint256) {
+    uint256 availableBorrowsInBaseCurrency = totalCollateralInBaseCurrency.percentMulFloor(ltv);
+
+    if (availableBorrowsInBaseCurrency <= totalDebtInBaseCurrency) {
+      return 0;
+    }
+
+    availableBorrowsInBaseCurrency = availableBorrowsInBaseCurrency - totalDebtInBaseCurrency;
+    return availableBorrowsInBaseCurrency;
+  }
+
+  /**
+   * @notice Calculates total debt of the user in the based currency used to normalize the values of the assets
+   * @dev This fetches the `balanceOf` of the variable debt token for the user. For gas reasons, the
+   * variable debt balance is calculated by fetching `scaledBalancesOf` normalized debt, which is cheaper than
+   * fetching `balanceOf`
+   * @param user The address of the user
+   * @param reserve The data of the reserve for which the total debt of the user is being calculated
+   * @param assetPrice The price of the asset for which the total debt of the user is being calculated
+   * @param assetUnit The value representing one full unit of the asset (10^decimals)
+   * @return The total debt of the user normalized to the base currency
+   */
+  function _getUserDebtInBaseCurrency(
+    address user,
+    DataTypes.ReserveData storage reserve,
+    uint256 assetPrice,
+    uint256 assetUnit
+  ) private view returns (uint256) {
+    uint256 userTotalDebt = IScaledBalanceToken(reserve.variableDebtTokenAddress)
+      .scaledBalanceOf(user)
+      .getVTokenBalance(reserve.getNormalizedDebt());
+
+    return MathUtils.mulDivCeil(userTotalDebt, assetPrice, assetUnit);
+  }
+
+  /**
+   * @notice Calculates total aToken balance of the user in the based currency used by the price oracle
+   * @dev For gas reasons, the aToken balance is calculated by fetching `scaledBalancesOf` normalized debt, which
+   * is cheaper than fetching `balanceOf`
+   * @param user The address of the user
+   * @param reserve The data of the reserve for which the total aToken balance of the user is being calculated
+   * @param assetPrice The price of the asset for which the total aToken balance of the user is being calculated
+   * @param assetUnit The value representing one full unit of the asset (10^decimals)
+   * @return The total aToken balance of the user normalized to the base currency of the price oracle
+   */
+  function _getUserBalanceInBaseCurrency(
+    address user,
+    DataTypes.ReserveData storage reserve,
+    uint256 assetPrice,
+    uint256 assetUnit
+  ) private view returns (uint256) {
+    uint256 balance = (
+      IScaledBalanceToken(reserve.aTokenAddress).scaledBalanceOf(user).getATokenBalance(
+        reserve.getNormalizedIncome()
+      )
+    ) * assetPrice;
+
+    unchecked {
+      return balance / assetUnit;
+    }
+  }
+}

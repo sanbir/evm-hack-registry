@@ -1,0 +1,20 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Meter_exp.sol:ContractTest
+[PASS] testExploit() (gas: 16492)
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("moonriver", 1442490 [1.442e6])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [16492] ContractTest::testExploit()
+    ├─ [0] VM::startPrank(0x8d3d13cac607B7297Ff61A5E1E71072758AF4D01)
+    │   └─ ← [Return]
+    ├─ [729] 0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506::swapExactTokensForTokens(2000000000000000000000 [2e21], 15206528022953775301 [1.52e19], [0x8d3d13cac607B7297Ff61A5E1E71072758AF4D01, 0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C], 0x8d3d13cac607B7297Ff61A5E1E71072758AF4D01, 1644074232 [1.644e9])
+    │   └─ ← [Revert] UniswapV2Router: EXPIRED
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.39s (393.41ms CPU time)
+
+Ran 1 test suite in 1.99s (1.39s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

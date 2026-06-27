@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+[2m2026-06-16T06:23:43.680575Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m Failed to send/recv `storage` [3merr[0m[2m=[0mfailed to get storage for 0x664201579057f50D23820d20558f4b61bd80BDda at 19: server returned an error response: error code -32000: historical state 4876cddb3d23ee440e9caf34dcc092da1a652da4d6983e3e9afb52cc67b8ae7f is not available [3maddress[0m[2m=[0m0x664201579057f50D23820d20558f4b61bd80BDda [3mindex[0m[2m=[0m19
+
+Ran 1 test for test/PDZ_exp.sol:PDZ
+[FAIL: EVM error; database error: failed to get storage for 0x664201579057f50D23820d20558f4b61bd80BDda at 19: server returned an error response: error code -32000: historical state 4876cddb3d23ee440e9caf34dcc092da1a652da4d6983e3e9afb52cc67b8ae7f is not available] testExploit() (gas: 0)
+Traces:
+  [7934] PDZ::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 57744490 [5.774e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 4.46s (335.92ms CPU time)
+
+Ran 1 test suite in 4.76s (4.46s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/PDZ_exp.sol:PDZ
+[FAIL: EVM error; database error: failed to get storage for 0x664201579057f50D23820d20558f4b61bd80BDda at 19: server returned an error response: error code -32000: historical state 4876cddb3d23ee440e9caf34dcc092da1a652da4d6983e3e9afb52cc67b8ae7f is not available] testExploit() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test

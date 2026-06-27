@@ -1,0 +1,115 @@
+Compiling 21 files with Solc 0.8.10
+Solc 0.8.10 finished in 600.04ms
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/Cover_exp.sol:ContractTest
+[PASS] test() (gas: 140811)
+Logs:
+  Deposit BPT: 15255552810089260015361
+  After claimRewards, Cover Balance: 40316176729922452045213336697791916580
+
+Traces:
+  [5845] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 11542309 [1.154e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [151211] ContractTest::test()
+    ├─ [0] VM::prank(0x00007569643bc1709561ec2E86F385Df3759e5DD)
+    │   └─ ← [Return]
+    ├─ [98528] Blacksmith::deposit(BPool: [0x59686E01Aa841f622a43688153062C2f24F8fDed], 15255552810089260015361 [1.525e22])
+    │   ├─ [2579] BPool::balanceOf(0x00007569643bc1709561ec2E86F385Df3759e5DD) [staticcall]
+    │   │   └─ ← [Return] 15255552810089260015361 [1.525e22]
+    │   ├─ [2579] BPool::balanceOf(Blacksmith: [0xE0B94a7BB45dD905c79bB1992C9879f40F1CAeD5]) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [17127] BPool::transferFrom(0x00007569643bc1709561ec2E86F385Df3759e5DD, Blacksmith: [0xE0B94a7BB45dD905c79bB1992C9879f40F1CAeD5], 15255552810089260015361 [1.525e22])
+    │   │   ├─ emit Transfer(from: 0x00007569643bc1709561ec2E86F385Df3759e5DD, to: Blacksmith: [0xE0B94a7BB45dD905c79bB1992C9879f40F1CAeD5], value: 15255552810089260015361 [1.525e22])
+    │   │   ├─ emit Approval(owner: Blacksmith: [0xE0B94a7BB45dD905c79bB1992C9879f40F1CAeD5], spender: Blacksmith: [0xE0B94a7BB45dD905c79bB1992C9879f40F1CAeD5], value: 999999969488894379821479969277 [9.999e29])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xdfdfddb165fa2cf289b0be9924635109df1cf4033a6e732c6b533f1d0ba784b5: 0x00000000000000000000000000000000000000000000033b01532564ae945f01 → 0
+    │   │   │   @ 0x2d89ce290bb9a72248489ca2733d4a0eb0c53c1487eeec5b2694c5c10517610c: 1 → 0x00000000000000000000000000000000000000000000033b01532564ae945f02
+    │   │   │   @ 0xe759993ba50b3015fbba9970b2cc82948397063ffa169ebe79008329f3f1fd50: 0x000000000000000000000000000000000000000c9f2c99954521c885916ba0fe → 0x000000000000000000000000000000000000000c9f2c965a43cea320e2d741fd
+    │   │   └─ ← [Return] true
+    │   ├─ emit Deposit(miner: 0x00007569643bc1709561ec2E86F385Df3759e5DD, lpToken: BPool: [0x59686E01Aa841f622a43688153062C2f24F8fDed], amount: 15255552810089260015361 [1.525e22])
+    │   ├─  storage changes:
+    │   │   @ 0x64a5e0b115b018a1ebb0390a08b53561a3cad48ecb7e7974bfaab98523e3c5d0: 1 → 0x00000000000000000000000000000000000000000000033b01532564ae945f02
+    │   │   @ 0x8fba88580862a6fefbe2fab2de46c689ed861550be2c80fca8b7754d6e90ffb9: 0x00000000000000000000000000000000000000000000000000000000c8d64e7c → 0x0000000000000000000000000000000000000000088a02092d7c6ecc6f5e78aa
+    │   │   @ 0x8fba88580862a6fefbe2fab2de46c689ed861550be2c80fca8b7754d6e90ffba: 0x000000000000000000000000000000000000000000000000000000005fe9c880 → 0x000000000000000000000000000000000000000000000000000000005fe9c8d4
+    │   │   @ 0x64a5e0b115b018a1ebb0390a08b53561a3cad48ecb7e7974bfaab98523e3c5d1: 0 → 0x000000000000000000000000000000000000000000000002c95d91d502ec923e
+    │   └─ ← [Stop]
+    ├─ emit log_named_uint(key: "Deposit BPT", val: 15255552810089260015361 [1.525e22])
+    ├─ [0] VM::prank(0x00007569643bc1709561ec2E86F385Df3759e5DD)
+    │   └─ ← [Return]
+    ├─ [30164] Blacksmith::claimRewards(BPool: [0x59686E01Aa841f622a43688153062C2f24F8fDed])
+    │   ├─ [17019] COVER::mint(0x00007569643bc1709561ec2E86F385Df3759e5DD, 40316176729922452045196567183920954062 [4.031e37])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x00007569643bc1709561ec2E86F385Df3759e5DD, value: 40316176729922452045196567183920954062 [4.031e37])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb97d9b9900dafcd534aa819e419d9a5d62a8dac8e2e49bc90c228c43dff1f261: 0x000000000000000000000000000000000000000000000000003b93c8b555af56 → 0x000000000000000000000000000000001e549cfab9355fc32df8e4b4aa852a24
+    │   │   │   @ 3: 0x0000000000000000000000000000000000000000000011f9fb6ea7c4613907e6 → 0x000000000000000000000000000000001e549cfab93571bd292bf8b0566882b4
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0x64a5e0b115b018a1ebb0390a08b53561a3cad48ecb7e7974bfaab98523e3c5d1: 0x000000000000000000000000000000000000000000000002c95d91d502ec923e → 0x000000000000000000000000000000001e549cfab9355fc5f71ae2c0f81c0d0c
+    │   └─ ← [Stop]
+    ├─ [465] COVER::balanceOf(0x00007569643bc1709561ec2E86F385Df3759e5DD) [staticcall]
+    │   └─ ← [Return] 40316176729922452045213336697791916580 [4.031e37]
+    ├─ emit log_named_uint(key: "After claimRewards, Cover Balance", val: 40316176729922452045213336697791916580 [4.031e37])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.37s (6.06s CPU time)
+
+Ran 1 test suite in 8.93s (7.37s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

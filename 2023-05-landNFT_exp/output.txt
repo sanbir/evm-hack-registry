@@ -1,0 +1,840 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/landNFT_exp.sol:ContractTest
+[PASS] testExploit() (gas: 5725105)
+Logs:
+  Attacker amount of NFT land before mint: 0
+  Attacker amount of NFT land after mint: 200
+
+Traces:
+  [11809] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 28208132 [2.82e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(landNFT: [0x1a62fe088F46561bE92BB5F6e83266289b94C154], "landNFT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], "Miner")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [5725105] ContractTest::testExploit()
+    ├─ [2762] landNFT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "Attacker amount of NFT land before mint", val: 0)
+    ├─ [5703638] Miner::mint([0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [200])
+    │   ├─ [5699531] landNFT::mint(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 200)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 824)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 824, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 825)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 825, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 826)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 826, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 827)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 827, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 828)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 828, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 829)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 829, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 830)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 830, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 831)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 831, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 832)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 832, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 833)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 833, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 834)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 834, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 835)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 835, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 836)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 836, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 837)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 837, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 838)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 838, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 839)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 839, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 840)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 840, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 841)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 841, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 842)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 842, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 843)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 843, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 844)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 844, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 845)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 845, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 846)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 846, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 847)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 847, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 848)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 848, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 849)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 849, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 850)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 850, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 851)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 851, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 852)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 852, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 853)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 853, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 854)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 854, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 855)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 855, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 856)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 856, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 857)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 857, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 858)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 858, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 859)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 859, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 860)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 860, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 861)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 861, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 862)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 862, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 863)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 863, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 864)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 864, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 865)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 865, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 866)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 866, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 867)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 867, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 868)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 868, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 869)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 869, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 870)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 870, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 871)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 871, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 872)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 872, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 873)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 873, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 874)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 874, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 875)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 875, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 876)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 876, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 877)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 877, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 878)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 878, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 879)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 879, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 880)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 880, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 881)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 881, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 882)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 882, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 883)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 883, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 884)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 884, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 885)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 885, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 886)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 886, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 887)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 887, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 888)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 888, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 889)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 889, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 890)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 890, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 891)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 891, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 892)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 892, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 893)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 893, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 894)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 894, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 895)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 895, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 896)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 896, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 897)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 897, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 898)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 898, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 899)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 899, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 900)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 900, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 901)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 901, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 902)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 902, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 903)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 903, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 904)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 904, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 905)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 905, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 906)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 906, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 907)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 907, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 908)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 908, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 909)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 909, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 910)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 910, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 911)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 911, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 912)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 912, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 913)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 913, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 914)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 914, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 915)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 915, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 916)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 916, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 917)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 917, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 918)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 918, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 919)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 919, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 920)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 920, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 921)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 921, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 922)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 922, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 923)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 923, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 924)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 924, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 925)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 925, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 926)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 926, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 927)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 927, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 928)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 928, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 929)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 929, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 930)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 930, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 931)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 931, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 932)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 932, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 933)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 933, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 934)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 934, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 935)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 935, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 936)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 936, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 937)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 937, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 938)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 938, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 939)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 939, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 940)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 940, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 941)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 941, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 942)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 942, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 943)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 943, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 944)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 944, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 945)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 945, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 946)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 946, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 947)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 947, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 948)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 948, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 949)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 949, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 950)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 950, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 951)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 951, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 952)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 952, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 953)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 953, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 954)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 954, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 955)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 955, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 956)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 956, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 957)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 957, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 958)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 958, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 959)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 959, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 960)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 960, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 961)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 961, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 962)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 962, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 963)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 963, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 964)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 964, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 965)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 965, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 966)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 966, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 967)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 967, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 968)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 968, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 969)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 969, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 970)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 970, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 971)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 971, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 972)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 972, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 973)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 973, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 974)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 974, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 975)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 975, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 976)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 976, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 977)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 977, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 978)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 978, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 979)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 979, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 980)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 980, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 981)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 981, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 982)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 982, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 983)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 983, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 984)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 984, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 985)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 985, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 986)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 986, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 987)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 987, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 988)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 988, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 989)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 989, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 990)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 990, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 991)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 991, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 992)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 992, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 993)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 993, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 994)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 994, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 995)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 995, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 996)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 996, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 997)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 997, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 998)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 998, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 999)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 999, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1000)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1000, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1001)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1001, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1002)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1002, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1003)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1003, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1004)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1004, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1005)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1005, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1006)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1006, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1007)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1007, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1008)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1008, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1009)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1009, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1010)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1010, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1011)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1011, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1012)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1012, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1013)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1013, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1014)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1014, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1015)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1015, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1016)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1016, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1017)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1017, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1018)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1018, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1019)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1019, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1020)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1020, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1021)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1021, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1022)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1022, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 1023)
+    │   │   ├─ [1777] ContractTest::onERC721Received(Miner: [0x2e599883715D2f92468Fa5ae3F9aab4E930E3aC7], 0x0000000000000000000000000000000000000000, 1023, 0x)
+    │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb18a04c28cb6f57ba5b0805c40b6ad2af51238723c32c99060c58ee580667839: 0 → 1
+    │   │   │   @ 0xab6c0d95bb053d6a93b2b5e97c49074369c997bc53a89bbbcb9672777b426983: 0 → 1
+    │   │   │   @ 0x1d77fbbbe01a87b553ea16f9a97eaa0b80ff7b99de9c93da44a78a522d27a383: 0 → 1
+    │   │   │   @ 0xcd7545c630140101673a4b842b091caad0912ca87c70c1ed9f528a2c9deeead9: 0 → 1
+    │   │   │   @ 0xe001c3295796c68fdda0aef6c2dd36eff78cf9c58641dbee077a6ea441eda79f: 0 → 1
+    │   │   │   @ 0x09907823c0c7f4fdc85c64e69c19420e1a9bb850805e32126bffdc6ba75e5f97: 0 → 1
+    │   │   │   @ 0xf321a99bedb242e45a8b707e52019607f6c0dd1f4ed19034c5b15cae99a0233d: 0 → 1
+    │   │   │   @ 0x3d0a6274955b8fc4b64e7efeaf9c32ed052c1d86327d922e506c5c9b2acd9813: 0 → 1
+    │   │   │   @ 0x6d29518ee5e6af706110dbac3433879a88d807557aa444a6537d32405d8bea11: 0 → 1
+    │   │   │   @ 0x2770f6655e14870dcd5bba0372ee38f43938938dc9e9f18abfb96a97d1ff5885: 0 → 1
+    │   │   │   @ 0x1d3adc08055da806bbdf8839cf30a46498675fec7c49c72d80953f6ac94bd92a: 0 → 1
+    │   │   │   @ 0x09fae54f969c48be34df4eba13959ca9ee65ec77bece9980fbfaa6359d8dd91e: 0 → 1
+    │   │   │   @ 0xc937c926b8f8471e21c792b5a0a489a7a2be13d9d4123c0818e2a7df88596bcb: 0 → 1
+    │   │   │   @ 0x8702873400bd9ea9949cd4483e2d3271537a844439efd303d750eca64eb28ac3: 0 → 1
+    │   │   │   @ 0x74e6f34c636f82a3ef66f24d56a13e04db62a1113fcfb8e55cbd405d65dea3f2: 0 → 1
+    │   │   │   @ 0x3e4fd8f465d3a8a5b5e7ecb3800d9c8ed568fd46e685d406baf2807f5a7845ad: 0 → 1
+    │   │   │   @ 0x3e3dad13f786b83fb12bcd763beae8f8875d7cf04aaec7f0d4b3ed63beb5c952: 0 → 1
+    │   │   │   @ 0x2c4c8a072bd5b594e4aa298e476c741aac1cfe6f872ccd819a25356bf39f0744: 0 → 1
+    │   │   │   @ 0x8d3b39acc6c5df173f2cf20e641a8eebbf367da400c9248a23c5abe8824620e7: 0 → 1
+    │   │   │   @ 0xdc00a16d876d825c89cab5c872bbc20808f6b45072094aa048a09cfcfeb3afa3: 0 → 1
+    │   │   │   @ 0xd2f10d5b34d4f8efd637623c6d25997a462a09dc74ef1ea6cfa8804651323e7f: 0 → 1
+    │   │   │   @ 0xb0a24cfb6a4a39c310ba2dacff36eddf39b8018dd8794cefc99b58a2e6912ea6: 0 → 1
+    │   │   │   @ 0x786d087155b1554aa367342116ed2ab25cc4372dbc387a74f1f6278099a40262: 0 → 1
+    │   │   │   @ 0x0d7b95e6422805932b6c3efb4d6cda9fddf2b2a635e419496d067e32084cc31e: 0 → 1
+    │   │   │   @ 0x0dcb5a65d9c9b4384363c77d7e99ba932a8fd7c82bbd0011cca122a968c17e8f: 0 → 1
+    │   │   │   @ 0xdf57f5b70b1ee297224de13cf267e9fcbc52fc0021f69de92b7a748e547053fe: 0 → 1
+    │   │   │   @ 0x579e441bd513a9ed224409ef4d4cdede453ddec4a0f205d4614363e83b48876b: 0 → 1
+    │   │   │   @ 0xc34730b57ea954c7e95bd31ea3238496bf93ee674f4f8f9310b319aa35ed8275: 0 → 1
+    │   │   │   @ 0x832900ba17fd6476c13aaa0ddee41c4af10577910cf55e64b13a44db5232d3a9: 0 → 1
+    │   │   │   @ 0x725c5486f0c421386f0392752756b6dfac9b05f7195947b29f17991502028173: 0 → 1
+    │   │   │   @ 0x46408e87591885598e2793089da2200d930bbc4974444b63c4f8ce667ed0f888: 0 → 1
+    │   │   │   @ 0x210ca99bd33b1d69fdbaa3d06bbced28d1da6faee0add406e53bcc840c74c2be: 0 → 1
+    │   │   │   @ 0x4f52d601f91c2e052c638e04d11796cf7977b9aed5be2f5c64fce5bd39c7e010: 0 → 1
+    │   │   │   @ 0xa5f88d6323fa5d18c89b4495426f2b909a0b6e53f60b4e6c82692823a345f6b4: 0 → 1
+    │   │   │   @ 0x18a6994cd878e7d29c104394ce58b79c4d7d77de5cb346b5acd7e8436e2c2227: 0 → 1
+    │   │   │   @ 0x853b2746a1a767d7edb74b9bf41eb0b205f8d2cd3432e253cc9844e249f20f7d: 0 → 1
+    │   │   │   @ 0x92408bab8010cac8ae399a0bbbaa4ca705283a4c78c291c2d1bb86aab5158be6: 0 → 1
+    │   │   │   @ 0x0319ef7305f6090b1706bbc07d2051721206fa08e323321b6cfbf0737462826b: 0 → 1
+    │   │   │   @ 0x4b9c73d69155209a0c1070eb727015e58ccfe9d65a6eb477c617b98f890e671c: 0 → 1
+    │   │   │   @ 0xdbfaa8c6fc67e0e8db9cc8ffb76f660a0c27bb175a8dec0cf39db17419bbc85b: 0 → 1
+    │   │   │   @ 0x0e5904c3200944f7cc3bd38551eb6eb6826508393a3bc519b1933bf58242222b: 0 → 1
+    │   │   │   @ 0x6aadb54975ed8eb843e4417ad8347493ab162ae74954507d0b219771f583df73: 0 → 1
+    │   │   │   @ 0x9ac3e8a733d6c55bea1327ea713fc4e37db58e8471efe5b709c66cd8bc4d6d6b: 0 → 1
+    │   │   │   @ 0xf2c3271036faad4d586886d63a3b042dc379c5b9f48a55d9727aea08472ece22: 0 → 1
+    │   │   │   @ 0xb4e6de53d3e9d30b405b0e9f340b1ce63b73924cfd162cc1c8e2e1603259d37f: 0 → 1
+    │   │   │   @ 0x0790f8f5f10ef420d1a97e2b257888a110d70632898b2fc5c5bea6575f303f8a: 0 → 1
+    │   │   │   @ 0x9ae001e006fc4a0a1f70891273bdbfeeedd2554f37d6d5d241fca25e31457f2f: 0 → 1
+    │   │   │   @ 0x31b5fd5c5561c565840620394d09c9aa903cc3db42c3bdab0d72c65d4ed62700: 0 → 1
+    │   │   │   @ 0x0a7a5c70c1efbd9ad972de6e155164f84ec3ae33ee72a8ed2e8832ad0acfd0c4: 0 → 1
+    │   │   │   @ 0x67a658eee34c9650da7aad571b4df6edfda503d10c41d0adaeeaa36098aaabbe: 0 → 1
+    │   │   │   @ 0x3c4d15bf19e386c2f910d4391f693fb68fe42850a45a971f0e281b4e84db8570: 0 → 1
+    │   │   │   @ 0x32f81df6d62ac0f5b55cdd84c11b916899d92cd979f3e523f478c75d47962424: 0 → 200
+    │   │   │   @ 0xd1fe8f77a86a8f762f36b082ea11ce097a084f46c062897c0dc44f784a2c4983: 0 → 1
+    │   │   │   @ 0x851be71d7c5a3206960a3eb853d7a3a2c113430743f2478d712136c806b10d8a: 0 → 1
+    │   │   │   @ 0x649af75ce7286732b148caa345545f8133e5921bfe42e57825353202831f016e: 0 → 1
+    │   │   │   @ 0x85cfcb8dd3c2e1605071b3f3fc12213d8b72f917c9696b63fa6f50fa6e9f4040: 0 → 1
+    │   │   │   @ 0xa79441fbf55a0e362832952ee85039d17a0cff8c9b44304e0fa2888edceee809: 0 → 1
+    │   │   │   @ 0xab06aa2600dd26db7d26ef2b037e6ef5033129eb1a9b3559e7da6ed89308582a: 0 → 1
+    │   │   │   @ 0xb81d9cd4b5f97ee7b44fe6ea38bb6b38ce92c297ef56d684a5359cc78829d75d: 0 → 1
+    │   │   │   @ 0x7a95136c7daaed8a0f608622b715813bba1017c0336a2d0f42635c01a1343612: 0 → 1
+    │   │   │   @ 0x972526817a37818ddf440d3490817fad5b84260cc2f9721ba4c67205e5fda2a8: 0 → 1
+    │   │   │   @ 0x2aed270009e8d9ed4ca953a6bbb9480dcf55e47d79ae7170733c936fcb9c291e: 0 → 1
+    │   │   │   @ 0xcc80b2b42a77a321fba37517658a00e6c10d19fbf795a6d01cbecc58f5bccc38: 0 → 1
+    │   │   │   @ 0x4aa1daec0be208e3757a35c9d15322ad1b04afcd6cd1a2ba8c554b57a16099c3: 0 → 1
+    │   │   │   @ 0x6acc6050778feb0981c8203e9ec3c40e1689bba3fbee670fabe1509a6d289672: 0 → 1
+    │   │   │   @ 0x65fddf8928e4f9772d89f205d430653898f3fe3414928290b9b1e6bffb480e9a: 0 → 1
+    │   │   │   @ 0xe03350fa010be15c41c2bd21658c4e7d6415ec9c285f2f70bbc1c273149469f3: 0 → 1
+    │   │   │   @ 0xa7786ecfa6e30c0327df437cec963356e56b03b6accde2afd0f3c865c3aa70f3: 0 → 1
+    │   │   │   @ 0xbb09dc884d252ac8756e306b53c6e30ba7ae08741ad529d12c082a14228df1e0: 0 → 1
+    │   │   │   @ 0xe3203af40759775a24d71ae3104a35e5c1fa859402a289e7b74f86bd4da23330: 0 → 1
+    │   │   │   @ 0x4ba749fc4c91b577a8dcf43fe2fec7de82788b0054a637828efcb2bca2be48c6: 0 → 1
+    │   │   │   @ 0x68c55306670074b22eb6ca833af7b372c64fba24c727a9e5e578561814002e40: 0 → 1
+    │   │   │   @ 0xcf1b3a4aba6c4ca27d31feee446898211f089680e8686a180a658e2de4c7da34: 0 → 1
+    │   │   │   @ 0x7edfacbfbd5a047b0d259907ce06de15f43156e78b13dd4c51de4749e9de95c7: 0 → 1
+    │   │   │   @ 0xc978393edc488b8f1a3c942c387b7defe9b0582ffca0ed38f1b9e646972a1c46: 0 → 1
+    │   │   │   @ 0x220a8e7dfb7c176abd073d28e35c7906f8908b928c0152c0a9876949e04e8a35: 0 → 1
+    │   │   │   @ 0x0571146612b905f638a050c41049cf679cfae5583dfbec4b4597122c594f39d6: 0 → 1
+    │   │   │   @ 0x5ec780c4b653947b163d681c9cb6631c5bf55731961b26827288e0645236af02: 0 → 1
+    │   │   │   @ 0x95aad263fc36999434b779fb4eac2beb14c3eb6b3b03dc646c445c4656028e4a: 0 → 1
+    │   │   │   @ 0x87e7e63e9c2d39a2745a5a7d4db0ba4be4575842877596b4709b290799128971: 0 → 1
+    │   │   │   @ 0xb329a5ea49c1aed1ef8d3bdde572d22dfe66d3ce4e330d47ae26ca46f613ab82: 0 → 1
+    │   │   │   @ 0x28f789c7b493cfb7920ac56655878a5cf0b254f3ddfb9db07aea11fe258fd273: 0 → 1
+    │   │   │   @ 0x5302750d0b62dc7d1967abb2a61caab0c18d812c3761ee292be690a8a7dc40ac: 0 → 1
+    │   │   │   @ 0xf44f56a3203a2a47e8b7b676c791909f9a59e3dfaaa1ea99d82217a736b8938a: 0 → 1
+    │   │   │   @ 0xd1c96cb863751e6137eebec09d2c75b8b76567462593f0708c632aabd02764e3: 0 → 1
+    │   │   │   @ 0x080c6be5aeb52a7e52387f5f06fa4fc8849114a402a2b2db18420e3542c8fb23: 0 → 1
+    │   │   │   @ 0x70dfe454e5dbebf10ac42280975eeab00704b90eda6585ccd20730aae5ec49ae: 0 → 1
+    │   │   │   @ 0x2e44b7e803134b577fe7676f4617998322326551074df86bbc41977600116fc3: 0 → 1
+    │   │   │   @ 0x4894d7521f08dbb55ffeaa6aff56d8b9ed6c76e93396598264cc3ea30c9a748a: 0 → 1
+    │   │   │   @ 0xfe24be0416363a7d3a642c32b48dfdae6266ae580d2310aacb495436b3c7c543: 0 → 1
+    │   │   │   @ 0x1f4044e8a0b16de6b7b873130f362e817b0a056599460e4fca69a0e4dffef90b: 0 → 1
+    │   │   │   @ 0xe5fba607bb985d81840aff07950812a1fc1ec713042bf0e83a81a1c5d628b63b: 0 → 1
+    │   │   │   @ 0x972a123f8192d28efbe6e23fbd05d9d75c35add00c28ee1dcadfc3fe4e3df2c7: 0 → 1
+    │   │   │   @ 0xd124eca69858b88fed0154ed8a8e6d37710cb88cb1bce68b1fae58a526e397b1: 0 → 1
+    │   │   │   @ 0x805bd4a8288b9a3fe15af8c23ccefae8df49f6644e6baaa1e0136266ff1b0979: 0 → 1
+    │   │   │   @ 0x8c1f13fca2a70ff0b9c6cb7371abd8173b829dfb90a8d319a8be80a1d75ebd4b: 0 → 1
+    │   │   │   @ 0x87e0f33158a59401d2e51d22dbe4aab2d7a368d95f7f5d80cbd5e67fc03c76c6: 0 → 1
+    │   │   │   @ 0x8c5900bb270df55f03cddfc0884514b49afc16e206b40b4315430842960ff5ba: 0 → 1
+    │   │   │   @ 0x85dc4bb5bc7b7e897b6137a440e24eacaf017634f54dd3bbc109c7128783c8c7: 0 → 1
+    │   │   │   @ 0x79f18c6c9f3d18dc3253e96c045b11bb4b5c9fb6889cb07cc4eab0f3ed9106a9: 0 → 1
+    │   │   │   @ 0xcd1de221d3f16031569f38fe5d5ace9a1ab0b4a749170be52f42157eac193f8d: 0 → 1
+    │   │   │   @ 0xbc293139258dfcdd0134bf06853159c3c46f3fdf4737e2ef994a460bc872d0a3: 0 → 1
+    │   │   │   @ 0x6efc4815ddc4485bdf8115e084f164f9faf4a9c4ad074d89650a64e133201a94: 0 → 1
+    │   │   │   @ 0x1d1b923d73a9319796952db6adde984fc71d1413c01c06ac07e4c875d34b88ac: 0 → 1
+    │   │   │   @ 0x2b70b126dd320d73c0e357e9fd58b45715812a10b15ad4e13722933445c446d9: 0 → 1
+    │   │   │   @ 0x6d1b0ae0d3bd5bcb79c705f0a0caae0f04307d9f2821ca114ed870e04b00923c: 0 → 1
+    │   │   │   @ 2: 824 → 1024
+    │   │   │   @ 0xcbebda9a6b589ffab4709a54852063b5177ba2373cce1e2a60c374d1a43b1bca: 0 → 1
+    │   │   │   @ 0xa6642cba330fbc4451b94847a69060d48b94cfc07897c068b9437af686ce86a3: 0 → 1
+    │   │   │   @ 0xf5186d1acd9c613d4e670079f331e17e64a1b00a12d894279ffa13145fab99ff: 0 → 1
+    │   │   │   @ 0x91b5fc63e90398c7db2621deac19e84854b9b13ee63fec8edc03baeada40fd64: 0 → 1
+    │   │   │   @ 0x5fa5bfc7a624148842825e2c5d4177426352a46d038edd9fdf090b819010ec62: 0 → 1
+    │   │   │   @ 0xd8b02b21a0d4f09f92926dec6649508d25f34b6287df3cec7fc408eabcf7e81d: 0 → 1
+    │   │   │   @ 0x8d17aa291b8b578cfc30e91e07c0132a42dde5d570b9f8af1b1b958c47b22c1e: 0 → 1
+    │   │   │   @ 0x8cb5b18ab117c8a34b0691182478b1712307ead558ca864bf70fa1bdd5048079: 0 → 1
+    │   │   │   @ 0x13bdacf118634dde86d2758e8ea7fe33035206c92106b50bd37b9d5d7a05383b: 0 → 1
+    │   │   │   @ 0x7baf9b0574289ef2f3e50b4a92ce6034a1f84163a328206e6cd54f859dff6aa1: 0 → 1
+    │   │   │   @ 0x5eda328a089ac048d0656d89c8bfd7561237137e04edfdce2ec775c964547c2a: 0 → 1
+    │   │   │   @ 0x16ced2951feb570fbeb4b0b72626dfaee7b9d06088efdd406842e712554b3fff: 0 → 1
+    │   │   │   @ 0x7dfaef5e7db583bf3506736e184deb3a563e5ba2360ff6b41419f37c7a77b451: 0 → 1
+    │   │   │   @ 0x93a4c09f8b80fb5e7879ec3fe4aa1b9077a63fe935b1fecb0bbb4111fd1dc444: 0 → 1
+    │   │   │   @ 0x615c02bb585930db3bdcf884e7e83563a755ddd865b9268f18c02d970740ec89: 0 → 1
+    │   │   │   @ 0xca603b77733d1b202e5c1a578d1d02ed704580b1fd74c10c8a6152a65673abce: 0 → 1
+    │   │   │   @ 0x284fae26bdf18dd79ec4236b7220b5bed07421e1f8dffea9c85d63caddc9a0eb: 0 → 1
+    │   │   │   @ 0x8c2a94c8c39f19161d584ca6fdadbf6b88eff40644e9baddd063d214ac87aa3e: 0 → 1
+    │   │   │   @ 0x69dc308568442639607320c115ea1c0ce5e7f2dc498780033e11b8948356524b: 0 → 1
+    │   │   │   @ 0x33e7b748c2be9f3545d701ad6d163d94b3f12172f6b38349aca1dbb3afa305e0: 0 → 1
+    │   │   │   @ 0x2ad524e2507e824dc123f15ef9e051b7826792b255ce659b4f1f0a0011bfed0e: 0 → 1
+    │   │   │   @ 0x09980d3c96ce49d6364ea2f691df481a895468635be78d45b3c631cd0deb7b48: 0 → 1
+    │   │   │   @ 0x61bedfcef22789b6fbc45fba4ba82da1d63a7c19df90e65f537e2bc544372a8b: 0 → 1
+    │   │   │   @ 0x789d40a857009503400514f5b2a4695b3fb9bb71bb24c481173bae445c320de9: 0 → 1
+    │   │   │   @ 0x8449ecfcaee157a474bb528969ced9148cdab75722248f1884448554ad430a64: 0 → 1
+    │   │   │   @ 0xd4eaf88ece87a5058aec9ce6f8aa4e3a31ea9c414b763b5154e80661ccfd3f2d: 0 → 1
+    │   │   │   @ 0xdbc02f2b34a055a5d7202ef58b383cf3947c5be0e735d9d06e8c313cfd90ee8a: 0 → 1
+    │   │   │   @ 0xc621e62a17a59b683accb7b42b57179c38ac66babff625ba9a9d6d654c68a5f1: 0 → 1
+    │   │   │   @ 0xebfb68a9c1374aa6d50ac882adb7b723b86c39ba8434b0cb37660acc98dbc9b0: 0 → 1
+    │   │   │   @ 0x3d5baef0d8348093e73890340c3c8ef8b395bbbe371a3e9289abd5d3c0dd9dcc: 0 → 1
+    │   │   │   @ 0xc2b5cb2b45efc69e3f3e3070dea819e0e6425d2b60dcaa9f4f29cf4110068a6f: 0 → 1
+    │   │   │   @ 0x4ec3c1d4070374bdf4474372626f20c010ba3f7cd8f561eaf23b535351f0e866: 0 → 1
+    │   │   │   @ 0x024f98bc7a92d3da019b519e2036c8a18a92c03a136220f6f80b0a29414212f8: 0 → 1
+    │   │   │   @ 0xe1443a993475d99a5f54122e6bb25524108b0960dfd7d9f60433d2f9f66a0b47: 0 → 1
+    │   │   │   @ 0x578492daf6455733c32bfe7234911465826ad38c0383db6063e3869b099c81c0: 0 → 1
+    │   │   │   @ 0x2e6f161bf2b1f88075841c3fc697ce2a13d031c4e7ae85967e72ce0cde7eb492: 0 → 1
+    │   │   │   @ 0x73b061671903e4b298d52faaa969cd6b41d4540b52501aa2c2b24e0f76f2774c: 0 → 1
+    │   │   │   @ 0x7d9aceec9391de6760dff584426ab0f6162186d6ddfa4712066e3684ea30a1b8: 0 → 1
+    │   │   │   @ 0x96f16be15ec2662db5c760282c5643f0e4d9727d10237b205225069320b1d393: 0 → 1
+    │   │   │   @ 0xe0833f95eaca6215a4f47625bbd3b100e83cd09c485956dd38b9f25d3cf9c863: 0 → 1
+    │   │   │   @ 0xd5668ea0b56fc2307860cb528aa54aa4d36961aa9d97dc6603aaf6743039ad8e: 0 → 1
+    │   │   │   @ 0xbd3e63356efa02ffb0788030b8b5b6668ba94c0ffededa02bb291bf74492d025: 0 → 1
+    │   │   │   @ 0xc36accb9733863be59932586a110d9390a31734e15018a1a02f65e7f46622cb0: 0 → 1
+    │   │   │   @ 0xca5656bd24b39f6c57519d5bd61b44df1fbe1cfb84184284b7036058f0ff58fd: 0 → 1
+    │   │   │   @ 0x6cd1b6f2baa601d4feb722dd7a42924466f8f3535eb88a886695affb63c7b70a: 0 → 1
+    │   │   │   @ 0x03ea4703b72431de9337717e5a0f4630bd915d4297450194417cea2d016214ef: 0 → 1
+    │   │   │   @ 0x20a479ab60f1e5f89f1b7921a7be6386d3d54a4d7f0ba476ffc42cd954ca9102: 0 → 1
+    │   │   │   @ 0x2740713bf21b4f802a014e1a9176f9da5f4fd945f301bf3c4ebe5a38840d3202: 0 → 1
+    │   │   │   @ 0x4c7297ff581b6e5aa7d87f4ea7b2973eb3b270d6d1b1b14bb98c6e0d9a7808f2: 0 → 1
+    │   │   │   @ 0x4f0de3cf8095578ad55c70d09b9538a7263ea00efc17963d6cbeee21efc88ad5: 0 → 1
+    │   │   │   @ 0x97fe84a229e9c54af27be4f1add8b2a601c5248553fa8ba885e9280234c0e8a3: 0 → 1
+    │   │   │   @ 0x6086121cd9c34c64cf266dafaca11e750d0f8249eefc6906225581affd623a9c: 0 → 1
+    │   │   │   @ 0xee4b6cdb7723015ac1820c88578d2ec7f8bc1d40b2ead9087ade88a13570f97f: 0 → 1
+    │   │   │   @ 0x8d8caf904cc2d788cb1c9a459e0d0b24577f7dc8dbf753299b0d09a7e9e65cc9: 0 → 1
+    │   │   │   @ 0x173fa1ad4f06b934f3fbc4cce7bb317a976739579c5bb4bf693da3f22d62c17a: 0 → 1
+    │   │   │   @ 0xe5399f6487dabd1c0a731144674a88d179ed562c15e8b3f55b3226a85e3893aa: 0 → 1
+    │   │   │   @ 0x72262bfa5853bd01b610b4099f77570698e1cc96e14571115146c63589f0c34e: 0 → 1
+    │   │   │   @ 0x44e42221adf012009cf611cc29ad63dbba9db940b1efe7026f2aeb14381a2951: 0 → 1
+    │   │   │   @ 0xc70bcc22ab0ba608c8f61e0e63266bce8c7baa704e671bd9659c6b8c5cd1c207: 0 → 1
+    │   │   │   @ 0xd1f9e604f022a967bc72020768f609fb9e43766e4f3e001a80c3e2f126759d74: 0 → 1
+    │   │   │   @ 0x35b6d867d7c912af2f85f701ac233e2e39b06774a49cd8a6b65358aeddc8d8d3: 0 → 1
+    │   │   │   @ 0x7f71edaabbaeeaf6dfa2a7ad95b28ba45d6ce6cf6e8cb9d2de7270621a5dd0bd: 0 → 1
+    │   │   │   @ 0xbbc70db1b6c7afd11e79c0fb0051300458f1a3acb8ee9789d9b6b26c61ad9bc7: 788 → 988
+    │   │   │   @ 0x4c8823fca0370d605aebd70a94c85bb67cc5e1558f13e9b3c883b87358aa9cb5: 0 → 1
+    │   │   │   @ 0xee500bfe6d79851cca7a24555b7bbdfb66ddac3eeaa2eaf3052a21740401ad46: 0 → 1
+    │   │   │   @ 0xf22a96a8f59087f9872d1aeb064a917ec13f5c69568ef0336eeea27ea3f27fa1: 0 → 1
+    │   │   │   @ 0x7c64aa1f87ff1f1f6d9359279d17bba99d4648e342b5fe1f37e3a4d592f66829: 0 → 1
+    │   │   │   @ 0x6ec694dd016c270f3bc22e0feacebab6f7b0c4537e101cfadc967e8015adf86e: 0 → 1
+    │   │   │   @ 0x27a80c2b1a714a739d6b916aee9e407181b310303f5c43ba2ada127a885ce3c9: 0 → 1
+    │   │   │   @ 0x213af43c95b5cbb0e831f44393b8466dbaa99cbb1ab9863ee174e42e0b7546cb: 0 → 1
+    │   │   │   @ 0xed241c6a665420bfeaac9710af9e0f4b445b3df26076f738092d8b1d0e7b15dd: 0 → 1
+    │   │   │   @ 0x6e2e24587d8bae74e1274b64fe3185d2aada7c3114421c0ad9959faf2320286e: 0 → 1
+    │   │   │   @ 0x5ba6f8261d81261f95db97a301404ebe410970d344a161e60c355eda2495330d: 0 → 1
+    │   │   │   @ 0xcdb47b4d0189437a60ab683e8a5834cc0ffd8dde22b5e2d7343e4a9acceff25b: 0 → 1
+    │   │   │   @ 0x8dcf8a29178a0cfbd5895c6133f7699daf41d67bfef1c1939287314decf66596: 0 → 1
+    │   │   │   @ 0x160154e2c246eb7a513b4b6778ef4ee31bbde53088eb9f7c1751c391e7f220d8: 0 → 1
+    │   │   │   @ 0x39d89bee98417c2e238b0af0f1585026b51b40ebf7f882b77eb4deb8ab6da677: 0 → 1
+    │   │   │   @ 0xed79f5a6103cc2504e2b88abca652130eac5b790c6ddb9e498c6f724905db5d9: 0 → 0x000000000000000000000000000000c8000000000000000000000000000000c8
+    │   │   │   @ 0xec7e508e5ceffbb3bb62bc2305682349f2e9b3d2b2b0ab5897fb6612e13064f4: 0 → 1
+    │   │   │   @ 0xeb79228f4f9036e5fef66a47ca990378f7f7f17b65d493b6f65341b7f4a3255a: 0 → 1
+    │   │   │   @ 0x4ea80632bc08262ae0ec8fb7964f77f7f1ea4bc7b8f17b94d22c2a792c889efb: 0 → 1
+    │   │   │   @ 0xf4cc3fca4c29d1abdbc32d11583452fee4fd1e609e3fa66475cb272a2a7fe9a6: 0 → 0x000000000000000064610ed37fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 0x1950e634539319aca8addb48107be0f090beef59464a4991980f28135031f77f: 0 → 1
+    │   │   │   @ 0x73b28479522624d0c3b23aecd900420f9fe0c796059cb8ade30abd9ea87eeed2: 0 → 1
+    │   │   │   @ 0xa94babeece07a2ce224302c8425f8ea0498654ac612dc43f179a36ca859b47d8: 0 → 1
+    │   │   │   @ 0x2415472117df34d3b17f5a836d7225474d45fa6a75e49712b6f7a5aa7a40e152: 0 → 1
+    │   │   │   @ 0x00425c3e87970b41f8b156e30e71588186a2a433ba683da1f6de6b34cd7d88f5: 0 → 1
+    │   │   │   @ 0x26eb5c8c131065e4f43616618ab1c9318f8db5782aa67445c0ede3fbc5dc65ae: 0 → 1
+    │   │   │   @ 0xa5901dc39a49fdb8f8d481db9a1ea984854faf72e97974b8b4d26fd9473f8ddf: 0 → 1
+    │   │   │   @ 0x6530eacbe51e2146af26e842be29efa95d4dbf656a3db590f4b69fab02b03553: 0 → 1
+    │   │   │   @ 0x861fdfbb5832a5a1bade778423e159fb64a9065b2638835987809bc24033850c: 0 → 1
+    │   │   │   @ 0x24a70b19e8e008213348150d17f3dca10a9f4b141715c39c9dbaf95f037a8148: 0 → 1
+    │   │   │   @ 0x3bae604cf199d97e40bde33ff4f432461bc7a5ad5c8d1237109a08b6e5c9b009: 0 → 1
+    │   │   │   @ 0x6765d603aac14dd98be1be75b764bea97a15c8604507ed47d15e261b5fb5ebb7: 0 → 1
+    │   │   │   @ 0x52c63b0aeba405065d742eb51d1b54d52e7edd1b1caae4d020fd01387d8f7e66: 0 → 1
+    │   │   │   @ 0x4e2b0fb0f7990b0cfe4898b274ce2c9fe1296315246ed54ea77b90a955b0262f: 0 → 1
+    │   │   │   @ 0xc5d592cb3dfc91d2e009078d6757b086d84ae710ef6da749ee053e1468b50464: 0 → 1
+    │   │   │   @ 0x023d09622faceed00572a464778dcaa941891e8d91c565e177889e5e79fcb321: 0 → 1
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [762] landNFT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 200
+    ├─ emit log_named_uint(key: "Attacker amount of NFT land after mint", val: 200)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 52.33s (51.17s CPU time)
+
+Ran 1 test suite in 52.34s (52.33s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

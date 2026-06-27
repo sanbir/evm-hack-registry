@@ -1,0 +1,41 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Venus_ZKSync_exp.sol:ZKSync_wUSDM_WETH_tx35a0_SimplifiedPoC
+[FAIL: EvmError: Revert] setUp() (gas: 0)
+Traces:
+  [2677870] ZKSync_wUSDM_WETH_tx35a0_SimplifiedPoC::setUp()
+    ├─ [0] VM::createSelectFork("zksync", 56669986 [5.666e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(WETH(zkSync): [0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91], "WETH(zkSync)")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(wUSDM(zkSync): [0xA900cbE7739c96D2B153a273953620A701d5442b], "wUSDM(zkSync)")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Venus vWETH(Core): [0x1Fa916C27c7C2c4602124A14C77Dbb40a5FF1BE8], "Venus vWETH(Core)")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(history.attacker: [0x16bE708e257a0dF0F4275eCD9B0f70cE4B45430C], "history.attacker")
+    │   └─ ← [Return]
+    ├─ [1069905] → new poc.helper@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 5344 bytes of code
+    ├─ [1483731] → new poc.receiver@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 7407 bytes of code
+    ├─ [0] VM::label(poc.helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], "poc.helper")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(poc.receiver: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], "poc.receiver")
+    │   └─ ← [Return]
+    ├─ [3563] poc.helper::prepare()
+    │   ├─ [0] wUSDM(zkSync)::approve(0x183dE3C349fCf546aAe925E1c7F364EA6FB4033c, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   └─ ← [Stop]
+    │   └─ ← [Revert] EvmError: Revert
+    └─ ← [Revert] EvmError: Revert
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 1.65s (0.00ns CPU time)
+
+Ran 1 test suite in 2.54s (1.65s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/Venus_ZKSync_exp.sol:ZKSync_wUSDM_WETH_tx35a0_SimplifiedPoC
+[FAIL: EvmError: Revert] setUp() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test

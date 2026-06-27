@@ -1,0 +1,1485 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SheepFarm_exp.sol:ContractTest
+[PASS] testExploit() (gas: 1279235)
+Logs:
+  Attacker BNB profit after exploit: 0.098000000000000000
+
+Traces:
+  [5779] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 23088156 [2.308e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [1341735] ContractTest::testExploit()
+    ├─ [65463] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2358 → 2359
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 20
+    │   │   @ 3: 4107 → 4108
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb09: 0 → 0x00000000000000000000000014598f3a9f3042097486dc58c65780daf3e3acfb
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2359 → 2360
+    │   │   @ 3: 4108 → 4109
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 20 → 40
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2360 → 2361
+    │   │   @ 3: 4109 → 4110
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 40 → 60
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4110 → 4111
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2361 → 2362
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 60 → 80
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4111 → 4112
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2362 → 2363
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 80 → 100
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2363 → 2364
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 100 → 120
+    │   │   @ 3: 4112 → 4113
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2364 → 2365
+    │   │   @ 3: 4113 → 4114
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 120 → 140
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4114 → 4115
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2365 → 2366
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 140 → 160
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2366 → 2367
+    │   │   @ 3: 4115 → 4116
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 160 → 180
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2367 → 2368
+    │   │   @ 3: 4116 → 4117
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 180 → 200
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4117 → 4118
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2368 → 2369
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 200 → 220
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 220 → 240
+    │   │   @ 3: 4118 → 4119
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2369 → 2370
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2370 → 2371
+    │   │   @ 3: 4119 → 4120
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 240 → 260
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2371 → 2372
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 260 → 280
+    │   │   @ 3: 4120 → 4121
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4121 → 4122
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2372 → 2373
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 280 → 300
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2373 → 2374
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 300 → 320
+    │   │   @ 3: 4122 → 4123
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2374 → 2375
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 320 → 340
+    │   │   @ 3: 4123 → 4124
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4124 → 4125
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2375 → 2376
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 340 → 360
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4125 → 4126
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2376 → 2377
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 360 → 380
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4126 → 4127
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2377 → 2378
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 380 → 400
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 400 → 420
+    │   │   @ 3: 4127 → 4128
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2378 → 2379
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 420 → 440
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2379 → 2380
+    │   │   @ 3: 4128 → 4129
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 440 → 460
+    │   │   @ 3: 4129 → 4130
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2380 → 2381
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2381 → 2382
+    │   │   @ 3: 4130 → 4131
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 460 → 480
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 480 → 500
+    │   │   @ 3: 4131 → 4132
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2382 → 2383
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 500 → 520
+    │   │   @ 3: 4132 → 4133
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2383 → 2384
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2384 → 2385
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 520 → 540
+    │   │   @ 3: 4133 → 4134
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2385 → 2386
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 540 → 560
+    │   │   @ 3: 4134 → 4135
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 560 → 580
+    │   │   @ 3: 4135 → 4136
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2386 → 2387
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4136 → 4137
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2387 → 2388
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 580 → 600
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 600 → 620
+    │   │   @ 3: 4137 → 4138
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2388 → 2389
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2389 → 2390
+    │   │   @ 3: 4138 → 4139
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 620 → 640
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4139 → 4140
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2390 → 2391
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 640 → 660
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2391 → 2392
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 660 → 680
+    │   │   @ 3: 4140 → 4141
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 680 → 700
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2392 → 2393
+    │   │   @ 3: 4141 → 4142
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 700 → 720
+    │   │   @ 3: 4142 → 4143
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2393 → 2394
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2394 → 2395
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 720 → 740
+    │   │   @ 3: 4143 → 4144
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2395 → 2396
+    │   │   @ 3: 4144 → 4145
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 740 → 760
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2396 → 2397
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 760 → 780
+    │   │   @ 3: 4145 → 4146
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4146 → 4147
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2397 → 2398
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 780 → 800
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2398 → 2399
+    │   │   @ 3: 4147 → 4148
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 800 → 820
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4148 → 4149
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2399 → 2400
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 820 → 840
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2400 → 2401
+    │   │   @ 3: 4149 → 4150
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 840 → 860
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4150 → 4151
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2401 → 2402
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 860 → 880
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4151 → 4152
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2402 → 2403
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 880 → 900
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 900 → 920
+    │   │   @ 3: 4152 → 4153
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2403 → 2404
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4153 → 4154
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 920 → 940
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2404 → 2405
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4154 → 4155
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2405 → 2406
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 940 → 960
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 960 → 980
+    │   │   @ 3: 4155 → 4156
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2406 → 2407
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4156 → 4157
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2407 → 2408
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 980 → 1000
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1000 → 1020
+    │   │   @ 3: 4157 → 4158
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2408 → 2409
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4158 → 4159
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2409 → 2410
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1020 → 1040
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2410 → 2411
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1040 → 1060
+    │   │   @ 3: 4159 → 4160
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1060 → 1080
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2411 → 2412
+    │   │   @ 3: 4160 → 4161
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4161 → 4162
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2412 → 2413
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1080 → 1100
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4162 → 4163
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1100 → 1120
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2413 → 2414
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2414 → 2415
+    │   │   @ 3: 4163 → 4164
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1120 → 1140
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2415 → 2416
+    │   │   @ 3: 4164 → 4165
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1140 → 1160
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2416 → 2417
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1160 → 1180
+    │   │   @ 3: 4165 → 4166
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1180 → 1200
+    │   │   @ 3: 4166 → 4167
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2417 → 2418
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4167 → 4168
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2418 → 2419
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1200 → 1220
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2419 → 2420
+    │   │   @ 3: 4168 → 4169
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1220 → 1240
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4169 → 4170
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2420 → 2421
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1240 → 1260
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2421 → 2422
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1260 → 1280
+    │   │   @ 3: 4170 → 4171
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1280 → 1300
+    │   │   @ 3: 4171 → 4172
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2422 → 2423
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2423 → 2424
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1300 → 1320
+    │   │   @ 3: 4172 → 4173
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4173 → 4174
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1320 → 1340
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2424 → 2425
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4174 → 4175
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2425 → 2426
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1340 → 1360
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4175 → 4176
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1360 → 1380
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2426 → 2427
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1380 → 1400
+    │   │   @ 3: 4176 → 4177
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2427 → 2428
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1400 → 1420
+    │   │   @ 3: 4177 → 4178
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2428 → 2429
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2429 → 2430
+    │   │   @ 3: 4178 → 4179
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1420 → 1440
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4179 → 4180
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1440 → 1460
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2430 → 2431
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4180 → 4181
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2431 → 2432
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1460 → 1480
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4181 → 4182
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2432 → 2433
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1480 → 1500
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4182 → 4183
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1500 → 1520
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2433 → 2434
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1520 → 1540
+    │   │   @ 3: 4183 → 4184
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2434 → 2435
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1540 → 1560
+    │   │   @ 3: 4184 → 4185
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2435 → 2436
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4185 → 4186
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2436 → 2437
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1560 → 1580
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1580 → 1600
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2437 → 2438
+    │   │   @ 3: 4186 → 4187
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4187 → 4188
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1600 → 1620
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2438 → 2439
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4188 → 4189
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1620 → 1640
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2439 → 2440
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2440 → 2441
+    │   │   @ 3: 4189 → 4190
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1640 → 1660
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1660 → 1680
+    │   │   @ 3: 4190 → 4191
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2441 → 2442
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2442 → 2443
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1680 → 1700
+    │   │   @ 3: 4191 → 4192
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2443 → 2444
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1700 → 1720
+    │   │   @ 3: 4192 → 4193
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1720 → 1740
+    │   │   @ 3: 4193 → 4194
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2444 → 2445
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2445 → 2446
+    │   │   @ 3: 4194 → 4195
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1740 → 1760
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1760 → 1780
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2446 → 2447
+    │   │   @ 3: 4195 → 4196
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4196 → 4197
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2447 → 2448
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1780 → 1800
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2448 → 2449
+    │   │   @ 3: 4197 → 4198
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1800 → 1820
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1820 → 1840
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2449 → 2450
+    │   │   @ 3: 4198 → 4199
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2450 → 2451
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1840 → 1860
+    │   │   @ 3: 4199 → 4200
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4200 → 4201
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1860 → 1880
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2451 → 2452
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2452 → 2453
+    │   │   @ 3: 4201 → 4202
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1880 → 1900
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1900 → 1920
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2453 → 2454
+    │   │   @ 3: 4202 → 4203
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4203 → 4204
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1920 → 1940
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2454 → 2455
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4204 → 4205
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2455 → 2456
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1940 → 1960
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1960 → 1980
+    │   │   @ 3: 4205 → 4206
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2456 → 2457
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2457 → 2458
+    │   │   @ 3: 4206 → 4207
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 1980 → 2000
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2458 → 2459
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2000 → 2020
+    │   │   @ 3: 4207 → 4208
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2020 → 2040
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2459 → 2460
+    │   │   @ 3: 4208 → 4209
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4209 → 4210
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2460 → 2461
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2040 → 2060
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2461 → 2462
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2060 → 2080
+    │   │   @ 3: 4210 → 4211
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2080 → 2100
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2462 → 2463
+    │   │   @ 3: 4211 → 4212
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2100 → 2120
+    │   │   @ 3: 4212 → 4213
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2463 → 2464
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4213 → 4214
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2464 → 2465
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2120 → 2140
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4214 → 4215
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2140 → 2160
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2465 → 2466
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4215 → 4216
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2466 → 2467
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2160 → 2180
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4216 → 4217
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2467 → 2468
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2180 → 2200
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2468 → 2469
+    │   │   @ 3: 4217 → 4218
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2200 → 2220
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2469 → 2470
+    │   │   @ 3: 4218 → 4219
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2220 → 2240
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2240 → 2260
+    │   │   @ 3: 4219 → 4220
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2470 → 2471
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4220 → 4221
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2471 → 2472
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2260 → 2280
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4221 → 4222
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2472 → 2473
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2280 → 2300
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4222 → 4223
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2300 → 2320
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2473 → 2474
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2320 → 2340
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2474 → 2475
+    │   │   @ 3: 4223 → 4224
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2475 → 2476
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2340 → 2360
+    │   │   @ 3: 4224 → 4225
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2360 → 2380
+    │   │   @ 3: 4225 → 4226
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2476 → 2477
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2477 → 2478
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2380 → 2400
+    │   │   @ 3: 4226 → 4227
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2478 → 2479
+    │   │   @ 3: 4227 → 4228
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2400 → 2420
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4228 → 4229
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2420 → 2440
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2479 → 2480
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2440 → 2460
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2480 → 2481
+    │   │   @ 3: 4229 → 4230
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4230 → 4231
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2481 → 2482
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2460 → 2480
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2482 → 2483
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2480 → 2500
+    │   │   @ 3: 4231 → 4232
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4232 → 4233
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2483 → 2484
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2500 → 2520
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4233 → 4234
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2484 → 2485
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2520 → 2540
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2540 → 2560
+    │   │   @ 3: 4234 → 4235
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2485 → 2486
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2486 → 2487
+    │   │   @ 3: 4235 → 4236
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2560 → 2580
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2487 → 2488
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2580 → 2600
+    │   │   @ 3: 4236 → 4237
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2488 → 2489
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2600 → 2620
+    │   │   @ 3: 4237 → 4238
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2489 → 2490
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2620 → 2640
+    │   │   @ 3: 4238 → 4239
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2490 → 2491
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2640 → 2660
+    │   │   @ 3: 4239 → 4240
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2660 → 2680
+    │   │   @ 3: 4240 → 4241
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2491 → 2492
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2492 → 2493
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2680 → 2700
+    │   │   @ 3: 4241 → 4242
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2700 → 2720
+    │   │   @ 3: 4242 → 4243
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2493 → 2494
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4243 → 4244
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2494 → 2495
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2720 → 2740
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4244 → 4245
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2495 → 2496
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2740 → 2760
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4245 → 4246
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2760 → 2780
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2496 → 2497
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2497 → 2498
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2780 → 2800
+    │   │   @ 3: 4246 → 4247
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2498 → 2499
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2800 → 2820
+    │   │   @ 3: 4247 → 4248
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2499 → 2500
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2820 → 2840
+    │   │   @ 3: 4248 → 4249
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4249 → 4250
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2840 → 2860
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2500 → 2501
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2860 → 2880
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2501 → 2502
+    │   │   @ 3: 4250 → 4251
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4251 → 4252
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2880 → 2900
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2502 → 2503
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4252 → 4253
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2900 → 2920
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2503 → 2504
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2504 → 2505
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2920 → 2940
+    │   │   @ 3: 4253 → 4254
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4254 → 4255
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2505 → 2506
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2940 → 2960
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4255 → 4256
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2506 → 2507
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2960 → 2980
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2507 → 2508
+    │   │   @ 3: 4256 → 4257
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 2980 → 3000
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3000 → 3020
+    │   │   @ 3: 4257 → 4258
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2508 → 2509
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4258 → 4259
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2509 → 2510
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3020 → 3040
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2510 → 2511
+    │   │   @ 3: 4259 → 4260
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3040 → 3060
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2511 → 2512
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3060 → 3080
+    │   │   @ 3: 4260 → 4261
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2512 → 2513
+    │   │   @ 3: 4261 → 4262
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3080 → 3100
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2513 → 2514
+    │   │   @ 3: 4262 → 4263
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3100 → 3120
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3120 → 3140
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2514 → 2515
+    │   │   @ 3: 4263 → 4264
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3140 → 3160
+    │   │   @ 3: 4264 → 4265
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2515 → 2516
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3160 → 3180
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2516 → 2517
+    │   │   @ 3: 4265 → 4266
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4266 → 4267
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2517 → 2518
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3180 → 3200
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4267 → 4268
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3200 → 3220
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2518 → 2519
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3220 → 3240
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2519 → 2520
+    │   │   @ 3: 4268 → 4269
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3240 → 3260
+    │   │   @ 3: 4269 → 4270
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2520 → 2521
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3260 → 3280
+    │   │   @ 3: 4270 → 4271
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2521 → 2522
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2522 → 2523
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3280 → 3300
+    │   │   @ 3: 4271 → 4272
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4272 → 4273
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2523 → 2524
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3300 → 3320
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3320 → 3340
+    │   │   @ 3: 4273 → 4274
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2524 → 2525
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2525 → 2526
+    │   │   @ 3: 4274 → 4275
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3340 → 3360
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4275 → 4276
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2526 → 2527
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3360 → 3380
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4276 → 4277
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2527 → 2528
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3380 → 3400
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2528 → 2529
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3400 → 3420
+    │   │   @ 3: 4277 → 4278
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4278 → 4279
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3420 → 3440
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2529 → 2530
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2530 → 2531
+    │   │   @ 3: 4279 → 4280
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3440 → 3460
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2531 → 2532
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3460 → 3480
+    │   │   @ 3: 4280 → 4281
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4281 → 4282
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2532 → 2533
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3480 → 3500
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2533 → 2534
+    │   │   @ 3: 4282 → 4283
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3500 → 3520
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4283 → 4284
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2534 → 2535
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3520 → 3540
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4284 → 4285
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3540 → 3560
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2535 → 2536
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4285 → 4286
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2536 → 2537
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3560 → 3580
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3580 → 3600
+    │   │   @ 3: 4286 → 4287
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2537 → 2538
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2538 → 2539
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3600 → 3620
+    │   │   @ 3: 4287 → 4288
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3620 → 3640
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2539 → 2540
+    │   │   @ 3: 4288 → 4289
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2540 → 2541
+    │   │   @ 3: 4289 → 4290
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3640 → 3660
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2541 → 2542
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3660 → 3680
+    │   │   @ 3: 4290 → 4291
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4291 → 4292
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3680 → 3700
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2542 → 2543
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4292 → 4293
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2543 → 2544
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3700 → 3720
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3720 → 3740
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2544 → 2545
+    │   │   @ 3: 4293 → 4294
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3740 → 3760
+    │   │   @ 3: 4294 → 4295
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2545 → 2546
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2546 → 2547
+    │   │   @ 3: 4295 → 4296
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3760 → 3780
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2547 → 2548
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3780 → 3800
+    │   │   @ 3: 4296 → 4297
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2548 → 2549
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3800 → 3820
+    │   │   @ 3: 4297 → 4298
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2549 → 2550
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3820 → 3840
+    │   │   @ 3: 4298 → 4299
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4299 → 4300
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2550 → 2551
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3840 → 3860
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4300 → 4301
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3860 → 3880
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2551 → 2552
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4301 → 4302
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2552 → 2553
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3880 → 3900
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2553 → 2554
+    │   │   @ 3: 4302 → 4303
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3900 → 3920
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4303 → 4304
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3920 → 3940
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2554 → 2555
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2555 → 2556
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3940 → 3960
+    │   │   @ 3: 4304 → 4305
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3960 → 3980
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2556 → 2557
+    │   │   @ 3: 4305 → 4306
+    │   └─ ← [Stop]
+    ├─ [4063] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::register(0x14598f3a9f3042097486DC58C65780Daf3e3acFB)
+    │   ├─ emit Newbie(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20)
+    │   ├─  storage changes:
+    │   │   @ 3: 4306 → 4307
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f135: 2557 → 2558
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3980 → 4000
+    │   └─ ← [Stop]
+    ├─ [85476] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::addGems{value: 500000000000000}()
+    │   ├─ [0] 0xb0ABc5d6a851e4f4835Cbe9C17BA205c9A5A82E7::fallback{value: 11250000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xF70d1A682c1AB4aBa765D74d57f47051CaCA9f66::fallback{value: 11250000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xD744c7A1aA8165C62704f1eA02Ef85be89c2F841::fallback{value: 2500000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit BuyGem(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 500000000000000 [5e14], param2: 1, param3: 1668550409 [1.668e9])
+    │   ├─  storage changes:
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f12f: 33862 → 33866
+    │   │   @ 4: 0x00000000000000000000000000000000000000000000003a0f56decba8197e34 → 0x00000000000000000000000000000000000000000000003a0f58a58afa7cbe34
+    │   │   @ 0xe8c12df155e0e03e7b5e3596250921b3fa87e7302f0a5750e117f024e6e6f136: 4 → 5
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 4000 → 4001
+    │   │   @ 0x53a84b2e87d05dd2a61292dcd861ff5dc3925ae88a486bd1cf84e78e895a24f8: 16 → 20
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb07: 0 → 0x0000000000000000000000000000000000000000000000000000000063740f09
+    │   └─ ← [Stop]
+    ├─ [57157] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::upgradeVillage(0)
+    │   ├─ emit VillageUpgraded(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 5, param2: 0, param3: 1668550409 [1.668e9])
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb06: 0 → 5
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 4001 → 3961
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0d: 0 → 1
+    │   │   @ 2: 3941 → 3942
+    │   └─ ← [Stop]
+    ├─ [34570] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::upgradeVillage(1)
+    │   ├─ emit VillageUpgraded(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 61, param2: 1, param3: 1668550409 [1.668e9])
+    │   ├─  storage changes:
+    │   │   @ 2: 3942 → 3943
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0c: 0 → 65536
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0d: 1 → 257
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3961 → 3561
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb06: 5 → 61
+    │   └─ ← [Stop]
+    ├─ [10670] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::upgradeVillage(2)
+    │   ├─ emit VillageUpgraded(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 240, param2: 2, param3: 1668550409 [1.668e9])
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0d: 257 → 65793
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 3561 → 2361
+    │   │   @ 2: 3943 → 3944
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb06: 61 → 240
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0c: 65536 → 131072
+    │   └─ ← [Stop]
+    ├─ [44935] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::sellVillage()
+    │   ├─ emit SellVillage(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 1668550409 [1.668e9])
+    │   ├─  storage changes:
+    │   │   @ 2: 3944 → 3941
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb06: 240 → 0
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0c: 131072 → 0
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb0d: 65793 → 0
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb04: 0 → 28800
+    │   └─ ← [Stop]
+    ├─ [31738] 0x4726010da871f4b57b5031E3EA48Bde961F122aA::withdrawMoney(20000 [2e4])
+    │   ├─ [0] 0xb0ABc5d6a851e4f4835Cbe9C17BA205c9A5A82E7::fallback{value: 900000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xF70d1A682c1AB4aBa765D74d57f47051CaCA9f66::fallback{value: 900000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xD744c7A1aA8165C62704f1eA02Ef85be89c2F841::fallback{value: 200000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [55] ContractTest::receive{value: 98000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit SellWool(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 20000 [2e4], param2: 1668550409 [1.668e9])
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb04: 28800 → 8800
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Attacker BNB profit after exploit", val: 98000000000000000 [9.8e16], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.79s (6.65s CPU time)
+
+Ran 1 test suite in 15.35s (7.79s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

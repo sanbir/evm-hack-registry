@@ -1,0 +1,5 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.20;
+
+address constant _USDT = 0x55d398326f99059fF775485246999027B3197955;
+address constant _ROUTER = 0x10ED43C718714eb63d5aA57B78B54704E256024E;

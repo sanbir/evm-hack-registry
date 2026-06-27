@@ -1,0 +1,30 @@
+# Regenerable forge artifacts — excluded from the registry commit.
+# Recreate per-project with setup_poc.sh + `forge build`.
+out/
+cache/
+broadcast/
+.run.lock
+
+# Per-POC lib/ contents are NOT committed, EXCEPT the forge-std symlink that each POC
+# needs to resolve to _shared/forge-std. We force-add those symlinks; everything else
+# under <poc>/lib/ (if any) is ignored.
+lib/*
+!lib/forge-std
+
+# Single committed forge-std copy lives under _shared/forge-std (tracked in full).
+# (the lib/ ignore above is per-poc; _shared/forge-std is not under a <poc>/lib.)
+
+# Test-run output (regenerated)
+_shared/results/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor / OS cruft
+*.swp
+*~
+Thumbs.db
+
+# Keep the valuable products: anvil_state.json, output.txt, *.md, sources/,
+# foundry.toml, test/, interface.sol, _shared/ tooling — all committed.

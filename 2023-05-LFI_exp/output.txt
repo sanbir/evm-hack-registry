@@ -1,0 +1,49 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/LFI_exp.sol:ContractTest
+[FAIL: vm.createSelectFork: could not instantiate forked environment with provider polygon-mainnet.public.blastapi.io; HTTP error 403 with body: {
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": -32000,
+    "message": "Blast API is no longer available. Please update your integration to use Alchemy's API instead: https://alchemy.com"
+  }
+}] setUp() (gas: 0)
+Traces:
+  [5541] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("polygon", 43025776 [4.302e7])
+    │   └─ ← [Revert] vm.createSelectFork: could not instantiate forked environment with provider polygon-mainnet.public.blastapi.io; HTTP error 403 with body: {
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": -32000,
+    "message": "Blast API is no longer available. Please update your integration to use Alchemy's API instead: https://alchemy.com"
+  }
+}
+    └─ ← [Revert] vm.createSelectFork: could not instantiate forked environment with provider polygon-mainnet.public.blastapi.io; HTTP error 403 with body: {
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": -32000,
+    "message": "Blast API is no longer available. Please update your integration to use Alchemy's API instead: https://alchemy.com"
+  }
+}
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 715.90ms (0.00ns CPU time)
+
+Ran 1 test suite in 716.94ms (715.90ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/LFI_exp.sol:ContractTest
+[FAIL: vm.createSelectFork: could not instantiate forked environment with provider polygon-mainnet.public.blastapi.io; HTTP error 403 with body: {
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": -32000,
+    "message": "Blast API is no longer available. Please update your integration to use Alchemy's API instead: https://alchemy.com"
+  }
+}] setUp() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test

