@@ -1,5 +1,7 @@
 # LavaLending Exploit — WrapperOracle Price-Depeg Lets Manipulated LP Drain the Aave Pool
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/manipulable-twap
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [WrapperOracle.sol](sources/WrapperOracle_774687/src_UniV3_oracle_WrapperOracle.sol).

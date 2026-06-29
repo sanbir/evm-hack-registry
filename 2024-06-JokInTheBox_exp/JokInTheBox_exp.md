@@ -1,5 +1,7 @@
 # JokInTheBox Staking Exploit — Missing `unstaked` Guard ⇒ Infinite Re-Unstake Drain
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/incorrect-state-transition
+
 > One stake can be `unstake`d hundreds of times. The staking contract never checks whether a stake was already withdrawn, so the attacker keeps pulling the same staked balance out of the pool until its accounting underflows — then dumps the loot for ETH.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

@@ -1,5 +1,7 @@
 # HopeLend Exploit — Liquidity-Index Inflation + aToken Rounding-Error Drain
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/logic/price-calculation · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

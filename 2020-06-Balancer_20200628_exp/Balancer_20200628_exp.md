@@ -1,5 +1,7 @@
 # Balancer × Statera (STA) Exploit — Deflationary-Token Reserve Desync via `gulp()`
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not whole-compile, so this one was extracted). Full verbose trace:

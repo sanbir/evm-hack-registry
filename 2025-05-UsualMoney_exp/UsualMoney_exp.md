@@ -1,5 +1,7 @@
 # Usual Money Exploit — `VaultRouter.deposit` Routes Through an Attacker-Controlled Swap Venue With No Real Slippage Floor
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not whole-compile, so this one was extracted).

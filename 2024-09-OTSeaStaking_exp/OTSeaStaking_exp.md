@@ -1,5 +1,7 @@
 # OTSea Staking Exploit — `claim()` Re-Arms Already-Withdrawn Deposits (Double-Withdraw Drain)
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/reentrancy/single-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > whole-compile, so this one was extracted).

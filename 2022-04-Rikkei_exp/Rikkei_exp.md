@@ -1,5 +1,7 @@
 # Rikkei Finance Exploit — Permissionless `setOracleData()` Oracle Hijack on a Compound-style Money Market
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

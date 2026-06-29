@@ -1,5 +1,7 @@
 # Stepp2p Exploit — Double-Refund via `modifySaleOrder` on an Already-Cancelled Order
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

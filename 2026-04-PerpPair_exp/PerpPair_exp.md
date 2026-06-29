@@ -1,5 +1,7 @@
 # PerpPair Exploit — Self-Dealt LP/Trader Pair Inflates Curve-Priced PnL out of the Shared Vault
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # AaveBoost Exploit — Permissionless `proxyDeposit()` Subsidy Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/reward-calculation
+
 > One-line: a public, un-metered "deposit booster" contract that tops up **every** deposit with `REWARD` (0.3) AAVE out of *its own* balance was called 163 times with `amount = 0`, draining the contract's entire AAVE subsidy reserve to the attacker for free.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

@@ -1,5 +1,7 @@
 # PESTO (Pesto The Baby King Penguin) Exploit — Flash-Loan-Driven Tax Auto-Swap Self-Sandwich
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/oracle/spot-price
+
 > One-line summary: the token's on-transfer auto-swap dumps the contract's
 > accumulated 70%-transfer-tax balance into its own thin Uniswap-V2 pool at a
 > price the attacker controls, letting a flash loan engineer the dump and pocket

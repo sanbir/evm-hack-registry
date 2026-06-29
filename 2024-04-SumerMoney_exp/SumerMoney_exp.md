@@ -1,5 +1,7 @@
 # Sumer Money Exploit — Reentrancy via `repayBorrowBehalf` Refund Inflates the ETH cToken Exchange Rate
 
+> **Vulnerability classes:** vuln/reentrancy/single-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was
 > extracted). Full verbose trace: [output.txt](output.txt). Verified vulnerable source under

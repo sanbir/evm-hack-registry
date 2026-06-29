@@ -1,5 +1,7 @@
 # INUMI Exploit — Unprotected `setMarketingWallet()` Hijacks the `rescueEth()` Recipient
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-owner-check
+
 > One-liner: an unauthenticated setter let anyone repoint the token's "marketing wallet", after which the equally-unauthenticated `rescueEth()` drained the contract's entire 5 ETH balance to the attacker.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

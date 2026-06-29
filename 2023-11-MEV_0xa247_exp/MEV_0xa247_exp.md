@@ -1,5 +1,7 @@
 # MEV-Bot Fleet Exploit (`0xa247…`) — Unprotected `removeAdmin()` Lets Anyone Seize and Drain 24 Bot Contracts
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-owner-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). The PoC itself is

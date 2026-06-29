@@ -1,5 +1,7 @@
 # Aztec V1 Escape-Hatch Exploit — Unbacked Withdrawals via Verifier-Trusted Rollup Proofs
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check · vuln/bridge/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The three exploit transactions (ETH, DAI, renBTC) are reproduced as
 > three separate fork tests against a local anvil snapshot.

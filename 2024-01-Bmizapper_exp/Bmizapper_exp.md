@@ -1,5 +1,7 @@
 # Bridge Mutual `BMIZapper` Exploit — Arbitrary External Call Drains Pre-Approved User Funds
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not whole-compile, so this one was extracted).

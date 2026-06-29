@@ -1,5 +1,7 @@
 # ULME Token Exploit — Permissionless `buyMiner()` Spends Anyone's Pre-Approved USDT
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not compile under a whole-project `forge build`,

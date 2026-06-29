@@ -1,5 +1,7 @@
 # DUCKVADER Exploit — Permissionless Free-Mint via Broken `buyTokens()` + Storage Shadowing
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that
 > do not compile together, so this one was extracted).

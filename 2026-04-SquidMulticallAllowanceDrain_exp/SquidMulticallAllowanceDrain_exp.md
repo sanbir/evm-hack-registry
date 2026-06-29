@@ -1,5 +1,7 @@
 # Squid `SquidMulticall` Exploit — Arbitrary-Target `Default` Call Turns an Approved Multicall into a Universal `transferFrom` Proxy
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth · vuln/logic/missing-allowance
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

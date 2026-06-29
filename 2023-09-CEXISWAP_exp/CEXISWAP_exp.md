@@ -1,5 +1,7 @@
 # CEXISWAP Exploit — Unprotected `initialize()` + UUPS Arbitrary Upgrade Drain
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/dependency/upgradeable-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not compile under a whole-project build, so this one was extracted).

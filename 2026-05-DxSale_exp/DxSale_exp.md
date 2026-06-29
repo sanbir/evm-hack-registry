@@ -1,5 +1,7 @@
 # DxSale Liquidity-Locker Exploit — Stealthy Ownership Takeover + Privileged Drain (~$7.3M BNB)
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/access-control/missing-owner-check
+
 > One-line summary: an attacker quietly walked DxSale's liquidity-locker **ownership** through ~89 wallets over ~269 days, then — as the legitimate owner — used the locker's privileged controls to liberate the LP positions of **1,400+** projects and dump them for **~$7.3M in BNB**, finishing the campaign with an **EIP-7702 (type-4)** delegated batch-drainer.
 
 > **Reproduction:** the PoC compiles, forks BSC at block `100,806,730`, and runs to `[PASS]` in the isolated Foundry project at [this project folder](.). Full verbose trace: [output.txt](output.txt).

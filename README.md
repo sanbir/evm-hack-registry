@@ -137,3 +137,113 @@ this registry organizes, completes, and makes offline-runnable.
 
 Same as the source — see the individual PoCs and [DeFiHackLabs](https://github.com/SunWeb3Sec/DeFiHackLabs)
 for licensing.
+
+## Vulnerability classification
+
+Every PoC is tagged with one or more **vulnerability classes** drawn from the
+[**AuditVault**](https://github.com/forefy/AuditVault) smart-contract security taxonomy
+(`classifications/bug/vuln/`). Tags are written as a single visible line directly under each
+write-up's title, e.g.:
+
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
+A single exploit usually exhibits several distinct classes (the root-cause bug plus the enabling
+mechanism), so multi-tagging is expected — a `·`-separated list. To find every PoC of a given class,
+grep the registry:
+
+```bash
+grep -rl "vuln/oracle/price-manipulation" --include='*_exp.md' .
+```
+
+**Coverage:** all 739 PoCs are tagged (0 untagged). Across the registry there are **1,597 tag
+instances** (avg **2.16** classes per PoC) spanning **64** of the ~68 canonical AuditVault
+`vuln/` classes.
+
+### By category
+
+| Category | Tag count | What it covers |
+|---|---:|---|
+| `vuln/logic/…` | 449 | business-logic bugs (state updates, ordering, price/reward/fee/liquidation math, missing checks/validation) |
+| `vuln/access-control/…` | 359 | missing auth/modifier/owner-check, uninitialized proxy/owner, leaked keys, centralization |
+| `vuln/oracle/…` | 295 | price/oracle manipulation, spot-price, stale-price, single-source, TWAP, wrong feed |
+| `vuln/defi/…` | 132 | AMM slippage, sandwich, fee manipulation |
+| `vuln/arithmetic/…` | 110 | overflow/underflow, rounding, precision loss, decimal mismatch, div-before-mul |
+| `vuln/dependency/…` | 74 | unsafe external calls, unchecked return values, upgradeable/proxy hazards |
+| `vuln/reentrancy/…` | 62 | single/cross-function/cross-contract/read-only reentrancy |
+| `vuln/governance/…` | 62 | flash-loan attacks/voting, proposal manipulation, timelock bypass |
+| `vuln/bridge/…` | 16 | cross-chain message spoofing, missing validation, replay |
+| `vuln/auth/…` | 14 | signature replay/malleability/validation |
+| `vuln/input-validation/…` | 12 | missing/boundary/wrong-type input checks |
+| `vuln/data/…` | 7 | uninitialized storage, missing events, wrong encoding |
+| `vuln/dos/…` | 5 | frozen funds, gas-limit, griefing, lockup, unbounded loops, init constraints |
+
+### By class (full breakdown)
+
+| Class (AuditVault `vuln/` slug) | Tag count |
+|---|---:|
+| `vuln/access-control/missing-auth` | 218 |
+| `vuln/oracle/price-manipulation` | 159 |
+| `vuln/defi/slippage` | 108 |
+| `vuln/oracle/spot-price` | 103 |
+| `vuln/logic/state-update` | 81 |
+| `vuln/logic/incorrect-state-transition` | 70 |
+| `vuln/dependency/unsafe-external-call` | 66 |
+| `vuln/logic/missing-check` | 63 |
+| `vuln/logic/reward-calculation` | 61 |
+| `vuln/logic/incorrect-order-of-operations` | 57 |
+| `vuln/governance/flash-loan-attack` | 54 |
+| `vuln/logic/missing-validation` | 49 |
+| `vuln/access-control/missing-modifier` | 36 |
+| `vuln/arithmetic/rounding` | 34 |
+| `vuln/reentrancy/single-function` | 33 |
+| `vuln/arithmetic/precision-loss` | 31 |
+| `vuln/logic/price-calculation` | 29 |
+| `vuln/defi/sandwich-attack` | 19 |
+| `vuln/access-control/broken-logic` | 19 |
+| `vuln/arithmetic/overflow` | 18 |
+| `vuln/access-control/missing-validation` | 18 |
+| `vuln/arithmetic/decimal-mismatch` | 17 |
+| `vuln/logic/missing-allowance` | 15 |
+| `vuln/access-control/uninitialized-proxy` | 14 |
+| `vuln/access-control/centralization` | 14 |
+| `vuln/reentrancy/cross-function` | 12 |
+| `vuln/oracle/stale-price` | 12 |
+| `vuln/reentrancy/cross-contract` | 11 |
+| `vuln/bridge/missing-validation` | 11 |
+| `vuln/auth/signature-validation` | 11 |
+| `vuln/logic/wrong-condition` | 10 |
+| `vuln/input-validation/missing` | 10 |
+| `vuln/access-control/secret-exposure` | 10 |
+| `vuln/access-control/missing-owner-check` | 10 |
+| `vuln/logic/fee-calculation` | 9 |
+| `vuln/access-control/missing-check` | 8 |
+| `vuln/oracle/missing-validation` | 7 |
+| `vuln/data/uninitialized` | 7 |
+| `vuln/access-control/fake-account-substitution` | 7 |
+| `vuln/reentrancy/read-only` | 6 |
+| `vuln/arithmetic/underflow` | 6 |
+| `vuln/oracle/wrong-feed` | 5 |
+| `vuln/oracle/single-source` | 5 |
+| `vuln/logic/liquidation-logic` | 5 |
+| `vuln/dependency/unchecked-return-value` | 5 |
+| `vuln/defi/fee-manipulation` | 5 |
+| `vuln/bridge/message-spoofing` | 4 |
+| `vuln/access-control/uninitialized-owner` | 4 |
+| `vuln/governance/timelock-bypass` | 3 |
+| `vuln/governance/proposal-manipulation` | 3 |
+| `vuln/dependency/upgradeable-contract` | 3 |
+| `vuln/oracle/missing-circuit-breaker` | 2 |
+| `vuln/oracle/manipulable-twap` | 2 |
+| `vuln/input-validation/boundary` | 2 |
+| `vuln/governance/flash-loan-voting` | 2 |
+| `vuln/dos/init-constraint` | 2 |
+| `vuln/dos/frozen-funds` | 2 |
+| `vuln/auth/signature-replay` | 2 |
+| `vuln/arithmetic/rounding-direction` | 2 |
+| `vuln/arithmetic/division-before-multiply` | 2 |
+| `vuln/dos/griefing` | 1 |
+| `vuln/bridge/replay` | 1 |
+| `vuln/auth/signature-malleability` | 1 |
+| `vuln/access-control/proxy-storage-collision` | 1 |
+
+> Tag counts are instances, not PoCs — a PoC tagged with N classes contributes N to the total. Classes reflect each exploit's root cause and primary enabling mechanism as described in the write-up; they are classifier-assigned labels, not formal audit verdicts. Taxonomy © [AuditVault](https://github.com/forefy/AuditVault).

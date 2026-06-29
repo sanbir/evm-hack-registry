@@ -1,5 +1,7 @@
 # Bizness Locker Exploit — Reentrancy in `splitLock` Refund Drains Locked Tokens
 
+> **Vulnerability classes:** vuln/reentrancy/single-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted). Full verbose trace: [output.txt](output.txt).

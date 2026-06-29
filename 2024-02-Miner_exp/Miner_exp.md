@@ -1,5 +1,7 @@
 # MINER (ERC-X / ERC404-style) Exploit — Fractional-Transfer NFT Mint/Burn Asymmetry Drains the Uniswap V3 Pool
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs
 > that do not whole-compile, so this one was extracted).

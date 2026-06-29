@@ -1,5 +1,7 @@
 # Unverified `0xb309…28Cb` MEV Router — Unprotected `uniswapV3SwapCallback` Token Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > One-line summary: a MEV / arbitrage router contract pays out tokens to **whoever calls its
 > Uniswap-V3 flash-swap callback**, because the callback never checks that `msg.sender` is a real
 > Uniswap V3 pool — so anyone can fabricate a callback and walk off with the router's token balance.

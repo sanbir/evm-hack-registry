@@ -1,5 +1,7 @@
 # GYM Network Exploit — `GymRouter` Pulls Swap Input From the *Recipient* Instead of the *Caller*
 
+> **Vulnerability classes:** vuln/logic/wrong-condition · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

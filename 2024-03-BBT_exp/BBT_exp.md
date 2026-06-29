@@ -1,5 +1,7 @@
 # BBT Exploit — Permissionless `setRegistry()` + `mint()` Infinite-Mint Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/arithmetic/overflow
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).

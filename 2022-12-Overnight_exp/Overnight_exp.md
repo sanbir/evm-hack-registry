@@ -1,5 +1,7 @@
 # Overnight Finance USD+ Exploit — NAV Inflation via Synapse Stable-Pool Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **One-line summary:** Overnight Finance's `USD+` yield-stablecoin priced its strategy
 > holdings off the *instantaneous* balances of the Synapse nUSD stable-pool, so an attacker
 > flash-loaned, lop-sidedly churned that pool to inflate `USD+`'s reported Net Asset Value,

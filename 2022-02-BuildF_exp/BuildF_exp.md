@@ -1,5 +1,7 @@
 # Build Finance (BUILD) Exploit — Governance Takeover via Low Quorum → Arbitrary-Proposal Drain
 
+> **Vulnerability classes:** vuln/governance/proposal-manipulation
+
 > **Reproduction:** the PoC compiles in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Governance.sol](sources/Governance_5A6eBe/Governance.sol)

@@ -1,5 +1,7 @@
 # MulticallWithETH Exploit — Arbitrary-Call `aggregate()` Drains an Unlimited USDC Approval
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call · vuln/logic/missing-allowance
+
 > One-liner: a public, unauthenticated `aggregate()` multicall lets anyone make the contract
 > execute `USDC.transferFrom(victim, attacker, balance)` against a victim who had granted the
 > Multicall an unlimited USDC allowance — ~10,536 USDC stolen.

@@ -1,5 +1,7 @@
 # BXH Exploit — Spot-Price Bonus Payout Manipulated via Flash-Loan
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack · vuln/logic/reward-calculation
+
 > **One-line summary:** A staking pool values its reward "bonus" payout in USDT using the
 > *instantaneous* reserves of the BXH/USDT AMM pair, so a flash-loan that skews that pair lets an
 > attacker convert a ~15 BXH reward into ~40,821 USDT (a ~16,000× inflation), draining the pool's

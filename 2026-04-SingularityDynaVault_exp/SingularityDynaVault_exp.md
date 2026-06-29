@@ -1,5 +1,7 @@
 # Singularity dynBaseUSDCv3 Exploit — `totalAssets()` Inflation via a Mis-Configured (Fee-Tier-42 / Zero-Liquidity) Oracle Path
 
+> **Vulnerability classes:** vuln/oracle/missing-validation · vuln/arithmetic/precision-loss · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # Laundromat Exploit — Free Ring-Membership Drains a Dormant Mixer
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/auth/signature-validation
+
 > One-line summary: a 2016-era ring-signature ETH mixer left its deposit fee check **commented out**, so an attacker registered as 4 of the 5 ring members for free, forged the ring signature it now controlled, and walked off with the 1 ETH a real participant had deposited ~9 years earlier.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

@@ -1,5 +1,7 @@
 # Lava Lending Exploit — Flash-Inflated Uniswap-V3-LP Collateral Drains an Aave-V2 Fork
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > A self-funded Uniswap-V3 LP-wrapper position is used as collateral in an Aave-V2-style lending
 > market, inflated with stacked flash-loans, and then used to borrow out **100% of every reserve**
 > before the collateral is withdrawn — leaving the pool with bad debt.

@@ -1,5 +1,7 @@
 # JHY Token Exploit — Dividend Pool Drained via 100× Over-Credited `distributeCAKEDividends`
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/arithmetic/decimal-mismatch
+
 > One-line summary: JHY's sell-tax routine credits its LP-dividend tracker with **100× the JHY it actually deposits**, so an attacker who corners the dividend share (by inflating their LP-token balance) claims out far more JHY than was ever paid in, then dumps it for ~11.2k USDT of pure profit.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was extracted). Full verbose trace: [output.txt](output.txt). Verified JHY token source: [sources/JHYToken_30Bea8/JHYToken.sol](sources/JHYToken_30Bea8/JHYToken.sol). The dividend tracker `0x40Cd735D…` is **unverified** on BscScan, so its exact `setBalance`/`distributeCAKEDividends` bytecode is reconstructed from on-chain behavior in the trace.

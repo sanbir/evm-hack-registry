@@ -1,5 +1,7 @@
 # APEMAGA Exploit — Public `family()` Backdoor Burns 99.9% of the Pool's Token Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted).

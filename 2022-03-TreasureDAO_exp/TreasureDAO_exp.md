@@ -1,5 +1,7 @@
 # TreasureDAO Marketplace Exploit — Zero-Quantity Buy Drains Listed NFTs for Free (`_pricePerItem * _quantity` with `_quantity = 0`)
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/input-validation/missing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source:

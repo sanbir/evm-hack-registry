@@ -1,5 +1,7 @@
 # Socket Gateway Exploit — Arbitrary `call` in `WrappedTokenSwapperImpl` Drains User Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile under `forge test`, so this one was extracted).

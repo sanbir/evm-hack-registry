@@ -1,5 +1,7 @@
 # ETHFIN Exploit — Permissionless `doBuyback()` Buyback-Pot Drain via Holder-Count Manipulation
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > > contains several unrelated PoCs that do not compile, so this one was extracted).

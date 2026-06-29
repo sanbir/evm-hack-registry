@@ -1,5 +1,7 @@
 # BabyDogeCoin Exploit — Sandwiching the Token's Slippage-Free `swapAndLiquify`
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/defi/sandwich-attack · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile together, so this one was extracted).

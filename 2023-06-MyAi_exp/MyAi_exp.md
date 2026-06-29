@@ -1,5 +1,7 @@
 # MyAi (CoinToken) Exploit — `MultiSender` Lets Anyone Spend a Victim's Pre-Approved Allowance Into a Hyper-Thin Pool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-allowance · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not compile together, so this one is extracted).

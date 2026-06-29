@@ -1,5 +1,7 @@
 # PancakeBunny Exploit — Flash-Loan LP Price-Oracle Manipulation Mints Unlimited BUNNY
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > The vulnerable logic lives in PancakeBunny's off-source `BunnyMinter` /

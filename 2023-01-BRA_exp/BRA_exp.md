@@ -1,5 +1,7 @@
 # BRA Token Exploit — `_transfer` Buy/Sell Tax Credited to the Pair Itself, Drained via `skim()`
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (fork served offline from a local `anvil_state.json` on
 > `127.0.0.1:8546`). Full verbose trace: [output.txt](output.txt).

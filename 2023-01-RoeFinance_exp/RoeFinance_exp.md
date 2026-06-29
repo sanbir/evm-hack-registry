@@ -1,5 +1,7 @@
 # ROE Finance Exploit — Manipulatable LP-Token Oracle + Re-deposit Collateral Inflation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # LI.FI Protocol Exploit — Arbitrary External Call via Unvalidated `depositToGasZipERC20`
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that fail to whole-compile, so this one was extracted).

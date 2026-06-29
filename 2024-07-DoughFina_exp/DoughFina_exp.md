@@ -1,5 +1,7 @@
 # DoughFina Exploit — Permissionless Flash-Loan Connector Drains Any User's DSA
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > One-line: A public, caller-unvalidated flash-loan "deleverage" connector lets anyone point its
 > privileged `executeAction` / arbitrary-call machinery at **any** DoughFina smart account (DSA),
 > withdraw that account's Aave collateral, and `transferFrom` it straight to the attacker.

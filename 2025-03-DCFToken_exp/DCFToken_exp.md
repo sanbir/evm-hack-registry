@@ -1,5 +1,7 @@
 # DCF Token Exploit — Transfer-to-Pair Reserve Burn Inflates DCF Price
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile together, so this one was extracted).

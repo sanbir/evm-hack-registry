@@ -1,5 +1,7 @@
 # ARA Exploit — Permissionless "Swap-on-Behalf" Helper Drains a Pre-Approved Address via Pool Price Manipulation
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-allowance · vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that don't compile, so this one was extracted).

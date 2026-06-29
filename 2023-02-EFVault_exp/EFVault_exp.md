@@ -1,5 +1,7 @@
 # EFVault / ENF Exploit — `redeem()` Share-Price Decimal Bug Drains USDC
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted). The fork is served

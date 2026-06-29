@@ -1,5 +1,7 @@
 # Bancor Network Exploit — Public `safeTransferFrom` Drains Any Approved User
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/access-control/missing-auth
+
 > One-line summary: A newly deployed `BancorNetwork` contract inherited the
 > `TokenHandler.safeTransferFrom` helper as a **`public`** function with **no access control**,
 > so anyone could route a `transferFrom` through Bancor and steal the full balance of any user

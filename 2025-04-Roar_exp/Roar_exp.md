@@ -1,5 +1,7 @@
 # R0AR (1R0R) Staking Exploit — Backdoored `user.amount` + Self-Capping `EmergencyWithdraw()` Drain
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/logic/reward-calculation
+
 > One-liner: a deployment-time backdoor preset one attacker address's `userInfo.amount` to an astronomical value, and `EmergencyWithdraw()`'s "cap the payout to whatever the contract holds" logic then handed that attacker the **entire** R0AR + LP balance of the staking contract.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([this folder](.)). The umbrella DeFiHackLabs repo does not whole-compile, so this PoC was extracted.

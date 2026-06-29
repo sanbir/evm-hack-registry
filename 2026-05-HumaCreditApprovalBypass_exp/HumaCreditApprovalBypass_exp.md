@@ -1,5 +1,7 @@
 # Huma Finance Exploit — Evaluation-Agent Approval Bypass via `refreshAccount()`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/incorrect-state-transition · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source (the `BaseCreditPool` implementation that backs all three

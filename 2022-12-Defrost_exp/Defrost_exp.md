@@ -1,5 +1,7 @@
 # Defrost Finance `lendingSwitchErc20` Exploit — Reentrant Flash-Loan Share Inflation
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo has unrelated PoCs
 > that do not whole-compile, so this one was extracted).

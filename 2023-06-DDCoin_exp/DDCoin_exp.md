@@ -1,5 +1,7 @@
 # DDCoin (DD) Marketplace Exploit — Self-Granted Allowance Lets the Seller Drain the Escrow Twice
 
+> **Vulnerability classes:** vuln/logic/missing-allowance · vuln/logic/state-update · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not all compile together, so this one was extracted).

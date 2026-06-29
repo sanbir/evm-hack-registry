@@ -1,5 +1,7 @@
 # Curve LlamaLend (Inverse Finance sDOLA market) Exploit — Oracle / Band Manipulation Mass-Liquidation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/liquidation-logic
+
 > One-line summary: An attacker used a flash loan to dump ~16M crvUSD into the `sDOLA`-collateral LlamaLend AMM, dragging the AMM's active band down through 27 honest borrowers' bands so they all became liquidatable in one block, then liquidated every one of them and walked off with their `sDOLA` collateral plus the band crvUSD surplus — netting **~227,325 DOLA + ~6.94 WETH (~$240K)**.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([folder](.)). Full verbose trace: [output.txt](output.txt). Verified vulnerable sources are under [sources/](sources/).

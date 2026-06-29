@@ -1,5 +1,7 @@
 # LiFi Exploit — Unvalidated `callTo`/`approveTo` in the Pre-Bridge Swap Facet
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified source bundled in this project is the **cBridge `Bridge` contract**

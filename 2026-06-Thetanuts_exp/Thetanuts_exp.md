@@ -1,5 +1,7 @@
 # Thetanuts Exploit — Zero-Cost Index-Vault `mint()` via Rounding-Down Component Deposits
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
 > `anvil_state.json` (a local anvil at `127.0.0.1:8545`), so no public RPC is needed.

@@ -1,5 +1,7 @@
 # FireToken Exploit — Deflationary "burn-from-pool + sync()" AMM Reserve Drain
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > One-line summary: FireToken's `_transfer` burns the *sold* tokens directly out of the Uniswap pair and calls `pair.sync()`, breaking the constant-product invariant; an attacker repeatedly buys-then-sells through fresh contracts to shrink the pool's FIRE reserve to zero while keeping the WETH side, then sweeps the WETH.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

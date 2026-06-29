@@ -1,5 +1,7 @@
 # Annex Finance `Liquidator` Exploit — Unauthenticated Flash-Swap Callback Drains the Contract
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/reentrancy/cross-contract
+
 > One-line summary: Annex's `Liquidator` PancakeSwap flash-swap callback (`pancakeCall`) never verifies that *it* initiated the swap, so anyone can drive the callback from a fake attacker-owned pair, make the contract `approve` + `transfer` its own WBNB balance as a bogus "flash-loan repayment", and walk off with every token the contract held.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at

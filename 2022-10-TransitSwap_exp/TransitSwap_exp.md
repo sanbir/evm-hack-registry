@@ -1,5 +1,7 @@
 # Transit Finance Exploit — Arbitrary `transferFrom` via Unvalidated Swap Owner
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/access-control/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The victim contract (`TransitSwap` aggregator at
 > `0x8785bb8deAE13783b24D7aFE250d42eA7D7e9d72`) is **unverified** on BSC, so this analysis is

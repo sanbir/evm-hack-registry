@@ -1,5 +1,7 @@
 # SASHA Token Exploit — Draining a Deployer-Seeded, Massively Mispriced Uniswap V3 Pool
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not all compile, so this one was extracted standalone).

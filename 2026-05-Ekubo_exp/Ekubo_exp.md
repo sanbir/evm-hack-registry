@@ -1,5 +1,7 @@
 # Ekubo Protocol Exploit — Flash-Accounting `pay()` Funded From a Victim's Standing Approval
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/logic/missing-check
+
 > One-liner: Ekubo's singleton `Core` settles a locker's debt by measuring only *its own* token-balance delta during `payCallback`, so a malicious router could `withdraw` WBTC to the attacker and then `pay` for it by `transferFrom`-ing the very same amount out of an unrelated user who still had an approval to the router — draining 17 WBTC (~$1.4M) for zero net cost.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at

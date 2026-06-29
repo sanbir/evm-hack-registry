@@ -1,5 +1,7 @@
 # GPT Token Exploit — Deflationary `transfer`-Hook + `skim()` Pool Drain
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/defi/sandwich-attack · vuln/logic/incorrect-order-of-operations
+
 > **One-line summary:** A reflectionary/deflationary token (`GPT`) runs `removeLiquidity` + buy-back-and-burn logic *inside its own transfer hook*; by repeatedly poking that hook against the BUSD/GPT pair and harvesting the surplus with `pair.skim()`, the attacker mispriced the pool until ~21 GPT was worth ~120,000 BUSD, netting ~19,989 BUSD on a flash-loaned BUSD stack.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

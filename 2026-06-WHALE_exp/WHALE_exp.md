@@ -1,5 +1,7 @@
 # WHALE Exploit — Flash-Inflated AMM Reserve → Mining-Hashrate Over-Credit Drain
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

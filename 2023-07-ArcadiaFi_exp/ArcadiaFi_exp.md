@@ -1,5 +1,7 @@
 # Arcadia Finance Exploit — Reentrant Self-Liquidation Drains the Lending Pools
 
+> **Vulnerability classes:** vuln/reentrancy/cross-contract · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that fail to whole-compile, so this one was extracted).

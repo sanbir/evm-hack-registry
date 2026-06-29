@@ -1,5 +1,7 @@
 # Vista Finance Exploit — Flash-Mint Burns Through the Staking Lock to Sell Free Collateral
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not all compile together, so this one was extracted).

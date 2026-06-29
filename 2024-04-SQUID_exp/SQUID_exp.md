@@ -1,5 +1,7 @@
 # SQUID Token Exploit — Permissionless 1:1 V1→V2 Migration + Public `sellSwappedTokens` Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile under `forge test`, so this one was extracted).

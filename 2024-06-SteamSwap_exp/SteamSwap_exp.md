@@ -1,5 +1,7 @@
 # SteamSwap (MineSTM) Exploit — `sell()` Redeems the Protocol's Own LP To Any Caller
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

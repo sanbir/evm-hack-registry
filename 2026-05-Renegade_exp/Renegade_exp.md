@@ -1,5 +1,7 @@
 # Renegade Darkpool Exploit — Re-Initializable Proxy → Attacker-Controlled `delegatecall`
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/dependency/unsafe-external-call · vuln/dependency/upgradeable-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that fail to build together, so this one was extracted).

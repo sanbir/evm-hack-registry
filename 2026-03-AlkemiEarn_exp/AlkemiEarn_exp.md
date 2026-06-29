@@ -1,5 +1,7 @@
 # AlkemiEarn Exploit — Self-Liquidation Storage-Aliasing Collateral Duplication
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/logic/state-update
+
 > One-liner: A borrower liquidates *their own* WETH-collateralized WETH borrow; because the borrower and the
 > liquidator are the same account and the borrow asset equals the collateral asset, the two `Balance storage`
 > pointers in `liquidateBorrow` alias the **same** storage slot — the "seize" credit overwrites the "deduct" debit,

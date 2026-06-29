@@ -1,5 +1,7 @@
 # The Sandbox LAND Exploit — Public `_burn` of Anyone's NFT
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Land.sol](sources/Land_50f547/Land.sol).

@@ -1,5 +1,7 @@
 # DN404 Exploit — Unguarded `init()` Lets Anyone Re-init a Vesting Proxy and Drain Its Tokens
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).

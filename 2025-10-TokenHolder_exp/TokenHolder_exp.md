@@ -1,5 +1,7 @@
 # TokenHolder / BorrowerOperationsV6 Exploit — Privileged-Role Confused-Deputy Drain via `sell()`'s Arbitrary Call
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > One-liner: `BorrowerOperationsV6.sell()` makes an attacker-controlled `inchRouter.call(sellingCode)` while holding the `BORROWER_ROUTER_ROLE` on the protocol's `TokenHolder` vault, letting anyone re-enter `TokenHolder.privilegedLoan()` to pull the vault's WBNB out for free and walk away with it as "profit."
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

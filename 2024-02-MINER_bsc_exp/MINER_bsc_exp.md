@@ -1,5 +1,7 @@
 # MINER (ERC404) Exploit — Self-Transfer Balance Inflation via `skim()`
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # WILL "Trading" Exploit — Over-Sized, Slippage-Free `settleExpiredPositions()` Buy-Back Sandwich
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/defi/sandwich-attack
+
 > One-line: A short-selling protocol force-buys **1.8×** the short notional back from PancakeSwap with **zero slippage protection** and the **contract's own USDT**, so an attacker sandwiches that forced buy to drain the contract's treasury.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

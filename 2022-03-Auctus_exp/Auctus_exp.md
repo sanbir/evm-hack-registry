@@ -1,5 +1,7 @@
 # Auctus (ACO) Exploit — `ACOWriter` Trusts Attacker-Supplied "Underlying/Strike" Token
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [ACOWriter.sol](sources/ACOWriter_E7597F/ACOWriter.sol),

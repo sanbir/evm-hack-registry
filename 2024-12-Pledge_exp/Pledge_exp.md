@@ -1,5 +1,7 @@
 # Pledge Exploit — Permissionless `swapTokenU()` Drains the Contract's Token Holdings
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage
+
 > One unprotected public function lets anyone spend the Pledge contract's entire
 > MFT balance on a swap and send the USDT proceeds to an attacker-chosen address.
 

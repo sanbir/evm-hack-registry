@@ -1,5 +1,7 @@
 # Hedgey Finance Exploit — Dangling Approval to Attacker-Controlled `tokenLocker`
 
+> **Vulnerability classes:** vuln/access-control/missing-validation · vuln/dependency/unsafe-external-call
+
 > One-liner: `createLockedCampaign` grants an ERC20 allowance to a **caller-supplied, unvalidated** `claimLockup.tokenLocker` address; `cancelCampaign` refunds the deposit but never revokes that allowance, so the attacker keeps a live `transferFrom` allowance and drains *other* campaigns' tokens still sitting in the contract.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

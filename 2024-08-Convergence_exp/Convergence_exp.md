@@ -1,5 +1,7 @@
 # Convergence Finance Exploit — Unvalidated `claimContracts` Lets a Fake Staking Contract Mint the Entire Staking Allocation
 
+> **Vulnerability classes:** vuln/access-control/missing-validation · vuln/logic/missing-validation
+
 > One-line summary: `CvxRewardDistributor.claimMultipleStaking()` calls `claimCvgCvxMultiple()` on a **caller-supplied** contract array without checking that those contracts are registered staking services, so an attacker-controlled mock returns an enormous "claimable" CVG amount that the trusted distributor then mints — draining the whole remaining `MAX_STAKING` allocation in one transaction.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at

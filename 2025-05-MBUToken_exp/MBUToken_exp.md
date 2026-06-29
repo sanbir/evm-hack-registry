@@ -1,5 +1,7 @@
 # MBU Token Exploit — Decimal-Scaling Bug in `deposit()` Mints ~1e18× Too Many Tokens
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

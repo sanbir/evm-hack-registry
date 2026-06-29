@@ -1,5 +1,7 @@
 # BEC (BeautyChain) Exploit — `batchTransfer()` Integer-Overflow Infinite Mint (`batchOverflow`)
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # XSTABLE.PROTOCOL (XST) Exploit — `skim()`-driven elastic-supply mint that re-inflates the pool's own token reserve
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # TiFi Finance Exploit — Spot-Price Oracle Manipulation of a Lending Pool
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > One-line summary: TiFi's `LendingPool` priced collateral with a live PancakeSwap **spot** reserve ratio
 > (`GetPrice.getTokenToBNBPrice`), so an attacker flash-borrowed WBNB, dumped it into the thin **WBNB/BUSD**
 > pool to inflate BUSD's BNB price ~77×, deposited 500 BUSD as now-overvalued collateral, and borrowed the

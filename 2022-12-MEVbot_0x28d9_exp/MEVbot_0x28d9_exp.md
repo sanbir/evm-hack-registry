@@ -1,5 +1,7 @@
 # MEV Bot 0x28d9 Exploit — Flash-Loan Callback Hijack via Attacker-Controlled `assetTo`
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

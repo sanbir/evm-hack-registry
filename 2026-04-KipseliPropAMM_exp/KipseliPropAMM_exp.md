@@ -1,5 +1,7 @@
 # Kipseli PropAMM Exploit — USD-Scale Quote Misread as cbBTC Token Units
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork state is served locally from `anvil_state.json`
 > (the test `createSelectFork`s a `127.0.0.1` anvil port pinned to Base block 45,008,654).

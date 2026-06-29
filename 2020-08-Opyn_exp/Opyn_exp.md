@@ -1,5 +1,7 @@
 # Opyn ETH Put Exploit — Reused `msg.value` Across a Multi-Vault `exercise()` Loop
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/logic/state-update
+
 > One ETH-underlying payment is checked against **each** vault inside a single
 > `exercise()` call, so the attacker collects collateral from N vaults while paying the
 > underlying only once — and then withdraws even that single payment back.

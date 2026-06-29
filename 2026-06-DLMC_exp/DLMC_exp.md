@@ -1,5 +1,7 @@
 # DLMC Exploit — Reserve-Derived `livePrice` Self-Inflation Drains the Token's Own USDT Backing
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/single-source
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the local
 > `anvil_state.json` snapshot (the test's `createSelectFork` points at a

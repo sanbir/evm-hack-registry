@@ -1,5 +1,7 @@
 # OpenLeverage `RewardVaultDelegator` Exploit — Re-initializable Proxy → Admin Takeover → Arbitrary `delegatecall`
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted).

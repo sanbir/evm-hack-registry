@@ -1,5 +1,7 @@
 # SubQuery (SQT) Exploit — Unprotected `Settings.setBatchAddress()` Role Hijack
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/access-control/centralization
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the project's local
 > `anvil_state.json` (a `createSelectFork` against a `127.0.0.1` anvil port), so no

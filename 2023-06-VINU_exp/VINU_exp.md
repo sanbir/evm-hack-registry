@@ -1,5 +1,7 @@
 # Viral Inu (VINU) Exploit — Permissionless `addLiquidityETH()` Drains Pool's Own Token Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/state-update · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that fail to whole-compile, so this one was extracted).

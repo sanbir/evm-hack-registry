@@ -1,5 +1,7 @@
 # LABUBU Exploit — Self-Transfer Balance Inflation via Stale Cached Balances
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/incorrect-order-of-operations
+
 > One-liner: a `transfer(self, amount)` on the LABUBU token **mints** `amount` to the
 > caller because `_transfer` caches the sender and recipient balances into local
 > variables *before* writing them, so the recipient write (which overwrites the

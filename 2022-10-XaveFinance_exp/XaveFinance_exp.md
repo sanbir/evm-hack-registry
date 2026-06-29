@@ -1,5 +1,7 @@
 # Xave Finance Exploit — SafeSnap / Reality `DaoModule` Permissionless Governance Takeover
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/governance/timelock-bypass
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt).

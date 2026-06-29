@@ -1,5 +1,7 @@
 # Compound v2 cUNI Exploit — Stale-Oracle Discount Borrow (Open Oracle `UniswapAnchoredView`)
 
+> **Vulnerability classes:** vuln/oracle/stale-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_Uniswap_UniswapAnchoredView.sol](sources/UniswapAnchoredView_50ce56/contracts_Uniswap_UniswapAnchoredView.sol).

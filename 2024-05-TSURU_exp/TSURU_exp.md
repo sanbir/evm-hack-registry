@@ -1,5 +1,7 @@
 # TSURU Wrapper Exploit — Unprotected `onERC1155Received` Free-Mint Drains the LP
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted). Full verbose trace:

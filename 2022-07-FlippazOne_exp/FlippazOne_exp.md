@@ -1,5 +1,7 @@
 # FlippazOne Exploit — Missing `onlyOwner` on the Fund-Withdrawal Functions
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

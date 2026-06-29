@@ -1,5 +1,7 @@
 # Unizen Exploit — Arbitrary `call` in the Unizen Aggregator Drains Any User Who Approved It
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/input-validation/missing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).

@@ -1,5 +1,7 @@
 # MARA (MaraToken) Exploit — Permissionless Mint via an Unprotected "Buy" Proxy that is a Token Keeper
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/centralization
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > whole-compile under `forge test`, so this one was extracted).

@@ -1,5 +1,7 @@
 # PAID Network Exploit — Compromised Upgrade/Owner Key → Unlimited `mint()`
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/access-control/centralization
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

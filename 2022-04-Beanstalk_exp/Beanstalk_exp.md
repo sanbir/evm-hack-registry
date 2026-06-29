@@ -1,5 +1,7 @@
 # Beanstalk Farms Exploit — Flash-Loan Governance Self-Pass
 
+> **Vulnerability classes:** vuln/governance/flash-loan-voting · vuln/governance/timelock-bypass
+
 > **Reproduction:** the PoC compiles in an isolated Foundry project at
 > [this project folder](.); full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Beanstalk Diamond](sources/Diamond_C1E088),

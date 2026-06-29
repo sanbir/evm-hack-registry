@@ -1,5 +1,7 @@
 # MEV Bot `0x8c2d` Exploit — Permissionless Asset-Harvester Drains a Pre-Approved Victim
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > One-line summary: a generic "asset harvesting" infrastructure contract lets **anyone** designate
 > themselves a privileged role and then move an arbitrary owner's pre-approved ERC-20 balance, so the
 > attacker self-authorizes and sweeps **366,058 BUSDT (~$365K)** out of a victim MEV bot that had

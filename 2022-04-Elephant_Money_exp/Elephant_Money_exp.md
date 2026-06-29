@@ -1,5 +1,7 @@
 # Elephant Money Exploit — Infinite Mint via the Unverified Trunk Router (`mint`/`redeem` Accounting Flaw + Elephant Buy-Back Feedback)
 
+> **Vulnerability classes:** vuln/logic/price-calculation · vuln/defi/fee-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The attack is reproduced fully offline against a
 > local anvil fork pinned at BSC block `16,886,438` (`createSelectFork` points

@@ -1,5 +1,7 @@
 # BEARN/Bvaults `convertDustToEarned()` Exploit — Permissionless, Slippage-Free Dump of a Strategy's "Dust" Balance
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage
+
 > **One-line summary:** Bearn/Bvaults' `BvaultsStrategy.convertDustToEarned()` is a `public`, access-control-free, `amountOutMin = 0` swap of the strategy's *entire* `want`-token balance along a hard-coded route, so an attacker who first de-pegs the route's pools with a flash loan makes the strategy sell ~768K BUSD into a manipulated price and then harvests the displaced value for itself.
 
 > **Reproduction:** the PoC compiles and runs in an isolated Foundry project at

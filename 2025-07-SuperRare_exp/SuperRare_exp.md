@@ -1,5 +1,7 @@
 # SuperRare Staking Exploit — Permissionless `updateMerkleRoot()` + Single-Leaf Merkle Forgery
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/logic/wrong-condition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted into a standalone project).

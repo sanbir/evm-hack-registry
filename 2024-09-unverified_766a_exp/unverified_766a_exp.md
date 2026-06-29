@@ -1,5 +1,7 @@
 # 0x71cd Swap-Helper Exploit — Permissionless `pancakeV3SwapCallback` Drains a Pre-Approved Victim
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted). Full verbose trace: [output.txt](output.txt).

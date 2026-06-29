@@ -1,5 +1,7 @@
 # VRUG ("Vitalik's Rug") Exploit — Unsynced UniswapV2 Reserve Donation Harvest
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

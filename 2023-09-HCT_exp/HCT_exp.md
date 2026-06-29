@@ -1,5 +1,7 @@
 # HCT (CoinToken) Exploit — Reflection-Token `burn()` Deflates the Pool's Reserve to 1 wei
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted into its own project).

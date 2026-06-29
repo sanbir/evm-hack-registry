@@ -1,5 +1,7 @@
 # UFO/UFDao (UFT) Exploit — Treasury-Share Mispricing on a Tiny-Supply LP Token
 
+> **Vulnerability classes:** vuln/logic/price-calculation · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). It forks BSC state offline from a local anvil node
 > (`createSelectFork("http://127.0.0.1:8546", 24_705_058)`), so no public RPC is

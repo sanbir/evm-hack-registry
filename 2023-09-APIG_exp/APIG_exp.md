@@ -1,5 +1,7 @@
 # APIG Token Exploit — Self-Transfer Balance-Doubling Bug Drains Two Pools
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted standalone).

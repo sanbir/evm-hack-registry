@@ -1,5 +1,7 @@
 # BBX Token Exploit — Stuck Daily-Burn Repeatedly Drains the Pool's BBX Reserve
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated PoCs
 > that do not whole-compile under `forge test`, so this one was extracted).

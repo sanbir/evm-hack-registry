@@ -1,5 +1,7 @@
 # Grim Finance Exploit — Reentrant `depositFor()` Share Inflation in the GrimBoost Vault
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs that
 > do not whole-compile under `forge test`, so this one was extracted).

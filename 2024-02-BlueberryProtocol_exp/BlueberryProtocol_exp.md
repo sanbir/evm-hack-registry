@@ -1,5 +1,7 @@
 # Blueberry Protocol Exploit — Oracle Decimal Mismatch Enables ~$1.4M Under-Collateralized Borrow
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/oracle/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.)
 > (the umbrella DeFiHackLabs repo does not whole-compile).
 > Full verbose trace: [output.txt](output.txt).

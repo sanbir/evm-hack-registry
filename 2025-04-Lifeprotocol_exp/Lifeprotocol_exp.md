@@ -1,5 +1,7 @@
 # Life Protocol Exploit — Asymmetric Bonding Curve: Pump the Buy Price, Dump at 90% of the Peak
 
+> **Vulnerability classes:** vuln/logic/price-calculation · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > whole-compile, so this one was extracted standalone).

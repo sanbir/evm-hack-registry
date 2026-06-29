@@ -1,5 +1,7 @@
 # Redacted Cartel (wxBTRFLY) Exploit — Faulty `transferFrom` Allowance Logic
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [wxBTRFLY](sources/wxBTRFLY_186E55).

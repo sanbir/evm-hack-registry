@@ -1,5 +1,7 @@
 # Kame Aggregator Exploit — Unvalidated `executor.call()` in `swap()` Drains User Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/logic/missing-validation
+
 > **One-liner:** Kame's `AggregationRouter.swap()` performs a low-level
 > `params.executor.call{value: msg.value}(params.executeParams)` with **zero validation**
 > of the target or the calldata, so anyone can make the router — which holds standing

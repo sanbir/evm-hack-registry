@@ -1,5 +1,7 @@
 # DeezNutz (DN404) Exploit — Self-Transfer Balance Inflation in a Reflection-Fork of DN404
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile together, so this one is extracted).

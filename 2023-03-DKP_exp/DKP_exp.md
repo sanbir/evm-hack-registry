@@ -1,5 +1,7 @@
 # DKP Exchange Exploit — Flash-Loan-Manipulated AMM Price Oracle Lets 100 USDT Buy the Whole DKP Reserve
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated PoCs that do not compile, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).

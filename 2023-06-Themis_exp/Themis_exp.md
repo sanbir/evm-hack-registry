@@ -1,5 +1,7 @@
 # Themis Protocol Exploit — Manipulable Balancer-LP (BPT) Price Oracle Enables Over-Borrowing
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/oracle/missing-circuit-breaker · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one is extracted).

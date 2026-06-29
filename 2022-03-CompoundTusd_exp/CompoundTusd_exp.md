@@ -1,5 +1,7 @@
 # Compound cTUSD `sweepToken` Exploit — Comptroller Swap to Compliant TrueUSD
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [CErc20Delegate](sources/CErc20Delegate_a035b9),

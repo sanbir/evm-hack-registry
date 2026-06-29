@@ -1,5 +1,7 @@
 # Bankroll Network Stack Exploit — Self-Buy Dividend Inflation via `buyFor(bankRoll, …)`
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/access-control/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

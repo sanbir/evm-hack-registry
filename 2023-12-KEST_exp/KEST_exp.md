@@ -1,5 +1,7 @@
 # KEST (KEKESANTA) Exploit — Fee-on-Transfer Reserve De-Sync + `skim()` Pool Drain
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

@@ -1,5 +1,7 @@
 # RADT (RADT-DAO / "Dream plan" TWN) Exploit — Permissionless Reward `withdraw()` Drains the LP Pair's Token Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo bundles many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

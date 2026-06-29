@@ -1,5 +1,7 @@
 # Swapos V2 Pair Exploit — Broken `k`-Value Invariant Lets 10 wei of WETH Drain ~98% of the Pool's SWP
 
+> **Vulnerability classes:** vuln/arithmetic/precision-loss · vuln/arithmetic/decimal-mismatch
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated PoCs that do not compile, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).

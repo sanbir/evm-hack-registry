@@ -1,5 +1,7 @@
 # DTXT Exploit — 1-Wei USDT Donation Misclassifies a Sell as a Liquidity Add (Fee Bypass + Stale-Reserve Drain)
 
+> **Vulnerability classes:** vuln/logic/wrong-condition · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

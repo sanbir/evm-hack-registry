@@ -1,5 +1,7 @@
 # Pickle Finance Exploit — Arbitrary `delegatecall` Through an Approved Jar Converter Drains the DAI pToken Strategy
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

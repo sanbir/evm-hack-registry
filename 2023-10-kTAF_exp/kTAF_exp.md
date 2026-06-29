@@ -1,5 +1,7 @@
 # Kerberus / kTAF Exploit — Compound-Fork Exchange-Rate Inflation via a Donatable, Tiny-Cash Collateral Token
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

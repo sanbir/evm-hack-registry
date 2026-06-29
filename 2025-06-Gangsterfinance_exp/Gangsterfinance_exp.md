@@ -1,5 +1,7 @@
 # Gangster Finance "OG Vault" Exploit — Stale `lastPayout` Drip-Pool Drain via Self-`donate()` + `harvest()`
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/oracle/stale-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted standalone).

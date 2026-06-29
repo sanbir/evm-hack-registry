@@ -1,5 +1,7 @@
 # BankrollStack (BankrollNetworkStack) Exploit — Flash-Loan Dividend-Drip Capture
 
+> **Vulnerability classes:** vuln/governance/flash-loan-attack · vuln/logic/incorrect-order-of-operations · vuln/defi/slippage
+
 > **One-liner:** A flash loan buys ~99.9% of the dividend contract's supply for one block, so the
 > per-block "drip" of the accumulated dividend pool (`distribute()`) is credited almost entirely to
 > the attacker, who then sells and `withdraw()`s **more BUSD than they deposited net of fees** — walking

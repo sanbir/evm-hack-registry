@@ -1,5 +1,7 @@
 # vETH (Lambo.win) Exploit — Unbacked `takeLoan` via `addVirtualLiquidity` Inflates an AMM Pair
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was
 > extracted). Full verbose trace: [output.txt](output.txt).

@@ -1,5 +1,7 @@
 # Ora AI (ORAAI) Exploit — Permissionless `stuckToken()` Allowance Grant Drains the Uniswap Pair
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > One sentence: a public, access-control-free `stuckToken()` function lets anyone hand a hard-coded
 > "tax" address unlimited spending allowance over *any* address — including the Uniswap V2 pair — so
 > the attacker drained the pool's ORAAI, `sync()`'d the now-empty token reserve, and swapped dust for

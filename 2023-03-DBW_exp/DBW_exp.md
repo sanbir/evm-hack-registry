@@ -1,5 +1,7 @@
 # DBW Finance Exploit — Dividend Reward Double-Claimed via 18 Proxy Clones Each Holding ~100% of the LP
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated PoCs that do not compile, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).

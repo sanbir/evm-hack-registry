@@ -1,5 +1,7 @@
 # AROS Exploit — Leaked `claimSigner` Key + AMM-Reserve Drain via Signed Claims
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

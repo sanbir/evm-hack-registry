@@ -1,5 +1,7 @@
 # Sheep Exploit — Reflective-Token `_burn` Distorts `balanceOf`, Drains SHEEP/WBNB Pair via DODO Flash
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [CoinToken.sol](sources/CoinToken_0025B4/CoinToken.sol)

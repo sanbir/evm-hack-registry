@@ -1,5 +1,7 @@
 # Fractal Protocol Exploit — Stale-Price / Retroactive-Yield Arbitrage via Permissionless `compute()`
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/access-control/missing-auth · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable logic (the proxy itself is unverified, but its

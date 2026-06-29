@@ -1,5 +1,7 @@
 # Contract `0x7657…` Exploit — Permissionless `transferFrom`-Drain of Standing Approvals
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-allowance
+
 > One-line summary: an unverified contract exposes a **public, unauthenticated** entry
 > point (selector `0x0a8fe064`) that calls `USDT.transferFrom(victim → self)` for any
 > address that had granted it an allowance, then hands the funds to `msg.sender` — letting

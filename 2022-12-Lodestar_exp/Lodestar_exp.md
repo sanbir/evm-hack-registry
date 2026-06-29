@@ -1,5 +1,7 @@
 # Lodestar Finance Exploit — `plvGLP` Oracle Inflation Drains the Lending Pools
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC lives in an isolated Foundry project at [this project folder](.) — the umbrella DeFiHackLabs repo does not whole-build, so this one was extracted.
 > Verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_plvGLP_PlvGlpToken.sol](sources/PlvGlpToken_5326E7/contracts_plvGLP_PlvGlpToken.sol) and

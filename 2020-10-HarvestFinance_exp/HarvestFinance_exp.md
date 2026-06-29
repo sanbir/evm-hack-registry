@@ -1,5 +1,7 @@
 # Harvest Finance Exploit — Vault Share-Price Manipulation via Curve y-Pool Imbalance
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project.

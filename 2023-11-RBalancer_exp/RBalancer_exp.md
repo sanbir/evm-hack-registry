@@ -1,5 +1,7 @@
 # StakeStone `StoneVault` Exploit — Same-Block Deposit + `instantWithdraw` Skims Strategy-Realization Surplus
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile under one whole-project build, so this one

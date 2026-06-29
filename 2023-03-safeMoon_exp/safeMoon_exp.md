@@ -1,5 +1,7 @@
 # SafeMoon Exploit — Unprotected `burn(from, amount)` Drains the AMM Pair Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from a local anvil state
 > dump (`anvil_state.json`); `createSelectFork` points at `http://127.0.0.1:8546`,

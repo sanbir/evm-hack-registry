@@ -1,5 +1,7 @@
 # Juicebox REVLoans Exploit — Trust-on-First-Use of a Caller-Supplied Loan Source Inflates Borrowable Surplus
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

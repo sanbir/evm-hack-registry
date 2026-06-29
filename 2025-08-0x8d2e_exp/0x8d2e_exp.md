@@ -1,5 +1,7 @@
 # 0x8d2e Exploit — Permissionless `uniswapV3SwapCallback` Drains the Contract's USDC
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/broken-logic
+
 > One-liner: the victim's `uniswapV3SwapCallback` can be called by anyone with attacker-chosen
 > token/recipient/amount, and its only "guard" (`require(msg.sender == recipient)`) is trivially
 > satisfied by setting the recipient to yourself — so a single external call transfers the whole

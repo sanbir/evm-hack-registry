@@ -1,5 +1,7 @@
 # Yearn / iEarn yToken Exploit — APR-Oracle Routing + bZx Donation Inflates Price-Per-Share for ~$11.5M
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-order-of-operations · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated PoCs that do not compile, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).

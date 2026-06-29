@@ -1,5 +1,7 @@
 # SELLC / StakingRewards Exploit — Permissionless `sell()` Drains Staked LP Tokens via a Self-Created Price Oracle
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that fail to compile under one whole-project build, so this one was extracted).

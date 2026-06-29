@@ -1,5 +1,7 @@
 # SBR Token Exploit — `skim()` + broken token `transfer` zeroes a Uniswap-V2 reserve
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted).

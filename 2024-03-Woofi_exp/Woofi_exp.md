@@ -1,5 +1,7 @@
 # WooFi (WooPPV2) Exploit — Slippage-Model Price Collapse Drain
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/missing-circuit-breaker
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile, so this one was extracted).

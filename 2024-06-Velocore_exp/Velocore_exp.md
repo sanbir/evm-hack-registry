@@ -1,5 +1,7 @@
 # Velocore V2 Exploit — `feeMultiplier` Overflow Turns a Withdrawal Into a Pool Drain
 
+> **Vulnerability classes:** vuln/arithmetic/underflow · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted into a standalone project).

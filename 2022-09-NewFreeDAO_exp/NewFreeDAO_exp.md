@@ -1,5 +1,7 @@
 # NewFreeDAO (NFD) Exploit — Stateless, Self-Resetting Reward Lets a Borrowed Balance Be Compounded 50×
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile under `forge test`, so this one was extracted).

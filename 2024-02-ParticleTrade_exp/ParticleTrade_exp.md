@@ -1,5 +1,7 @@
 # Particle Trade Exploit — Forged-Lien `accountBalance` Mint via `onERC721Received`
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

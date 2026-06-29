@@ -1,5 +1,7 @@
 # MIC Token Exploit — LP-Fee Distributor Pays the Same LP Tokens Over and Over
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

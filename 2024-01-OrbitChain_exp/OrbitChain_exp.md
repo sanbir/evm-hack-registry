@@ -1,5 +1,7 @@
 # Orbit Chain Bridge Exploit — Forged Validator Signatures Drain the ETH Vault
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/bridge/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that fail to whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # NovaBox Exploit — Stale Dividend Checkpoint on Join + Constructor `extcodesize` Bypass
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the local
 > `anvil_state.json`, so no public archive RPC is needed.

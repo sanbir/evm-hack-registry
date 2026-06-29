@@ -1,5 +1,7 @@
 # iVestDAO Exploit — `skim()` Re-Routed Through a Reflection Token's Burn-Donation Hook
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/defi/slippage
+
 > **One-liner:** iVestDAO is a reflection token whose `_transfer` treats *any* send to `address(0)` as a 100%-burn "donation" **and then keeps going to do a second, ordinary fee-bearing transfer of the same amount**. PancakeSwap's `skim(address(0))` therefore destroys **double** the surplus it forces out of the pair; repeating skim+`sync()` ratchets the pair's iVest reserve down to ~0 while the WBNB reserve is untouched, letting the attacker buy out the entire WBNB side with dust iVest.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([this folder](.)).

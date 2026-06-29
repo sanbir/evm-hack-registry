@@ -1,5 +1,7 @@
 # Goldseed `landNFT` Exploit — Unprotected Minter Forwarder Lets Anyone Free-Mint 200 Land NFTs
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/broken-logic · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

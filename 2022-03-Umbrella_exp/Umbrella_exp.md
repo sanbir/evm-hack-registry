@@ -1,5 +1,7 @@
 # Umbrella Network RewardPool Exploit — Integer Underflow in `withdraw`
 
+> **Vulnerability classes:** vuln/arithmetic/underflow
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [StakingRewards](sources/StakingRewards_B3FB1D).

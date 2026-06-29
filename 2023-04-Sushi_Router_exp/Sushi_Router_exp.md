@@ -1,5 +1,7 @@
 # Sushi RouteProcessor2 Exploit — Attacker-Controlled "Pool" Drains Approved Tokens via `uniswapV3SwapCallback`
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not compile under a single `forge build`, so this one was extracted).

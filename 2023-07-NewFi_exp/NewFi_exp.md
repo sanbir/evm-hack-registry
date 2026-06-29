@@ -1,5 +1,7 @@
 # NewFi / StakedV3 Exploit — Flash-Loan Price Manipulation of an Unprotected Internal V3 Swap
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/slippage · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs
 > that do not whole-compile, so this one is extracted standalone).

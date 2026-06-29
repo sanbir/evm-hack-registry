@@ -1,5 +1,7 @@
 # WETC Token Exploit — Fee-on-Transfer + `skim`/`sync` Reserve Drain
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/price-manipulation
+
 > One-liner: WETC's transfer-tax routes **100% of any "buy" (transfer *from* the pair) away to fee wallets**, so calling PancakeSwap's `skim()` repeatedly silently deletes WETC from the pool's balance; a following `sync()` writes the collapsed balance into the reserves, detonating the price so the attacker can dump WETC for ~101k USDT.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

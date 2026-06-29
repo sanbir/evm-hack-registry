@@ -1,5 +1,7 @@
 # JPulsepot / FortuneWheel Exploit — Permissionless `swapProfitFees()` + Spot-Price Fee Sizing
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/spot-price
+
 > One-liner: a permissionless, slippage-blind fee-conversion routine reads a **live, flash-loan-manipulable** PancakeSwap spot price to size how much of the casino's reserves it dumps for LINK — letting an attacker force the protocol to overpay into a pool the attacker controls and harvest the difference.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

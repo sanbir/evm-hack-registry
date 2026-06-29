@@ -1,5 +1,7 @@
 # EHX (Eterna) Exploit — Fee-on-Transfer / AMM `skim` Drain
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Verbose trace: [output.txt](output.txt) (test `[PASS]`; the file captures the

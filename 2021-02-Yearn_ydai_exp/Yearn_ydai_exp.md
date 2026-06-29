@@ -1,5 +1,7 @@
 # Yearn yDAI v1 Exploit — Curve-Backed Vault Share-Price Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > all compile together, so this one was extracted into a standalone project).

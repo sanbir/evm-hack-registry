@@ -1,5 +1,7 @@
 # ZongZi / ZZF Exploit — Manipulated-Price Reward Drain via `burnToHolder` + `receiveRewards`
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project in
 > [this folder](.). The umbrella DeFiHackLabs repo contains many unrelated PoCs that
 > do not whole-compile, so this one was extracted. Full verbose trace: [output.txt](output.txt).

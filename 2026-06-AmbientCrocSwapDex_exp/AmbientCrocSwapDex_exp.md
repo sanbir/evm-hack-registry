@@ -1,5 +1,7 @@
 # Ambient (CrocSwap) Exploit — Native-ETH Surplus Settlement Drained via a Self-Dealt Grid-Walk + Range Harvest
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
 > `anvil_state.json` (a local anvil instance), so no public archive RPC is needed.

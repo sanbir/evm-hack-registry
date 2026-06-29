@@ -1,5 +1,7 @@
 # Impermax V3 Exploit — Self-Liquidation Debt Wipe via `restructureBadDebt`
 
+> **Vulnerability classes:** vuln/logic/liquidation-logic · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

@@ -1,5 +1,7 @@
 # XAI / CoinToken Exploit — Reflection-Token `burn()` Collapses Pool Balance via Un-touched `_rTotal`
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

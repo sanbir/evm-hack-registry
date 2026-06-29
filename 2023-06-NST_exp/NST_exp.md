@@ -1,5 +1,7 @@
 # NST Swap Exploit — Dangling `approve()` lets the buyer drain the swap contract's USDT reserves
 
+> **Vulnerability classes:** vuln/logic/missing-allowance · vuln/logic/state-update · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not all compile, so this one was extracted into a standalone project).

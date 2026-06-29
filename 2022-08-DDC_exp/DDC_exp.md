@@ -1,5 +1,7 @@
 # DDC (BananaSwapToken) Exploit — Permissionless `handleDeductFee()` Pool-Reserve Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

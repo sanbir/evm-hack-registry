@@ -1,5 +1,7 @@
 # TrustPad `LaunchpadLockableStaking` Exploit — Deposit/Withdraw Reward-Accounting Desync
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/reward-calculation
+
 > One-liner: the launchpad's lockable staking pool credits "up-pool" rewards via a `receiveUpPool` / `withdraw` pair whose global accounting counter is incremented only once per staker but **decremented on every withdrawal**, so a repeated deposit→withdraw loop desyncs the reward bookkeeping and lets the attacker harvest the pool's entire TPAD reward reserve (~$155K).
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([this folder](.)).

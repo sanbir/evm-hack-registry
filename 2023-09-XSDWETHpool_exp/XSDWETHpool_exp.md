@@ -1,5 +1,7 @@
 # BankX / XSD Exploit — Router `swapXSDForETH()` Triggers an Un-Compensated Pool Burn
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated PoCs that do
 > not whole-compile, so this one was extracted).

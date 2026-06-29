@@ -1,5 +1,7 @@
 # Paraluni MasterChef Exploit — Reentrancy in `depositByAddLiquidity` via Malicious Token
 
+> **Vulnerability classes:** vuln/reentrancy/single-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [ParaProxy](sources/ParaProxy_633Fa7).

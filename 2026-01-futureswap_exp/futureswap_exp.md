@@ -1,5 +1,7 @@
 # FutureSwap Perpetual Drain — Fee Unit-Mismatch (`addFee` token-units interpreted as bps/share)
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/logic/fee-calculation
+
 > One-line summary: a perpetual-swap protocol on Arbitrum computes a position fee in **token units**
 > (`abs(delta) * feeRateWad / 1e18`) and forwards it into a `FeeManager.addFee(...)` accounting system
 > that interprets the same number as a **basis-point / share weight**, letting an attacker over-credit

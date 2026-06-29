@@ -1,5 +1,7 @@
 # BigBangSwap Exploit — `sellRewardToken` Pays Out Against a Richer Pool Than the Seller Bought From
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/price-calculation
+
 > One-line summary: BigBangSwap's `sellRewardToken()` rewards a seller in BUSD based on the
 > value of BGG in BigBangSwap's **own** (expensive) AMM pool, while BGG can be bought ~13x cheaper
 > on the parallel PancakeSwap pool — a cross-pool arbitrage that lets anyone mint BUSD out of the

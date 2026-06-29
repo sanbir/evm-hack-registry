@@ -1,5 +1,7 @@
 # SHOCO Exploit — Reflection `deliver()` Deflation Inflates the AMM Pair's Effective Balance
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Shoco.sol](sources/Shoco_31A4F3/Shoco.sol).

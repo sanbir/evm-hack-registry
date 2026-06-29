@@ -1,5 +1,7 @@
 # NBLGAME (NblNftStake) Exploit — ERC721 `onERC721Received` Reentrancy Double-Withdraw
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

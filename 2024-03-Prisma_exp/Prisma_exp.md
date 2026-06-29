@@ -1,5 +1,7 @@
 # Prisma Finance Exploit — Unauthorised `MigrateTroveZap` Flash-Loan Callback Drains Trove Collateral
 
+> **Vulnerability classes:** vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [MigrateTroveZap.sol](sources/MigrateTroveZap_cC7218/contracts_zaps_MigrateTroveZap.sol).

@@ -1,5 +1,7 @@
 # Hundred Finance Exploit — ERC-667 Reentrancy in `borrow`/`redeem` (Compound fork)
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 

@@ -1,5 +1,7 @@
 # Freedom (FREE / FREEB) Exploit — Slippage-less Treasury Buy at an Attacker-Manipulated Price
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

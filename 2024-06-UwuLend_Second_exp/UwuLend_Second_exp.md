@@ -1,5 +1,7 @@
 # UwuLend (2nd hack) — Hardcoded `$1.04` sUSDE Oracle + Live 80% Liquidation Threshold
 
+> **Vulnerability classes:** vuln/oracle/wrong-feed · vuln/logic/wrong-condition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not whole-compile, so this one was extracted into its own project).

@@ -1,5 +1,7 @@
 # Aurum Finance (AUR) Exploit — Unprotected `changeRewardPerNode()` Drains the Node-Reward Pool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not compile under a whole-project build, so this one was extracted).

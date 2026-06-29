@@ -1,5 +1,7 @@
 # Thena RewardPool Exploit — Reentrant `unstake(…, claim=true)` Double-Payout of Converted Rewards
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not all compile together, so this one was extracted).

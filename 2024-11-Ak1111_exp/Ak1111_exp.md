@@ -1,5 +1,7 @@
 # AkashaOFT (AK1111) Exploit — Permissionless `nonblockingLzReceive1()` Free-Mint Backdoor
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/bridge/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

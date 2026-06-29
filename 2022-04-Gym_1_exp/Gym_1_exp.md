@@ -1,5 +1,7 @@
 # Gym Network `LiquidityMigrationV2` Exploit — Migration Contract Spends Its Own `GYMNET` to Mint LP for the Caller
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_LpMigration.sol](sources/LiquidityMigrationV2_1BEfe6/contracts_LpMigration.sol).

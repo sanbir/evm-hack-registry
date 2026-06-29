@@ -1,5 +1,7 @@
 # Popsicle Finance (Sorbetto Fragola) Exploit — LP-Token Transfer Skips Reward-Debt Sync
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that don't whole-compile, so this one was extracted).

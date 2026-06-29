@@ -1,5 +1,7 @@
 # Wise Lending — Lending-Share Price Inflation via Deposit/Withdraw Rounding Asymmetry
 
+> **Vulnerability classes:** vuln/arithmetic/rounding-direction · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

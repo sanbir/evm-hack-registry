@@ -1,5 +1,7 @@
 # ElasticSwap Exploit — Internal-Reserve Manipulation Drains the TIC/USDC.e AMM
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not compile, so this one was extracted).

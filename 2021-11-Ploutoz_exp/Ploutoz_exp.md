@@ -1,5 +1,7 @@
 # Ploutoz / Dollar Online (DOP) Exploit — Spot-Price Oracle Manipulation Against a bZx/Fulcrum-Fork Lending Pool
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/single-source · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

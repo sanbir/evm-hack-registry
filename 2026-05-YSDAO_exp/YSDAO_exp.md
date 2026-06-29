@@ -1,5 +1,7 @@
 # YSDAO Exploit — Balance-vs-Reserve "Add/Remove Liquidity" Tax Bypass + Permissionless `Staking.sync()` Price Pump
 
+> **Vulnerability classes:** vuln/logic/wrong-condition · vuln/access-control/missing-auth · vuln/defi/fee-manipulation · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > all compile together, so this one was extracted).

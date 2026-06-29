@@ -1,5 +1,7 @@
 # DODO DVM Flashloan Exploit — Unprotected `init()` Reinterprets Pool Reserves
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/data/uninitialized
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

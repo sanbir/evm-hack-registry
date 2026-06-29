@@ -1,5 +1,7 @@
 # Resupply Finance Exploit — Empty-Vault Share-Price Inflation → `exchangeRate = 0` → Uncollateralized Borrow
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/rounding · vuln/logic/wrong-condition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains many unrelated PoCs that
 > do not all compile together, so this one was extracted into its own project).

@@ -1,5 +1,7 @@
 # 0x0000…a47b1 MEV Bot Exploit — Unauthenticated `receiveFlashLoan` Drains Idle WETH
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # SATX Exploit — Permissionless `destroyPoolToken()` Reserve Manipulation + `skim()` Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > has many unrelated PoCs that do not whole-compile, so this one was extracted).

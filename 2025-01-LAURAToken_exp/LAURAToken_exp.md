@@ -1,5 +1,7 @@
 # LAURA Token Exploit — Permissionless `removeLiquidityWhenKIncreases()` Reserve Burn
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted standalone).

@@ -1,5 +1,7 @@
 # Gamma Strategies (UniProxy / Hypervisor) Exploit — Spot-Price Vault-Share Inflation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **One-line summary:** The Gamma `Hypervisor` mints LP shares using the **spot price** of its underlying Algebra (Uniswap-V3-style) pool, and the `UniProxy`/`Clearing` "Improper ratio" gate is computed from those same spot-derived reserves — so an attacker who flash-loans capital, skews the pool's spot price, and then deposits/withdraws in a tight loop repeatedly over-mints shares and walks off with the vault's genuine liquidity.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

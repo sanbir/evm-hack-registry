@@ -1,5 +1,7 @@
 # Cream Finance / AMP Exploit — Cross-Market Reentrancy via ERC777 `tokensReceived`
 
+> **Vulnerability classes:** vuln/reentrancy/cross-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). Verified vulnerable sources:

@@ -1,5 +1,7 @@
 # FAPEN (Father Pepe Inu) Exploit — `unstake()` Mints Free Tokens via Backwards Balance Check
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Joe Agent (JOE) Exploit — `removeLiquidityViaContract` Reentrancy on Pooled LP Custody
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/incorrect-order-of-operations · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs as `[PASS]` in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that fail
 > a whole-project `forge build`, so this one was extracted).

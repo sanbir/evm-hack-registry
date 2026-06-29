@@ -1,5 +1,7 @@
 # Venus (vTHE) Exploit — Donation-Inflated Exchange Rate + `borrowBehalf` Drains a Victim's Pre-Approved Delegate
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not compile together, so this one was extracted).

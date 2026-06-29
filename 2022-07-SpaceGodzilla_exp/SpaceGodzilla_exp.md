@@ -1,5 +1,7 @@
 # SpaceGodzilla Exploit — Permissionless `swapTokensForOther` / `swapAndLiquifyStepv1` Pool-Accounting Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not whole-compile, so this one was extracted).

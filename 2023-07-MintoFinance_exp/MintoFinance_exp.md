@@ -1,5 +1,7 @@
 # Minto Finance Exploit — Free BTCMT Minting via Unvalidated `paymentToken` in `ReferralCrowdsale.buyTokens()`
 
+> **Vulnerability classes:** vuln/input-validation/missing · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that fail to whole-compile, so this one was extracted).

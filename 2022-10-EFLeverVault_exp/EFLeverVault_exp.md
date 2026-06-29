@@ -1,5 +1,7 @@
 # EFLeverVault Exploit — Direct `flashLoan(0x2)` Inflate-Balance Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/reentrancy/cross-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo contains hundreds of
 > unrelated PoCs that do not compile, so this one was extracted.

@@ -1,5 +1,7 @@
 # Fantasm Finance Exploit — Decimal Miscalculation in `mint` Over-issues xFTM
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 

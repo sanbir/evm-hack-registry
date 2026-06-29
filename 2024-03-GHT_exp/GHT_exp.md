@@ -1,5 +1,7 @@
 # GHT Exploit — Permissionless `transferFrom` Drains the Uniswap V2 Pair
 
+> **Vulnerability classes:** vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo mixes many PoCs that
 > do not build together, so this one was extracted.

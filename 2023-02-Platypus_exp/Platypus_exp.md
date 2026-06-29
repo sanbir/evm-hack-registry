@@ -1,5 +1,7 @@
 # Platypus Finance Exploit — Flawed LP-Collateral Pricing in `PlatypusTreasure` (`_getLPUnitPrice`)
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [PlatypusTreasure](sources/PlatypusTreasure_bcd679/contracts_lending_PlatypusTreasure.sol),

@@ -1,5 +1,7 @@
 # BurnsDeFi / BurnsBuild Exploit — Spot-AMM Price-Oracle Manipulation in `burnToHolder`
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-build,
 > so the PoC was extracted).

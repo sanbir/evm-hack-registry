@@ -1,5 +1,7 @@
 # Burntbubba (LevX / FarmingLPToken) Exploit — Spot-Price Share Minting Manipulated via Attacker-Created Routing Pools
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted). Full verbose trace: [output.txt](output.txt).

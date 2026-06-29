@@ -1,5 +1,7 @@
 # UwuLend Exploit (#1) — sUSDe Oracle Manipulation via Curve Spot Prices in the Median
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile together, so this one was extracted).

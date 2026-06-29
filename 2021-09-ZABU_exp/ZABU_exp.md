@@ -1,5 +1,7 @@
 # ZABU Finance Exploit — MasterChef Reward Inflation via Fee-on-Transfer `lpSupply` Collapse
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/oracle/price-manipulation
+
 > One-line: ZABU Finance's MasterChef farm computes rewards-per-share from its **live** SPORE balance, and SPORE is a 6%-fee deflationary token — so an attacker repeatedly deposit/withdraws to bleed the farm's SPORE balance down to **3 wei**, making `accZABUPerShare` explode and letting a tiny legitimate stake harvest the farm's **entire 4.53 billion ZABU** reward reserve.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

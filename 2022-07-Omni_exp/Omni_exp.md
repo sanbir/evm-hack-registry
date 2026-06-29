@@ -1,5 +1,7 @@
 # Omni Protocol Exploit — NFT-Lending Re-Entrancy via `withdrawERC721` / `liquidationERC721`
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs
 > that do not whole-compile, so this one was extracted/isolated).

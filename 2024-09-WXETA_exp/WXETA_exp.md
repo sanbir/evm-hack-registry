@@ -1,5 +1,7 @@
 # WXETA (Wrapped Xeta) Exploit — Unprotected Diamond-Facet `initialize()` → Unlimited Mint → AMM Pool Drain
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/access-control/missing-auth · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Yield Protocol Strategy Exploit — Live-Balance `burn()` Donation Inflation
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-build, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).

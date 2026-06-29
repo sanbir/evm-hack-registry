@@ -1,5 +1,7 @@
 # Alkimiya SilicaPools Exploit — `uint128(shares)` Truncation Inflates Redemption Payout
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > does not whole-compile, so this PoC was extracted).

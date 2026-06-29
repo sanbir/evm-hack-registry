@@ -1,5 +1,7 @@
 # Inverse Finance Exploit — Spot-Balance Oracle Manipulation of the `yvCurve-3Crypto` Price Feed
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [YVCrv3CryptoFeed.sol](sources/YVCrv3CryptoFeed_E8b3bC/YVCrv3CryptoFeed.sol).

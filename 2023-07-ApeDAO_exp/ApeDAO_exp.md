@@ -1,5 +1,7 @@
 # ApeDAO (APE2) Exploit — Permissionless `goDead()` Pool-Reserve Burn + `skim()` Tax Pump
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted into a standalone project).

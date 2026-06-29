@@ -1,5 +1,7 @@
 # LaEeb Exploit — Fee-on-Transfer + Auto-Liquify Pool Drain via `skim()` Recycling
 
+> **Vulnerability classes:** vuln/logic/fee-calculation · vuln/defi/slippage · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile under a single `forge build`, so this one was extracted).

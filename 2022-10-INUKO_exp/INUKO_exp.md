@@ -1,5 +1,7 @@
 # INUKO / SIG `Bond` Exploit — Flash-Loan LP Mispricing via `balanceOf`-based Valuation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > compile under a whole-project `forge build`, so this one was extracted).

@@ -1,5 +1,7 @@
 # TesseraSwap Exploit — CEI Violation: Treasury Pays the Output Token Before Collecting the Input Token
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/reentrancy/cross-contract · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
 > `anvil_state.json` (a local anvil replays Base state at the attack block), so no

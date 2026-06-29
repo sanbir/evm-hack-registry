@@ -1,5 +1,7 @@
 # The Idols NFT Exploit — Self-Transfer Reward Double-Claim via `delete claimedSnapshots`
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Saturn Protocol (sUSDat) — Withdrawal Freeze via `strcBalance`/`vestingAmount` Desync + 33% PROCESSOR Extraction
 
+> **Vulnerability classes:** vuln/arithmetic/underflow · vuln/logic/state-update · vuln/dos/frozen-funds · vuln/logic/fee-calculation
+
 > **Disclosure, not a historical exploit.** Saturn Protocol's `StakedUSDat` (sUSDat) ERC-4626 vault
 > was reported as *unpatched* on 2026-04-14 by Innora Security Research. There is no on-chain attack
 > transaction; this writeup reproduces both reported vulnerabilities against **live Ethereum-mainnet

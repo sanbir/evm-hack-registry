@@ -1,5 +1,7 @@
 # Zenterest Exploit — Stale-Oracle Collateral Mispricing on a Compound Fork
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/oracle/missing-validation
+
 > **One-liner:** Zenterest's price oracle stored a `updatedAt` timestamp for every price but **never checked it on read**, so a ~566-day-old zombie price for the worthless `MPH` token let an attacker deposit near-valueless MPH as collateral and borrow out the lending market's entire real `WHITE` cash reserve.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

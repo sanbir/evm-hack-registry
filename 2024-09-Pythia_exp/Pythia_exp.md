@@ -1,5 +1,7 @@
 # Pythia Staking Exploit — Reward-Debt Reset via Receipt-Token Transfer
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/reward-calculation
+
 > One-line summary: `PythiaTokenStaking` is a MasterChef-style reward pool whose receipt token (`SPythia`) is a *plain* ERC20 — transferring it moves the shares but **never moves the reward-debt accounting**, so an attacker can wash their entire stake through fresh addresses and re-claim the full accumulated reward over and over until the reward pool is drained.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

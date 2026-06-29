@@ -1,5 +1,7 @@
 # Pandora's Nodes 404 Exploit — `transferFrom` Allowance Underflow Lets Anyone Move Tokens Out of the Pool
 
+> **Vulnerability classes:** vuln/arithmetic/underflow · vuln/access-control/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # BankrollNetwork Stack Exploit — Stale `lastPayout` Instant-Drip Dividend Inflation
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # LUSD (LAYER3) Exploit — Spot-Price Oracle Manipulation via `Loan.supply()`
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

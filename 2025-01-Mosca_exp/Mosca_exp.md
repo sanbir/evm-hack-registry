@@ -1,5 +1,7 @@
 # Mosca Exploit — `exitProgram()` Pays Out Internal Credit That Was Never Backed by a Deposit
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/incorrect-state-transition
+
 > **One-liner:** Mosca's `buy()` credits the caller a large internal `balanceUSDC`, `exitProgram()`/`withdrawAll()` pays that credit out in real USDC/USDT, but `exitProgram()` only zeroes `user.balance` — it **never clears `balanceUSDC`/`balanceUSDT`** — so the same credit can be withdrawn over and over, draining both stablecoin reserves of the contract.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

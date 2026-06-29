@@ -1,5 +1,7 @@
 # Poolz LockedDeal Exploit — Integer Overflow in `getArraySum` Crediting Free Vesting Pools
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [LockedDeal.sol](sources/LockedDeal_8BfAA4/LockedDeal.sol).

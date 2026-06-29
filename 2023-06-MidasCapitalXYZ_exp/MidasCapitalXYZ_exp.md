@@ -1,5 +1,7 @@
 # Midas Capital Exploit — cToken Exchange-Rate Inflation via Donation Into a Near-Empty Market
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/logic/incorrect-state-transition · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

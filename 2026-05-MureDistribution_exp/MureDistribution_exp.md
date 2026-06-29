@@ -1,5 +1,7 @@
 # Mure Distribution Exploit — Attacker-Controlled `source` Forges Both Verifier and Signature
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/auth/signature-validation · vuln/logic/missing-validation
+
 > One-liner: `MureDistribution.distribute()` reads the signature verifier (`signer`) from a caller-supplied
 > `source` contract and validates the signature against that same attacker-controlled contract via ERC-1271,
 > so anyone can authorize a `transferFrom` out of any wallet that has approved the distributor.

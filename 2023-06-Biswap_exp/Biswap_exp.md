@@ -1,5 +1,7 @@
 # Biswap V3Migrator Exploit — Arbitrary `recipient` LP Theft via Unauthorized `migrate()`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-allowance · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # BabySwap `SwapMining` Exploit — Router-Reported Swap Volume Forged via a Fake Factory
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/missing-validation · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not whole-compile, so this one was extracted).

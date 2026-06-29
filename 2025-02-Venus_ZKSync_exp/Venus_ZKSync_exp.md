@@ -1,5 +1,7 @@
 # Venus (zkSync Era) Exploit — wUSDM ERC4626 Donation → Oracle Price Inflation → Self-Liquidation Drain
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles and the zkSync fork instantiates in an isolated Foundry
 > project at [this project folder](.), but the exploit body **cannot execute under stock Foundry**:
 > zkSync Era contracts are stored as **zkEVM (EraVM) bytecode**, which the standard EVM interpreter

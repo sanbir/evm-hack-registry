@@ -1,5 +1,7 @@
 # Aztec Connect (V3) Exploit — `numRealTxs` proof-vs-settlement coverage mismatch
 
+> **Vulnerability classes:** vuln/bridge/missing-validation · vuln/logic/incorrect-state-transition · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). It replays the attacker's own 14 mainnet rollup-calldata
 > blobs against a forked deprecated `RollupProcessorV3`. Full verbose trace:

@@ -1,5 +1,7 @@
 # Bad Guys by RPF Exploit — Unbounded `chosenAmount` in `WhiteListMint()` (Per-Wallet Mint Limit Bypass)
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/input-validation/boundary
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

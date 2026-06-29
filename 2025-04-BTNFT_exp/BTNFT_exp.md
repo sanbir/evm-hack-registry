@@ -1,5 +1,7 @@
 # BTNFT Exploit — Permissionless Reward Theft via a Broken `_update` Override
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > One-line summary: BTNFT's ERC-721 `_update` override pays a tokenized vesting reward to **`msg.sender`** whenever an NFT is "transferred to the contract", and the override **skips the standard transfer-authorization check**, so anyone can call `transferFrom(<any owner>, BTNFT, tokenId)` to drain every NFT's vesting BTT to themselves — no approval, no ownership required.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([this folder](.)). The umbrella DeFiHackLabs repo contains many unrelated PoCs that do not whole-compile, so this one was extracted.

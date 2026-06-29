@@ -1,5 +1,7 @@
 # SlurpyCoin Exploit — Attacker-Timed Token-Owned `BuyOrSell` Pool Manipulation
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/oracle/price-manipulation
+
 > One-liner: SLURPY's tokenomics contract performs *its own* swaps against the SLURPY/WBNB pool on every
 > transfer once it holds enough SLURPY; an attacker fed the contract SLURPY to control **when** that
 > self-swap fires, wrapped the contract's reentrant "buy-back-and-burn" inside their own sell, and walked

@@ -1,5 +1,7 @@
 # BonqDAO / AllianceBlock Exploit — `TellorFlex` Oracle Price Manipulation (Cheap-Stake `submitValue`)
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/single-source
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the shared
 > `anvil_state.json` snapshot (the test calls `vm.createSelectFork("http://127.0.0.1:8549", …)` —

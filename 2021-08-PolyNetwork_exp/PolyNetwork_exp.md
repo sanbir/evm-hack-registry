@@ -1,5 +1,7 @@
 # Poly Network Exploit — Function-Selector Collision Hijacks the Cross-Chain Keeper Public Key
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/bridge/message-spoofing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs that do not
 > whole-compile, so this one runs standalone).

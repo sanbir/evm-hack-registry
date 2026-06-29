@@ -1,5 +1,7 @@
 # ADC Exploit — Permissionless `calcStepIncome()` Drains the MainPool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Ticket.sol](sources/Ticket_aE2C7a/Ticket.sol).

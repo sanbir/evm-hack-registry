@@ -1,5 +1,7 @@
 # Platypus Finance (2nd hack) — Coverage-Ratio Arbitrage via `withdrawFromOtherAsset`
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/arithmetic/precision-loss
+
 > One-line summary: depositing into an **under-covered** Platypus asset mints *bonus* LP (impairment
 > gain), and `withdrawFromOtherAsset` then lets that LP be redeemed against a **different,
 > well-covered** asset at full face value — converting a discounted position into full value and

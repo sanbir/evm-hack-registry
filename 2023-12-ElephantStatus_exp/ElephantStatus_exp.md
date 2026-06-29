@@ -1,5 +1,7 @@
 # Elephant Money (ElephantStatus) Exploit — Spot-Price Oracle Manipulation of `sweep()`
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/access-control/missing-auth
+
 > One-line summary: An attacker flash-borrowed ~5.44M BUSD, skewed the PancakeSwap BUSD/WBNB pool, then triggered Elephant Money's permissionless `sweep()` — which prices its Treasury-funded buyback off that same manipulated spot pool — and round-tripped the distortion for **~114,386 BUSD (~$114K)** profit.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

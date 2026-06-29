@@ -1,5 +1,7 @@
 # Upswing (UPS) Exploit — `sellPressure` Farming + `releasePressure()` LP-Burn That Breaks `k`
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source (the UpSwing + Steam + ERC20 bundle, deployed at the fork block):

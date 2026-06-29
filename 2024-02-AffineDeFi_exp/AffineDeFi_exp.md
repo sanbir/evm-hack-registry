@@ -1,5 +1,7 @@
 # Affine DeFi LidoLevV3 Exploit — Flashloan-Triggered `upgradeTo` Drains All Aave Collateral
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo holds many unrelated
 > PoCs that do not build together, so this one was extracted).

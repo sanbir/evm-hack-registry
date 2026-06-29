@@ -1,5 +1,7 @@
 # AIZPT314 Exploit — ERC-314 "Buy Mints 2× From Reserve" Price-Skew Drain
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/logic/fee-calculation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

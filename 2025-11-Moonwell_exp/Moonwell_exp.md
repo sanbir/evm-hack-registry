@@ -1,5 +1,7 @@
 # Moonwell Exploit — Corrupted wrsETH Oracle ⇒ Borrow ~$88K Against ~$0.07 of Collateral
 
+> **Vulnerability classes:** vuln/oracle/wrong-feed · vuln/oracle/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

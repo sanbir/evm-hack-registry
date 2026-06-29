@@ -1,5 +1,7 @@
 # BOBO_BOY (BOB) Exploit — Broken `_transfer` Fee Branches Desync Pool Reserves
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/fee-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated PoCs
 > that do not whole-compile, so this one was extracted).

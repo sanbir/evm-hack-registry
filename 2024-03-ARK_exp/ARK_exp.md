@@ -1,5 +1,7 @@
 # ARK Exploit — Public, Rate-Limit-Free `autoBurnLiquidityPairTokens()` AMM Reserve Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.)
 > (the umbrella DeFiHackLabs repo has many unrelated PoCs that fail to compile under a whole-project
 > build, so this one was extracted). Full verbose trace: [output.txt](output.txt).

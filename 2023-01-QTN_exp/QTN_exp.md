@@ -1,5 +1,7 @@
 # QTN (QUATERNION) Exploit — Reflection-Supply Rebase Inflation via `skim()` Loop
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served fully offline from a local
 > `anvil_state.json` snapshot of Ethereum mainnet at block 16,430,212 (the test's

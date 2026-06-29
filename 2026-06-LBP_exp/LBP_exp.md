@@ -1,5 +1,7 @@
 # LBP (Little Boy Plus) Exploit — Reserve-Manipulated LP-Credit Inflates Mining Rewards Minted Into the Pool
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from a local anvil state
 > (`anvil_state.json`), so no public RPC is needed.

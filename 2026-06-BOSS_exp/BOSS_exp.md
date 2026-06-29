@@ -1,5 +1,7 @@
 # BOSS Exploit — Helper Mint/Burn Drains the Pair's BOSS Reserve, then a Degenerate-Reserve Swap Loop Empties the USDT Side
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source (the AMM contract whose invariant is broken):

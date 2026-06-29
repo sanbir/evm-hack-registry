@@ -1,5 +1,7 @@
 # Swamp Finance Exploit — Atomic `earn()` Harvest-Sandwich on `StrategyBelt_Token`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/sandwich-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs that
 > do not compile together, so this one was extracted).

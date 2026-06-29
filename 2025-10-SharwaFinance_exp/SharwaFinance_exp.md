@@ -1,5 +1,7 @@
 # Sharwa Finance Exploit — Margin Position Closed Against an Attacker-Manipulated Spot Pool (No Slippage Bound)
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage
+
 > One-line summary: Sharwa Finance's one-click margin trading borrows USDC and later repays it by swapping the
 > position's WBTC on a **live Uniswap V3 pool with `amountOutMinimum = 0`**; an attacker flash-loan-crashes that
 > pool's WBTC price before closing the position, so the protocol repays far less USDC than it lent — and the

@@ -1,5 +1,7 @@
 # Hoppy The Frog Exploit — Tax-Token Auto-Swap Reserve Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/sandwich-attack
+
 > One-line: A meme tax-token whose `_transfer` force-dumps the contract's own
 > accumulated tax tokens into the Uniswap-V2 pool *in the middle of a user's sell*
 > lets an attacker pre-position, trigger the dump at a chosen moment, and harvest

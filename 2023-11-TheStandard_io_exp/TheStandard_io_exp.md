@@ -1,5 +1,7 @@
 # TheStandard.io Exploit — SmartVault `swap()` with Zero Slippage Protection Through an Attacker-Controlled Pool
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not all compile under one `forge build`, so this one was extracted).

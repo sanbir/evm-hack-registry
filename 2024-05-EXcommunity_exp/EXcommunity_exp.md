@@ -1,5 +1,7 @@
 # EXcommunity (EXboy / EXgirl) Exploit — `purchasedAmount` Inflation via Zero-Value `transferFrom` + Pool Donation
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage
+
 > One-line summary: a "rebalancing" token (`EXgirl`) credits **pool token-balance vs. recorded-reserve drift as user "purchases"** on every pair-side transfer — including zero-value ones — so an attacker donates BUSDT to the pair, hammers `transferFrom(pair, …, 0)` 290× to balloon `purchasedAmount` to 115.7M, then triggers a 18.7M-token auto-dump whose BNB proceeds are funneled into the sister `EXboy` token, which the attacker drains by selling overpriced `EXboy` for **~32.9 BNB**.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was extracted). Full verbose trace: [EXcommunity_exp.output.txt](EXcommunity_exp.output.txt). Verified vulnerable sources: [EXgirl](sources/EXgirl_b1de93/contracts_EXgirl.sol), [EXboy](sources/EXboy_df4895/contracts_EXboy.sol).

@@ -1,5 +1,7 @@
 # EEE-COIN Exploit — Flash-Loan Reserve Manipulation via a Compromised LP-Holder Router
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).

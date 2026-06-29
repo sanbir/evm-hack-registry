@@ -1,5 +1,7 @@
 # WUSD Exploit — Sybil-Farmable `_englove()` Reward Mint + Thin-Pool GLO Drain
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/missing-auth · vuln/oracle/spot-price
+
 > One-line summary: WUSD's `wrap()` hands every fresh address ~2 "creditless" GLOVE tokens with **no Sybil resistance, no claim ledger, and no identity binding**; an attacker spins up dozens of throwaway addresses, vests their GLOVE by pumping the global epoch counter, and dumps the freely-minted GLO into two razor-thin Uniswap-V3 GLO pools — draining real LP stablecoins.
 
 > **Reproduction:** the PoC compiles & runs as a passing test in an isolated Foundry project at [this project folder](.). Full verbose trace: [output.txt](output.txt). Recon log (pool reserves + vesting proof): [recon_output.txt](recon_output.txt).

@@ -1,5 +1,7 @@
 # XCarnival Exploit — Untrusted `xToken` Argument in `pledgeAndBorrow` Lets Orders Borrow Against Already-Withdrawn Collateral
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

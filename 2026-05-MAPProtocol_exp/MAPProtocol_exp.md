@@ -1,5 +1,7 @@
 # MAP Protocol Exploit — Unverified `retryMessageIn` Forges a Cross-Chain Message to Mint 1e33 MAPO
 
+> **Vulnerability classes:** vuln/bridge/missing-validation · vuln/bridge/replay · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that
 > do not all compile together, so this one was extracted).

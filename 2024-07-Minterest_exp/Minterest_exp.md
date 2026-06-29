@@ -1,5 +1,7 @@
 # Minterest (Mantle) Exploit — Stale Exchange-Rate in `lendRUSDY` Inflates mUSDY Collateral
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted and run on its own).

@@ -1,5 +1,7 @@
 # Cream Finance (Oct 2021) Exploit — yUSD `pricePerShare` Donation-Inflation → Over-Collateralized Borrow
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

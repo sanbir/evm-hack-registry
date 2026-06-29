@@ -1,5 +1,7 @@
 # RFB (Roast Football) Exploit — Brute-Forceable On-Chain "Lucky Buyer" Jackpot Drain
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/input-validation/missing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

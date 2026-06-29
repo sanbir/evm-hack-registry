@@ -1,5 +1,7 @@
 # Level Finance Exploit — Duplicate-Epoch `claimMultiple()` Reward Multiplication
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/missing-check · vuln/input-validation/missing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that
 > do not whole-compile under `forge test`, so this one was extracted).

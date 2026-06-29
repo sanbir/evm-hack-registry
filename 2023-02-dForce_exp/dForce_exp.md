@@ -1,5 +1,7 @@
 # dForce Exploit — Read-only Reentrancy via Curve `remove_liquidity` into the dForce Price Oracle
 
+> **Vulnerability classes:** vuln/reentrancy/read-only · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs offline in an isolated Foundry project at
 > [this project folder](.). The fork is served from a local Anvil snapshot
 > (`createSelectFork("http://127.0.0.1:8547", 59_527_633)`), so no public RPC is required.

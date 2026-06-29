@@ -1,5 +1,7 @@
 # GAX Swap Exploit — Caller-Dictated Output Amount With No Input/Price Check
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/logic/price-calculation
+
 > One-line summary: the GAX sale/swap contract lets the caller specify the *output* USDT
 > amount directly, pulling an arbitrary (here **zero**) amount of GAX as "input", so an
 > attacker swapped 0 GAX for the contract's entire **49,583.844 USDT** balance.

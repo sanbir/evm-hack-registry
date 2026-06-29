@@ -1,5 +1,7 @@
 # Spectra Finance Exploit — Arbitrary External Call via the Router's `KYBER_SWAP` Command
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > One-line summary: Spectra's `Router` exposes a `KYBER_SWAP` (`0x12`) command that performs an
 > **unvalidated** `kyberRouter.call(targetData)` with fully attacker-controlled target and calldata —
 > letting anyone make the Router call **any contract as itself**, which the attacker used to drain a

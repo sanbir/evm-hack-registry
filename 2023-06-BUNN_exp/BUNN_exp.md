@@ -1,5 +1,7 @@
 # Bunny Protocol (BUNN) Exploit — Reflection `deliver()` Inflates Pair Balance, Spoofing the AMM K-Check
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/reentrancy/single-function · vuln/logic/state-update
+
 > One-liner: BUNN is an RFI/reflection token; its permissionless `deliver()` shrinks `_rTotal`, which silently **inflates every holder's `balanceOf` — including the PancakeSwap pair's**. Called inside a flash-swap's `pancakeCall`, the inflated pair balance is counted by PancakePair as the attacker's "input," so the constant-product `K` check passes and the attacker walks off with WBNB having paid nothing.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

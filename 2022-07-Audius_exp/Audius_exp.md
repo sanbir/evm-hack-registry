@@ -1,5 +1,7 @@
 # Audius Governance Takeover — Re-callable `initialize()` on Live Proxies via Storage-Slot Collision
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/access-control/proxy-storage-collision
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Governance.sol](sources/Governance_1c91af/Governance.sol) and

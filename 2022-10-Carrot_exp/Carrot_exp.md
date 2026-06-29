@@ -1,5 +1,7 @@
 # Carrot Token Exploit — Arbitrary `transReward()` Hijacks the Reward Pool to Bypass `transferFrom` Allowance
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-allowance · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

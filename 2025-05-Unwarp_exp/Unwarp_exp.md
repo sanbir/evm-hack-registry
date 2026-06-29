@@ -1,5 +1,7 @@
 # Unwarp Exploit — Permissionless `unwrapWETH(amount, recipient)` Self-Balance Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-owner-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

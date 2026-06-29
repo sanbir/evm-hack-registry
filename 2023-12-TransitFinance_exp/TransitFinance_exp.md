@@ -1,5 +1,7 @@
 # Transit Finance (TransitSwap V5) Exploit — Forged "Pool" in `exactInputV3Swap` Drains Router-Held Funds
 
+> **Vulnerability classes:** vuln/input-validation/missing · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

@@ -1,5 +1,7 @@
 # wkeyDAO Exploit — Fixed-Price Presale `buy()` vs. Live AMM Price Arbitrage
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted).

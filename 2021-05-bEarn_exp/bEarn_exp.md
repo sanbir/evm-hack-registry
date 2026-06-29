@@ -1,5 +1,7 @@
 # bEarn / bVaults BUSD-Alpaca Strategy Exploit — `emergencyWithdraw` Re-prices Shares Against a Self-Inflating `wantLockedTotal`
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > whole-compile, so this one was extracted). Full verbose trace: [output.txt](output.txt).

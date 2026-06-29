@@ -1,5 +1,7 @@
 # TOP Exploit — Aragon Instant-Execution Governance Self-Mint + Balancer BPool Drain
 
+> **Vulnerability classes:** vuln/governance/timelock-bypass · vuln/governance/proposal-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). It forks Ethereum mainnet from a local anvil snapshot
 > (`anvil_state.json`) at block 25,279,891.

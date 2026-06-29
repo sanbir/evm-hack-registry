@@ -1,5 +1,7 @@
 # Sniper-Bot Exploit — Unprotected Arbitrary-Call Function Drains a Standing WETH Allowance
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > One-line summary: an unverified MEV/sniper bot exposes a permissionless `f(address,bytes,uint256,uint256)` that performs `token.call(data)` with **no access control**, letting anyone make the bot replay `WETH.transferFrom(victim, attacker, …)` against the bot's pre-existing unlimited WETH allowance.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

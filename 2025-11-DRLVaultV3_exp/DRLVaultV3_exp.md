@@ -1,5 +1,7 @@
 # DRLVaultV3 Exploit — Self-Referential Slippage Lets a Manipulated Pool Set Its Own "Minimum Out"
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/spot-price
+
 > **One-liner:** `DRLVaultV3.swapToWETH()` is a permissionless function that swaps the vault's
 > entire USDC balance into WETH, computing its slippage floor from a **live, single-pool spot
 > quote** of the *same* pool it trades on. An attacker flash-crashes that pool, calls

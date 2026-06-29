@@ -1,5 +1,7 @@
 # SHIBAINU DAO Exploit — Underpriced ICO Sale + Lock-Bypassing `batchTransferLockToken` Pool Drain
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

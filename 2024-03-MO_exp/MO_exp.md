@@ -1,5 +1,7 @@
 # MO Token Exploit — Self-Recycling Borrow Burns Pool Reserves to Inflate `price()` and Drain USDT
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo mixes many unrelated
 > PoCs that do not build together, so this one was extracted).

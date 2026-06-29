@@ -1,5 +1,7 @@
 # MAMO (Matmo) Exploit — Permissionless Mint via Whitelisted `BuyToken` → `giveawayOne`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

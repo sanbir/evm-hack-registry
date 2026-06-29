@@ -1,5 +1,7 @@
 # Reaper Farm Exploit — ERC-4626 `redeem()` / `withdraw()` Missing Allowance Check
 
+> **Vulnerability classes:** vuln/logic/missing-allowance · vuln/access-control/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

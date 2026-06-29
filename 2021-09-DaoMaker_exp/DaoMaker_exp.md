@@ -1,5 +1,7 @@
 # DAO Maker Exploit — Unprotected `init()` Re-initialization → `emergencyExit` Vesting Drain
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/data/uninitialized
+
 > One-line summary: DAO Maker's token-distribution/vesting clone contracts left their `init()` initializer **permissionless and re-callable**; an attacker re-initialized a live vesting contract to make itself the owner, then called the owner-gated `emergencyExit()` to sweep the entire token balance out — **5,760,000 DERC** in this PoC.
 
 > **Reproduction:** the PoC compiles and runs in an isolated Foundry project at

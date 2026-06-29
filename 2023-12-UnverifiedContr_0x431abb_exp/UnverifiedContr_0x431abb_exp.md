@@ -1,5 +1,7 @@
 # FCN-TRUST Staking Exploit — Unverified Staking Contract Pays Unbounded FCN Rewards Drained Through a Pre-Inflated FCN/BUSDT Pool
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

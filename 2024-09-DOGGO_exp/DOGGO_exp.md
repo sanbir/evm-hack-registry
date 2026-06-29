@@ -1,5 +1,7 @@
 # DOGGO Exploit — Attacker-Triggered Tax Auto-Sell Self-Sandwich
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/oracle/spot-price
+
 > **One-liner:** A meme token's "swap accumulated sell-tax for ETH" routine fires automatically
 > on any sell once the contract's *own* token balance crosses a fixed threshold. By flash-borrowing
 > DOGGO and donating just enough to the token contract to cross that threshold, the attacker forces a

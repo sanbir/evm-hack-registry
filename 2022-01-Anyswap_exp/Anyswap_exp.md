@@ -1,5 +1,7 @@
 # Anyswap (Multichain V4 Router) Exploit — Underlying-Transfer Cross-Chain Drain
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [AnyswapV4Router.sol](sources/AnyswapV4Router_6b7a87/AnyswapV4Router.sol).

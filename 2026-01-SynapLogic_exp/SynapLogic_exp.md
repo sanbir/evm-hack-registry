@@ -1,5 +1,7 @@
 # SynapLogic Exploit — Uncapped Cumulative Refunds in the Token Sale `buy` / `swap` Path
 
+> **Vulnerability classes:** vuln/input-validation/boundary · vuln/logic/missing-validation
+
 > **One-liner:** SynapLogic's presale contract refunds a per-recipient percentage (≤10% each) of the buyer's payment but never caps the *sum* of refunds, so passing the same address 10+ times refunds ≥100% of the payment — draining the sale contract's entire ETH and USDC balances for free.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

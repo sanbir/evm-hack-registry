@@ -1,5 +1,7 @@
 # Unverified `0x607742A2` Exploit — Permissionless `uniswapV3SwapCallback` Approval Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > One-liner: a "swap-executor" helper exposes a public `uniswapV3SwapCallback` that pulls `token` from an attacker-supplied address and sends it to `msg.sender`, **with no check that the caller is a real Uniswap V3 pool** — so anyone can drain any wallet that has approved the contract.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

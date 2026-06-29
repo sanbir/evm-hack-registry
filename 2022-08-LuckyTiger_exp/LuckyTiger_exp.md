@@ -1,5 +1,7 @@
 # LuckyTiger NFT Exploit — Predictable On-Chain "Randomness" in a Pay-to-Win Mint
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

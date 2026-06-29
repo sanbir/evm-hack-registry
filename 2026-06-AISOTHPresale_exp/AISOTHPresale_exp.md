@@ -1,5 +1,7 @@
 # AISOTH Presale Exploit — Same-Tx Buy+Claim of Below-Market Inventory, Dumped Into the Live AIS/USDT Pair
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-state-transition · vuln/dos/init-constraint
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source:

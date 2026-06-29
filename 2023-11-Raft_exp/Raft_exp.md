@@ -1,5 +1,7 @@
 # Raft Finance Exploit — Indexable-Collateral `setIndex` Inflation + `divUp` Rounding Mint
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that fail to whole-compile, so this one was extracted).

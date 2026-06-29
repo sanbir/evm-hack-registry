@@ -1,5 +1,7 @@
 # EverValueCoin (EVA) Exploit — Stale-Price Orderbook Settlement Arbitraged Against a Live AMM
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/oracle/missing-validation · vuln/defi/slippage
+
 > **Reproduction:** the PoC was extracted into an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo does not whole-compile under
 > `forge test`, so this PoC was isolated. **The PoC compiles cleanly**, but the live

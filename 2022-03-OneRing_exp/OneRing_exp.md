@@ -1,5 +1,7 @@
 # OneRing Finance Exploit — Missing Reentrancy Guard + Under-priced `depositSafe`
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 

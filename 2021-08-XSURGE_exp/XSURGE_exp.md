@@ -1,5 +1,7 @@
 # XSURGE (Surge) Exploit — Reentrancy on a Liquidity-less Bonding-Curve Token
 
+> **Vulnerability classes:** vuln/reentrancy/single-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not compile together, so this one was extracted).

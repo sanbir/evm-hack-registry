@@ -1,5 +1,7 @@
 # BAYC / ApeCoin Airdrop Exploit — ERC-3156 Flash-Loan of Vaulted BAYC to Steal the APE Claim
 
+> **Vulnerability classes:** vuln/governance/flash-loan-attack · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable sources:

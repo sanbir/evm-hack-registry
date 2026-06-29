@@ -1,5 +1,7 @@
 # BCT Token Exploit — Self-Funding Referral-Reward Drain of the Promotion Pool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/reward-calculation
+
 > One-line: BCT's `promoteReward` pays 40% of every pool trade as referral bonuses out of a 2.76M-BCT promotion wallet — the attacker built a 5-deep self-referral chain and farmed that pool into liquidity it then swapped for **~10.15 BNB**.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

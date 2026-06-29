@@ -1,5 +1,7 @@
 # BADCODE MEV Bot Exploit — Unauthenticated dYdX `callFunction` Callback Drained to a Max Approval
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unchecked-return-value
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile under `forge test`, so this one was

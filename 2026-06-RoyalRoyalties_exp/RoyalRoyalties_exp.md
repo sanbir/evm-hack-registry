@@ -1,5 +1,7 @@
 # RoyalRoyalties Exploit — Zero-Amount ERC-1155 Batch Transfer Inflates `tierBalanceOf` 100×
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/wrong-condition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). It forks Polygon at block 89,018,050 and drives the
 > live `Royal1155LDA` + `Royalties` proxies. Full verbose trace:

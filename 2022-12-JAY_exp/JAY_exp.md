@@ -1,5 +1,7 @@
 # JAY Token Exploit — Reentrancy via Attacker-Controlled "ERC721" Callback in `buyJay`
 
+> **Vulnerability classes:** vuln/reentrancy/cross-contract · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo mixes many unrelated
 > PoCs that don't build together, so this one was extracted).

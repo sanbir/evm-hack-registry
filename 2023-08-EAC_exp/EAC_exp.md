@@ -1,5 +1,7 @@
 # EAC Exploit — Permissionless `_swapUForToken()` Drains the Fund Contract into a Thin Pool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/sandwich-attack · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs that do not
 > whole-compile, so this one was extracted). Full verbose trace:

@@ -1,5 +1,7 @@
 # Stars Arena Exploit — `buyShares` Reentrancy Inflates the Price-Curve Weight
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/state-update
+
 > **One-line summary:** A check-effects-interaction violation in Stars Arena's `buyShares`
 > flow paid the AVAX fee to the attacker **before** writing the share-balance state, letting the
 > attacker reenter a permissionless 4-parameter weight setter (`0x5632b2e4`) and rewrite the

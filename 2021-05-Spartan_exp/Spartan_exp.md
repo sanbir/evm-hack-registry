@@ -1,5 +1,7 @@
 # Spartan Protocol Exploit — LP-Share Inflation via Spot-Balance Accounting + Unsynced Donation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/arithmetic/rounding · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

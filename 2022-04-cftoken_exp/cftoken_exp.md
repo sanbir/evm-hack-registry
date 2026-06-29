@@ -1,5 +1,7 @@
 # CFToken Exploit — Exposed `public _transfer` Lets Anyone Drain the Pair's Tokens
 
+> **Vulnerability classes:** vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [CFToken](sources/CFToken_8B7218/CFToken.sol)

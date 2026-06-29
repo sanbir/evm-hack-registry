@@ -1,5 +1,7 @@
 # Zeed Finance Exploit — Reward-Fee Tri-Crediting Inflates YEED Pair Balances, Skim-Loop Drains USDT
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [YEED](sources/YEED_e7748f/YEED.sol),

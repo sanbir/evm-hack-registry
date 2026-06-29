@@ -1,5 +1,7 @@
 # DeltaPrime Exploit — Unwhitelisted `claimReward()` Pair + Cross-Function Reentrancy Drains a SmartLoan's Borrowed Funds as "Reward"
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

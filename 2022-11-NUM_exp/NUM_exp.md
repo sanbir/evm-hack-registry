@@ -1,5 +1,7 @@
 # Multichain (Anyswap) `anySwapOutUnderlyingWithPermit` — Missing-`permit` Allowance Theft
 
+> **Vulnerability classes:** vuln/dependency/unchecked-return-value · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). Verified vulnerable source:

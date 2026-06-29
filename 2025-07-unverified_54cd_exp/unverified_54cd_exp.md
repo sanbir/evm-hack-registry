@@ -1,5 +1,7 @@
 # weETH LRT Minter Exploit — Unprotected `0x03b79c24(address)` Token Sweep
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

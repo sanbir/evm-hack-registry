@@ -1,5 +1,7 @@
 # TGBS Exploit — Repeated Permissionless Pool Burns via Self-Transfer Draining the TGBS/WBNB Pair
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile, so this one was extracted).

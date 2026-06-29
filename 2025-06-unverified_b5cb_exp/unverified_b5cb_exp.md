@@ -1,5 +1,7 @@
 # "b5cb0555" Exploit — Permissionless `printMoney()` Forwarder Drains a Trusted Treasury (Confused Deputy)
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/broken-logic · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # LegendaryMoneyMonNft Exploit — `cliamRewred()` Signature Bypass via `ecrecover` → `address(0)` == `admin`
 
+> **Vulnerability classes:** vuln/auth/signature-validation · vuln/logic/missing-check · vuln/access-control/missing-owner-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not all compile together, so this one was extracted).

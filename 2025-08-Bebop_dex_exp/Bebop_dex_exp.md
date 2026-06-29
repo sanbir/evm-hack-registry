@@ -1,5 +1,7 @@
 # Bebop JAM Settlement Exploit — Signature-Bypass + Unconstrained Interactions Drain Stale Approvals
 
+> **Vulnerability classes:** vuln/auth/signature-validation · vuln/dependency/unsafe-external-call
+
 > One-line summary: Bebop's `JamSettlement.settle()` skips signature verification whenever
 > `order.taker == msg.sender`, then executes a fully attacker-controlled `interactions[]` array of
 > arbitrary calls — letting anyone make the settlement contract spend USDC allowances that victims

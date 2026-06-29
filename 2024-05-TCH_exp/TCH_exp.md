@@ -1,5 +1,7 @@
 # TCH Exploit — Signature-Replay Loophole + Pool-Reserve `_burn`/`sync()` Price Manipulation
 
+> **Vulnerability classes:** vuln/auth/signature-replay · vuln/auth/signature-malleability · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

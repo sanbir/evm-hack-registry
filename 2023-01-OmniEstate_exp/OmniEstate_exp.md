@@ -1,5 +1,7 @@
 # OmniEstate Exploit — Staking Reward Calculated From a Stale Storage Variable (Zero-Duration Over-Claim)
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/missing-validation · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
 > `anvil_state.json` (the test pins block 24,850,696 via `createSelectFork` against a

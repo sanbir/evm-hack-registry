@@ -1,5 +1,7 @@
 # SHIDO Exploit — `ShidoLock` Migration Mint With No Eligibility Check
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/access-control/missing-auth · vuln/data/uninitialized
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

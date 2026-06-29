@@ -1,5 +1,7 @@
 # Rari Capital / Fei Protocol Fuse Exploit — Mis-Configured Collateral Oracle (USDC Priced Off the ETH/USD Chainlink Feed)
 
+> **Vulnerability classes:** vuln/oracle/wrong-feed
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.).
 > Full verbose trace: [output.txt](output.txt). Verified vulnerable source (the Fuse Pool 127
 > Comptroller that prices collateral): [sources/Comptroller_E16DB3/Comptroller.sol](sources/Comptroller_E16DB3/Comptroller.sol),

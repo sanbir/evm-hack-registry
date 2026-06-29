@@ -1,5 +1,7 @@
 # BrandPad (BRAND) Exploit — Permissionless `buyToken()` Buyback-Bot Sandwich
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/sandwich-attack
+
 > One-liner: a public, slippage-blind "buyback" bot (`buyToken()`) is forced to market-buy BRAND
 > with its own BNB at a price the attacker first inflated with a flash-loaned swap, letting the
 > attacker round-trip the bot's BNB out for **~23.18 WBNB** profit.

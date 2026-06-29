@@ -1,5 +1,7 @@
 # LPMine Exploit — Reward-Time Desync + Pool-Balance Reward Valuation Drains the Reward Pool
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was
 > extracted into a standalone project).

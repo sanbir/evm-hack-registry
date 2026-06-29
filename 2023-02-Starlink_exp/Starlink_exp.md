@@ -1,5 +1,7 @@
 # Starlink (Starlink Coin) Exploit — Reflective Token Fee vs. Pancake `skim`/`sync` Reserve Drain
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable sources: [StarlinkCoin.sol](sources/StarlinkCoin_518281/StarlinkCoin.sol)

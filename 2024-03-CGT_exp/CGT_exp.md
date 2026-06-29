@@ -1,5 +1,7 @@
 # Curio Governance Token (CGT) Exploit — DAO Governance Takeover via Fake `DSChief` Vote + Timelocked `vat.suck` / `DSToken.mint`
 
+> **Vulnerability classes:** vuln/governance/proposal-manipulation
+
 > **Reproduction:** PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable sources: [DSToken.sol](sources/DSToken_F56b16/DSToken.sol)

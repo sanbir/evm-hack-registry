@@ -1,5 +1,7 @@
 # UniBot Router Exploit — Arbitrary External Call Drains Unlimited Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > **One-liner:** The UniBot trading-bot router exposes a function (selector `0xb2bd16ab`) that
 > executes an **arbitrary, attacker-supplied call** to an attacker-supplied target. Because users had
 > granted the router **unlimited UNIBOT approvals**, the attacker simply made the router call

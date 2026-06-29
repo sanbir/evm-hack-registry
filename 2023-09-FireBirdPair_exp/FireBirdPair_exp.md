@@ -1,5 +1,7 @@
 # FireBird Finance Exploit — Manipulable Protocol-Fee LP Mint Drains the WMATIC/HOPE Pool
 
+> **Vulnerability classes:** vuln/defi/fee-manipulation · vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that fail to whole-compile, so this one was extracted).

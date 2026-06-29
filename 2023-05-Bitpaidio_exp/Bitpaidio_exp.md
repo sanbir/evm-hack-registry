@@ -1,5 +1,7 @@
 # Bitpaidio (BTP) Staking Exploit — Stale-Lock Reinvest Bug Enables Instant Flash-Loaned Staking ROI
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/incorrect-state-transition · vuln/logic/wrong-condition
+
 > **One-liner:** The `Staking` contract re-uses an *already-expired* `end_time` whenever a user "reinvests", so an attacker can flash-loan tokens, deposit them into a pre-aged lock, and `withdraw()` principal + 5% ROI **in the same transaction** — pocketing the ROI for free.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

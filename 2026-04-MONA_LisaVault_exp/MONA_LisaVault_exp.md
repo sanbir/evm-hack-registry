@@ -1,5 +1,7 @@
 # MONA / LisaVault Exploit — Self-Referral Node Farming + Insider LP Drain
 
+> **Vulnerability classes:** vuln/access-control/fake-account-substitution · vuln/logic/missing-check
+
 > One-line: a node-staking "vault" pays multi-tier referral rewards and a fixed MONA dividend per node, but the per-address node cap is trivially bypassed with throw-away proxy contracts and the referral chain is fully attacker-controlled — so the operator/insider drained the MONA/USDT liquidity (via LP redemption) and harvested dividends + referral payouts by buying 25 nodes through 25 sybil contracts.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

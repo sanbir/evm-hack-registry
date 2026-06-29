@@ -1,5 +1,7 @@
 # Optimism (Wintermute) Exploit — Uninitialized Gnosis Safe Proxy Front-Run
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from a local `anvil_state.json`
 > (`createSelectFork` points at `http://127.0.0.1:8550`, an Anvil alias for the Optimism fork).

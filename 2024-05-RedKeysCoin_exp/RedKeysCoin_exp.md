@@ -1,5 +1,7 @@
 # RedKeys Game Exploit — Predictable On-Chain "Randomness" Lets the Player Always Win
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

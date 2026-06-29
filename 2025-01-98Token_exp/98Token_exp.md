@@ -1,5 +1,7 @@
 # 98Token ("98#") Exploit — Unprotected `public swapTokensForTokens()` Drains the Contract's Token Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage
+
 > **One-liner:** A helper that swaps the contract's *own* tokens was left `public`, so anyone could
 > point the swap output at themselves and drain ~28K USDT worth of the project's pre-approved 98# tokens.
 

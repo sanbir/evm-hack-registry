@@ -1,5 +1,7 @@
 # JuiceStaking Exploit — Uncapped `stakeWeek` Bonus Multiplier Inflation
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/input-validation/missing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-build,
 > so this PoC was extracted).

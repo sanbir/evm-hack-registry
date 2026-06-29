@@ -1,5 +1,7 @@
 # Truebit Exploit — Inverted `getPurchasePrice` Lets Anyone Buy TRU For Free, Then Sell For ETH
 
+> **Vulnerability classes:** vuln/logic/price-calculation · vuln/arithmetic/division-before-multiply
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > compile, so this one was extracted). Full verbose trace:

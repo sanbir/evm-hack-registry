@@ -1,5 +1,7 @@
 # Nova Exchange Exploit — Owner-Only Unlimited Mint via `rewardHolders()`
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/access-control/missing-modifier
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

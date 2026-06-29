@@ -1,5 +1,7 @@
 # STRAC Exploit — Permissionless Token-Drainer in a Helper Contract (Spoofable `transferFrom`)
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unchecked-return-value · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

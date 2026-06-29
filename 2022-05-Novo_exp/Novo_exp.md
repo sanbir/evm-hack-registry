@@ -1,5 +1,7 @@
 # NOVO Exploit — `transferFrom` Skips Allowance Check, Pool Reserve Drained
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [sources/NOVO_a0787D/NOVO.sol](sources/NOVO_a0787D/NOVO.sol)

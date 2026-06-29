@@ -1,5 +1,7 @@
 # Binemon (BIN) Exploit — Permissionless `sweepTokenForMarketing()` Price-Manipulation Arbitrage
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/sandwich-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > bundles many unrelated PoCs that fail a whole-project build, so this one was extracted).

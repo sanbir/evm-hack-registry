@@ -1,5 +1,7 @@
 # UniLend V2 Exploit — Collateral Self-Withdrawal via Flawed Health-Factor Accounting
 
+> **Vulnerability classes:** vuln/logic/liquidation-logic · vuln/logic/incorrect-state-transition
+
 > One-line: an attacker lent flash-loaned USDC as collateral, borrowed the pool's entire stETH balance against it, then withdrew the very same USDC collateral back — because UniLend's per-token health check never accounted for the outstanding stETH debt against the withdrawn collateral — walking away with **60 stETH** for free.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

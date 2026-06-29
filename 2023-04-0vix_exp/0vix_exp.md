@@ -1,5 +1,7 @@
 # 0VIX Protocol Exploit — vGHST Oracle Manipulation via Balance Donation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated PoCs
 > that do not whole-compile, so this one was extracted).

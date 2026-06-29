@@ -1,5 +1,7 @@
 # Four.meme Launchpad Exploit — Liquidity Migration Front-Run via Pre-Initialized Pancake V3 Pool
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/logic/incorrect-order-of-operations
+
 > One-line: the attacker created the BNB↔meme PancakeSwap V3 pool *first* with a wildly inflated price, so when Four.meme's `addLiquidity` later "created and initialized" the pool it silently kept the attacker's price, depositing the launch BNB into a degenerate pool the attacker could drain for pennies.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

@@ -1,5 +1,7 @@
 # Snood (Schnoodle) Exploit — `transferFrom` Allowance Bypass Drains the SNOOD/WETH Uniswap Pair
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [SchnoodleV9](sources/SchnoodleV9_EaC2a2)

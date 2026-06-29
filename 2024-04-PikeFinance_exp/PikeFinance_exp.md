@@ -1,5 +1,7 @@
 # Pike Finance Exploit — Unguarded `initialize()` → UUPS Upgrade Hijack → ETH Drain
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/dependency/upgradeable-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > PoC: [test/PikeFinance_exp.sol](test/PikeFinance_exp.sol).

@@ -1,5 +1,7 @@
 # bZx (iETH) Exploit — Self-Transfer Balance Duplication in `_internalTransferFrom`
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

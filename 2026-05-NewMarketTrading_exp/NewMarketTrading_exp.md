@@ -1,5 +1,7 @@
 # New Market Trading Exploit — Payload-Forgery Drain via Axelar "Express" Path on a Gnosis Safe Module
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/bridge/message-spoofing · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not compile together, so this one was extracted).

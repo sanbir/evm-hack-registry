@@ -1,5 +1,7 @@
 # ParaSwap AugustusV6 Exploit — Callback Hijack Drains Pre-Approved User Tokens
 
+> **Vulnerability classes:** vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile under one `forge test`, so this one was

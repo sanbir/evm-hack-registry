@@ -1,5 +1,7 @@
 # Pine Protocol Exploit — Shared-Vault `flashLoan` Invariant Bypassed by Cross-Pool `repay()`
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile together, so this one was extracted).

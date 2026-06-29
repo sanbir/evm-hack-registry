@@ -1,5 +1,7 @@
 # OMPxContract Exploit — Purchase/BuyBack Price Asymmetry Round-Trip Drain
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/price-calculation
+
 > One-line: a thinly-funded internal "market-maker" prices its OMPX token off its own ETH-balance/total-supply, and because a single `purchase` retains most of the buyer's ETH into that balance, the immediately-following `buyBack` quotes a *higher* per-token price than the purchase did — so buying the whole token pool and instantly selling it back nets free ETH, repeated until the reserve is empty.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

@@ -1,5 +1,7 @@
 # xLOOT Staking Exploit — Duplicate NFT IDs in `redeem(uint256[])` Claim the Same Epoch Reward Repeatedly
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo contains several unrelated PoCs that do not
 > all compile together, so this one was extracted into a standalone project.

@@ -1,5 +1,7 @@
 # Thoreum Finance Exploit — Dividend/Rebase Token Self-Transfer Balance Inflation
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: the Thoreum token is a **UUPS-style ERC1967 proxy**

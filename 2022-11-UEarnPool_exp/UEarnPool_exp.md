@@ -1,5 +1,7 @@
 # UEarnPool Exploit — Self-Referral `claimTeamReward()` Inflation Drain
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/fake-account-substitution
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

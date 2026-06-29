@@ -1,5 +1,7 @@
 # MineSTM Exploit — `sell()` Redeems the Protocol's Own LP at an Attacker-Manipulated Price
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/access-control/missing-auth
+
 > One-liner: a permissionless `sell()` function lets anyone burn a few wei of STM to redeem a
 > reserve-proportional slice of **MineSTM's own LP position**, and because the redemption uses the
 > pool's live STM reserve as the denominator, the attacker first crashes that reserve with a swap and

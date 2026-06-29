@@ -1,5 +1,7 @@
 # FloorDAO Exploit — Self-Donated Rebase Inflates the Staking `index`, Over-Paying gFLOOR Redemptions
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

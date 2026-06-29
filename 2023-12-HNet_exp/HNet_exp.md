@@ -1,5 +1,7 @@
 # HNet Exploit — ERC-2771 + Multicall `_msgSender()` Spoofing Burns the Pool's Tokens
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not all compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # Stake319 (X319) Exploit — Permissionless `claimEther()` drains the contract's BNB
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

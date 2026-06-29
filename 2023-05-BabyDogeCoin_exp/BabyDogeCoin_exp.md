@@ -1,5 +1,7 @@
 # BabyDoge FarmZAP Exploit — Untrusted `farm` Callback Lets Anyone Drain Swapped Tokens
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Yzi AI (YziAI / YziLabs) Exploit — Hard-Coded `manager` Backdoor in `transferFrom`
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo bundles many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

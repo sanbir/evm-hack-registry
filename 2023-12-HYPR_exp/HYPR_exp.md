@@ -1,5 +1,7 @@
 # HYPR Exploit — Uninitialized `L1StandardBridge` Proxy → Cross-Domain Messenger Spoof → Bridge Drain
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/bridge/message-spoofing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > does not whole-compile, so this PoC was extracted).

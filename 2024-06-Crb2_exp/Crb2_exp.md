@@ -1,5 +1,7 @@
 # CRB2 Token Exploit — Fee-on-Transfer Reflection Drain via Self-`sellToken` Loop
 
+> **Vulnerability classes:** vuln/logic/fee-calculation · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

@@ -1,5 +1,7 @@
 # Midas Capital Exploit — Reentrancy-inflated Curve-LP Oracle for stMATIC Collateral (Compound v2 fork, Polygon)
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source (oracle dispatch + cToken layer):

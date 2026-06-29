@@ -1,5 +1,7 @@
 # CowSwap `SwapGuard` Exploit — Unvalidated Interaction Target in `envelope()` (arbitrary `transferFrom` under maxint `allowedLoss`)
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from a local
 > `anvil_state.json` snapshot (`createSelectFork` points at `http://127.0.0.1:8545`,

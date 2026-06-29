@@ -1,5 +1,7 @@
 # WGPT (Wrapped GPT) Exploit — Self-Inflicted `removeLiquidity` on Every Sell Drains the Pool
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/spot-price · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not compile together, so this one was extracted).

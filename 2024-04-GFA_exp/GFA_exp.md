@@ -1,5 +1,7 @@
 # GFA (Generation Finance Academy) Exploit — Permissionless `setReward` / `generateReward` Self-Mint
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > all compile, so this one was extracted into a standalone project).

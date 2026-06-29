@@ -1,5 +1,7 @@
 # BEVO Exploit — Reflective-Token `deliver()` Pool-Balance Inflation Drain (PancakeSwap Flash)
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [CoinToken.sol](sources/CoinToken_c6Cb12/CoinToken.sol)

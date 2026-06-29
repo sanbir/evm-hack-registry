@@ -1,5 +1,7 @@
 # QIXI Token Exploit — Flash-Swap Repaid With a Free-to-Mint / Fee-Skimming Token
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # SwapX Exploit — Unverified `swapX` Router Drains Pre-Approved Victim BUSD via Caller-Controlled Recipient
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from a local
 > `anvil_state.json` snapshot (the test's `createSelectFork` points at

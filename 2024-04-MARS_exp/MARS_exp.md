@@ -1,5 +1,7 @@
 # MARS Exploit — Flash-Loan Reflection/Reserve Desync on a Fee-on-Transfer Pair
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified source of the flash-loan provider (PancakeV3Pool): [sources/PancakeV3Pool_366961/](sources/PancakeV3Pool_366961/).

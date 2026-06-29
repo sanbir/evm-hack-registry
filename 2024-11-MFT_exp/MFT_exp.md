@@ -1,5 +1,7 @@
 # MFT Token Exploit — Burn-on-Sell `sync()` Drains the PancakeSwap Pair
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage
+
 > One-line summary: a deflationary MFT token burns tokens out of its own PancakeSwap pair on every sell and then `sync()`s the reserves; an attacker burns ~100% of the pair's MFT, collapsing the constant-product invariant, then sweeps the entire USDT side of the pool.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

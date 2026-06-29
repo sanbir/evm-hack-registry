@@ -1,5 +1,7 @@
 # BH Exploit — Spot-Reserve-Priced Liquidity Manager Drained via Flash-Loan Price Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The umbrella DeFiHackLabs repo does not whole-compile under
 > `forge test`, so this PoC was extracted into a standalone project.

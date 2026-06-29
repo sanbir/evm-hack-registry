@@ -1,5 +1,7 @@
 # DFX Finance Exploit — Reentrancy via Unguarded `flash()` Inflates LP Share Mint
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one is extracted).

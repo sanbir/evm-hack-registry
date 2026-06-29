@@ -1,5 +1,7 @@
 # HYDT Protocol Exploit — Spot-Reserve Oracle Lets `initialMint()` Print HYDT at a Manipulated BNB/USD Price
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/oracle/single-source
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted).

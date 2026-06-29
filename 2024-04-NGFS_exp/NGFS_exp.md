@@ -1,5 +1,7 @@
 # NGFS (FENGSHOU) Exploit — Permissionless Privilege-Escalation Chain → Unlimited Mint
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/arithmetic/overflow
+
 > **One-line summary:** Three un-protected "uniswap proxy" helper functions chain into a free
 > privilege escalation that lets *anyone* mint arbitrary NGFS tokens to themselves, which the
 > attacker then dumped into the PancakeSwap USDT pool for ~$95.9K (≈$190K total across both pools).

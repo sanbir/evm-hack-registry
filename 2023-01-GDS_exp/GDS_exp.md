@@ -1,5 +1,7 @@
 # GDS Coin Exploit — Spot-Price `pureUsdtToToken` Reward Inflation via Nested Flash Loans (BSC)
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served **offline** from the bundled
 > `anvil_state.json` (the test calls `createSelectFork("http://127.0.0.1:8546", 24_449_918)`,

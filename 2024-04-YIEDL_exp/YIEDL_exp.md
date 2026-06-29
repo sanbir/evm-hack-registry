@@ -1,5 +1,7 @@
 # YIEDL SpotVault Exploit — Zero-Share `redeem()` Token-Drain via Attacker-Controlled Swap Routing
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.) —
 > the umbrella DeFiHackLabs repo contains many unrelated PoCs that fail to compile under a whole-project
 > `forge test`, so this one was extracted. Full verbose trace: [output.txt](output.txt).

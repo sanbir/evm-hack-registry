@@ -1,5 +1,7 @@
 # 0x8DE7…34E9 Exploit — Permissionless `grantRole` Lets Anyone Self-Grant Admin and Drain the Bridge/Custody Handler
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-owner-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that fail
 > to whole-compile, so this one was extracted).

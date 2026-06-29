@@ -1,5 +1,7 @@
 # Unverified Contract `0x00C409` Exploit — Manipulable AMM Callback Drains WETH Reserves
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Full verbose trace: [output.txt](output.txt) (the file is dominated by forge-std

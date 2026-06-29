@@ -1,5 +1,7 @@
 # Barley Finance Exploit — Flash-Loaned Collateral Double-Counted as `bond()` Deposit
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Thetanuts Finance Exploit — Integer-Division Truncation in `mint()` After the Vault Is Drained to ~0 `totalSupply`
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
 > `anvil_state.json` (no public RPC is contacted — `createSelectFork` points at a

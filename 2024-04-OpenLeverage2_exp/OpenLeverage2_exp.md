@@ -1,5 +1,7 @@
 # OpenLeverage (OPBorrowing) Exploit — Self-Liquidation Bad-Debt Drain via 1inch-Callback Price Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/dependency/unsafe-external-call
+
 > **Reproduction status:** the PoC compiles and the **core exploit transaction (TX1: `marginTrade` + self-`liquidate`) executes successfully on a BSC archive fork**, but the test as written **reverts with `HI0`** in its *second* transaction. The revert is **not** a refutation of the bug — it is a Foundry `vm.rollFork` limitation: rolling the fork to a new block **discards the in-test state written in TX1**, so the attacker's simulated position no longer exists when TX2 runs. See [Live-trace section](#live-trace--what-actually-happened-on-the-fork) for the full analysis. Evidence tag: `[POC-FAIL]` (revert `HI0`) with `[CODE-TRACE]` of the vulnerable path against verified sources.
 > Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_OPBorrowing.sol](sources/OPBorrowing_d3150b/contracts_OPBorrowing.sol).

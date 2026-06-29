@@ -1,5 +1,7 @@
 # TheNFTV2 Exploit — Broken `transferFrom` Access Control Lets Anyone Re-Pull Burned NFTs and Drain Their Wrapped DAO
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

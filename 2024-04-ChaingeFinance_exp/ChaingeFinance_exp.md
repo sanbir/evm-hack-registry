@@ -1,5 +1,7 @@
 # Chainge Finance Exploit — Arbitrary External Call in `MinterProxyV2.swap()` Drains Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted standalone).

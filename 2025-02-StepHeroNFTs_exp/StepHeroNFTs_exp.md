@@ -1,5 +1,7 @@
 # StepHeroNFTs Exploit — Reentrancy in `claimReferral()` Drains the Marketplace's BNB
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was
 > extracted into a standalone project).

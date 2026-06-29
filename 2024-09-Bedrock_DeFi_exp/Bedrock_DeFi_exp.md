@@ -1,5 +1,7 @@
 # Bedrock DeFi (uniBTC) Exploit — `mint()` Prices Native ETH 1:1 as Native BTC
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/arithmetic/decimal-mismatch
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

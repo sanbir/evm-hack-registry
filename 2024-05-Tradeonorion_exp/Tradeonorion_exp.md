@@ -1,5 +1,7 @@
 # Trade On Orion (Orion Protocol BSC) Exploit — `redeemAtomic` Missing Position Check + Liability-Free `requestReleaseStake`
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted).

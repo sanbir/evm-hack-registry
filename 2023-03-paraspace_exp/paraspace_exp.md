@@ -1,5 +1,7 @@
 # ParaSpace Exploit — ApeCoin-Staking (cAPE) Collateral Mis-Accounting + Same-Tx Supply→Borrow
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the shared harness's
 > local `anvil_state.json` (`createSelectFork` points at `http://127.0.0.1:8545`,

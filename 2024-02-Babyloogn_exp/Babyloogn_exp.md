@@ -1,5 +1,7 @@
 # Babyloogn Exploit — Permissionless Airdrop Drain via Zero-Value NFT "Stake"
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo holds many unrelated PoCs
 > that do not compile together, so this one was extracted).

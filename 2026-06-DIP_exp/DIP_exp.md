@@ -1,5 +1,7 @@
 # DIP Exploit — Fee-on-Sell Transfer + `skim`/`sync` Reserve-Collapse on the DIP/AIC Pair
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_flatten_nexus_dip.sol](sources/DIP_6C60bf/contracts_flatten_nexus_dip.sol).

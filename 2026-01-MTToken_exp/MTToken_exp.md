@@ -1,5 +1,7 @@
 # MT Token Exploit — Fee-on-Transfer Overcharge Drains the AMM Pair via `skim()`+`sync()`
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/logic/fee-calculation
+
 > **One-line summary:** MT's `transactionFee()` splits a 5% fee across a list of percentages that sum to **4400%** (no `sum(shares) ≤ 100` guard), so every MT transfer debits the *sender* ~315% of the nominal amount; the attacker weaponises this by making the **pair** the sender (via `skim()`), collapsing the pair's MT reserve to ~0.035 MT, then sells a tiny amount of MT to drain ~36,995 USDT.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at

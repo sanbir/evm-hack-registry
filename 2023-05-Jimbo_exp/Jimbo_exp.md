@@ -1,5 +1,7 @@
 # Jimbo Protocol Exploit — TraderJoe LB Rebalance Manipulation & Floor-Price Decoupling
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-state-transition · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (forked from DeFiHackLabs).
 > Full verbose trace: [output.txt](output.txt).

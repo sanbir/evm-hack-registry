@@ -1,5 +1,7 @@
 # Dyson.money Exploit — Permissionless `harvest()` Sandwich Steals Pending Yield from a Near-Empty Vault
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

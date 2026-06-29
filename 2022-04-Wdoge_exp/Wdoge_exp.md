@@ -1,5 +1,7 @@
 # WDOGE (Wrapped Doge on BSC) Exploit — Reserves-Out-of-Sync Drain via Repeated `skim`/`sync`
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [WDOGE](sources/WDOGE_46bA8a),

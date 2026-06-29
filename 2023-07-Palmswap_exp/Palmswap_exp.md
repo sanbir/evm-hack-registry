@@ -1,5 +1,7 @@
 # Palmswap Exploit — PLP Share Inflation via Permissionless `buyUSDP()` AUM Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/access-control/missing-auth · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not compile under one whole-project build, so this one was extracted).

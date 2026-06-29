@@ -1,5 +1,7 @@
 # Wise Lending Exploit — Lending-Share Price Inflation via Rounding Asymmetry + Bad-Debt Donation
 
+> **Vulnerability classes:** vuln/arithmetic/rounding-direction · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

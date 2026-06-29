@@ -1,5 +1,7 @@
 # WSM Presale Exploit — Spot-Oracle Price Manipulation in `buyWithBNB()` via Flash-Loan Pool Crash
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [sources/PresaleBSCV5_c0afd0/PresaleBSCV5Flat.sol](sources/PresaleBSCV5_c0afd0/PresaleBSCV5Flat.sol).

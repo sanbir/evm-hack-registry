@@ -1,5 +1,7 @@
 # Makina Finance Exploit — Self-Referential AUM Oracle Manipulation via Permissionless Re-Accounting
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not all compile, so this one was extracted).

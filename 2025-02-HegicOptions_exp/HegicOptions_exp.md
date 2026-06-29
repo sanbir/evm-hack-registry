@@ -1,5 +1,7 @@
 # Hegic V8888 Put Pool Exploit — Re-withdrawable Liquidity Tranche (`withdrawWithoutHedge`)
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted).

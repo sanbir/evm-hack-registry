@@ -1,5 +1,7 @@
 # TomInu (TINU) Exploit — Reflective-Token (RFI) Reflection-Rate Skim against a Uniswap-V2 Pair
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [TomInu.sol](sources/TomInu_2d0e64/TomInu.sol).

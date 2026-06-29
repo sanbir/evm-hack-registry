@@ -1,5 +1,7 @@
 # Dexible Exploit — Caller-Controlled `router`/`routerData` in `selfSwap`/`fill`
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source (proxy + active implementation):

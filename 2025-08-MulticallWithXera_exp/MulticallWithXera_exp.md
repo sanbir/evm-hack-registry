@@ -1,5 +1,7 @@
 # LUXERA (XERA) Exploit — Dangling Infinite Approval to Multicall3 Drained via `aggregate3`
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/logic/missing-allowance
+
 > One-line: the XERA deployer wallet had granted an **infinite XERA allowance to the canonical Multicall3 contract**, and Multicall3's permissionless `aggregate3` let the attacker spend that allowance with `transferFrom`, dumping 27.9M XERA into the XERA/WBNB PancakeSwap pair and skimming the resulting imbalance for ~41 WBNB.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was extracted).

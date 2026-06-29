@@ -1,5 +1,7 @@
 # TecraSpace (TCR) Exploit — Swapped Allowance Keys in `burnFrom`
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [TcrToken.sol](sources/TcrToken_E38B72/TcrToken.sol),

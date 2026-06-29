@@ -1,5 +1,7 @@
 # Unicly PointFarm Exploit — ERC1155 Reentrancy Inflates Reward Points to Steal a LootRealms NFT
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [PointFarm.sol](sources/PointFarm_d3c41c/PointFarm.sol)

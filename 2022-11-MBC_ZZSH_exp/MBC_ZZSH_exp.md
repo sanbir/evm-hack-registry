@@ -1,5 +1,7 @@
 # MBC / ZZSH Exploit — Public `swapAndLiquifyStepv1()` Lets an Attacker Inject the Token's Own Accumulated Fees Into the Pool Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that fail to whole-compile, so this one was extracted).

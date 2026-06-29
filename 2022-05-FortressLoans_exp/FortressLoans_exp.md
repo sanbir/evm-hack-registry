@@ -1,5 +1,7 @@
 # Fortress Loans Exploit — Governance Capture + Poisoned Umbrella Oracle → Over-borrow
 
+> **Vulnerability classes:** vuln/governance/flash-loan-voting · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the shared
 > `anvil_state.json` harness (`createSelectFork` points at a local anvil port,

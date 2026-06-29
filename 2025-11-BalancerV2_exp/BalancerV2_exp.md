@@ -1,5 +1,7 @@
 # Balancer V2 Exploit — ComposableStablePool Rounding-Error Drain via Rate-Scaled `_upscale`/`_downscale`
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > One-line summary: A wrong "rounding is negligible" assumption in Balancer V2's `BasePool` scaling
 > helpers — combined with `ComposableStablePool` overriding the scaling factor to fold in a non-integer
 > **token rate** — lets an attacker bleed value out on every BPT join/exit micro-swap, then amplify the

@@ -1,5 +1,7 @@
 # LaunchZone (LZ) Exploit — Unverified `swapXImp` Logic Flaw (Permissionless Victim-Side Swap)
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > The vulnerable contract — the unverified `swapXImp` implementation at

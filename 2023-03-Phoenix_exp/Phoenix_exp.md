@@ -1,5 +1,7 @@
 # Phoenix (PHX) Exploit — Missing Access Control on `delegateCallSwap(bytes)`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted). Full verbose trace:

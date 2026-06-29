@@ -1,5 +1,7 @@
 # EGGX Exploit — ERC404 Flash-Mintable NFTs Drain a Per-NFT Token Airdrop
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many PoCs that
 > do not whole-compile under `forge test`, so this one was extracted).

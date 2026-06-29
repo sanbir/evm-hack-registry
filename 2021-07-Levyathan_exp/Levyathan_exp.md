@@ -1,5 +1,7 @@
 # Levyathan Finance Exploit — Leaked Deployer Key → Timelock-Gated Ownership Hijack → Unlimited `mint()`
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/access-control/centralization
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that fail to whole-compile, so this one was extracted).

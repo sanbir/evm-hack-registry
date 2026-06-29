@@ -1,5 +1,7 @@
 # MOMO Buyback-Bot Exploit — Permissionless, Slippage-Free `5ff02eae()` Sandwiched on a Thin USD1/MOMO Pool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage · vuln/defi/sandwich-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted).

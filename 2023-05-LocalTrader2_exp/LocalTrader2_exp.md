@@ -1,5 +1,7 @@
 # LocalTrader2 (LCT) Exploit — Unprotected Proxy Implementation Lets Anyone Set the Token Price to 1 wei
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

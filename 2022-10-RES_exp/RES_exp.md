@@ -1,5 +1,7 @@
 # RES Token Exploit — Self-Burn-From-Pool + `sync()` Breaks the AMM Invariant
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/oracle/spot-price · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not whole-compile, so this one was extracted).

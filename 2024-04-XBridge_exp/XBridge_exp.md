@@ -1,5 +1,7 @@
 # XBridge Exploit — Permissionless `listToken()` Hijacks Token Ownership Then Drains Bridge Reserves
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-owner-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable implementation: [contracts_XBridge4.sol](sources/XBridge_354cca/contracts_XBridge4.sol)

@@ -1,5 +1,7 @@
 # Unverified MEV/Arb Contract `0x452E25…` — Unauthenticated `uniswapV3SwapCallback` Drains Its Own WETH
 
+> **Vulnerability classes:** vuln/access-control/missing-auth
+
 > One sentence: an unverified on-chain arbitrage/MEV helper exposes a **public, unauthenticated** `uniswapV3SwapCallback(int256,int256,bytes)` that transfers an attacker-chosen token+amount to `msg.sender`, so anyone can call it directly and walk off with the contract's entire WETH balance — no swap, no pool, no flash loan.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

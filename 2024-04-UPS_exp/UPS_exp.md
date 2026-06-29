@@ -1,5 +1,7 @@
 # UPS (UtopiaSphere) Exploit — Sell-Side `_swapBurn` Drains the LP Pair via `skim`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo mixes many unrelated
 > PoCs that do not build together, so this one was extracted).

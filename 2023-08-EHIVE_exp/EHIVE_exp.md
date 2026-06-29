@@ -1,5 +1,7 @@
 # EHIVE Exploit — `stake()` Updates `staked` Before Computing `earned`, Inflating Rewards
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > does not whole-compile, so this PoC was extracted into its own project).

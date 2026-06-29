@@ -1,5 +1,7 @@
 # Brahma Finance (BrahTOPG) Zapper Exploit — Arbitrary `call` Drains User Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-validation
+
 > **One-line summary:** The Brahma `Zapper` forwards an attacker-supplied
 > `(swapTarget, callData)` via a raw `.call()` from its own context, so any
 > caller can make the Zapper execute `USDC.transferFrom(victim → attacker)`

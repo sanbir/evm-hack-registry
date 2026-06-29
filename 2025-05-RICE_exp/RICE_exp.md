@@ -1,5 +1,7 @@
 # RICE / BentoBox-Clone Exploit — Signature-less `setMasterContractApproval` Lets Anyone Drain Any Depositor
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/auth/signature-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was
 > extracted). Full verbose trace: [output.txt](output.txt). PoC: [test/RICE_exp.sol](test/RICE_exp.sol).

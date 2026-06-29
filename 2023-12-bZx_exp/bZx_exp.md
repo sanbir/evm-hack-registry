@@ -1,5 +1,7 @@
 # bZx / Fulcrum `iToken` Exploit — Empty-Pool Share-Price Inflation (ERC4626-style Donation Attack)
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

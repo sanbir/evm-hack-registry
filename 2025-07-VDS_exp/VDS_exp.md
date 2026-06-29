@@ -1,5 +1,7 @@
 # VDS Exploit — `deposit()` Mints 5× VDS for AVD, Redemption Refunds AVD 1:1
 
+> **Vulnerability classes:** vuln/logic/price-calculation · vuln/logic/incorrect-order-of-operations
+
 > One-liner: VDS's `deposit(AVD)` mints **5 VDS for every 1 AVD** deposited, while sending VDS back to the
 > VDS contract address burns it and returns AVD **1:1** — so the deposit-then-redeem round-trip turns
 > 69.3k AVD into ~5× that much AVD for free, netting the attacker **~11,136 USDT** on a zero-fee flash loan.

@@ -1,5 +1,7 @@
 # Beefy "Moo CAKE CTX" Vault Exploit — Harvest-Sandwich Reward Theft
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/sandwich-attack
+
 > One-line: an attacker deposits into a Beefy auto-compounding CAKE vault, force-calls the strategy's
 > permissionless `harvest()` (whose `!isContract` guard is bypassed from a constructor) to atomically
 > compound a large batch of long-accrued MasterChef/SmartChef rewards into the share price, then

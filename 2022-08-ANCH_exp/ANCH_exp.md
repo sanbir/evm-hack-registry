@@ -1,5 +1,7 @@
 # ANCH Token Exploit — Reflection Reward Minted on Pair-to-Self `skim()` Transfers
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not whole-compile, so this one was extracted).

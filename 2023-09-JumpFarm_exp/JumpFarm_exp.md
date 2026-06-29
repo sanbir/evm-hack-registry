@@ -1,5 +1,7 @@
 # JumpFarm Exploit — Single-Transaction Rebase Inflation in OlympusDAO-style Staking
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted into a

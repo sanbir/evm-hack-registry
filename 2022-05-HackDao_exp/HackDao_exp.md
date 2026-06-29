@@ -1,5 +1,7 @@
 # HackDao Exploit — Fee-on-Transfer Token Listed in a Vanilla Pancake Pair (skim/sync reserve desync)
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source (the HackDao `Token` contract): [Token.sol](sources/Token_94e06c/Token.sol);

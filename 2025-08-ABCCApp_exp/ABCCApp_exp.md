@@ -1,5 +1,7 @@
 # ABCCApp Exploit — Permissionless `addFixedDay()` Vesting Time-Warp Drains the DDDD Reward Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/logic/incorrect-state-transition
+
 > **One-liner:** ABCCApp's daily-vesting reward unlock is gated by a timestamp offset (`fixedDay`) that **anyone can set to an arbitrary value** through the public, unauthenticated `addFixedDay()`. By fast-forwarding `getFixedDay()` by a billion days, an attacker instantly unlocks the full `2×` "remaining" credit of a fresh deposit and claims it out in DDDD tokens drawn from the **shared protocol reserve** funded by previous depositors — netting ~10,062 BUSD per flash-loan-sized cycle.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

@@ -1,5 +1,7 @@
 # ChiSale Exploit — Revenue-Share Computed on Full `msg.value` (Self-Referral ETH Drain)
 
+> **Vulnerability classes:** vuln/logic/fee-calculation · vuln/logic/incorrect-order-of-operations · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

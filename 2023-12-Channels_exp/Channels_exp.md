@@ -1,5 +1,7 @@
 # Channels Finance Exploit — cToken Exchange-Rate Inflation via Direct LP Donation + LP-Oracle Manipulation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

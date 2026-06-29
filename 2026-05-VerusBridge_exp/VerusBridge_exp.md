@@ -1,5 +1,7 @@
 # Verus–Ethereum Bridge Exploit — Forged Cross-Chain Import With No Source-Amount Validation
 
+> **Vulnerability classes:** vuln/bridge/missing-validation · vuln/bridge/message-spoofing · vuln/logic/missing-check
+
 > One-liner: the bridge cryptographically verified a cross-chain import proof but **never checked that the
 > Verus-side export actually locked any value**, so an attacker submitted a self-consistent forged import
 > blob that collapses to a *previously-confirmed* Verus state root and minted/released **1,625 ETH + 103.57 tBTC + 147,659 USDC (~$11.58M)** straight to their own wallet for ~$0.01 of VRSC fees.

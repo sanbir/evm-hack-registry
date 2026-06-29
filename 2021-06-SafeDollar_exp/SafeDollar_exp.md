@@ -1,5 +1,7 @@
 # SafeDollar (SDO) Exploit — MasterChef Reward Inflation via Drained `lpSupply` Divisor
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile under `forge test`, so this one was extracted).

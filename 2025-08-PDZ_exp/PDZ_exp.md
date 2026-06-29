@@ -1,5 +1,7 @@
 # PDZ / "TB Build" Exploit — Spot-Price `getAmountsOut` Reward Inflation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > One-line: the **TB Build** burn-reward contract values a user's burned PDZ at the *instantaneous*
 > PancakeSwap spot price (`uniswapRouter.getAmountsOut`), so an attacker pumps the PDZ/WBNB pool with a
 > flash loan, burns a tiny amount of PDZ that is now "worth" far more BNB, and withdraws that inflated

@@ -1,5 +1,7 @@
 # YDT Token Exploit — Permissionless `proxyTransfer()` Drains the Liquidity Pool
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/fake-account-substitution
+
 > One-line summary: `YDTMainContract.proxyTransfer()` authorizes the caller by comparing a **user-supplied argument** to its module addresses instead of checking `msg.sender`, so anyone can move YDT out of any account — the attacker empties the PancakeSwap pair's YDT reserve, `sync()`s it, and swaps a sliver of YDT for ~41,337 USDT of real liquidity.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.). Full verbose trace: [output.txt](output.txt). Verified vulnerable source: [contracts_YDTToken_YDTMainContract.sol](sources/YDTMainContract_3612e4/contracts_YDTToken_YDTMainContract.sol).

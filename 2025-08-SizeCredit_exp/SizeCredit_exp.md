@@ -1,5 +1,7 @@
 # Size Credit `LeverageUp` Exploit — Arbitrary External Call via `GenericRoute` Swap Drains User Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > **One-line summary:** Size Credit's `LeverageUp` zap contract forwards a fully attacker-controlled
 > `(router, calldata)` pair into a raw `router.call(data)` with **zero validation**, so anyone could make the
 > contract execute `transferFrom(victim, attacker, allowance)` against every token a user had approved to it.

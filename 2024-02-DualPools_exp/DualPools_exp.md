@@ -1,5 +1,7 @@
 # DualPools Exploit — Donation-Inflated Exchange Rate Lets 2 wei of dLINK Borrow the Whole Pool
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile under `forge test`, so this one was

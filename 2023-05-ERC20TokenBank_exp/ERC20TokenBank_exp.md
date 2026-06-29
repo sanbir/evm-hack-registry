@@ -1,5 +1,7 @@
 # ERC20TokenBank / ExchangeBetweenPools Exploit — Zero-Slippage Curve Swap Sandwich
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/defi/sandwich-attack · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile together, so this one was extracted).

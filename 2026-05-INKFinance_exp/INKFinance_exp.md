@@ -1,5 +1,7 @@
 # INK Finance Exploit — Flash-Loan-Inflated, Permissionless `claimPayroll()` Treasury Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check · vuln/defi/slippage
+
 > One-liner: anyone could call `Payroll.claimPayroll(employeeId)`, which paid out the **treasury's
 > entire live token balance** to the caller; the attacker first donated a flash loan into the
 > treasury to inflate that balance, then claimed it all and kept the original ~$140K.

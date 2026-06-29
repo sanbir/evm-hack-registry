@@ -1,5 +1,7 @@
 # EGD Finance Exploit — Flash-Loan Spot-Price Oracle Manipulation Inflates Staking Rewards
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). Verified vulnerable source:

@@ -1,5 +1,7 @@
 # SpankChain Exploit — Classic Reentrancy in `LedgerChannel.LCOpenTimeout()`
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/logic/incorrect-order-of-operations
+
 > One-line summary: the payment-channel contract refunds a self-deposited channel via an
 > **attacker-controlled token whose `transfer()` re-enters `LCOpenTimeout()` before state is
 > deleted**, letting the attacker reclaim the same 5-ETH deposit 32 times and drain the contract.

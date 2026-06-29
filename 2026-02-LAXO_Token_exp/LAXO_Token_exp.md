@@ -1,5 +1,7 @@
 # LAXO Token Exploit — Uncompensated Pool-Side Burn on Every Sell Breaks `x·y = k`
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not build together, so this one was extracted into a standalone project).

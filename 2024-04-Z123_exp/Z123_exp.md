@@ -1,5 +1,7 @@
 # Z123 (SesameCloudToken) Exploit — Custom-Router `update()` Pool-Burn Arbitrage
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this folder](.).
 > Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [sources/SesameCloudToken_b000f1/SesameCloudToken.sol](sources/SesameCloudToken_b000f1/SesameCloudToken.sol).

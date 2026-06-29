@@ -1,5 +1,7 @@
 # Conic Finance (crvUSD Omnipool) Exploit — Curve Pool Imbalance Manipulation of LP Valuation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/missing-validation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

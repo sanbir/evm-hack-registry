@@ -1,5 +1,7 @@
 # Split (Kub) Exploit — Self-Doubling Balance via Manipulable On-Chain "Token Price" Oracle
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

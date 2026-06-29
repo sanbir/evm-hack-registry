@@ -1,5 +1,7 @@
 # Orion Protocol Exploit — Reentrancy via Malicious Deposit Token in `swapThroughOrionPool` / `depositAsset`
 
+> **Vulnerability classes:** vuln/reentrancy/cross-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). It forks Ethereum mainnet at the attack block from a
 > local Anvil snapshot (no public RPC required). Full verbose trace:

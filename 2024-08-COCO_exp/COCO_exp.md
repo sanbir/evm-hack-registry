@@ -1,5 +1,7 @@
 # COCO COIN Incident — Abused USDT Allowance Drained via the COCO/USDT Pool
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/missing-validation
+
 > One-line summary: this was **not** a smart-contract bug in COCO or PancakeSwap — it was the
 > exploitation of a victim's **unlimited USDT `approve()`** granted to the attacker's contract; the
 > stolen USDT was laundered into COCO through a perfectly ordinary, K-invariant-preserving swap.

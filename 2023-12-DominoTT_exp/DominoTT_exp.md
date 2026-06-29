@@ -1,5 +1,7 @@
 # DominoTT Exploit — thirdweb `Multicall` + `ERC2771` `_msgSender()` Spoofing Burns the Pool's Tokens
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not whole-compile, so this one was extracted into a standalone Foundry project).

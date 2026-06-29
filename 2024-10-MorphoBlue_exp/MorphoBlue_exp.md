@@ -1,5 +1,7 @@
 # MorphoBlue PAXG/USDC Market Exploit — Misconfigured Oracle (1e12 Decimal-Scale Error)
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/oracle/wrong-feed
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted standalone).

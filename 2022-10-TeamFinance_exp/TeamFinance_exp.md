@@ -1,5 +1,7 @@
 # Team Finance Exploit — `migrate()` Burns *Other People's* Locked LP via an Unvalidated `pair` Parameter
 
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/access-control/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile together, so this one was extracted).

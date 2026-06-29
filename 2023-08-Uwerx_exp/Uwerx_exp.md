@@ -1,5 +1,7 @@
 # Uwerx (WERX) Exploit — Burn-on-Transfer-to-Pool + `skim()` Reserve Collapse
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile under a single `forge build`, so this one was extracted).

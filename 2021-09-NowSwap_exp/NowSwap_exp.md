@@ -1,5 +1,7 @@
 # NowSwap / Nimbus Exploit — Broken `k`-Invariant via a `10000` vs `1000` Scaling Mismatch
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that
 > do not whole-compile, so this one was extracted).

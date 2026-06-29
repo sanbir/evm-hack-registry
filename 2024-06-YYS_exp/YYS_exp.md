@@ -1,5 +1,7 @@
 # YYS / YYSCoin Exploit — `sell()` Returns the Tokens It "Sold" (Double-Payout Drain)
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

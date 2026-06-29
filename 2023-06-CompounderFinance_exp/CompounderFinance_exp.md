@@ -1,5 +1,7 @@
 # Compounder Finance Exploit — Inflatable Share Price via Curve `get_virtual_price()` Manipulation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/reentrancy/single-function · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile together, so this one was extracted).

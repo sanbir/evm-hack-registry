@@ -1,5 +1,7 @@
 # GROKD Exploit — Permissionless `updatePool()` + `depositFromIDO()` Reward Pool Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/reward-calculation
+
 > One-line summary: an unprotected IDO/staking contract let anyone register a stake, rewrite the
 > emission rate to an astronomical value, and instantly claim ~100% of the reward pool's GROKD,
 > which was then dumped into the GROKD/WBNB pair for ~129.8 BNB.

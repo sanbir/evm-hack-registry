@@ -1,5 +1,7 @@
 # Sturdy Finance Exploit — Balancer Read-Only Reentrancy Inflates LP-Token Collateral Price
 
+> **Vulnerability classes:** vuln/reentrancy/read-only · vuln/oracle/price-manipulation · vuln/oracle/spot-price · vuln/logic/liquidation-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

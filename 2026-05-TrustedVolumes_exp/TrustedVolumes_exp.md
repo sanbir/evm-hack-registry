@@ -1,5 +1,7 @@
 # TrustedVolumes Exploit — Permissionless Signer Registration + Wrong-Key Authorization Drains an RFQ Settlement Proxy
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/fake-account-substitution · vuln/auth/signature-validation
+
 > **One-line summary:** An RFQ settlement proxy authorizes signed orders against the attacker-controlled `order.taker` key instead of the fund-owning `order.maker`, and lets anyone self-register an allowed signer — so an attacker signs their own orders and pulls the victim resolver's *unlimited-approved* balances out for free.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

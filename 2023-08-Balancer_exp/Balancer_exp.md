@@ -1,5 +1,7 @@
 # Balancer Boosted Pools Exploit — Linear-Pool `getRate()` Inflation via BPT Supply Drain + Precision Loss
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/precision-loss · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not whole-compile, so this one was extracted). Full verbose trace:

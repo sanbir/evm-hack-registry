@@ -1,5 +1,7 @@
 # NFTTrader Exploit — Reentrancy via `editCounterPart()` During Swap Settlement
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function
+
 > **One-line summary:** A missing reentrancy guard in NFTTrader's `closeSwapIntent()` lets the swap creator hijack the `onERC721Received` callback (fired while settling their *own* NFT) to call `editCounterPart()` and re-point the swap's counterpart to an arbitrary victim — causing the contract to pull the victim's pre-approved NFTs to the attacker for free.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

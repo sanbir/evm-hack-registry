@@ -1,5 +1,7 @@
 # Uranium Finance Exploit — Broken Constant-Product `K` Check (100× Slack in `swap()`)
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

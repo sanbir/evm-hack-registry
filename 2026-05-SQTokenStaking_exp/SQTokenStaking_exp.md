@@ -1,5 +1,7 @@
 # SQ Token Staking Exploit — Hardcoded Owner Backdoor + Self-Minting Staking Rewards
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/centralization · vuln/logic/missing-validation
+
 > One-line: The staking contract's `onlyOwner` check contains a **hardcoded backdoor address** equal to the attacker's EOA, letting the attacker mint fake stake records out of thin air and redeem them for the pool's real USDT — then drain the contract's SQi balance and dump it. Net **~$346.1K USDT**.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

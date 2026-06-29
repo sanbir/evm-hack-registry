@@ -1,5 +1,7 @@
 # DAppSocial Exploit — `withdrawTokensWithAlt` Credits Instead of Debiting the Depositor Ledger
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/arithmetic/underflow
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that fail to whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Revert Finance (V3Utils) Exploit — Unvalidated `swapData` Lets Anyone Route User-Allowance Tokens to an Attacker
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not all compile together, so this one was extracted).

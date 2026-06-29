@@ -1,5 +1,7 @@
 # Seneca Protocol Exploit — Arbitrary External Call Abuses User Approvals
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this
 > PoC was extracted into a standalone project).

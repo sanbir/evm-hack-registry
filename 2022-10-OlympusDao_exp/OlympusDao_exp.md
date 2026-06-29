@@ -1,5 +1,7 @@
 # OlympusDAO `BondFixedExpiryTeller` Exploit — Unverified Bond-Token in `redeem()` Drains the Teller
 
+> **Vulnerability classes:** vuln/access-control/missing-validation · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

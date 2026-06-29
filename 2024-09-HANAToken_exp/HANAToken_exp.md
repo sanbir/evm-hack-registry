@@ -1,5 +1,7 @@
 # HANA Token Exploit — Tax-Swap Self-Dump Price Manipulation via Forced Auto-Sell
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains many unrelated PoCs that do not
 > whole-compile, so this one was extracted).

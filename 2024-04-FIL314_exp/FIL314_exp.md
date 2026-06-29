@@ -1,5 +1,7 @@
 # FIL314 Exploit — Permissionless `hourBurn()` Crushes the Self-Contained AMM Reserve
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > One permissionless function (`hourBurn()`) burns the token side of an ERC314-style
 > built-in AMM with no matching outflow on the BNB side, collapsing the constant-product
 > price so a few token sells drain the pool's BNB.

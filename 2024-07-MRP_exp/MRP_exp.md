@@ -1,5 +1,7 @@
 # MRP / WMRP Exploit — ERC314 Add/Remove-Liquidity Reserve Drain via Re-entrant Self-Buy
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project in
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > whole-compile, so this one was extracted).

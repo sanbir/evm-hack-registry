@@ -1,5 +1,7 @@
 # Stead Farm Exploit — Permissionless STEAD Drain via Un-Access-Controlled Function
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > One-liner: an unverified STEAD "Farm/Staking" contract on Arbitrum exposed a public
 > function (selector `0x16fb27ce`) that transferred the contract's **entire STEAD balance**
 > to whoever called it — no access control, no caller-balance check. Anyone calling it

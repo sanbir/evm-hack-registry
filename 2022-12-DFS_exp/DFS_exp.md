@@ -1,5 +1,7 @@
 # DFS Exploit — `_transfer` Accounting Gap Let `skim()` Self-Loop Mint DFS Out of Thin Air
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.).
 > Full verbose trace: [output.txt](output.txt).

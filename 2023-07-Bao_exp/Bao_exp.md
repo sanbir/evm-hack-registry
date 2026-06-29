@@ -1,5 +1,7 @@
 # Bao Finance Exploit — CErc20 Exchange-Rate Inflation via Direct Underlying Donation
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

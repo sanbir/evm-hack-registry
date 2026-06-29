@@ -1,5 +1,7 @@
 # Civfund (0xf485) Exploit — Forged Uniswap-V3 `mint` Callback Drains User Approvals
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

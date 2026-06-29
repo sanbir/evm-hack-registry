@@ -1,5 +1,7 @@
 # LinkingTheWorld (LW) Exploit — `_internalSwap` Underflow Mints Infinite Self-Balance & Drains the Fee Pool
 
+> **Vulnerability classes:** vuln/arithmetic/underflow · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile together, so this one was extracted).

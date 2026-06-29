@@ -1,5 +1,7 @@
 # IRYSAI Exploit — Backdoored `transferFrom` Lets the Tax Wallet Drain the LP Pool
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted). Full verbose trace: [output.txt](output.txt).

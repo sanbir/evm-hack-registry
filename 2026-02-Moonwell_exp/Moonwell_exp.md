@@ -1,5 +1,7 @@
 # Moonwell cbETH Oracle Incident — Mispriced Collateral Enables Near-Free Liquidation
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/oracle/missing-validation
+
 > One faulty Chainlink `cbETH/USD` round priced cbETH at **$1.12** instead of **~$2,272**. Moonwell's
 > `ChainlinkOracle` had no deviation/sanity bound, so every cbETH-collateralised position instantly showed
 > a huge "shortfall." A liquidator repaid **0.1299 WETH (~$255)** and legally seized **242.68 cbETH

@@ -1,5 +1,7 @@
 # RL (RealLand) Exploit — LP-Incentive Airdrop Drained via Reusable LP Position
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/missing-auth · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # TempleDAO StaxLPStaking Exploit — Access-Control-Free `migrateStake()` Pool Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was extracted).
 > Full verbose trace: [output.txt](output.txt).

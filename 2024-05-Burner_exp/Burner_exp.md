@@ -1,5 +1,7 @@
 # pNetwork `Burner` Exploit — Permissionless `convertAndBurn()` + Slippage-Free Kyber Trade → Sandwich
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage
+
 > One-line: anyone could call pNetwork's `Burner.convertAndBurn()`, which trades the contract's
 > accumulated fees into PNT through Kyber with `minConversionRate = 1` (zero slippage protection);
 > Kyber routes that buy through the thin PNT/WETH Uniswap-V2 pool, so an attacker simply sandwiched

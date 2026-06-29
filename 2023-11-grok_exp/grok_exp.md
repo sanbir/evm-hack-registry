@@ -1,5 +1,7 @@
 # GROK Token Exploit — Fee-on-Transfer Tax Auto-Swap Reserve Desync
 
+> **Vulnerability classes:** vuln/reentrancy/cross-function · vuln/defi/fee-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one is extracted).

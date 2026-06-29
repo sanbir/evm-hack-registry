@@ -1,5 +1,7 @@
 # EST / BNBDeposit Exploit — `skim()`-Fed Proportional Reward Drain + AMM Reserve Manipulation
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/oracle/spot-price
+
 > One-line summary: an attacker uses a flash loan to over-fund the `BNBDeposit` reward contract with EST tokens (via PancakeSwap `skim()` and direct swaps), abuses its `balance × lpShare / totalLP` proportional `claimToken` payout to mint itself ~17M EST nearly for free, then dumps that EST to drain the **entire WBNB side** of the EST/WBNB pool — walking off with the pool's original honest liquidity.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

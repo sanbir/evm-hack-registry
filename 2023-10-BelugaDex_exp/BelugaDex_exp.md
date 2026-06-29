@@ -1,5 +1,7 @@
 # BelugaDex Exploit — Stableswap Coverage-Ratio Manipulation via Deposit / Cross-Asset-Swap / Withdraw Looping
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/defi/slippage · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

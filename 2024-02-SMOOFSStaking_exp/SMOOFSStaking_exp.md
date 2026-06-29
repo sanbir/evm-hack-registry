@@ -1,5 +1,7 @@
 # SMOOFS Staking Exploit — Reentrant `Withdraw()` Drains the Reward-Token Pool via `safeTransferFrom` Callback
 
+> **Vulnerability classes:** vuln/reentrancy/single-function
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated PoCs that do
 > not compile, so this one was extracted).

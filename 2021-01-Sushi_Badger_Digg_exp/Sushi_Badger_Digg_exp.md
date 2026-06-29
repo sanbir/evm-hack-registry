@@ -1,5 +1,7 @@
 # SushiMaker — Bridgeless `convert()` Lets an Attacker Insert a Fake Pair and Steal Onsen Fee Liquidity (Badger DIGG)
 
+> **Vulnerability classes:** vuln/access-control/missing-validation · vuln/logic/missing-check
+
 > **Reproduction status:** the PoC in this folder **does not pass** — it reverts with
 > `BentoBox: Transfer failed`. This is a **harness bug, not a defense**: the PoC's local
 > `ISushiMaker` interface mis-declares `convert(...)` as a `view` function

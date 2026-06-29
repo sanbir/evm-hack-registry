@@ -1,5 +1,7 @@
 # ElevateFi Exploit — Fixed-USD Staking Packages Priced from Spot DAI/EFI Reserves
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

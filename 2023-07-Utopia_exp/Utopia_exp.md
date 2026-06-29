@@ -1,5 +1,7 @@
 # Utopia Exploit — `_airdrop()` Overwrites the Pool's Token Balance to 1, Collapsing the AMM Reserve
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/oracle/spot-price · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # SSS Exploit — Self-Transfer Balance-Doubling Lets Attacker Mint Phantom SSS and Drain the WETH Pool
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/overflow
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_SSS.sol](sources/SSS_dfDCdb/contracts_SSS.sol).

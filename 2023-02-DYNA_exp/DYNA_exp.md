@@ -1,5 +1,7 @@
 # DYNA (Dynamic) Exploit — Reward-Inflation in `StakingDYNA.deposit`/`redeem` + Time-Bypassable Sell Cap
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs offline in an isolated Foundry project at
 > [this project folder](.), served from a local `anvil_state.json` (the test's
 > `createSelectFork` points at `http://127.0.0.1:8546`). Full verbose trace:

@@ -1,5 +1,7 @@
 # Peapods Finance Exploit — Permissionless `depositFromPairedLpToken()` Forced Swap at Manipulated Spot Price
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile together, so this one was extracted).

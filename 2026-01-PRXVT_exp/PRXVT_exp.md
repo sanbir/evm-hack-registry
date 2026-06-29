@@ -1,5 +1,7 @@
 # PRXVT Staking Exploit — Transferable Reward-Receipt Token Resets `userRewardPerTokenPaid`
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/logic/reward-calculation
+
 > **Reproduction status:** the PoC compiles cleanly and the Base archive fork instantiates
 > successfully, but the only public Base RPC that still serves archive state at block 40,229,652
 > (Tenderly's free gateway) returns intermittent `-32603: Internal server error` on the heavy

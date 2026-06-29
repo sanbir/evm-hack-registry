@@ -1,5 +1,7 @@
 # Platypus Finance (PoolSAvax) Exploit — Withdraw-While-Insolvent Coverage-Ratio Manipulation
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/oracle/price-manipulation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not compile together, so this one was extracted).

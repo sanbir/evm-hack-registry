@@ -1,5 +1,7 @@
 # "bot" / MEV-bot Router Exploit — Permissionless, Zero-Slippage Forced Swaps + Sandwich Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted).

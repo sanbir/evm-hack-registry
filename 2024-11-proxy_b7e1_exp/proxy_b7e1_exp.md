@@ -1,5 +1,7 @@
 # ERC1967Proxy (0xb7E1…) Exploit — Unauthenticated "Order Settlement" Drains Proxy Reserves
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > One-line summary: A permissionless settlement function (`selector 0x9b3e9b92`) on an
 > upgradeable order/escrow contract lets anyone forge an order and "settle" it against the
 > contract's own token reserves — the attacker created a fake order, matched it against the

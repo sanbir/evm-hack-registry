@@ -1,5 +1,7 @@
 # BY Token Exploit — Permissionless `triggerAutoBurn()` Pool-Reserve Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo
 > contains several unrelated PoCs that do not compile, so this one was extracted).

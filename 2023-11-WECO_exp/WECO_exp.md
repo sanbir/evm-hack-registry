@@ -1,5 +1,7 @@
 # WECO Staking Exploit — Reward-Debt (`offsetPoints`) Unit Mismatch Lets a Depositor Re-Claim the Whole Reward Pool
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile under one build, so this one was extracted).

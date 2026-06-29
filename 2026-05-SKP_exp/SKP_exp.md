@@ -1,5 +1,7 @@
 # SKP Token Exploit — Owner Backdoor `ownerBurnLiquidityPairTokens()` Reserve Drain → Collateral Price Inflation
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **One-liner:** The SKP token's owner used an undocumented owner-only backdoor that burns SKP straight out of the SKP/USDT LP pair and `sync()`s the pair, slashing the SKP reserve while leaving the USDT reserve untouched. This inflated the on-chain SKP price ~20×, and the over-valued SKP was then posted as collateral on Venus/Lista DAO to borrow out ~$212K of BTCB + USDT.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

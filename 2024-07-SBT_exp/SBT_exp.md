@@ -1,5 +1,7 @@
 # SmartBank (SBT) Exploit — Self-Referential Spot-Price Oracle Manipulation
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation
+
 > One-line summary: SmartBank prices its own SBT token from the *instantaneous* ratio of its own USDT and SBT balances, so a single flash-loan-funded buy spikes the price ~700x and lets the attacker borrow ~1.97M USDT against collateral worth ~$3.5K — netting **~56,470 BUSD** with no real repayment.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([this folder](.)). Full verbose trace: [output.txt](output.txt). Verified vulnerable source: [Smart_Bank.sol](sources/Smart_Bank_2b45DD/Smart_Bank.sol).

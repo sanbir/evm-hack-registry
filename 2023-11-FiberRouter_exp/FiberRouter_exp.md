@@ -1,5 +1,7 @@
 # FiberRouter Exploit — Arbitrary External Call Drains a Victim's Token Approval
 
+> **Vulnerability classes:** vuln/dependency/unsafe-external-call · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

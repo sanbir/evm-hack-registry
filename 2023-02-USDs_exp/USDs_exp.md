@@ -1,5 +1,7 @@
 # Sperax USDs Exploit — `isContract()`-Based Rebase Accounting Flip on a Pre-Credited EOA
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [USDs](sources/USDs_67b580/USDs.sol)

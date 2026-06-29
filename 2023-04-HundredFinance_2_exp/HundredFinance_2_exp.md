@@ -1,5 +1,7 @@
 # Hundred Finance #2 Exploit — Empty-Market Exchange-Rate Inflation Drains Every Pool
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/rounding · vuln/reentrancy/cross-contract
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that fail to whole-compile, so this one was extracted).

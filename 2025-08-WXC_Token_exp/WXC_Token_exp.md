@@ -1,5 +1,7 @@
 # WXC Token Exploit — Burn-From-Pool + `sync()` "Phantom Reserve" Drain
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition · vuln/governance/flash-loan-attack
+
 > One-line summary: a sell-tax token that **burns the seller's tokens straight out of the AMM pair and then calls `pair.sync()`** makes the pair under-record its own token reserve by exactly the deposited amount, so a follow-up `swap()` pays out almost the entire WBNB reserve for free.
 
 > **Reproduction:** the PoC compiles & runs as a `[PASS]` in an isolated Foundry project at

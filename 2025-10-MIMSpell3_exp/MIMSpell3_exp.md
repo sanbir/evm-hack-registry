@@ -1,5 +1,7 @@
 # MIM Spell ("MIMSpell3") Exploit — Collateral-Free MIM Mint from Privileged Cauldrons
 
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/access-control/missing-auth
+
 > One-liner: six Abracadabra "Privileged" cauldrons were running a master-contract implementation whose `cook(ACTION_BORROW)` path performs **no solvency check**, so anyone could `cook` a borrow with zero collateral and mint the cauldron's entire MIM balance for free — ~1.79M MIM (~$1.7M) drained and laundered MIM → 3CRV → USDT → WETH.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project ([folder](.)). Full verbose trace: [output.txt](output.txt). Verified (but stale) cauldron source: [sources/PrivilegedCheckpointCauldronV4_46f54d/src_cauldrons_CauldronV4.sol](sources/PrivilegedCheckpointCauldronV4_46f54d/src_cauldrons_CauldronV4.sol).

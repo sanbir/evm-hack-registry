@@ -1,5 +1,7 @@
 # WIFCOIN (WIFStaking) Exploit — Time-Ungated `claimEarned()` Reward Loop Drains the Staking Pool
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

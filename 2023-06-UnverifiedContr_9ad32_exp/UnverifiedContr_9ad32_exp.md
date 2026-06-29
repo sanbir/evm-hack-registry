@@ -1,5 +1,7 @@
 # Unverified Staking Contract — `claim()` Double-Spend of Deposited BUSD
 
+> **Vulnerability classes:** vuln/logic/missing-allowance · vuln/logic/state-update · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified source available for the flash-loan provider only

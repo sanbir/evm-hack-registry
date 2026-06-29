@@ -1,5 +1,7 @@
 # ATM Token Exploit — Forced Zero-Slippage Auto-Swaps Drained via `transfer` + `skim`
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/incorrect-state-transition
+
 > One-liner: ATM's tax/"auto-distribute" logic dumps the contract's own tokens into the AMM pair with **`amountOutMin = 0`** on every *sell*; treating a direct ERC20 `transfer` to the pair as a "sell" lets anyone trigger that dump repeatedly and `skim()` the tokens back, draining the pool's WBNB for ~218 BNB profit.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

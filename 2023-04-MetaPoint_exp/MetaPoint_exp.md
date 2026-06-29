@@ -1,5 +1,7 @@
 # MetaPoint (POT) Exploit — Permissionless `approve()` on User-Wallet Contracts Drains Holder Balances
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/missing-modifier
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

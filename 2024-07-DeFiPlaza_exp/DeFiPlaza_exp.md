@@ -1,5 +1,7 @@
 # DeFiPlaza Exploit — Constant-Product `swap` Degenerates When the Input Reserve Is Drained to Zero
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/division-before-multiply
+
 > One-line summary: by inflating every pool reserve ~18× via `addMultiple`, then using single-sided `removeLiquidity` to drain the pool's ETH balance to **0**, the attacker turned DeFiPlaza's `x·y=k` swap into a faucet — a **1 wei** input swap returns the *entire* output-token reserve, letting the attacker walk the pool's whole 16-token basket out token-by-token.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was extracted).

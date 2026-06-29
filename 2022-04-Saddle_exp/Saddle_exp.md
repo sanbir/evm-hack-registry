@@ -1,5 +1,7 @@
 # Saddle Finance sUSD MetaPool Exploit — Virtual-Price Manipulation Round-Trip
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/arithmetic/rounding
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [Swap / SwapUtils](sources/MetaSwap_824dcD)

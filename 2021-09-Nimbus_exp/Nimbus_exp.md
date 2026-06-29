@@ -1,5 +1,7 @@
 # Nimbus Pair Exploit — Broken `K`-Invariant Check (10000 vs 1000 Scaling Bug)
 
+> **Vulnerability classes:** vuln/arithmetic/decimal-mismatch · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not compile, so this one was extracted).

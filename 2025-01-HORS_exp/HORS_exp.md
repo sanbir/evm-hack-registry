@@ -1,5 +1,7 @@
 # HORS Exploit — Unprotected, Attacker-Callback `0xf78283c7` Drains the Pool's LP Tokens
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not compile together, so this one was extracted).

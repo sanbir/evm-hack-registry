@@ -1,5 +1,7 @@
 # Visor Finance (vVISR) Exploit — Free Share Minting via Attacker-Controlled `delegatedTransferERC20`
 
+> **Vulnerability classes:** vuln/dependency/unchecked-return-value · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). Verified vulnerable source:

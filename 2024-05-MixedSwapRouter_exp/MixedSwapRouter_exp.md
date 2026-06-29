@@ -1,5 +1,7 @@
 # MixedSwapRouter Exploit — Arbitrary `transferFrom` via Fake "Pool" + Same-Token Path
 
+> **Vulnerability classes:** vuln/access-control/missing-validation · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [sources/MixedSwapRouter_58637A/contracts_swap_MixedSwapRouter.sol](sources/MixedSwapRouter_58637A/contracts_swap_MixedSwapRouter.sol).

@@ -1,5 +1,7 @@
 # SheepFarm Exploit — Free Gems via Repeatable `register()`
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/access-control/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

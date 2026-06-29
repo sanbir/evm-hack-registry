@@ -1,5 +1,7 @@
 # `0xD4F1…7Cb3` Exploit — Uninitialized `OwnableUpgradeable` Lets Anyone Become Owner and `withdrawFees()`
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-owner · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

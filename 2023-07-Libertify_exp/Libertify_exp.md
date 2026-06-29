@@ -1,5 +1,7 @@
 # Libertify (LibertiVault) Exploit — Deposit Reentrancy via 1inch Swap Callback Inflates Share Mint
 
+> **Vulnerability classes:** vuln/reentrancy/single-function · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

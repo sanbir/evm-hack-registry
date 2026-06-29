@@ -1,5 +1,7 @@
 # GPU Token Exploit — Self-Transfer Balance Doubling
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/overflow
+
 > One-liner: GPU's ERC20 `_transfer` caches both the sender's and recipient's balance **before** writing them back, so a transfer to **yourself** writes `balance + amount` last and overwrites the `balance - amount` decrement — turning every self-transfer into a free `balance *= 2`.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

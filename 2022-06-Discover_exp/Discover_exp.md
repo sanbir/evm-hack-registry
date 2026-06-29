@@ -1,5 +1,7 @@
 # Discover / ETHpledge Exploit — Self-Referral Bonus Inflation via Spot-Price-Sourced Reward Math
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC lives in an isolated Foundry project at
 > [this project folder](.). It is a **demonstration harness that intentionally reverts** at the
 > end — the test borrows BUSD via a PancakeSwap flash-swap but never repays it, so the transaction

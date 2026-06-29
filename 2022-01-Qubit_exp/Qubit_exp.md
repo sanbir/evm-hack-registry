@@ -1,5 +1,7 @@
 # Qubit Finance QBridge Exploit — Zero-Address Token Whitelist Bypass
 
+> **Vulnerability classes:** vuln/bridge/missing-validation · vuln/access-control/broken-logic
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [QBridgeHandler.sol](sources/QBridgeHandler_80D148/contracts_bridge_QBridgeHandler.sol).

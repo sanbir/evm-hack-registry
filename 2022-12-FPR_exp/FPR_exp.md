@@ -1,5 +1,7 @@
 # FPR Token Exploit — Public `setAdmin()` Hijack Drains FPR Distributor Contracts + LP
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/access-control/missing-owner-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo has many unrelated PoCs that do not build together, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).

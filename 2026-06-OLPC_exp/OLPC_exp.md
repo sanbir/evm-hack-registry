@@ -1,5 +1,7 @@
 # OLPC Exploit — Owner `decimalsValue` Misconfig Amplifies Pair-Side Burn → `amountIn=0` Supporting-Fee Drain
 
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/oracle/price-manipulation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
 > `anvil_state.json` (a local anvil instance on `127.0.0.1:8546`), so no public

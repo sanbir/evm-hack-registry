@@ -1,5 +1,7 @@
 # AI IPC Token Exploit — Sell-Triggered Pool Burn (`_destroy`) Drains the AMM Reserve
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/oracle/price-manipulation
+
 > One-line summary: every IPC **sell** first burns the pair's own IPC down to a 1-token floor and
 > `sync()`s the pool, so an attacker who repeatedly sells crashes the IPC reserve to ~1 wei-token and
 > walks off with the entire USDT side of the pool — ~**591,933 USDT (~$590K)**.

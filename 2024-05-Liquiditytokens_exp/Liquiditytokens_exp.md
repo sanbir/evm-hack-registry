@@ -1,5 +1,7 @@
 # Liquidity Tokens (TLN / VOW / VUSD) Exploit — LP-Stake Reward Inflation & 1:1 TLN→vUSD Redemption
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile under a whole-repo build, so this one was extracted).

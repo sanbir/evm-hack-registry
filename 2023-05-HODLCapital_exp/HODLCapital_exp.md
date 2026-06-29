@@ -1,5 +1,7 @@
 # HODL Capital Exploit — Reflection-Rate Manipulation via `deliver()` Drains the Uniswap Pair
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile under a whole-project build,

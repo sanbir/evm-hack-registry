@@ -1,5 +1,7 @@
 # Meter.io Exploit — AnyswapV3ERC20 `transferWithPermit` Guard Logic Flaw
 
+> **Vulnerability classes:** vuln/logic/wrong-condition · vuln/auth/signature-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [AnyswapV5ERC20.sol](sources/AnyswapV5ERC20_639A64/AnyswapV5ERC20.sol).

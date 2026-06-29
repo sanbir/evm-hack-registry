@@ -1,5 +1,7 @@
 # Harmony Horizon Bridge Exploit — Compromised 2-of-5 Multisig Drains the Ethereum-Side Manager
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/access-control/centralization
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that fail the whole-project build, so this one was extracted).

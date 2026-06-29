@@ -1,5 +1,7 @@
 # CoW Protocol Solver-Router Exploit — Unvalidated `uniswapV3SwapCallback` Drains Settlement's Residual WETH
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > One-line summary: A CoW Protocol solver's swap-helper router implemented `uniswapV3SwapCallback` so that it blindly pulled `tokenIn.transferFrom(payer, recipient, amount)` for whatever `payer`/`token`/`amount` the *caller* supplied — without ever verifying the caller was a real Uniswap V3 pool. Because the GPv2Settlement contract had granted this router an effectively-unlimited WETH allowance, anyone could call the callback directly and steal the settlement contract's residual WETH.
 
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project at

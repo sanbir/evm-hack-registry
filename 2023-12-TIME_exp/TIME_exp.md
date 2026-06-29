@@ -1,5 +1,7 @@
 # TIME (ChronoTech) Exploit — ERC-2771 + Multicall Arbitrary `_msgSender()` Spoofing → Pool-Reserve Burn
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC was
 > extracted). Full verbose trace: [output.txt](output.txt).

@@ -1,5 +1,7 @@
 # ETN / EtnProduct Exploit — Protocol-Funded Liquidity Sent to the Caller (`addLiquidity → msg.sender`)
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not compile under a whole-project build, so this one was extracted).

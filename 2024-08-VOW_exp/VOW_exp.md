@@ -1,5 +1,7 @@
 # VOW / Vow Finance Exploit — Permissionless 100× VOW→vUSD `tokensReceived` Mint Mispricing
 
+> **Vulnerability classes:** vuln/oracle/single-source · vuln/logic/price-calculation
+
 > One-liner: anyone could send VOW to the `VSCTokenManager` and have it burn that VOW and mint **100× its
 > nominal value in vUSD (VSC)** for free — at a `usdRate` that was wildly above VOW's real market price —
 > which the attacker recycled through the vUSD/VOW pool to multiply ~1.49M VOW into ~58M VOW and drain

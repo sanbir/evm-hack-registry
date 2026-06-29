@@ -1,5 +1,7 @@
 # NFTG Presale Exploit — Mispriced `PresaleWithUSDT()` Pays ~13× the USDT Deposited
 
+> **Vulnerability classes:** vuln/oracle/wrong-feed · vuln/arithmetic/decimal-mismatch
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains several unrelated PoCs that do not whole-compile, so this one was extracted).

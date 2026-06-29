@@ -1,5 +1,7 @@
 # RoulettePotV2 Exploit — Permissionless `swapProfitFees()` Drained Through a Manipulated WBNB/LINK Spot Price
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/oracle/spot-price
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not all compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # ATM LP-Burn Exploit — Misplaced LP Tokens Are Burn-Redeemable by Anyone via PancakeV2 `burn()`
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted and runs offline

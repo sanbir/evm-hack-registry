@@ -1,5 +1,7 @@
 # Hexotic (HEX-OTC) Exploit — Mispriced OTC Orders Arbitraged Against Uniswap-V3 Spot
 
+> **Vulnerability classes:** vuln/oracle/missing-validation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

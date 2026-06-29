@@ -1,5 +1,7 @@
 # Adshares Bridge Exploit — Compromised Minter Key Fabricates Cross-Chain Mints
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/bridge/missing-validation
+
 > **One-line summary:** The Adshares `WrappedADS` bridge mints wrapped ADS purely on the say-so of a
 > privileged "minter" role; once the minter key was compromised, the attacker called `wrapTo()` with
 > entirely fabricated native-chain deposit data and minted ~1.2M wADS (~$628K) out of thin air.

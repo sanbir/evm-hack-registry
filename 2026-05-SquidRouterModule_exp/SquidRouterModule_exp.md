@@ -1,5 +1,7 @@
 # Squid Router Module Exploit — Caller-Supplied Delegate on the Permissionless Axelar Express Path
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/fake-account-substitution · vuln/bridge/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). It forks Ethereum mainnet at block 25,170,474 from a
 > local anvil snapshot ([anvil_state.json](anvil_state.json)), so no public archive

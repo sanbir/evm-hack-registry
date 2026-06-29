@@ -1,5 +1,7 @@
 # SWAPP Staking Exploit — Unchecked `transferFrom` Return Value Lets a Free `deposit` Mint Staking Balance, Then `emergencyWithdraw` Drains the Vault
 
+> **Vulnerability classes:** vuln/dependency/unchecked-return-value · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile together, so this one was extracted).

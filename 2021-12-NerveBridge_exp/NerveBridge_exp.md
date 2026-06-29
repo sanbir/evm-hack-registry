@@ -1,5 +1,7 @@
 # Nerve Bridge (Saddle/MetaSwap) Exploit — Stale `baseVirtualPrice` Cache Lets a Round-Trip Mint Free fUSD
 
+> **Vulnerability classes:** vuln/oracle/stale-price · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that fail to whole-compile, so this one was extracted).

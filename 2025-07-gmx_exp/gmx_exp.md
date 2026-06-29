@@ -1,5 +1,7 @@
 # GMX v1 Exploit — GLP Share-Price Manipulation via `globalShortAveragePrice`
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/reentrancy/single-function · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

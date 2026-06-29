@@ -1,5 +1,7 @@
 # AIXBT Forced-Swap Exploit — Public "Auth-Key" Selector Swaps Victim's Whole Balance into Attacker LP
 
+> **Vulnerability classes:** vuln/access-control/secret-exposure · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated
 > PoCs that do not all compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # RichPip (RPP) Token Exploit — Sell-Triggered LP Burn Pumps a Self-Manipulated Pool
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

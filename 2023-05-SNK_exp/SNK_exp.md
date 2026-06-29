@@ -1,5 +1,7 @@
 # SNK Miner Exploit — Inflated Referral Reward via Just-In-Time Child Staking
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/incorrect-order-of-operations · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

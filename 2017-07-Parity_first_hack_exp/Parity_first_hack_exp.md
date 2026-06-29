@@ -1,5 +1,7 @@
 # Parity Multisig First Hack (July 2017) — Unprotected `initWallet` Re-initialization
 
+> **Vulnerability classes:** vuln/access-control/missing-modifier · vuln/access-control/uninitialized-owner
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated PoCs
 > that do not whole-compile, so this one was extracted).

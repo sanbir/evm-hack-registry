@@ -1,5 +1,7 @@
 # FPC Token Exploit — Sell-Side `burnLpToken()` Drains the Pool's Own FPC Reserve
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-order-of-operations · vuln/defi/slippage
+
 > One-liner: FPC's transfer hook, on every sell, **moves 65% of the sold amount worth of FPC out of the AMM pair's balance** (to treasury/reward) and then `sync()`s the pair — deleting the pool's FPC reserve without removing any USDT, which detonates the constant-product price in the seller's favor.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

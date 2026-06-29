@@ -1,5 +1,7 @@
 # Predy Finance Exploit — Permissionless Pair Registration + Lock-Settlement Bypass Drains the Shared Pool
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile under `forge test`, so this one was extracted).

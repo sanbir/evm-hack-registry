@@ -1,5 +1,7 @@
 # DEXRouter Exploit — Unprotected `functionCallWithValue` Drains the Router's Native BNB
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not compile under a whole-project build, so this one was extracted).

@@ -1,5 +1,7 @@
 # NORMIE Exploit — Phantom Self-Mint via the `premarket_user` Flag + `skim()` Recycling
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/overflow
+
 > One-liner: A booby-trapped line in NORMIE's `_transfer` credits the token contract's own balance with `+amount` on every buy made by a "premarket user", a flag an attacker can flip onto themselves for free by matching the team wallet's exact balance — letting them mint phantom NORMIE that the contract's `swapAndLiquify` dumps for real WETH out of its own liquidity pool.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

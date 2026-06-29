@@ -1,5 +1,7 @@
 # Thetanuts BTC/USD Vault Exploit — ERC4626-Style First-Depositor Share Rounding at `totalSupply() == 0`
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several unrelated PoCs that
 > do not all compile together, so this one was extracted and is served from a local anvil fork).

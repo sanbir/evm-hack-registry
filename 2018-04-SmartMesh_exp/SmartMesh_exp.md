@@ -1,5 +1,7 @@
 # SmartMesh (SMT) Exploit — `transferProxy` Integer-Overflow Mint (`proxyOverflow` / CVE-2018-10376)
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs
 > that do not whole-compile, so this one was extracted).

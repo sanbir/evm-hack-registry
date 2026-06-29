@@ -1,5 +1,7 @@
 # LFI / VLFI Exploit — `claimRewards()` Reward-Debt Reset via Botched `cleanUserMapping` Migration
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/state-update · vuln/data/uninitialized
+
 > **Reproduction status:** the PoC compiles in the isolated Foundry project at [this folder](.),
 > but the live fork **could not be re-run**: the configured Polygon RPC
 > (`polygon-mainnet.public.blastapi.io`) now returns HTTP 403 "Blast API is no longer available"

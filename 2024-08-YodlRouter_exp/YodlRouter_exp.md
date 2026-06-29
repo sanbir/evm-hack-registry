@@ -1,5 +1,7 @@
 # Yodl Router Exploit — Permissionless `transferFee()` Drains Pre-Approved User Allowances
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone Foundry project).

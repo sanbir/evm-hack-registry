@@ -1,5 +1,7 @@
 # SCROLL Token Exploit — Uniswap `UniversalRouter` Drained via a `balanceOf == type(uint256).max` Trap Token
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted).

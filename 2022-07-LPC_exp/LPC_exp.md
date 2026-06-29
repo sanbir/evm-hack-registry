@@ -1,5 +1,7 @@
 # LPC Token Exploit — Self-Transfer Balance Overwrite Mints Free Tokens
 
+> **Vulnerability classes:** vuln/logic/state-update · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [LPC.sol](sources/LPC_1E813f/LPC.sol).

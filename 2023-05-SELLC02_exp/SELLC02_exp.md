@@ -1,5 +1,7 @@
 # SELLC / QIQI StakingRewards Exploit — Attacker-Chosen Reward-Valuation Token Drains the Reward Pool
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/logic/missing-validation · vuln/logic/reward-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not whole-compile, so this one was extracted).

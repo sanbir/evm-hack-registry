@@ -1,5 +1,7 @@
 # MEV Bot `0x0AD8…afd4` — Arbitrary-Call Router Drains a Victim's Standing USDC Approval
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains several
 > unrelated PoCs that do not whole-compile, so this one was extracted).

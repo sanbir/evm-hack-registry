@@ -1,5 +1,7 @@
 # Planet Finance (PLN) Exploit — Zero-Amount Transfer Triggers Uncompensated Pool Burn
 
+> **Vulnerability classes:** vuln/logic/wrong-condition · vuln/logic/incorrect-state-transition
+
 > One-liner: A single **zero-value** `transferFrom(teamWallet, 0xdEaD, 0)` makes PLN burn the
 > Uniswap pair's *entire* PLN reserve down to a 100-token floor and `sync()` it, collapsing the
 > `x·y=k` invariant so the attacker drains ~165.89 WETH (~$400k) from 0.9 ETH of working capital.

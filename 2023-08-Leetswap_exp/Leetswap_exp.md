@@ -1,5 +1,7 @@
 # LeetSwap V2 Exploit — Public `_transferFeesSupportingTaxTokens()` Drains the Pair's Reserves
 
+> **Vulnerability classes:** vuln/access-control/broken-logic · vuln/logic/missing-check
+
 > **Reproduction:** the PoC compiles & runs in this isolated Foundry project
 > ([this folder](.)). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [LeetSwapV2Pair.sol](sources/LeetSwapV2Pair_94dac4/LeetSwapV2Pair.sol)

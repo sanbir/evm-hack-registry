@@ -1,5 +1,7 @@
 # xWin Finance Exploit — Disabled Slippage Control + `_tradeParams.amount`-Based Reward Inflation
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/reward-calculation · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile, so this PoC
 > was extracted into a standalone project).

@@ -1,5 +1,7 @@
 # Unverified `0x03F9…` Exploit — Permissionless Uniswap V3 Swap-Callback WETH Drain
 
+> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-check
+
 > One-line summary: an unverified contract implements `uniswapV3SwapCallback` with **no caller authentication**, so anyone can call it directly and have it pay out the contract's entire WETH balance to an attacker-chosen recipient.
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at

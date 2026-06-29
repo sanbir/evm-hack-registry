@@ -1,5 +1,7 @@
 # BDEX (Bvaults) Exploit — Permissionless `convertDustToEarned()` Sandwiched into a No-Slippage Pool Swap
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/defi/slippage · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that fail to whole-compile under `forge test`, so this one was

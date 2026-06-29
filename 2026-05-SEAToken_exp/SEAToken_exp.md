@@ -1,5 +1,7 @@
 # MetaSea (SEA Token) Exploit — `redeemPosition()` Over-Pays From an Unguarded Reward Distributor
 
+> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/incorrect-state-transition · vuln/dos/init-constraint
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). The vulnerable logic (`MetaSea Round` + `SEA Distributor`)

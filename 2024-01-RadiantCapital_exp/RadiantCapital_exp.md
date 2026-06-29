@@ -1,5 +1,7 @@
 # Radiant Capital Exploit — Empty-Market `liquidityIndex` Inflation + `rayDiv` Rounding Drain
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/arithmetic/precision-loss
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace:
 > [output.txt](output.txt). The vulnerable contracts on disk are the

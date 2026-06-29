@@ -1,5 +1,7 @@
 # Onyx Protocol Exploit — Empty-Market Exchange-Rate Inflation (Compound V2 Fork)
 
+> **Vulnerability classes:** vuln/arithmetic/rounding · vuln/logic/price-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo does not whole-compile,
 > so this PoC was extracted into a standalone project).

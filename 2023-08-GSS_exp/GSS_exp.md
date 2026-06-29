@@ -1,5 +1,7 @@
 # GSS Exploit — Fee-on-Transfer / Reflection Token Drained via Cross-Pool `skim()`
 
+> **Vulnerability classes:** vuln/defi/slippage · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile under `forge test`, so this one was

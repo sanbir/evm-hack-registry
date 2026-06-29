@@ -1,5 +1,7 @@
 # MUBank Exploit — Flash-Swap Manipulation of Reserve-Dependent Bond Pricing
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [contracts_MuBank.sol](sources/MuBank_4aA679/contracts_MuBank.sol).

@@ -1,5 +1,7 @@
 # Curve `UnderlyingBurner.execute()` — Zero-Slippage Sandwich on the 3pool
 
+> **Vulnerability classes:** vuln/defi/sandwich-attack · vuln/defi/slippage · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that fail to whole-compile, so this one was extracted).

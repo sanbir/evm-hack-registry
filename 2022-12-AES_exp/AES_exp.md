@@ -1,5 +1,7 @@
 # AES (AEST) Exploit — Fee-Accumulator `distributeFee()` Drains the AMM Pair
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/access-control/missing-auth
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
 > Verified vulnerable source: [sources/AEST_dDc0CF/AEST.sol](sources/AEST_dDc0CF/AEST.sol).

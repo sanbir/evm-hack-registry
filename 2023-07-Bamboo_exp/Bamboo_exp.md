@@ -1,5 +1,7 @@
 # Bamboo AI Exploit — `updatePool()` Permissionless Pool-Reserve Siphon + `skim`/`sync` Drain
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/defi/slippage · vuln/logic/incorrect-order-of-operations
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > contains many unrelated PoCs that do not compile together, so this one was extracted).

@@ -1,5 +1,7 @@
 # YYDS Exploit — Spot-Price Oracle Manipulation via Flash-Swap Reserve Draining
 
+> **Vulnerability classes:** vuln/oracle/spot-price · vuln/governance/flash-loan-attack
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo
 > does not whole-compile under `forge test`, so this PoC was extracted).

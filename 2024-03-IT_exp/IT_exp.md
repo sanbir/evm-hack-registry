@@ -1,5 +1,7 @@
 # IntrospectionToken (IT) Exploit — Inflationary Repricing Mint Drains the IT/USDT Pancake Pair
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo holds many unrelated PoCs that
 > fail to build together, so this one was extracted).

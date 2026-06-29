@@ -1,5 +1,7 @@
 # 1inch Fusion V1 `Settlement` Exploit — Yul Calldata-Length Underflow Hijacks the Resolver Dynamic Suffix
 
+> **Vulnerability classes:** vuln/arithmetic/overflow · vuln/input-validation/missing
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do not
 > compile together, so this one was extracted).

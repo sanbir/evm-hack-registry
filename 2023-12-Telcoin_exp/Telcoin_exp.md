@@ -1,5 +1,7 @@
 # Telcoin Exploit — Uninitialized `CloneableProxy` Hijacked via Public `initialize()`
 
+> **Vulnerability classes:** vuln/access-control/uninitialized-proxy · vuln/access-control/uninitialized-owner
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated
 > PoCs that do not whole-compile, so this one was extracted).

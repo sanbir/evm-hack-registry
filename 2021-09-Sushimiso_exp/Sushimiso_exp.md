@@ -1,5 +1,7 @@
 # MISO / SushiSwap Dutch Auction — `batch()` `delegatecall` Reuses `msg.value`
 
+> **Vulnerability classes:** vuln/logic/incorrect-order-of-operations · vuln/dependency/unsafe-external-call
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many
 > unrelated PoCs that do not whole-compile, so this one was extracted).

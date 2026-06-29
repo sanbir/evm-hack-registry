@@ -1,5 +1,7 @@
 # Multi-Chain Capital ($MCC) Exploit — Reflection-Rate Inflation via `deliver()` + `skim()`
 
+> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/state-update · vuln/defi/slippage
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
 > not compile under a whole-repo `forge build`, so this one was extracted).

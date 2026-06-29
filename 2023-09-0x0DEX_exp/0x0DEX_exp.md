@@ -1,5 +1,7 @@
 # 0x0 Privacy DEX (OxODex) Exploit — Forged LSAG Ring Signature + Stale `_lastWithdrawal` Pool Drain
 
+> **Vulnerability classes:** vuln/auth/signature-validation · vuln/logic/state-update
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated
 > PoCs that do not whole-compile, so this one was extracted).

@@ -1,5 +1,7 @@
 # Silo Finance Logic-Error Exploit — Interest-Rate Manipulation Drains the Entire XAI Market for ~$0
 
+> **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-state-transition · vuln/logic/fee-calculation
+
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.) (the main DeFiHackLabs repo contains several unrelated PoCs that do not compile, so this one was extracted).
 > Full verbose trace: [output.txt](output.txt).
