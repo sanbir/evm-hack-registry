@@ -338,8 +338,7 @@ _shared/run_poc.sh 2024-10-SASHAToken_exp -vvvvv
 ```
 
 - RPC: an **Ethereum mainnet archive** endpoint is required (fork at block 20,905,301).
-  `foundry.toml` uses an Infura archive endpoint; the default key in the template was rotated to a
-  working one (`6c80b4478d…`) after a 401.
+  `foundry.toml` uses an archive endpoint; the key is supplied via `ct_secrets.sh` (never committed).
 - Result: `[PASS] testExploit()` with `balance: 249206511929373786924` (≈ 249.21 ETH profit).
 
 Expected tail:

