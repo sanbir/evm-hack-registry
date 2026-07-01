@@ -1,7 +1,7 @@
 # evm-hack-registry
 
 A self-contained, offline-runnable archive of **841 DeFi exploit proof-of-concepts** spanning
-the full history of EVM hacks (2017 → 2026), across 15+ chains.
+the full history of EVM hacks (2017 → 2026), across 15 chains.
 
 Each exploit lives in its own standalone Foundry project, comes with the **actual on-chain
 contract source code** (pulled from Etherscan), a captured **anvil block-state snapshot** so it
@@ -34,7 +34,7 @@ to actually *run and study* its PoCs:
   Reproducing them needs an **archive** node for every chain (mainnet, BSC, Arbitrum, Optimism,
   Base, Polygon, Avalanche, Fantom, Gnosis, …) — public RPCs prune state, and free archive
   access is rare/rate-limited. Without a paid archive provider you simply cannot run most PoCs.
-- **Many chains, many blocks.** Hacks span 15+ chains, each forking at a different historical
+- **Many chains, many blocks.** Hacks span 15 chains, each forking at a different historical
   block. Coordinating the right chain + block + a working archive endpoint for each is tedious
   and brittle.
 - **Incompatible Solidity versions.** PoCs were written for solc ranging from `0.4.x` to
@@ -86,10 +86,10 @@ All artifacts are preserved and viewable/runnable offline:
 
 ```bash
 # one PoC, fully offline (verbose trace)
-_shared/run_poc.sh 2022-04-Beanstalk_exp -vvvvv
+_shared/run_poc.sh 2021-08-PolyNetwork_exp -vvvvv
 
 # one PoC, default
-_shared/run_poc.sh 2022-04-Beanstalk_exp
+_shared/run_poc.sh 2021-08-PolyNetwork_exp
 
 # all 841 in parallel (bounded by CPU cores)
 _shared/run_all.sh
@@ -117,12 +117,15 @@ compilers, so `--network none` works.
 
 ## Status
 
-**729 / 759** runnable PoCs reproduce their expected verdict offline (96%): the exploit
-succeeds (or, for known-failing PoCs, reproduces the documented failure). The remainder are
-limited by lazy state-capture for deeply nested exploits (see `_shared/README.md`).
+**839 / 841** PoCs carry a committed `anvil_state.json` and run fully offline. **806 / 841**
+reproduce their exploit — `Suite result: ok` in the committed `output.txt` (96%). The
+remainder carry either a documented non-passing reference trace or an incomplete capture (see
+`_shared/README.md`).
 
 - **2 PoCs** (`2022-02-Meter_exp` on moonriver, `2025-09-Kame_exp` on sei) cannot be reproduced:
-  their fork blocks are pruned on every public archive node.
+  their fork blocks are pruned on every public archive node, so they have no `anvil_state.json`.
+  These are the only PoCs on those two chains; the other 13 chains all have offline-runnable
+  reproductions.
 - **No** `[rpc_endpoints]` in any `foundry.toml`, **no** external dependencies, **no** secrets.
 
 ---
@@ -155,95 +158,104 @@ grep the registry:
 grep -rl "vuln/oracle/price-manipulation" --include='*_exp.md' .
 ```
 
-**Coverage:** all 739 PoCs are tagged (0 untagged). Across the registry there are **1,597 tag
-instances** (avg **2.16** classes per PoC) spanning **64** of the ~68 canonical AuditVault
-`vuln/` classes.
+**Coverage:** 819 of 841 PoCs are tagged (22 untagged — multi-exploit variant folders such as
+`exp1`/`exp2`/`exploit` that the tagger skipped). Across the registry there are **1,851 tag
+instances** (avg **2.26** classes per PoC) spanning **70** distinct `vuln/` class slugs (the
+AuditVault canonical set plus a handful of classifier-assigned variants such as
+`vuln/business-logic/*`).
 
 ### By category
 
 | Category | Tag count | What it covers |
 |---|---:|---|
-| `vuln/logic/…` | 449 | business-logic bugs (state updates, ordering, price/reward/fee/liquidation math, missing checks/validation) |
-| `vuln/access-control/…` | 359 | missing auth/modifier/owner-check, uninitialized proxy/owner, leaked keys, centralization |
-| `vuln/oracle/…` | 295 | price/oracle manipulation, spot-price, stale-price, single-source, TWAP, wrong feed |
-| `vuln/defi/…` | 132 | AMM slippage, sandwich, fee manipulation |
-| `vuln/arithmetic/…` | 110 | overflow/underflow, rounding, precision loss, decimal mismatch, div-before-mul |
-| `vuln/dependency/…` | 74 | unsafe external calls, unchecked return values, upgradeable/proxy hazards |
-| `vuln/reentrancy/…` | 62 | single/cross-function/cross-contract/read-only reentrancy |
-| `vuln/governance/…` | 62 | flash-loan attacks/voting, proposal manipulation, timelock bypass |
+| `vuln/logic/…` | 538 | business-logic bugs (state updates, ordering, price/reward/fee/liquidation math, missing checks/validation) |
+| `vuln/access-control/…` | 425 | missing auth/modifier/owner-check, uninitialized proxy/owner, leaked keys, centralization |
+| `vuln/oracle/…` | 327 | price/oracle manipulation, spot-price, stale-price, single-source, TWAP, wrong feed |
+| `vuln/defi/…` | 166 | AMM slippage, sandwich, fee manipulation |
+| `vuln/arithmetic/…` | 112 | overflow/underflow, rounding, precision loss, decimal mismatch, div-before-mul |
+| `vuln/dependency/…` | 90 | unsafe external calls, unchecked return values, upgradeable/proxy hazards |
+| `vuln/governance/…` | 65 | flash-loan attacks/voting, proposal manipulation, timelock bypass |
+| `vuln/reentrancy/…` | 63 | single/cross-function/cross-contract/read-only reentrancy |
+| `vuln/auth/…` | 18 | signature replay/malleability/validation |
 | `vuln/bridge/…` | 16 | cross-chain message spoofing, missing validation, replay |
-| `vuln/auth/…` | 14 | signature replay/malleability/validation |
-| `vuln/input-validation/…` | 12 | missing/boundary/wrong-type input checks |
+| `vuln/input-validation/…` | 15 | missing/boundary/wrong-type input checks |
 | `vuln/data/…` | 7 | uninitialized storage, missing events, wrong encoding |
-| `vuln/dos/…` | 5 | frozen funds, gas-limit, griefing, lockup, unbounded loops, init constraints |
+| `vuln/dos/…` | 7 | frozen funds, gas-limit, griefing, lockup, unbounded loops, init constraints |
+| `vuln/business-logic/…` | 2 | arbitrary-call / confused-deputy (classifier variant of `logic`) |
 
 ### By class (full breakdown)
 
 | Class (AuditVault `vuln/` slug) | Tag count |
 |---|---:|
-| `vuln/access-control/missing-auth` | 218 |
-| `vuln/oracle/price-manipulation` | 159 |
-| `vuln/defi/slippage` | 108 |
-| `vuln/oracle/spot-price` | 103 |
-| `vuln/logic/state-update` | 81 |
-| `vuln/logic/incorrect-state-transition` | 70 |
-| `vuln/dependency/unsafe-external-call` | 66 |
-| `vuln/logic/missing-check` | 63 |
-| `vuln/logic/reward-calculation` | 61 |
-| `vuln/logic/incorrect-order-of-operations` | 57 |
-| `vuln/governance/flash-loan-attack` | 54 |
-| `vuln/logic/missing-validation` | 49 |
-| `vuln/access-control/missing-modifier` | 36 |
-| `vuln/arithmetic/rounding` | 34 |
+| `vuln/access-control/missing-auth` | 254 |
+| `vuln/oracle/price-manipulation` | 176 |
+| `vuln/defi/slippage` | 120 |
+| `vuln/oracle/spot-price` | 113 |
+| `vuln/logic/state-update` | 94 |
+| `vuln/logic/incorrect-state-transition` | 87 |
+| `vuln/dependency/unsafe-external-call` | 74 |
+| `vuln/logic/missing-check` | 71 |
+| `vuln/logic/incorrect-order-of-operations` | 71 |
+| `vuln/logic/missing-validation` | 68 |
+| `vuln/logic/reward-calculation` | 63 |
+| `vuln/governance/flash-loan-attack` | 57 |
+| `vuln/access-control/missing-modifier` | 45 |
+| `vuln/logic/price-calculation` | 39 |
+| `vuln/arithmetic/rounding` | 35 |
 | `vuln/reentrancy/single-function` | 33 |
-| `vuln/arithmetic/precision-loss` | 31 |
-| `vuln/logic/price-calculation` | 29 |
-| `vuln/defi/sandwich-attack` | 19 |
-| `vuln/access-control/broken-logic` | 19 |
+| `vuln/arithmetic/precision-loss` | 32 |
+| `vuln/access-control/broken-logic` | 30 |
+| `vuln/access-control/missing-validation` | 23 |
+| `vuln/defi/sandwich-attack` | 20 |
 | `vuln/arithmetic/overflow` | 18 |
-| `vuln/access-control/missing-validation` | 18 |
+| `vuln/access-control/centralization` | 17 |
 | `vuln/arithmetic/decimal-mismatch` | 17 |
+| `vuln/defi/fee-manipulation` | 16 |
 | `vuln/logic/missing-allowance` | 15 |
 | `vuln/access-control/uninitialized-proxy` | 14 |
-| `vuln/access-control/centralization` | 14 |
-| `vuln/reentrancy/cross-function` | 12 |
-| `vuln/oracle/stale-price` | 12 |
+| `vuln/oracle/stale-price` | 14 |
+| `vuln/auth/signature-validation` | 14 |
+| `vuln/reentrancy/cross-function` | 13 |
+| `vuln/logic/wrong-condition` | 13 |
+| `vuln/input-validation/missing` | 13 |
+| `vuln/dependency/unchecked-return-value` | 12 |
+| `vuln/access-control/missing-owner-check` | 12 |
 | `vuln/reentrancy/cross-contract` | 11 |
 | `vuln/bridge/missing-validation` | 11 |
-| `vuln/auth/signature-validation` | 11 |
-| `vuln/logic/wrong-condition` | 10 |
-| `vuln/input-validation/missing` | 10 |
 | `vuln/access-control/secret-exposure` | 10 |
-| `vuln/access-control/missing-owner-check` | 10 |
-| `vuln/logic/fee-calculation` | 9 |
+| `vuln/logic/fee-calculation` | 10 |
 | `vuln/access-control/missing-check` | 8 |
-| `vuln/oracle/missing-validation` | 7 |
+| `vuln/oracle/missing-validation` | 8 |
+| `vuln/defi/flash-loan-attack` | 8 |
 | `vuln/data/uninitialized` | 7 |
 | `vuln/access-control/fake-account-substitution` | 7 |
 | `vuln/reentrancy/read-only` | 6 |
 | `vuln/arithmetic/underflow` | 6 |
-| `vuln/oracle/wrong-feed` | 5 |
+| `vuln/logic/liquidation-logic` | 6 |
 | `vuln/oracle/single-source` | 5 |
-| `vuln/logic/liquidation-logic` | 5 |
-| `vuln/dependency/unchecked-return-value` | 5 |
-| `vuln/defi/fee-manipulation` | 5 |
-| `vuln/bridge/message-spoofing` | 4 |
+| `vuln/oracle/wrong-feed` | 5 |
 | `vuln/access-control/uninitialized-owner` | 4 |
-| `vuln/governance/timelock-bypass` | 3 |
+| `vuln/bridge/message-spoofing` | 4 |
+| `vuln/dependency/upgradeable-contract` | 4 |
 | `vuln/governance/proposal-manipulation` | 3 |
-| `vuln/dependency/upgradeable-contract` | 3 |
-| `vuln/oracle/missing-circuit-breaker` | 2 |
-| `vuln/oracle/manipulable-twap` | 2 |
-| `vuln/input-validation/boundary` | 2 |
-| `vuln/governance/flash-loan-voting` | 2 |
-| `vuln/dos/init-constraint` | 2 |
+| `vuln/dos/griefing` | 3 |
+| `vuln/governance/timelock-bypass` | 3 |
+| `vuln/auth/signature-replay` | 3 |
+| `vuln/oracle/manipulable-twap` | 3 |
 | `vuln/dos/frozen-funds` | 2 |
-| `vuln/auth/signature-replay` | 2 |
+| `vuln/governance/flash-loan-voting` | 2 |
+| `vuln/input-validation/boundary` | 2 |
+| `vuln/oracle/missing-circuit-breaker` | 2 |
 | `vuln/arithmetic/rounding-direction` | 2 |
 | `vuln/arithmetic/division-before-multiply` | 2 |
-| `vuln/dos/griefing` | 1 |
-| `vuln/bridge/replay` | 1 |
-| `vuln/auth/signature-malleability` | 1 |
+| `vuln/defi/price-manipulation` | 2 |
+| `vuln/dos/init-constraint` | 2 |
 | `vuln/access-control/proxy-storage-collision` | 1 |
+| `vuln/auth/signature-malleability` | 1 |
+| `vuln/business-logic/arbitrary-call` | 1 |
+| `vuln/business-logic/confused-deputy` | 1 |
+| `vuln/oracle/price-calculation` | 1 |
+| `vuln/logic/missing-state-update` | 1 |
+| `vuln/bridge/replay` | 1 |
 
-> Tag counts are instances, not PoCs — a PoC tagged with N classes contributes N to the total. Classes reflect each exploit's root cause and primary enabling mechanism as described in the write-up; they are classifier-assigned labels, not formal audit verdicts. Taxonomy © [AuditVault](https://github.com/forefy/AuditVault).
+> Tag counts are instances, not PoCs — a PoC tagged with N classes contributes N to the total. Classes reflect each exploit's root cause and primary enabling mechanism as described in the write-up; they are classifier-assigned labels, not formal audit verdicts.
