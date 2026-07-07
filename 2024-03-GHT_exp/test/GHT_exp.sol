@@ -29,7 +29,7 @@ contract ContractTest is Test {
 
     function setUp() public {
         CheatCodesNew(address(vm)).createSelectFork(
-        "http://127.0.0.1:8545", bytes32(19380954)
+        "http://127.0.0.1:8545", bytes32(uint256(19380954))
         );
         vm.label(address(WETH), "WETH");
         vm.label(address(GHT), "GHT");

