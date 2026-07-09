@@ -829,8 +829,19 @@ abstract contract FrozenToken is ERC20, Ownable {
     return true;
   }
 
+  // VULNERABILITY: Incorrect allowance key in custom transferFrom override (approval hijack)
+  // Root cause: FrozenToken.transferFrom (overriding ERC20) computes remaining allowance using the wrong key `allowance(sender, recipient)` instead of the spender `allowance(sender, msg.sender)`.
+  // Location: sources/wxBTRFLY_186E55/wxBTRFLY.sol:832-835 (the override); contrast with correct base impl at ERC20:516-519 which uses _allowances[sender][msg.sender].
+  // Flaw detail: _approve(sender, msg.sender, allowance(sender, recipient ).sub(amount, "ERC20: transfer amount exceeds allowance"));
+  //   - `allowance()` reads _allowances[owner][spender]; passing `recipient` reads unrelated approval slot.
+  //   - Then _approve writes the (misread) value into _allowances[sender][msg.sender].
+  // Why it exists: The FrozenToken layer (for isTokenFrozen + isAuthorisedOperators) re-implements transfer/transferFrom (lines 829,832) to gate with onlyAuthorisedOperators modifier, but the developer introduced a semantic error (confused recipient with caller) in the allowance reduction logic required by ERC20 transferFrom spec.
+  // Impact: Direct theft of approved funds. Anyone can invoke transferFrom(sender, someApprovedRecipient, 0) (if modifier allows) to cause allowance(sender, attacker) to be set to the value of allowance(sender, approvedRecipient). Attacker then uses the hijacked allowance in a second transferFrom(sender, attacker, amount) to steal tokens. The original approval remains; amount=0 means no transfer occurs in the hijack step. Affects any user who has granted non-zero ERC20 allowance to any address.
+  // This is the root cause of the 2022-03 Redacted Cartel / wxBTRFLY exploit.
   function transferFrom(address sender, address recipient, uint256 amount) public virtual override onlyAuthorisedOperators returns (bool) {
     _transfer(sender, recipient, amount);
+    // VULNERABILITY: BUG HERE - allowance(sender, recipient) should be allowance(sender, msg.sender)
+    // See full analysis comment above (FrozenToken.transferFrom). This line sets allowance for msg.sender based on recipient's slot.
     _approve(sender, msg.sender, allowance(sender, recipient ).sub(amount, "ERC20: transfer amount exceeds allowance"));
     return true;
   }

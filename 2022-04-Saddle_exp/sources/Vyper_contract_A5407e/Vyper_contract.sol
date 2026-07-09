@@ -224,6 +224,10 @@ def get_virtual_price() -> uint256:
     Returns portfolio virtual price (for calculating profit)
     scaled up by 1e18
     """
+    # VULNERABILITY (external dependency): Saddle metapool prices its second pooled asset
+    # (the Curve LP) using this value (via cached snapshot). Large swaps on Curve change
+    # the internal _balances / rates, therefore D, therefore this virtual price.
+    # Saddle never re-queries it live inside a tx.
     D: uint256 = self.get_D(self._xp(self._stored_rates()))
     # D is in the units similar to DAI (e.g. converted to precision 1e18)
     # When balanced, D = n * x_u - total virtual value of the portfolio

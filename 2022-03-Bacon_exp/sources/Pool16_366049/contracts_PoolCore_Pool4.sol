@@ -196,6 +196,30 @@ contract Pool4 is Initializable, ERC777Upgradeable, IERC721ReceiverUpgradeable {
     function lend(
         uint256 amount
     ) public returns (uint256) {
+        // VULNERABILITY: Reentrancy in lend() via ERC1820/ERC777 tokensReceived (CEI + no guard)
+        // Exact location: contracts_PoolCore_Pool4.sol:196 (function lend), called from Bacon proxy
+        //   at 0xb89195... (the deployed Pool at hack time used this unguarded proportional logic).
+        // Flaw: IERC20Upgradeable(ERCAddress).transferFrom(msg.sender, address(this), amount) [L205]
+        //   (Amply USDC wrapper fires custom ERC1820 tokensReceived on lender via hook) then:
+        //   uint256 newTokensMinted = mintProportionalPoolTokens(msg.sender, amount) [L206]
+        //   (if(poolLent==0) amount else amount*totalSupply()/poolLent) then poolLent.add [L207]
+        //   then super._mint (ERC777Upgradeable path in Pool4) which does balance update + _callTokensReceived
+        //   (L523 in ERC777Upgradeable.sol) looking up implementer for recipient using registry.
+        // Why: external call (transferFrom) + hook-emitting mint happens before effects committed and
+        //   no nonReentrant modifier (contrast Pool13:198 which has it). Reentrant calls read the same
+        //   stale poolLent/totalSupply and each mints/credits shares for the deposit.
+        // Impact: caller receives N x fair shares for 1x deposit; redeem extracts N x value (incl. prior
+        //   LPs' liquidity). In 2022-03-Bacon: 3x inflation on 2.12M unit → ~958k USDC drained.
+        // EXPLOIT STEPS (cross-ref test/Bacon_exp.sol):
+        // 1. Attacker registers implementer for Amply/ERC777 recipient hash (Bacon_exp.sol:18-20).
+        // 2. Flash swap to fund deposit unit (Bacon_exp.sol:30).
+        // 3. Call lend(d) [L205]: transferFrom triggers hook before/around mintProportional + poolLent+= .
+        // 4. tokensReceived re-calls lend(d) while outer lend still mid-execution (stale poolLent seen).
+        // 5. Each reentrant lend computes newTokensMinted using identical old poolLent ratio, _mints.
+        // 6. 3x lends complete (1 outer +2 re) → attacker share bal = 3*(d * S / L), poolLent +=3d.
+        // 7. redeem(inflatedShares) [see redeem L220] computes erc20Value using post-state price,
+        //    transfers excess USDC (more than net d*3 transferred in this tx).
+        // 8. Repay flash + profit.
         //USDC on Ropsten only right now
         IERC20Upgradeable(ERCAddress).transferFrom(msg.sender, address(this), amount);
         uint256 newTokensMinted = mintProportionalPoolTokens(msg.sender, amount);

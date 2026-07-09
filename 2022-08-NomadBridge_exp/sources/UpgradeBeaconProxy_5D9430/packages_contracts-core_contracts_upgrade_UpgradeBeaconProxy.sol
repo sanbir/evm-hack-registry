@@ -54,6 +54,9 @@ contract UpgradeBeaconProxy {
         if (_initializationCalldata.length > 0) {
             _initialize(_implementation, _initializationCalldata);
         }
+        // NOTE (hack root cause enabler): the _initializationCalldata here contained the call to Replica.initialize(..., _committedRoot=bad_value, ...)
+        // A mistake in the calldata construction (passing the zero/empty root) permanently corrupted the confirmAt table on the proxy,
+        // enabling the unproven process() path used in the exploit.
     }
 
     // ============ External Functions ============

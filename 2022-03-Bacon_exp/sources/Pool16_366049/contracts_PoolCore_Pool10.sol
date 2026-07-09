@@ -198,6 +198,11 @@ contract Pool10 is Initializable, ERC20UpgradeableFromERC777, IERC721ReceiverUpg
     function lend(
         uint256 amount
     ) public nonReentrant returns (uint256) {
+        // VULNERABILITY NOTE (for 2022-03-Bacon): even with nonReentrant, if the underlying
+        // ERCAddress or the pool's own token (ERC20FromERC777) triggers ERC1820 hook on lender
+        // (via mint path), reentrancy surface may exist if guard doesn't cover the hook path
+        // or if hook is on a different token. In actual exploited Bacon the guard was absent
+        // on the hot path or the hook bypassed. See PoC Bacon_exp.sol + tokensReceived.
         //USDC on Ropsten only right now
         IERC20Upgradeable(ERCAddress).transferFrom(msg.sender, address(this), amount);
         uint256 newTokensMinted = getProportionalPoolTokens(amount);

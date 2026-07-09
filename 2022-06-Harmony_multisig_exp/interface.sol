@@ -4897,6 +4897,9 @@ interface IBuildFinance {
 }
 
 interface MultiSig {
+    // This interface abstracts the compromised 2/5 multisig used as the sole authorizer
+    // for ERC20EthManager.unlockToken. The hack POC uses owner pranks + these two functions
+    // to submit+confirm a drain transaction. See also the real MultiSigWallet source.
     function confirmTransaction(
         uint256 transactionId
     ) external;

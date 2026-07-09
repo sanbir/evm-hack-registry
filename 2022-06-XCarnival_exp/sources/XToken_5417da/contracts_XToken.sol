@@ -189,6 +189,12 @@ contract XToken is XTokenStorage, Exponential, Initializable{
         borrowInternal(orderId, borrower, borrowAmount);
     }
 
+    // VULNERABILITY (indirect): XToken.borrow trusts controller.borrowAllowed for auth.
+    // The require only checks caller relation to 'borrower' param (allows EOA via tx.origin or contract).
+    // No direct validation that orderId corresponds to currently-pledged NFT inside XNFT.
+    // When attacker calls via payload (pledger) after the withdraw step, the require passes and debt is recorded + funds sent.
+    // See borrowInternal L200 call to controller; the flaw originates upstream in pledge record lifecycle.
+
     struct BorrowLocalVars {
         uint256 orderBorrows;
         uint256 orderBorrowsNew;

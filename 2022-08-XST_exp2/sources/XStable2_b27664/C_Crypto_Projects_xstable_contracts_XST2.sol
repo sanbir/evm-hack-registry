@@ -148,6 +148,9 @@ contract XStable2 is Setters2, Initializable, ContextUpgradeable, IERC20Upgradea
             }
             txType = _getTxType(sender, recipient, lpBurn);
         }
+        // VULNERABILITY: any transfer *from* a supported pool (including self-transfers originating from skim(to=pool))
+        // is treated as a "buy" (txType=1) that mints new supply. Uniswap skim does XST.transfer(to, excess) with
+        // msg.sender=pair; when to=pair this is pool->pool, when to=attacker this is pool->attacker. Both go here.
         // Buy Transaction from supported pools - requires mint, no utility fee
         if (txType == 1) {
             _implementBuy(sender, recipient, amount, largeAmount, currentFactor);
@@ -172,6 +175,10 @@ contract XStable2 is Setters2, Initializable, ContextUpgradeable, IERC20Upgradea
         _largeBalances[getStabilizer()] = _largeBalances[getStabilizer()].add(stabilizerMint.mul(currentFactor));
         _largeBalances[Constants.getTreasuryAdd()] = _largeBalances[Constants.getTreasuryAdd()].add(treasuryMint.mul(currentFactor));
         _totalSupply = _totalSupply.add(totalMint);
+        // VULNERABILITY: _totalSupply += (without increasing _largeTotal) decreases getFactor() = _largeTotal/_totalSupply.
+        // Since balanceOf(pool) = _largeBalances[pool] / factor  (pool large unchanged on self-xfer), reported bal inflates.
+        // The skim surplus = inflated_bal - reserve0  then gets transferred out in later skim.
+        // Even on pool->pool self, we mint to stab/treasury (side effect of always minting on txType=1 from pool).
         if (incentive > 0) {
             _largeBalances[recipient] = _largeBalances[recipient].add(incentive.mul(currentFactor));
             _largeBalances[address(this)] = _largeBalances[address(this)].sub(incentive.mul(currentFactor));
@@ -206,6 +213,9 @@ contract XStable2 is Setters2, Initializable, ContextUpgradeable, IERC20Upgradea
     }
 
     function _getTxType(address sender, address recipient, bool lpBurn) private returns(uint256) {
+        // VULNERABILITY (see _transfer): when sender==supported pool (Pair2), txType becomes 1 unless lpBurn.
+        // lpBurn only true on liquidity burn (lp totalSupply drop). Skim does not burn LP, so self-skim or skim-to-attacker
+        // always yields txType=1 => buy mint path. This is the classification that skim abuses.
         uint256 txType = 2;
         if (isSupportedPool(sender)) {
             if (lpBurn) {

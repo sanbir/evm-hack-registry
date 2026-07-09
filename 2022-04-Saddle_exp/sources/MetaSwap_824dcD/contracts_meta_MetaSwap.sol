@@ -238,6 +238,9 @@ contract MetaSwap is Swap {
         metaSwapStorage.baseSwap = baseSwap;
         metaSwapStorage.baseVirtualPrice = baseSwap.getVirtualPrice();
         metaSwapStorage.baseCacheLastUpdated = block.timestamp;
+        // VULNERABILITY SETUP: The metapool starts with a snapshot of base virtual price.
+        // Future swaps rely on time-based cache invalidation rather than state-based revalidation
+        // against the live Curve base pool (whose virtual price is a function of its reserves).
 
         // Read all tokens that belong to baseSwap
         {

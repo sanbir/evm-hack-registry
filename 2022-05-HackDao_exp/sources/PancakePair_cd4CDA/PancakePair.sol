@@ -486,6 +486,10 @@ contract PancakePair is IPancakePair, PancakeERC20 {
         _safeTransfer(_token0, to, IERC20(_token0).balanceOf(address(this)).sub(reserve0));
         _safeTransfer(_token1, to, IERC20(_token1).balanceOf(address(this)).sub(reserve1));
     }
+    // NOTE (exploit enabler): `skim` and `sync` are *public* (no access control) and callable by anyone.
+    // Combined with a token whose `balanceOf(pair)` can be made to diverge from the amounts the AMM believed it received
+    // (due to asymmetric fee logic in Token._transfer), an attacker can arbitrarily lower recorded reserves while
+    // actual token balance is high (or vice-versa), breaking the economic invariant the constant-product swap relies on.
 
     // force reserves to match balances
     function sync() external lock {

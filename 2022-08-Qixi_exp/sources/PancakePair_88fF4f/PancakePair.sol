@@ -479,6 +479,23 @@ contract PancakePair is IPancakePair, PancakeERC20 {
         emit Swap(msg.sender, amount0In, amount1In, amount0Out, amount1Out, to);
     }
 
+    // VULNERABILITY (in pair side of the exploit): Flash-swap K check trusts post-callback balance deltas unconditionally.
+    // 
+    // Detailed:
+    // - Line 464: WBNB (or other) sent OUT before callback.
+    // - Line 465: callback (pancakeCall) executed, allowing arbitrary token.transfer into the pair.
+    // - Lines 469-470: amount*In derived purely from observed balance increase (no call to token or validation).
+    // - Lines 474-476: only the constant-product check after 0.25% fee haircut.
+    //   Crucially, when the incoming token (QIXI) is attacker-controlled via underflow (see Token.sol _basicTransfer),
+    //   the balance1 becomes huge and the inequality holds regardless of whether the QIXI has any real supply backing.
+    // - Comment "should be called from a contract which performs important safety checks" is aspirational;
+    //   the pair does NO checks on the *quality* of incoming repay tokens in a fee-on-transfer or tax-token scenario.
+    //
+    // This enables the attack when combined with the token's underflow.
+    // EXPLOIT STEPS cross-ref: the repay in Qixi* .sol files triggers exactly the sequence above.
+    //
+    // Impact: entire WBNB side of pool extracted; pair left with worthless tokens that satisfy math but not economics.
+
     // force balances to match reserves
     function skim(address to) external lock {
         address _token0 = token0; // gas savings

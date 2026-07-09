@@ -560,6 +560,20 @@ contract MainchainGatewayStorage is ProxyStorage, Pausable {
   DepositEntry[] public deposits;
   mapping(uint256 => WithdrawalEntry) public withdrawals;
 
+  // VULNERABILITY: Withdrawals authorized exclusively by off-chain validator threshold signatures (no on-chain sidechain event proof)
+  // The mapping is used ONLY as a "used ID" bitmap after-the-fact.
+  // See MainchainGateway (impl) withdrawERC20For / withdrawERC20 / withdrawERC721 etc:
+  //   - parse _signatures, count distinct current isValidator(signers), if checkThreshold(count) then:
+  //     withdrawals[_withdrawalId] = WithdrawalEntry(_user, _token, _amount);
+  //     IERC20(_token).transfer(_user, _amount);   <--- direct drain of bridge custody
+  //     emit TokenWithdrew(_withdrawalId, ...)
+  // NO sidechain tx hash / receipt root / event proof is ever checked here.
+  // _withdrawalId is chosen by the caller (can be any uint256 not previously written).
+  // depositCount / deposits[] only track inbound; outbound has no counter.
+  // Why this is the root cause: bridge security reduces to "are >=5 of 9 validator privkeys safe?"
+  // A single compromise of the key set (4 SkyMavis + 1 DAO abuse) == total loss of all custodial assets.
+  // Impact: Full bridge drain (173.6k WETH + 25.5M USDC) with two calls using fabricated high IDs.
+
   function updateRegistry(address _registry) external onlyAdmin {
     registry = Registry(_registry);
   }

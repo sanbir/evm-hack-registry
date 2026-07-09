@@ -491,4 +491,9 @@ contract PancakePair is IPancakePair, PancakeERC20 {
     function sync() external lock {
         _update(IERC20(token0).balanceOf(address(this)), IERC20(token1).balanceOf(address(this)), reserve0, reserve1);
     }
+
+    // NOTE (for exploit analysis): skim() + sync() are public and unguarded.
+    // When a fee-on-transfer/reflection token (see WDOGE.sol) is one side, transfers can cause
+    // balance > reserve. skim drains the excess to caller; sync locks the other side's (e.g. donated WBNB)
+    // balance into the reserve without a corresponding counter-value. This is the surface exploited.
 }

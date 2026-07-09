@@ -22,6 +22,10 @@ import {Address} from "@openzeppelin/contracts/utils/Address.sol";
  * which notarize the Merkle tree roots.
  * Accepts submissions of fraudulent signatures
  * by the Updater and slashes the Updater in this case.
+ *
+ * NOTE: Legitimate bridge sends go through BridgeRouter.send -> Home.dispatch (inserts leaf, enqueues root).
+ * The Replica on the other side is supposed to only accept after an updater-signed root containing that leaf is proven.
+ * The 2022 hack bypassed this entirely on the Replica side.
  */
 contract Home is Version0, QueueManager, MerkleTreeManager, NomadBase {
     // ============ Libraries ============

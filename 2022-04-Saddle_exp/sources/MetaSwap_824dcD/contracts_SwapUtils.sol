@@ -537,6 +537,9 @@ library SwapUtils {
             x,
             xp
         );
+        // VULNERABILITY (base math): dy = ... .sub(1) . The rounding direction + lack of
+        // external virtual price sync (in meta case) allows surplus extraction on round-trips
+        // that move the priced LP token's backing value.
         dy = xp[tokenIndexTo].sub(y).sub(1);
         dyFee = dy.mul(self.swapFee).div(FEE_DENOMINATOR);
         dy = dy.sub(dyFee).div(multipliers[tokenIndexTo]);

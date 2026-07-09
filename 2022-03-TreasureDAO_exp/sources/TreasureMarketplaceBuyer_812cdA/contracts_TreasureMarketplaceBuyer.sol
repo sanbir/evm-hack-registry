@@ -34,6 +34,28 @@ contract TreasureMarketplaceBuyer is ERC721Holder, ERC1155Holder {
 
         require(pricePerItem == _pricePerItem, "pricePerItem changed!");
 
+        // VULNERABILITY: Zero-quantity buy bypass in TreasureMarketplaceBuyer (convenience router)
+        // ROOT CAUSE: No validation that _quantity > 0. The function blindly computes
+        //   uint256 totalPrice = _pricePerItem * _quantity;   // <-- 0 when _quantity==0
+        // then does safeTransferFrom(0) + safeApprove(0) + delegates _quantity=0 to marketplace.buyItem.
+        // After receiving the asset (via the marketplace hop), it ALWAYS forwards the ERC721/ERC1155 to msg.sender
+        //   regardless of whether totalPrice was zero or whether _quantity matched the transfer.
+        // CODE REF: L33 (price check), L43 (mul), L44-45 (0-value xfers), L47 (delegate), L49-53 (forward).
+        // WHY IT EXISTS: The buyer was a thin wrapper (probably for UX/approval bundling). _quantity was modeled after
+        //   ERC1155 multi-token semantics, but the wrapper never enforced the positive-quantity invariant that
+        //   createListing imposes (marketplace L134: require(_quantity > 0, "nothing to list")).
+        //   No access control; callable by anyone.
+        // IMPACT: Any whitelisted ERC721 (or ERC1155 with qty>=0) listed on the marketplace can be purchased for
+        //   literally 0 MAGIC. Seller receives nothing (see marketplace._buyItem). The listing is not cleaned up
+        //   for ERC721 because qty -= 0 leaves it in storage (and ownerOf has changed, making it un-cancelable).
+        //   This was the exact vector used in the 2022-03 TreasureDAO incident.
+        // EXPLOIT STEPS (via this contract):
+        // 1. Attacker calls buyer.buyItem(nft, tokenId, currentOwner, 0, listedPricePerItem)
+        // 2. Buyer reads the on-chain listing price, the require passes because attacker supplies the real price.
+        // 3. totalPrice=...*0 == 0; 0-value transfer/approve to buyer; buyer calls marketplace.buyItem(...,0)
+        // 4. (marketplace executes the zero-cost transfer of the ERC721 to the buyer contract)
+        // 5. Buyer forwards via safeTransferFrom(buyer, attacker, tokenId)
+        // 6. Attacker's onERC721Received receives the NFT for free.
         uint256 totalPrice = _pricePerItem * _quantity;
         IERC20(marketplace.paymentToken()).safeTransferFrom(msg.sender, address(this), totalPrice);
         IERC20(marketplace.paymentToken()).safeApprove(address(marketplace), totalPrice);

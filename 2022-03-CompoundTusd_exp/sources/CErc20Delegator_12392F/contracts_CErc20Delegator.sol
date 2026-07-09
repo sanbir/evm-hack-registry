@@ -464,4 +464,10 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
             default { return(free_mem_ptr, returndatasize) }
         }
     }
+
+    // VULNERABILITY: Delegator fallback exposes undeclared sweepToken (no auth in target impl)
+    // sweepToken selector absent from CErc20Interface (contracts_CTokenInterfaces.sol:260), so
+    // any call hits this fallback (L455): implementation.delegatecall(msg.data)
+    // -> reaches vulnerable CErc20Delegate_a035b9 sweepToken (no msg.sender==admin guard).
+    // Combined with TUSD legacy delegate design, allowed draining cTUSD's TUSD balance.
 }

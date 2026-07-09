@@ -4366,6 +4366,10 @@ interface VyperContract {
     function remove_liquidity_one_coin(uint256 _token_amount, int128 i, uint256 min_amount) external;
 }
 
+// IAggregator is the interface to the price feed (YVCrv3CryptoFeed in this hack).
+// VULNERABILITY NOTE: The concrete feed implementation behind latestAnswer() used raw spot balances from Curve
+// as its pricing source (instead of resistant mechanism). See usage in exp.sol: YVCrv3CryptoFeed.latestAnswer()
+// before/after the exchange() that manipulates it. This price feeds into Inverse's Comptroller for collateral valuation.
 interface IAggregator {
     function latestAnswer() external view returns (int256 answer);
 }

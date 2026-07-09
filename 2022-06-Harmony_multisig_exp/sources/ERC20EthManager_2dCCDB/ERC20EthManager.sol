@@ -425,6 +425,8 @@ contract ERC20EthManager {
      */
     constructor(address _wallet) public {
         wallet = _wallet;
+        // NOTE: wallet (the multisig) is immutable after construction. All unlock authority
+        // is permanently delegated to whatever address was set as the 2-of-5 (or N/M) multisig.
     }
 
     /**
@@ -449,6 +451,8 @@ contract ERC20EthManager {
         uint256 _balanceAfter = ethToken.balanceOf(msg.sender);
         uint256 _actualAmount = _balanceBefore.sub(_balanceAfter);
         emit Locked(address(ethToken), msg.sender, _actualAmount, recipient);
+        // Tokens sent here become escrowed and are subject to unlockToken (authorized only by multisig).
+        // Attacker with multisig control can unlock without any burn on the other side.
     }
 
     /**
@@ -490,6 +494,17 @@ contract ERC20EthManager {
         address recipient,
         bytes32 receiptId
     ) public onlyWallet {
+        // VULNERABILITY: Unverified cross-chain burn / blind trust in multisig for unlock
+        // The function only checks that `receiptId` has not been used before (replay protection),
+        // but performs NO verification that a corresponding token burn actually occurred on the Harmony chain.
+        // The `onlyWallet` modifier (L418) delegates all authority to the multisig wallet address.
+        // Any transaction successfully executed by the multisig (via submit+confirm with `required` signatures)
+        // can invoke unlockToken with attacker-chosen ethTokenAddr, amount, recipient, and a fresh receiptId.
+        // See also: lockToken (public) which deposits tokens into this contract (the bridge escrow).
+        // Root cause: lack of on-chain proof (e.g. Merkle proof, oracle, or event verification) for the receiptId;
+        // security reduces to multisig key security only.
+        // Impact: Attacker drains all locked tokens (e.g. USDT) from the bridge escrow to arbitrary recipient;
+        // bridged users on Harmony side lose backing or bridge becomes insolvent. ~$100M stolen in the real incident.
         require(
             !usedEvents_[receiptId],
             "EthManager/The burn event cannot be reused"

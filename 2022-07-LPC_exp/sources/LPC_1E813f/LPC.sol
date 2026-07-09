@@ -1232,6 +1232,17 @@ contract LPC is Ownable,Pausable,BlackListable, IERC20Metadata {
 
         totalHolders = totalHolders_;
 
+        // VULNERABILITY: Self-transfer balance inflation via aliased sender/recipient snapshots + fee deduction only on credit side
+        // _updateBalance snapshots into separate `senderBalance`/`recipientBalance` locals (and may mutate for reward holders).
+        // For non-whitelisted addresses, fees reduce ONLY `recipientAmount = amount - sum(fees)`.
+        // Then unconditionally:
+        //   _balances[sender] = senderBalance.sub(amount);
+        //   _balances[recipient] = recipientBalance.add(recipientAmount);
+        // When sender == recipient, the second write clobbers the debit. Net: balance becomes recipientBalance + recipientAmount
+        //   (≈ oldBalance + (amount - fees)) instead of (oldBalance - fees). Each self-transfer of full balance ≈ doubles holdings (minus ~8% fees).
+        // _isValidRewardHolder excludes contracts so attacker (contract) bypasses reward accounting, but vuln is in the write logic itself.
+        // Preconditions: flashloan access to large LPC amount + ability to self-transfer (no whitelist, no blacklist, no pause).
+        // Impact: Attacker inflates flash-borrowed LPC to ~10x via 10 loops, repays loan cheaply, drains pair or swaps for ~178 BNB profit.
         _balances[sender] = senderBalance.sub(amount);        
         _balances[recipient] = recipientBalance.add(recipientAmount);
         emit Transfer(sender, recipient, recipientAmount);
@@ -1276,6 +1287,10 @@ contract LPC is Ownable,Pausable,BlackListable, IERC20Metadata {
             userRewardPerHolderPaid[account] = rewardPerHolderStored;
         }
 
+        // NOTE: _updateBalance is called *twice* (as sender + as recipient) inside _transfer even when sender==recipient.
+        // For valid reward holders it credits pending into storage before returning the augmented value used as snapshot.
+        // Attacker contract returns !isValid (see _isValidRewardHolder) so simple capital snapshot; inflation bug is in the
+        // subsequent sender/recipient write pair, independent of this.
          return (isValid,capital.add(pendingReward));
     }
 
@@ -1296,6 +1311,9 @@ contract LPC is Ownable,Pausable,BlackListable, IERC20Metadata {
     }
 
     function _isValidRewardHolder(address _account) internal view returns(bool){
+        // NOTE for exploit: attacker deploys a contract as the flashloan receiver, so _isValidRewardHolder(this)=false.
+        // This means balanceOf / _updateBalance never auto-credits rewards for the attacker address. The inflation
+        // attack does not rely on reward accounting at all; it works purely via the _transfer debit/credit aliasing.
         return _account != address(0) && !_account.isContract();
     }
 

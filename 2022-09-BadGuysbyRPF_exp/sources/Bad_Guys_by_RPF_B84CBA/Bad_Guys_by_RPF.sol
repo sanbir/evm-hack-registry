@@ -1186,6 +1186,24 @@ contract Bad_Guys_by_RPF is ERC721A, Ownable {
     function WhiteListMint(bytes32[] calldata _merkleProof, uint256 chosenAmount)
         public
     {
+        // VULNERABILITY: Missing chosenAmount validation against Merkle proof (address-only whitelist leaf)
+        // Root cause: The Merkle leaf is constructed ONLY from msg.sender (address), with NO inclusion of any per-address allocation or chosenAmount.
+        // chosenAmount is an untrusted caller-supplied parameter that is NEVER bound to the proof or to a per-user limit.
+        // See: line 1199: bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+        // See: line 1201: MerkleProof.verify(_merkleProof, rootHash, leaf) -- only proves membership in the set of whitelisted *addresses*.
+        // See: lines 1192-1197: only checks chosenAmount > 0 and totalSupply() + chosenAmount <= maxsupply - reserve (global cap).
+        // See: line 1189: require(_numberMinted(msg.sender)<1, "Already Claimed"); -- this only gates re-entrancy/ multiple calls per address, but first call accepts *any* chosenAmount.
+        // See MerkleProof.verify at 1075 and processProof at 1091: standard address-set membership, no amount.
+        // In constructor (1131): rootHash set once at deploy from off-chain tree of addresses only.
+        // Why it works: Whitelist proves "you are on the list" but not "you may mint N". Attacker supplies arbitrary chosenAmount (400 in PoC) and a valid address proof.
+        // Impact: Single whitelisted address can drain hundreds of NFTs from the 1121 available (1221-100 reserve), causing massive dilution, unfair distribution, loss of intended scarcity for legitimate 1-per-address whitelist minters.
+        // EXPLOIT STEPS:
+        // 1. Attacker identifies or controls a whitelisted address (one with a leaf in the rootHash Merkle tree).
+        // 2. Constructs (or reuses) a valid _merkleProof for keccak256(abi.encodePacked(attacker)).
+        // 3. Calls WhiteListMint(proof, chosenAmount=400) while minting unpaused (or front-runs owner unpause).
+        // 4. Contract: passes _numberMinted<1, passes >0, passes global supply check (400 < 1121), passes Merkle verify (address only).
+        // 5. _safeMint mints 400 tokens to attacker (see ERC721A._mint 819-849: updates balance and numberMinted by chosenAmount).
+        // 6. Attacker now owns 400/1121 supply; subsequent claims by that address blocked by numberMinted>=1, but damage done.
         require(_numberMinted(msg.sender)<1, "Already Claimed");
         require(isPaused == false, "turn on minting");
         require(

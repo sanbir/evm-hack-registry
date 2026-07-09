@@ -167,7 +167,7 @@ contract ETHpledge is IERC20, Ownable {
     
         usdt=_usdt;
         
-        other=_other;
+        other=_other;  // 'other' = Discover token (0x5908E4...). Contract holds large balance of it to pay referral/team bonuses.
         
         _owner = msg.sender;
         _recaddr=recaddr;
@@ -247,12 +247,28 @@ contract ETHpledge is IERC20, Ownable {
         bool Limited = receivetime[msg.sender] < block.timestamp;
         require(Limited,"Exchange interval is too short.");
 
-        
+        // VULNERABILITY: Flash-loanable balance check used as gate for referral reward distribution
+        // require(usdt.balanceOf(msg.sender)>=amountt,"Bbalance low amount");
+        // The contract only checks the *current* token balance of the caller (msg.sender) before accepting
+        // a large 'pledge'. It then performs transferFrom to pull BUSD into the contract/recaddrs.
+        // Because PancakePair flashswaps (and other flash loan sources) deliver tokens to the receiver *before*
+        // invoking the callback, an attacker can temporarily hold arbitrary BUSD balance, pass this check,
+        // trigger pledgein with huge amountt, and cause massive Discover ('other') token payouts in team(),
+        // without permanently providing capital or suffering loss (except flash fees).
+        // The BUSD is moved, but the side-effect payout of project reserves happens based on the inflated amountt.
+        // No check for msg.sender having 'skin in the game' that can't be borrowed, no min lock time before rewards,
+        // and no prevention of using transient balances.
+        // Lines: ~249 (the require), ~278-282 (the transferFroms and pledgeamount set), ~289 (team call).
+        // Impact: Attacker drains the ETHpledge contract's Discover token reserves to controlled referral addresses
+        // by using flash-loaned BUSD to satisfy the pledge gate. The project loses its reward token holdings;
+        // depositors/treasury lose the value.
         require(usdt.balanceOf(msg.sender)>=amountt,"Bbalance low amount");
 
         require(amountt>=1*10**18,"pledgein low 1");
         require(fatheraddr!=msg.sender,"The recommended address cannot be your own");
 
+        // Attacker controls 'fatheraddr' (pre-pledged small amount on a controlled addr to pass pledgeamount>0 later).
+        // Setting inviter here wires the flash-pledger into the tree so team() will pay the fatheraddr.
         if (inviter[msg.sender] == address(0)) {
             inviter[msg.sender] = fatheraddr;
             sharenumber[fatheraddr]+=1;
@@ -286,6 +302,7 @@ contract ETHpledge is IERC20, Ownable {
         //receivetime[msg.sender]=block.timestamp+day2*86400;
         if(_test==1){receivetime[msg.sender]=block.timestamp+36;}else{receivetime[msg.sender]=block.timestamp+day2*86400;}
         
+        // Calling team() with the (flash-inflated) amountt causes proportional Discover payouts up the referral tree.
         team(amountt);//0x41d0ff4a5Ee609b3B7Dc2B90F154D4eC7cb63659
         return true;
     }
@@ -329,6 +346,16 @@ contract ETHpledge is IERC20, Ownable {
                 emit Transfer(cur, address(1), 18); 
                 continue;
             }
+            // VULNERABILITY (continued): Payout of project Discover reserves triggered by flash-inflated pledge
+            // if(pledgeamount[cur]==0) skip is the only guard; once a controlled referrer has a *small prior pledge*
+            // (to pass this), any downstream large pledge (even flash-funded) will cause:
+            //   curTAmount = ltj * rate / 1000 ; curTAmount22 = ... / _swapprice ; other.transfer(cur, curTAmount22)
+            // ltj comes directly from the amountt passed to pledgein (which was accepted purely on transient balance).
+            // The contract holds large Discover balance (from initial mint/liquidity/treasury) and blindly transfers
+            // it out proportional to "pledged" volume up the referral tree.
+            // Relevant lines: ~329 (the if skip), ~334-337 (amount calc + transfer).
+            // Combined with the pledgein balance-check vuln, this allows draining without real deposits.
+            // Impact: Direct theft of Discover tokens from ETHpledge contract to attacker-controlled addresses.
             uint256 curTAmount = ltj.mul(rate).div(_baseFee);
             uint256 curTAmount22 = curTAmount*10**18/_swapprice;
             bool y2=other.balanceOf(address(this)) >= curTAmount22;

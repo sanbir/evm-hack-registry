@@ -448,6 +448,11 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         _update(balance0, balance1, _reserve0, _reserve1);
         if (feeOn) kLast = uint(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
         emit Burn(msg.sender, amount0, amount1, to);
+        // EXPLOIT NOTE (2022-08-Circle_exp2): In the attack, liquidity = full ink withdrawn
+        // from the CDP via GemJoin. Because the pair is DAI/USDC and collateral was
+        // UNIV2DAIUSDC-A, burning yields both tokens. DAI leg helps repay flash; USDC leg
+        // is sold fee-free in PSM for more DAI (or kept as profit). No special access
+        // control on burn — anyone holding LP can call it.
     }
 
     // this low-level function should be called from a contract which performs important safety checks

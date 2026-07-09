@@ -2378,6 +2378,7 @@ interface IPancakeRouter {
 }
 
 interface GymSinglePool {
+    // @VULNERABILITY: See implementation. depositFromOtherContract has no access control and its _autoDeposit impl (in GymSinglePool) self-approves the token without pulling funds, allowing unauthenticated creation of withdrawable stake positions against the pool's reserves.
     function depositFromOtherContract(
         uint256 _depositAmount,
         uint8 _periodId,

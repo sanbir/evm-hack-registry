@@ -603,6 +603,7 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
       */
     function borrow(uint borrowAmount) external returns (uint) {
         bytes memory data = delegateToImplementation(abi.encodeWithSignature("borrow(uint256)", borrowAmount));
+        // VULNERABILITY (delegated): The implementation contract's borrowFresh (equivalent to CEther.sol) performs the ERC20 transfer before state update. ERC-677 hook on USDC enables reentrancy into other markets.
         return abi.decode(data, (uint));
     }
 

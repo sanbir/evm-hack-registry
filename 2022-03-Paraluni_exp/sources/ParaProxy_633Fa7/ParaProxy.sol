@@ -1,6 +1,16 @@
 // File: paraluni_protocol/contracts/libraries/Proxy.sol
 
-
+// ============================================================
+// 2022-03-Paraluni PoC ANALYSIS MARKER
+// This is the ParaProxy (0x633Fa755a83B015cCcDc451F82C57EA0Bd32b4B4) that
+// delegates to the vulnerable MasterChef implementation.
+// The hack abused depositByAddLiquidity accepting attacker-supplied tokens
+// that triggered callbacks during router.addLiquidity, allowing reentrant
+// value deposit under a different caller identity before accounting settled.
+// All core vuln + exploit logic demonstrated in test/Paraluni*.sol
+// VULNERABILITY: unsafe arbitrary-token liquidity zap without reentrancy guard
+// EXPLOIT STEPS: see detailed comments in ParaluniDrain.sol and Paraluni_exp.sol
+// ============================================================
 
 pragma solidity >=0.6.0 <0.8.0;
 
@@ -119,6 +129,11 @@ pragma solidity 0.6.12;
  * @title ParaCore
  * @dev Storage for the Chef is at this address, while execution is delegated to the `implementation`.
  * Its control belongs to the Dao organization that owns T42.
+ *
+ * VULNERABILITY CONTEXT (for 2022-03-Paraluni hack):
+ * The actual IMasterChef logic (depositByAddLiquidity etc.) lives in `implementation`.
+ * This proxy delegates calls; the vulnerable deposit path + lack of reentrancy protection
+ * and unvalidated token inputs exist in the delegated implementation contract.
  */
 contract ParaProxy is ParaProxyAdminStorage, Proxy{
 

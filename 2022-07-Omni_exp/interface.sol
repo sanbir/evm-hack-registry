@@ -4946,6 +4946,10 @@ interface ISushiSwap {
 }
 
 interface IOmni {
+    // VULNERABILITY: Cross-function reentrancy due to unsafe external call order in NFT collateral ops (checks-effects-interactions violation)
+    // withdrawERC721 and liquidationERC721 (and related supply paths) call the ERC721's safeTransferFrom (or equivalent) to deliver the NFT to the recipient *before* they update the user's internal collateral state, remove the tokenId from the user's ERC721 holdings list, adjust healthFactor/erc721HealthFactor, or decrease totalCollateral. The onERC721Received callback on the receiver can therefore re-enter pool functions while the position still appears to hold the collateral.
+    // The NFTX and Balancer flashloans are merely setup; the core flaw is inside Omni's ERC721 money-market functions.
+    // Impact: Lenders lose the full borrowed WETH amount (protocol suffers bad debt). Attacker extracts profit without surrendering equivalent collateral value. ~63 ETH drained in the real incident.
     function supplyERC721(
         address asset,
         DataTypes.ERC721SupplyParams[] memory tokenData,

@@ -20,6 +20,11 @@ contract Proxy {
     {
         require(_masterCopy != address(0), "Invalid master copy address provided");
         masterCopy = _masterCopy;
+        // VULNERABILITY NOTE (paired with ProxyFactory): Anyone who deploys this Proxy via the factory's createProxy
+        // can choose *any* masterCopy. When createProxy is called with empty `data`, no initialization call is made.
+        // The first party to subsequently call the logic contract's setup/initialize function (via delegatecall through
+        // the fallback) becomes the owner. There is no on-chain binding that ties the deployer of the *proxy* to its
+        // logical owner. See createProxy in ProxyFactory.sol.
     }
 
     /// @dev Fallback function forwards all transactions and returns all received return data.

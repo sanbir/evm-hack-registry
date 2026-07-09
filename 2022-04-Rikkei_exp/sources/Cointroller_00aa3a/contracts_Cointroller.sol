@@ -370,6 +370,9 @@ contract Cointroller is CointrollerStorage, CointrollerInterface, CointrollerErr
             require(nextTotalBorrows < borrowCap, "market borrow cap reached");
         }
 
+        // === EXPLOIT PATH: borrowAllowed liquidity check uses hijacked oracle price ===
+        // If oracle price for the collateral (rBNB) is inflated, shortfall remains 0 even for
+        // borrowAmount == entire market cash.
         (Error err, , uint shortfall) = getHypotheticalAccountLiquidityInternal(borrower, RToken(rToken), 0, borrowAmount);
         if (err != Error.NO_ERROR) {
             return uint(err);
@@ -735,6 +738,14 @@ contract Cointroller is CointrollerStorage, CointrollerInterface, CointrollerErr
             vars.exchangeRate = Exp({mantissa: vars.exchangeRateMantissa});
 
             // Get the normalized price of the asset
+            // === ORACLE PRICE CONSUMPTION (CRITICAL FOR EXPLOIT) ===
+            // The price returned by SimplePriceOracle.getUnderlyingPrice (which can be attacker-controlled
+            // due to the VULNERABILITY in setOracleData) is multiplied into collateral value here:
+            //     tokensToDenom = collateralFactor * exchangeRate * oraclePrice
+            //     sumCollateral += tokensToDenom * rTokenBalance
+            // Any inflation in oraclePrice directly inflates borrowing power.
+            // This path is reached from borrowAllowed() -> getHypotheticalAccountLiquidityInternal()
+            // when attacker calls rusdc.borrow(...).
             vars.oraclePriceMantissa = oracle.getUnderlyingPrice(asset);
             if (vars.oraclePriceMantissa == 0) {
                 return (Error.PRICE_ERROR, 0, 0);
@@ -819,6 +830,10 @@ contract Cointroller is CointrollerStorage, CointrollerInterface, CointrollerErr
         if (msg.sender != admin) {
             return fail(Error.UNAUTHORIZED, FailureInfo.SET_PRICE_ORACLE_OWNER_CHECK);
         }
+        // NOTE: While Cointroller's top-level `oracle` pointer is admin-gated,
+        // the actual deployed oracle (SimplePriceOracle) contains an *internal*
+        // unprotected per-rToken mapping (setOracleData). This is the vector used
+        // in the Rikkei attack: attacker never touches _setPriceOracle.
 
         // Track the old oracle for the cointroller
         PriceOracle oldOracle = oracle;

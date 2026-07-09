@@ -2024,6 +2024,9 @@ contract CToken is CTokenInterface, Exponential, TokenErrorReporter {
          *  On success, the cToken borrowAmount less of cash.
          *  doTransferOut reverts if anything goes wrong, since we can't be sure if side effects occurred.
          */
+        // VULNERABILITY: doTransferOut is an external call (for ERC20: underlying.transfer) that can trigger arbitrary code (ERC-677 onTokenTransfer hook) in the recipient.
+        // The critical state writes that record the borrow (accountBorrows + totalBorrows) happen *after* this call.
+        // Any re-entrant borrow on another market will observe the collateral increase (from the preceding mint) but not this debt.
         doTransferOut(borrower, borrowAmount);
 
         /* We write the previously calculated values into storage */
@@ -2819,6 +2822,8 @@ contract CEther is CToken {
     function doTransferOut(address payable to, uint amount) internal {
         /* Send the Ether, with minimal gas and revert on failure */
         to.transfer(amount);
+        // NOTE: For CErc20 equivalents, this is `underlying.transfer(to, amount)`. When underlying implements ERC-677, this synchronously calls back into `to.onTokenTransfer(...)`.
+        // EXPLOIT STEPS (protocol side): 1. User has previously minted collateral in market A. 2. Calls borrow(A) → borrowFresh → borrowAllowed (passes using current collateral) → doTransferOut(underlying) → hook fires → attacker calls borrow(B) on market B. 3. borrow(B) also passes borrowAllowed (collateral still unencumbered from A's perspective) → attacker receives assets from B. 4. Only after re-entry unwinds does market A finish writing its borrow state.
     }
 
     function requireNoError(uint errCode, string memory message) internal pure {

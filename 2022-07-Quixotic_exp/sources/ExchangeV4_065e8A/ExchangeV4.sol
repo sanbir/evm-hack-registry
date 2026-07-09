@@ -1636,6 +1636,16 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
         bytes memory signature,
         address payable buyer
     ) external payable whenNotPaused nonReentrant {
+        // VULNERABILITY (2022-07-Quixotic): Arbitrary `buyer` parameter is fully attacker-controlled.
+        // - Used for: 1) NFT recipient in _transferNFT, 2) payment source in _checkValidERC20Payment + _sendERC20PaymentsWithRoyalties (safeTransferFrom(buyer, ...))
+        // - NO signature from buyer, NO check that msg.sender == buyer, NO consent required.
+        // - SellOrder struct and its EIP712 hash (see _validateSellerSignature) contain NO buyer field.
+        // - Users commonly approve large/max amounts of paymentERC20 (e.g. OP) to this Exchange to enable seamless buys.
+        // - Consequence: Any possessor of a valid seller signature (the lister or replay attacker) can force
+        //   a pre-approved "buyer" address to purchase the NFT at the (seller-chosen) price by calling this directly.
+        // - In the exploit, attacker used high `price`, max `expiration`/`createdAtBlockNumber` (to pass time/cancel checks),
+        //   a seller signature they controlled, and a victim `buyer` who had granted allowance.
+
         // If the payment ERC20 is the zero address, we check that enough native ETH has been sent
         // with the transaction. Otherwise, we use the supplied ERC20 payment token.
         if (paymentERC20 == address(0)) {
@@ -1663,6 +1673,8 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
         );
 
         /* Check signature */
+        // EXPLOIT STEP 1: Only seller signature is validated here (see _validateSellerSignature below).
+        // The `buyer` param is never part of the signed data or checked against a buyer signature.
         require(_validateSellerSignature(sellOrder, signature), "Signature is not valid for SellOrder.");
 
         // Check has started
@@ -1671,6 +1683,8 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
         // Check not expired
         require((block.timestamp < expiration), "This sell order has expired.");
 
+        // EXPLOIT STEP 2: Pass attacker-controlled victim address as `buyer`. Because of prior unlimited-ish ERC20 approval
+        // to this contract, _checkValid... and payment transferFrom will succeed against the victim.
         _fillSellOrder(sellOrder, buyer);
     }
 
@@ -1916,6 +1930,7 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
         /////////////////
         ///  Transfer ///
         /////////////////
+        // EXPLOIT STEP 4: NFT moved from (attacker-controlled) seller to the attacker-specified `buyer`.
         _transferNFT(sellOrder.contractAddress, sellOrder.tokenId, sellOrder.seller, buyer, sellOrder.quantity);
 
         //////////////////////
@@ -1957,6 +1972,8 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
         uint256 price,
         address paymentERC20
     ) internal {
+        // EXPLOIT STEP 3: Payment is pulled directly from the unauthenticated `buyer` (victim who pre-approved Exchange).
+        // Funds flow to seller (attacker) + fees. Victim receives the NFT they were forced to "buy".
         uint256 royaltyPayout = (royaltyRegistry.getRoyaltyPayoutRate(contractAddress) * price) / 1000;
         uint256 makerPayout = (_makerFeePerMille * price) / 1000;
         uint256 remainingPayout = price - royaltyPayout - makerPayout;
@@ -1976,6 +1993,9 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
     /* Checks that the payment is being made with an approved ERC20, and that we are allowed to operate
      * a sufficient amount of it. */
     function _checkValidERC20Payment(address buyer, uint256 price, address paymentERC20) internal view {
+        // VULNERABILITY (root of fund drain): This blindly trusts the `buyer` argument passed by the *caller*
+        // of fillSellOrder (who may be the malicious seller or third party replaying the sig).
+        // It only verifies that *this* `buyer` has balance + allowance to Exchange. No link to tx.origin/msg.sender.
         // Checks that the ERC20 payment token is approved in the registry.
         require(paymentERC20Registry.isApprovedERC20(paymentERC20), "Payment ERC20 is not approved.");
 
@@ -2017,6 +2037,8 @@ contract ExchangeV4 is Ownable, Pausable, ReentrancyGuard {
         bytes32 digest = ECDSA.toTypedDataHash(DOMAIN_SEPARATOR, structHash);
 
         address recoveredAddress = ECDSA.recover(digest, signature);
+        // VULNERABILITY: The signed struct contains no `buyer` field (unlike a proper taker-signed order).
+        // Recovered signer only needs to match `seller`. The `buyer` supplied at call time is unauthenticated.
         return recoveredAddress == sellOrder.seller;
     }
 

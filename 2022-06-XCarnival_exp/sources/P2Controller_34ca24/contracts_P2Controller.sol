@@ -56,6 +56,13 @@ contract P2Controller is P2ControllerStorage, Exponential,  Initializable{
         return _collection;
     }
 
+    // VULNERABILITY: Missing isWithdraw / NFT custody check in borrow authorization
+    // orderAllowed (and thus borrowAllowed) relies solely on getOrderDetail (pledger present) + !isLiquidated.
+    // It never calls anything that observes Order.isWithdraw (set by withdrawNFT) nor checks current NFT ownership in XNFT.
+    // Once an Order is created, as long as no liquidation and pledger matches caller (or tx.origin via borrow wrapper), borrow is allowed.
+    // Combined with pledgeAndBorrow accepting dummy xToken (0 borrow), this lets attacker withdraw NFT then borrow "against" the ghost order.
+    // _lastXToken / orderDebtStates only tracks per-order debt xToken, not pledge validity. See L49-58, L80-90.
+    // Impact: Unauthorized borrows drain xToken liquidity (ETH here) with no collateral locked. 3087 ETH lost.
     function borrowAllowed(address xToken, uint256 orderId, address borrower, uint256 borrowAmount) external whenNotPaused(xToken, 3){
         require(poolStates[xToken].isListed, "token not listed");
 

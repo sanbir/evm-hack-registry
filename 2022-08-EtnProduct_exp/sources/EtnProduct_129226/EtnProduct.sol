@@ -115,6 +115,30 @@ contract EtnProduct is  Ownable {
         emit NewToken(erc20Addr);
     }
 
+    // VULNERABILITY: Unauthorized Protocol Liquidity Seeding + LP Recipient Misdirection
+    // Root cause: newProduct() allows any caller who passes the weak `canUploadProduct` check
+    // (which only requires owning a shop NFT for the (commId, shopId) that can be self-acquired
+    // for a small fee via public comm-NFT mint + invite + shop-mint costing ~1998 USDT + BNB)
+    // to cause EtnProduct to CREATE a fresh product ERC20 (via factory using shopTokenId salt)
+    // and then call addLiquidity() which donates `swapAmount` (700k * 1e18 default) of the
+    // PROTOCOL's own U tokens + equivalent new tokens into a new PancakeSwap pair.
+    // Critically, the LP tokens are minted to `msg.sender` (the attacker) rather than locked
+    // to the protocol (see commented `// owner,` and passed `msg.sender` below).
+    // The EtnProduct contract must hold sufficient U (pre-funded by protocol) for the
+    // router's transferFrom(msg.sender=EtnProduct, pair, amountU) to succeed.
+    // Code ref: L102 (newProduct calls add), L118-135 (addLiquidity), L125-134 (addLiquidity call),
+    // L97 (U state), L79 (swapAmount), L107 (create), L109 (ownerMap set to caller).
+    // Why it works: No access control tying product creation to privileged actors; auth is
+    // purchasable NFT ownership; LP recipient is attacker-controlled; no minimum lock or
+    // protocol-retained LP; product token supply is emitted to EtnProduct then effectively
+    // claimable. Attacker can then remove the liquidity they "own".
+    // Impact: Direct theft of protocol U reserves (sold via UMarket for BUSDT profit).
+    // EXPLOIT STEPS:
+    // 1. Acquire comm NFT (public payable mintETN) and self-invite + shop-mint(commId, name, logo) paying mintCost to obtain shop NFT ownership for chosen (commId, shopId=0).
+    // 2. Call newProduct(commId, 0, price, name, video) -- passes authed check, creates product token, seeds 700k U + 700k T into pair, LP minted to caller.
+    // 3. Immediately: LP.transfer(pair, LP_amount); pair.burn(attacker) -- extracts the full reserves (U + T) because burn uses balanceOf[pair] as liquidity.
+    // 4. Sell recovered U via UMarket.saleU() for USDT (using the OTC pricing).
+    // 5. Repay flashloan, net profit ~3074 USD.
     function addLiquidity(address token) private {
         if(address(uniswapV2Router) == address (0)){
             return;

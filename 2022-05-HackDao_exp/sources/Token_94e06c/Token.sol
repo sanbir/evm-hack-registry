@@ -419,6 +419,9 @@ contract Token is ERC20, Ownable, WhiteList {
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
         .createPair(address(this), address(0x55d398326f99059fF775485246999027B3197955));
+        // VULNERABILITY: Hardcoded `uniswapV2Pair` points ONLY to the USDT pair (0x55d3...USDT).
+        // All fee asymmetry below is keyed off `recipient == uniswapV2Pair` (i.e. only sells into the USDT LP get special full-credit treatment).
+        // The HackDao/WBNB pair (0xcd4C... used in exploit) is a *different* pair created later; transfers involving it always take the "normal" fee path.
         levelRatio[1] = 20;
         levelRatio[2] = 10;
         levelRatio[3] = 10;
@@ -459,6 +462,30 @@ contract Token is ERC20, Ownable, WhiteList {
         address recipient,
         uint256 amount
     ) internal override virtual {
+        // VULNERABILITY: Asymmetric fee-on-transfer + reflection logic gated on a single hardcoded `uniswapV2Pair`
+        // Root cause:
+        //   1. Base: always `_balances[sender] -= amount;`
+        //   2. If !whitelisted:
+        //        fee = amount * _feeRatio / 100
+        //        if (recipient == uniswapV2Pair) {  // ONLY the USDT pair
+        //            extra debit: `_balances[sender] -= fee;`
+        //            actualAmount = amount;   // pair credited 100% of nominal
+        //        } else {
+        //            actualAmount = amount - fee;  // normal recipients credited 88%
+        //        }
+        //        // then unconditionally divert:
+        //        _balances[0x1] += destroyNum; _balances[_pool] += poolNum; referral profits...
+        //   3. Finally `_balances[recipient] += actualAmount; emit(..., actualAmount)`
+        // Effect on LPs:
+        // - Transfers *to* the special USDT pair (Pair2): sender pays amount+fee, pair receives full amount (balance increases by full).
+        // - Transfers *to* any other address including the WBNB pair (Pair1): recipient receives amount-fee, sender paid full (balance increases by only 88%).
+        // - When pair itself is sender (e.g. during swap OUT of HackDao): if recipient != special pair, the OUT transfer is taxed (pair balance decreases full, receiver gets less).
+        // Because PancakePair only tracks `reserve0/1` (updated in swap/mint based on observed balance deltas at update time) and exposes:
+        //   skim(to)  = send (balance - reserve) to `to`   (anyone)
+        //   sync()    = set reserve = current balance     (anyone)
+        // ... the mismatch between actual `balanceOf(pair)` and `reserve` can be forced by an attacker to any direction.
+        // Preconditions: fee token with single special-cased LP address, >=2 trading pairs for the token, flashloan available for input asset, public AMM skim/sync.
+        // Impact: Drains WBNB from the HackDao/WBNB LP by making a subsequent swap believe a huge HackDao "in" arrived (amountIn = actual_bal - artificially_low_reserve), while paying out based on intact WBNB reserve. ~163 WBNB profit extracted after 1900 flash repay. LP providers lose the difference.
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
 

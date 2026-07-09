@@ -118,6 +118,21 @@ contract CErc20 is CToken, CErc20Interface {
      * @param token The address of the ERC-20 token to sweep
      */
     function sweepToken(EIP20NonStandardInterface token) external {
+    	// VULNERABILITY: Unprotected sweepToken - missing admin-only access control
+    	// Root cause (this file L120): only non-underlying guard at L137. Missing:
+    	//     require(msg.sender == admin, "CErc20::sweepToken: only admin can sweep tokens");
+    	// (see patched: sources/CErc20Delegate_3363ba/contracts_CErc20.sol:125).
+    	// Delegator fallback (sources/CErc20Delegator_12392F/contracts_CErc20Delegator.sol:455) + missing decl in
+    	// CErc20Interface (contracts_CTokenInterfaces.sol:260) makes the selector callable by anyone (delegatecall).
+    	// Why: admin recovery helper without the admin check in this deployed delegate.
+    	// Impact: permissionless drain of cTUSD's TUSD cash (via legacy) to admin, desyncing backing.
+    	//
+    	// EXPLOIT STEPS (via cTUSD @0x12392F... delegator):
+    	// 1. sweepToken(tusdLegacy) where legacy != .underlying() (newTUSD).
+    	// 2. L137 require passes.
+    	// 3. balance = token.balanceOf(address(this))  // via legacy CanDelegate -> shared BalanceSheet
+    	// 4. token.transfer(admin, balance)  // legacy.transfer -> delegate.delegateTransfer(cTUSD as orig) -> BalanceSheet transfer to admin
+    	// 5. Result: cTUSD cash drops, totalSupply/borrows unchanged.
     	require(address(token) != underlying, "CErc20::sweepToken: can not sweep underlying token");
     	uint256 balance = token.balanceOf(address(this));
     	token.transfer(admin, balance);

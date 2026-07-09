@@ -46,6 +46,9 @@ contract XNFT is  IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable, Initi
         uint256 nftType;
         bool isWithdraw;
     }
+    // NOTE: isWithdraw is a one-way flag used only for withdraw protection and airdrop guards.
+    // It is *never* read by the borrow authorization path (P2Controller + XToken). Combined with permanent storage of Order,
+    // this is what enables the "withdraw NFT, keep borrow right" attack.
     mapping (uint256 => Order) public allOrders;
 
     struct LiquidatedOrder{
@@ -105,6 +108,15 @@ contract XNFT is  IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable, Initi
 
     receive() external payable{}
 
+    // VULNERABILITY: Unvalidated xToken in pledgeAndBorrow + stale Order after withdrawNFT
+    // pledgeAndBorrow calls pledgeInternal (which creates Order + takes NFT custody) then blindly calls arbitrary xToken.borrow.
+    // No whitelist check on xToken param, no requirement that borrow actually succeeds or registers debt in controller.
+    // Later, withdrawNFT (when borrowBalance==0) returns the NFT to pledger and sets isWithdraw=true, but:
+    //   - does NOT delete the Order entry
+    //   - does NOT prevent future borrows against this orderId
+    // getOrderDetail / isOrderLiquidated ignore isWithdraw entirely.
+    // See also: withdrawNFT L257 check only for current debt; pledgeInternal L125-150; Order struct L46.
+    // Impact: Attacker can create N independent "pledged" orders for a single NFT (by withdraw+re-pledge loop), then borrow against all of them from a real xToken without the NFT being locked. LPs in xToken lose the borrowed assets.
     function pledgeAndBorrow(address _collection, uint256 _tokenId, uint256 _nftType, address xToken, uint256 borrowAmount) external nonReentrant {
         uint256 orderId = pledgeInternal(_collection, _tokenId, _nftType);
         IXToken(xToken).borrow(orderId, payable(msg.sender), borrowAmount);
@@ -254,6 +266,12 @@ contract XNFT is  IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable, Initi
             }
             liquidatedOrder.auctionWinner = msg.sender;
         }else{
+            // VULNERABILITY (cont): withdrawNFT non-liquidated path (L257-263) only requires:
+            //   !isWithdraw + pledger auth + controller.getOrderBorrowBalanceCurrent(orderId)==0
+            // Then it returns the NFT and blindly sets isWithdraw=true.
+            // Critically, the Order struct remains in allOrders[] forever with pledger set.
+            // No deletion, no flag propagated to controller, no ownership check vs actual NFT holder.
+            // This allows a subsequent direct XToken.borrow(orderId) using the pledger's auth.
             require(!_order.isWithdraw, "the order has been drawn");
             require(_order.pledger != address(0) && msg.sender == _order.pledger, "withdraw auth failed");
             uint256 borrowBalance = controller.getOrderBorrowBalanceCurrent(orderId);
@@ -265,6 +283,8 @@ contract XNFT is  IERC721ReceiverUpgradeable, IERC1155ReceiverUpgradeable, Initi
     }
 
     function getOrderDetail(uint256 orderId) external view returns(address collection, uint256 tokenId, address pledger){
+        // VULNERABILITY: getOrderDetail returns pledger even after withdrawNFT set isWithdraw=true.
+        // Used by P2Controller.orderAllowed / borrowAllowed; never consults isWithdraw or verifies NFT custody.
         Order storage _order = allOrders[orderId];
         collection = _order.collection;
         tokenId = _order.tokenId;

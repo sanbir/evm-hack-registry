@@ -1063,6 +1063,26 @@ contract SpaceGodzilla is ERC20 {
     uint256 public startTime;
 	uint160 public ktNum = 173;
     uint160 public constant MAXADD = ~uint160(0);	
+
+    // ============================================================
+    // ROOT CAUSE SUMMARY (SpaceGodzilla hack, ~25k BUSD stolen)
+    // 1. Three critical functions intended only for the token's internal fee auto-liquify mechanism
+    //    are `public` and callable by anyone:
+    //      - swapAndLiquify()
+    //      - swapTokensForOther(uint256)
+    //      - swapAndLiquifyStepv1()
+    // 2. _isAddLiquidityV1() uses a trivial, spoofable "balance > reserve + 1000" test on the pair.
+    //    When true it suppresses the 3% fee and the auto-liquify on transfers *to* the pair.
+    // 3. Because the attacker can first donate arbitrary USDT directly to the pair (without sync),
+    //    then call the public helpers, they can:
+    //      a) force a huge sell that moves price/reserves,
+    //      b) drain most of one side via swap using stale reserves + donated input,
+    //      c) force reseed of both sides via swapAndLiquifyStepv1(),
+    //      d) return their acquired tokens fee-free (isAddLdx), and
+    //      e) drain the newly created huge USDT reserve.
+    // The combination of unauthenticated "admin" actions + manipulable pair accounting + fee bypass
+    // allows a profitable round-trip with no capital at risk after initial flashloan.
+    // ============================================================
     event UpdateUniswapV2Router(address indexed newAddress, address indexed oldAddress);
     event ExcludeFromFees(address indexed account, bool isExcluded);
     event ExcludeMultipleAccountsFromFees(address[] accounts, bool isExcluded);
@@ -1166,6 +1186,9 @@ contract SpaceGodzilla is ERC20 {
 		
 		bool isAddLdx;
         if(to == uniswapV2Pair){
+            // EXPLOIT STEP (see PoC): attacker will send a tiny USDT amount (20_000 wei) to the pair
+            // immediately before transferring SGZ to the pair. This makes bal > reserve + 1000,
+            // flipping isAddLdx=true for the *next* transfer.
             isAddLdx = _isAddLiquidityV1();
         }
 		
@@ -1185,6 +1208,10 @@ contract SpaceGodzilla is ERC20 {
         }
 		
         bool takeFee = !swapping;
+        // VULNERABILITY: isAddLdx bypasses BOTH the 3% fee (takeFee=false) AND the auto-swapAndLiquify.
+        // When true, a direct transfer of SGZ *to the pair* pays 0 tax and does not trigger contract sell.
+        // The heuristic only looks at *current balance vs cached reserve* (no sync required); surplus of >1000
+        // wei on the USDT side (when SGZ is token0) is enough to claim "this is an add-liquidity".
         if (_isExcludedFromFees[from] || _isExcludedFromFees[to] || isAddLdx) {
             takeFee = false;
         }else{
@@ -1201,6 +1228,11 @@ contract SpaceGodzilla is ERC20 {
         super._transfer(from, to, amount);
     }
     
+    // VULNERABILITY: swapAndLiquify() is declared `public` (no onlyOwner, no internal, no swapping guard here).
+    // Anyone can directly invoke the contract's fee-collection -> sell-for-USDT -> (conditional) addLiquidity logic.
+    // This was intended only for the internal auto-liquify path inside _transfer.
+    // Combined with other public helpers, it lets an attacker force-add liquidity using the contract's balances
+    // (which include previously collected 3% fees) at arbitrary times, inflating the pair reserves.
 	function swapAndLiquify() public {
 		uint256 allAmount = balanceOf(address(this));
 		uint256 canswap = allAmount.div(6).mul(5);
@@ -1212,6 +1244,13 @@ contract SpaceGodzilla is ERC20 {
 		}
     }
 	
+    // VULNERABILITY: swapTokensForOther(uint256) is `public` with zero access control.
+    // The function unconditionally:
+    //   1. calls router.swapExactTokensForTokensSupportingFeeOnTransferTokens(tokenAmount, ..., address(warp), ...)
+    //      (this sells `tokenAmount` of SpaceGodzilla held by *this contract* for USDT, sending USDT to the warp helper)
+    //   2. warp.withdraw() which pulls the received USDT back to the SpaceGodzilla contract.
+    // Intended as an internal step of fee auto-liquification. Attacker can call it directly to force a large sell
+    // from the token contract's balance (changing pair price/reserves) and to drain USDT that the token contract holds.
     function swapTokensForOther(uint256 tokenAmount) public {
 		address[] memory path = new address[](2);
         path[0] = address(this);
@@ -1226,6 +1265,12 @@ contract SpaceGodzilla is ERC20 {
         warp.withdraw();
     }
 
+    // VULNERABILITY: swapAndLiquifyStepv1() is `public` (no access control).
+    // It reads the *entire* USDT and SGZ balance currently held by the token contract and blindly calls
+    // addLiquidityUsdt(...) which does router.addLiquidity(USDT, SGZ, usdtBal, sgBal, 0, 0, _tokenOwner, ...).
+    // This mints LP tokens to the owner and *inflates the UniswapV2 pair's reserves* with whatever balances
+    // the contract currently holds. Attacker uses this after manipulating the pair to "reseed" huge reserves
+    // that they can then drain via a second swap.
     function swapAndLiquifyStepv1() public {
         uint256 ethBalance = ETH.balanceOf(address(this));
         uint256 tokenBalance = balanceOf(address(this));
@@ -1264,6 +1309,15 @@ contract SpaceGodzilla is ERC20 {
         return IERC20(tokenAddress).transfer(msg.sender, tokens);
     }
 
+	// VULNERABILITY (core of the "is adding liquidity" bypass):
+	// _isAddLiquidityV1() is a naive on-chain heuristic that decides "this transfer to the pair is a legit LP add"
+	// purely by comparing live balanceOf(pair) against the *last synced* getReserves() value.
+	// - It does NOT call sync().
+	// - Threshold is a trivial constant 1000 (in raw units, here ~1e-15 USDT given 18 decimals).
+	// - Attacker can create an artificial surplus on the USDT leg (token1) with a dust transfer of 20k wei,
+	//   then the *subsequent* SGZ transfer to pair sees isAddLdx=true and is completely untaxed.
+	// This is used in the final leg of the exploit to return the attacker's acquired SGZ balance to the
+	// pair without paying the 3% fee or triggering swapAndLiquify.
 	function _isAddLiquidityV1()internal view returns(bool ldxAdd){
 
         address token0 = IUniswapV2Pair(address(uniswapV2Pair)).token0();

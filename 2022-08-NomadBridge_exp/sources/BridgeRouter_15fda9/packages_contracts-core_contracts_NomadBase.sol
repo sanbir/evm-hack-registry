@@ -41,6 +41,8 @@ abstract contract NomadBase is Initializable, OwnableUpgradeable {
     States public state;
     // The latest root that has been signed by the Updater
     bytes32 public committedRoot;
+    // NOTE: committedRoot and confirmAt (in Replica) are the two variables whose initialization with a bad value
+    // (0) enabled the entire 2022-08 exploit. The hack did not require compromising the Updater key.
 
     // ============ Upgrade Gap ============
 

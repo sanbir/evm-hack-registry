@@ -9,6 +9,26 @@ pragma solidity ^0.8.10;
 // so the playground can deploy it and record run(). Logic and constants are
 // copied verbatim from test/Elephant_Money_exp.sol.
 //
+// VULNERABILITY: Asymmetric mint/redeem + spot-price-dependent Elephant buyback in unverified Trunk router (InotVerified)
+// Root cause: InotVerified.mint(BUSD_amount) pulls BUSD, mints Trunk at fixed ~0.99 ratio to caller, *and* performs
+// an internal buyback swap (BUSD -> Elephant via router) sending Elephant to treasury. redeem(Trunk_amount) burns Trunk
+// and returns (near) full nominal BUSD without any reverse Elephant sell or price-based adjustment.
+// No TWAP, no slippage guard, no reentrancy/price sanity. Elephant is a 10% fee-on-transfer token vs WBNB on Pancake.
+// Impact: Attacker with flash capital can force protocol to acquire backing (Elephant) at manipulated high price,
+// extract the BUSD "spent" via immediate redeem (which ignores the buyback cost), leaving under-backed Trunk
+// for other users. ~real-world loss was millions in BUSD. The fixed haircut + one-way buyback creates extractable gap
+// whenever Elephant spot price can be inflated atomically.
+// Code refs: notVerified.mint, notVerified.redeem, path1 buy, path2 sell, pancakeCall, run()
+// EXPLOIT STEPS:
+// 1. Flash-loan 100k WBNB (from WBNB_USDT_PAIR) + nested 90M BUSD (from BUSD_USDT_PAIR) via pancakeCall reentrancy.
+// 2. wbnb.withdraw + router.swapExactETHForTokensSupportingFeeOnTransferTokens (buy Elephant) -> inflates Elephant/WBNB price.
+// 3. notVerified.mint(90M BUSD) -> protocol pulls BUSD, mints Trunk@0.99, does internal buy-Elephant at *inflated* price (acquires less backing per BUSD).
+// 4. Sell attacker's Elephant back for WBNB (path2) at the still-favorable (pre-dump) rate.
+// 5. notVerified.redeem(all Trunk) -> receive full BUSD (more than the internal buyback "spent"), no symmetric Elephant sale.
+// 6. Dump any residual Elephant for WBNB, repay flashes with small premium (100.3k / 90.3M), keep profit in BUSD/WBNB.
+// 7. Profit realized because redeem payout decoupled from the buyback cost and price was not time-weighted.
+//
+// (Original short note preserved below for reference.)
 // Root cause: the unverified Trunk router (0xD520a3B4…) mints Trunk at a fixed
 // 0.99 ratio against BUSD while its mint() performs an internal Elephant buy-back
 // that redeem() does NOT symmetrically undo. By flash-pushing the Elephant price

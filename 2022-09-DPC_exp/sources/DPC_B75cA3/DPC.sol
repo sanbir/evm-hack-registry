@@ -1203,6 +1203,26 @@ contract DPC is IERC20, Ownable {
                 }
         }
 
+        // VULNERABILITY: Unbounded compounding of airdrop reward quota via repeated permissionless LP checkpointing (oldClaimQuota inflation)
+        // Root cause: 
+        //   - stakeLp (L1214) and claimStakeLp (L1234) both do: oldClaimQuota[_from] = oldClaimQuota[_from].add( getClaimQuota(_from) );
+        //   - BEFORE reducing/increasing dpcLp and AFTER (or before) updating dpcLpTime.
+        //   - getClaimQuota (L1246) computes fresh time accrual since last (dpcLpTime or ClaimQuotaTime) * secondQuota (capped only on the *fresh* part at L1270), THEN unconditionally does ClaimQuota = ClaimQuota.add(oldClaimQuota[addr]) at L1275.
+        //   - claimDpcAirdrop (L1281) then mints the full (possibly inflated) getClaimQuota() to _rOwned, resets oldClaimQuota=0, and does dpcAirdrop -= ClaimQuota (no cap on accumulated).
+        // Why it works:
+        //   1. Attacker stakes real LP → dpcLpTime set, dpcAirdrop quota granted via tokenAirdrop.
+        //   2. Wait 24h (warp) → first claimStakeLp(1) computes full daily accrual `a`, banks a into oldClaimQuota, sets dpcLpTime=now.
+        //   3. Subsequent claimStakeLp(1) calls (with 1 wei LP, which is allowed as long as dpcLp>=1) see time-delta=0 so fresh=0, getClaimQuota returns exactly current old, then old += that → doubles.
+        //   4. 9 calls → old = a * 2^8 (256x). The per-LP tiny unstake keeps the position for repeated calls without losing stake.
+        //   5. claimDpcAirdrop mints the 256x value (bypassing the dpcAirdrop cap because cap only applied to fresh accrual).
+        //   The dpcAirdrop[] was intended as a hard per-user cap on claimable airdrop rewards from LP staking, but accumulation path defeats it.
+        // Impact: Attacker mints ~256x intended daily reward (~280 DPC for ~1 DPC/day rate) directly from contract reserve (_rOwned[address(this)] → attacker) with no loss of principal LP. Can be repeated or scaled by more loops until dpcAirdrop underflow on sub or LP exhausted. Total supply inflation + direct theft from airdrop allocation.
+        // EXPLOIT STEPS (see also test/DPC_exp.sol):
+        // 1. Acquire DPC + USDT, call tokenAirdrop (grants dpcAirdrop quota), add LP to pair, stakeLp the LP tokens.
+        // 2. Advance time 24h.
+        // 3. Loop claimStakeLp(address(this), 1) 9 times → inflates oldClaimQuota.
+        // 4. claimDpcAirdrop → receives inflated amount.
+        // 5. Swap inflated DPC back to WBNB.
         function stakeLp(address _from,address _to, uint256 Amountwei) public {
 
                 require(Amountwei > 0,"Quantity error");

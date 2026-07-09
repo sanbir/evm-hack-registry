@@ -290,6 +290,8 @@ contract GymSinglePool is ReentrancyGuardUpgradeable, OwnableUpgradeable {
         address _from
     ) external  {
         require(isPoolActive,'Contract is not running yet');
+        // @VULNERABILITY: Missing access control on depositFromOtherContract. This external function (no onlyOwner, no msg.sender==relationship or vault check) blindly accepts any caller and any _from address, then delegates to _autoDeposit which mints a deposit position for _from without requiring or pulling any tokens. Intended only for trusted integrators (MLM etc.) but callable permissionlessly by attacker.
+        // Impact: Any address can fabricate an arbitrary stake position for themselves (or others), setting up unbacked accounting entries that later enable withdrawal of real pool reserves.
         _autoDeposit(_depositAmount,_periodId,isUnlocked,_from);
     }
 
@@ -390,6 +392,8 @@ contract GymSinglePool is ReentrancyGuardUpgradeable, OwnableUpgradeable {
         UserInfo storage user = userInfo[_from];
         IERC20Upgradeable token = IERC20Upgradeable(tokenAddress);
         PoolInfo storage pool = poolInfo;
+        // @VULNERABILITY: _autoDeposit performs `token.approve(address(this), _depositAmount)` (self-approval: sets GymToken.allowance[poolAddress][poolAddress] = amt because this contract is msg.sender for the approve call) but contains NO token pull: no safeTransferFrom(_from, address(this), ...) and no transferFrom(msg.sender, ...). Compare to sibling _deposit() at L340 which correctly does the pull from msg.sender. Accounting is blindly incremented (totalDepositTokens, user_deposits[_from] push, totalGymnet* counters) for a deposit that never arrived.
+        // Impact: The pool's own GYMNET balance (from real user deposits) can later be withdrawn by the fake depositor because the self-allowance lets the pool's _withdraw succeed on safeTransferFrom(pool, attacker, amt). Attacker steals the pool reserves matching their fake stake amount; real depositors lose claim on those funds (pool undercollateralized).
         token.approve(address(this), _depositAmount);
         updatePool();
         uint256 period = months[_periodId];
@@ -480,6 +484,7 @@ contract GymSinglePool is ReentrancyGuardUpgradeable, OwnableUpgradeable {
                 totalGymnetUnlocked -= depositDetails.depositTokens;
             }
             
+            // @VULNERABILITY (enabler consumption): The withdrawal executes `token.safeTransferFrom(address(this), msg.sender, depositTokens)`. This succeeds ONLY because the prior _autoDeposit created allowance[pool][pool] on the GYMNET token. No actual user funds were ever received for this depositId. The transfer moves real reserves out of the pool.
             token.safeTransferFrom(address(this),msg.sender, depositDetails.depositTokens);
 
             for (uint i = 0; i<levels.length ; i++) {

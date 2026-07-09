@@ -2939,6 +2939,19 @@ contract NOVO is INOVO, Initializable, ContextUpgradeable, OwnableUpgradeable {
         address recipient,
         uint256 amount
     ) public override returns (bool) {
+        // VULNERABILITY: Broken transferFrom - allowance check and deduction are commented out
+        // The standard BEP20/ERC20 transferFrom must:
+        //   1. Check that msg.sender has sufficient allowance from `sender`: require(_allowances[sender][_msgSender()] >= amount)
+        //   2. Perform the _transfer(sender, recipient, amount)
+        //   3. Deduct from allowance: _approve(sender, _msgSender(), _allowances[sender][_msgSender()] - amount)
+        // Here, both the require allowance guard AND the _approve deduction are commented out (see below).
+        // Result: transferFrom completely ignores the caller (msg.sender) and the allowance mapping.
+        // Any caller can execute _transfer on behalf of ANY `sender` (no approval ever required).
+        // Combined with the fact that PancakeSwap LP pair holds a large NOVO balance in its ERC20 balanceOf,
+        // this allows an attacker to arbitrarily drain NOVO tokens directly out of the LP pair contract.
+        // Impact: Complete theft of tokens from any holder (most critically the DEX LP pair); enables
+        //         balance manipulation of the trading pair leading to price oracle / AMM manipulation
+        //         without using the pair's swap or flashloan primitives for the drain itself.
         // locked the NOVO of staking holders
         uint256 lockedAmount = getLockedAmount(sender);
         if (lockedAmount > 0) {
@@ -2958,6 +2971,8 @@ contract NOVO is INOVO, Initializable, ContextUpgradeable, OwnableUpgradeable {
         //         "BEP20: transfer amount exceeds allowance"
         //     )
         // );
+        // ^^^ THE BUG: entire allowance update (and the preceding check) was commented out during development.
+        //     No replacement check exists anywhere in this function or modifiers.
 
         if (recipient == address(uniswapV2Router)) {
             // airdrop the staking rewards

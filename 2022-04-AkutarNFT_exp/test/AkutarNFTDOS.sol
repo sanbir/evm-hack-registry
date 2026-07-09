@@ -26,6 +26,17 @@ pragma solidity ^0.8.10;
 // ETH is permanently locked. No value is extracted — this is pure griefing /
 // frozen funds.
 
+// VULNERABILITY: [Reverting Bidder DoS + Counter Mismatch Lock]
+// [See detailed analysis in test/AkutarNFT_exp.sol and annotations in AkuAuction.sol sources. 
+// Root: no contract filter on bid registration (AkuAuction.sol:536 myBids.bidder=msg.sender), 
+// unsafe .call+require in processRefunds loop (601), and refundProgress (per-bidder) >= totalBids (per-NFT) (616) invariant violation.
+// This file's run() + fallback() exactly reproduces the PoC registration + revert path.]
+// EXPLOIT STEPS:
+// 1. Call run() with msg.value = BID_VALUE (exact price, no bid-time refund).
+// 2. AKU_AUCTION.bid registers this contract (contract addr) in allBids.
+// 3. (offchain: warp) call processRefunds() -> hits fallback revert -> require fails entire tx.
+// 4. claimProjectFunds also impossible due to type error on counters.
+
 interface IAkuAuction {
     function bid(uint8 amount) external payable;
     function processRefunds() external;

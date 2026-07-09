@@ -22,6 +22,28 @@ pragma solidity 0.8.10;
 //     `owner_` it was constructed with, so the recorder can score it as the
 //     attacker EOA's USDC delta (the PoC's "The USDC after paying back" figure).
 
+// VULNERABILITY: Untrusted Off-Chain Price Attestation in DeiLenderSolidex.borrow() via Schnorr Signatures (2022-04 DEUS/DEI hack)
+// (See the identical deep analysis and EXPLOIT STEPS in test/deus_exp.sol for full detail.)
+//
+// Summary (root cause identical to the inline PoC):
+// DeiLenderSolidex.borrow(to, amount, price, timestamp, reqId, sigs) trusts the caller-supplied `price`
+// once a Schnorr signature over (parts of) the attestation is verified. The on-chain oracle price is
+// never consulted for the borrow decision. Collateral (DepositToken receipt for DEI/USDC LP) is valued
+// exclusively using the attested price. A compromised signer key (or weak binding of price inside the
+// signed message / insufficient replay protection) lets the attacker attest an arbitrarily high price
+// after seeding a modest LP position with privileged-minted USDC.
+//
+// The swap before borrow skews the pair (affecting getOnChainPrice if read by signers) and gives the
+// attacker a DEI balance. The huge borrow mints unbacked DEI; the exit swap converts it to profit USDC.
+// 150M seed is forwarded back; net effect is protocol loss with no net change to the fUSDC bridge supply.
+//
+// Key marked locations below:
+// - run() step comments contain the attack sequence
+// - borrow() call site shows the untrusted (price, sig) tuple
+// - SchnorrSign + repID construction
+//
+// See deus_exp.sol for the full marked version of the original inline attack.
+
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
     function approve(address, uint256) external returns (bool);
@@ -146,6 +168,10 @@ contract DeusDrain {
         lpDepositor.deposit(PAIR, balanceOfLpToken);
 
         // 4. addCollateral: post the DepositToken receipt as borrow collateral.
+        // VULNERABILITY MARKER: Valuation of this collateral is *not* performed here.
+        // The receipt balance is simply stored. The critical (attacker-controlled) price
+        // attestation occurs only at the borrow() call. This decouples collateral posting
+        // from any economic reality check.
         uint256 balanceOfDepositToken = depositToken.balanceOf(address(this));
         depositToken.approve(DEI_LENDER, type(uint256).max);
         deiLender.addCollateral(address(this), balanceOfDepositToken);
