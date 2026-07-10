@@ -1,6 +1,41 @@
 # DxSale Liquidity-Locker Exploit — Stealthy Ownership Takeover + Privileged Drain (~$7.3M BNB)
 
-> **Vulnerability classes:** vuln/access-control/centralization · vuln/access-control/missing-owner-check
+> **CORRECTION (post-publication)**: the "What the PoC actually does vs. the real
+> attack" section below concluded the real ~$7.3M drain happened on a *separate,
+> unverified* 0.8.33 locker, because the placeholder `DXLOCKERLP(address,uint256)`
+> call turned out to be a harmless public-mapping getter. That conclusion about
+> *where the funds came from* was wrong. A follow-up investigation replayed the
+> real attacker's own on-chain transactions against a BSC archive fork and found
+> the true mechanism lives entirely inside **this same verified 0.6.12 legacy
+> locker** (`0xEb3a9C56d963b971d320f889bE2fb8B59853e449`):
+> `unlockToken(uint256 userLockerNumber)` never invalidates a lock record after a
+> successful withdrawal — it only conditionally sets `locked = false` if
+> `block.timestamp > lockedTime`, which for any lock whose timelock has not yet
+> expired (every real depositor here) never happens. Since the only re-entry gate
+> is `require(locked)` and not "already withdrawn", the depositor of a lock can
+> call `unlockToken()` on that slot an **unlimited number of times**, each time
+> paying `lockedAmount` again out of the contract's balance of that LP token —
+> a balance **pooled across every depositor of the same pair**. Verified directly:
+> real attacker tx
+> [`0xb107f19af1a8ff90d19cbb40d935f8be5d79f5fb9b497824e4ed28b9e7555fe9`](https://bscscan.com/tx/0xb107f19af1a8ff90d19cbb40d935f8be5d79f5fb9b497824e4ed28b9e7555fe9)
+> (BSC block 100,812,090) emits **5** `onUnlock()` events, all for the attacker's
+> own lock #0 on the `Cake-LP` pair `0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2`,
+> each paying out the identical 12.8728 Cake-LP — i.e. the attacker looped
+> `unlockToken(0)` 5 times in one transaction, receiving their own deposit back
+> once and stealing 4 more payouts (51.49 Cake-LP) from other depositors' locked
+> funds in the shared pool. `test/DxSale_exp.sol` now reproduces this exact
+> sequence one block earlier (fork block 100,812,089) with a real, quantified,
+> nonzero `[POC-PASS]`: 64.364 Cake-LP total extracted, of which 51.49 Cake-LP is
+> proven-stolen from other users. The EIP-7702 delegated batch-drainer and the
+> ~89-wallet ownership-laundering campaign described below are still accurate —
+> ownership takeover is how the attacker got their OWN lock created/controlled at
+> scale and how the mass campaign was orchestrated — but the fund-extraction
+> *mechanism itself* required no owner privilege and no second contract: it is a
+> plain missing-state-invalidation bug in `unlockToken()`, exploitable by any
+> depositor against the shared pool. See `scripts/poc-configs/2026-05-DxSale.mjs`
+> in the crypto-training repo for the corrected PoC and full derivation notes.
+
+> **Vulnerability classes:** vuln/access-control/centralization · vuln/access-control/missing-owner-check · vuln/accounting/stale-state-reentrant-withdrawal
 
 > One-line summary: an attacker quietly walked DxSale's liquidity-locker **ownership** through ~89 wallets over ~269 days, then — as the legitimate owner — used the locker's privileged controls to liberate the LP positions of **1,400+** projects and dump them for **~$7.3M in BNB**, finishing the campaign with an **EIP-7702 (type-4)** delegated batch-drainer.
 

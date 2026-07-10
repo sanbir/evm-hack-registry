@@ -78,7 +78,7 @@ contract ContractTest is BaseTestWithBalanceLog {
 
     function setUp() public {
         uint256 forkBlock = 458_233_155;
-        vm.createSelectFork("arbitrum", forkBlock);
+        vm.createSelectFork("http://127.0.0.1:8547", forkBlock);
 
         fundingToken = USDC_TOKEN;
         attacker = ATTACKER;

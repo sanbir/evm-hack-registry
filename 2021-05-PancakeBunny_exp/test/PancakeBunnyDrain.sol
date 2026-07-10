@@ -147,7 +147,7 @@ contract PancakeBunnyDrain {
 
         // Repay each PCS flash swap with the 0.25% fee.
         uint256 retAmount = asset == 0 ? ((amount0 * 10_000) / 9975 + 1) : ((amount1 * 10_000) / 9975 + 1);
-        require(IERC20(WBNB).balanceOf(address(this)) >= retAmount, "not making proift");
+        require(IERC20(WBNB).balanceOf(address(this)) >= retAmount, "not making profit");
         IERC20(WBNB).transfer(msg.sender, retAmount);
     }
 

