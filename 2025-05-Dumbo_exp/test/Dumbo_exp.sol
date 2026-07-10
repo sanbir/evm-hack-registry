@@ -35,7 +35,7 @@ address constant WBNB_TOKEN = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
 address constant PANCAKE_ROUTER = 0x54509f72B9AaA941BECaA098625Bff930bCfB1A2;
 uint256 constant FLASH_BUSD_AMOUNT = 6900 ether;
 uint256 constant FLASH_BUSD_REPAY = 6915 ether;
-uint256 constant DISTRIBUTE_CALLS = 1950;
+uint256 constant DISTRIBUTE_CALLS = 1500; // trimmed from 1950 for lighter browser trace (right-sized; still ~77% profit)
 
 interface IStakingLike {
     function stake(

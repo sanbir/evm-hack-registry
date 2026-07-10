@@ -307,7 +307,7 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,P: Step 4-5 — dump AIS into the live pool
     A->>R: swapExactTokensForTokensSupportingFee(164,187.76 AIS → USDT)
-    R->>P: 159,262.13 AIS in (after 3% sell tax); swap()
+    R->>P: 159,262.13 AIS in (after 3% sell tax), swap()
     P-->>A: 36,075.73 USDT out
     Note over P: 23,455.28 USDT / 262,550.34 AIS
     end
