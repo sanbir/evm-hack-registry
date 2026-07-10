@@ -135,7 +135,7 @@ flowchart TD
     A[User approves AllowanceTarget\nunlimited, once] --> B[AllowanceTarget holds global\nspending power over user tokens]
     B --> C{Authorized Spender 0xa152\ncalls spendFromUser?}
     C -->|intended: real user swap| D[Move tokens for trade]
-    C -->|FLAW: no intent check\nany caller via 0xa152| E[Pull ANY token from ANY owner\nup to min(balance, allowance)]
+    C -->|FLAW: no intent check\nany caller via 0xa152| E["Pull ANY token from ANY owner\nup to min(balance, allowance)"]
     E --> F[Transfer to 0xa152 then to attacker]
     F --> G[Convert stETH->ETH->WETH->USDT\nCurve + Uniswap V3]
     G --> H[Attacker nets 228,980.73 USDT]

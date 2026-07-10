@@ -262,7 +262,7 @@ sequenceDiagram
     Note over A,D: "Repeat 12x inside the callback"
     A->>P: "swap 300 USDT -> ~2e12 SEA (prime)"
     A->>R: "openPosition(3,000 USDT, 0)"
-    R->>P: "buy SEA with part of deposit; record position (redeem value = 2,000 USDT)"
+    R->>P: "buy SEA with part of deposit, record position (redeem value = 2,000 USDT)"
     A->>R: "redeemPosition()"
     R->>D: "fbec6d5e(Round, amt)  TOP-UP reward SEA"
     D-->>R: "reward SEA (e.g. 14.5e12)"

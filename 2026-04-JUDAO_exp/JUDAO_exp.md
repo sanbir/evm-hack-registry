@@ -128,7 +128,7 @@ sequenceDiagram
     M->>A: 2.3M USDT
     A->>R: swapExactTokensForTokens(USDT, JUDAO)
     R->>P: swap (buy)
-    Note over P,T: pair sends JUDAO to A; buy hook credits A.tOwnedU
+    Note over P,T: pair sends JUDAO to A, buy hook credits A.tOwnedU
     A->>T: transfer(pair, 5.65M JUDAO)  %% triggers sell hook
     Note over T: getSellFee: isBurnPair=true (price rose <5%)
     T->>P: super._update(pair, Dead, half)  burns FROM pair

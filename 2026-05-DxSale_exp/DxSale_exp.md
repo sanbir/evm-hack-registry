@@ -287,7 +287,7 @@ sequenceDiagram
     Note over D,L: Months before the drain (~269 days)
     D->>W: transferOwnership() walked through wallets
     W->>A: ownership finally lands on attacker
-    A->>L: changeFees(1e33)  (owner-only; confirms control)
+    A->>L: changeFees(1e33)  (owner-only, confirms control)
 
     Note over A,P: Mass extraction day (May 27-28, 2026)
     A->>A: sign EIP-7702 (type-4) auth → delegate code to Drainer
@@ -298,7 +298,7 @@ sequenceDiagram
         DR->>P: remove liquidity / swap LP → BNB
         P-->>A: BNB out
     end
-    Note over A: ~$7.3M BNB extracted; ~$1.87M routed to CEX
+    Note over A: ~$7.3M BNB extracted, ~$1.87M routed to CEX
 ```
 
 ### Ownership / state evolution of the locker

@@ -280,12 +280,12 @@ sequenceDiagram
     G-->>M: "false (only replay guard)"
     M->>A: "WETH.transferFrom(attacker, module, 0) — costs nothing"
     Note over M: "_executeWithToken: parseAddress(sourceAddress) == squidRouter ✓ (string compare only)"
-    Note over M: "_processPayload: decode (module, safe, delegate) from payload; module == this ✓"
+    Note over M: "_processPayload: decode (module, safe, delegate) from payload, module == this ✓"
 
     rect rgb(255,235,238)
     Note over M,S: "Action 0 — ERC20_APPROVE (USDC -> Permit2)"
     M->>PM: "hasPermission(safe, realDelegate, APPROVE)?"
-    PM-->>M: "true (delegate is real; msg.sender never checked)"
+    PM-->>M: "true (delegate is real, msg.sender never checked)"
     M->>S: "execTransactionFromModule: USDC.approve(Permit2, max)"
     end
 

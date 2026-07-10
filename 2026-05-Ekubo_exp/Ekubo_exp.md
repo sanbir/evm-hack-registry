@@ -241,12 +241,12 @@ sequenceDiagram
     Note over R,V: withdraw to attacker, then pay from the victim
     R->>C: withdraw(WBTC, attacker, 0.2)
     C->>W: transfer(attacker, 0.2)
-    Note over C: locker debt += 0.2 ; Core bal -= 0.2
+    Note over C: locker debt += 0.2, Core bal -= 0.2
     R->>C: pay(WBTC)
     C->>W: balanceOf(Core)  (before)
     C->>R: payCallback(id, WBTC)
     R->>W: transferFrom(victim, Core, 0.2)
-    W-->>V: -0.2 WBTC ; allowance -= 0.2
+    W-->>V: -0.2 WBTC, allowance -= 0.2
     C->>W: balanceOf(Core)  (after)
     Note over C: payment = after-before = 0.2<br/>locker debt -= 0.2  (now 0)
     end
@@ -273,7 +273,7 @@ stateDiagram-v2
       locker debt = 0 (credited via balance delta)
       victim WBTC = -0.2  (THE THEFT)
     end note
-    Paid --> Settled: "lock end check: net debt == 0  PASS"
+    Paid --> Settled: "lock end check — net debt == 0  PASS"
     Settled --> Locked: "repeat x85"
     Settled --> [*]: "after 85 -> attacker +17 WBTC"
 ```

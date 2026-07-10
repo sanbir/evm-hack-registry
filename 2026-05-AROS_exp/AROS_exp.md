@@ -286,7 +286,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,T: Step 1 — corner the AROS reserve
     A->>R: swapTokensForExactTokens(621.9M AROS out, USDT in)
-    R->>P: transferFrom 206.4M USDT in; swap()
+    R->>P: transferFrom 206.4M USDT in, swap()
     P-->>R: 621.9M AROS out (sent to feeReceiver, discarded)
     Note over P: 206.7M USDT / 910K AROS
     end

@@ -319,7 +319,7 @@ sequenceDiagram
     loop 37x (mint 2,4,8,...,15,753,396,239)
         A->>V: mint(amt < totalSupply)
         V->>B: transferFrom(attacker -> vault, 0)  x5 legs
-        V->>V: _mint(attacker, amt) ; supply doubles
+        V->>V: _mint(attacker, amt), supply doubles
     end
     Note over V: attacker holds 153,192,349,709 shares
     end

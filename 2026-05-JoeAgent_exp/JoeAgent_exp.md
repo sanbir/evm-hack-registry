@@ -330,7 +330,7 @@ stateDiagram-v2
 
     Frame1 --> FrameN : "receive() re-enters x24"
     FrameN: "Loops 2..25 (nested)"
-    FrameN: "each: stale check passes, burn fresh 434.929 LP"
+    FrameN: "each pass — stale check OK, burn fresh 434.929 LP"
     FrameN: "cumulative 62.5 BNB + 1.885M JOE removed"
 
     FrameN --> Unwound : "deepest receive() declines (drainCalls==25)"
@@ -341,7 +341,7 @@ stateDiagram-v2
     Unwound --> Drained
     Drained: "Result"
     Drained: "10,873 of 16,198 custodied LP destroyed"
-    Drained: "attacker EOA: +62.5 BNB, +1,848,087 JOE"
+    Drained: "attacker EOA gains +62.5 BNB, +1,848,087 JOE"
     Drained --> [*]
 ```
 

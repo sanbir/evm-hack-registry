@@ -26,5 +26,13 @@ _shared/results/
 *~
 Thumbs.db
 
+# Synthetic-exploit copies written into <poc>/test/ by the crypto-training
+# EVM Playground build (scripts/build-poc-runner-data.mjs copies its
+# scripts/poc-configs/synthetic/<file> into the registry test/ dir to compile).
+# The source-of-record lives in crypto-training; these regenerate on every build
+# and must NOT be committed as duplicates of the canonical <Name>_exp.sol.
+2026-06-OLPC_exp/test/OLPC.sol
+2025-08-SizeFlashLoanLooping_exp/test/2025-08-SizeFlashLoanLooping.sol
+
 # Keep the valuable products: anvil_state.json, output.txt, *.md, sources/,
 # foundry.toml, test/, interface.sol, _shared/ tooling — all committed.

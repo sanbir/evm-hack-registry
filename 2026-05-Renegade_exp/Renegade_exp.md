@@ -346,9 +346,9 @@ stateDiagram-v2
     state "Arbitrary code as proxy" as Exec
     state "Drained (all balances 0)" as Drained
 
-    Initialized --> Hijacked : "initialize(attacker,…) — slot0: 993219 → 0x…33FB…4a34<br/>(missing initializer guard)"
+    Initialized --> Hijacked : "initialize(attacker,…) — slot0 993219 → 0x…33FB…4a34<br/>(missing initializer guard)"
     Hijacked --> Exec : "updateWallet() delegatecalls stored executor"
-    Exec --> Drained : "drainTokens(): transfer(attacker, balanceOf(proxy)) × 26"
+    Exec --> Drained : "drainTokens() — transfer(attacker, balanceOf(proxy)) × 26"
     Drained --> [*]
 
     note right of Initialized
