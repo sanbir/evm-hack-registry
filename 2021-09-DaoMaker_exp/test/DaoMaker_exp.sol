@@ -7,13 +7,14 @@ import "./../interface.sol";
 /*
     Attacker: 0x2708cace7b42302af26f1ab896111d87faeff92f
     Attack tx: https://etherscan.io/tx/0x96bf6bd14a81cf19939c0b966389daed778c3a9528a6c5dd7a4d980dec966388
-    Affected contracts:
-        0x6e70c88be1d5c2a4c0c8205764d01abe6a3d2e22 - emergencyExit with 13.5M CAPS
-        0xd6c8dd834abeeefa7a663c1265ce840ca457b1ec - emergencyExit with 2.5M CPD, twice
-        0xdd571023d95ff6ce5716bf112ccb752e86212167 - emergencyExit with 1.44M DERC
-        0xa43b89d5e7951d410585360f6808133e8b919289 - emergencyExit with approx 20.6M SHO
-    Root cause: They left the `init` function unprotected. The attacker re-initialized the contract with 
-    malicious data and then called `emergencyExit` to get away with the funds.*/
+    Affected contracts (SHO vesting clones drained via init + emergencyExit):
+        0x6e70c88be1d5c2a4c0c8205764d01abe6a3d2e22 - 13.5M CAPS
+        0xd6c8dd834abeeefa7a663c1265ce840ca457b1ec - 2.5M CPD (twice)
+        0x2FD602Ed1F8cb6DEaBA9BEDd560ffE772eb85940 - 5,760,000 DERC (this PoC; tx 0x96bf6bd1...)
+        0xa43b89d5e7951d410585360f6808133e8b919289 - ~20.6M SHO
+    Root cause: Unprotected/re-callable `init()` (no initializer guard, no auth) set `owner = msg.sender`.
+    Attacker became owner then called owner-only `emergencyExit(recipient)` to sweep the entire balance.
+    Confirmed by on-chain trace, SlowMist decompile, and storage diffs.*/
 
 interface DAOMaker {
     function init(uint256, uint256[] calldata, uint256[] calldata, address) external;
@@ -27,7 +28,9 @@ contract ContractTest is Test {
     IERC20 DERC = IERC20(0x9fa69536d1cda4A04cFB50688294de75B505a9aE);
 
     function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8545", 13_155_320); // fork mainnet block number 13155320
+        // Fork pinned at pre-exploit block via anvil --load-state (the harness rewrites the 127.0.0.1:port).
+        // Real attack: init() then emergencyExit() on the live clone at block ~13155350.
+        vm.createSelectFork("http://127.0.0.1:8545", 13_155_320);
     }
 
     function testExploit() public {

@@ -1,37 +1,18 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-// Synthetic standalone exploit for the EVM Playground (2021-07-Chainswap_exp2).
+// Execution harness (synthetic) ONLY for the EVM Playground recorder
+// (2021-07-Chainswap_exp2).
 //
-// ChainSwap is a cross-chain bridge. On the destination chain a `MappingToken`
-// proxy (synthetic side) releases units to a user via `receive(...)`, which is
-// supposed to be authorized by N-of-M off-chain "validators" co-signing an
-// EIP-712 `Receive` message. The fatal flaw: the recovered signer is compared
-// ONLY to a caller-supplied `signatures[i].signatory` field (never to a trusted
-// validator allow-list), so an attacker can mint tokens with 100% self-signed,
-// self-chosen "validators".
+// The real vulnerable logic lives in the verified Factory.sol (MappingBase
+// inside the 0x302E5E... impl). This file is a minimal self-contained
+// reconstruction used solely so the in-browser EVM can execute a successful
+// mint sequence (the registry PoC replay + anvil dump are degenerate and
+// cannot run the real proxy path to completion).
 //
-// The extracted DeFiHackLabs PoC (test/Chainswap_exp2.sol) is a *calldata replay*
-// of the real BSC attacker tx that does NOT execute the mint: its
-// `abi.encodeWithSignature("receive(uint256,address,uint256,uint256, Signature[])", …)`
-// produces the wrong 4-byte selector (`0x6c648fca`) for a `tuple[]` argument
-// (canonical selector is `0xa653d60c`), so the inner delegatecall reverts and the
-// bare `proxy.call(...)` swallows the failure — the test reports [PASS] but mints
-// nothing (see output.txt). On top of that, the dumped anvil fork state has a
-// degenerate proxy whose initialization storage (`factory`, `_DOMAIN_SEPARATOR`,
-// `cap`, …) was never captured, so the real proxy cannot execute `receive()`
-// either.
-//
-// This contract is therefore a FAITHFUL, self-contained reconstruction of the
-// vulnerable `MappingBase.receive()` / `_decreaseAuthQuota` / `authQuotaOf` logic
-// (copied verbatim from the on-chain verified BSC `MappingTokenFactory` source —
-// sources/Factory_302E5E/Factory.sol), deployed fresh with the exact same buggy
-// signature check. The attack entrypoint `attack()` forges ≥ `minSignatures`
-// (3) DISTINCT, self-signed validator tuples that each satisfy
-// `ecrecover(digest) == signatures[i].signatory`, passes the quota gate (a fresh
-// signatory's quota auto-saturates to `1% of cap`), and mints `volume` synthetic
-// units to the attacker. Signatures are pre-computed off-chain against this
-// contract's predicted CREATE address and embedded as constants.
+// The mjs now anchors vulnerability + story on the *real* vuln contract
+// address (0x302e5e...) + lines from the fetched verified source. This file
+// is never shown as the "vuln contract" in the playground UI.
 
 struct Signature {
     address signatory;

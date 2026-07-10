@@ -5,14 +5,14 @@
 > One-line summary: DAO Maker's token-distribution/vesting clone contracts left their `init()` initializer **permissionless and re-callable**; an attacker re-initialized a live vesting contract to make itself the owner, then called the owner-gated `emergencyExit()` to sweep the entire token balance out — **5,760,000 DERC** in this PoC.
 
 > **Reproduction:** the PoC compiles and runs in an isolated Foundry project at
-> [this project folder](.) (the umbrella DeFiHackLabs repo contains many unrelated PoCs that do
-> not whole-compile, so this one was extracted). Full verbose trace:
-> [output.txt](output.txt). PoC: [test/DaoMaker_exp.sol](test/DaoMaker_exp.sol).
-> The only verifiable source that resolved on-chain at the fork block is the DERC token itself:
+> [this project folder](.) using the registry's harness (`_shared/run_poc.sh 2021-09-DaoMaker_exp --mt testExploit -vvvvv`).
+> It boots a dedicated `anvil --load-state anvil_state.json` (fully offline) and rewrites the
+> localhost fork URL for parallel isolation. Full verbose trace: [output.txt](output.txt).
+> PoC: [test/DaoMaker_exp.sol](test/DaoMaker_exp.sol).
+> The only source that resolved on Etherscan at the fork block is the DERC token:
 > [sources/ERC20_9fa695/ERC20.sol](sources/ERC20_9fa695/ERC20.sol). The DAO Maker vesting
 > proxy/implementation were unverified at the fork block, so the vesting-logic snippets below are
-> reconstructed from the storage diff and call trace in `output.txt`, cross-checked against the
-> public DAO Maker post-mortems.
+> reconstructed from the storage diff + call trace in `output.txt`, SlowMist decompile, and public post-mortems.
 
 ---
 
@@ -20,12 +20,12 @@
 
 | | |
 |---|---|
-| **Loss (this PoC)** | **5,760,000 DERC** (DeRace Token) swept from one vesting contract. Across all four contracts the campaign drained ≈ **$4M** (13.5M CAPS, 2× 2.5M CPD, 1.44M DERC, ≈20.6M SHO). |
+| **Loss (this PoC)** | **5,760,000 DERC** (DeRace Token) swept from the 0x2fd6... clone. Across the campaign (4 clones) ≈ **$4M** at the time (13.5M CAPS, 2×2.5M CPD, 5.76M DERC in this tx, ~20.6M SHO). |
 | **Vulnerable contract** | DAO Maker vesting/distribution proxy `0x2FD602Ed1F8cb6DEaBA9BEDd560ffE772eb85940` → impl (delegatecall) [`0xF17CA0E0F24A5FA27944275Fa0ceDec24Fbf8eE2`](https://etherscan.io/address/0xF17CA0E0F24A5FA27944275Fa0ceDec24Fbf8eE2#code) |
 | **Drained token / victims** | DERC = DeRace Token [`0x9fa69536d1cda4A04cFB50688294de75B505a9aE`](https://etherscan.io/address/0x9fa69536d1cda4A04cFB50688294de75B505a9aE#code); the funds were vesting allocations belonging to DERC token holders / DAO Maker SHO participants. |
 | **Attacker EOA** | [`0x2708cace7b42302af26f1ab896111d87faeff92f`](https://etherscan.io/address/0x2708cace7b42302af26f1ab896111d87faeff92f) |
-| **Attack tx (this contract)** | [`0x96bf6bd14a81cf19939c0b966389daed778c3a9528a6c5dd7a4d980dec966388`](https://etherscan.io/tx/0x96bf6bd14a81cf19939c0b966389daed778c3a9528a6c5dd7a4d980dec966388) |
-| **Chain / fork block / date** | Ethereum mainnet / **13,155,320** / **September 3, 2021** |
+| **Attack tx (drain step; init was immediate prior call by same EOA in campaign)** | [`0x96bf6bd14a81cf19939c0b966389daed778c3a9528a6c5dd7a4d980dec966388`](https://etherscan.io/tx/0x96bf6bd14a81cf19939c0b966389daed778c3a9528a6c5dd7a4d980dec966388) |
+| **Chain / fork block / date** | Ethereum mainnet / **13,155,320** (pre-exploit) / **September 3, 2021** (tx at 13,155,350) |
 | **Compiler (DERC token)** | Solidity `v0.8.4+commit.c7e474f2`, optimizer on, 1000 runs |
 | **Bug class** | Unprotected / re-callable initializer (missing `initializer` guard + missing access control) → privilege escalation → owner-gated fund drain |
 
@@ -47,10 +47,20 @@ The attacker simply:
    `transfer`s the contract's *entire* token balance to an arbitrary address — pointing it at
    themselves.
 
+SlowMist's contemporaneous analysis (decompiling the impl at 0xf17ca0e0f24a5fa27944275fa0cedec24fbf8ee2) confirmed:
+the `init` function (selector `0x84304ad7`) "does not authenticate the caller", directly sets owner,
+and owner may then invoke `emergencyExit`. The same pattern was used against the other three clones.
+
 In this PoC that swept the whole DERC balance held by the clone: **5,760,000 DERC** (`5.76e24` wei),
 confirmed by the before/after logs in [output.txt:6-7](output.txt) and the `Transfer` event in
 [output.txt:43](output.txt). No flash loan, no price manipulation, no math trick — just a forgotten
 access-control modifier on an initializer.
+
+Per SlowMist and DAO Maker's own Sept 3 2021 update, only the vested public-sale tokens of four
+projects (DeRace/DERC, Showcase/SHO, Ternoa, Coinspaid/CPD) in the SHO claim portals were affected;
+the projects' own tokens and contracts were not compromised. The attacker(s) realized ~$4M at the
+time (later reports sometimes cite broader ~$7M figures that may include other incidents). Victims
+were compensated via market buys by the team + IOU mechanisms in follow-up statements.
 
 ---
 
@@ -337,17 +347,15 @@ flowchart TD
 
 ## How to reproduce
 
-The PoC was extracted into a standalone Foundry project (the umbrella DeFiHackLabs repo has many
-unrelated PoCs that fail to compile under a whole-project `forge build`):
+Use the registry harness (handles anvil state snapshot + port isolation automatically):
 
 ```bash
 _shared/run_poc.sh 2021-09-DaoMaker_exp --mt testExploit -vvvvv
 ```
 
-- RPC: an **Ethereum mainnet archive** endpoint is required — the fork pins block **13,155,320**
-  (Sept 3, 2021), and most public RPCs prune state that old. `foundry.toml` points `mainnet` at an
-  Infura archive endpoint.
-- Result: `[PASS] testExploit()` with the attacker's DERC balance going from `0` to `5,760,000`.
+- Uses `anvil --load-state anvil_state.json` (captures the exact pre-attack state of the DERC clone proxy + token storage at block 13,155,320). No live archive RPC needed.
+- The script rewrites the `createSelectFork("http://127.0.0.1:...")` URL in a temp copy.
+- Result: `[PASS] testExploit()` — attacker's DERC balance goes from `0` to `5,760,000`.
 
 Expected tail (see [output.txt](output.txt)):
 
@@ -363,5 +371,13 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 
 ---
 
-*Reference: DAO Maker SHO vesting exploit, Ethereum, September 3, 2021 (~$4M across CAPS/CPD/DERC/SHO).
-Bug class: unprotected re-callable initializer → owner takeover → owner-gated drain.*
+*Reference: DAO Maker SHO vesting exploit, Ethereum, September 3, 2021 (~$4M across the four affected clones: CAPS, CPD×2, DERC, SHO).
+Primary sources: on-chain tx 0x96bf..., SlowMist analysis (decompiled `init` 0x84304ad7 unauthenticated + `emergencyExit`), DAO Maker post-mortem.
+Bug class: unprotected re-callable initializer (clone) → owner takeover → owner-gated full-balance drain.*
+
+## References & Further Reading
+
+- SlowMist: "An Analysis of the Attack on DAO Maker" (decompile of init / emergencyExit) — https://slowmist.medium.com/slowmist-an-analysis-of-the-attack-on-dao-maker-627fcccd8fcb
+- Etherscan tx (drain): https://etherscan.io/tx/0x96bf6bd14a81cf19939c0b966389daed778c3a9528a6c5dd7a4d980dec966388 (5,760,000 DERC)
+- DAO Maker incident statement (Sep 3 2021) — only four SHO portals affected; no token minting.
+- On-chain storage proof in this PoC's output.txt matches the attack (owner overwrite + full balance transfer).

@@ -1,22 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.15;
 
-// Synthetic standalone exploit for the EVM Playground (2021-11-Ploutoz).
-// The DeFiHackLabs PoC runs the attack INLINE in the Foundry test contract —
-// the flash-loan callback `pancakeCall` lives on the test itself and
-// `attacker = address(this)`, so there is no standalone contract to deploy.
-// This contract is a faithful, self-contained copy of that inline attack
-// (testExploit + pancakeCall + borrowMultipleLoans + swapLoanedTokenToStables
-// + swapTokenToToken + borrowSingleLoan), so the playground can deploy it and
-// record run(). Logic, constants and magic numbers are copied verbatim from
-// test/Ploutoz_exp.sol (the registry copy of the DeFiHackLabs PoC).
-//
-// Root cause: the Ploutz lending pools (a bZx/Fulcrum fork) value DOP
-// collateral from a single-source SPOT-price oracle that reads the live
-// `getReserves()` of the thin Twindex DOP/BUSD pair. A flash-loaned swap into
-// that pair inflates DOP ~1,700x within one transaction, so trivial DOP
-// deposits "secure" the pools' entire underlying reserves.
-
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
     function approve(address, uint256) external returns (bool);

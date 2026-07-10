@@ -1,26 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-// Synthetic standalone exploit for the EVM Playground (2021-09-ZABU).
-//
-// The DeFiHackLabs PoC runs the entire attack INLINE in the Foundry test
-// contract `ContractTest`: the two nested Pangolin flash-swap callbacks
-// (`pangolinCall`) live on the test itself, and a separate `depositToken`
-// helper holds the seeded stake + harvests/sells. There is no single
-// standalone exploit contract to deploy. This file is a faithful,
-// self-contained copy of that inline attack so the playground can deploy it
-// and record `run()`. Logic and constants are copied VERBATIM from
-// test/ZABU_exp.sol (ContractTest.testExploit + ContractTest.pangolinCall +
-// depositToken.depositSPORE/withdrawSPORE/sellZABU).
-//
-// Root cause: the ZABU MasterChef farm (pid 38 = SPORE pool) derives its
-// per-share reward accumulator `accZABUPerShare` from SPORE's LIVE balanceOf
-// the farm, and SPORE is a 6%-fee deflationary token. Repeatedly
-// deposit(x)/withdraw(x) bleeds the farm's SPORE balance down to a few wei,
-// so `accZABUPerShare += reward*1e12 / ~3` explodes, and a tiny pre-seeded
-// legitimate stake then harvests the farm's ENTIRE ZABU reward reserve
-// (4,526,636,431 ZABU), which is sold for ~1,089 WAVAX net profit.
-
 interface IERC20 {
     function balanceOf(address) external view returns (uint256);
     function approve(address, uint256) external returns (bool);
