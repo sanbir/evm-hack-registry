@@ -310,7 +310,7 @@ sequenceDiagram
     H->>R: addLiquidity(USDT, DTXT)
     R->>P: mint LP, Sync 1.113M USDT / 185.5M DTXT
     A->>R: removeLiquidity(LP)
-    R->>P: burn; DTXT del-branch returns ~170.58M DTXT (5% to token)
+    R->>P: burn, DTXT del-branch returns ~170.58M DTXT (5% to token)
     Note over P: 35,637 USDT / 5.94M DTXT (restored)<br/>A holds ~350.14M DTXT
     end
 

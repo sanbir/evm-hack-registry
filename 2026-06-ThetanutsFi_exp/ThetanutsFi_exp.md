@@ -309,9 +309,9 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,V: Step 2 - claim() drains basket, crushes supply
     A->>V: claim(153,054,600,569)
-    V->>V: _burn(attacker) ; totalSupply 153,054,600,572 -> 3
+    V->>V: _burn(attacker), totalSupply 153,054,600,572 -> 3
     V->>B: transfer OPT0..OPT4 to attacker (whole basket)
-    Note over V: totalSupply = 3 ; basket ~1 wei/leg
+    Note over V: totalSupply = 3, basket ~1 wei/leg
     end
 
     rect rgb(227,242,253)

