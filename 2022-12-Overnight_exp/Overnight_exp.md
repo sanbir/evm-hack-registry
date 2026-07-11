@@ -335,29 +335,29 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Seed
-    Seed: "Seed - 36,000 USDC via Trader Joe"
+    Seed: Seed - 36,000 USDC via Trader Joe
     Seed --> Borrow
 
-    Borrow: "Stack flash-loans + Benqi borrow<br/>(amplify working capital)"
+    Borrow: Stack flash-loans + Benqi borrow<br/>(amplify working capital)
     Borrow --> Skew
 
-    Skew: "Skew Synapse pool<br/>addLiquidity(USDC.e) + 9x imbalanced remove<br/>=> D / virtual-price distorted"
+    Skew: Skew Synapse pool<br/>addLiquidity(USDC.e) + 9x imbalanced remove<br/>=> D / virtual-price distorted
     Skew --> Mint
 
-    Mint: "USDplus.buy(USDC)<br/>deposit pads pool reserve<br/>=> totalNetAssets() inflated"
+    Mint: USDplus.buy(USDC)<br/>deposit pads pool reserve<br/>=> totalNetAssets() inflated
     Mint --> Unwind
 
-    Unwind: "swap back to USDC.e<br/>repay Benqi + Platypus exit<br/>repay both flash-loans"
+    Unwind: swap back to USDC.e<br/>repay Benqi + Platypus exit<br/>repay both flash-loans
     Unwind --> Redeem
 
-    Redeem: "roll +1 block<br/>redeem(headroom = totalNetAssets - netAssetValue)<br/>=> USDC out > fair backing"
+    Redeem: roll +1 block<br/>redeem(headroom = totalNetAssets - netAssetValue)<br/>=> USDC out > fair backing
     Redeem --> Check
 
-    Check: "iteration < 6 ?"
-    Check --> Skew: "yes (repeat)"
-    Check --> Dump: "no"
+    Check: iteration < 6 ?
+    Check --> Skew: yes (repeat)
+    Check --> Dump: no
 
-    Dump: "SicleSwap: dump residual USD+ -> USDC<br/>final balance 180,303 USDC"
+    Dump: SicleSwap#58; dump residual USD+ -> USDC<br/>final balance 180,303 USDC
     Dump --> [*]
 ```
 

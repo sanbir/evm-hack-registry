@@ -257,7 +257,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,Ctrl: Phase 3 — finalize epoch 13
     A->>Ctrl: setEnableNextEpoch(true) + nextEpoch() (as distributor)
-    Note over Ctrl: epoch[13].TWAP snapshotted; currentEpoch = 14
+    Note over Ctrl: epoch[13].TWAP snapshotted#59; currentEpoch = 14
     A->>Ctrl: claim(13) -> 1.5378 LVL (honest baseline)
     end
 

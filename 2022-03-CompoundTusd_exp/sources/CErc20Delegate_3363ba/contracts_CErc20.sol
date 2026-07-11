@@ -127,6 +127,9 @@ contract CErc20 is CToken, CErc20Interface {
         uint256 balance = token.balanceOf(address(this));
         token.transfer(admin, balance);
     }
+    // FIXED version: added require(msg.sender == admin) at L125.
+    // The a035b9 delegate lacked it, enabling the exploit via delegator fallback.
+}
 
     /**
      * @notice The sender adds to reserves.

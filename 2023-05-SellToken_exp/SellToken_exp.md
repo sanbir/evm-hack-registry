@@ -281,7 +281,7 @@ sequenceDiagram
     D-->>A: "418.5 WBNB"
     A->>R: "swap 423.19 WBNB -> 5,072,405 SELLC (pump again)"
     A->>S: "ShortStart{4.27 WBNB}(SELLC)"
-    S->>M: "forward BNB; Minerals.buy SELLC at top"
+    S->>M: "forward BNB#59; Minerals.buy SELLC at top"
     A->>R: "dump 5,072,405 SELLC -> 425.24 WBNB (price crashes)"
     end
 

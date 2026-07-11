@@ -97,6 +97,9 @@ done
 cd "$TMPROOT"
 
 # Run forge with an isolated out dir (avoids out/ races and keeps the POC tree clean).
-forge test --out "$_RUN_OUT" "$@"
+# --no-storage-caching: Foundry otherwise caches eth_getStorageAt from earlier
+# online/offline runs and can serve STALE zeros for slots that anvil_state later
+# corrected (seen on 2025-08-PDZ: slot 0x20 _burnToken stayed 0 → ZERO_ADDRESS).
+forge test --out "$_RUN_OUT" --no-storage-caching "$@"
 RC=$?
 exit $RC

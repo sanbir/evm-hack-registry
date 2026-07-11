@@ -289,12 +289,12 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> S0
-    S0: "Stage 0 · Initial<br/>Victim 20000.01 · Contract 0 · Attacker 0"
-    S1: "Stage 1 · After transferFrom(Victim→Contract)<br/>Victim 0 · Contract 20000.01 · Attacker 0"
-    S2: "Stage 2 · After approve + callback transferFrom<br/>Victim 0 · Contract 0 · Attacker 20000.01"
-    S0 --> S1: "spend victim allowance"
-    S1 --> S2: "approve caller + Sell() pulls out"
-    S2 --> [*]: "owner slot := attacker"
+    S0: Stage 0 · Initial<br/>Victim 20000.01 · Contract 0 · Attacker 0
+    S1: Stage 1 · After transferFrom(Victim→Contract)<br/>Victim 0 · Contract 20000.01 · Attacker 0
+    S2: Stage 2 · After approve + callback transferFrom<br/>Victim 0 · Contract 0 · Attacker 20000.01
+    S0 --> S1: spend victim allowance
+    S1 --> S2: approve caller + Sell() pulls out
+    S2 --> [*]: owner slot #58;= attacker
 ```
 
 ---

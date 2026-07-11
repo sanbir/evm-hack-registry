@@ -266,7 +266,7 @@ sequenceDiagram
 
     rect rgb(232,245,233)
     Note over A,V: Step 1-2 — build dry powder = 3600.001 WBNB
-    A->>V: vUSDT.mint(150000) ; vBNB.borrow(500 BNB)
+    A->>V: vUSDT.mint(150000) #59; vBNB.borrow(500 BNB)
     A->>A: WBNB.deposit{500 BNB}
     end
 
@@ -295,7 +295,7 @@ sequenceDiagram
     end
 
     Note over A,DPP: Step 7 — repay 500 BNB to Venus, 3100 WBNB + 150000 BUSDT to DODO
-    A->>V: repayBorrow(500 BNB) ; vUSDT.redeemUnderlying
+    A->>V: repayBorrow(500 BNB) #59; vUSDT.redeemUnderlying
     A->>DPP: transfer back 3100 WBNB + 150000 BUSDT
     deactivate DPP
     Note over A: Net +0.548 WBNB (harvest stolen from honest LPs)

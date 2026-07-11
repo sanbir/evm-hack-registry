@@ -262,7 +262,7 @@ sequenceDiagram
     A->>SR: exactInputSingle(9,350 USD1 -> MOMO, minOut=0)
     SR->>P: swap()
     P-->>A: 759,262,671 MOMO
-    Note over P: 11,788.68 USD1 in reserve; MOMO price inflated
+    Note over P: 11,788.68 USD1 in reserve#59; MOMO price inflated
     end
 
     rect rgb(255,235,238)

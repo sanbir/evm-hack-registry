@@ -152,7 +152,7 @@ sequenceDiagram
     AC->>TV: donate(2 WBNB)
     TV->>Pool: dripPoolBalance += 2 WBNB
     AC->>TV: depositTo(self, 1.114 WBNB)
-    TV->>TV: mint 1.0027 shares\n payoutsTo pinned to stale profitPerShare_
+    TV->>TV: mint 1.0027 shares<br/> payoutsTo pinned to stale profitPerShare_
     TV->>Pool: 10pct fee split 4:1
     AC->>TV: resolve(1.0027 shares)
     TV->>TV: distribute releases drip into profitPerShare_
@@ -168,10 +168,10 @@ flowchart TD
     A["donate(2 WBNB)"] --> B["dripPoolBalance += 2 WBNB"]
     C["depositTo(1.114 WBNB)"] --> D["mint 1.0027 shares"]
     D --> E["payoutsTo pinned to profitPerShare_ BEFORE drip release"]
-    B --> F["distribute releases drip\n divided by currentTotalStaked\n incl. attacker's new shares"]
+    B --> F["distribute releases drip<br/> divided by currentTotalStaked<br/> incl. attacker's new shares"]
     C --> F
     F --> G["profitPerShare_ rises"]
-    E --> H["dividendsOf attacker =\n pps*balance - payoutsTo\n inflated because baseline stale"]
+    E --> H["dividendsOf attacker =<br/> pps*balance - payoutsTo<br/> inflated because baseline stale"]
     G --> H
     H --> I["harvest extracts 8.108 WBNB"]
 ```

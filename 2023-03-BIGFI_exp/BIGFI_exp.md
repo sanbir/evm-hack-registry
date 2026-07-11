@@ -301,7 +301,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,T: Step 3 — burn almost all supply (no _rTotal change)
     A->>T: burn(20,999,908,387,034,241,742,894,360)
-    T->>T: _rOwned[A] -= x; _tTotal -= x; _rTotal unchanged
+    T->>T: _rOwned[A] -= x#59; _tTotal -= x#59; _rTotal unchanged
     Note over T: rate = _rTotal / _tTotal explodes<br/>balanceOf(P) collapses to 1
     end
 

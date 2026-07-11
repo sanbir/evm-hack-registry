@@ -16,6 +16,11 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 
 /**
  * @title BridgeRouter
+ *
+ * TRUST BOUNDARY: All security of inbound transfers rests on Replica.process() having
+ * properly validated that the message was proven against a Home-signed root.
+ * When Replica is compromised (bad init allowing unproven process), BridgeRouter
+ * blindly mints/transfers tokens for attacker-supplied messages.
  */
 contract BridgeRouter is Version0, Router {
     // ============ Libraries ============
@@ -108,6 +113,10 @@ contract BridgeRouter is Version0, Router {
         bytes32 _sender,
         bytes memory _message
     ) external override onlyReplica onlyRemoteRouter(_origin, _sender) {
+        // EXPLOIT CONTINUATION (from Replica vuln): Because Replica.process accepted a forged message
+        // (no real cross-chain proof), control reaches here with attacker-controlled _message body.
+        // onlyReplica passes because msg.sender == Replica (the one with bad root).
+        // onlyRemoteRouter passes if the outer message's _sender matches the enrolled remote router.
         // parse tokenId and action from message
         bytes29 _msg = _message.ref(0).mustBeMessage();
         bytes29 _tokenId = _msg.tokenId();
@@ -281,6 +290,8 @@ contract BridgeRouter is Version0, Router {
             // escrow in this contract
             // while they have been circulating on remote chains;
             // transfer the tokens to the recipient
+            // EXPLOIT IMPACT: _recipient (attacker) receives real escrowed tokens (e.g. WBTC) that
+            // were never locked on the source side for *this* message. Accounting invariant broken.
             IERC20(_token).safeTransfer(_recipient, _amount);
         } else {
             // if the token is of remote origin, mint the tokens to the

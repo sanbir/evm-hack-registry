@@ -270,7 +270,7 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,O: Double-credit via depositAsset
     A->>O: depositAsset(USDT, 2,844,766.93)
-    O->>O: before = 2,844,766.43; transferFrom; after = 5,689,533.35
+    O->>O: before = 2,844,766.43#59; transferFrom#59; after = 5,689,533.35
     O->>O: virtual[attacker][USDT] += 2,844,766.93  ⚠️
     A-->>ATK: return
     end

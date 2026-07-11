@@ -254,7 +254,7 @@ sequenceDiagram
     Note over A,T: "Step 2 — skim zeroes the pool's SBR"
     A->>P: "skim(pair)"
     P->>T: "transfer(SBR, pair, ~0)"
-    T-->>P: "inner logic reverts, returns true; pair SBR balance → 0"
+    T-->>P: "inner logic reverts, returns true#59; pair SBR balance → 0"
     Note over P: "pair SBR balance = 0 (reserves stale)"
     end
 

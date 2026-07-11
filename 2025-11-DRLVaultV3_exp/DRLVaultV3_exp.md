@@ -301,7 +301,7 @@ sequenceDiagram
     end
 
     A->>M: repay 13,980,773 USDC
-    Note over A: Vault's 100K USDC captured; loan repaid
+    Note over A: Vault's 100K USDC captured#59; loan repaid
 ```
 
 ### Pool price evolution

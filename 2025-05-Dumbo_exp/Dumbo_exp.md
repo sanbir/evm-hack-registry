@@ -170,8 +170,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    Intended["Intended: keeper calls distribute() once per epoch\nreward = rate x 1 epoch"]
-    Actual["Actual: distribute() is public\nno lastBlock check\nreward = rate x N calls"]
+    Intended["Intended: keeper calls distribute() once per epoch<br/>reward = rate x 1 epoch"]
+    Actual["Actual: distribute() is public<br/>no lastBlock check<br/>reward = rate x N calls"]
     Intended -->|missing guard| Actual
     Actual --> N["N calls in 1 block mint N x rate DUM"]
     N --> Dominant["attacker is dominant staker via flash loan"]

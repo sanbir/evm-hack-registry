@@ -205,6 +205,10 @@ contract Pool13 is Initializable, ERC20UpgradeableFromERC777Rewardable, IERC721R
     function lend(
         uint256 amount
     ) public nonReentrant returns (uint256) {
+        // VULNERABILITY CONTEXT for 2022-03-Bacon PoC: this pattern (transferFrom before/around
+        // _mint of shares) + ERC777 share token = tokensReceived hook on depositor during lend.
+        // If nonReentrant missing on the live Bacon version (or hook from asset wrapper), reentrancy
+        // as demonstrated in test/Bacon_exp.sol allows multiple lends + inflated redeem.
         IERC20Upgradeable(ERCAddress).transferFrom(msg.sender, address(this), amount);
 
         poolLent = poolLent.add(amount);

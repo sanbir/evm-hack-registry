@@ -293,10 +293,10 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Initial
-    Initial: "Initial\nUSDT 1,181,453 / ULME 12,700,440"
-    PreBuy: "After pre-buy (1M USDT in)\nUSDT ~2,181,453 / ULME ~6,886,324\nattacker holds 5,232,704 ULME"
-    Pumped: "After 100x buyMiner\nUSDT ~2,432,271 / ULME ~6,177,839\n(victims' USDT pumped reserve)"
-    Drained: "After dump (5.23M ULME in)\nUSDT ~1,381,654 / ULME ~10,887,273\nattacker took 1,050,616 USDT out"
+    Initial: "Initial<br/>USDT 1,181,453 / ULME 12,700,440"
+    PreBuy: "After pre-buy (1M USDT in)<br/>USDT ~2,181,453 / ULME ~6,886,324<br/>attacker holds 5,232,704 ULME"
+    Pumped: "After 100x buyMiner<br/>USDT ~2,432,271 / ULME ~6,177,839<br/>(victims' USDT pumped reserve)"
+    Drained: "After dump (5.23M ULME in)<br/>USDT ~1,381,654 / ULME ~10,887,273<br/>attacker took 1,050,616 USDT out"
     Initial --> PreBuy: "swap 1,000,000 USDT -> ULME"
     PreBuy --> Pumped: "100x forced victim buys"
     Pumped --> Drained: "dump 5,232,704 ULME"

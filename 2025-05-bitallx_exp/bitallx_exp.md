@@ -133,8 +133,8 @@ Attack sequence (single transaction):
 ```mermaid
 sequenceDiagram
     participant EOA as Attacker EOA
-    participant AC as Attack Contract\n(newly deployed)
-    participant V as BitallxSC\n0xa5f3...9C385
+    participant AC as Attack Contract<br/>(newly deployed)
+    participant V as BitallxSC<br/>0xa5f3...9C385
     participant T as BSC USDT
 
     EOA->>AC: deploy BitallxPayOutAttack(profitReceiver)
@@ -158,12 +158,12 @@ Flaw control-flow:
 
 ```mermaid
 flowchart TD
-    A["caller supplies\ntotalSendAmount + amount[]"] --> B{"allowance >=\ntotalSendAmount?"}
-    B -- "set totalSendAmount=0 -> trivially YES" --> C{"balanceOf(caller) >=\ntotalSendAmount?"}
+    A["caller supplies<br/>totalSendAmount + amount[]"] --> B{"allowance >=<br/>totalSendAmount?"}
+    B -- "set totalSendAmount=0 -> trivially YES" --> C{"balanceOf(caller) >=<br/>totalSendAmount?"}
     C -- "trivially YES" --> D["transferFrom caller -> this, 0"]
-    D --> E["for each i:\ntransfer wallet[i], amount[i]"]
-    E --> F{"sum(amount) <=\ntotalSendAmount checked?"}
-    F -- "NO - missing check" --> G["drain contract balance\nvia attacker-supplied amount[]"]
+    D --> E["for each i:<br/>transfer wallet[i], amount[i]"]
+    E --> F{"sum(amount) <=<br/>totalSendAmount checked?"}
+    F -- "NO - missing check" --> G["drain contract balance<br/>via attacker-supplied amount[]"]
     style F fill:#fdd
     style G fill:#fdd
 ```

@@ -15,6 +15,12 @@ import {TypedMemView} from "@summa-tx/memview-sol/contracts/TypedMemView.sol";
  * @author Illusory Systems Inc.
  * @notice Track root updates on Home,
  * prove and dispatch messages to end recipients.
+ *
+ * VULNERABILITY (2022-08 Nomad Bridge hack): Improper initialization of _committedRoot allowed
+ * messages[_messageHash] == 0 (unproven) to satisfy acceptableRoot(), letting anyone call process(_message)
+ * with a forged cross-chain transfer. The message is then forwarded to BridgeRouter.handle which
+ * executes the token release/mint without any on-chain proof that the corresponding send happened on the Home.
+ * Full drain of bridge liquidity (~$152M).
  */
 contract Replica is Version0, NomadBase {
     // ============ Libraries ============
@@ -114,6 +120,10 @@ contract Replica is Version0, NomadBase {
         // pre-approve the committed root.
         confirmAt[_committedRoot] = 1;
         _setOptimisticTimeout(_optimisticSeconds);
+        // VULNERABILITY: If _committedRoot == 0 (or any value such that confirmAt[0] becomes truthy), then because
+        // the messages mapping defaults un-proven leaves to bytes32(0), ANY call to process() for a message whose
+        // hash was never written will see acceptableRoot(0) == true and bypass the proof requirement entirely.
+        // This was the mistaken initialization value used in the 2022-08 Nomad hack (see POC header).
     }
 
     // ============ External Functions ============
@@ -183,6 +193,11 @@ contract Replica is Version0, NomadBase {
         // ensure message has been proven
         bytes32 _messageHash = _m.keccak();
         require(acceptableRoot(messages[_messageHash]), "!proven");
+        // VULNERABILITY EXPLOIT PATH: The check above only looks at messages[_messageHash] (initially 0).
+        // It never verifies that a Merkle proof was supplied in *this* tx, nor does it require that the leaf
+        // was inserted by a prior Home.dispatch + updater-signed update. When the bad init made 0 acceptable,
+        // this require always passes for fresh attacker-controlled messages.
+        // EXPLOIT: attacker supplies a well-formed _message whose body instructs BridgeRouter to pay attacker.
         // check re-entrancy guard
         require(entered == 1, "!reentrant");
         entered = 0;
@@ -263,6 +278,9 @@ contract Replica is Version0, NomadBase {
             return false;
         }
         return block.timestamp >= _time;
+        // VULNERABILITY: When _root == 0 (the default for unproven messages[_hash]),
+        // if confirmAt[0] != 0 (set by initialize(_committedRoot=0, ...)), this returns true unconditionally.
+        // There is no other guard (e.g. "must have been set via prove() in this context" or "root must equal committedRoot").
     }
 
     /**
@@ -296,6 +314,9 @@ contract Replica is Version0, NomadBase {
             return true;
         }
         return false;
+        // NOTE: In the actual 2022 hack, the attacker did not even need to call prove() or supply a _proof.
+        // The direct process path + confirmAt[0] made the entire prove mechanism irrelevant for fake messages.
+        // (A secondary related issue per the audit was that a zero-leaf proof could also be crafted to satisfy branchRoot == committedRoot.)
     }
 
     /**

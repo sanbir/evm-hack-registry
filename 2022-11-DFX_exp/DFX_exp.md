@@ -347,11 +347,11 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Idle: notEntered = true
-    Idle --> Guarded: "deposit / withdraw / swap / transfer<br/>(nonReentrant: sets notEntered=false)"
-    Guarded --> Idle: "restore notEntered=true"
-    Idle --> Unguarded: "flash() — NO nonReentrant<br/>notEntered stays true"
-    Unguarded --> Reenter: "flashCallback -> deposit()<br/>notEntered still true => allowed"
-    Reenter --> Drain: "inflated LP mint on deflated balances"
+    Idle --> Guarded: deposit / withdraw / swap / transfer<br/>(nonReentrant#58; sets notEntered=false)
+    Guarded --> Idle: restore notEntered=true
+    Idle --> Unguarded: flash() — NO nonReentrant<br/>notEntered stays true
+    Unguarded --> Reenter: flashCallback -> deposit()<br/>notEntered still true => allowed
+    Reenter --> Drain: inflated LP mint on deflated balances
     Drain --> [*]
 
     note right of Unguarded

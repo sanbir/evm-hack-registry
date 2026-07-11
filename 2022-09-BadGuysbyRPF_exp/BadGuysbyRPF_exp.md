@@ -256,7 +256,7 @@ sequenceDiagram
     loop "i = 0 .. 399  (token ids 758..1157)"
         C-->>A: "emit Transfer(0x0 -> A, tokenId)"
     end
-    C-->>C: "_currentIndex 758 -> 1158;<br/>balance=400, numberMinted=400"
+    C-->>C: "_currentIndex 758 -> 1158#59;<br/>balance=400, numberMinted=400"
     end
 
     A->>C: "balanceOf(A)"
@@ -293,9 +293,9 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Before
-    Before: "Before mint<br/>totalSupply = 758<br/>attacker balance = 0<br/>public headroom = 463"
-    After: "After WhiteListMint(_, 400)<br/>totalSupply = 1158<br/>attacker balance = 400<br/>public headroom = 63"
-    Before --> After: "one call, chosenAmount = 400<br/>(intended: 1)"
+    Before: Before mint<br/>totalSupply = 758<br/>attacker balance = 0<br/>public headroom = 463
+    After: After WhiteListMint(_, 400)<br/>totalSupply = 1158<br/>attacker balance = 400<br/>public headroom = 63
+    Before --> After: one call, chosenAmount = 400<br/>(intended#58; 1)
     After --> [*]
 ```
 

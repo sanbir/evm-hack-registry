@@ -302,7 +302,7 @@ sequenceDiagram
 
     rect rgb(255,235,238)
     Note over A,C: Step 5-6 — shift() back + drain downward
-    A->>C: transfer 100 JIMBO; shift() re-anchors near floor (BinsSet #2)
+    A->>C: transfer 100 JIMBO#59; shift() re-anchors near floor (BinsSet #2)
     loop while active >= anchorBin
         A->>R: swapExactTokensForNATIVE(JIMBO -> WETH)
         R->>P: swap()

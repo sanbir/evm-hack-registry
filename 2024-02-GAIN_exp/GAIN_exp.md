@@ -273,13 +273,13 @@ sequenceDiagram
     T->>T: "_children_of_gainos[pair] := SideA"
     A->>P: "skim(attacker)  (GAIN excess = 0)"
     A->>P: "sync()"
-    Note over P: "balanceOf(pair) shrinks 1.80e26 -> 1.178e26<br/>reserve committed; NO GAIN moved"
+    Note over P: "balanceOf(pair) shrinks 1.80e26 -> 1.178e26<br/>reserve committed#59; NO GAIN moved"
     end
 
     rect rgb(255,235,238)
     Note over A,T: "Step 3 — collapse the reported reserve"
     A->>T: "transfer 188 GAIN to pair (+ micro router sell)"
-    A->>P: "skim(attacker); sync()"
+    A->>P: "skim(attacker)#59; sync()"
     Note over P: "balanceOf(pair) -> 8.17e23 (-99.5%)<br/>invariant k destroyed, WETH untouched"
     end
 

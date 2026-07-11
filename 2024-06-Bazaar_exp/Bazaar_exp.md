@@ -269,11 +269,11 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Honest
-    Honest : "BEFORE\nVictim BPT = 850,000,000\ntotalSupply ≈ 851,132,949\nPool: 392.89 WETH / 881.7M RYOLO\nAttacker WETH = 0"
-    Honest --> Burned : "exitPool(sender=Victim, recipient=Attacker)\n_burnPoolTokens(Victim, 850M)"
-    Burned : "AFTER BURN\nVictim BPT = 0 (burned to 0x0)\ntotalSupply ≈ 1,132,949\nReserves still held by Vault"
-    Burned --> Drained : "Vault _sendFunds(recipient=Attacker)"
-    Drained : "AFTER TRANSFER\nAttacker = 392.37 WETH + 880.5M RYOLO\nPool drained of ~99.87% reserves"
+    Honest : BEFORE<br/>Victim BPT = 850,000,000<br/>totalSupply ≈ 851,132,949<br/>Pool#58; 392.89 WETH / 881.7M RYOLO<br/>Attacker WETH = 0
+    Honest --> Burned : exitPool(sender=Victim, recipient=Attacker)<br/>_burnPoolTokens(Victim, 850M)
+    Burned : AFTER BURN<br/>Victim BPT = 0 (burned to 0x0)<br/>totalSupply ≈ 1,132,949<br/>Reserves still held by Vault
+    Burned --> Drained : Vault _sendFunds(recipient=Attacker)
+    Drained : AFTER TRANSFER<br/>Attacker = 392.37 WETH + 880.5M RYOLO<br/>Pool drained of ~99.87% reserves
     Drained --> [*]
 ```
 

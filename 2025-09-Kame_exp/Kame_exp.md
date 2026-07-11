@@ -297,8 +297,8 @@ stateDiagram-v2
 
     RouterIdle --> InSwap : "attacker calls swap(params)"
     InSwap --> ExecutorCall : "router reaches executor.call() (no validation)"
-    ExecutorCall --> Drained : "USDC.transferFrom(victim -> attacker)\nrouter is msg.sender -> allowance honored"
-    Drained --> [*] : "victim balance = 0,\nattacker gains funds"
+    ExecutorCall --> Drained : "USDC.transferFrom(victim -> attacker)<br/>router is msg.sender -> allowance honored"
+    Drained --> [*] : "victim balance = 0,<br/>attacker gains funds"
 
     note right of ExecutorCall
         executor = USDC token

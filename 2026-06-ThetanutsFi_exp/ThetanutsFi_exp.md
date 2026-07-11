@@ -309,9 +309,9 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,V: Step 2 - claim() drains basket, crushes supply
     A->>V: claim(153,054,600,569)
-    V->>V: _burn(attacker) ; totalSupply 153,054,600,572 -> 3
+    V->>V: _burn(attacker), totalSupply 153,054,600,572 -> 3
     V->>B: transfer OPT0..OPT4 to attacker (whole basket)
-    Note over V: totalSupply = 3 ; basket ~1 wei/leg
+    Note over V: totalSupply = 3, basket ~1 wei/leg
     end
 
     rect rgb(227,242,253)
@@ -319,7 +319,7 @@ sequenceDiagram
     loop 37x (mint 2,4,8,...,15,753,396,239)
         A->>V: mint(amt < totalSupply)
         V->>B: transferFrom(attacker -> vault, 0)  x5 legs
-        V->>V: _mint(attacker, amt) ; supply doubles
+        V->>V: _mint(attacker, amt), supply doubles
     end
     Note over V: attacker holds 153,192,349,709 shares
     end

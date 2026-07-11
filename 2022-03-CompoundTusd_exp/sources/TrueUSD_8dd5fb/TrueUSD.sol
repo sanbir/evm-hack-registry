@@ -528,6 +528,18 @@ contract CanDelegate is StandardToken {
         }
     }
 
+    // VULNERABILITY ENABLER (TUSD side for Compound sweep exploit):
+    // Both the legacy TUSD (0x8dd5fbCe2F6a956C3022bA3663759011Dd51e73E) and the "new" TUSD (0x0000000000085d4780B73119b644AE5ecd22b376)
+    // can delegate to a shared logic (or use shared BalanceSheet storage) for balances and transfers.
+    // Therefore:
+    //   - legacy.balanceOf(cTUSD)  ==  newTUSD.balanceOf(cTUSD)   (same logical balance)
+    //   - calling legacy.transfer(...) executes transferAllArgs... which reduces cTUSD's balance in the ledger
+    //   - subsequent newTUSD.balanceOf(cTUSD) reflects the drain
+    // This allowed sweepToken(legacy) [where legacy != cTUSD.underlying()] to remove the economic TUSD backing
+    // while satisfying the != underlying guard in the vulnerable CErc20 sweepToken.
+    // (See also: delegateToNewContract, StandardDelegate.delegateTransfer, BalanceSheet.setBalance, transferAllArgsNoAllowance)
+}
+
     function approve(address spender, uint256 value) public returns (bool) {
         if (delegate == address(0)) {
             return super.approve(spender, value);

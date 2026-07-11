@@ -313,7 +313,7 @@ sequenceDiagram
     end
 
     Note over A: repeat 17x, then repay flash + fee,<br/>swap 14,606.15 FLOOR -> 40.15 WETH
-    A->>POOL: repay 153,610.7 FLOOR; swap surplus -> 40.15 WETH
+    A->>POOL: repay 153,610.7 FLOOR#59; swap surplus -> 40.15 WETH
     deactivate A
 ```
 

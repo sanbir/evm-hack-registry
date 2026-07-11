@@ -33,6 +33,8 @@ contract MultiSigWallet {
     address[] public owners;
     uint256 public required;
     uint256 public transactionCount;
+    // The 5 owners (at time of hack) control the bridge. Compromising threshold (2) owners = full control
+    // over all escrowed assets in the associated ERC20EthManager(s).
 
     struct Transaction {
         address destination;
@@ -189,6 +191,11 @@ contract MultiSigWallet {
         transactionId = addTransaction(destination, value, data);
         confirmTransaction(transactionId);
     }
+    // VULNERABILITY (trust root for bridge): submitTransaction + confirmTransaction by `required` owners
+    // executes arbitrary (destination, value, data) via external_call in executeTransaction.
+    // Here, destination=ERC20EthManager, data=unlockToken(USDT, largeAmount, attacker, fakeReceiptId).
+    // Because required=2 (see test), compromising 2 owner keys is sufficient to drain the bridge.
+    // No other on-chain authorization or rate limits on unlocks once multisig approves.
 
     /// @dev Allows an owner to confirm a transaction.
     /// @param transactionId Transaction ID.
@@ -202,6 +209,9 @@ contract MultiSigWallet {
         emit Confirmation(msg.sender, transactionId);
         executeTransaction(transactionId);
     }
+    // When the second (or Nth) confirmation brings the count to `required`, executeTransaction
+    // will succeed the isConfirmed check and perform the external_call to the manager.
+    // EXPLOIT ENABLER: owners' EOAs have no additional per-tx hardware 2FA or timelocks in this setup.
 
     /// @dev Allows an owner to revoke a confirmation for a transaction.
     /// @param transactionId Transaction ID.
@@ -240,6 +250,8 @@ contract MultiSigWallet {
             }
         }
     }
+    // The external_call (assembly delegate) blindly forwards the attacker's crafted calldata
+    // to the ERC20EthManager, which treats the multisig as fully trusted for unlocks.
 
     // call has been separated into its own function in order to take advantage
     // of the Solidity's code generator to produce a loop that copies tx.data into memory.
@@ -277,7 +289,10 @@ contract MultiSigWallet {
             if (confirmations[transactionId][owners[i]]) count += 1;
             if (count == required) return true;
         }
+        // returns false (implicit) if count < required
     }
+    // In the hack, required() == 2. Two pranked owner confirmations suffice to pass isConfirmed
+    // and trigger the malicious unlock via the multisig.
 
     /*
      * Internal functions

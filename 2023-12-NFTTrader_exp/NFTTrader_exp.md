@@ -287,24 +287,24 @@ sequenceDiagram
     C-->>A: CloneX 6670 transferred (victim approved NFTTrader)
     end
 
-    Note over A,V: Attacker gained CloneX 6670 for free; repeat for 6650,4843,5432,9870
+    Note over A,V: Attacker gained CloneX 6670 for free#59; repeat for 6650,4843,5432,9870
 ```
 
 ### Swap state evolution within `closeSwapIntent`
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Opened : "createSwapIntent (addressTwo = attacker)"
-    Opened --> Closed_AccessChecked : "closeSwapIntent: require addressTwo == msg.sender (attacker) PASSES"
-    Closed_AccessChecked --> CallbackWindow : "first loop safeTransferFrom(nftsOne) -> onERC721Received"
-    CallbackWindow --> CounterpartHijacked : "reentrant editCounterPart(swapId, victim)"
+    [*] --> Opened : createSwapIntent (addressTwo = attacker)
+    Opened --> Closed_AccessChecked : closeSwapIntent#58; require addressTwo == msg.sender (attacker) PASSES
+    Closed_AccessChecked --> CallbackWindow : first loop safeTransferFrom(nftsOne) -> onERC721Received
+    CallbackWindow --> CounterpartHijacked : reentrant editCounterPart(swapId, victim)
     note right of CounterpartHijacked
         addressTwo storage:
         attacker -> victim
         (no status / reentrancy check)
     end note
-    CounterpartHijacked --> VictimDrained : "second loop RE-READS addressTwo (= victim)<br/>CloneX.safeTransferFrom(victim -> attacker)"
-    VictimDrained --> [*] : "victim NFT stolen, attacker paid only fees"
+    CounterpartHijacked --> VictimDrained : second loop RE-READS addressTwo (= victim)<br/>CloneX.safeTransferFrom(victim -> attacker)
+    VictimDrained --> [*] : victim NFT stolen, attacker paid only fees
 ```
 
 ### Where the guard should have been

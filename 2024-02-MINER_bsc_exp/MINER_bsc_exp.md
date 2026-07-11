@@ -305,7 +305,7 @@ sequenceDiagram
         A->>P: "skim(pair)"
         P->>T: "transfer(pair, excess)  (from == to)"
         Note over T: "_update overwrite:<br/>balance += excess (self-mint)"
-        Note over P: "excess doubles; reserve0 FROZEN"
+        Note over P: "excess doubles#59; reserve0 FROZEN"
     end
     Note over P: "pair MINER balance = 11.26M<br/>reserve0 still = 89,980"
     end

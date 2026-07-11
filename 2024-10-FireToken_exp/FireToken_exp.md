@@ -307,7 +307,7 @@ sequenceDiagram
     AC->>C2: new AttackerC2{value: 20 ETH}()  (16th)
     Note over P: FIRE reserve == 0 → getAmountOut reverts<br/>INSUFFICIENT_LIQUIDITY → catch → break
 
-    AC->>W: deposit(20); approve(Aave, 20)
+    AC->>W: deposit(20)#59; approve(Aave, 20)
     Aave->>AC: pull 20 WETH (repay, premium 0)
     AC->>W: withdraw(8.4556)
     AC->>EOA: send 8.4556 ETH

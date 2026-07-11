@@ -132,18 +132,18 @@ sequenceDiagram
 
     A->>V3: flash(70,000 USDT)
     V3-->>A: 70,000 USDT
-    A->>R: swapExactTokensForTokens(70k USDT -> PTM)\npumps PTM price
+    A->>R: swapExactTokensForTokens(70k USDT -> PTM)<br/>pumps PTM price
     R->>P: swap (USDT in, PTM out)
     P-->>A: ~5.92e29 PTM
-    A->>T: addLiquidity(contractPTM, contractUSDT)\nNO ACCESS CONTROL
+    A->>T: addLiquidity(contractPTM, contractUSDT)<br/>NO ACCESS CONTROL
     T->>R: router.addLiquidity(tokenAmount, usdtAmount)
-    R->>T: transferFrom(PTM contract -> pair, 3.038e27 PTM)\nrouter pulls T's OWN PTM
-    R->>T: transferFrom(USDT -> pair, 2922 USDT)\nrouter pulls T's OWN USDT
-    R->>P: mint LP to lpRec\ndonates contract fees at pumped ratio
-    A->>R: swapExactTokensForTokens(PTM -> USDT)\nsell at inflated ratio
+    R->>T: transferFrom(PTM contract -> pair, 3.038e27 PTM)<br/>router pulls T's OWN PTM
+    R->>T: transferFrom(USDT -> pair, 2922 USDT)<br/>router pulls T's OWN USDT
+    R->>P: mint LP to lpRec<br/>donates contract fees at pumped ratio
+    A->>R: swapExactTokensForTokens(PTM -> USDT)<br/>sell at inflated ratio
     R->>P: swap (PTM in, USDT out)
     P-->>A: ~70,559 USDT
-    A->>V3: transfer(70,007 USDT)\nrepay + 7 USDT fee
+    A->>V3: transfer(70,007 USDT)<br/>repay + 7 USDT fee
     Note over A: net profit ~552.07 USDT
 ```
 
@@ -151,14 +151,14 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["addLiquidity is public\nno onlyOwner / no modifier"] --> B["amounts are caller arguments\nnot balanceOf reads"]
-    C["constructor approves router\nfor PTM contract's own PTM and USDT"] --> D["router transferFrom\nfrom address(this) succeeds"]
-    A --> E["attacker calls addLiquidity\nwith contract's full balances"]
+    A["addLiquidity is public<br/>no onlyOwner / no modifier"] --> B["amounts are caller arguments<br/>not balanceOf reads"]
+    C["constructor approves router<br/>for PTM contract's own PTM and USDT"] --> D["router transferFrom<br/>from address(this) succeeds"]
+    A --> E["attacker calls addLiquidity<br/>with contract's full balances"]
     B --> E
     D --> E
-    E --> F["PTM + USDT donated to pair\nat attacker-chosen (pumped) ratio"]
-    F --> G["attacker sells PTM bought earlier\ninto the donated liquidity"]
-    G --> H["extracts contract's USDT fees\n+ LP slippage as profit"]
+    E --> F["PTM + USDT donated to pair<br/>at attacker-chosen (pumped) ratio"]
+    F --> G["attacker sells PTM bought earlier<br/>into the donated liquidity"]
+    G --> H["extracts contract's USDT fees<br/>+ LP slippage as profit"]
 ```
 
 ## Remediation

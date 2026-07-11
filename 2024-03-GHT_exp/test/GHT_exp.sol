@@ -16,20 +16,23 @@ interface IGHT {
     ) external view returns (uint256);
 }
 
-interface CheatCodesNew {
-    /// Creates and also selects new fork with the given endpoint and at the block the given transaction was mined in,
-    /// replays all transaction mined in the block before the transaction, returns the identifier of the fork.
-    function createSelectFork(string calldata urlOrAlias, bytes32 txHash) external returns (uint256 forkId);
-}
-
 contract ContractTest is Test {
     WETH9 private constant WETH = WETH9(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
     IGHT private constant GHT = IGHT(0x528e046ACfb52bD3f9c400e7A5c79A8a2c2863d0);
     Uni_Pair_V2 private constant WETH_GHT = Uni_Pair_V2(0x706206EabD6A70ca4992eEc1646B6D1599259CAe);
 
+    // NOTE: the original DeFiHackLabs test forked by the attack tx hash
+    // (0xd17266bcdf30cbcbd7d0b5a006f43141981aeee2e1f860f68c9a1805ecacbc68, block
+    // 19380955, tx index 22) because the GHT/WETH pair received its liquidity from
+    // OTHER same-block transactions (indices 0-21) before the attacker's tx - a plain
+    // block-number fork one block earlier (19380954) sees the pair with zero GHT
+    // balance (liquidity not added yet). anvil_state.json was captured via
+    // vm.dumpState() at the exact intra-block pre-attack point (see
+    // scripts poc-configs work for 2024-03-GHT), so offline replay only needs to
+    // fork at the snapshot's own block (19380955); no txHash resolution needed here.
     function setUp() public {
-        CheatCodesNew(address(vm)).createSelectFork(
-        "http://127.0.0.1:8545", bytes32(19380954)
+        vm.createSelectFork(
+        "http://127.0.0.1:8545", uint256(19380955)
         );
         vm.label(address(WETH), "WETH");
         vm.label(address(GHT), "GHT");

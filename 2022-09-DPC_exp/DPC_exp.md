@@ -333,7 +333,7 @@ sequenceDiagram
     Note over T: dpcAirdrop[A] = 500 DPC
     A->>R: addLiquidity(USDT, DPC) → 48.72 LP
     A->>T: stakeLp(this, DPC, 48.72 LP)
-    Note over T: dpcLp[A]=48.72; dpcLpTime=now
+    Note over T: dpcLp[A]=48.72#59; dpcLpTime=now
     end
 
     rect rgb(232,245,233)

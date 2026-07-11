@@ -379,13 +379,13 @@ flowchart TD
 stateDiagram-v2
     [*] --> Honest
     Honest: Honest vault<br/>poolCached ≈ balanceOf ≈ 248.94e9<br/>(pre-existing LP value ~95.1e9)
-    Honest -> Deposit: attacker mints with 153.825e9 pool tokens
+    Honest --> Deposit: attacker mints with 153.825e9 pool tokens
     Deposit: poolCached = 248.94e9<br/>totalSupply grows<br/>balanceOf = 248.94e9
-    Deposit -> Donated: attacker transfers 153.825e9 pool tokens directly
+    Deposit --> Donated: attacker transfers 153.825e9 pool tokens directly
     Donated: poolCached = 248.94e9 (unchanged)<br/>balanceOf = 402.77e9 (inflated)
-    Donated -> Drained1: attacker burns all shares
+    Donated --> Drained1: attacker burns all shares
     Drained1: poolCached = 67.5e6 (dust)<br/>attacker stole ~95e9 + recovered deposit<br/>balanceOf = 153.89e9
-    Drained1 -> Drained2: attacker mints against dust cache, then burns
+    Drained1 --> Drained2: attacker mints against dust cache, then burns
     Drained2: poolCached ~ 0<br/>balanceOf ~ 0<br/>vault hollowed out
     Drained2 --> [*]
 ```

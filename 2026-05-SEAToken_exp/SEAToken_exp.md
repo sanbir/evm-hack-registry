@@ -262,7 +262,7 @@ sequenceDiagram
     Note over A,D: "Repeat 12x inside the callback"
     A->>P: "swap 300 USDT -> ~2e12 SEA (prime)"
     A->>R: "openPosition(3,000 USDT, 0)"
-    R->>P: "buy SEA with part of deposit; record position (redeem value = 2,000 USDT)"
+    R->>P: "buy SEA with part of deposit, record position (redeem value = 2,000 USDT)"
     A->>R: "redeemPosition()"
     R->>D: "fbec6d5e(Round, amt)  TOP-UP reward SEA"
     D-->>R: "reward SEA (e.g. 14.5e12)"
@@ -304,12 +304,12 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Open
-    Open: "openPosition(3,000 USDT)"
-    Open --> Recorded: "position redeem value = 2,000 USDT + reward SEA"
-    Recorded --> Redeem: "redeemPosition() (same tx allowed)"
-    Redeem --> Payout: "pay 2,000 USDT + reward SEA (from Treasury)"
-    Payout --> Profit: "user nets +~1,206 USDT; Treasury nets -reward SEA"
-    Profit --> Open: "loop until Treasury empty"
+    Open: openPosition(3,000 USDT)
+    Open --> Recorded: position redeem value = 2,000 USDT + reward SEA
+    Recorded --> Redeem: redeemPosition() (same tx allowed)
+    Redeem --> Payout: pay 2,000 USDT + reward SEA (from Treasury)
+    Payout --> Profit: user nets +~1,206 USDT#59; Treasury nets -reward SEA
+    Profit --> Open: loop until Treasury empty
     note right of Payout
       Payout value > deposit cost
       Funded from shared reserve

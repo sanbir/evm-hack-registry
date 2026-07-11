@@ -142,6 +142,24 @@ contract BaseToken is Ownable {
         emit Transfer(from, to, value);
     }
 
+    // VULNERABILITY: Unchecked Arithmetic Underflow in _basicTransfer during Fee Skim (called from _transfer)
+    // Title: Fee-on-transfer skim underflows sender balance when balance==0, granting ~2^256 QIXI.
+    //
+    // Detailed explanation with code references:
+    // - Called from _transfer:109 (when !excluded): 10 iterations of _basicTransfer(from, random, freeToken/10)
+    //   BEFORE the main balanceOf[from] = balanceOf[from].sub(value) at line 122.
+    // - _basicTransfer:146 does NOT use SafeMath (unlike everywhere else in this file):
+    //     balanceOf[sender] -= value;   // Solidity 0.4.25: wraps on underflow (no revert)
+    //     balanceOf[recipient] += value;
+    // - freeToken = value / 10000; small per skim but 10x is enough to underflow from 0.
+    // - Consequence: sender's balance becomes huge; later accounting in _transfer treats it as real.
+    // - The skim is sent to pseudo-random addresses derived from keccak(i, value, timestamp) -- attacker doesn't even control them.
+    //
+    // Why exploitable here: attacker can initiate a transfer( Pair, huge ) with its own balance==0.
+    // The underflow happens on the *attacker* (the 'from' in the skim).
+    //
+    // This is the core of the 2022-08-Qixi hack (~6.8 BNB stolen).
+    // EXPLOIT STEPS: see markings in test/Qixi_exp.sol and test/Qixi.sol (flashswap + repay triggers exactly this path).
      function _basicTransfer(address sender, address recipient, uint256 value) internal returns (bool) {
         balanceOf[sender] -= value;
         balanceOf[recipient] += value;

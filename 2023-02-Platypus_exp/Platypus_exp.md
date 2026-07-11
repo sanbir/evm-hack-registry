@@ -365,7 +365,7 @@ flowchart TD
     Wrong --> Note(["⚠️ liability = book obligation to LPs,<br/>NOT cash redeemable via Pool.withdraw"])
     Note --> PriceUSD["_tokenPriceUSD → collateralUSD"]
     PriceUSD --> Limit["_borrowLimitUSP = collateralUSD × collateralFactor<br/>_liquidateLimitUSP = collateralUSD × liquidationThreshold"]
-    Limit --> Borrow(["borrow() allows USP mint up to borrowLimit<br/>collateral can then be withdrawn → debt unbacked")]
+    Limit --> Borrow(["borrow() allows USP mint up to borrowLimit<br/>collateral can then be withdrawn → debt unbacked"])
 
     style Wrong fill:#ffcdd2,stroke:#c62828,stroke-width:2px
     style Note fill:#fff3e0,stroke:#ef6c00

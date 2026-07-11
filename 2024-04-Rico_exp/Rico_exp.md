@@ -302,19 +302,23 @@ stateDiagram-v2
     [*] --> Actual
 
     state Intended {
-        I1: "code = borrower's own contract"
-        I2: "RICO minted to borrower"
-        I3: "callback moves borrower's RICO"
-        I4: "RICO burned back"
-        I1 --> I2 --> I3 --> I4
+        I1: code = borrower's own contract
+        I2: RICO minted to borrower
+        I3: callback moves borrower's RICO
+        I4: RICO burned back
+        I1 --> I2
+        I2 --> I3
+        I3 --> I4
     }
 
     state Actual {
-        A1: "code = victim TOKEN address"
-        A2: "RICO minted to token (ignored)"
-        A3: "bank calls token.transfer(attacker, bankBal)"
-        A4: "RICO burned back (net zero)"
-        A1 --> A2 --> A3 --> A4
+        A1: code = victim TOKEN address
+        A2: RICO minted to token (ignored)
+        A3: bank calls token.transfer(attacker, bankBal)
+        A4: RICO burned back (net zero)
+        A1 --> A2
+        A2 --> A3
+        A3 --> A4
         note right of A3
             msg.sender = BankDiamond
             so the bank authorizes

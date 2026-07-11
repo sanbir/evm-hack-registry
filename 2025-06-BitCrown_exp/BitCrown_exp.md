@@ -101,19 +101,19 @@ The selector and signature were recovered by Foundry's decoder directly from the
 ### Attack sequence
 ```mermaid
 sequenceDiagram
-    participant EOA as Attacker EOA\n0xF499...155e
-    participant Helper as Attack Contract\n0x728F...d24d
-    participant Dist as BitCrown Distributor\n0x93b6...A2A7e
-    participant BC as BITCROWN Token\n0x3f74...26d4
-    participant Pair as BITCROWN/USDT Pair\n0xC416...bFe8
+    participant EOA as Attacker EOA<br/>0xF499...155e
+    participant Helper as Attack Contract<br/>0x728F...d24d
+    participant Dist as BitCrown Distributor<br/>0x93b6...A2A7e
+    participant BC as BITCROWN Token<br/>0x3f74...26d4
+    participant Pair as BITCROWN/USDT Pair<br/>0xC416...bFe8
 
     EOA->>Helper: deploy(helper constructor runs)
     Helper->>Dist: batchTransfer(BITCROWN, [Helper], [100_000e18])
-    Note over Dist: NO access check\nselector 0x1239ec8c is external
+    Note over Dist: NO access check<br/>selector 0x1239ec8c is external
     Dist->>BC: transfer(Helper, 100_000e18)
-    BC-->>Helper: Transfer 100_000 BITCROWN\n(distributor balance 100k -> 0)
+    BC-->>Helper: Transfer 100_000 BITCROWN<br/>(distributor balance 100k -> 0)
     Helper->>BC: approve(PancakeRouter, max)
-    Helper->>Pair: swap 100_000 BITCROWN for USDT\n(via PancakeRouter)
+    Helper->>Pair: swap 100_000 BITCROWN for USDT<br/>(via PancakeRouter)
     Note over BC: 2% transfer fee applies
     BC-->>Pair: Transfer 98_000 BITCROWN (after fee)
     Pair-->>EOA: Transfer 7_939.27 USDT
@@ -123,13 +123,13 @@ sequenceDiagram
 ### Why the flaw yields profit (flow)
 ```mermaid
 flowchart TD
-    A[Distributor holds 100_000 BITCROWN] --> B[batchTransfer is external\nno onlyOwner / no allow-list]
-    B --> C[Anyone calls batchTransfer\nchoosing token, recipient, amount]
-    C --> D[Distributor.transfer moves\nits own balance to attacker]
-    D --> E[Attacker now holds 100_000 BITCROWN\nfor free]
+    A[Distributor holds 100_000 BITCROWN] --> B[batchTransfer is external<br/>no onlyOwner / no allow-list]
+    B --> C[Anyone calls batchTransfer<br/>choosing token, recipient, amount]
+    C --> D[Distributor.transfer moves<br/>its own balance to attacker]
+    D --> E[Attacker now holds 100_000 BITCROWN<br/>for free]
     E --> F[PancakeSwap BITCROWN/USDT exists]
     F --> G[Sell in same tx for USDT]
-    G --> H[Attacker +7_939 USDT\nProtocol -100_000 BITCROWN]
+    G --> H[Attacker +7_939 USDT<br/>Protocol -100_000 BITCROWN]
 ```
 
 ## Remediation

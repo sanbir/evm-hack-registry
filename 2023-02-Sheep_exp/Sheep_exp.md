@@ -264,7 +264,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,T: Step 2 — buy SHEEP
     A->>R: swapExactTokensForTokensSupportingFeeOnTransferTokens(380 WBNB → SHEEP)
-    R->>P: transferFrom 380 WBNB in; swap(27.249 SHEEP out)
+    R->>P: transferFrom 380 WBNB in#59; swap(27.249 SHEEP out)
     P-->>A: 25.910 SHEEP (after fees)
     Note over P: Sync: 2.797 SHEEP / 418.471 WBNB
     end
@@ -273,7 +273,7 @@ sequenceDiagram
     Note over A,T: Step 3 — burn loop (~280 iterations)
     loop while SHEEP.balanceOf(pair) > 2
         A->>T: burn(balanceOf(this))
-        T->>T: _rOwned[A] -= v (t-units!); _tTotal -= v; _rTotal unchanged
+        T->>T: _rOwned[A] -= v (t-units!)#59; _tTotal -= v#59; _rTotal unchanged
         Note over T: currentRate = rSupply/tSupply rises
         Note over P: balanceOf(pair) = _rOwned[Pair]/rate trends DOWN
     end

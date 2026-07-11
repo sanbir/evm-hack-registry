@@ -140,6 +140,8 @@ contract TcrToken {
                     amount
                 );
         }
+        // NOTE: _approve correctly does _allowances[account=msg.sender][spender] = ...
+        // But burnFrom (above) reads the opposite indexing, so attacker-controlled approve directly satisfies burnFrom's guard.
         _approve(msg.sender, spender, amount);
     }
 
@@ -152,6 +154,14 @@ contract TcrToken {
     }
 
     function burnFrom(address from, uint256 amount) external {
+        // VULNERABILITY: Incorrect direction of allowance lookup and update in burnFrom (core root cause of 2022-02-TecraSpace)
+        // BUG: Uses _allowances[msg.sender][from] (and _approve(msg.sender, from, ...)) instead of standard _allowances[from][msg.sender].
+        // Correct pattern (compare to this file's transferFrom + _allowanceTransfer at L300 and UniswapV2Pair's allowance[from][msg.sender]):
+        //   require(_allowances[from][msg.sender] >= amount...
+        //   _approve(from, msg.sender, _allowances[from][msg.sender] - amount);
+        // Root cause: indexing error; burnFrom was written as if the caller was the "owner" side of the allowance rather than the "spender".
+        // Condition: any address that has previously called approve(X) on TCR can now act as if X approved them (for burns).
+        // Impact: permissionless theft of TCR balance from any holder (here, the TCR/USDT Uniswap V2 pair at 0x4207... ), allowing reserve manipulation + profitable swap.
         require(_allowances[msg.sender][from] >= amount, ERROR_ATL);
         require(_balances[from] >= amount, ERROR_BTL);
         _approve(msg.sender, from, _allowances[msg.sender][from] - amount);

@@ -278,11 +278,11 @@ sequenceDiagram
     TH->>W: transfer 20 WBNB → BO
     end
     BO->>A: repayLoan(0, false)  (no-op — no repayment)
-    Note over BO: profit = 20 − 0 = 20; fee = 8% = 1.6
+    Note over BO: profit = 20 − 0 = 20#59; fee = 8% = 1.6
     BO->>F: transfer 0.8 WBNB
     BO->>A: transfer 0.8 WBNB (integrator fee)
     BO->>A: transfer 18.4 WBNB (borrower payout)
-    Note over A: Attacker net +19.2 WBNB; vault drained 20 WBNB
+    Note over A: Attacker net +19.2 WBNB#59; vault drained 20 WBNB
 ```
 
 ### Vault balance / privilege-flow evolution

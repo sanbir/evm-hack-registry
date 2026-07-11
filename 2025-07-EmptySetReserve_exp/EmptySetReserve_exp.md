@@ -137,7 +137,7 @@ sequenceDiagram
     C->>V3: swap WETH -> ESS
     Note over C: attacker now holds ESS
     C->>R: swap(COMP, ESS, 11102.7e18)
-    Note over R: makerAmount = taker/price\nno oracle, no freshness
+    Note over R: makerAmount = taker/price<br/>no oracle, no freshness
     R-->>C: transfer 41.58 COMP at stale price
     C->>V2: sell COMP -> WETH -> USDC
     C->>V2: sell remaining COMP -> WETH
@@ -150,7 +150,7 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     M["COMP/ESS market price (live AMM)"] --> Diff["order.price diverges from market"]
-    S["Stored order.price = 267e21\n(owner-set, never auto-updated)"] --> Diff
+    S["Stored order.price = 267e21<br/>(owner-set, never auto-updated)"] --> Diff
     Diff -->|"no oracle / no staleness check"| Vuln["swap() fills at stored price"]
     Vuln --> Buy["attacker buys COMP below market"]
     Buy --> Sell["sell COMP at market on Uniswap"]

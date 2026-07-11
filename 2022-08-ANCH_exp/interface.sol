@@ -509,6 +509,10 @@ interface IUniswapV2Factory {
 
 interface IUniswapV2Pair {
     function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes calldata data) external;
+    // NOTE: skim(to) performs ERC20.transfer of (balance - reserve) for each token
+    // to `to`. When the token is a reflection token that rewards on pair-endpoint
+    // transfers, skim(pair) becomes an attack vector because the transfer sender
+    // is the pair itself.
     function skim(
         address to
     ) external;
@@ -998,6 +1002,10 @@ interface Uni_Pair_V2 {
 
     function price1CumulativeLast() external view returns (uint256);
 
+    // NOTE (ANCH exploit): skim(to) is the primitive abused by the attacker.
+    // Internally: safeTransfer(token, to, balanceOf(token) - reserve).
+    // For ANCH token: calling skim(pair) results in ANCH.transfer(sender=pair, to=pair)
+    // which the flawed reward logic treats as a buy and mints reward tokens.
     function skim(
         address to
     ) external;
@@ -1846,6 +1854,8 @@ interface IOracle {
 }
 
 interface DVM {
+    // Flashloan entrypoint abused in the 2022-08-ANCH exploit. Loan is taken in USDT
+    // (quote), recipient implements DPPFlashLoanCall to run the attack.
     function flashLoan(uint256 baseAmount, uint256 quoteAmount, address assetTo, bytes calldata data) external;
 
     function init(
@@ -5231,6 +5241,9 @@ interface IDODOCallee {
     //     bytes calldata data
     // ) external;
 
+    // DPPFlashLoanCall is the required callback for DODO DPP flashloans (used in ANCH hack).
+    // The attacker implements it on the flashloan recipient (the test contract) to
+    // execute the buy-dump-skim-loop-sell sequence before the loan must be repaid.
     function DPPFlashLoanCall(address sender, uint256 baseAmount, uint256 quoteAmount, bytes calldata data) external;
 
     //   function DSPFlashLoanCall(

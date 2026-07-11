@@ -260,7 +260,7 @@ sequenceDiagram
     participant U2 as "UniV3 pool 0x57df"
     participant E as "Attacker EOA"
 
-    Note over OB: Resting sell: 100,000 EVA @ price 14746<br/>(stale vs AMM); fee = 0
+    Note over OB: Resting sell: 100,000 EVA @ price 14746<br/>(stale vs AMM)#59; fee = 0
 
     A->>M: flashLoan(WBTC, 12.0)
     M-->>A: 12.0 WBTC

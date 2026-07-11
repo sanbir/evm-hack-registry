@@ -265,7 +265,7 @@ sequenceDiagram
         A->>S: "receiveUpPool(self, 41.295…)"
         S->>A: "isLocked / depositLockStart (hooks → attacker returns true/0)"
         S->>T: "transferFrom(attacker → staking, 41.295…)"
-        Note over S: "counter ++ only on 1st call;<br/>userInfo.amount = 41.295…"
+        Note over S: "counter ++ only on 1st call#59;<br/>userInfo.amount = 41.295…"
         A->>S: "withdraw(41.295…)"
         S->>T: "transfer(staking → attacker, 41.295…)"
         Note over S: "counter -- EVERY call<br/>(744 → … → 715)"
@@ -281,7 +281,7 @@ sequenceDiagram
     S->>T: "transfer reward reserve → attacker"
     end
 
-    Note over A: "Net cost ≈ 0; drains the pool's TPAD reward reserve (~$155K)"
+    Note over A: "Net cost ≈ 0#59; drains the pool's TPAD reward reserve (~$155K)"
 ```
 
 ### Pool accounting state evolution

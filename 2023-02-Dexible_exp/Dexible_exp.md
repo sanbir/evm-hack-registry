@@ -328,7 +328,7 @@ sequenceDiagram
 
     rect rgb(232,245,233)
     Note over A,I: Step 2 — post-swap window dressing
-    I->>I: outAmount(USDC) = 0; require(0 >= 0) ✓
+    I->>I: outAmount(USDC) = 0#59; require(0 >= 0) ✓
     I->>I: rewardTrader mints DXBL to attacker
     I->>A: fees (~0.0115 USDC) debited from attacker's input
     end

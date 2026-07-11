@@ -317,7 +317,7 @@ sequenceDiagram
     A->>B: approve(Governance, max)
     A->>G: propose(BUILD, 0, approve(attacker, max))
     G->>B: transferFrom(attacker, Governance, 101.53) [lockVotes]
-    Note over G: proposalCount 7 -> 8; attacker balance 0
+    Note over G: proposalCount 7 -> 8#59; attacker balance 0
     end
 
     rect rgb(232,245,233)

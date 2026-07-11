@@ -387,15 +387,15 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Seeded
-    Seeded: "Attack contract<br/>1 USDT, 0 USDC<br/>Victim: greater-than 1,000,000 USDC approved to Settlement"
-    Seeded --> PingPong: "settleOrders → orders 1-5"
-    PingPong: "5 nested fills<br/>1-wei USDT self-pings<br/>tokensAndAmounts.length grows"
-    PingPong --> Finalize: "order 6 with interactionLength = -512"
-    Finalize: "Yul underflow forges suffix<br/>resolver=VICTIM, token=USDC, amount=1e12"
-    Finalize --> Drained: "resolveOrders(VICTIM) → victim transfers 1,000,000 USDC to Settlement"
-    Drained: "Settlement holds 1,000,000 USDC"
-    Drained --> Paid: "transferFrom(Settlement → FundsReceiver)"
-    Paid: "Funds receiver +1,000,000 USDC<br/>Victim -1,000,000 USDC"
+    Seeded: Attack contract<br/>1 USDT, 0 USDC<br/>Victim#58; greater-than 1,000,000 USDC approved to Settlement
+    Seeded --> PingPong: settleOrders → orders 1-5
+    PingPong: 5 nested fills<br/>1-wei USDT self-pings<br/>tokensAndAmounts.length grows
+    PingPong --> Finalize: order 6 with interactionLength = -512
+    Finalize: Yul underflow forges suffix<br/>resolver=VICTIM, token=USDC, amount=1e12
+    Finalize --> Drained: resolveOrders(VICTIM) → victim transfers 1,000,000 USDC to Settlement
+    Drained: Settlement holds 1,000,000 USDC
+    Drained --> Paid: transferFrom(Settlement → FundsReceiver)
+    Paid: Funds receiver +1,000,000 USDC<br/>Victim -1,000,000 USDC
     Paid --> [*]
 ```
 

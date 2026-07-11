@@ -285,7 +285,7 @@ sequenceDiagram
         A->>P: skim(this)  →  pair pays out (balance − reserve0) Starlink
         T->>T: 8% buyFee on the skim-out ⇒ attacker nets ~0.828×
         A->>P: sync()  →  reserve0 := reduced balance
-        Note over P: r0 shrinks ~83% per iter; r1 UNCHANGED (skim sends 0 WBNB)
+        Note over P: r0 shrinks ~83% per iter#59; r1 UNCHANGED (skim sends 0 WBNB)
     end
     Note over P: 613 wei Starlink / 2,216.19 WBNB  ⚠️ k collapsed on Starlink side
     end

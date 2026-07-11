@@ -306,7 +306,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,T: Step 3 — corner the XDK reserve
     loop 16 chunk buys (≤10% reserve each)
-        A->>P: transfer GPC in; swap XDK out
+        A->>P: transfer GPC in#59; swap XDK out
         P-->>A: XDK
     end
     Note over P: 1.47M XDK / 114.6M GPC

@@ -369,6 +369,11 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
         _totalSupply += amount;
         _balances[account] += amount;
 
+        // VULNERABILITY HOOK (used in 2022-03-Bacon): _callTokensReceived looks up implementer
+        // for 'account' (the lender) using ERC1820 and calls tokensReceived if registered.
+        // Called from within _mint (itself called from lend() in Bacon pool after/before asset pull).
+        // This is the reentry point exploited by registering + re-calling lend() from tokensReceived.
+        // See PoC test/Bacon_exp.sol and EXPLOIT STEPS.
         _callTokensReceived(operator, address(0), account, amount, userData, operatorData, requireReceptionAck);
 
         emit Minted(operator, account, amount, userData, operatorData);
@@ -520,6 +525,9 @@ contract ERC777Upgradeable is Initializable, ContextUpgradeable, IERC777Upgradea
     ) private {
         address implementer = _ERC1820_REGISTRY.getInterfaceImplementer(to, _TOKENS_RECIPIENT_INTERFACE_HASH);
         if (implementer != address(0)) {
+            // This call (from ERC777 _mint during Bacon.lend share mint) is what invokes the
+            // attacker's tokensReceived (registered in PoC via setInterfaceImplementer).
+            // Reentrancy into lend() from here (pre-settlement) is the Bacon exploit.
             IERC777RecipientUpgradeable(implementer).tokensReceived(operator, from, to, amount, userData, operatorData);
         } else if (requireReceptionAck) {
             require(!to.isContract(), "ERC777: token recipient contract has no implementer for ERC777TokensRecipient");

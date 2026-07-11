@@ -303,7 +303,7 @@ sequenceDiagram
         A->>T: transfer(pair, 254.81 QTN)   // uniswapV2PairAmount += chunk
         A->>P: skim(helper)
         P->>T: transfer(pair → helper, excess)   // from == pair ⇒ looks like a BUY
-        T->>T: rebasePlus(chunk): _totalSupply += chunk/5; _gonsPerFragment ↓
+        T->>T: rebasePlus(chunk): _totalSupply += chunk/5#59; _gonsPerFragment ↓
         Note over H: helper's gon balance now reads as MORE QTN
     end
     end

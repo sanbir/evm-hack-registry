@@ -263,6 +263,10 @@ contract CErc20Interface is CErc20Storage {
     /*** Admin Functions ***/
 
     function _addReserves(uint addAmount) external returns (uint);
+    // NOTE: sweepToken(...) is deliberately absent from this CErc20Interface (unlike in CErc20Delegate_a035b9 version).
+    // Any call to sweepToken on the delegator therefore routes through the fallback delegatecall, bypassing any potential
+    // interface-level restrictions and reaching the (vulnerable) implementation directly. This was a contributing factor
+    // in the 2022-03 Compound TUSD exploit.
 }
 
 contract CDelegationStorage {

@@ -286,7 +286,7 @@ sequenceDiagram
     participant C as "22 claimReward contracts"
     participant P as "UEarnPool (treasury ~2.24M USDT)"
 
-    A->>C: create2 deploy 22; bind into one referral chain
+    A->>C: create2 deploy 22#59; bind into one referral chain
     A->>F: swap(2,420,000 USDT, 0, this, data)  (flash borrow)
     F-->>A: 2,420,000 USDT
     activate A
@@ -338,15 +338,15 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Funded
-    Funded: "Pool holds ~2,242,331 USDT (honest stakers' funds)"
-    Funded --> Seeded: "deepest stake 2.4M in (then claims 162k)"
-    Seeded: "pool inflated by stake, paying invite rewards out"
-    Seeded --> Draining: "each upline: +20k stake, then -162k reward"
-    Draining: "net -142k per claim → balance falls toward 0"
-    Draining --> ToppedUp: "balance < 143,500 → attacker tops up 53,668.94"
-    ToppedUp --> Draining: "continue remaining claims"
-    Draining --> Repaid: "repay flash swap 2,426,065.16"
-    Repaid --> [*]: "attacker keeps +16,265.90 USDT"
+    Funded: Pool holds ~2,242,331 USDT (honest stakers' funds)
+    Funded --> Seeded: deepest stake 2.4M in (then claims 162k)
+    Seeded: pool inflated by stake, paying invite rewards out
+    Seeded --> Draining: each upline#58; +20k stake, then -162k reward
+    Draining: net -142k per claim → balance falls toward 0
+    Draining --> ToppedUp: balance < 143,500 → attacker tops up 53,668.94
+    ToppedUp --> Draining: continue remaining claims
+    Draining --> Repaid: repay flash swap 2,426,065.16
+    Repaid --> [*]: attacker keeps +16,265.90 USDT
 ```
 
 ---

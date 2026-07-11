@@ -313,7 +313,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,S: Step 1 - farm cAPE via 8 slaves
     loop i in 0..7
-        A->>S: transfer wstETH slice; new Slave()
+        A->>S: transfer wstETH slice#59; new Slave()
         S->>P: supply(wstETH, slice, onBehalfOf=attacker)
         alt i != 7
             S->>P: borrow(cAPE, 1.84e24 (or 1.12e24 for i=6), onBehalfOf=slave)
@@ -348,7 +348,7 @@ sequenceDiagram
     A->>FL: repay 47,376.5 wstETH (+premium)
     end
 
-    Note over A: keeps ~2,906 WETH + 45,459 pcAPE; leaves bad debt on ParaSpace
+    Note over A: keeps ~2,906 WETH + 45,459 pcAPE#59; leaves bad debt on ParaSpace
 ```
 
 ### Pool / collateral state evolution

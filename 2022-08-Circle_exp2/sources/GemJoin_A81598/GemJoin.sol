@@ -120,4 +120,9 @@ contract GemJoin is LibNote {
         vat.slip(ilk, msg.sender, -int(wad));
         require(gem.transfer(usr, wad), "GemJoin/failed-transfer");
     }
+    // VULNERABILITY CONTEXT (Circle_exp2): This is GEM_JOIN for UNIV2DAIUSDC-A ilk.
+    // After the CDP frob+flux, the attacker (via authority) holds "gem" balance inside Vat.
+    // Calling exit pulls the raw LP ERC20 tokens out to EOA/contract, which can then be
+    // burned on the Uniswap pair. This is the step that converts internal Vat collateral
+    // representation back to withdrawable LP tokens.
 }

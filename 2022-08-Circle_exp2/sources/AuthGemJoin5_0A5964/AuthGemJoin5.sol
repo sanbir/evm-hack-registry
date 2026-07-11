@@ -130,4 +130,9 @@ contract AuthGemJoin5 is LibNote {
         vat.slip(ilk, msg.sender, -int256(wad18));
         require(gem.transfer(guy, wad), "GemJoin5/failed-transfer");
     }
+    // NOTE for 2022-08-Circle_exp2 analysis:
+    // This is the USDC adapter used by DssPsm (via AuthGemJoin5 interface).
+    // PSM calls join (auth-gated to PSM contract) during sellGem.
+    // The exit path is not used in the exploit, but the adapter enables the
+    // USDC<->18-decimal DAI conversion inside the PSM flow.
 }

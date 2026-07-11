@@ -258,7 +258,7 @@ sequenceDiagram
     Note over P: new_balance > old_balance passes
 
     P->>A: safeTransfer(attacker, amountOut) of attackToken
-    Note over P: harmless self-transfer; emit LogVaultOut
+    Note over P: harmless self-transfer#59; emit LogVaultOut
 
     Note over A,V: loop repeats for SOL, AVAX, BabyDoge, FLOKI,<br/>ATOM, TLOS, IOTX, 1INCH, LINK, BTCB, ETH
 ```

@@ -226,7 +226,7 @@ sequenceDiagram
     M->>R: addLiquidityETH{1766.7}(GYMNET, 1,450,998.6, _msgSender())
     R->>M: transferFrom 1,191,056.6 GYMNET (contract's own balance)
     R->>NG: mint 45,693.2 WBNB/GYMNET LP to ATTACKER
-    Note over M: M lost 1,191,056.6 GYMNET; attacker paid 0 for it
+    Note over M: M lost 1,191,056.6 GYMNET#59; attacker paid 0 for it
     end
 
     rect rgb(243,229,245)

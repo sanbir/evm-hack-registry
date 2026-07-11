@@ -321,14 +321,14 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Clean : "slot1 = 0"
-    Clean --> PoolAddr : "mint(): tstore(1, uniswapPool)"
-    PoolAddr --> Poisoned : "callback: tstore(1, amount)<br/>amount = uint160(target)<br/>(attacker-chosen first-mint value)"
-    Poisoned --> Poisoned : "nonReentrant clears slot0 ONLY<br/>⚠️ slot1 survives to next top-level call"
-    Poisoned --> Authed : "attacker deploys contract<br/>at address == slot1"
-    Authed --> Drain : "uniswapV3SwapCallback(isETH=true):<br/>require(msg.sender == tload(1)) ✓<br/>safeTransfer(anyToken, slot1, anyAmount)"
-    Drain --> Authed : "tstore(1, uint160(AttackerC_A))<br/>re-point slot1, repeat for WBTC/WETH"
-    Drain --> [*] : "Vault emptied"
+    [*] --> Clean : slot1 = 0
+    Clean --> PoolAddr : mint()#58; tstore(1, uniswapPool)
+    PoolAddr --> Poisoned : callback#58; tstore(1, amount)<br/>amount = uint160(target)<br/>(attacker-chosen first-mint value)
+    Poisoned --> Poisoned : nonReentrant clears slot0 ONLY<br/>⚠️ slot1 survives to next top-level call
+    Poisoned --> Authed : attacker deploys contract<br/>at address == slot1
+    Authed --> Drain : uniswapV3SwapCallback(isETH=true)#58;<br/>require(msg.sender == tload(1)) ✓<br/>safeTransfer(anyToken, slot1, anyAmount)
+    Drain --> Authed : tstore(1, uint160(AttackerC_A))<br/>re-point slot1, repeat for WBTC/WETH
+    Drain --> [*] : Vault emptied
 
     note right of Poisoned
         Root cause: slot1 is dual-purposed

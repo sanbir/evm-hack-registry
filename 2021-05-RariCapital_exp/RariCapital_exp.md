@@ -299,7 +299,7 @@ sequenceDiagram
 
     A->>R: "donate{1031 ETH}() (setup)"
     A->>B: "work{1e8 wei}(0, Goblin, loan=0, data)"
-    B->>B: "accrue(); beforeETH = balance - sendETH"
+    B->>B: "accrue()#59; beforeETH = balance - sendETH"
     B->>G: "work.value(sendETH)(...)  ⚠ yields control"
     G->>S: "execute.value(...)(user, 0, ext)"
 
@@ -312,7 +312,7 @@ sequenceDiagram
     R-->>S: "mint 57,849.51 fund shares (skewed NAV)"
     S->>R: "withdraw(58,907.67 ETH)"
     R-->>S: "burn only 57,820.89 shares, send ETH"
-    S->>S: "WETH.deposit{58,903.48}; repay dYdX"
+    S->>S: "WETH.deposit{58,903.48}#59; repay dYdX"
     end
 
     S-->>G: "execute returns"

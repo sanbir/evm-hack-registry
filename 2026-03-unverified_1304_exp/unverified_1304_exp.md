@@ -165,7 +165,7 @@ flowchart TD
     A["bridge() called by ANY EOA"] --> B{"_ALLOW_ALL_ == true?"}
     B -- yes --> C["no operator authz applied"]
     C --> D["CALL arbitrary target+calldata"]
-    D --> E{"target == CheckoutPaymaster\nand isOperatorAllowed(BOC)?"}
+    D --> E{"target == CheckoutPaymaster<br/>and isOperatorAllowed(BOC)?"}
     E -- yes --> F["activateAndCall -> CheckoutPool.execute()"]
     F --> G["pay targetAmount from held + pool excess"]
     G --> H["attacker receives 85,730 USDC"]

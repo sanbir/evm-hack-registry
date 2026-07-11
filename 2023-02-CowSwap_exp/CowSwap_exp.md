@@ -301,7 +301,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,SG: Build attacker-controlled inputs
     A->>A: amount = min(DAI.balanceOf(GPv2), allowance) = 114,824.89 DAI
-    A->>A: interactions[0] = {target=DAI, callData=transferFrom(GPv2, A, amount)}<br/>vault = A; balanceChanges=[0]; tokenPrices=[0]; allowedLoss = max
+    A->>A: interactions[0] = {target=DAI, callData=transferFrom(GPv2, A, amount)}<br/>vault = A#59; balanceChanges=[0]#59; tokenPrices=[0]#59; allowedLoss = max
     end
 
     rect rgb(255,235,238)

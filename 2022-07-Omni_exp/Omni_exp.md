@@ -320,7 +320,7 @@ sequenceDiagram
     end
 
     rect rgb(243,229,245)
-    Note over A,L,P: deepest callback - re-pledge ALL 20 NFTs
+    Note over A,P: deepest callback - re-pledge ALL 20 NFTs
     A->>L: forward NFTs, call attack()
     L->>P: supplyERC721([all 20])
     P-->>L: coll 270 ETH

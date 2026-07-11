@@ -280,7 +280,7 @@ sequenceDiagram
     Note over A,M: Setup (before flash)
     A->>M: join(30 USDC, ref=0, fiat=2)
     M->>USDC: pull 21 to contract, 9 to owner
-    M-->>A: balance += 1.5567; referral code assigned
+    M-->>A: balance += 1.5567#59; referral code assigned
     end
 
     rect rgb(227,242,253)

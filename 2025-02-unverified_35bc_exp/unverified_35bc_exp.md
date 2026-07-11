@@ -261,7 +261,7 @@ sequenceDiagram
     V-->>H: "call{value: 0.6}()  → fallback()"
     H->>V: "releaseSlot(3)  (call #2, re-entry)"
     V-->>H: "0.6 BNB → fallback()"
-    Note over H,V: "…repeats; slot still active, amount still 0.6…"
+    Note over H,V: "…repeats#59; slot still active, amount still 0.6…"
     H->>V: "releaseSlot(3)  (call #18)"
     V-->>H: "0.6 BNB  (tracked balance 0.99 → 0.39)"
     H->>V: "releaseSlot(3)  (call #19)"

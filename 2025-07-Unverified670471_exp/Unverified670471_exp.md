@@ -148,7 +148,7 @@ flowchart TD
     D --> E{Victim checks msg.sender?}
     E -->|"NO - the bug"| F["Victim transfers its own funds to Vault"]
     E -->|"YES - fixed"| G["revert - not the Vault"]
-    F --> H["Vault made whole\nattacker keeps the principal"]
+    F --> H["Vault made whole<br/>attacker keeps the principal"]
     H --> I["Net profit 0.4849 ETH"]
 ```
 ## Remediation

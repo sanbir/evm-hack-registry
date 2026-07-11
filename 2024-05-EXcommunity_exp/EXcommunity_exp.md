@@ -267,17 +267,17 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Honest
-    Honest: "purchasedAmount = 3,207<br/>pair balance == reserve0"
-    Donated: "donate 399,000 BUSDT<br/>balanceOf(pair)=469,780<br/>reserve0=70,780 (stale)<br/>drift = 399,000"
-    Inflated: "after 290x transferFrom(pair,_,0)<br/>purchasedAmount = 115,713,207"
-    Skimmed: "skim() returns 399,000 BUSDT<br/>counter stays poisoned"
-    Dumped: "_distribute(): distributeA(18.74M EXgirl)<br/>purchasedAmount reset to 1"
+    Honest: purchasedAmount = 3,207<br/>pair balance == reserve0
+    Donated: donate 399,000 BUSDT<br/>balanceOf(pair)=469,780<br/>reserve0=70,780 (stale)<br/>drift = 399,000
+    Inflated: after 290x transferFrom(pair,_,0)<br/>purchasedAmount = 115,713,207
+    Skimmed: skim() returns 399,000 BUSDT<br/>counter stays poisoned
+    Dumped: _distribute()#58; distributeA(18.74M EXgirl)<br/>purchasedAmount reset to 1
 
-    Honest --> Donated: "transfer BUSDT to pair (no sync)"
-    Donated --> Inflated: "290x zero-value transferFrom (buy branch)"
-    Inflated --> Skimmed: "Pair.skim(attacker)"
-    Skimmed --> Dumped: "plain transfer triggers _distribute()"
-    Dumped --> [*]: "BNB funneled into EXboy, sold for 32.9 BNB"
+    Honest --> Donated: transfer BUSDT to pair (no sync)
+    Donated --> Inflated: 290x zero-value transferFrom (buy branch)
+    Inflated --> Skimmed: Pair.skim(attacker)
+    Skimmed --> Dumped: plain transfer triggers _distribute()
+    Dumped --> [*]: BNB funneled into EXboy, sold for 32.9 BNB
 
     note right of Inflated
         Each call adds (balanceOf - reserve0)

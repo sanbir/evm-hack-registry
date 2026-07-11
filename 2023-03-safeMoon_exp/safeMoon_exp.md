@@ -371,7 +371,7 @@ flowchart TD
     From -- "yes - attacker chooses from = pair" --> Deb["pair SFM balanceOf drops<br/>WBNB balanceOf unchanged"]
     Deb --> Sync["attacker calls pair.sync()"]
     Sync --> Broken(["reserve0 collapses to dust,<br/>reserve1 unchanged -> k breaks,<br/>SFM price explodes"])
-    Broken --> Drain(["attacker dumps dust SFM,<br/>pulls out ~all WBNB)])
+    Broken --> Drain(["attacker dumps dust SFM,<br/>pulls out ~all WBNB"])
 
     style Tt fill:#fff3e0,stroke:#ef6c00
     style Broken fill:#ffcdd2,stroke:#c62828,stroke-width:2px
@@ -390,7 +390,7 @@ flowchart LR
         Aa["reserveSFM = 1e9 wei (1e-9 SFM)<br/>reserveWBNB = 28,458.21 (unchanged)<br/>price ~= 2.8e31 WBNB/SFM<br/>k ~= 2.8e13 (collapsed)"]
     end
     Before -->|"31.766 SFM destroyed via burn(pair),<br/>0 WBNB removed"| After
-    Aa -->|"sell 1.039 SFM into the<br/>SFM-empty pool"| Drain(["Attacker extracts<br/>28,466.85 WBNB<br/>(~the entire reserve)"))
+    Aa -->|"sell 1.039 SFM into the<br/>SFM-empty pool"| Drain(["Attacker extracts<br/>28,466.85 WBNB<br/>(~the entire reserve)"])
 
     style Aa fill:#ffcdd2,stroke:#c62828,stroke-width:2px
     style Drain fill:#c8e6c9,stroke:#2e7d32

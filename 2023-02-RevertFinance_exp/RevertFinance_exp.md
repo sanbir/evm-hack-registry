@@ -346,14 +346,14 @@ sequenceDiagram
     U->>S: approve(A_stub, 1) → true (no-op stub)
     U->>USDC: call(transferFrom(V, A, amount))   ⚠️ msg.sender = V3Utils
     USDC->>V: checks allowance[V][V3Utils] >= amount ✔
-    USDC->>A: credit amount; emit Transfer(V, A, amount)
+    USDC->>A: credit amount#59; emit Transfer(V, A, amount)
     U->>S: approve(A_stub, 0) → true
     Note over U: balanceIn/Out deltas = 0 (stub constant) → accounting blind
     end
 
     rect rgb(243,229,245)
-    Note over A,USDC: swap() returns 0; no payout
-    U->>U: amountOut = 0; leftOver = 0
+    Note over A,USDC: swap() returns 0#59; no payout
+    U->>U: amountOut = 0#59; leftOver = 0
     U-->>A: return 0
     Note over A: stolen USDC stays put
     end

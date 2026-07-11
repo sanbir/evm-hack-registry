@@ -257,7 +257,7 @@ sequenceDiagram
     P->>C: transfer(pair to attacker, 3,639,118.76 COCO)
     C->>RP: 1% fee = 36,391.19 COCO
     C->>A: 3,602,727.57 COCO (99%)
-    P->>P: K-check passes; Sync()
+    P->>P: K-check passes#59; Sync()
     end
 
     Note over A: Attacker now holds COCO worth approx 2,175 USDT<br/>funded entirely by the victim's stablecoin

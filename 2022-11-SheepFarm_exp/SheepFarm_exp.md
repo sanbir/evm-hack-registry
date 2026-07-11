@@ -291,7 +291,7 @@ sequenceDiagram
     Note over A,S: Step 2 — token deposit to set timestamp
     A->>S: addGems{value: 5e14}()
     S->>O: 5% ether fee (2.5e13 wei)
-    Note over S: timestamp set; gems = 4001
+    Note over S: timestamp set#59; gems = 4001
     end
 
     rect rgb(227,242,253)

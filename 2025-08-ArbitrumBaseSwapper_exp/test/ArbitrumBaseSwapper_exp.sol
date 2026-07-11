@@ -49,7 +49,7 @@ contract ContractTest is BaseTestWithBalanceLog {
     BaseSwapperAttack private exploit;
 
     function setUp() public {
-        uint256 forkBlock = 366_279_193;
+        uint256 forkBlock = 23_096_791;
         vm.createSelectFork("http://127.0.0.1:8547", forkBlock);
         vm.label(ATTACKER, "Attacker");
         vm.label(ATTACK_CONTRACT, "Attack Contract");

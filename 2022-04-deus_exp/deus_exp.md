@@ -223,7 +223,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,S: Step 1 — mint DEI against bogus USDC
     A->>S: buyDei(1M USDC), CR=80%
-    S->>S: 800k USDC -> backing pool; pool_mint 1M DEI
+    S->>S: 800k USDC -> backing pool#59; pool_mint 1M DEI
     Note over A: +1M DEI
     end
 

@@ -352,20 +352,20 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Bet
-    Bet : "After shoot()<br/>winners[1][A]=0.30828 BNB<br/>NFTs(A)=0"
-    Claim1 : "Claim #1 (tokenId 632)<br/>+0.6166 BNB to A<br/>NFTs(A)=1"
-    Claim2 : "Claim #2 (tokenId 633)<br/>+0.6166 BNB to A<br/>NFTs(A)=2"
-    Claim3 : "Claim #3 (tokenId 634)<br/>+0.6166 BNB to A<br/>NFTs(A)=3"
-    Claim4 : "Claim #4 (tokenId 635)<br/>+0.6166 BNB to A<br/>NFTs(A)=4"
-    Claim5 : "Claim #5 (tokenId 636)<br/>+0.6166 BNB to A<br/>NFTs(A)=5"
-    Cleared : "Unwind: delete winners[1][A]<br/>(too late)<br/>Total drained 3.08 BNB"
+    Bet : After shoot()<br/>winners[1][A]=0.30828 BNB<br/>NFTs(A)=0
+    Claim1 : Claim #1 (tokenId 632)<br/>+0.6166 BNB to A<br/>NFTs(A)=1
+    Claim2 : Claim #2 (tokenId 633)<br/>+0.6166 BNB to A<br/>NFTs(A)=2
+    Claim3 : Claim #3 (tokenId 634)<br/>+0.6166 BNB to A<br/>NFTs(A)=3
+    Claim4 : Claim #4 (tokenId 635)<br/>+0.6166 BNB to A<br/>NFTs(A)=4
+    Claim5 : Claim #5 (tokenId 636)<br/>+0.6166 BNB to A<br/>NFTs(A)=5
+    Cleared : Unwind#58; delete winners[1][A]<br/>(too late)<br/>Total drained 3.08 BNB
 
-    Bet --> Claim1 : "claimReward (CEI broken)"
-    Claim1 --> Claim2 : "onERC721Received re-enters"
-    Claim2 --> Claim3 : "re-enter"
-    Claim3 --> Claim4 : "re-enter"
-    Claim4 --> Claim5 : "re-enter"
-    Claim5 --> Cleared : "balance guard false → stop"
+    Bet --> Claim1 : claimReward (CEI broken)
+    Claim1 --> Claim2 : onERC721Received re-enters
+    Claim2 --> Claim3 : re-enter
+    Claim3 --> Claim4 : re-enter
+    Claim4 --> Claim5 : re-enter
+    Claim5 --> Cleared : balance guard false → stop
     Cleared --> [*]
 ```
 

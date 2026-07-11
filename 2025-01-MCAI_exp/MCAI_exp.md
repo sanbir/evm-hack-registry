@@ -141,7 +141,7 @@ Attack sequence (permissioned — the caller holds the `_taxWallet` key):
 ```mermaid
 sequenceDiagram
     participant EOA as Attacker EOA
-    participant Tax as Tax wallet\\n(ATTACK_CONTRACT)
+    participant Tax as Tax wallet<br/>(ATTACK_CONTRACT)
     participant Help as MCAIExploit helper
     participant Tok as MCAI token
     participant Pair as MCAI/WETH Uniswap V2 pair
@@ -149,14 +149,14 @@ sequenceDiagram
     participant WETH as WETH
 
     EOA->>Help: deploy
-    Note over Tax,Tok: allowance(pair, tax) = 0\\nbut _decreaseAllowance returns 0 for tax
+    Note over Tax,Tok: allowance(pair, tax) = 0<br/>but _decreaseAllowance returns 0 for tax
     EOA->>Tax: trigger transferFrom (tx.origin = EOA)
     Tax->>Tok: transferFrom(pair, helper, 99.99% pair MCAI)
     Tok->>Help: credit MCAI (84.559e15)
-    Tok->>Tax: emit Approval(pair, tax, 0)\\nallowance unchanged
+    Tok->>Tax: emit Approval(pair, tax, 0)<br/>allowance unchanged
     EOA->>Help: attack()
     Help->>Pair: sync()
-    Note over Pair: reserve0 collapses 10000x\\nreserve1 (WETH) unchanged
+    Note over Pair: reserve0 collapses 10000x<br/>reserve1 (WETH) unchanged
     Help->>Tok: approve(router, max)
     Help->>Rtr: swapExactTokensForETH(MCAI->WETH)
     Rtr->>Tok: transferFrom(helper, pair, 84.559e15)
@@ -174,12 +174,12 @@ flowchart TD
     A["transferFrom(sender, recipient, amount)"] --> B["_transfer(sender, recipient, amount)"]
     B --> C["_decreaseAllowance(sender, recipient, amount)"]
     C --> D{"msg.sender == _taxWallet?"}
-    D -- yes --> E["return 0\\nallowance not enforced"]
-    D -- no --> F{"owner == _uniswapPair\\nOR spender != _deadWallet?"}
-    F -- yes --> G["return amount\\nallowance enforced normally"]
-    F -- no --> H["return 0\\n(deadWallet branch)"]
-    E --> I["_approve(sender, caller, current - 0)\\nnever reverts"]
-    G --> J["_approve(sender, caller, current - amount)\\nreverts if underflow"]
+    D -- yes --> E["return 0<br/>allowance not enforced"]
+    D -- no --> F{"owner == _uniswapPair<br/>OR spender != _deadWallet?"}
+    F -- yes --> G["return amount<br/>allowance enforced normally"]
+    F -- no --> H["return 0<br/>(deadWallet branch)"]
+    E --> I["_approve(sender, caller, current - 0)<br/>never reverts"]
+    G --> J["_approve(sender, caller, current - amount)<br/>reverts if underflow"]
     H --> I
 ```
 

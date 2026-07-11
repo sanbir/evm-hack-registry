@@ -18,7 +18,7 @@ import {console} from "forge-std/console.sol";
 // Post-mortem : N/A
 // Twitter Guy : https://x.com/DefimonAlerts/status/2055751467579936770
 
-contract AdsharesBridgeTest is Test {
+contract AdsharesBridge is Test {
     bytes32 internal constant TX_HASH = 0x8844b4ec371c4b13d7fac701b5d546a7c2fba12621a9596dd14b662b14408789;
 
     address internal constant BRIDGE_MINTER = 0xF54aF6D4d18C8d61F504E530C127eaa05E011414;

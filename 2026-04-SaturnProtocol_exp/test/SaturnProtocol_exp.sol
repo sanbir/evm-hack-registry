@@ -58,7 +58,7 @@ interface ISUSDat {
 // ═══════════════════════════════════════════════════════════════════════════
 // SAT-001: Withdrawal Freeze PoC (requires mainnet fork)
 // ═══════════════════════════════════════════════════════════════════════════
-contract SaturnProtocol_SAT001 is Test {
+contract SaturnProtocol is Test {
     ISUSDat constant SUSDAT    = ISUSDat(0xD166337499E176bbC38a1FBd113Ab144e5bd2Df7);
     address  constant WQ       = 0x4Bc9FEC04F0F95e9b42a3EF18F3C96fB57923D2e;
     address  constant PROCESSOR = 0x09D6E34cE24D54890fF0BC6a090b5f880F8C729f;
@@ -174,7 +174,6 @@ contract SaturnProtocol_SAT001 is Test {
 // ═══════════════════════════════════════════════════════════════════════════
 // SAT-001: Pure Arithmetic Proof (no fork required)
 // ═══════════════════════════════════════════════════════════════════════════
-contract SaturnProtocol_SAT001_Proof is Test {
     /// @notice Proves the underflow is deterministic for realistic parameters
     function testSAT001_ArithmeticProof() public pure {
         // Realistic state after trigger sequence:
@@ -205,7 +204,6 @@ contract SaturnProtocol_SAT001_Proof is Test {
 // ═══════════════════════════════════════════════════════════════════════════
 // SAT-002: Dual-Tolerance Extraction Math Proof (no fork required)
 // ═══════════════════════════════════════════════════════════════════════════
-contract SaturnProtocol_SAT002_Proof is Test {
     uint256 constant TOLERANCE_BPS = 2000; // toleranceBps = 2000 (20%)
     uint256 constant BPS_BASE      = 10000;
 

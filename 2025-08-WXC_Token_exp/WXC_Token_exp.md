@@ -250,10 +250,10 @@ sequenceDiagram
     end
 
     rect rgb(255,235,238)
-    Note over A,T: "Step 2 — sell WXC; token burns pool + sync"
+    Note over A,T: "Step 2 — sell WXC#59; token burns pool + sync"
     A->>R: "swapExactTokensForTokensSupportingFee(74.96M WXC -> WBNB)"
     R->>T: "transferFrom(A -> pair, 74.96M)"
-    T->>T: "6% tax (4.49M); swap part -> 4.347 WBNB to fee EOA"
+    T->>T: "6% tax (4.49M)#59; swap part -> 4.347 WBNB to fee EOA"
     T->>P: "_burn(pair, 70.46M WXC)"
     T->>P: "sync()"
     Note over P: "reserve0 = 199,903 WXC (recorded)<br/>actual WXC bal = 70,665,245 ⚠️ phantom gap"

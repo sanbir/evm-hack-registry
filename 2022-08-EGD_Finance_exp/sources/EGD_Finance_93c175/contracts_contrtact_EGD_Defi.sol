@@ -6,6 +6,10 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../router.sol";
 
 contract EGD_Finance is OwnableUpgradeable {
+    // VULNERABILITY SUMMARY (see detailed comments in getEGDPrice, stake, claimAllReward):
+    // Oracle manipulation via flashloan on the reward accounting price feed leads to
+    // arbitrary inflation of EGD token rewards claimable by stakers.
+    // Affected: getEGDPrice (L~111) + claimAllReward (L~254) price division.
     IPancakeRouter02 public router;
     IERC20 public U;
     IERC20 public EGD;
@@ -109,6 +113,13 @@ contract EGD_Finance is OwnableUpgradeable {
     }
 
     function getEGDPrice() public view returns (uint){
+        // VULNERABILITY: Unprotected spot-price oracle (direct balance read from LP)
+        // Root cause: price = USDT_balance(pair) * 1e18 / EGD_balance(pair)
+        // - Uses live `balanceOf` (not reserves or TWAP)
+        // - No manipulation resistance, no min-price, no time-weight, no external oracle
+        // - Same pair (0xa361433E409Adac1f87CDF133127585F8a93c67d) is both the DEX market and the oracle source
+        // Why exploitable: flash swaps can arbitrarily reduce one side's balance within a single tx
+        // Impact: any on-chain caller can make price arbitrarily low/high for reward calc
         uint balance1 = EGD.balanceOf(pair);
         uint balance2 = U.balanceOf(pair);
         return (balance2 * 1e18 / balance1);
@@ -175,6 +186,8 @@ contract EGD_Finance is OwnableUpgradeable {
         }else{
             tempRate = rateList[index];
         }
+        // NOTE: "rates" and "leftQuota" encode future EGD reward entitlement denominated in USDT-value terms.
+        // The conversion to actual EGD token amount happens ONLY at claim time using the manipulable getEGDPrice().
         userSlot[msg.sender][stakeId].rates = amount * tempRate / 100000 / 86400;
         userSlot[msg.sender][stakeId].stakeTime = block.timestamp;
         userSlot[msg.sender][stakeId].claimTime = block.timestamp;
@@ -251,6 +264,15 @@ contract EGD_Finance is OwnableUpgradeable {
             if (quota >= info.leftQuota) {
                 quota = info.leftQuota;
             }
+            // VULNERABILITY: Reward payout uses live manipulable price from getEGDPrice()
+            // quota (USDT-denominated accrued value) is converted to EGD via: rew += quota * 1e18 / getEGDPrice()
+            // - When price is artificially LOW (USDT reserve drained), payout EGD is INFLATED
+            // - Attacker receives EGD.transfer(rew) with huge rew
+            // - No slippage protection, no price sanity, no reentrancy/ flash protection on claim
+            // - State update (claimTime, leftQuota) happens after price read, but inside same tx
+            // Why works: flashloan callback executes with transient imbalanced pair balances
+            // Impact: For any accrued quota, attacker can extract unbounded EGD (then swap to USDT profit)
+            // Material harm: protocol's EGD treasury is drained to attacker; users' implicit backing diluted
             rew += quota * 1e18 / getEGDPrice();
             info.claimTime = block.timestamp;
             info.leftQuota -= quota;

@@ -156,23 +156,23 @@ On-chain the same pattern executed in tx `0x2d57â€¦2cc7` for a total loss of **â
 ```mermaid
 sequenceDiagram
     participant EOA as Attacker EOA
-    participant Loop as Exploit Loop
+    participant Lp as Exploit Loop
     participant H as Fresh Helper (new address)
     participant V as Victim claim()
     participant R as Profit Receiver
 
-    EOA->>Loop: start drain loop
+    EOA->>Lp: start drain loop
     loop Until victim.balance == 0
-        Loop->>H: new ConstructorClaimHelper(R)
+        Lp->>H: new ConstructorClaimHelper(R)
         Note over H: address never seen by victim, extcodesize 0 during ctor
         H->>V: claim()
         Note over V: per-claimant map miss, eligibility check passes
         V->>V: slot 3 counter++, record claimedBy caller, emit Claimed/DepletedClaim
         V->>H: call value 13.888888888888888e15
         H->>R: forward full balance
-        H-->>Loop: ctor returns
+        H-->>Lp: ctor returns
     end
-    Loop-->>EOA: victim drained, profit in R
+    Lp-->>EOA: victim drained, profit in R
 ```
 
 ```mermaid

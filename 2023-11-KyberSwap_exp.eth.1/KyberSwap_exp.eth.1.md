@@ -271,7 +271,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,P: "Step 1 — move to a zero-liquidity tick range"
     A->>P: "swap(+2000 WETH, up, limit≈tick 110909)"
-    P-->>A: "6.371 frxETH out; liquidity now 0"
+    P-->>A: "6.371 frxETH out#59; liquidity now 0"
     end
 
     rect rgb(232,245,233)

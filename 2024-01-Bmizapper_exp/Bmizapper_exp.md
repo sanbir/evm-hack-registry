@@ -290,7 +290,7 @@ sequenceDiagram
     U-->>A: "credit 114,146.247097 USDC"
     U-->>Z: "returns true"
     end
-    Z->>Z: "BMI.mint(0); refundDust → transfer 0 USDC"
+    Z->>Z: "BMI.mint(0)#59; refundDust → transfer 0 USDC"
     Z-->>A: "return (bmiBal = 0 ≥ _minBMIRecv = 0)"
     Note over A: "Net: +114,146.247097 USDC stolen from Victim"
 ```

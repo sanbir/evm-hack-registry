@@ -281,7 +281,7 @@ sequenceDiagram
         N->>K: transfer(Moneys, 1,000)  // Firstlevel 10%
         N->>K: transfer(Money, 500)     // Secondlevel 5%
         N->>K: transfer(head 0xAa47, 500) // HeadPercent 5% (lost)
-        A->>N: warp(+100); withdral(id)
+        A->>N: warp(+100)#59; withdral(id)
         N->>B: transfer(attacker, 10,000)  // full refund (day=0)
         A->>U: transferFrom(Money,Moneys → attacker, 1,500 AKITADEF)
     end

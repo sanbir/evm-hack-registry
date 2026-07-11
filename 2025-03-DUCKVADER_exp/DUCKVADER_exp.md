@@ -254,7 +254,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,T: "Steps 1-2 — 11 free mints"
     loop 10 fresh helpers
-        A->>H: "new AttackContract2(); buy()"
+        A->>H: "new AttackContract2()#59; buy()"
         H->>T: "buyTokens(0)  (msg.value = 0)"
         T-->>H: "_mint 1e30 DUCKVADER (free)"
         H->>A: "transfer 1e30 DUCKVADER"

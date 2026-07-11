@@ -279,7 +279,7 @@ sequenceDiagram
 
     rect rgb(243,229,245)
     Note over A,T: "Steps 7-8 — re-include self, mint phantom balance, re-sync"
-    A->>T: "setTaxFeePercent(0); includeInReward(self)"
+    A->>T: "setTaxFeePercent(0)#59; includeInReward(self)"
     Note over T: "_tOwned[self]=0 but _rOwned kept -> balanceOf ~= 3,986,806 ROI"
     A->>P: "sync()"
     Note over P: "pair ROI reserve -> 325,973.38 (ROI now scarce/expensive)"

@@ -276,7 +276,7 @@ sequenceDiagram
     loop i = 0 .. 29
         A->>N: ac[i].init(GRIZZIFI, ac[i-1])
         N->>G: harvestHoney(0, 10 USDT, ac[i-1])
-        Note over G: registers ac[i]; _incrementUplineTeamCount walks 30 uplines
+        Note over G: registers ac[i]#59; _incrementUplineTeamCount walks 30 uplines
         N->>M: deploy AttackContract2[i] + send 10 USDT
         M->>G: harvestHoney(0, 10 USDT, ac[i-1])
         Note over G: 2nd downline for ac[i-1] -> directCount reaches 2
@@ -308,15 +308,15 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> Funded: "send 600 BSC-USD to 30 nodes"
-    Funded --> ChainBuilt: "60 harvestHoney calls<br/>(30 nodes + 30 helpers)"
-    ChainBuilt --> TeamInflated: "_incrementUplineTeamCount<br/>walks 30 uplines each call"
-    TeamInflated --> Qualified: "top nodes: teamsCount >= 20<br/>directCount >= 2"
-    Qualified --> Milestone0: "teamsCount == 20<br/>credit 50 USDT (x20 nodes)"
-    Qualified --> Milestone1: "teamsCount == 50<br/>credit 120 USDT (x5 nodes)"
+    [*] --> Funded: send 600 BSC-USD to 30 nodes
+    Funded --> ChainBuilt: 60 harvestHoney calls<br/>(30 nodes + 30 helpers)
+    ChainBuilt --> TeamInflated: _incrementUplineTeamCount<br/>walks 30 uplines each call
+    TeamInflated --> Qualified: top nodes#58; teamsCount >= 20<br/>directCount >= 2
+    Qualified --> Milestone0: teamsCount == 20<br/>credit 50 USDT (x20 nodes)
+    Qualified --> Milestone1: teamsCount == 50<br/>credit 120 USDT (x5 nodes)
     Milestone0 --> Harvested
     Milestone1 --> Harvested
-    Harvested --> [*]: "collectRefBonus()<br/>1,600 BSC-USD paid out"
+    Harvested --> [*]: collectRefBonus()<br/>1,600 BSC-USD paid out
 
     note right of TeamInflated
         Gate is users[upline].totalInvested >= 10 USDT

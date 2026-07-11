@@ -212,7 +212,7 @@ sequenceDiagram
     T->>F: _tOwned[foundation] += 21 CF (30%)
     T->>C: _tOwned[callback] += 35 CF (50%)
     T->>T: acceptAmount = 1000 - 70 = 930 CF
-    T->>T: _tOwned[pair] -= 1000 CF ; _tOwned[attacker] += 930 CF
+    T->>T: _tOwned[pair] -= 1000 CF #59; _tOwned[attacker] += 930 CF
     Note over A: attacker balance: 0 → 930 CF (free)
     Note over P: pair net: -986 CF (930 to attacker + 21 foundation + 35 callback)
 ```

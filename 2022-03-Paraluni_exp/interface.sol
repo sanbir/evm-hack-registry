@@ -1928,6 +1928,9 @@ interface IMasterChef {
     function deposit(uint256 _pid, uint256 _amount) external;
 
     function depositByAddLiquidity(uint256 _pid, address[2] memory _tokens, uint256[2] memory _amounts) external;
+    // VULNERABILITY SURFACE (called by PoC): accepts arbitrary _tokens, internally does transferFrom + router.addLiquidity
+    // which performs a token.transferFrom under router context (different msg.sender), enabling reentrant deposit
+    // from malicious token hooks before user stake accounting completes in the pid.
 
     function depositByAddLiquidityETH(uint256 _pid, address _token, uint256 _amount) external payable;
 
@@ -2085,10 +2088,13 @@ interface IMasterChef {
     function userChange(address, address) external view returns (uint256);
 
     function userInfo(uint256, address) external view returns (uint256 amount, uint256 rewardDebt);
+    // EXPLOIT NOTE: read after reentrant deposit; the amount for the EvilToken address (or attacker) contains
+    // the inflated position created by the callback reentrancy inside depositByAddLiquidity.
 
     function withdraw(uint256 _pid, uint256 _amount) external;
 
     function withdrawAndRemoveLiquidity(uint256 _pid, uint256 _amount, bool isBNB) external;
+    // Used in exploit after inflating userInfo via reentrant deposit path. Drains the (over)recorded shares.
 
     function withdrawChange(
         address[] memory tokens

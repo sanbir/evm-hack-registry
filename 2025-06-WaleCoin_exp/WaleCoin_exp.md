@@ -177,7 +177,7 @@ sequenceDiagram
     Attacker->>AC: new WaleCoinAttack(EOA) + execute()
     AC->>Proxy: initialize(AC)
     Proxy->>Impl: delegatecall initialize(AC)
-    Note over Impl: owner = AC\nauthorizations[AC] = true\nrouter = AC, pair = AC\n_balances[AC] = 1e24\n(overwrites all privileged slots)
+    Note over Impl: owner = AC<br/>authorizations[AC] = true<br/>router = AC, pair = AC<br/>_balances[AC] = 1e24<br/>(overwrites all privileged slots)
     Impl-->>Proxy: storage written
     AC->>Proxy: triggerZeusBuyback(1.415367 BNB, false)
     Proxy->>Impl: delegatecall triggerZeusBuyback (authorized OK)

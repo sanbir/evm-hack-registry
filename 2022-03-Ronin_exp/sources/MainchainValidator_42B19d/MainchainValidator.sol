@@ -162,6 +162,12 @@ contract Validator is IValidator {
     return _voteCount.mul(denom) >= num.mul(validatorCount);
   }
 
+  // VULNERABILITY (supporting): Quorum is purely a numeric ratio (num/denom of validatorCount) enforced only on the count of recovered validator signatures.
+  // No additional binding to withdrawal context, no timelock, no amount limit, no daily cap.
+  // At the time of the 2022-03 exploit, num=5, denom=9, validatorCount=9 => 5 signatures required.
+  // Once 5 keys were obtained off-chain, any caller could satisfy checkThreshold for arbitrary withdrawals.
+  // The add/remove/updateQuorum are onlyAdmin (centralized), but the signature path for withdraw is permissionless.
+
   function _addValidator(uint256 _id, address _validator)
     internal
   {

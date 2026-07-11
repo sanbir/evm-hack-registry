@@ -2513,6 +2513,12 @@ interface Pool {
         uint256 _ftmIn,
         uint256 _fantasmIn
     ) external view returns (uint256 _xftmOut, uint256 _minFtmIn, uint256 _minFantasmIn, uint256 _fee);
+    // VULNERABILITY: calcMint uses flawed decimal arithmetic for _xftmOut when _ftmIn==0
+    // Formula (per onchain/postmortem analysis): _xftmOut = (_fantasmIn * _fantasmPrice * COLLATERAL_RATIO_MAX * (PRECISION - mintingFee)) / PRECISION / (COLLATERAL_RATIO_MAX - collateralRatio) / PRICE_PRECISION
+    // PRECISION=1e6, COLLATERAL_RATIO_MAX=1e6, PRICE_PRECISION=1e18. _fantasmPrice from spot oracle (WFTM/FSM pair).
+    // Bug: no normalization between FSM (18dec) price scale vs CR scale vs expected xFTM backing share causes _xftmOut to be orders of magnitude too large.
+    // Returns _minFtmIn but caller ignores enforcement when minting with FSM only (no FTM sent).
+    // This allows minting full notional xFTM (CR-backed) using only the FSM fractional leg.
 
     function calcRedeem(
         uint256 _xftmIn
@@ -2555,6 +2561,16 @@ interface Pool {
     function minCollateralRatio() external view returns (uint256);
 
     function mint(uint256 _fantasmIn, uint256 _minXftmOut) external payable;
+    // VULNERABILITY: mint(_fantasmIn, _minXftmOut) [payable, typically value=0]
+    // Root cause: 
+    // 1. Calls calcMint(0, _fantasmIn) -> inflated _xftmOut (decimal error as above).
+    // 2. Burns _fantasmIn FSM (transferFrom + burn).
+    // 3. Records userInfo[msg.sender].xftmBalance += _xftmOut ; unclaimedXftm += _xftmOut (NO actual FTM collateral received/locked for the CR portion).
+    // 4. Ignores _minFtmIn return value; no require(_ftmIn >= _minFtmIn || msg.value >0 ); no WETH deposit for ftm leg.
+    // 5. Fee taken only on FSM? but main: unbacked xFTM credit created.
+    // Then after 1-block (collect guard), collect() does the actual xFTM.mint() from the credit.
+    // Why works: missing invariant "minted xFTM must be backed by deposited (FTM + equiv FSM) per current CR".
+    // Impact: arbitrary inflation of xFTM supply with negligible FSM cost; drains pool on redeem.
 
     function mintPaused() external view returns (bool);
 

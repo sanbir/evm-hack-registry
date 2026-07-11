@@ -254,7 +254,7 @@ sequenceDiagram
     A->>P: "sell(3,375,520.45 SVT)"
     P-->>A: "430,029.21 BUSD  (@0.1274)"
     P-->>F: "tax: 1,687,760 SVT + 47,781 BUSD"
-    Note over P: "BUSD reserve drained; k ≈ 1.64e12"
+    Note over P: "BUSD reserve drained#59; k ≈ 1.64e12"
     end
 
     rect rgb(232,245,233)

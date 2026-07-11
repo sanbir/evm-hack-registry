@@ -593,6 +593,11 @@ contract ANCHToken is IERC20, Ownable {
 
     uint256 public percent = 10000;
 
+    // VULNERABILITY CONFIG: rewardRate=5 means 5/10000 = 0.05% "transaction reward"
+    // is minted on every qualifying pair-endpoint transfer. The reward is sourced
+    // from the token contract's own balance (reflection share), not from fees
+    // taken from users. There are no guards against repeated synthetic transfers
+    // such as those produced by UniswapV2Pair.skim().
     uint256 public rewardRate = 5;
     
     constructor(address _route,
@@ -602,6 +607,7 @@ contract ANCHToken is IERC20, Ownable {
         _decimals = 18;
         
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(_route);
+        // The pair address is captured here and later used for blind identity checks.
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
         .createPair(address(this), _USDToken);
 
@@ -766,7 +772,16 @@ contract ANCHToken is IERC20, Ownable {
         require(recipient != address(0), "ERC20: transfer to the zero address");
         require(tAmount > 0, "Transfer amount must be greater than zero");
         
-        
+        // VULNERABILITY: Reward gating is based ONLY on the identity of the
+        // transfer endpoints matching the hardcoded uniswapV2Pair.
+        // - If sender == pair → treated as "buy" and may mint reward to recipient.
+        // - If recipient == pair → treated as "sell" and may mint reward to sender.
+        // There is ZERO validation that:
+        //   * a real swap via the router occurred,
+        //   * value is leaving/entering the pair's reserves,
+        //   * or that the transfer is not a no-op self-transfer.
+        // Any ERC20 transfer with pair as an endpoint (including pair.skim which
+        // does pair.transfer(pair, excessBalance)) will trigger the reward mint.
 		if(sender == uniswapV2Pair) {
             _tokenBuyTransferReward(sender, recipient, tAmount);
         } else if(recipient == uniswapV2Pair) {
@@ -797,6 +812,14 @@ contract ANCHToken is IERC20, Ownable {
 
         emit Transfer(sender, recipient, tAmount);
 
+        // VULNERABILITY (continued): When tAmount >= minTxnAmount (10k ANCH),
+        // unconditionally (if contract has balance) mints rewardAmount =
+        // tAmount * rewardRate / 10000  (default 0.05%) by moving r-tokens from
+        // the ANCHToken contract's own _rOwned balance to the RECIPIENT.
+        // This is "free" inflation paid for by the token contract's reflection
+        // share. Because skim(pair) makes recipient==pair and sender==pair,
+        // the reward lands in the pair, increasing its balanceOf without any
+        // corresponding change to reserves or k-value.
          if(tAmount >= minTxnAmount) {
             uint256 rewardAmount = tAmount.mul(rewardRate).div(percent);
             if(balanceOf(address(this)) >= rewardAmount) {

@@ -193,11 +193,11 @@ sequenceDiagram
 flowchart TD
     E[Bet placed at block N] --> S{settle called?}
     S -->|no, wait| S
-    S -->|yes, block > N+2| BH{blockhash N+2 available?\nwithin 256 blocks}
-    BH -->|yes - secure| R1[result = hash % 16\nbettor could not know at entry]
-    BH -->|no - EXPIRED| FB[Fallback:\nkeccak256 prevrandao, betId, timestamp]
-    FB --> R2[result = hash % 16\nALL inputs readable by caller]
-    R2 --> DEC{caller computed\nresult off-chain first?}
+    S -->|yes, block > N+2| BH{blockhash N+2 available?<br/>within 256 blocks}
+    BH -->|yes - secure| R1[result = hash % 16<br/>bettor could not know at entry]
+    BH -->|no - EXPIRED| FB[Fallback:<br/>keccak256 prevrandao, betId, timestamp]
+    FB --> R2[result = hash % 16<br/>ALL inputs readable by caller]
+    R2 --> DEC{caller computed<br/>result off-chain first?}
     DEC -->|winning| SETTLE[broadcast settle -> guaranteed 1.95x payout]
     DEC -->|losing| SKIP[skip block, try again later - costs nothing]
     SKIP --> S

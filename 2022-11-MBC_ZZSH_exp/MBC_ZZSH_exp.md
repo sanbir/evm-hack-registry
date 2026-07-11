@@ -283,7 +283,7 @@ sequenceDiagram
     rect rgb(232,245,233)
     Note over A,T: "Step 3 — sell into the deepened USDT reserve"
     A->>P: "transfer 1001 wei USDT (trips _isAddLiquidityV1)"
-    A->>P: "transfer 10,692.67 MBC; swap USDT out"
+    A->>P: "transfer 10,692.67 MBC#59; swap USDT out"
     P-->>A: "155,615.25 USDT  (> 150,000 spent)"
     end
 

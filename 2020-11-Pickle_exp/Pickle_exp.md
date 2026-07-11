@@ -347,12 +347,12 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> Approved : "governance approves CurveProxyLogic<br/>(intended: Curve→Uni LP migration)"
-    Approved --> Hijacked : "attacker passes (target, selector)<br/>add_liquidity becomes an open relay"
-    Hijacked --> AsController : "delegatecall ⇒ curve.call runs<br/>with msg.sender == ControllerV4"
-    AsController --> Bypassed : "Strategy: require(msg.sender == controller) ✓<br/>cannot tell legit vs malicious flow"
-    Bypassed --> Drained : "withdrawAll + earn x5 + withdraw(cDAI)<br/>entire cDAI position leaves the strategy"
-    Drained --> [*] : "FakeJar.deposit → tx.origin"
+    [*] --> Approved : governance approves CurveProxyLogic<br/>(intended#58; Curve→Uni LP migration)
+    Approved --> Hijacked : attacker passes (target, selector)<br/>add_liquidity becomes an open relay
+    Hijacked --> AsController : delegatecall ⇒ curve.call runs<br/>with msg.sender == ControllerV4
+    AsController --> Bypassed : Strategy#58; require(msg.sender == controller) ✓<br/>cannot tell legit vs malicious flow
+    Bypassed --> Drained : withdrawAll + earn x5 + withdraw(cDAI)<br/>entire cDAI position leaves the strategy
+    Drained --> [*] : FakeJar.deposit → tx.origin
 ```
 
 ---

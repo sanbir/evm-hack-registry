@@ -68,7 +68,7 @@ struct Order {
     bytes interactions; // concat(makerAssetData, takerAssetData, getMakingAmount, getTakingAmount, predicate, permit, preIntercation, postInteraction)
 }
 
-contract ONEINCH is Test {
+contract ContractTest is Test {
     uint256 blocknumToForkFrom = 21982110;
 
     address ATTACK_DEPLOYER = 0xA7264a43A57Ca17012148c46AdBc15a5F951766e;

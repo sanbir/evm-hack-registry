@@ -1343,7 +1343,7 @@ contract luckytiger is ERC721L, Ownable {
     string baseTokenURI;
     address public withdrawAddress = 0x511604E18d63D32ac2605B5f0aF0cF580D21FA49;
     bool public pauseMint;
-    bool lucky;
+    bool lucky;  // VULNERABILITY: global mutable "luck" flag set by block-hash; shared across all callers/mints in block
     uint256 public price = 0.01 * 10 ** 18;
     uint public constant maxTotal = 1000;
     event NEWLucky(uint256 _tokenId, bool lucky);
@@ -1406,10 +1406,24 @@ contract luckytiger is ERC721L, Ownable {
         if(tokenId_luckys[tokenId] == true){
         require(payable(msg.sender).send((price * 95) / 100));
         require(payable(withdrawAddress).send((price * 5) / 100));}
+        // Note: same vulnerable RNG path as publicMint; prize funded at 95% here.
     }
     /**
      * lucky！ lucky！ lucky！ lucky！ lucky！ lucky！ lucky！ lucky！ lucky！
      */
+    // VULNERABILITY: Predictable Block-Dependent "Lucky" Mint Prize via Weak Randomness
+    // [detailed explanation with code references]
+    // - Uses only public, miner-influenceable block vars for 50/50 prize decision that pays 1.9x refund.
+    // - block.difficulty + block.timestamp produce a value constant *per entire block*, allowing batch profitable mints.
+    // - Global `lucky` bool (not per-mint isolated computation) + storage write decides payout > cost.
+    // - No entropy from msg.sender, prior state, or secure source. _getRandom called post-payment.
+    // - Similar flaw in freeMint (but whitelist gated).
+    // See also: _getRandom below, tokenId_luckys usage, isPrize(), tokenURI branch.
+    // EXPLOIT STEPS:
+    // 1. Compute locally keccak256(abi.encodePacked(difficulty, ts)) % 2 == 1 for chosen/observable block ts.
+    // 2. Issue 1+ publicMint() txs (payable 0.01) in that block; all will see same rand, set lucky=true.
+    // 3. Contract pays (0.019) back to minter (using its balance) + 0.001 to withdraw; net loss to protocol, gain to attacker.
+    // 4. Repeat across favorable blocks or multiple calls/txns before supply limit. Drain prize pool + bonus.
     function publicMint() public payable {
         uint256 supply = totalSupply();
         require(!pauseMint, "Pause mint");
@@ -1433,6 +1447,15 @@ contract luckytiger is ERC721L, Ownable {
     /**
      * lucky！ lucky！ lucky！ lucky！ lucky！ lucky！ lucky！ lucky！ lucky！
      */  
+    // VULNERABILITY MARKER (core RNG):
+    // function _getRandom() private returns(bool) {
+    //     uint256 random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
+    //     uint256 rand = random%2;
+    //     if(rand == 0){return lucky = false;}
+    //     else         {return lucky = true;}
+    // }
+    // This is the single source of "luck". It mutates global `lucky` storage and is 100% determined by block context.
+    // Called from both publicMint and freeMint. Return value ignored in one place (uses side-effect `lucky`).
     function _getRandom() private returns(bool) {
         uint256 random = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
         uint256 rand = random%2;

@@ -5382,6 +5382,11 @@ interface IERC4626 is IERC20 {
 
     function mint(uint256 shares, address receiver) external returns (uint256 assets);
 
+    // NOTE: standard ERC4626 withdraw/redeem MUST enforce authorization:
+    //   if (msg.sender != owner) _spendAllowance(owner, msg.sender, sharesOrAssets);
+    // The 2022-08 ReaperVaultV2 omitted this, allowing arbitrary (receiver, owner) in calls.
+    // See the exploit PoCs in test/ReaperFarm_exp.sol and test/ReaperFarmDrain.sol
+    // for the exact abuse of the 3-param forms.
     function withdraw(uint256 assets, address receiver, address owner) external returns (uint256 shares);
 
     function redeem(uint256 shares, address receiver, address owner) external returns (uint256 assets);

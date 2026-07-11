@@ -326,23 +326,23 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> P0: principal = 0
-    P0 --> P1: "supply(21594) commits"
+    P0 --> P1: supply(21594) commits
     note right of P1
       principal = 21,594
       pool cash += 21,594
     end note
-    P1 --> RW: "supply(1): transferIn hook re-enters"
-    RW --> P2: "re-entrant withdraw(max)"
+    P1 --> RW: supply(1)#58; transferIn hook re-enters
+    RW --> P2: re-entrant withdraw(max)
     note right of P2
       principal = 0
       attacker += 21,594  (1st payout)
     end note
-    P2 --> P3: "outer supply(1) resumes, stale write"
+    P2 --> P3: outer supply(1) resumes, stale write
     note right of P3
       principal = 21,595  (clobbered)
       ⚠️ withdrawal forgotten
     end note
-    P3 --> P4: "withdraw(max) again"
+    P3 --> P4: withdraw(max) again
     note right of P4
       principal = 0
       attacker += 21,595  (2nd payout)

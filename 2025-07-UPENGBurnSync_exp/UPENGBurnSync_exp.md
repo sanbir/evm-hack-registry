@@ -151,7 +151,7 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A[Open burn(address,uint256)] -->|any caller| B[Pair UPENG balance gutted to 1]
+    A["Open burn(address,uint256)"] -->|any caller| B[Pair UPENG balance gutted to 1]
     B --> C[pair.sync commits reserves = 1 UPENG / 1.5 WBNB]
     C --> D[AMM prices 1 wei UPENG ~= 1.5 WBNB]
     D --> E[Sell 13,955 UPENG for whole WBNB reserve]

@@ -464,6 +464,9 @@ contract AkuAuction is Ownable {
     uint256 public totalBidValue;
     uint256 public maxBids = 3;
     uint256 public refundProgress = 1;
+    // VULNERABILITY CONTEXT: bidIndex counts bidder *entries* (1 per unique address);
+    // totalBids counts total *NFTs* (sum of multi-bid amounts). Mismatch enables claim lock.
+    // allBids stores bidder (potentially contract) without validation. refundProgress drives the unsafe loop.
 
     akuNFT public akuNFTs;
 
@@ -537,6 +540,10 @@ contract AkuAuction is Ownable {
             personalBids[msg.sender] = bidIndex;
             allBids[bidIndex] = myBids;
             bidIndex++;
+            // VULNERABILITY: Unconditional registration of arbitrary (incl. contract) bidders
+            // No isContract() check here (or in bid()). Any contract can become a bidder entry.
+            // Later used in processRefunds' call+require which can be made to fail.
+            // See exploit: test contract registers via fallback that will always revert.
         }
         
         totalBids = _totalBids;
@@ -600,6 +607,16 @@ contract AkuAuction is Ownable {
             if (refund > 0) {
                 (bool sent, ) = bidData.bidder.call{value: refund}("");
                 require(sent, "Failed to refund bidder");
+                // VULNERABILITY: Reverting-bidder DoS here
+                // bidData.bidder may be a contract whose fallback() reverts.
+                // .call returns (false, ...); require aborts entire tx (atomicity).
+                // Writes to allBids[i] and _refundProgress are reverted.
+                // No way to advance refundProgress past a bad entry; loop always re-hits it.
+                // EXPLOIT STEPS:
+                // 1. Contract bids exact price (no excess refund at bid time).
+                // 2. Registers in allBids[] (no contract filter in _bid).
+                // 3. After auction end, processRefunds() reaches it -> call reverts -> require fails.
+                // 4. All refunds (including honest users) rolled back. Funds locked + grief.
             }
           }
           
@@ -614,6 +631,19 @@ contract AkuAuction is Ownable {
     function claimProjectFunds() external onlyOwner {
         require(block.timestamp > expiresAt, "Auction still in progress");
         require(refundProgress >= totalBids, "Refunds not yet processed");
+        // VULNERABILITY: Type mismatch between counters: bid slots vs NFT count
+        // refundProgress (== final bidIndex after full refunds) == #unique-bidder-entries +1
+        // totalBids == sum of all `amount` across bids (NFTs sold, <=5495)
+        // With maxBids=3, #entries << totalBids possible (and normal). Never >= after realistic bidding.
+        // Even successful processRefunds() leaves claim blocked -> project funds permanently frozen.
+        // See: decls 462: bidIndex=1; 463:totalBids; 466:refundProgress=1;
+        // bid: 518 totalBids+=amount , 539 bidIndex++ (only new bidders), 542 assignment
+        // process: 611 refundProgress=_refundProgress (per entry)
+        // EXPLOIT STEPS (funds lock):
+        // 1. Bidders (at least one) use amount>1.
+        // 2. (Even without DoS) processRefunds completes => refundProgress ~ #bidders.
+        // 3. owner calls claim: require fails because e.g. 1800 >= 5495 is false.
+        // 4. 34M+ USD locked; no other drain path for project.
         require(akuNFTs.airdropProgress() >= totalBids, "Airdrop not complete");
 
         (bool sent, ) = project.call{value: address(this).balance}("");

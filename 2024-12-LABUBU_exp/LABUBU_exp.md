@@ -277,11 +277,11 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Seeded : "flash loan: +amount0"
-    Seeded --> Inflated : "30x self-transfer (+amount0 each)"
-    Inflated --> Surplus : "repay amount0 + fee0"
-    Surplus --> SoldToVOVO : "exactInputSingle LABUBU->VOVO"
-    SoldToVOVO --> CashedOut : "VOVO->wBNB->BNB"
+    [*] --> Seeded : flash loan#58; +amount0
+    Seeded --> Inflated : 30x self-transfer (+amount0 each)
+    Inflated --> Surplus : repay amount0 + fee0
+    Surplus --> SoldToVOVO : exactInputSingle LABUBU->VOVO
+    SoldToVOVO --> CashedOut : VOVO->wBNB->BNB
     CashedOut --> [*]
 
     note right of Seeded

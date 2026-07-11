@@ -237,7 +237,7 @@ sequenceDiagram
     participant S as "SMT token (0x55F9…e081)"
     participant E as "ecrecover precompile"
 
-    Note over A: Pick (_v,_r,_s); let _from = ecrecover output<br/>Pick _value=0x8fff…ffff, _feeSmt=0x7000…0001<br/>so that _value + _feeSmt = 2^256 (wraps to 0)
+    Note over A: Pick (_v,_r,_s)#59; let _from = ecrecover output<br/>Pick _value=0x8fff…ffff, _feeSmt=0x7000…0001<br/>so that _value + _feeSmt = 2^256 (wraps to 0)
 
     A->>S: "transferProxy(_from, _to, _value, _feeSmt, v, r, s)"
     Note over S: "Guard: balances[_from] < _feeSmt + _value<br/>= balances[_from] < 0  ⇒ FALSE (bypassed)"

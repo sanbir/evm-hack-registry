@@ -448,6 +448,10 @@ contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
         _update(balance0, balance1, _reserve0, _reserve1);
         if (feeOn) kLast = uint(reserve0).mul(reserve1); // reserve0 and reserve1 are up-to-date
         emit Burn(msg.sender, amount0, amount1, to);
+        // VULNERABILITY NOTE (for 2022-08-Circle_exp1): This burn computes redemption at ACTUAL current reserves (balance0/1) / totalSupply.
+        // In the exploit, LP freed from Maker CDP (via frob negative dink + GemJoin.exit) was burned here to capture DAI+USDC value
+        // strictly higher than the value Maker's UNIV2DAIUSDC-A oracle/spot had assigned when the same LP was used as collateral (ink).
+        // The delta between this redemption and Maker's accounting is the extracted profit (see onFlashLoan in test/Circle_exp1.sol).
     }
 
     // this low-level function should be called from a contract which performs important safety checks

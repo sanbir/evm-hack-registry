@@ -351,7 +351,7 @@ sequenceDiagram
     Note over A,T: Buy #1 — small price nudge
     A->>T: registerAffiliate(existing referrer)
     A->>T: buy(420,000 USDT)
-    T->>T: _mint(self, LPT); _updatePrice()
+    T->>T: _mint(self, LPT), _updatePrice()
     Note over T: reserve 646,119 USDT / livePrice 0.4622
     end
 
@@ -360,7 +360,7 @@ sequenceDiagram
     A->>H: fund 1,000,000 USDT
     H->>T: registerAffiliate(coordinator)
     H->>T: buy(1,000,000 USDT)
-    T->>T: _mint(self, LPT); referral bonus -> coordinator
+    T->>T: _mint(self, LPT), referral bonus -> coordinator
     T->>T: _updatePrice()
     Note over T: reserve 1,646,119 USDT / livePrice 24.9757 ⚠️
     end

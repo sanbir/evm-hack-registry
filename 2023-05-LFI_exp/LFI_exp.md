@@ -282,21 +282,21 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Staked
-    Staked: "Stake done\nclaimer0 holds b VLFI\nrewardDebt baselined (owed ~0)"
+    Staked: Stake done<br/>claimer0 holds b VLFI<br/>rewardDebt baselined (owed ~0)
 
-    Staked --> ClaimFresh: "delegatecall claimReward\nmsg.sender = fresh Claimer"
+    Staked --> ClaimFresh: delegatecall claimReward<br/>msg.sender = fresh Claimer
 
-    ClaimFresh: "cleanUserMapping()\nuserCleanMapping=false\nrewardDebt := 0  (BUG)"
+    ClaimFresh: cleanUserMapping()<br/>userCleanMapping=false<br/>rewardDebt #58;= 0  (BUG)
     ClaimFresh --> Payout
 
-    Payout: "pending = b*accRPS/1e18 - 0\ntransfer LFI to attacker"
+    Payout: pending = b*accRPS/1e18 - 0<br/>transfer LFI to attacker
     Payout --> MoveBalance
 
-    MoveBalance: "deploy fresh Claimer\ntransfer b VLFI to it\n_transfer sets its rewardDebt (correct)"
-    MoveBalance --> ClaimFresh: "next hop wipes that debt again"
+    MoveBalance: deploy fresh Claimer<br/>transfer b VLFI to it<br/>_transfer sets its rewardDebt (correct)
+    MoveBalance --> ClaimFresh: next hop wipes that debt again
 
-    MoveBalance --> Done: "after 200 hops"
-    Done: "Attacker holds ~200 * b*accRPS/1e18 LFI\nPool principal drained (~$36K)"
+    MoveBalance --> Done: after 200 hops
+    Done: Attacker holds ~200 * b*accRPS/1e18 LFI<br/>Pool principal drained (~$36K)
     Done --> [*]
 ```
 

@@ -305,7 +305,7 @@ sequenceDiagram
 
     rect rgb(243,229,245)
     Note over A: Step 5-7 - liquidate, swap all to WMATIC, repay flash loans
-    A->>A: swapAll() -> USDC -> WMATIC; wrap MATIC
+    A->>A: swapAll() -> USDC -> WMATIC#59; wrap MATIC
     A->>FL: repay all three flash loans
     Note over A: Net +663,101.30 WMATIC
     end

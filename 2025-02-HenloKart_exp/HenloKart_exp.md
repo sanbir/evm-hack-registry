@@ -141,11 +141,11 @@ sequenceDiagram
     H->>T: transferEth(from=A, to=H, 0.59e18)
     T->>T: from == msg.sender -> send-from-contract branch
     Note over T,H: self-transfer, no msg.value checked, deposit never paid
-    H->>S: write RaceCommitment as fully funded\nset commitmentLockStart = now
+    H->>S: write RaceCommitment as fully funded<br/>set commitmentLockStart = now
     H-->>A: commitmentHash
 
     A->>H: cancelCommitment(commitmentHash)
-    H->>H: lockedUntil = now + 1 day\ncheck (lockedUntil < now) -> false, passes
+    H->>H: lockedUntil = now + 1 day<br/>check (lockedUntil < now) -> false, passes
     H->>T: transferEth(from=H, to=A, 0.59e18)
     T->>A: payable(A).transfer(0.59e18) from HenloKart balance
     H-->>A: done
@@ -154,12 +154,12 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A[transferEth from to amount] --> B{from == msg.sender\nOR from == address this}
-    B -- yes --> C[payable to .transfer amount\npaid out of address this\nNO msg.value check]
-    B -- no --> D{to == msg.sender\nOR to == address this}
+    A[transferEth from to amount] --> B{from == msg.sender<br/>OR from == address this}
+    B -- yes --> C[payable to .transfer amount<br/>paid out of address this<br/>NO msg.value check]
+    B -- no --> D{to == msg.sender<br/>OR to == address this}
     D -- yes --> E[require msg.value >= amount]
     D -- no --> F[noop]
-    C --> G[Bug: caller funds deposit for free\nif from == msg.sender]
+    C --> G[Bug: caller funds deposit for free<br/>if from == msg.sender]
 ```
 
 ## Remediation

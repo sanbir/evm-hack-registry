@@ -262,7 +262,7 @@ sequenceDiagram
     L->>F: accountingContextForTokenOf() ⇒ decimals = 36
     L->>L: totalBorrowedFrom[3][fake][fake] += 4.448e29
     L->>F: useAllowanceOf(...) ⇒ returns 4.448e29 (transfers nothing)
-    Note over L: phantom borrow booked; surplus appears huge
+    Note over L: phantom borrow booked, surplus appears huge
     end
 
     rect rgb(255,235,238)

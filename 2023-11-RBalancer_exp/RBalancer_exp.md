@@ -301,7 +301,7 @@ sequenceDiagram
     A->>V: "rollToNextRound()"
     V->>SC: "rebaseStrategies(8,600 ETH, 0)"
     SC->>S: "deposit ETH into Lido / Frax / Balancer LP"
-    V->>V: "round 3 to 4; roundPrice[3] = 0.99972"
+    V->>V: "round 3 to 4#59; roundPrice[3] = 0.99972"
     end
 
     rect rgb(255,235,238)

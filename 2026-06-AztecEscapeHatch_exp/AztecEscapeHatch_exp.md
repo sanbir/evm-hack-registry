@@ -356,7 +356,7 @@ sequenceDiagram
     V->>PRE: modexp / ecmul / ecadd / ecpairing
     PRE-->>V: ecpairing => true
     V-->>RP: require(result, "Proof failed") passes
-    RP->>RP: commit newDataRoot/nullRoot/rootRoot; nextRollupId++
+    RP->>RP: commit newDataRoot/nullRoot/rootRoot, nextRollupId++
     RP->>RP: processDepositsAndWithdrawals(): publicOutput > 0
     RP->>TKN: withdraw(publicOutput, outputOwner=attacker, assetId)
     TKN-->>A: pooled funds transferred out (no matching deposit)

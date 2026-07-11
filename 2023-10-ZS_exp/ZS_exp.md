@@ -266,7 +266,7 @@ sequenceDiagram
     R->>P: "swap()"
     P-->>A: "93,321.15 ZS"
     A->>P: "transfer 1 BUSD-T + 1e18 ZS, then sync()"
-    Note over P: "reserves refreshed; Burnamount still pending"
+    Note over P: "reserves refreshed#59; Burnamount still pending"
     end
 
     rect rgb(227,242,253)

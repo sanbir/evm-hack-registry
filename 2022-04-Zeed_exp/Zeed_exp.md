@@ -356,7 +356,7 @@ sequenceDiagram
     Note over A,Y: Step 1 - seed usdtYeedPair (triggers _takeReward)
     A->>Y: transfer(usdtYeedPair, 662.4 YEED)
     Y->>Y: _transferSell -> _takeReward
-    Note over U,H,Z: balances[balance] += rewardFee (FULL, not slice) x3<br/>skim-able surplus created in ALL THREE pairs
+    Note over U,Z: balances[balance] += rewardFee (FULL, not slice) x3<br/>skim-able surplus created in ALL THREE pairs
     end
 
     rect rgb(255,235,238)
@@ -369,7 +369,7 @@ sequenceDiagram
         A->>Z: skim(usdtYeedPair)      // YEED surplus ZEED -> USDT
         Y->>Y: transfer into U re-fires _takeReward
     end
-    Note over U,H,Z: each pair's balance1 >> reserve1 (phantom surplus)
+    Note over U,Z: each pair's balance1 >> reserve1 (phantom surplus)
     end
 
     rect rgb(243,229,245)
@@ -383,7 +383,7 @@ sequenceDiagram
     rect rgb(232,245,233)
     Note over A,R: Step 7 - repay flash (0.3% premium)
     A->>Y: transfer(flashPair, 664,410,549,241,444,339,040 YEED)
-    Note over F: swap k-check passes; flash settled
+    Note over F: swap k-check passes#59; flash settled
     Note over A: remaining 1,854.4 YEED is pure profit
     end
 
@@ -422,7 +422,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start(["_transferSell(sender, pair, amount)") --> Burn["_burnFee = amount * 50 / 1000 (5%)"]
+    Start(["_transferSell(sender, pair, amount)"]) --> Burn["_burnFee = amount * 50 / 1000 (5%)"]
     Burn --> RF["rewardFee = amount * 50 / 1000 (5%)"]
     RF --> Slices["zeedReward = rewardFee / 2  (50%)<br/>hoReward = rewardFee / 4   (25%)<br/>usdtReward = rewardFee / 4 (25%)"]
     Slices --> C1{"Credit each pair?"}

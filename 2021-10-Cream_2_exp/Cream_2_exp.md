@@ -297,11 +297,11 @@ sequenceDiagram
 
     A->>MK: flashLoan 500,000,000 DAI
     A->>CV: DAI → Curve LP → deposit() → 4.467e26 yUSD shares
-    A->>CR: crYUSD.mint() → 22,337,774,800 crYUSD; enterMarkets
+    A->>CR: crYUSD.mint() → 22,337,774,800 crYUSD#59; enterMarkets
 
     A->>S: justDoIt()
     S->>AV: flashLoan 524,102 WETH
-    S->>CR: mint 518,102 ETH as crETH; enterMarkets
+    S->>CR: mint 518,102 ETH as crETH#59; enterMarkets
     loop recursive yUSD borrow
         S->>CR: borrow yUSD, mint more crYUSD, send to A
     end

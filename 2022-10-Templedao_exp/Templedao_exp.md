@@ -304,8 +304,8 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> Honest: honest LPs deposited<br/>realLP = 321,154.865<br/>_totalSupply = 321,154.865<br/>backed 1:1
-    Honest --> Phantom: migrateStake(fakeOld, full)<br/>realLP unchanged = 321,154.865<br/>_totalSupply = 642,309.731<br/>⚠️ over-credited 1:2
+    [*] --> Honest: honest LPs deposited<br/>realLP = 321,154.865<br/>_totalSupply = 321,154.865<br/>backed 1#58;1
+    Honest --> Phantom: migrateStake(fakeOld, full)<br/>realLP unchanged = 321,154.865<br/>_totalSupply = 642,309.731<br/>⚠️ over-credited 1#58;2
     Phantom --> Insolvent: withdrawAll()<br/>realLP = 0<br/>_totalSupply = 321,154.865<br/>⚠️ honest stakers now unbacked
     Insolvent --> [*]
 ```

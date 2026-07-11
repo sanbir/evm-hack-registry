@@ -275,7 +275,7 @@ sequenceDiagram
     A->>S: "roll +1 block"
     A->>S: "updatePool(0, rewardPerBlock = 48,000,000 GROKD)"
     Note over S: "emission cranked, endBlock +100M"
-    A->>S: "roll +1 block; update()"
+    A->>S: "roll +1 block#59; update()"
     Note over S: "accRewardPerShare inflated"
     end
 

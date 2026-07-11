@@ -251,7 +251,7 @@ sequenceDiagram
     rect rgb(232,245,233)
     Note over A,W: Steps 1-2 — seed wrapper + co-collateral
     A->>W: deposit 1k USDC + 1k USDCe (seed position)
-    A->>L: deposit 35.7 WETH; borrow 988k LP shares (Helper)
+    A->>L: deposit 35.7 WETH#59; borrow 988k LP shares (Helper)
     end
 
     rect rgb(255,235,238)
@@ -317,15 +317,15 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> S0
-    S0: Stage 0 - Initial<br/>pool tick 16 (1:1)<br/>24M USDC / 51M USDCe<br/>LP priced fairly
+    S0: Stage 0 - Initial<br/>pool tick 16 (1#58;1)<br/>24M USDC / 51M USDCe<br/>LP priced fairly
     S0 --> S1: skew 5.49M USDCe -> USDC
-    S1: Stage 1 - SKEWED<br/>tick 17, USDC drained to 24.3M<br/>891.9M USDCe<br/>LP spot value << 1:1 value
+    S1: Stage 1 - SKEWED<br/>tick 17, USDC drained to 24.3M<br/>891.9M USDCe<br/>LP spot value << 1#58;1 value
     S1 --> S2: deposit LP + WETH as collateral
-    S2: Stage 2 - Collateral posted<br/>oracle reports $100,995 / LP share<br/>(uses 1:1, ignores skew)
+    S2: Stage 2 - Collateral posted<br/>oracle reports $100,995 / LP share<br/>(uses 1#58;1, ignores skew)
     S2 --> S3: borrow all reserves
     S3: Stage 3 - POOL DRAINED<br/>attacker holds 234K stables<br/>+ 20.3 WETH + 8.53 wstETH
     S3 --> S4: reverse swap restores tick
-    S4: Stage 4 - Unwound<br/>pool back near 1:1<br/>flash loans repaid<br/>attacker +$340K
+    S4: Stage 4 - Unwound<br/>pool back near 1#58;1<br/>flash loans repaid<br/>attacker +$340K
     S4 --> [*]
 ```
 

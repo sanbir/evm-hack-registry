@@ -164,14 +164,14 @@ Setup fork: Base mainnet at block `34,100,255`. Attacker contract (`BaseBebopSet
 ```mermaid
 sequenceDiagram
     participant A as Attacker EOA
-    participant AC as Attack Contract\n(self-taker, executor)
-    participant S as JamSettlement\n0xbeb0...4ea6
-    participant U as USDC\n(USDC_HOLDER approved S)
-    participant X as uXRP\n(Victim approved S)
+    participant AC as Attack Contract<br/>(self-taker, executor)
+    participant S as JamSettlement<br/>0xbeb0...4ea6
+    participant U as USDC<br/>(USDC_HOLDER approved S)
+    participant X as uXRP<br/>(Victim approved S)
 
     A->>AC: run()
     AC->>S: settle(order taker=AC, sig=0x, interactions, receiver=AC)
-    Note over S: validateOrder: taker==msg.sender\nSKIP signature check\nempty sell/buy arrays OK
+    Note over S: validateOrder: taker==msg.sender<br/>SKIP signature check<br/>empty sell/buy arrays OK
     S->>S: balanceManager.transferTokens([], [], ...) no-op
     S->>U: call transferFrom(USDC_HOLDER, AC, 1000e6)
     U-->>AC: Transfer 1000 USDC
@@ -179,7 +179,7 @@ sequenceDiagram
     X-->>AC: Transfer 901.467 uXRP
     S->>S: transferTokensFromContract([], []) no-op
     S-->>AC: settle returns
-    Note over A,AC: Attacker keeps 1000 USDC + 901.467 uXRP\nNo capital, no signature, no privileged role
+    Note over A,AC: Attacker keeps 1000 USDC + 901.467 uXRP<br/>No capital, no signature, no privileged role
 ```
 
 ### Flaw flow
@@ -193,8 +193,8 @@ flowchart TD
     D --> E
     E --> F{interaction.to == balanceManager?}
     F -- yes --> G[Revert]
-    F -- no --> H[call interaction.to with interaction.data\nmsg.sender = JamSettlement]
-    H --> I[transferFrom victim, attacker, amount\nuses pre-existing allowances]
+    F -- no --> H[call interaction.to with interaction.data<br/>msg.sender = JamSettlement]
+    H --> I[transferFrom victim, attacker, amount<br/>uses pre-existing allowances]
     I --> J[Victim drained]
 ```
 

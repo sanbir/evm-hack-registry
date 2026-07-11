@@ -298,10 +298,10 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> S0
-    S0: "Stage 0 · Initial<br/>Attacker NGFS = 0<br/>Pool: 192,044.91 USDT / 1,919,552,117.75 NGFS"
-    S1: "Stage 1 · After role hijack<br/>proxy = library = Attacker<br/>(pool unchanged)"
-    S2: "Stage 2 · After reserveMultiSync<br/>Attacker NGFS = 1,919,552,117.75<br/>totalSupply NOT updated (silent inflation)"
-    S3: "Stage 3 · After swap<br/>Attacker USDT += 95,902.28<br/>Pool: 96,142.63 USDT / 3,839,104,235.50 NGFS"
+    S0: Stage 0 · Initial<br/>Attacker NGFS = 0<br/>Pool#58; 192,044.91 USDT / 1,919,552,117.75 NGFS
+    S1: Stage 1 · After role hijack<br/>proxy = library = Attacker<br/>(pool unchanged)
+    S2: Stage 2 · After reserveMultiSync<br/>Attacker NGFS = 1,919,552,117.75<br/>totalSupply NOT updated (silent inflation)
+    S3: Stage 3 · After swap<br/>Attacker USDT += 95,902.28<br/>Pool#58; 96,142.63 USDT / 3,839,104,235.50 NGFS
 
     S0 --> S1: delegateCallReserves + setProxySync
     S1 --> S2: reserveMultiSync (free mint)

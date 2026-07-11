@@ -322,7 +322,7 @@ sequenceDiagram
     A->>V3: repay 11.446M NORMIE
     end
 
-    Note over A: Net +~64 WETH (~$211K); pool drained 173 -> 21 WETH
+    Note over A: Net +~64 WETH (~$211K)#59; pool drained 173 -> 21 WETH
 ```
 
 ### Pool state evolution

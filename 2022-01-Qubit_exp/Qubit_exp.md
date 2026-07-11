@@ -122,7 +122,7 @@ sequenceDiagram
     H->>H: require(contractWhitelist[0x0])  ✓ (sentinel)
     H->>H: 0x0.transferFrom(attacker, handler, 190e18) → [Stop] (no-op)
     H-->>B: (no revert)
-    B-->>B: emit Deposit(...); nonce++
+    B-->>B: emit Deposit(...)#59; nonce++
     Note over R: Relayers see a valid deposit record,<br/>mint 190 wrapped-ETH-equivalent on BSC to attacker.
 ```
 

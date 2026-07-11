@@ -32,13 +32,30 @@ UNCLE_HASH = "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347
 
 
 def extract_code(code_field):
-    """Foundry stores code as { "<Variant>": { bytecode: "0x..." } } or a raw 0x-string."""
+    """Foundry stores code as { "<Variant>": { bytecode: "0x..." } } or a raw 0x-string.
+
+    revm's "LegacyAnalyzed" variant (used for pre-EOF/legacy bytecode) pads
+    `bytecode` with ONE extra trailing zero byte beyond the real deployed code
+    (an interpreter safety pad, e.g. an all-zero-code account serializes as
+    bytecode="0x00", original_len=0 instead of bytecode="0x"). `original_len`
+    is the authoritative length; without truncating to it, EVERY account's
+    code carries a spurious +1 trailing 0x00 byte, which silently breaks
+    verified-source bytecode matching (an off-by-one masquerading as a "real"
+    on-chain divergence) and inflates EXTCODESIZE for accounts that should
+    read as empty (no code).
+    """
     if isinstance(code_field, str) and code_field.startswith("0x"):
         return code_field
     if isinstance(code_field, dict):
         for v in code_field.values():
             if isinstance(v, dict) and "bytecode" in v and isinstance(v["bytecode"], str):
-                return v["bytecode"]
+                bytecode = v["bytecode"]
+                original_len = v.get("original_len")
+                if isinstance(original_len, int) and original_len >= 0:
+                    want_hex_len = 2 + original_len * 2
+                    if len(bytecode) > want_hex_len:
+                        return bytecode[:want_hex_len]
+                return bytecode
             if isinstance(v, str) and v.startswith("0x"):
                 return v
     return "0x"

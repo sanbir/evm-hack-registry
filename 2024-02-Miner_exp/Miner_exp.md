@@ -376,7 +376,7 @@ sequenceDiagram
     A-->>P: "callback returns"
     P->>P: "require(balance1Before + amount1 <= balance1())  // 'IIA' passes"
     Note over P: "pool thinks it was paid in MINER"
-    P-->>A: "swap() returns; A keeps the WETH"
+    P-->>A: "swap() returns#59; A keeps the WETH"
     Note over A: "WETH: 0 -> 27.0779940952694085 (profit)"
 ```
 
@@ -405,15 +405,15 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> ComputeAmounts: "swap(zeroForOne=false)"
-    ComputeAmounts --> PayOutput: "amount0 (WETH) < 0 -> pool owes WETH"
-    PayOutput --> Callback: "safeTransfer(WETH, attacker) FIRST"
-    Callback --> Repay: "uniswapV3SwapCallback()"
-    Repay --> Repay: "loop: transfer(pool, 0.5e18) raises balance1()"
-    Repay --> Check: "callback returns"
-    Check --> Done: "require(balance1Before + amount1 <= balance1()) — 'IIA' OK"
-    Check --> Revert: "if not enough MINER deposited -> revert 'IIA'"
-    Done --> [*]: "attacker keeps WETH paid in PayOutput"
+    [*] --> ComputeAmounts: swap(zeroForOne=false)
+    ComputeAmounts --> PayOutput: amount0 (WETH) < 0 -> pool owes WETH
+    PayOutput --> Callback: safeTransfer(WETH, attacker) FIRST
+    Callback --> Repay: uniswapV3SwapCallback()
+    Repay --> Repay: loop#58; transfer(pool, 0.5e18) raises balance1()
+    Repay --> Check: callback returns
+    Check --> Done: require(balance1Before + amount1 <= balance1()) — 'IIA' OK
+    Check --> Revert: if not enough MINER deposited -> revert 'IIA'
+    Done --> [*]: attacker keeps WETH paid in PayOutput
 
     note right of PayOutput
         Output token paid BEFORE the callback.

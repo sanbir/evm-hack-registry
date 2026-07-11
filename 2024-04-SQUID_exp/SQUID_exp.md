@@ -219,7 +219,7 @@ sequenceDiagram
     P1-->>A: ~4.08e25 V1 (cheap)
     A->>SW: swapTokens(4.08e25)
     Note over SW: 1:1 rate, no price check
-    SW-->>A: 4.08e25 V2 ; totalSwappedToSell += amount
+    SW-->>A: 4.08e25 V2 #59; totalSwappedToSell += amount
     A->>P2: buy V2 with 3_000 WBNB
     P2-->>A: more V2 (attacker long V2)
     loop ~N× sellSwappedTokens until revert

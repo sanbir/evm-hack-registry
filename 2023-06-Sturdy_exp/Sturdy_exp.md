@@ -277,7 +277,7 @@ sequenceDiagram
     LP-->>A: "steCRV collateral released"
     end
 
-    Note over BP: "exitPool returns; price reverts to 1.0347 ETH"
+    Note over BP: "exitPool returns#59; price reverts to 1.0347 ETH"
     A->>LP: "withdraw 1,000 steCRV (now free)"
     A->>LP: "getUserAccountData -> HF = 0.4374 (underwater)"
     A->>LP: "liquidationCall: repay 236.70 WETH, seize 233 BPT"

@@ -337,14 +337,14 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Empty
-    Empty: "Empty market<br/>cash = 0, totalSupply = 0<br/>exchangeRate = initial"
-    Minted: "After mint(2)<br/>cash = 2, totalSupply = 2<br/>exchangeRate ≈ 1e18"
-    Inflated: "After donate 11,500 LINK<br/>cash = 11,500e18, totalSupply = 2<br/>exchangeRate = 5.75e39"
-    Drained: "After borrows + redeemUnderlying<br/>cash ≈ 0, totalSupply = 1<br/>other markets emptied"
+    Empty: Empty market<br/>cash = 0, totalSupply = 0<br/>exchangeRate = initial
+    Minted: After mint(2)<br/>cash = 2, totalSupply = 2<br/>exchangeRate ≈ 1e18
+    Inflated: After donate 11,500 LINK<br/>cash = 11,500e18, totalSupply = 2<br/>exchangeRate = 5.75e39
+    Drained: After borrows + redeemUnderlying<br/>cash ≈ 0, totalSupply = 1<br/>other markets emptied
 
-    Empty --> Minted: "mint(2): +2 shares, +2 cash"
-    Minted --> Inflated: "transfer(11,500 LINK)<br/>cash up, supply flat"
-    Inflated --> Drained: "borrow other markets<br/>then redeemUnderlying<br/>(burns only 1 share)"
+    Empty --> Minted: mint(2)#58; +2 shares, +2 cash
+    Minted --> Inflated: transfer(11,500 LINK)<br/>cash up, supply flat
+    Inflated --> Drained: borrow other markets<br/>then redeemUnderlying<br/>(burns only 1 share)
     Drained --> [*]
 ```
 

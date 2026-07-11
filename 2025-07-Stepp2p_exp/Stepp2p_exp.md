@@ -288,14 +288,14 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Created: "createSaleOrder(43,782.41)<br/>deposit 43,782.41 in"
-    Created --> Cancelled: "cancelSaleOrder()<br/>refund #1 = 43,782.41 out<br/>active := false"
+    [*] --> Created: createSaleOrder(43,782.41)<br/>deposit 43,782.41 in
+    Created --> Cancelled: cancelSaleOrder()<br/>refund #1 = 43,782.41 out<br/>active #58;= false
     note right of Cancelled
         BUG: remaining is NOT zeroed
         remaining = 43,782.41 (stale)
         active = false
     end note
-    Cancelled --> Drained: "modifySaleOrder(.,43,782.41,false)<br/>no active check, remaining>=amount<br/>refund #2 = 43,782.41 out"
+    Cancelled --> Drained: modifySaleOrder(.,43,782.41,false)<br/>no active check, remaining>=amount<br/>refund #2 = 43,782.41 out
     note right of Drained
         Double spend complete:
         43,782.41 deposited, 87,564.81 paid out

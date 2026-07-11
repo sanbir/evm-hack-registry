@@ -298,14 +298,14 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Joining
-    Joining --> Joining : "join(amount): user.balance += (amount + (balance-127e18))*1000/1015 - 28<br/>(real tokens moved = amount only)"
+    Joining --> Joining : join(amount)#58; user.balance += (amount + (balance-127e18))*1000/1015 - 28<br/>(real tokens moved = amount only)
     note right of Joining
         diff = balance - 127e18 (existing balance fed back)
         => balance roughly DOUBLES each join
         => 7 joins, 7,000 BUSD real -> 109,451e18 fake
     end note
-    Joining --> Withdrawing : "balance now huge"
-    Withdrawing --> Drained : "withdrawFiat(isFiat=false): checks user.balance,<br/>transfers REAL usdt/usdc (caller picks token)"
+    Joining --> Withdrawing : balance now huge
+    Withdrawing --> Drained : withdrawFiat(isFiat=false)#58; checks user.balance,<br/>transfers REAL usdt/usdc (caller picks token)
     note right of Drained
         Capped only by contract's real reserves,
         not by honest deposits. Both BUSD and USDC drained.

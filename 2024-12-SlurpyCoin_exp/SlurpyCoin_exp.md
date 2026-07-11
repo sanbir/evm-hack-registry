@@ -270,7 +270,7 @@ sequenceDiagram
             R->>P: swap() -> BNB to token contract
         end
     end
-    Note over T: contract holds ~28.66 BNB; counter == 200
+    Note over T: contract holds ~28.66 BNB#59; counter == 200
     Note over P: ~5,957,273 SLURPY / ~32.67 WBNB
     end
 

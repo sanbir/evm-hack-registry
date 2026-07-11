@@ -305,7 +305,7 @@ sequenceDiagram
     F-->>A: "0.7644 BNB"
     end
 
-    Note over A: "Net +0.7639 BNB per contract; PoC runs 4 -> +3.0556 BNB"
+    Note over A: "Net +0.7639 BNB per contract#59; PoC runs 4 -> +3.0556 BNB"
 ```
 
 ### State-machine flaw inside `register()`

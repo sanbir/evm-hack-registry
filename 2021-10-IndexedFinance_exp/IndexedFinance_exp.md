@@ -354,16 +354,16 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Reindexed
-    Reindexed: "After reindexPool<br/>pool value = 520,611<br/>UNI bal = 203,318<br/>SUSHI minBal = 11,925.96"
-    Drained: "After 34 swaps + 16 joins<br/>UNI bal = 4,992<br/>pool value (live) = 12,859"
-    Debased: "After updateMinimumBalance<br/>SUSHI minBal = 311.88<br/>(≈38× lower)"
-    Ready: "After gulp(220,000 SUSHI)<br/>SUSHI ready, denorm 176.34"
-    Drained2: "After exitPool ×3<br/>basket redeemed:<br/>1.98M UNI, 3.55M CRV, …"
+    Reindexed: After reindexPool<br/>pool value = 520,611<br/>UNI bal = 203,318<br/>SUSHI minBal = 11,925.96
+    Drained: After 34 swaps + 16 joins<br/>UNI bal = 4,992<br/>pool value (live) = 12,859
+    Debased: After updateMinimumBalance<br/>SUSHI minBal = 311.88<br/>(≈38× lower)
+    Ready: After gulp(220,000 SUSHI)<br/>SUSHI ready, denorm 176.34
+    Drained2: After exitPool ×3<br/>basket redeemed#58;<br/>1.98M UNI, 3.55M CRV, …
 
-    Reindexed --> Drained: "swap everything into UNI"
-    Drained --> Debased: "updateMinimumBalance reads live reserves"
-    Debased --> Ready: "deposit ≫ minimumBalance"
-    Ready --> Drained2: "burn DEFI5 for pro-rata basket"
+    Reindexed --> Drained: swap everything into UNI
+    Drained --> Debased: updateMinimumBalance reads live reserves
+    Debased --> Ready: deposit ≫ minimumBalance
+    Ready --> Drained2: burn DEFI5 for pro-rata basket
     Drained2 --> [*]
 ```
 

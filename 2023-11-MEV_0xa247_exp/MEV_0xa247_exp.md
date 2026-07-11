@@ -320,11 +320,11 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Owned : "deployed; owner = legit operator"
-    Owned --> Hijacked : "removeAdmin() — NO AUTH<br/>owner/admin := attacker"
-    Hijacked --> Closed : "setPoolToClosed() [owner-gated, now passes]"
-    Closed --> Stepped : "0xd547557b() [owner-gated]"
-    Stepped --> Drained : "withdraw(token, 0)<br/>full balance → attacker"
+    [*] --> Owned : deployed#59; owner = legit operator
+    Owned --> Hijacked : removeAdmin() — NO AUTH<br/>owner/admin #58;= attacker
+    Hijacked --> Closed : setPoolToClosed() [owner-gated, now passes]
+    Closed --> Stepped : 0xd547557b() [owner-gated]
+    Stepped --> Drained : withdraw(token, 0)<br/>full balance → attacker
     Drained --> [*]
 
     note right of Hijacked

@@ -350,7 +350,7 @@ sequenceDiagram
         H->>W: borrowExactAmount(id, asset, debt)
         W-->>H: WETH / wstETH / LPT out
         H->>W: withdrawExactAmount(id, LPT, 1) — burns whole share
-        Note over P: (price-1) underlying donated; debt left as bad debt
+        Note over P: (price-1) underlying donated#59; debt left as bad debt
     end
     Note over P: price → 71.11e18 LPT/share
     end

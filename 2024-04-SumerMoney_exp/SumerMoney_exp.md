@@ -251,7 +251,7 @@ sequenceDiagram
     participant SC as sdrcbETH
     participant TL as Timelock / claimer
 
-    Note over SE: rate ≈ 1.0 ; cash ≈ 0.36 ETH
+    Note over SE: rate ≈ 1.0 #59; cash ≈ 0.36 ETH
     rect rgb(232,245,233)
     Note over A,B: Step 0 - flash-loan seed capital
     A->>B: flashLoan(150 WETH, 645k USDC)
@@ -272,7 +272,7 @@ sequenceDiagram
     H->>SU: mint(645k USDC) - supply collateral
     H->>SE: borrow(150.36 ether)
     SE-->>H: 150.36 ETH (now borrower)
-    Note over SE: cash ~0.36 ETH ; totalBorrows ~150.36 ETH
+    Note over SE: cash ~0.36 ETH #59; totalBorrows ~150.36 ETH
     end
 
     rect rgb(255,235,238)

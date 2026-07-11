@@ -95,6 +95,15 @@ abstract contract Ownable is Context {
 }
 
 contract WDOGE is Ownable, IERC20, IERC20Metadata {
+    // VULNERABILITY SUMMARY (2022-04-Wdoge):
+    // The WDOGE token implements a time-gated fee-on-transfer with reflection (redistribute 4%), burn (4%), and dev/fee fees (2%).
+    // Critical flaws:
+    // - Double debit on sender (full amount + burn amount).
+    // - Reflection tokens created for all tracked holders, *including* PancakePair contracts.
+    // - No pair/router exclusion (common safeguard missing).
+    // - After the initial window, every transfer to/from the WDOGE/WBNB pair leaves balanceOf(pair) != pair's internal reserves.
+    // This breaks the invariant that V2 pairs (PancakePair) rely on: reserves represent true balances.
+    // Combined with public skim()/sync()/swap(), allows the reserves-out-of-sync drain documented below.
     mapping (address => BalanceOwner) private _balances;
     
     mapping (address => mapping (address => uint256)) private _allowances;
@@ -219,6 +228,13 @@ contract WDOGE is Ownable, IERC20, IERC20Metadata {
             uint256 todev = onePercent* 1;
             uint256 tokensToTransfer = amount - tokensToBurn - tokensToRedistribute - toFeeWallet-todev;
 
+            // VULNERABILITY: fee-on-transfer + reflection (redistribute) + burn logic.
+            // 1. Sender is debited FULL `amount`, then _burn subtracts ANOTHER `tokensToBurn` from sender -> over-debit.
+            // 2. Recipient receives only `tokensToTransfer` (~90%). Fees siphoned to wallet/dev.
+            // 3. `redistribute` CREATES tokens for other holders (including PancakePair once it holds WDOGE) by just `+=` without increasing totalSupply.
+            // 4. No exclusion of DEX pairs/LPs from redistribution -> reflections accrue inside the pair contract's balanceOf.
+            // Result: pair's actual balanceOf(WDOGE) diverges from its stored `reserve1` (or reserve0).
+            // Standard V2 pair's skim() + sync() + swap() can then be abused because they trust balance/reserve consistency.
             _balances[sender].amount -= amount;
             _balances[recipient].amount += tokensToTransfer;
             _balances[feeWallet].amount += toFeeWallet;
@@ -241,6 +257,11 @@ contract WDOGE is Ownable, IERC20, IERC20Metadata {
         if (_balances[_balanceOwners[i]].amount == 0 || _balanceOwners[i] == sender) continue;
         
         uint256 ownedAmount = _balances[_balanceOwners[i]].amount;
+        // VULNERABILITY (continued): broken reflection math + pair is a normal holder.
+        // ownedPercentage = total/owned (reciprocal), toReceive = amt / pct == amt * owned / total (approx due to trunc).
+        // Adds directly to ANY holder's balance (incl. the WDOGE/WBNB pair contract) WITHOUT mint or reducing totalSupply.
+        // When attacker transfers WDOGE into the pair, pair receives its explicit share + a redistribute share -> excess balance.
+        // Anyone can then call pair.skim() to steal the excess (reflections + fee remnants) because pair has no access control on skim.
         uint256 ownedPercentage = _totalSupply / ownedAmount;
         uint256 toReceive = amount / ownedPercentage;
         if (toReceive == 0) continue;

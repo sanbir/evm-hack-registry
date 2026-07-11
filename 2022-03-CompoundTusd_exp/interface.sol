@@ -464,6 +464,11 @@ interface ICErc20Delegate {
         address token
     ) external;
 
+    // NOTE: This interface declaration (and the duplicate at ~4001) is used by the PoC harness.
+    // In the actual 2022 on-chain cTUSD delegator, the corresponding declaration was MISSING from its
+    // CErc20Interface (see sources/.../contracts_CTokenInterfaces.sol), routing calls through fallback.
+    // The lack of admin restriction was in the delegated impl, not here.
+
     function symbol() external view returns (string memory);
 
     function totalBorrows() external view returns (uint256);
@@ -4001,6 +4006,11 @@ interface IRToken {
     function sweepToken(
         address token
     ) external;
+
+    // NOTE: This interface declaration (and the duplicate at ~4001) is used by the PoC harness.
+    // In the actual 2022 on-chain cTUSD delegator, the corresponding declaration was MISSING from its
+    // CErc20Interface (see sources/.../contracts_CTokenInterfaces.sol), routing calls through fallback.
+    // The lack of admin restriction was in the delegated impl, not here.
 
     function symbol() external view returns (string memory);
 

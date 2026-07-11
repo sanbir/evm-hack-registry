@@ -311,7 +311,7 @@ sequenceDiagram
         A->>L: withdrawStep()
         L->>Lib: jmul / jsub / jdecompose / hash_pubkey_to_pubkey
         Lib-->>L: next ring challenge
-        Note over L: step++ ; push ring1[i], ring2[i]
+        Note over L: step++ #59; push ring1[i], ring2[i]
     end
     end
 

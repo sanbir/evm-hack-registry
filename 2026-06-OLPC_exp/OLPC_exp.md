@@ -286,7 +286,7 @@ sequenceDiagram
         A->>P: transfer(pair, dust OLPC)
         A->>P: skim(receiver)
         P->>O: OLPC.transfer(receiver, excess)
-        O->>O: from==swapPair -> burn(pair, excess * decimalsValue); value=0
+        O->>O: from==swapPair -> burn(pair, excess * decimalsValue), value=0
         Note over P: OLPC reserve / ~10 each pass
     end
     end

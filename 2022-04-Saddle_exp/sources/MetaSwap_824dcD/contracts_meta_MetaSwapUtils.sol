@@ -147,6 +147,11 @@ library MetaSwapUtils {
         view
         returns (uint256)
     {
+        // VULNERABILITY: Caching of base virtual price with 10min expiry (BASE_CACHE_EXPIRE_TIME).
+        // Within the window, ALL swaps (including same-tx roundtrips) price the LP token using
+        // a STALE snapshot of the base Curve pool's virtual price. An attacker can move the
+        // underlying base pool (via Curve exchange) and then abuse the stale price on the
+        // reverse metapool leg for profit. No per-swap re-query of live base state.
         if (
             block.timestamp >
             metaSwapStorage.baseCacheLastUpdated + BASE_CACHE_EXPIRE_TIME
@@ -358,6 +363,9 @@ library MetaSwapUtils {
         SwapUtils.Swap storage self,
         MetaSwap storage metaSwapStorage
     ) external view returns (uint256) {
+        // VULNERABILITY: getVirtualPrice (and swaps) both depend on the same potentially-stale
+        // _getBaseVirtualPrice. An external observer or the pool itself cannot see the drift
+        // that a large swap creates until the 10min cache expires.
         uint256 d = SwapUtils.getD(
             _xp(
                 self.balances,
@@ -442,6 +450,9 @@ library MetaSwapUtils {
             x,
             xp
         );
+        // VULNERABILITY: dy computed from xp scaled by (potentially stale) baseVirtualPrice.
+        // The .sub(1) + invariant solve hands divergence to the swapper when the cached
+        // virtual price no longer matches reality after a large prior trade moved the base pool.
         dy = xp[tokenIndexTo].sub(y).sub(1);
 
         if (tokenIndexTo == baseLPTokenIndex) {
@@ -680,6 +691,10 @@ library MetaSwapUtils {
             transferredDx,
             _updateBaseVirtualPrice(metaSwapStorage)
         );
+        // VULNERABILITY: even though _updateBaseVirtualPrice is called here on every swap,
+        // for intra-tx attacks the price returned is the cached stale value (see _update).
+        // No live reconciliation against baseSwap.getVirtualPrice() or reserves.
+        // No size limit on dx relative to pool depth.
         require(dy >= minDy, "Swap didn't result in min tokens");
 
         uint256 dyAdminFee = dyFee.mul(self.adminFee).div(FEE_DENOMINATOR).div(
@@ -1201,6 +1216,10 @@ library MetaSwapUtils {
         internal
         returns (uint256)
     {
+        // VULNERABILITY (cont): _update only refreshes the cached baseVirtualPrice on cache expiry (>10min).
+        // In a flash-loan + same-block/tx attack the cache is never expired => both legs of
+        // sUSD<->LP use identical stale virtual price while the first leg (and prior Curve move)
+        // have already altered the true virtual price of the underlying saddleUSDV2 LP.
         if (
             block.timestamp >
             metaSwapStorage.baseCacheLastUpdated + BASE_CACHE_EXPIRE_TIME

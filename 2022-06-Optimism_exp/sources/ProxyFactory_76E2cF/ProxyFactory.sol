@@ -72,12 +72,21 @@ contract ProxyFactory {
         public
         returns (Proxy proxy)
     {
+        // VULNERABILITY: Unrestricted public createProxy() using CREATE allows anyone to squat arbitrary addresses by nonce grinding
+        // The address of `new Proxy(masterCopy)` (line ~74) is computed as keccak256(0xd6, 0x94, factoryAddress, nonce) where nonce is the factory's account nonce (incremented on each deployment).
+        // createProxy is `public` with zero access control, no per-caller isolation, no minimum delay, and no requirement to use the CREATE2 path.
+        // An attacker can therefore call this function in a loop (advancing nonce each time) until the resulting proxy address collides with a chosen target.
+        // The CREATE2-based createProxyWithNonce (below) exists for safe deterministic deployment but does not prevent abuse of this legacy path.
+        // Preconditions: target address must be currently empty (not deployed); attacker must pay gas for (target_nonce - current_nonce) creations.
+        // Impact: Funds sent to (or bridged to) a "victim address" (pre-computed Safe/multisig address) can be stolen once attacker deploys a proxy there and initializes it to themselves.
         proxy = new Proxy(masterCopy);
         if (data.length > 0)
             // solium-disable-next-line security/no-inline-assembly
             assembly {
                 if eq(call(gas, proxy, 0, add(data, 0x20), mload(data), 0, 0), 0) { revert(0, 0) }
             }
+        // If `data` is empty (as used in the exploit), the proxy is deployed uninitialized.
+        // The attacker later calls setup/initialize directly on the proxy address after hijacking deployment.
         emit ProxyCreation(proxy);
     }
 

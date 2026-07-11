@@ -373,6 +373,9 @@ contract Swap is OwnerPausableUpgradeable, ReentrancyGuardUpgradeable {
         deadlineCheck(deadline)
         returns (uint256)
     {
+        // VULNERABILITY: No check on size of dx, no deadline re-sync of virtual price for metapools,
+        // no guard that the implied price is consistent with live base pool state.
+        // Accepts flash-loan sized swaps unconditionally.
         return swapStorage.swap(tokenIndexFrom, tokenIndexTo, dx, minDy);
     }
 

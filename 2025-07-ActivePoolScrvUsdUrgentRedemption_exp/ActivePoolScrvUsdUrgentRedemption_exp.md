@@ -196,11 +196,11 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    SUB["Branch shut down\nshutdownTime != 0"] --> UR["urgentRedemption called\nby any Bold holder"]
+    SUB["Branch shut down<br/>shutdownTime != 0"] --> UR["urgentRedemption called<br/>by any Bold holder"]
     UR --> CH["Caller supplies _troveIds[]"]
-    CH --> PICK["Attacker picks troves with\ncoll_USD > debt * 1.02"]
-    PICK --> BONUS["collLot = boldLot * 1.02 / price\nNO ICR floor, fee = 0"]
-    BONUS --> OUT["ActivePool.sendColl sends\nmore scrvUSD than USDaf burned"]
+    CH --> PICK["Attacker picks troves with<br/>coll_USD > debt * 1.02"]
+    PICK --> BONUS["collLot = boldLot * 1.02 / price<br/>NO ICR floor, fee = 0"]
+    BONUS --> OUT["ActivePool.sendColl sends<br/>more scrvUSD than USDaf burned"]
     OUT --> PROFIT["Attacker keeps the value spread"]
     style BONUS fill:#fdd,stroke:#c00
     style PICK fill:#fdd,stroke:#c00

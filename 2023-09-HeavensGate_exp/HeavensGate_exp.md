@@ -283,7 +283,7 @@ sequenceDiagram
     A->>R: "swapExactTokensForTokens(570,901 HATE → WETH)"
     R->>P: "swap()"
     P-->>A: "6.4512 WETH"
-    Note over A: "Net +6.4512 WETH (tx1); +1.3940 WETH (tx2)"
+    Note over A: "Net +6.4512 WETH (tx1)#59; +1.3940 WETH (tx2)"
 ```
 
 ### Why the round-trip prints money

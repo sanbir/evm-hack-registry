@@ -251,7 +251,7 @@ sequenceDiagram
     L-->>O: "real assets out"
     end
 
-    Note over O: "Walks off with ~$212K; pool + lenders left with inflated/worthless SKP"
+    Note over O: "Walks off with ~$212K, pool + lenders left with inflated/worthless SKP"
 ```
 
 ### Pool state evolution

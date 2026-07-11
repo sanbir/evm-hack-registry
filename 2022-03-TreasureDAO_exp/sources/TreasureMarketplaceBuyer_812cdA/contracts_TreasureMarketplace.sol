@@ -80,6 +80,8 @@ contract TreasureMarketplace is Ownable, ReentrancyGuard {
         require(listing.quantity > 0, "not listed item");
         _;
     }
+    // isListed only protects against buying unlisted items. It does NOT validate the *requested purchase quantity*.
+    // Attacker _quantity=0 still sees a positive stored quantity and passes.
 
     modifier notListed(
         address _nftAddress,
@@ -109,6 +111,8 @@ contract TreasureMarketplace is Ownable, ReentrancyGuard {
         require(listedItem.expirationTime >= block.timestamp, "listing expired");
         _;
     }
+    // validListing for ERC721 never consults the _quantity argument passed to buyItem.
+    // The ownerOf snapshot + time check passes even when the subsequent buy will use _quantity=0.
 
     modifier onlyWhitelisted(address nft) {
         require(nftWhitelist[nft], "nft not whitelisted");
@@ -132,6 +136,8 @@ contract TreasureMarketplace is Ownable, ReentrancyGuard {
         if (_expirationTime == 0) _expirationTime = type(uint256).max;
         require(_expirationTime > block.timestamp, "invalid expiration time");
         require(_quantity > 0, "nothing to list");
+        // NOTE: positive _quantity is *only* enforced on creation (and update has no such for ERC721 path).
+        // The buy path lacks the symmetric require(_quantity > 0). This asymmetry is the root of the bypass.
 
         if (IERC165(_nftAddress).supportsInterface(INTERFACE_ID_ERC721)) {
             IERC721 nft = IERC721(_nftAddress);
@@ -239,6 +245,34 @@ contract TreasureMarketplace is Ownable, ReentrancyGuard {
         Listing memory listedItem = listings[_nftAddress][_tokenId][_owner];
         require(listedItem.quantity >= _quantity, "not enough quantity");
 
+        // VULNERABILITY: Zero-quantity acceptance + quantity-oblivious ERC721 path in buyItem
+        // ROOT CAUSE DETAILED:
+        // 1. isListed modifier (defined ~L79): `require(listing.quantity > 0, "not listed item");` -- guards *stored* quantity, not input _quantity.
+        // 2. validListing ( ~L99 ): ERC721 case only does `require(nft.ownerOf(_tokenId) == _owner ...)` and expiration; _quantity never inspected.
+        // 3. L240: `require(listedItem.quantity >= _quantity, "not enough quantity");`  -- mathematically true for _quantity=0.
+        // 4. L244: `if (ERC721) { IERC721(...).safeTransferFrom(_owner, _msgSender(), _tokenId); }` -- tokenId transfer, _quantity param is dead for ERC721.
+        //    (ERC1155 path passes _quantity to safeTransferFrom, but ERC721 semantics don't have "amount".)
+        // 5. L249: `if (listedItem.quantity == _quantity) { delete } else { ...quantity -= _quantity; }` -- 1==0 false => -=0 (identity).
+        // 6. L265: `_buyItem(listedItem.pricePerItem, _quantity, _owner);`
+        // 7. In _buyItem (L273): `uint256 totalPrice = _pricePerItem * _quantity;` (0) then two safeTransferFrom of 0 amounts.
+        //    Because the caller (buyer) did approve(0), the 0-value transferFroms from buyer succeed.
+        // WHY THE GUARDS FAILED TO PREVENT: The positive-quantity requirement exists only on *listing creation* (L134: require(_quantity > 0)).
+        //   No equivalent floor on the buy side. The buyer wrapper (public, permissionless) forwards the attacker's chosen _quantity verbatim.
+        //   Arithmetic and comparisons in Solidity are well-defined at 0; no underflow/require was triggered.
+        // Also note: the listing key includes the *seller* (_owner). Exploit must supply the current ownerOf result as that key (see PoC).
+        // IMPACT: 100% of payment evaded for ERC721 purchases. Seller loses NFT ownership with 0 compensation. The marketplace
+        //   emits ItemSold with quantity=0, reports a 0-total sale to oracle. Listing entry remains (now points to non-owner).
+        //   Seller cannot easily clean it (cancelListing would fail ownerOf check inside _cancelListing).
+        //   Systemic: breaks the economic invariant "listed item can only change hands for the listed price".
+        // EXPLOIT STEPS (full end-to-end, marketplace view):
+        // 1. (from buyer or direct) call buyItem(nft, tid, sellerAddr, 0, ... ) with sellerAddr = ownerOf(tid) at attack time.
+        // 2. Modifiers pass (stored qty=1 >0; ownerOf matches; not expired).
+        // 3. 1 >= 0 passes.
+        // 4. safeTransferFrom moves SmolBrain#3557 (or any) to the buyer contract (or direct caller).
+        // 5. No delete, quantity stays 1.
+        // 6. 0 MAGIC moved in _buyItem (feeReceipient and seller get 0).
+        // 7. Buyer (if used) forwards NFT to attacker via its on-receive holder + final safeTransferFrom.
+        // 8. Attacker implements onERC721Received to accept. Done.
         // Transfer NFT to buyer
         if (IERC165(_nftAddress).supportsInterface(INTERFACE_ID_ERC721)) {
             IERC721(_nftAddress).safeTransferFrom(_owner, _msgSender(), _tokenId);
@@ -270,6 +304,14 @@ contract TreasureMarketplace is Ownable, ReentrancyGuard {
         uint256 _quantity,
         address _owner
     ) internal {
+        // VULNERABILITY (payment side): attacker-supplied _quantity reaches here with 0, zeroing the payment
+        // totalPrice = _pricePerItem * _quantity;  (exact mul at L273, no saturation/guard)
+        // feeAmount = total * fee / 10000;
+        // Two safeTransferFrom(_msgSender(), ..., 0)  -- these are no-ops but succeed even with 0 allowance.
+        // Note: _buyItem is internal, called only after the NFT has *already* been transferred (L244).
+        // Order-of-operations means the economic check (payment) is after the state change (NFT move) -- classic.
+        // No require(totalPrice > 0) anywhere in the payment path.
+        // When _quantity=0 this is the step that actually "charges" the attacker nothing.
         uint256 totalPrice = _pricePerItem * _quantity;
         uint256 feeAmount = totalPrice * fee / BASIS_POINTS;
         IERC20(paymentToken).safeTransferFrom(_msgSender(), feeReceipient, feeAmount);

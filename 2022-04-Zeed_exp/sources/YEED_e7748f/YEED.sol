@@ -850,6 +850,33 @@ contract YEED is Context, IERC20, Ownable {
         emit Transfer(sender, recipient, amount);
     }
 
+    // VULNERABILITY: Incorrect fee distribution in _takeReward creates phantom token balances in LP pairs
+    // [detailed explanation with code references]
+    // The root cause is here:
+    //   1. _transfer (L795) routes transfers TO any _isSwapPair via _transferSell (L809).
+    //   2. _transferSell deducts rewardFee (and optional burn) once from the net transferAmount sent to `recipient` (L821-822).
+    //   3. Then unconditionally calls _takeReward(sender, rewardFee) (L830).
+    //   4. _takeReward (L859) computes the three slices correctly for *events*:
+    //        zeedReward = rewardFee/2, hoReward=rewardFee/4, usdtReward=rewardFee - zeed - ho
+    //      BUT then does:
+    //        _balances[swapPair]   += rewardFee; emit(..., usdtReward)   // L863
+    //        _balances[swapPairZeed] += rewardFee; emit(..., zeedReward) // L866
+    //        _balances[swapPairHo] += rewardFee; emit(..., hoReward)     // L869
+    //      Full `rewardFee` (unsliced) is added to *every* one of the three pair balances.
+    //   Net effect per sell: sender balance -= amount; one recipient += (amount - burn - reward); *three* pairs each += rewardFee.
+    //   Total tracked balances increase by ~2*rewardFee (phantom YEED "created" and allocated only to the pairs).
+    //   Because this happens inside the ERC20 transfer accounting (not via a real transfer into the pair contract's storage),
+    //   the pairs' token.balanceOf(pair) > their cached `reserveX` (PancakePair reserves updated only in _update on swap/mint/sync).
+    //   Standard PancakePair.skim(to) (L482 in PancakePair) does:
+    //     _safeTransfer(token, to, balanceOf(token) - reserve)
+    //   Anyone can call skim permissionlessly to extract the surplus.
+    //   Worse: when skim sends YEED *to* another _isSwapPair (hoYeedPair, zeedYeedPair etc.), that transfer itself is a sell
+    //   (recipient isSwapPair), re-entering _transferSell + _takeReward and creating yet more phantom YEED.
+    //   This enables amplification via round-robin skims.
+    // Impact: Attacker can drain arbitrarily large YEED (amplified) from the three YEED LP pairs, convert to USDT/USDC via router.
+    // The pairs lose YEED balance that was never deposited by LPs; the fee mechanism was intended to "reward" the pairs but is broken.
+    // Why it works: no access control on skim, no sync after fee accounting, triple-add instead of single-add or proper distribution,
+    // and the fee logic is triggered by any transfer to the registered pairs (including skims between them).
     function _takeReward(
         address sender,
         uint256 rewardFee

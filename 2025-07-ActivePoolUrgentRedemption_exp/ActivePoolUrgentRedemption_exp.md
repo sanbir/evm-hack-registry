@@ -162,20 +162,20 @@ The 2,694.7 USDT surplus is the on-chain quantification of the **2% bonus plus t
 ```mermaid
 sequenceDiagram
     participant A as Attacker EOA
-    participant E as Attack contract\n(0xe2bE...)
-    participant M as Morpho\n(flash lender)
-    participant C as Curve pools\n(USDT/BOLD, BOLD LP)
-    participant TM as TroveManager\n(sUSDe branch, shut down)
-    participant AP as ActivePool\n(sUSDe collateral)
+    participant E as Attack contract<br/>(0xe2bE...)
+    participant M as Morpho<br/>(flash lender)
+    participant C as Curve pools<br/>(USDT/BOLD, BOLD LP)
+    participant TM as TroveManager<br/>(sUSDe branch, shut down)
+    participant AP as ActivePool<br/>(sUSDe collateral)
     participant F as Fluid DEX
-    participant U as Uniswap V3\n(USDT-WETH)
+    participant U as Uniswap V3<br/>(USDT-WETH)
 
     A->>E: execute()
     E->>M: flashLoan(USDT, 108,500)
     M->>E: +108,500 USDT
-    E->>C: add_liquidity + exchange\n-> 109,016 BOLD
+    E->>C: add_liquidity + exchange<br/>-> 109,016 BOLD
     E->>TM: urgentRedemption(109,016 BOLD, 4 troveIds, 0)
-    TM->>TM: _requireIsShutDown() OK\nno ICR>=100% check\napply 2% bonus
+    TM->>TM: _requireIsShutDown() OK<br/>no ICR>=100% check<br/>apply 2% bonus
     TM->>AP: sendColl(E, 94,435 sUSDe)
     AP->>E: +94,435 sUSDe
     TM->>TM: burn 109,016 BOLD
@@ -195,10 +195,10 @@ flowchart TD
         L1[redeemCollateral] -->|skip if ICR < 100%| L2[1:1 collateral at price]
     end
     subgraph Shut-down branch
-        S1[urgentRedemption\nno caller ACL] -->|no ICR floor\nany trove selectable| S2[collLot = boldLot * 1.02 / price]
+        S1[urgentRedemption<br/>no caller ACL] -->|no ICR floor<br/>any trove selectable| S2[collLot = boldLot * 1.02 / price]
         S2 -->|bonus paid per trove| S3[ActivePool.sendColl to caller]
     end
-    S3 --> P{collateral USD value\n> BOLD USD value?}
+    S3 --> P{collateral USD value<br/>> BOLD USD value?}
     P -->|yes, when branch stressed| PROFIT[profitable extraction]
     P -->|no| NOP[no profit]
 ```

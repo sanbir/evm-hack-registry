@@ -281,7 +281,7 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,AT: Step 2 — redeem that LP against the HEALTHY asset
     A->>P: withdrawFromOtherAsset(USDC→USDTe, 91,673.872209)
-    P->>AU: burn LP_USDC; removeLiability(86,861.378645)
+    P->>AU: burn LP_USDC#59; removeLiability(86,861.378645)
     P->>AT: removeCash(89,575.527681)  ⚠ par value, no impairment
     AT-->>A: 89,575.527681 USDT.e
     Note over AT: coverage 1.313 → 1.104 (≥1 ⇒ check passes)

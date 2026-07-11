@@ -264,7 +264,7 @@ sequenceDiagram
     B-->>A: "ok"
     end
 
-    Note over A: "Attacker now holds 905,987.98 XBP;<br/>victim holds 0"
+    Note over A: "Attacker now holds 905,987.98 XBP#59;<br/>victim holds 0"
 ```
 
 ### Why a public helper became a universal token-drainer

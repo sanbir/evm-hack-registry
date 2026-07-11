@@ -297,11 +297,11 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Empty
-    Empty --> Primed : "Lock_Token(1, 0)<br/>reinvest 0→1, end_time = T0+180d, amount = 0"
-    Primed --> Matured : "time passes ≥ 180d<br/>(now ≥ end_time)"
-    Matured --> Funded : "Lock_Token(1, 219,349)<br/>REINVEST: reuses expired end_time<br/>amount = 219,349"
-    Funded --> Drained : "withdraw(1)<br/>require(now ≥ end_time) ✓<br/>pays 230,316.45, struct zeroed"
-    Drained --> Empty : "reinvest reset to 0"
+    Empty --> Primed : Lock_Token(1, 0)<br/>reinvest 0→1, end_time = T0+180d, amount = 0
+    Primed --> Matured : time passes ≥ 180d<br/>(now ≥ end_time)
+    Matured --> Funded : Lock_Token(1, 219,349)<br/>REINVEST#58; reuses expired end_time<br/>amount = 219,349
+    Funded --> Drained : withdraw(1)<br/>require(now ≥ end_time) ✓<br/>pays 230,316.45, struct zeroed
+    Drained --> Empty : reinvest reset to 0
 
     note right of Funded
         Born already matured —

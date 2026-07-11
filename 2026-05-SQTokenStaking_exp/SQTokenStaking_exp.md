@@ -344,18 +344,18 @@ sequenceDiagram
 stateDiagram-v2
     [*] --> Renounced
 
-    Renounced: "Apparently renounced<br/>owner() = 0xdEaD<br/>(but backdoor addr = attacker)"
-    Unlocked: "Lock removed<br/>stakeDays[0] = 0"
-    Inflated: "Ledger inflated<br/>balances[attacker] = 386,600<br/>(0 SQi deposited)"
-    Redeemed: "10 stakes redeemed<br/>attacker +296,500 USDT<br/>contract SQi sold into pool"
-    Swept: "Contract SQi swept<br/>attacker +2,000,039 SQi"
-    Drained: "SQi dumped to pool<br/>attacker +49,637 USDT<br/>TOTAL 346,137 USDT"
+    Renounced: Apparently renounced<br/>owner() = 0xdEaD<br/>(but backdoor addr = attacker)
+    Unlocked: Lock removed<br/>stakeDays[0] = 0
+    Inflated: Ledger inflated<br/>balances[attacker] = 386,600<br/>(0 SQi deposited)
+    Redeemed: 10 stakes redeemed<br/>attacker +296,500 USDT<br/>contract SQi sold into pool
+    Swept: Contract SQi swept<br/>attacker +2,000,039 SQi
+    Drained: SQi dumped to pool<br/>attacker +49,637 USDT<br/>TOTAL 346,137 USDT
 
-    Renounced --> Unlocked: "setUintArray(1,[0]) — onlyOwner via backdoor"
-    Unlocked --> Inflated: "stakeOwner ×12 — onlyOwner via backdoor"
-    Inflated --> Redeemed: "unstake ×10 — caclItem 1:1"
-    Redeemed --> Swept: "withdrawalTokens(SQi) — onlyOwner via backdoor"
-    Swept --> Drained: "Pancake swap SQi → USDT"
+    Renounced --> Unlocked: setUintArray(1,[0]) — onlyOwner via backdoor
+    Unlocked --> Inflated: stakeOwner ×12 — onlyOwner via backdoor
+    Inflated --> Redeemed: unstake ×10 — caclItem 1#58;1
+    Redeemed --> Swept: withdrawalTokens(SQi) — onlyOwner via backdoor
+    Swept --> Drained: Pancake swap SQi → USDT
     Drained --> [*]
 
     note right of Renounced

@@ -180,13 +180,13 @@ sequenceDiagram
     Note over MC: trustedForwarder = attacker (no auth!)
 
     Att->>MC: set(0,0,10000,...) suffix=owner
-    Note over MC: _msgSender() reads suffix = owner\npool0.depositFeeBP = 100%
+    Note over MC: _msgSender() reads suffix = owner<br/>pool0.depositFeeBP = 100%
 
     Att->>MC: setDevAddress(pair) suffix=devAddress
     Att->>MC: setTreasuryAddress(pair) suffix=treasury
 
     Att->>MC: deposit(0, stakerCRSS,...) suffix=staker
-    Note over MC: _msgSender() = staker\ntransferFrom(staker, MC, CRSS) OK
+    Note over MC: _msgSender() = staker<br/>transferFrom(staker, MC, CRSS) OK
     MC->>Pair: transfer(stakerCRSS/2)  treasury fee
     MC->>Pair: transfer(stakerCRSS/2)  dev fee
     Note over MC: staker gets 0 deposited

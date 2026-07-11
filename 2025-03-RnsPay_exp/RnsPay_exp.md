@@ -181,7 +181,7 @@ sequenceDiagram
 
     A->>E: attack()
     E->>F: deploy (balanceOf=1 always)
-    E->>R: pay(Payment)\n payToken=FakeToken\n receiptToken=FakeToken\n dexRouter=USDC\n feedData=transferFrom(V,E,1050e6)\n exchangeType=1
+    E->>R: pay(Payment)<br/> payToken=FakeToken<br/> receiptToken=FakeToken<br/> dexRouter=USDC<br/> feedData=transferFrom(V,E,1050e6)<br/> exchangeType=1
     R->>F: balanceOf(RnsPay) returns 1  (balanceInBefore)
     R->>F: transferFrom(E,RnsPay,1) returns true  (_payIn, no-op)
     R->>F: approve(USDC, 1) returns true  (exchangeType=1, no-op)
@@ -200,16 +200,16 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["Attacker calls pay()"] --> B{"dexRouterContractAddress\nallow-listed?"}
-    B --|"NO CHECK (bug)"|--> C["execute router.call(feedData)\nmsg.sender = RnsPay"]
-    B --|"should be YES"|--> D["reject untrusted router"]
+    A["Attacker calls pay()"] --> B{"dexRouterContractAddress<br/>allow-listed?"}
+    B -->|"NO CHECK (bug)"| C["execute router.call(feedData)<br/>msg.sender = RnsPay"]
+    B -->|"should be YES"| D["reject untrusted router"]
     C --> E{"feedData is a real swap?"}
-    E --|"NO CHECK (bug)"|--> F["feedData = transferFrom(victim, attacker, amt)"]
-    E --|"should be enforced"|--> D
+    E -->|"NO CHECK (bug)"| F["feedData = transferFrom(victim, attacker, amt)"]
+    E -->|"should be enforced"| D
     F --> G["USDC sees RnsPay as approved msg.sender"]
-    G --> H["pulls tokens from any victim\nwho approved RnsPay"]
-    H --> I{"RnsPay balance guard\nnotices?"}
-    I --|"NO: FakeToken.balanceOf is constant 1"|--> J["post-condition passes\nfunds leave protocol"]
+    G --> H["pulls tokens from any victim<br/>who approved RnsPay"]
+    H --> I{"RnsPay balance guard<br/>notices?"}
+    I -->|"NO: FakeToken.balanceOf is constant 1"| J["post-condition passes<br/>funds leave protocol"]
 ```
 
 ## Remediation

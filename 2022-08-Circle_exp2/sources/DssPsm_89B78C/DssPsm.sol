@@ -112,6 +112,11 @@ contract DssPsm {
 
     uint256 public tin;         // toll in [wad]
     uint256 public tout;        // toll out [wad]
+    // VULNERABILITY CONTEXT (used by 2022-08-Circle_exp2): tin/tout are governance-controlled
+    // fees on PSM swaps. At attack time tin==0, making sellGem a perfect DAI-for-USDC swap
+    // (no fee extracted to vow). The contract itself is not buggy; the exploit composes
+    // this zero-fee path with the stolen CDP authority and LP burn.
+    // See sellGem below and usage in exploit's onFlashLoan.
 
     // --- Events ---
     event Rely(address user);
@@ -174,6 +179,10 @@ contract DssPsm {
         daiJoin.exit(usr, daiAmt);
 
         emit SellGem(usr, gemAmt, fee);
+        // EXPLOIT USAGE in Circle_exp2: with tin=0, fee=0 and daiAmt=gemAmt18.
+        // Attacker passes USDC from burned UNIV2 LP; receives equivalent DAI which
+        // (together with DAI received directly from pair.burn) repays the Maker flash.
+        // Residual USDC left in contract after this call is the profit.
     }
 
     function buyGem(address usr, uint256 gemAmt) external {

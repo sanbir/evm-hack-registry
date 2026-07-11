@@ -291,7 +291,7 @@ sequenceDiagram
 
     rect rgb(227,242,253)
     Note over A,M: Open an over-leveraged position
-    A->>B: approve 0.13258 PAXG; Morpho.setAuthorization(bundler,true)
+    A->>B: approve 0.13258 PAXG#59; Morpho.setAuthorization(bundler,true)
     A->>B: multicall[transferFrom, supplyCollateral, borrow]
     B->>M: supplyCollateral(0.13258 PAXG)
     B->>M: borrow(230,002 USDC)

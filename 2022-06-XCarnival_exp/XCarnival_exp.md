@@ -301,7 +301,7 @@ sequenceDiagram
 
     Note over X: counter == 10, Order[11] empty
     A->>M: testExploit() (startPrank(msg.sender=M, tx.origin=A))
-    M->>P: new payloadContract(); send BAYC#5110 to P
+    M->>P: new payloadContract()#59; send BAYC#5110 to P
 
     rect rgb(227,242,253)
     Note over P,F: Step 2 - fake pledge-and-borrow
@@ -317,7 +317,7 @@ sequenceDiagram
     X->>C: getOrderBorrowBalanceCurrent(11)
     C-->>X: 0  (orderDebtStates[11] == address(0))
     X->>P: safeTransferFrom(BAYC#5110)
-    Note over X: Order[11].isWithdraw = true; record NOT deleted
+    Note over X: Order[11].isWithdraw = true#59; record NOT deleted
     end
 
     P->>M: transfer BAYC#5110 back (for reuse)
@@ -326,7 +326,7 @@ sequenceDiagram
     Note over P,T: Step 6 - real borrow against ghost order
     P->>T: XToken.borrow(11, P, 36 ether)
     T->>C: borrowAllowed(T, 11, P, 36 ether)
-    Note over C: orderDebtStates[11]==0 => first borrow;<br/>getOrderDetail=BAYC; price=91.99 ETH;<br/>36e18 <= 91.99e18 * collateralFactor OK;<br/>set orderDebtStates[11] = T
+    Note over C: orderDebtStates[11]==0 => first borrow#59;<br/>getOrderDetail=BAYC#59; price=91.99 ETH#59;<br/>36e18 <= 91.99e18 * collateralFactor OK#59;<br/>set orderDebtStates[11] = T
     T->>P: doTransferOut 36 ETH
     P->>M: forward 36 ETH (receive)
     Note over M: +36 ETH, order 11 owes 36 ETH, collateral = none

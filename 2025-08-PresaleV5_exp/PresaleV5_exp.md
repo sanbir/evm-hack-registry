@@ -164,10 +164,10 @@ sequenceDiagram
     Note over OP: slot0 now depressed -> getV3Price very low
     C->>C: unwrap WETH to ETH
     C->>P: fetchPrice(1 ether) -> quote (cheap)
-    C->>P: buyWithEth(full balance)\nPays ~1.30 ETH, gets 85.14M tokens\nexcess ETH refunded
+    C->>P: buyWithEth(full balance)<br/>Pays ~1.30 ETH, gets 85.14M tokens<br/>excess ETH refunded
     loop 200 more times
         C->>OP: sell bought tokens -> WETH (price recovering)
-        C->>P: fetchPrice -> buyWithEth(0.30 ETH)\nget ~20M tokens each
+        C->>P: fetchPrice -> buyWithEth(0.30 ETH)<br/>get ~20M tokens each
     end
     Note over C,P: Presale inventory drained at manipulated price
     C->>OP: buy back owed sale tokens (exactOutputSingle)

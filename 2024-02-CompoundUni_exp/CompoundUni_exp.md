@@ -263,7 +263,7 @@ sequenceDiagram
     participant P1 as UNI/WETH pool
     participant P2 as WETH/USDC pool
 
-    Note over O: UNI price FROZEN at $8.34<br/>(reporter stopped posting;<br/>no freshness check on prices[])
+    Note over O: UNI price FROZEN at $8.34<br/>(reporter stopped posting#59;<br/>no freshness check on prices[])
     Note over A: market UNI ≈ $9.8
 
     rect rgb(255,243,224)
@@ -306,7 +306,7 @@ sequenceDiagram
     rect rgb(255,249,196)
     Note over A,V: Step 9 — repay and keep the spread
     A->>V: transfer 193,020.25 USDC (repay)
-    Note over A: keeps +1,273.31 USDC;<br/>bad debt stays in cUNI market
+    Note over A: keeps +1,273.31 USDC#59;<br/>bad debt stays in cUNI market
     end
 ```
 
@@ -345,7 +345,7 @@ flowchart LR
         M1["UNI = $9.81"]
         M2["19,788 UNI worth ≈ $194,114"]
     end
-    Oracle -->|"borrow 19,788 UNI<br/>against $165k liquidity"| Borrow(["attacker receives 19,788 UNI")]
+    Oracle -->|"borrow 19,788 UNI<br/>against $165k liquidity"| Borrow(["attacker receives 19,788 UNI"])
     Borrow -->|"sell on Uniswap"| Market
     Market --> Spread(["spread ≈ $29k per cycle<br/>= the underpricing gap"])
 

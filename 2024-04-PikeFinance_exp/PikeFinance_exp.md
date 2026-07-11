@@ -290,11 +290,11 @@ stateDiagram-v2
     note right of Initialized
         Intended invariant:
         initialize() MUST revert here.
-    end
+    end note
     Initialized --> Hijacked: attacker calls initialize() again<br/>_initialized guard NOT enforced
     note right of Hijacked
         owner slot 4 rewritten → attacker<br/>_initialized 1 → 0x101 (cosmetic)
-    end
+    end note
     Hijacked --> Upgraded: upgradeToAndCall(attackerImpl, withdraw)<br/>_authorizeUpgrade onlyOwner == attacker ✓
     Upgraded --> Drained: delegatecall withdraw(attacker)<br/>sends proxy.balance to attacker
     Drained --> [*]: proxy balance = 0
@@ -306,7 +306,7 @@ stateDiagram-v2
         namespace with runtime config.
         A prior upgrade decoupled the
         initializer guard from the owner.
-    end
+    end note
 ```
 
 ### The two-call kill chain

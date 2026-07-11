@@ -309,7 +309,7 @@ sequenceDiagram
         Note over P: GPT reserve drops a little each round
         A->>P: skim(self)  -> sweep surplus GPT (0.475 net)
     end
-    Note over P: GPT reserve 96.56 -> 47.93;<br/>attacker now holds 21.20 GPT
+    Note over P: GPT reserve 96.56 -> 47.93#59;<br/>attacker now holds 21.20 GPT
     end
 
     rect rgb(255,235,238)

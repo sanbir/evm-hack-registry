@@ -88,7 +88,7 @@ sequenceDiagram
     Note over V: holds 2,762 LAND
     loop 100×
         A->>L: _burn(victim, victim, 3738)
-        L->>L: (no auth) Transfer(victim→0x0, 3738); balance--
+        L->>L: (no auth) Transfer(victim→0x0, 3738)#59; balance--
     end
     Note over V: now holds 2,662 LAND
 ```

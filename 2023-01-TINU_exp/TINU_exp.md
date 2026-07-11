@@ -197,7 +197,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,T: Step 1 — buy TINU to seed the rate trick
     A->>R: swapExactTokensForTokens(104.85 WETH -> TINU)
-    R->>P: transferFrom 104.85 WETH in; swap(1470.45 TINU out)
+    R->>P: transferFrom 104.85 WETH in#59; swap(1470.45 TINU out)
     P-->>A: 1465.9 TINU
     Note over P: 316.87 TINU / 126.99 WETH (Sync)
     end
@@ -205,7 +205,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,T: Step 2 — deliver #1 (deflate _rTotal, raise rate)
     A->>T: deliver(1465.9 TINU)
-    T->>T: _rTotal -= rAmount; _tFeeTotal += tAmount
+    T->>T: _rTotal -= rAmount#59; _tFeeTotal += tAmount
     Note over P: balanceOf(P) inflates 316.87 -> 2050.64 TINU (no Transfer!)
     end
 

@@ -297,7 +297,7 @@ sequenceDiagram
     A->>R: "(nested) swap 45,316 BURGER → WBNB"
     R->>BW: "swap() — REAL price"
     BW-->>A: "4,478.57 WBNB out (9,067 → 4,607)"
-    Note over R: "re-entrancy returns; resume FROZEN loop"
+    Note over R: "re-entrancy returns#59; resume FROZEN loop"
     R->>BW: "cached hop FAKE→BURGER: send 45,452 BURGER"
     R->>BW: "cached hop BURGER→WBNB at STALE quote"
     BW-->>A: "4,478.57 WBNB out AGAIN (4,607 → 128)"

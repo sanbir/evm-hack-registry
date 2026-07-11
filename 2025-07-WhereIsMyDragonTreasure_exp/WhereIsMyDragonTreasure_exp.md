@@ -174,7 +174,7 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A[Funding phase:\nETH deposited, _singleReward frozen] --> B{block >= _startBlock?}
+    A[Funding phase:<br/>ETH deposited, _singleReward frozen] --> B{block >= _startBlock?}
     B -- yes --> C[Chest locked]
     C --> D[Legendary card sent to chest]
     D --> E[Pay frozen _singleReward]

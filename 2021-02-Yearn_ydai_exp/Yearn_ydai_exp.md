@@ -297,7 +297,7 @@ sequenceDiagram
     Note over A,V: "Step 4-5 — put USDT back, withdraw"
     A->>C: "add_liquidity([0,0,167,473 USDT])"
     A->>V: "withdrawAll()"
-    V-->>A: "DAI principal back; surplus stays in attacker 3Crv"
+    V-->>A: "DAI principal back#59; surplus stays in attacker 3Crv"
     end
 
     Note over A: "Repeat 5x, then close LP → +349,852 3Crv, +185,137 USDT"

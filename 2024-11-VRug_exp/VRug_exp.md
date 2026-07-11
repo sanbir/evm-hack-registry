@@ -267,7 +267,7 @@ sequenceDiagram
     A->>P: "swap(2.9039 WETH out, 0, mev, '')"
     P->>W: "transfer 2.9039 WETH to mev (optimistic)"
     W-->>M: "+2.9039 WETH"
-    Note over P: "balance1=938,849,203; reserve1=88,849,203<br/>amount1In = 938,849,203 − 88,849,203 = 850,000,000 VRUG (phantom)"
+    Note over P: "balance1=938,849,203#59; reserve1=88,849,203<br/>amount1In = 938,849,203 − 88,849,203 = 850,000,000 VRUG (phantom)"
     P->>P: "K-check: x·y ≥ k → ratio 1.0 ✓"
     P->>P: "_update() resyncs: 0.3045 WETH / 938,849,203 VRUG"
     end

@@ -120,4 +120,8 @@ contract GemJoin is LibNote {
         vat.slip(ilk, msg.sender, -int(wad));
         require(gem.transfer(usr, wad), "GemJoin/failed-transfer");
     }
+    // VULNERABILITY NOTE (2022-08-Circle_exp1 / UNIV2DAIUSDC-A): exit() simply decrements the urn's gem balance in Vat (via slip)
+    // and transfers the real ERC20 LP token out. In the exploit this was used (after frob) to pull the under-valued LP
+    // out of the CDP urn so it could be burned on the pair at its true higher redemption value. No valuation check here;
+    // the (incorrect) valuation was enforced only at frob time using the ilk's spot price.
 }

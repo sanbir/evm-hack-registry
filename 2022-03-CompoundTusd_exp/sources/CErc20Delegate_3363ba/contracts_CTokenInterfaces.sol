@@ -255,6 +255,9 @@ abstract contract CErc20Interface is CErc20Storage {
 
     function _addReserves(uint addAmount) virtual external returns (uint);
 }
+// NOTE: In the fixed version, sweepToken is now explicitly part of the interface (and the impl has the admin guard).
+// The 2022 exploit succeeded in part because the deployed delegator's interface version omitted the declaration.
+
 
 contract CDelegationStorage {
     /**

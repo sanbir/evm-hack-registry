@@ -257,7 +257,7 @@ sequenceDiagram
 
     rect rgb(243,229,245)
     loop setCount 0..9  (9 nested re-entries)
-        A->>S: safeTransferFrom(attacker, staking, 2062)  (push NFT back; no-op receiver)
+        A->>S: safeTransferFrom(attacker, staking, 2062)  (push NFT back#59; no-op receiver)
         A->>S: Withdraw(2062, true)  (re-entrant)
         Note over S: require(owner==msg.sender) PASSES<br/>state still Staked, no tax path re-charged
         S->>N: safeTransferFrom(staking, attacker, 2062)

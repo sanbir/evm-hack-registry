@@ -309,11 +309,11 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Round1
-    Round1: "Round 1<br/>pay 3.596 ETH<br/>balance ~14.4 -> ~10.8"
-    Round2: "Round 2<br/>pay 3.597 ETH<br/>balance ~10.8 -> ~7.2"
-    Round3: "Round 3<br/>pay 3.597 ETH<br/>balance ~7.2 -> ~3.6"
-    Round4: "Round 4<br/>pay 3.598 ETH<br/>balance ~3.6 -> ~0"
-    Round5: "Round 5<br/>REVERT: Insufficient ETH balance<br/>(contract drained)"
+    Round1: Round 1<br/>pay 3.596 ETH<br/>balance ~14.4 -> ~10.8
+    Round2: Round 2<br/>pay 3.597 ETH<br/>balance ~10.8 -> ~7.2
+    Round3: Round 3<br/>pay 3.597 ETH<br/>balance ~7.2 -> ~3.6
+    Round4: Round 4<br/>pay 3.598 ETH<br/>balance ~3.6 -> ~0
+    Round5: Round 5<br/>REVERT#58; Insufficient ETH balance<br/>(contract drained)
     Round1 --> Round2
     Round2 --> Round3
     Round3 --> Round4

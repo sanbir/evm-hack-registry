@@ -322,7 +322,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,E: "Step 2-3 - pledge 2,000 BUSD, set self as inviter"
     A->>E: "pledgein(0xAb21, 2000e18)"
-    E->>E: "inviter[A] = 0xAb21; income = _s5 = 70"
+    E->>E: "inviter[A] = 0xAb21#59; income = _s5 = 70"
     E->>A: "transferFrom 1,660 BUSD to contract"
     E->>A: "transferFrom 200 BUSD to _recaddr"
     E->>A: "transferFrom 140 BUSD to _recaddr2"
@@ -333,7 +333,7 @@ sequenceDiagram
     E->>E: "team(2000e18)"
     E->>LP: "getprice() reads spot reserves"
     LP-->>E: "_swapprice tiny (~0.0008 BUSD per Discover)"
-    E->>E: "curTAmount = 50e18; curTAmount22 = 50e18 * 1e18 / _swapprice"
+    E->>E: "curTAmount = 50e18#59; curTAmount22 = 50e18 * 1e18 / _swapprice"
     E->>D: "other.transfer(0xAb21, 62,536.76 Discover)"
     D-->>B: "62,536.76 Discover"
     Note over E: "inviter[0xAb21] = 0 -> break"

@@ -3374,6 +3374,20 @@ interface MonoToken {
     ) external;
 }
 
+// ============================================================================
+// VULNERABLE CONTRACT INTERFACE (2022-03-OneRing Finance hack)
+// Target: OneRing Vault (0x4e332D616b5bA1eDFd87c899E534D996c336a2FC on Fantom)
+//   + delegatecall target Controller 0xC06826F52F29B34C5d8b2C61aBf844CEBCf78ABF
+//
+// VULNERABILITY:
+//   depositSafe(_amount, _token, _minAmount) and withdraw(_amount, _underlying)
+//   are callable without reentrancy protection. Share mint amount is derived from
+//   live investedBalanceInUSD() (sum of strategy values) at the moment of deposit.
+//   A flash deposit updates holdings; same-tx withdraw uses that updated value to
+//   compute redemption, yielding a net profit due to internal valuation/rounding
+//   (no epoch, no lock, no nonReentrant, minAmount=1 accepted).
+// EXPLOIT PREREQ: flash source of _token (here USDC via the pair).
+// ============================================================================
 interface IOneRingVault {
     function depositSafe(uint256 _amount, address _token, uint256 _minAmount) external;
 

@@ -146,19 +146,19 @@ assertEq(victimBBefore - IERC20(BEEFY_VAULT_B).balanceOf(VICTIM_B), VAULT_B_AMOU
 ```mermaid
 sequenceDiagram
     participant EOA as Attacker EOA
-    participant AC as Attack Contract\n(order.user = AC)
+    participant AC as Attack Contract<br/>(order.user = AC)
     participant ZR as BeefyZapRouter
     participant VA as Vault A mooToken
     participant VB as Vault B mooToken
     participant VA_v as Victim A
     participant VB_v as Victim B
 
-    Note over VA_v,ZR: Victim A has approval\nZapRouter on Vault A
-    Note over VB_v,ZR: Victim B has approval\nZapRouter on Vault B
+    Note over VA_v,ZR: Victim A has approval<br/>ZapRouter on Vault A
+    Note over VB_v,ZR: Victim B has approval<br/>ZapRouter on Vault B
 
     EOA->>AC: run()
-    AC->>ZR: executeOrder(order, route)\ninputs=[], outputs=[], user=AC
-    ZR->>ZR: require(msg.sender == order.user)\nPasses: both are AC
+    AC->>ZR: executeOrder(order, route)<br/>inputs=[], outputs=[], user=AC
+    ZR->>ZR: require(msg.sender == order.user)<br/>Passes: both are AC
     ZR->>ZR: pullTokens(AC, []) -> no-op
     ZR->>VA: call transferFrom(VictimA, AC, 2782.48)
     VA->>VA_v: debit allowance + balance
@@ -166,7 +166,7 @@ sequenceDiagram
     ZR->>VB: call transferFrom(VictimB, AC, 2779.11)
     VB->>VB_v: debit allowance + balance
     VB->>AC: credit 2779.11 mooB
-    ZR-->>AC: order fulfilled\n(outputs empty, relay zero)
+    ZR-->>AC: order fulfilled<br/>(outputs empty, relay zero)
 ```
 
 ```mermaid
@@ -177,9 +177,9 @@ flowchart TD
     D -- yes, attacker sets order.user = self --> E[Check passes trivially]
     E --> F[_executeSteps loops over caller Steps]
     F --> G{stepTarget == permit2 or tokenManager?}
-    G -- no --> H[stepTarget.call(attacker calldata)]
+    G -- no --> H["stepTarget.call(attacker calldata)"]
     H --> I{calldata == transferFrom victim, attacker, amt}
-    I --> J[Router spends victim allowance\nvictim had approved ZapRouter]
+    I --> J["Router spends victim allowance<br/>victim had approved ZapRouter"]
     J --> K[Victim tokens land in attacker account]
     G -- yes --> L[revert TargetingInvalidContract]
 ```

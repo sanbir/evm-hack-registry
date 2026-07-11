@@ -273,7 +273,7 @@ sequenceDiagram
     P-->>P: _authorizeUpgrade(): onlyRole(ADMIN_ROLE) -> PASS
     P-->>P: set ERC-1967 impl slot = maliciousImpl
     P->>I: delegatecall exploit2()
-    Note over I,P: runs in proxy storage; address(this) == proxy
+    Note over I,P: runs in proxy storage#59; address(this) == proxy
     I->>U: transfer(attacker, balanceOf(proxy) = 30,000)
     U-->>A: 30,000 USDT
     I-->>P: sstore(impl slot, 0)  (cover tracks)

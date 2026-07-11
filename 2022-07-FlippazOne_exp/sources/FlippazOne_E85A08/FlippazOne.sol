@@ -1084,6 +1084,10 @@ abstract contract Ownable is Context {
         _;
     }
 
+    // ACCESS CONTROL NOTE: onlyOwner is correctly used on privileged state-changing admin functions
+    // (e.g. startAuction at L1218, edit* functions) but *omitted* from all the owner*Withdraw* functions.
+    // This inconsistency is the root cause of the unauthorized drain vulnerability.
+
     /**
      * @dev Leaves the contract without owner. It will not be possible to call
      * `onlyOwner` functions anymore. Can only be called by the current owner.
@@ -1266,6 +1270,10 @@ contract FlippazOne is ERC721, ERC721URIStorage, Ownable {
     
     }
 
+    // FUND FLOW: All ETH sent via bid() (and buyNow()) lands in this contract's balance.
+    // There is no separate escrow or pull mechanism for the owner portion until the flawed withdraw functions.
+    // Combined with missing access control on withdraw, this enables the full drain of received funds.
+
     function isBuyNowActive() public view returns(bool){
         if (auctionStarted){
             if (!auctionEnded){
@@ -1339,6 +1347,10 @@ contract FlippazOne is ERC721, ERC721URIStorage, Ownable {
         _burn(tokenId);
     }
 
+    // NOTE: ownerWithdraw and ownerWithdrawTo also suffer from the same missing access control bug as the All variants below.
+    // They are public (anyone can call) and only gated by a timestamp check (which can be waited out or bypassed in some states).
+    // They are intended for the owner per their name and use of `owner()`, but lack `onlyOwner`.
+    // While the exploited path used ownerWithdrawAllTo (full balance, no gate), these are similarly flawed.
     function ownerWithdraw() public  {
         require(auctionEnded || block.timestamp > auctionEndTimestamp, "Cannot withdraw until auction is ended");
         (bool success, ) = owner().call{value: highestBid}("");
@@ -1351,6 +1363,16 @@ contract FlippazOne is ERC721, ERC721URIStorage, Ownable {
         require(success, "Failed to withdraw funds.");
     }
 
+    // VULNERABILITY: Missing access control (onlyOwner) on owner withdrawal functions allowing arbitrary drain
+    // These functions (ownerWithdrawAll / ownerWithdrawAllTo) are marked `public` with no `onlyOwner` modifier
+    // (defined at line ~1082 in Ownable) and no other caller checks. Anyone can invoke them.
+    // ownerWithdrawAllTo allows sending the *entire* contract ETH balance to *any* toAddress.
+    // Compare to correctly-protected functions: editBaseUri, edit*, startAuction which use `onlyOwner`.
+    // The non-All variants have a weak time-gate but still lack owner restriction and only send highestBid.
+    // The All variants have ZERO preconditions whatsoever.
+    // Root cause: developer copy-pasted or wrote withdraw helpers but forgot to restrict to owner().
+    // Impact: Attacker can steal 100% of the contract's ETH balance (all accumulated bids / auction proceeds)
+    // at any time, even before auction ends. The rightful owner and/or highest bidder lose the funds.
     function ownerWithdrawAll() public  {
         (bool success, ) = owner().call{value: address(this).balance}("");
         require(success, "Failed to withdraw funds.");

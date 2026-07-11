@@ -261,7 +261,7 @@ sequenceDiagram
     P-->>A: 0.4672 WBNB
     end
 
-    Note over A: Net +0.4672 WBNB (subset);<br/>~5 BNB across the full approver set
+    Note over A: Net +0.4672 WBNB (subset)#59;<br/>~5 BNB across the full approver set
 ```
 
 ### How the missing check turns an approval into theft
@@ -286,12 +286,12 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Empty : "attacker contract: 0 BNBX, 0 WBNB"
-    Empty --> Accumulating : "sweep(victim) loop"
-    Accumulating --> Accumulating : "+ each victim's full BNBX balance"
-    Accumulating --> Loaded : "after 10 sweeps:<br/>104,537.37 BNBX held"
-    Loaded --> Sold : "transfer(pair, 104,537 BNBX)<br/>+ pair.swap(out=0.4672 WBNB)"
-    Sold --> [*] : "attacker: 0.4672 WBNB profit"
+    [*] --> Empty : attacker contract#58; 0 BNBX, 0 WBNB
+    Empty --> Accumulating : sweep(victim) loop
+    Accumulating --> Accumulating : + each victim's full BNBX balance
+    Accumulating --> Loaded : after 10 sweeps#58;<br/>104,537.37 BNBX held
+    Loaded --> Sold : transfer(pair, 104,537 BNBX)<br/>+ pair.swap(out=0.4672 WBNB)
+    Sold --> [*] : attacker#58; 0.4672 WBNB profit
 
     note right of Accumulating
         Each transferFrom only works because

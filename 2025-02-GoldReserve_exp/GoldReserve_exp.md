@@ -197,17 +197,17 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["depositProfit pushes BNB"] --> B["accumulatedProfitPerNFT grows\n(never decremented on claim)"]
+    A["depositProfit pushes BNB"] --> B["accumulatedProfitPerNFT grows<br/>(never decremented on claim)"]
     B --> C{"claimProfit by holder H"}
     C --> D["entitlement = balanceOf H * accumulatedPerNFT"]
     D --> E["toClaim = entitlement - claimedPerAddress H"]
     E --> F{Is H a fresh address?}
-    F -->|Yes, marker == 0| G["Pays FULL entitlement\nout of contract BNB balance"]
+    F -->|Yes, marker == 0| G["Pays FULL entitlement<br/>out of contract BNB balance"]
     F -->|No, already claimed| H["Pays only the delta"]
     I["safeTransferFrom moves NFTs"] --> J["NO update to claimedPerAddress on either side"]
     J --> K["Recipient inherits marker == 0"]
     K --> C
-    G --> L["Same profit paid N times\nfor the same NFTs"]
+    G --> L["Same profit paid N times<br/>for the same NFTs"]
 ```
 
 ## Remediation
