@@ -46,7 +46,7 @@ contract Kame is BaseTestWithBalanceLog {
     IAggregationRouter router = IAggregationRouter(0x14bb98581Ac1F1a43fD148db7d7D793308Dc4d80);
 
     function setUp() public {
-        vm.createSelectFork("sei", blocknumToForkFrom);
+        vm.createSelectFork("http://127.0.0.1:8559", blocknumToForkFrom);
         fundingToken = USDC;
     }
 
