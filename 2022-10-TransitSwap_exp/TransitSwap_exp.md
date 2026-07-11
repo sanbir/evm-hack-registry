@@ -251,11 +251,11 @@ flowchart TD
     Router -->|"passes descriptor.owner<br/>as trusted input"| Bridge["Bridge / cross-chain path"]
     Bridge -->|"calls claimTokens"| Claim["ClaimTokens 0xeD1a...<br/>selector 0x0a5ea466"]
     Claim --> Gate{"Checks that<br/>caller == owner?"}
-    Gate --|"❌ NO — the bug"| Pull["IERC20.transferFrom(owner, to, amount)"]
-    Gate --|"✅ (correct fix)"| Reject["revert: caller must be owner<br/>or present valid off-chain permit"]
+    Gate -->|"❌ NO — the bug"| Pull["IERC20.transferFrom(owner, to, amount)"]
+    Gate -->|"✅ (correct fix)"| Reject["revert: caller must be owner<br/>or present valid off-chain permit"]
     Pull --> Allow{"allowance[ owner ][ ClaimTokens ]<br/>>= amount?"}
-    Allow --|"yes (standing approval)"| Move["tokens move owner -> to<br/>(attacker)"]
-    Allow --|"no"| Fail["revert"]
+    Allow -->|"yes (standing approval)"| Move["tokens move owner -> to<br/>(attacker)"]
+    Allow -->|"no"| Fail["revert"]
     Move --> Stolen(["Victim drained<br/>6,312.86 USDT in PoC<br/>~$21M in live attack"])
 
     style Gate fill:#ffcdd2,stroke:#c62828,stroke-width:2px

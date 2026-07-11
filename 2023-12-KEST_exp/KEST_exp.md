@@ -264,7 +264,7 @@ sequenceDiagram
         A->>R: swap ALL WBNB -> KEST (2% buy fee)
         A->>T: transfer KEST into pair (2% sell fee, pair under-credited)
         A->>P: skim() (fee re-applied, gap preserved)
-        A->>P: getReserves(); amountIn = balanceOf(pair) - reserveKEST
+        A->>P: getReserves()#59; amountIn = balanceOf(pair) - reserveKEST
         A->>P: swap(0, amountOut) directly -> pull WBNB
         A->>R: swapTokensForExactTokens (recycle)
         A->>R: removeLiquidityETHSupportingFeeOnTransferTokens

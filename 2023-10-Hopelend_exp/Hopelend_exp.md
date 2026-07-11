@@ -348,7 +348,7 @@ sequenceDiagram
     Note over A,DEX: Step 7 - convert, repay, profit
     A->>DEX: swap stHOPE->HOPE->USDT->USDC->WBTC->WETH
     A->>AV: repay 2300e8 WBTC + premium
-    A->>A: WETH.withdraw(516.47); bribe 264 ETH
+    A->>A: WETH.withdraw(516.47)#59; bribe 264 ETH
     Note over A: Net +252.47 ETH
     end
 ```

@@ -161,8 +161,8 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     subgraph Decoupled["Two independent prices for the same token"]
-        M[AMM market price of QCD\n~2.064e-25 USDT/QCD\nset by PancakeSwap reserves]
-        I[Internal redemption rate\noutGout = amountIn * GOUT_pool / circulating_QCD\n~2.935e-25 USDT/QCD effective]
+        M[AMM market price of QCD<br/>~2.064e-25 USDT/QCD<br/>set by PancakeSwap reserves]
+        I[Internal redemption rate<br/>outGout = amountIn * GOUT_pool / circulating_QCD<br/>~2.935e-25 USDT/QCD effective]
     end
     M -->|attacker buys QCD here, cheap| X[Attacker captures spread ~1.42x]
     I -->|attacker redeems QCD here, overpriced| X

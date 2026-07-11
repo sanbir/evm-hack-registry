@@ -217,7 +217,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,PF: Step 4 — deposit(0,0) triggers reward settlement
     A->>PF: deposit(0, 0)
-    PF->>PF: updatePool(0); pending = 3,528
+    PF->>PF: updatePool(0)#59; pending = 3,528
     PF->>PF: _mint(A, id=0, 3,528)
     PF-->>A: onERC1155Received() (rewardDebt NOT yet updated)
     end
@@ -279,16 +279,16 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> B0
-    B0: "balance 0<br/>(earned: 3,528 legit)"
-    B1: "balance 3,528<br/>(payout #1)"
-    B2: "balance 7,056<br/>(payout #2)"
-    B3: "balance 10,584<br/>(payout #3 — clears 10,000 gate)"
-    Redeem: "redeem(): burn 10,000<br/>→ balance 584, NFT #4689 out"
+    B0: balance 0<br/>(earned#58; 3,528 legit)
+    B1: balance 3,528<br/>(payout #1)
+    B2: balance 7,056<br/>(payout #2)
+    B3: balance 10,584<br/>(payout #3 — clears 10,000 gate)
+    Redeem: redeem()#58; burn 10,000<br/>→ balance 584, NFT #4689 out
 
-    B0 --> B1: "_mint 3,528 + reenter"
-    B1 --> B2: "_mint 3,528 + reenter"
-    B2 --> B3: "_mint 3,528, stop (>10,000)"
-    B3 --> Redeem: "PointShop.redeem(uJENNY,0)"
+    B0 --> B1: _mint 3,528 + reenter
+    B1 --> B2: _mint 3,528 + reenter
+    B2 --> B3: _mint 3,528, stop (>10,000)
+    B3 --> Redeem: PointShop.redeem(uJENNY,0)
     Redeem --> [*]
 
     note right of B3

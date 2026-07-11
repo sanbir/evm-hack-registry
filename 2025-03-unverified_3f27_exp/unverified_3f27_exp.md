@@ -148,10 +148,10 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["burn(address from, uint256)\nNo auth on from"] --> B["Pair real SWT balance can be zeroed\nby a third party"]
-    B --> C["pair.sync caches the gutted balance\nas reserve0 = 1"]
-    C --> D["k = reserve0 * reserve1 collapses\nSWT becomes astronomically expensive"]
-    D --> E["Tiny SWT input swaps out\nalmost all WAVAX"]
+    A["burn(address from, uint256)<br/>No auth on from"] --> B["Pair real SWT balance can be zeroed<br/>by a third party"]
+    B --> C["pair.sync caches the gutted balance<br/>as reserve0 = 1"]
+    C --> D["k = reserve0 * reserve1 collapses<br/>SWT becomes astronomically expensive"]
+    D --> E["Tiny SWT input swaps out<br/>almost all WAVAX"]
     style A fill:#f88
     style C fill:#fc8
     style E fill:#8f8

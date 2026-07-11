@@ -302,7 +302,7 @@ sequenceDiagram
         A->>P: skim(attacker)
         P->>H: transfer(attacker, bal)  [msg.sender == pair]
         H->>H: _calulate(attacker, bal)
-        H->>H: mint _h2 = bal*5/100; burn side-tokens
+        H->>H: mint _h2 = bal*5/100#59; burn side-tokens
         H-->>A: bonus H2O from contract reserve
     end
     Note over A: H2O balance 66.4M -> 149.7M

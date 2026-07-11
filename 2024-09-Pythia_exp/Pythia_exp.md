@@ -293,14 +293,14 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Seed
-    Seed: "0.5 ETH -> 348.75 PYTHIA"
+    Seed: 0.5 ETH -> 348.75 PYTHIA
     Seed --> Stake0
-    Stake0: "stake -> 348.75 SPythia (debt booked)"
+    Stake0: stake -> 348.75 SPythia (debt booked)
     Stake0 --> Cycle
-    Cycle: "wash cycle i:<br/>transfer to fresh Helper (debt NOT moved)<br/>claim full reward on balance_i<br/>re-stake non-escrowed half"
-    Cycle --> Cycle: "balance grows<br/>(359.68 -> 372.43 -> ... )"
-    Cycle --> Done: "after 30 cycles"
-    Done: "880.10 SPythia held<br/>+ 531.35 PYTHIA escrowed"
+    Cycle: wash cycle i#58;<br/>transfer to fresh Helper (debt NOT moved)<br/>claim full reward on balance_i<br/>re-stake non-escrowed half
+    Cycle --> Cycle: balance grows<br/>(359.68 -> 372.43 -> ... )
+    Cycle --> Done: after 30 cycles
+    Done: 880.10 SPythia held<br/>+ 531.35 PYTHIA escrowed
     Done --> [*]
 ```
 

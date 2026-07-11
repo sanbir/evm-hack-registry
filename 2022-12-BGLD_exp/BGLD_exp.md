@@ -335,13 +335,13 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> HasV1: attacker holds B oldBGLD
-    HasV1 --> Migrate: "migrate() called"
-    Migrate --> ComputePull: "maxTransfer = B*10/11 - 1"
-    ComputePull --> PullV1: "transferFrom pulls ~0.909*B<br/>(contract receives ~0.818*B after fee)"
-    PullV1 --> CreditV2: "transfer FULL B to user in v2"
-    CreditV2 --> Bonus: "transferFrom bonus: B/10 extra v2"
-    Bonus --> Residual: "user still holds ~0.09*B v1"
-    Residual --> HasV1: "migrate() callable again on residual"
+    HasV1 --> Migrate: migrate() called
+    Migrate --> ComputePull: maxTransfer = B*10/11 - 1
+    ComputePull --> PullV1: transferFrom pulls ~0.909*B<br/>(contract receives ~0.818*B after fee)
+    PullV1 --> CreditV2: transfer FULL B to user in v2
+    CreditV2 --> Bonus: transferFrom bonus#58; B/10 extra v2
+    Bonus --> Residual: user still holds ~0.09*B v1
+    Residual --> HasV1: migrate() callable again on residual
     note right of CreditV2
         Bug: payout uses pre-fee B,
         not the v1 actually delivered.

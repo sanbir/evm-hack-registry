@@ -173,11 +173,11 @@ sequenceDiagram
     D->>C: transfer 224 WBNB
     C->>P: swap 224 WBNB -> HS (pumps HS price)
     P-->>C: ~33,368.77 HS
-    Note over C,H: HS/WBNB reserves now distorted\ngetTokenAmountFromUSDT reports\n2000 USDT costs ~0.0000757 HS
+    Note over C,H: HS/WBNB reserves now distorted<br/>getTokenAmountFromUSDT reports<br/>2000 USDT costs ~0.0000757 HS
     loop 70 helpers
         C->>H: deploy helper, fund with recycled HS
         H->>S: Stake(2000 USDT, previousHelper)
-        S-->>H: book 2000 USDT stake\ncredit referral upline in USDT\npull only ~0.0000757 HS
+        S-->>H: book 2000 USDT stake<br/>credit referral upline in USDT<br/>pull only ~0.0000757 HS
         H-->>C: return leftover HS
     end
     loop 57 claims
@@ -201,10 +201,10 @@ flowchart TD
     C --> D{Pair distorted by flash swap?}
     D -- no --> E[token cost = fair HS amount]
     D -- yes --> F[token cost = dust HS amount]
-    F --> G[Stake records full 2000 USDT\nand credits 200/60/40/20... USDT referral rewards]
+    F --> G[Stake records full 2000 USDT<br/>and credits 200/60/40/20... USDT referral rewards]
     G --> H[Rewards converts reward USDT -> HS via same live oracle]
-    H --> I[Contract pays out many HS tokens\nfor a USDT figure that cost almost nothing]
-    I --> J[Attacker dumps HS -> WBNB\nrepays flash, keeps surplus]
+    H --> I[Contract pays out many HS tokens<br/>for a USDT figure that cost almost nothing]
+    I --> J[Attacker dumps HS -> WBNB<br/>repays flash, keeps surplus]
 ```
 
 ## Remediation

@@ -162,10 +162,10 @@ sequenceDiagram
     V2->>Tok: transfer(pair -> AC, amountOut)
     Tok->>AC: net INVT (amountOut - tax)
     Tok->>W: tax pulled FROM PAIR reserves
-    Note over V2: reserve INVT drops below\nwhat swap() recorded
-    Note over AC,V2: STEP 3: helper re-injects liquidity\nand buys more INVT
+    Note over V2: reserve INVT drops below<br/>what swap() recorded
+    Note over AC,V2: STEP 3: helper re-injects liquidity<br/>and buys more INVT
     AC->>V2: addLiquidity + buy
-    Note over AC,V2: STEP 4: sell INVT back\ninto skewed pool
+    Note over AC,V2: STEP 4: sell INVT back<br/>into skewed pool
     AC->>V2: swap INVT -> WBNB
     V2->>AC: ~3005.44 WBNB
     AC->>V3: repay 3000.3 WBNB

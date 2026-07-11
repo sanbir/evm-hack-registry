@@ -201,7 +201,7 @@ sequenceDiagram
     Note over A,T: "Step 1 — the bug: free withdrawal"
     A->>T: "unstake(balanceOf(FAPEN))"
     Note over T: "require(balances[address(this)] >= amount)<br/>checks CONTRACT, not caller"
-    T->>T: "balances[A] += 9.52M;  balances[FAPEN] -= 9.52M"
+    T->>T: "balances[A] += 9.52M#59;  balances[FAPEN] -= 9.52M"
     Note over A: "Attacker now holds 9,521,992.39 FAPEN, paid nothing"
     end
 

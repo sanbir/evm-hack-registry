@@ -323,18 +323,18 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> VerifyHeader
-    VerifyHeader: "Verify header sig vs ECCD.ConKeepersPkBytes"
-    VerifyHeader --> MerkleProve: "sig recovers stored keepers ✓<br/>(step 1: old keepers; step 2: attacker key)"
-    MerkleProve: "Merkle-prove tx in block"
-    MerkleProve --> Replay: "proof valid ✓"
-    Replay: "checkIfFromChainTxExist → false; mark processed"
-    Replay --> IsContract: "not yet processed ✓"
-    IsContract: "require toContract is a contract"
-    IsContract --> Dispatch: "ECCD / LockProxy ARE contracts ✓<br/>⚠️ no allow-list on target"
-    Dispatch: "ECCM.call(toContract, selector(method), args)<br/>⚠️ selector from untrusted 'method' string"
-    Dispatch --> Hijack: "selector collides with putCurEpochConPubKeyBytes"
-    Hijack: "ECCD.onlyOwner passes (caller = ECCM = owner)"
-    Hijack --> [*]: "keeper key replaced / funds unlocked"
+    VerifyHeader: Verify header sig vs ECCD.ConKeepersPkBytes
+    VerifyHeader --> MerkleProve: sig recovers stored keepers ✓<br/>(step 1#58; old keepers#59; step 2#58; attacker key)
+    MerkleProve: Merkle-prove tx in block
+    MerkleProve --> Replay: proof valid ✓
+    Replay: checkIfFromChainTxExist → false#59; mark processed
+    Replay --> IsContract: not yet processed ✓
+    IsContract: require toContract is a contract
+    IsContract --> Dispatch: ECCD / LockProxy ARE contracts ✓<br/>⚠️ no allow-list on target
+    Dispatch: ECCM.call(toContract, selector(method), args)<br/>⚠️ selector from untrusted 'method' string
+    Dispatch --> Hijack: selector collides with putCurEpochConPubKeyBytes
+    Hijack: ECCD.onlyOwner passes (caller = ECCM = owner)
+    Hijack --> [*]: keeper key replaced / funds unlocked
 ```
 
 ---

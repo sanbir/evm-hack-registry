@@ -300,7 +300,7 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,H: "Step B — inflate base via rounding"
     A->>H: "exploit()"
-    H->>C: "addCollateral(100); borrow(1)"
+    H->>C: "addCollateral(100)#59; borrow(1)"
     loop "90 times"
         H->>C: "borrow(1)  -> toBase(roundUp) mints ~+base parts"
         H->>C: "repay(1)   -> removes 1 part, base stays doubled"

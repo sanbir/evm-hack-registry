@@ -134,7 +134,7 @@ sequenceDiagram
     R->>T: depositVault(amount, V) → 1 (no-op)
     R->>T: burn(V, amount) → true (no-op)
     R-->>A: (emits LogAnySwapOut)
-    Note over T: Attacker keeps the underlying; nothing real was burned.
+    Note over T: Attacker keeps the underlying#59; nothing real was burned.
 ```
 
 ---

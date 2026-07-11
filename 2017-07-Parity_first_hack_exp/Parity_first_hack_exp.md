@@ -282,7 +282,7 @@ sequenceDiagram
     Note over A,L: Step 3 — drain via single transaction
     A->>W: "execute(attacker, balance, 0x)"
     W->>L: "delegatecall"
-    L->>L: "onlyowner OK; underLimit(balance) OK"
+    L->>L: "onlyowner OK#59; underLimit(balance) OK"
     L->>A: "call.value(balance)()  -> 82,189.93 ETH"
     L-->>W: "emit SingleTransact"
     end

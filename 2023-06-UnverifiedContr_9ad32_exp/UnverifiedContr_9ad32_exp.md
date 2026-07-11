@@ -272,7 +272,7 @@ sequenceDiagram
     A->>V: "claim(0, X)"
     V->>B: "approve(attacker, X)  ⚠️ stray allowance"
     V->>B: "transfer(vuln → attacker, X)  (refund #1)"
-    Note over V: "Vuln BUSD back to 5,955.47;<br/>attacker now holds allowance X"
+    Note over V: "Vuln BUSD back to 5,955.47#59;<br/>attacker now holds allowance X"
     A->>B: "transferFrom(vuln → attacker, X)  (refund #2)"
     Note over V: "Vuln BUSD: 5,955.47 → 0  ⚠️ drained"
     end

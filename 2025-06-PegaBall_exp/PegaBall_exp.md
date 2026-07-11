@@ -205,12 +205,12 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["msg.value == 0"] --> B{"hasETHBalance:\n buyer.balance >= price?"}
+    A["msg.value == 0"] --> B{"hasETHBalance:<br/> buyer.balance >= price?"}
     B -- "yes (flash-loaned)" --> C["buyGamesFrom body"]
-    C --> D["payable(this).call value=price\n self-transfer, net 0 to contract"]
+    C --> D["payable(this).call value=price<br/> self-transfer, net 0 to contract"]
     D --> E["_distributeBuyTax(price)"]
-    E --> F["vendor.receiver.call value=1% of price\n paid from CONTRACT balance"]
-    E --> G["vendor.referrer.call value=1% of price\n paid from CONTRACT balance"]
+    E --> F["vendor.receiver.call value=1% of price<br/> paid from CONTRACT balance"]
+    E --> G["vendor.referrer.call value=1% of price<br/> paid from CONTRACT balance"]
     F --> H["Protocol pool drained"]
     G --> H
     style D fill:#fdd

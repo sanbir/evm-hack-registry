@@ -232,7 +232,7 @@ sequenceDiagram
     deactivate T
 
     Note over S: "attacker1 = 2^255, attacker2 = 2^255 (minted from nothing)"
-    Note over A: "Both balances = 5.79e58 BEC; totalSupply unchanged -> accounting broken"
+    Note over A: "Both balances = 5.79e58 BEC#59; totalSupply unchanged -> accounting broken"
 ```
 
 ### Where the overflow defeats the guard

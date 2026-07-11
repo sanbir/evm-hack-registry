@@ -317,7 +317,7 @@ sequenceDiagram
     end
 
     A->>V: "repay 4,000 DAI (fee 0)"
-    Note over A: "Net +4,187 DAI + 3,300 TAF; kDAI cash = 0"
+    Note over A: "Net +4,187 DAI + 3,300 TAF#59; kDAI cash = 0"
 ```
 
 ### The collateral-mirage flaw inside one helper cycle

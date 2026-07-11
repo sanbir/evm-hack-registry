@@ -215,7 +215,7 @@ sequenceDiagram
     A->>M: multicallWithoutCheck([call])
     M->>U: call → transfer(A, 619748460) (from Multicall's context)
     U->>I: delegatecall transfer(A, 619748460)
-    I-->>U: "Transfer(Multicall → A, 619748460); balances updated"
+    I-->>U: "Transfer(Multicall → A, 619748460)#59; balances updated"
     U-->>M: true
     M-->>A: "(loop ends, no checks)"
     end

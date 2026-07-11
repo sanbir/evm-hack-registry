@@ -254,7 +254,7 @@ sequenceDiagram
         A->>T: burnToken(amount, nonce, tamperedSig)
         T->>T: keccak256(sig) unseen -> guard passes
         T->>T: recover signer == authorizedSigner (v re-normalized)
-        T->>P: balances[pair] -= 0.4%; _burn to 0xdead
+        T->>P: balances[pair] -= 0.4%#59; _burn to 0xdead
         T->>P: sync()
     end
     Note over P: 2,671,767 BUSDT / 46,950 TCH (TCH -12.7%)

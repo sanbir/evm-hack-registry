@@ -144,7 +144,7 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    B["Buy JUDAO with flash-loaned USDT\n(price spot rises, ratio vs yesterday computed)"] --> C["currPrice/lastPrice < 1.05?"]
+    B["Buy JUDAO with flash-loaned USDT<br/>(price spot rises, ratio vs yesterday computed)"] --> C["currPrice/lastPrice < 1.05?"]
     C -- yes --> D["isBurnPair = true"]
     D --> E["Burn+tax pulled FROM pair balance"]
     E --> F["pair.sync(): reserve1 re-anchored down"]

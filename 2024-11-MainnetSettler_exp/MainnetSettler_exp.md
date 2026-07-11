@@ -329,16 +329,16 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Approved
-    Approved : "Victim approved Settler"
-    Approved : "allowance(victim→Settler) = MAX"
-    Approved : "victim balance = 308,453,642.48 Hold"
+    Approved : Victim approved Settler
+    Approved : allowance(victim→Settler) = MAX
+    Approved : victim balance = 308,453,642.48 Hold
 
-    Approved --> Drained : "anyone calls execute(BASIC: transferFrom(victim,attacker))"
+    Approved --> Drained : anyone calls execute(BASIC#58; transferFrom(victim,attacker))
 
-    Drained : "After the arbitrary call"
-    Drained : "victim balance = 0"
-    Drained : "attacker balance = 308,453,642.48 Hold"
-    Drained : "allowance = MAX − amount (still huge → re-drainable)"
+    Drained : After the arbitrary call
+    Drained : victim balance = 0
+    Drained : attacker balance = 308,453,642.48 Hold
+    Drained : allowance = MAX − amount (still huge → re-drainable)
     Drained --> [*]
 ```
 

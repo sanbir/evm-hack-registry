@@ -334,11 +334,11 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Idle
-    Idle: "currentPrice 1.58349<br/>reserve = R0"
-    Idle --> Pumped: "53 x buy(): +109,968 BUSD in,<br/>price ratchets to 2.68317"
-    Pumped: "currentPrice 2.68317 (frozen)<br/>reserve = R0 + 109,968"
-    Pumped --> Drained: "53 x sell(): -127,987 BUSD out<br/>at flat 0.9 x 2.68317"
-    Drained: "currentPrice still 2.68317<br/>reserve = R0 - 18,019<br/>(honest depositors short-changed)"
+    Idle: currentPrice 1.58349<br/>reserve = R0
+    Idle --> Pumped: 53 x buy()#58; +109,968 BUSD in,<br/>price ratchets to 2.68317
+    Pumped: currentPrice 2.68317 (frozen)<br/>reserve = R0 + 109,968
+    Pumped --> Drained: 53 x sell()#58; -127,987 BUSD out<br/>at flat 0.9 x 2.68317
+    Drained: currentPrice still 2.68317<br/>reserve = R0 - 18,019<br/>(honest depositors short-changed)
     Drained --> [*]
 ```
 

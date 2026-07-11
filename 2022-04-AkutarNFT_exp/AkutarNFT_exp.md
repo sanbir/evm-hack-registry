@@ -281,7 +281,7 @@ sequenceDiagram
     participant A as AkuAuction
     participant O as Owner
 
-    Note over A: auction live; allBids[] pre-populated<br/>refundProgress = 1
+    Note over A: auction live#59; allBids[] pre-populated<br/>refundProgress = 1
 
     rect rgb(255,243,224)
     Note over M,A: Plant the reverting bidder
@@ -297,7 +297,7 @@ sequenceDiagram
     end
 
     rect rgb(255,235,238)
-    Note over A: vm.warp(post-expiresAt); anyone calls processRefunds()
+    Note over A: vm.warp(post-expiresAt)#59; anyone calls processRefunds()
     loop loop body — atomic
         A->>A: bidder[i].call{value: refund}("")
         A->>A: require(sent, "Failed to refund bidder")
@@ -312,7 +312,7 @@ sequenceDiagram
     rect rgb(243,229,245)
     Note over O,A: Owner tries to rescue residual ETH
     O->>A: claimProjectFunds()
-    A-->>O: revert "Refunds not yet processed"<br/>(refundProgress[an index] &gt;= totalBids[a count] never true)
+    A-->>O: revert "Refunds not yet processed"<br/>(refundProgress[an index] &gt#59;= totalBids[a count] never true)
     Note over A: ETH permanently locked
     end
 ```

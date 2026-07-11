@@ -75,7 +75,7 @@ sequenceDiagram
     A->>M: depositByAddLiquidity(18, [EvilToken, …], amounts)
     M->>E: transferFrom(...)  (during liquidity add)
     E->>M: depositByAddLiquidity(18, [USDT,BUSD], …)  ⚠️ re-enter before accounting settles
-    M->>P: add more liquidity; userInfo[attacker] inflates
+    M->>P: add more liquidity#59; userInfo[attacker] inflates
     M-->>E: return
     A->>M: withdrawAndRemoveLiquidity(inflated stake)
     M-->>A: real USDT + BUSD out

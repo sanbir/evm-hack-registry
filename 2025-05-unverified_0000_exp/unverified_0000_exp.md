@@ -123,7 +123,7 @@ sequenceDiagram
 
     loop for each token in victim's balances
         Attacker->>Victim: mintTokens(0,false,false, [(token, balanceOf(victim))])
-        Note over Victim: no onlyOwner guard; msg.sender = caller
+        Note over Victim: no onlyOwner guard#59; msg.sender = caller
         Victim->>Token: transfer(msg.sender, amount)
         Token-->>Victim: true
         Token-->>Attacker: Transfer(victim, attacker, amount)
@@ -136,7 +136,7 @@ sequenceDiagram
 flowchart TD
     A["Call selector 0x88417d5c<br/>mintTokens(uint,bool,bool,(addr,uint)[])"] --> B{"owner()/storage-owner<br/>check?"}
     B -- "❌ MISSING" --> C["Loop over entries"]
-    B -- "should be: require(msg.sender == owner)" -.-> X["revert"]
+    B -.->|"should be: require(msg.sender == owner)"| X["revert"]
     C --> D["IERC20(token).transfer(msg.sender, amount)"]
     D --> E["amount = attacker-supplied,<br/>uncapped, == victim balance"]
     E --> F["Victim swept clean"]

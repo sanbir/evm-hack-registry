@@ -317,7 +317,7 @@ flowchart LR
         A1["totalSupply = S − soldJAY (much smaller)<br/>balance = B − paidETH<br/>ETHtoJAY(msg.value) ≈ v·(S−soldJAY) / (B−paidETH−v)"]
     end
     Before -->|"reentrant sell burns<br/>a big fraction of supply<br/>while paying out a small<br/>fraction of balance"| After
-    A1 -->|"numerator stays comparable,<br/>denominator barely shrinks"| Inflate(["Minted JAY multiplied by<br/>(S / (S − soldJAY)) · factor<br/>→ astronomically larger")]
+    A1 -->|"numerator stays comparable,<br/>denominator barely shrinks"| Inflate(["Minted JAY multiplied by<br/>(S / (S − soldJAY)) · factor<br/>→ astronomically larger"])
 
     style After fill:#ffcdd2,stroke:#c62828,stroke-width:2px
     style Inflate fill:#c8e6c9,stroke:#2e7d32

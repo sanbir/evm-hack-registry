@@ -308,7 +308,7 @@ sequenceDiagram
     A->>NPM: collect -> 9.949 WBTC to attacker
     end
 
-    Note over A: Repay flash loan; keep 280,000 EUROs + 8,512 USDC
+    Note over A: Repay flash loan#59; keep 280,000 EUROs + 8,512 USDC
 ```
 
 ### Value flow — collateral is laundered out, debt stays behind

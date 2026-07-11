@@ -305,7 +305,7 @@ sequenceDiagram
     A->>AV: repay 3,094,756.41 USDT (principal + premium)
     end
 
-    Note over A: Keeps 12.60 ETH + 6,510 ARB + 10,283 USDT; abandons LP-NFT bad debt
+    Note over A: Keeps 12.60 ETH + 6,510 ARB + 10,283 USDT#59; abandons LP-NFT bad debt
 ```
 
 ### NFT collateral valuation — the flawed price path

@@ -144,37 +144,37 @@ The victims collectively lost ~819 LINK of principal (pulled via `transferFrom`)
 sequenceDiagram
     participant Att as Attacker EOA
     participant AC as Attack Contract
-    participant V4 as V4 PoolManager\n(flash source)
+    participant V4 as V4 PoolManager<br/>(flash source)
     participant BR as BankrollNetworkStackPlus
-    participant V as Victim accounts\n(open LINK allowance)
-    participant LINK as LINK token
+    participant V as Victim accounts<br/>(open LINK allowance)
+    participant LNK as LINK token
 
     Att->>AC: deploy + execute()
     V4->>AC: flash 13,635 LINK
-    AC->>LINK: swap 7,800 LINK to WETH\n(round-trip setup)
+    AC->>LNK: swap 7,800 LINK to WETH<br/>(round-trip setup)
     AC->>BR: buy(5835)  mints 5,251.5 tokens to AC
     loop 6 victims
         AC->>BR: buyFor(victim_i, amount_i)
-        BR->>LINK: transferFrom victim_i (no msg.sender check)
-        BR->>BR: mint tokens to victim_i\nallocateFees raises profitPerShare_
+        BR->>LNK: transferFrom victim_i (no msg.sender check)
+        BR->>BR: mint tokens to victim_i<br/>allocateFees raises profitPerShare_
     end
-    BR-->>AC: AC now dominant holder,\ndividendOf(AC) inflated
+    BR-->>AC: AC now dominant holder,<br/>dividendOf(AC) inflated
     AC->>BR: sell(5251.5)  burn stake
     AC->>BR: withdraw()
-    BR->>LINK: transfer 6,810.48 LINK to AC
-    AC->>LINK: swap WETH back to LINK
+    BR->>LNK: transfer 6,810.48 LINK to AC
+    AC->>LNK: swap WETH back to LINK
     AC->>V4: repay 13,635 LINK
     AC->>Att: transfer 933.93 LINK profit
 ```
 
 ```mermaid
 flowchart TD
-    A[Victim grants LINK allowance\nto Bankroll to self-buy] --> B{buyFor called\nby third party?}
+    A[Victim grants LINK allowance<br/>to Bankroll to self-buy] --> B{buyFor called<br/>by third party?}
     B -- no msg.sender == customer check --> C[transferFrom pulls victim LINK]
-    C --> D[Victim minted tokens\n+ entry fee enters pool]
+    C --> D[Victim minted tokens<br/>+ entry fee enters pool]
     D --> E[profitPerShare_ rises]
-    E --> F[Attacker, already largest holder,\ncaptures inflated dividend]
-    F --> G[Attacker sell + withdraw drains\nfee-funded dividend in same tx]
+    E --> F[Attacker, already largest holder,<br/>captures inflated dividend]
+    F --> G[Attacker sell + withdraw drains<br/>fee-funded dividend in same tx]
     G --> H[Net profit in LINK]
     style B fill:#fdd,stroke:#c00
     style C fill:#fdd,stroke:#c00

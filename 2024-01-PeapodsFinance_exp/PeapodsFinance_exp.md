@@ -295,13 +295,13 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> Honest
-    Honest: "Pod: 650.306918 PEAS<br/>attacker ppPP = 0"
-    Loop: "After 20x flash+bond<br/>attacker ppPP = 12,876.076986<br/>pod PEAS STILL 650.306918"
-    Drain: "debond 12,876.076986 ppPP<br/>burn 12,489.794676 ppPP<br/>attacker pulls 26.466675 PEAS"
-    Cashout: "swap 26.466675 PEAS -> 285.171712 DAI<br/>-> 0.125588 WETH"
-    Honest --> Loop: "flash -> bond x20 (free mint)"
-    Loop --> Drain: "redeem inflated ppPP"
-    Drain --> Cashout: "Uniswap V3 PEAS->DAI->WETH"
+    Honest: Pod#58; 650.306918 PEAS<br/>attacker ppPP = 0
+    Loop: After 20x flash+bond<br/>attacker ppPP = 12,876.076986<br/>pod PEAS STILL 650.306918
+    Drain: debond 12,876.076986 ppPP<br/>burn 12,489.794676 ppPP<br/>attacker pulls 26.466675 PEAS
+    Cashout: swap 26.466675 PEAS -> 285.171712 DAI<br/>-> 0.125588 WETH
+    Honest --> Loop: flash -> bond x20 (free mint)
+    Loop --> Drain: redeem inflated ppPP
+    Drain --> Cashout: Uniswap V3 PEAS->DAI->WETH
     Cashout --> [*]
 ```
 

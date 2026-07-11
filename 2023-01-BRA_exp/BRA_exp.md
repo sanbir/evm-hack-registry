@@ -240,7 +240,7 @@ sequenceDiagram
     loop 101 times
         E->>P: skim(pair)
         P->>T: transfer(pair, pair, balance0 - reserve0)
-        T->>T: both buy+sell tax fire; ~3% minted to pair; no sync()
+        T->>T: both buy+sell tax fire#59; ~3% minted to pair#59; no sync()
         Note over P: balance0 grows ~3% each iter, reserve0 frozen
     end
     Note over P: balance0 217,219 BRA / reserve0 still 8,591 BRA

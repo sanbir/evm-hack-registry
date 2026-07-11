@@ -332,22 +332,23 @@ stateDiagram-v2
 
     state Public_API {
         direction LR
-        STO: "swapTokensForOther(amount)<br/>PUBLIC · no auth · amountOutMin = 0"
-        SAL: "swapAndLiquifyStepv1()<br/>PUBLIC · no auth · amountMin = 0"
-        ISADD: "_isAddLiquidityV1()<br/>tax exemption from 1000-wei<br/>surplus on opposite token"
+        STO: swapTokensForOther(amount)<br/>PUBLIC · no auth · amountOutMin = 0
+        SAL: swapAndLiquifyStepv1()<br/>PUBLIC · no auth · amountMin = 0
+        ISADD: _isAddLiquidityV1()<br/>tax exemption from 1000-wei<br/>surplus on opposite token
     }
 
     Public_API --> Manipulate
     state Manipulate {
         direction TB
-        M1: "Force contract to sell/seed<br/>using its own SGZ + approvals"
-        M2: "Donate 20,000 wei USDT<br/>⇒ fee-free SGZ transfer to pair"
-        M3: "Donate USDT, then pair.swap()<br/>against attacker-seeded reserves"
-        M1 --> M2 --> M3
+        M1: Force contract to sell/seed<br/>using its own SGZ + approvals
+        M2: Donate 20,000 wei USDT<br/>⇒ fee-free SGZ transfer to pair
+        M3: Donate USDT, then pair.swap()<br/>against attacker-seeded reserves
+        M1 --> M2
+        M2 --> M3
     }
 
-    Manipulate --> Drain: "round-trip USDT in < USDT out"
-    Drain --> [*]: "Pool USDT reserve swept<br/>+22,516 USDT to attacker"
+    Manipulate --> Drain: round-trip USDT in < USDT out
+    Drain --> [*]: Pool USDT reserve swept<br/>+22,516 USDT to attacker
 ```
 
 ---

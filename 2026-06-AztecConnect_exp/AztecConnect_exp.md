@@ -366,7 +366,7 @@ sequenceDiagram
     Note over A,S: Rollup 13277 — mint unbacked L2 note (numRealTxs = 1)
     A->>RP: processRollup(cd13277) (permissionless on V3)
     RP->>D: decodeProof()
-    D-->>RP: numTxs = 1; publicInputsHash over FULL 32-slot chunk
+    D-->>RP: numTxs = 1#59; publicInputsHash over FULL 32-slot chunk
     RP->>V: verify(proof, publicInputsHash)
     V-->>RP: OK (proof valid for any numRealTxs in [1..32])
     Note over RP: all 32 slots proven → slot-1 DEPOSIT note minted on L2

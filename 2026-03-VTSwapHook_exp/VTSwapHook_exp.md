@@ -168,18 +168,18 @@ sequenceDiagram
     PM->>H: beforeSwap (exactInput)
     H->>HP: doGetUnspecifiedAmount(reserve1, false, -amount)
     HP-->>H: specifiedAmount=full, unspecifiedAmount=fee-reduced y
-    Note over H: reserve(T) += full amount (INFLATED)\nreserve(VT) -= y
+    Note over H: reserve(T) += full amount (INFLATED)<br/>reserve(VT) -= y
     H-->>PM: BeforeSwapDelta(swap takes full ATH in, pays y vATH out)
     PM-->>A: delta: owes ATH, credited vATH y
 
     A->>PM: swap vATH->ATH (exact-out, size = y vATH)
     PM->>H: beforeSwap (exactOutput)
     H->>HP: doGetUnspecifiedAmount(reserve1, true, +y)
-    Note over H: Prices ATH input off INFLATED reserves\nreserve(VT) += full y, reserve(T) -= z
+    Note over H: Prices ATH input off INFLATED reserves<br/>reserve(VT) += full y, reserve(T) -= z
     H-->>PM: BeforeSwapDelta(swap pays z ATH out, takes y vATH in)
     PM-->>A: delta: owes y vATH, credited ATH z
 
-    Note over A: netDelta0 > 0 AND netDelta1 > 0\n(neither input ever settled)
+    Note over A: netDelta0 > 0 AND netDelta1 > 0<br/>(neither input ever settled)
     A->>PM: take(VATH, netDelta0)
     A->>PM: take(ATH, netDelta1)
     PM-->>A: transfers both tokens
@@ -189,17 +189,17 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     A[Swapper pays specifiedAmount] --> B{Helper computes output}
-    B --> C[Output unspecifiedAmount = curve(fee-reduced input)]
+    B --> C["Output unspecifiedAmount = curve(fee-reduced input)"]
     B --> D[specifiedAmount returned = FULL pre-fee amount]
-    C --> E[PoolManager delta uses:\nspecifiedAmount in, unspecifiedAmount out]
-    D --> F[Hook reserve update uses:\nreserve += specifiedAmount FULL]
-    C --> G[Hook reserve update uses:\nreserve -= unspecifiedAmount reduced]
+    C --> E["PoolManager delta uses:<br/>specifiedAmount in, unspecifiedAmount out"]
+    D --> F["Hook reserve update uses:<br/>reserve += specifiedAmount FULL"]
+    C --> G["Hook reserve update uses:<br/>reserve -= unspecifiedAmount reduced"]
     F --> H[Reserves inflate vs real token inventory]
     G --> H
     H --> I[Pricing drifts on next swap]
-    E --> J[Swapper deltas sum positive in BOTH currencies\nwhen directions alternate]
+    E --> J["Swapper deltas sum positive in BOTH currencies<br/>when directions alternate"]
     I --> J
-    J --> K[Attacker take()s surplus, never settles]
+    J --> K["Attacker take()s surplus, never settles"]
 ```
 
 ## Remediation

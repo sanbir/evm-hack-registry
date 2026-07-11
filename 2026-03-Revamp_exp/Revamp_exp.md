@@ -185,14 +185,14 @@ sequenceDiagram
     P->>E: send 63.83 WBNB, callback
     E->>E: unwrap to 63.83 BNB
     E->>R: listNewAsset(fakeToken, fee 0.02)
-    E->>R: revamp fakeToken (1 token), referral=H, value=firstGross\n netValue=1.6039 (~ half of Revamp balance)
+    E->>R: revamp fakeToken (1 token), referral=H, value=firstGross<br/> netValue=1.6039 (~ half of Revamp balance)
     R->>H: referralFee 0.0847 BNB
     E->>H: transfer 1 fakeToken
-    H->>R: revamp fakeToken (1 token), referral=E, value=secondGross\n netValue=58.82 (~ 2x total)\n doubles accRewardPerShare -> E hits 2x cap
+    H->>R: revamp fakeToken (1 token), referral=E, value=secondGross<br/> netValue=58.82 (~ 2x total)<br/> doubles accRewardPerShare -> E hits 2x cap
     R->>E: referralFee 3.1056 BNB
     H->>R: withdraw(principal 58.82)
     R->>H: 58.82 BNB -> back to E
-    E->>R: withdraw(principal 1.6039 + capped reward 3.2078)\n = 4.8117 BNB
+    E->>R: withdraw(principal 1.6039 + capped reward 3.2078)<br/> = 4.8117 BNB
     R->>E: 4.8117 BNB
     E->>P: repay 63.8322 WBNB (principal + fee)
     E->>A: remaining 2.9898 BNB profit
@@ -200,11 +200,11 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["Revamp native balance BEFORE: 3.2078 BNB"] --> B["Attacker picks firstContribution\nnet = 3.2078 / 2 = 1.6039 BNB"]
-    B --> C["maxReward = totalContributed x 2\n= 2 x 1.6039 = 3.2078 BNB\n== entire pre-existing balance"]
-    C --> D["Single oversized self-referral\ncontribution doubles accRewardPerShare"]
-    D --> E["pendingReward saturates the cap\n= 3.2078 BNB"]
-    E --> F["withdraw(principal + reward)\ndrains contract native balance"]
+    A["Revamp native balance BEFORE: 3.2078 BNB"] --> B["Attacker picks firstContribution<br/>net = 3.2078 / 2 = 1.6039 BNB"]
+    B --> C["maxReward = totalContributed x 2<br/>= 2 x 1.6039 = 3.2078 BNB<br/>== entire pre-existing balance"]
+    C --> D["Single oversized self-referral<br/>contribution doubles accRewardPerShare"]
+    D --> E["pendingReward saturates the cap<br/>= 3.2078 BNB"]
+    E --> F["withdraw(principal + reward)<br/>drains contract native balance"]
 ```
 
 ## Remediation

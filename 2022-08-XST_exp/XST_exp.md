@@ -300,7 +300,7 @@ sequenceDiagram
     loop "skim(pair) x N"
         A->>P: "skim(pair)"
         P->>T: "transfer(pair, balance-reserve0)  => BUY => mint"
-        Note over P: "pair XST balance ratchets up;<br/>reserve0 stays frozen"
+        Note over P: "pair XST balance ratchets up#59;<br/>reserve0 stays frozen"
     end
     A->>P: "skim(attacker)"
     Note over A: "A holds 3,470,766,087,099,226 XST"

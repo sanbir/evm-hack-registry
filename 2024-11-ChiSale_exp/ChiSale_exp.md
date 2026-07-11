@@ -264,7 +264,7 @@ sequenceDiagram
     H->>S: buy{value: 1,993.493 ETH}(referrer = attacker)
     S->>C: transfer 2,456,112 CHI → helper
     S-->>A: send 438.568 ETH (22% kickback)
-    Note over S: tokensSold 6,507 → 2,000,000; bonusIndex 0 → 9
+    Note over S: tokensSold 6,507 → 2,000,000#59; bonusIndex 0 → 9
     end
 
     rect rgb(255,235,238)

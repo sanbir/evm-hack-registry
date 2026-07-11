@@ -223,9 +223,9 @@ flowchart TD
     In --> Adj0["balance0Adjusted = balance0 * 10000 - 0"]
     Adj0 --> Adj1["balance1Adjusted = balance1 * 10000 - 10"]
     Adj1 --> Check{"balance0Adjusted * balance1Adjusted<br/>>= reserve0 * reserve1 * (1000^2) ?<br/>(1e8 vs 1e6 scaling)"}
-    Check --|"PASS (LHS 4.00e52 >= RHS 1.94e52)"| Update["_update balances<br/>reserves = (3,000 SWP, 133.39 WETH)"]
+    Check -->|"PASS (LHS 4.00e52 >= RHS 1.94e52)"| Update["_update balances<br/>reserves = (3,000 SWP, 133.39 WETH)"]
     Update --> Done(["Swap succeeds<br/>142,658 SWP drained"])
-    Check --|"would FAIL under correct math<br/>(1000 scaling, 1e6 vs 1e6)"| Revert(["UniswapV2: K revert"])
+    Check -->|"would FAIL under correct math<br/>(1000 scaling, 1e6 vs 1e6)"| Revert(["UniswapV2: K revert"])
 
     style Check fill:#fff3e0,stroke:#ef6c00
     style Done fill:#ffcdd2,stroke:#c62828,stroke-width:2px

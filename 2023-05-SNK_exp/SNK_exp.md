@@ -285,9 +285,9 @@ sequenceDiagram
     participant M as "SNKMiner"
     participant I as "Invite registry"
     participant C as "Child t1 (fresh)"
-    participant Par as "Parent t (staked 20d ago)"
+    participant Pt as "Parent t (staked 20d ago)"
 
-    Note over Par: setUp: 10 parents each stake 100 SNK,<br/>then warp +20 days (stale snapshot)
+    Note over Pt: setUp: 10 parents each stake 100 SNK,<br/>then warp +20 days (stale snapshot)
 
     A->>P: swap(80,000 SNK, 0, A, data)  (flash borrow)
     P-->>A: 76,000 SNK (after 5% transfer tax)
@@ -299,9 +299,9 @@ sequenceDiagram
     A->>C: transfer 76,000 SNK
     C->>M: stake(76,000)  (Staked event)
     Note over M: child balance = 76,000 (fresh)
-    A->>Par: exit2() → getReward()
+    A->>Pt: exit2() → getReward()
     M->>M: dynamicEarned = 76,000 × (20d rate Δ) × 45%
-    M-->>Par: RewardPaid ≈ 1,600–1,967 SNK
+    M-->>Pt: RewardPaid ≈ 1,600–1,967 SNK
     A->>C: exit1() → child withdraws 76,000 SNK
     Note over A: 76,000 SNK recycled to next parent
     end

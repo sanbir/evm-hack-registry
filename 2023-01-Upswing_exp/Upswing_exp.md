@@ -329,7 +329,7 @@ sequenceDiagram
         T->>P: UPS in (pair balance ↑)
         A->>P: skim(self)
         P->>A: same UPS back (pair balance restored)
-        Note over T: sellPressure[A] keeps growing; pair net unchanged
+        Note over T: sellPressure[A] keeps growing#59; pair net unchanged
     end
     Note over A: myPressure(A) = 66,864,399,287,313,047,715,701
     end
@@ -352,7 +352,7 @@ sequenceDiagram
     Note over P: 206,716 UPS / ~0.0000487 WETH (drained)
     end
 
-    Note over A: Net +0.322 WETH on 1 WETH seed (sample); ~22 ETH live
+    Note over A: Net +0.322 WETH on 1 WETH seed (sample)#59; ~22 ETH live
 ```
 
 ### Pool state evolution

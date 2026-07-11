@@ -341,7 +341,7 @@ sequenceDiagram
     rect rgb(232,245,233)
     Note over P,V: Step 1 — book a reward (max 2.5% of TVL)
     P->>V: transferInRewards(25,324.4 STRC)
-    V->>V: strcBalance += reward; vestingAmount = reward<br/>lastDistributionTimestamp = now
+    V->>V: strcBalance += reward#59; vestingAmount = reward<br/>lastDistributionTimestamp = now
     Note over V: getUnvestedAmount() = 25,324.4 STRC<br/>(vests over 3 days)
     end
 

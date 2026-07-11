@@ -372,7 +372,7 @@ sequenceDiagram
     Note over L: ledger still shows full reward owed
     L->>M: BUSD.transfer(M, 10089.71)  %% second payout [output.txt:2370]
     end
-    L-->>G: emit Unstake(0, 10089.71); emit Reward(108.18)  %% settle too late
+    L-->>G: emit Unstake(0, 10089.71)#59; emit Reward(108.18)  %% settle too late
     M->>A: BUSD.transfer(A, all)       %% sweep [output.txt:2382]
     Note over A: Net +10,197.896 BUSD
 ```

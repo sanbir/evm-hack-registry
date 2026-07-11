@@ -296,15 +296,15 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> SnapshotPool: "depositFor(token, amount, user)"
-    SnapshotPool --> ExternalPull: "_pool = balance()  (BEFORE pull)"
-    ExternalPull --> Reenter: "token.transferFrom(...)  token = ATTACKER"
-    Reenter --> SnapshotPool: "re-enter (no LP moved, _pool STALE)"
-    ExternalPull --> RealDeposit: "token = REAL LP (innermost)"
-    RealDeposit --> MintShares: "earn() stakes 0.04761 LP"
-    MintShares --> MintShares: "unwind: _mint(user, amount*totalSupply/STALE _pool)"
-    MintShares --> Inflated: "8 tranches → 316.435 shares for 1 deposit"
-    Inflated --> [*]: "withdrawAll() redeems 1.39x LP"
+    [*] --> SnapshotPool: depositFor(token, amount, user)
+    SnapshotPool --> ExternalPull: _pool = balance()  (BEFORE pull)
+    ExternalPull --> Reenter: token.transferFrom(...)  token = ATTACKER
+    Reenter --> SnapshotPool: re-enter (no LP moved, _pool STALE)
+    ExternalPull --> RealDeposit: token = REAL LP (innermost)
+    RealDeposit --> MintShares: earn() stakes 0.04761 LP
+    MintShares --> MintShares: unwind#58; _mint(user, amount*totalSupply/STALE _pool)
+    MintShares --> Inflated: 8 tranches → 316.435 shares for 1 deposit
+    Inflated --> [*]: withdrawAll() redeems 1.39x LP
 
     note right of ExternalPull
         Interaction BEFORE Effect (CEI violation)

@@ -319,7 +319,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,MP: Step 2 — buyLeverage loads the proxy with WETH
     A->>P: buyLeverage(8,000 USDC, …)
-    P->>P: transferFrom 8,000 USDC from attacker; 8 USDC fee
+    P->>P: transferFrom 8,000 USDC from attacker#59; 8 USDC fee
     P->>MP: borrow ~10,236 USDC from protocol pool
     P->>R: swap 18,228 USDC -> WETH (recipient = phxProxy)
     R->>UW: swap()

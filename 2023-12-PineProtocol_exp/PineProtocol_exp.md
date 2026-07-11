@@ -309,7 +309,7 @@ sequenceDiagram
     OP->>OP: require(after == before)  7.3495 == 7.3495 OK
     end
 
-    Note over A: A keeps NFT 3324; net cost ~0.3 WETH
+    Note over A: A keeps NFT 3324#59; net cost ~0.3 WETH
 ```
 
 ### Vault & collateral state evolution

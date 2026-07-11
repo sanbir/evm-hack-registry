@@ -158,10 +158,10 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A[Victim exposes public\n0xdc0b3665 - no ACL] --> B[Caller supplies tokenA, tokenB, amountIn]
+    A[Victim exposes public<br/>0xdc0b3665 - no ACL] --> B[Caller supplies tokenA, tokenB, amountIn]
     B --> C[amountIn = victim.WBNB.balanceOf]
-    C --> D[Forward swap WBNB->A->B\namountOutMin=0]
-    D --> E[Reverse swap B->A->WBNB\namountOutMin=0]
+    C --> D[Forward swap WBNB->A->B<br/>amountOutMin=0]
+    D --> E[Reverse swap B->A->WBNB<br/>amountOutMin=0]
     E --> F{B is attacker fee-token?}
     F -- yes, transferFrom V->pair returns 1 wei --> G[Reverse leg pays ~0 WBNB back]
     G --> H[Victim-funded WBNB stays in attacker DD/WBNB pair]

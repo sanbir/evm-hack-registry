@@ -207,7 +207,7 @@ sequenceDiagram
         R-->>TR: ~1000 MARS
         A->>M: transferFrom(TR → attacker)
     end
-    Note over A: holds 243,876 MARS; WBNB = 0<br/>pair balanceMARS >> reserveMARS
+    Note over A: holds 243,876 MARS#59; WBNB = 0<br/>pair balanceMARS >> reserveMARS
     end
 
     rect rgb(232,245,233)

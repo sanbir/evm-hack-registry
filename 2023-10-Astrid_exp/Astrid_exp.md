@@ -300,7 +300,7 @@ sequenceDiagram
 
     A->>AS: balanceOf(AS) of real token
     AS-->>A: balanceT
-    A->>F: deploy MyERC20(realT, balanceT); mint; approve(AS, max)
+    A->>F: deploy MyERC20(realT, balanceT)#59; mint#59; approve(AS, max)
 
     rect rgb(255,235,238)
     Note over A,T: withdraw() trusts the fake token
@@ -325,7 +325,7 @@ sequenceDiagram
     end
 
     Note over A,DEX: after 3 cycles, unwind to ETH
-    A->>DEX: stETH→ETH (Curve), rETH/cbETH→WETH (UniV3); WETH.withdraw
+    A->>DEX: stETH→ETH (Curve), rETH/cbETH→WETH (UniV3)#59; WETH.withdraw
     DEX-->>A: 127.797 ETH total
 ```
 
@@ -366,7 +366,8 @@ stateDiagram-v2
         d1: require(whitelisted) ✅
         d2: pull real staked token
         d3: mint real receipt token
-        d1 --> d2 --> d3
+        d1 --> d2
+        d2 --> d3
     }
 
     state withdraw {
@@ -374,7 +375,9 @@ stateDiagram-v2
         w2: NO whitelist check ❌
         w3: trust token.stakedTokenAddress()
         w4: trust token.scaledBalanceToBalance()
-        w1 --> w2 --> w3 --> w4
+        w1 --> w2
+        w2 --> w3
+        w3 --> w4
     }
 
     note right of withdraw

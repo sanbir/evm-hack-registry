@@ -272,7 +272,7 @@ sequenceDiagram
     A->>P: updateMerkleRoot(0x93f3...)
     P->>I: delegatecall updateMerkleRoot
     Note over I: require(sender != owner || sender != 0xc2F3...) -> ALWAYS true
-    I-->>P: currentClaimRoot = 0x93f3...; currentRound = 3
+    I-->>P: currentClaimRoot = 0x93f3...#59; currentRound = 3
     end
 
     rect rgb(227,242,253)

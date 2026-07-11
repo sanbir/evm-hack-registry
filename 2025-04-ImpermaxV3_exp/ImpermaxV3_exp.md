@@ -296,7 +296,7 @@ sequenceDiagram
     A->>B: borrow(255, 201.595 WETH)
     B->>C: canBorrow(255) -> true (fee-inflated collateral)
     B-->>A: 201.595 WETH
-    Note over B: cash -> 0; debt = 201.595 WETH
+    Note over B: cash -> 0#59; debt = 201.595 WETH
     end
 
     rect rgb(255,235,238)

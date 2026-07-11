@@ -320,7 +320,7 @@ sequenceDiagram
     Note over A,BR: "Step 2 — sell & withdraw"
     A->>BR: "myTokens() => 25,470"
     A->>BR: "sell(25,470)"
-    BR->>BR: "burn shares; payoutsTo_ very negative<br/>=> dividend owed = 22,923 + 10,765.636"
+    BR->>BR: "burn shares#59; payoutsTo_ very negative<br/>=> dividend owed = 22,923 + 10,765.636"
     A->>BR: "withdraw()"
     BR->>BUSD: "transfer(attacker, 33,688.636 BUSD)"
     end

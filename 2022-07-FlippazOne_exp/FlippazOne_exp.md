@@ -279,13 +279,13 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Honest
-    Honest: "Honest pot<br/>balance = 1.15 ETH<br/>(real bidders escrowed)"
-    Inflated: "After attacker bid<br/>balance = 3.15 ETH<br/>(1.15 victim + 2.0 attacker)"
-    Drained: "After ownerWithdrawAllTo(alice)<br/>balance = 0<br/>⚠️ all ETH gone to Alice"
+    Honest: Honest pot<br/>balance = 1.15 ETH<br/>(real bidders escrowed)
+    Inflated: After attacker bid<br/>balance = 3.15 ETH<br/>(1.15 victim + 2.0 attacker)
+    Drained: After ownerWithdrawAllTo(alice)<br/>balance = 0<br/>⚠️ all ETH gone to Alice
 
-    Honest --> Inflated: "bid{value: 2 ETH}() (optional)"
-    Inflated --> Drained: "ownerWithdrawAllTo(alice)<br/>(no onlyOwner)"
-    Drained --> [*]: "refundBids()/bidderWithdraw() revert"
+    Honest --> Inflated: bid{value#58; 2 ETH}() (optional)
+    Inflated --> Drained: ownerWithdrawAllTo(alice)<br/>(no onlyOwner)
+    Drained --> [*]: refundBids()/bidderWithdraw() revert
 ```
 
 ---

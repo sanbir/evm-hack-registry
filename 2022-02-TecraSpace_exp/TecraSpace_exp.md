@@ -116,7 +116,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
-    autonber
+    autonumber
     actor A as Attacker
     participant R as UniswapRouter
     participant P as TCR/USDT Pair

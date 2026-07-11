@@ -149,16 +149,16 @@ sequenceDiagram
     CT->>MB: flashLoan(cbBTC, 10.537.110.432)
     MB->>CT: send cbBTC, call onMorphoFlashLoan
     CT->>POOL: deposit(cbBTC, 100) then withdraw(cbBTC, 99)
-    Note over POOL,AT: aToken scaledTotalSupply now = 1\nliquidityIndex = 1e27
+    Note over POOL,AT: aToken scaledTotalSupply now = 1<br/>liquidityIndex = 1e27
     CT->>AT: transfer(cbBTC, 7.024.740.288) donation
     Note over AT: underlying balance up, _totalSupply still 1
     loop 150 iterations
         CT->>POOL: flashLoan(cbBTC, 7.024.740.288)
         POOL->>CT: send cbBTC, call executeOperation
         CT->>POOL: repay amount + premium
-        Note over POOL: cumulateToLiquidityIndex(totalSupply=1, premiumToLP)\nliquidityIndex *= (premiumToLP + 1)
+        Note over POOL: cumulateToLiquidityIndex(totalSupply=1, premiumToLP)<br/>liquidityIndex *= (premiumToLP + 1)
     end
-    Note over POOL: liquidityIndex massively inflated\n1 scaled cbBTC unit = huge collateral
+    Note over POOL: liquidityIndex massively inflated<br/>1 scaled cbBTC unit = huge collateral
     CT->>POOL: borrow WETH / USDC / AERO / MORPHO / DEGEN / VIRTUAL
     POOL->>CT: send 6 listed assets
     CT->>ATK: forward all 6 assets
@@ -169,7 +169,7 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     A["cbBTC reserve active but supply = 0"] --> B["deposit 100 / withdraw 99"]
-    B --> C["scaledTotalSupply = 1\ndenominator = ~1"]
+    B --> C["scaledTotalSupply = 1<br/>denominator = ~1"]
     C --> D["donate 7.02e9 cbBTC into aToken"]
     D --> E["totalSupply still 1 but balance lendable"]
     E --> F["loop flashLoan x150"]

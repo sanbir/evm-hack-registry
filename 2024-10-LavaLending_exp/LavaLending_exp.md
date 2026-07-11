@@ -321,7 +321,7 @@ sequenceDiagram
     A->>FL: repay all flash-loans
     end
 
-    Note over A: keeps ~$131.8K of borrowed reserves; pool left with bad debt
+    Note over A: keeps ~$131.8K of borrowed reserves#59; pool left with bad debt
 ```
 
 ### Collateral vs. debt over the attack

@@ -298,14 +298,14 @@ sequenceDiagram
     Note over A,T: Step 2 — corner buy (fees strip Pair1's balance below reserve)
     A->>R: swapExactTokensForTokensSupportingFeeOnTransferTokens(1,900 WBNB → HackDao)
     R->>P1: swap(10,269.23 HackDao out)
-    T->>T: _transfer: strip 12%+4%+8% from Pair1; attacker gets 9,036.92 (88%)
+    T->>T: _transfer: strip 12%+4%+8% from Pair1#59; attacker gets 9,036.92 (88%)
     Note over P1: Sync: 1,066.38 HackDao / 2,096.81 WBNB (reserve > real balance)
     end
 
     rect rgb(232,245,233)
     Note over A,T: Step 3 — re-inject bought HackDao into Pair1
     A->>T: transfer(Pair1, 9,036.92 HackDao)
-    T->>T: default branch: Pair1 credited full amount; attacker pays fees on top
+    T->>T: default branch: Pair1 credited full amount#59; attacker pays fees on top
     Note over P1: real HackDao balance ≈ 9,018.87 (reserve still 1,066.38)
     end
 

@@ -159,7 +159,7 @@ sequenceDiagram
     loop for each holder, each of 6 vaults
         H->>V: balanceOf(holder)
         H->>V: permit(holder, H, bal, MAX, 28, R, S)
-        Note over V: ecrecover(digest,28,R,S) returns random addr, not holder\nBUG: only checks != 0, never == holder
+        Note over V: ecrecover(digest,28,R,S) returns random addr, not holder<br/>BUG: only checks != 0, never == holder
         V-->>H: Approval(holder, H, bal) written
         H->>V: withdrawFrom/withdrawETHFrom(holder, bal, 0, 0, H, MAX)
         V->>U: Burn + collect (remove V3 liquidity)
@@ -183,7 +183,7 @@ flowchart TD
     subgraph Broken["Lixir permit (this exploit)"]
         B1[ecrecover digest,v,r,s] --> B2{recovered == address 0 ?}
         B2 -- yes --> BX[revert]
-        B2 -- no --> B4[write allowance\nMISSING: recovered == owner]
+        B2 -- no --> B4[write allowance<br/>MISSING: recovered == owner]
     end
     B4 -.forged allowance over any holder.-> D[withdrawFrom pulls underlying assets]
 ```

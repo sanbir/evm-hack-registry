@@ -321,16 +321,16 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Staked
-    Staked: "coar slot staked<br/>coarLpAmount = 740,020 LP<br/>coarRewardTime = t0"
-    Staked --> Inflated: "donate 5,000,000 USDT to ZF/USDT pair"
-    Inflated: "ZF pair USDT balance<br/>2,399 -> 5,002,399 (~2086x)<br/>per-call reward -> 447,502 WTO"
-    Inflated --> Looping: "extractReward(1) x N"
-    Looping: "each call: pay 447,502 WTO<br/>reset wtoRewardTime ONLY<br/>coarRewardTime stays frozen<br/>=> reward never decays"
-    Looping --> Looping: "repeat (idempotent claim)"
-    Looping --> Drained: "after 848 calls: reward pool empty"
-    Drained: "reward pool -402M WTO<br/>attacker holds 379.48M WTO"
-    Drained --> Cashed: "sell WTO + ZF -> USDT, repay loans"
-    Cashed: "net +23,293.95 USDT"
+    Staked: coar slot staked<br/>coarLpAmount = 740,020 LP<br/>coarRewardTime = t0
+    Staked --> Inflated: donate 5,000,000 USDT to ZF/USDT pair
+    Inflated: ZF pair USDT balance<br/>2,399 -> 5,002,399 (~2086x)<br/>per-call reward -> 447,502 WTO
+    Inflated --> Looping: extractReward(1) x N
+    Looping: each call#58; pay 447,502 WTO<br/>reset wtoRewardTime ONLY<br/>coarRewardTime stays frozen<br/>=> reward never decays
+    Looping --> Looping: repeat (idempotent claim)
+    Looping --> Drained: after 848 calls#58; reward pool empty
+    Drained: reward pool -402M WTO<br/>attacker holds 379.48M WTO
+    Drained --> Cashed: sell WTO + ZF -> USDT, repay loans
+    Cashed: net +23,293.95 USDT
     Cashed --> [*]
 ```
 

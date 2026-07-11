@@ -290,7 +290,7 @@ sequenceDiagram
     Note over LC: "balanceA=5 ETH, token=Helper, LCopenTimeout overflows → 0"
 
     A->>LC: "LCOpenTimeout(lcID)  — outer"
-    Note over LC: "require(now > 0) ✓ ; require(isOpen==false) ✓"
+    Note over LC: "require(now > 0) ✓ #59; require(isOpen==false) ✓"
     LC->>A: "partyA.transfer(5 ETH)  (fallback, 2300 gas, no reentry)"
     LC->>A: "token.transfer(partyA, 1)  ⚠️ external call"
 
@@ -338,12 +338,12 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> Funded: "createChannel deposits 5 ETH<br/>(contract also holds honest LP ETH)"
-    Funded --> Draining: "LCOpenTimeout entered"
-    Draining --> Draining: "each reentry: −5 ETH from contract,<br/>+5 ETH to attacker (×32)"
-    Draining --> Drained: "count == 32, recursion stops"
-    Drained --> Settled: "delete Channels ×32 (no-op now)"
-    Settled --> [*]: "attacker net +155 ETH"
+    [*] --> Funded: createChannel deposits 5 ETH<br/>(contract also holds honest LP ETH)
+    Funded --> Draining: LCOpenTimeout entered
+    Draining --> Draining: each reentry#58; −5 ETH from contract,<br/>+5 ETH to attacker (×32)
+    Draining --> Drained: count == 32, recursion stops
+    Drained --> Settled: delete Channels ×32 (no-op now)
+    Settled --> [*]: attacker net +155 ETH
 ```
 
 ---

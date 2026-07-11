@@ -201,13 +201,13 @@ sequenceDiagram
     P->>F: transfer 0.192 WETH (callback)
     F->>F: WETH.withdraw -> 0.192 ETH
     F->>V: deposit(0) value 0.192 ETH
-    Note over V: totalETH += 0.192\nshares += 3.99e16\nuser.totalInvested += 0.192
+    Note over V: totalETH += 0.192<br/>shares += 3.99e16<br/>user.totalInvested += 0.192
     F->>V: withdrawInvestment(0)
-    Note over V: earnings = 0.192\npay 0.171936 ETH (90% minus 0.5%)\nONLY touches totalWithdrawn\nshares left intact
+    Note over V: earnings = 0.192<br/>pay 0.171936 ETH (90% minus 0.5%)<br/>ONLY touches totalWithdrawn<br/>shares left intact
     V->>F: 0.171936 ETH
     V->>FC: 0.000864 ETH fee
     F->>V: emergencyWithdrawAll()
-    Note over V: redeem SAME shares\npay 0.1728 ETH (90% of 0.192)\nburn shares now
+    Note over V: redeem SAME shares<br/>pay 0.1728 ETH (90% of 0.192)<br/>burn shares now
     V->>F: 0.1728 ETH
     V->>FC: 0.0192 ETH penalty
     F->>P: repay 0.192577 WETH
@@ -217,7 +217,7 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     D["deposit D ETH<br/>shares += D, totalETH += D<br/>user.totalInvested += D"] --> WI["withdrawInvestment<br/>pay 0.9 D minus fee<br/>totalWithdrawn += payout"]
-    WI -->|"shares NOT burned\ntotalETH NOT reduced"| EW["emergencyWithdrawAll<br/>redeem same D shares<br/>pay 0.9 D from totalETH"]
+    WI -->|"shares NOT burned<br/>totalETH NOT reduced"| EW["emergencyWithdrawAll<br/>redeem same D shares<br/>pay 0.9 D from totalETH"]
     EW --> PROFIT["Net ≈ 0.8 D profit<br/>drained from shared pool"]
     style WI fill:#fdd
     style EW fill:#fdd

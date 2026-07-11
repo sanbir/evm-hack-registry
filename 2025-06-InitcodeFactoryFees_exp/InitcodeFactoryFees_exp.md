@@ -141,11 +141,11 @@ sequenceDiagram
     C->>T0: new (creator = attacker)
     C->>T1: new (creator = attacker, withdraw = no-op)
     C->>V3: createAndInitializePoolIfNecessary(T0, T1, 0.05%, 1:1)
-    C->>V3: mint 100e18 each, recipient = Factory\n-> NFT tokenId to Factory
-    C->>V3: exactInputSingle T1->T0 (10e18)\nrecipient = Factory, generates fees
+    C->>V3: mint 100e18 each, recipient = Factory<br/>-> NFT tokenId to Factory
+    C->>V3: exactInputSingle T1->T0 (10e18)<br/>recipient = Factory, generates fees
     C->>F: collectFees(tokenId)
     F->>V3: positions(tokenId) -> token0=T0, token1=T1 (neither is WETH)
-    Note over F: token0Raw != WETH so swap-branch skipped\ntoken1 treated as WETH anyway
+    Note over F: token0Raw != WETH so swap-branch skipped<br/>token1 treated as WETH anyway
     F->>T0: creator() -> attacker  (auth passes)
     F->>V3: collect() -> fake fees
     F->>T1: balanceOf(Factory) -> inflated (1.958e18)

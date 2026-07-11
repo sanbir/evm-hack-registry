@@ -401,7 +401,7 @@ sequenceDiagram
     end
 
     F-->>D: ← Return
-    D-->>A: ← Return (tx succeeds; looks like a normal bridge)
+    D-->>A: ← Return (tx succeeds#59; looks like a normal bridge)
 ```
 
 ### The flaw inside the swap loop

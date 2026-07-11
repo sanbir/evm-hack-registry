@@ -357,7 +357,7 @@ sequenceDiagram
 
     rect rgb(243,229,245)
     Note over A,B: Step 4 — settle & profit
-    A->>W: deposit{2.1}; transfer 2.1 WETH → Balancer (repay)
+    A->>W: deposit{2.1}#59; transfer 2.1 WETH → Balancer (repay)
     A->>N: return 7 NFTs to EOA
     A->>A: sweep +4.110409994732514492 ETH
     end

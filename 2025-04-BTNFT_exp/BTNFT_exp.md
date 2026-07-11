@@ -236,7 +236,7 @@ sequenceDiagram
         Note over N: _update: to == address(this)<br/>⇒ claimReward(tokenId)<br/>⚠️ no _checkAuthorized
         N->>B: transfer(msg.sender = AttackerC, claimable)
         B-->>A: BTT reward
-        Note over N: NFT NOT moved; realOwner keeps it
+        Note over N: NFT NOT moved#59; realOwner keeps it
     end
     Note over A: AttackerC now holds 19,158.41 BTT
     end

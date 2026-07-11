@@ -222,7 +222,7 @@ sequenceDiagram
     S->>S: r0arBalance(1e26) < rewardAmount ⇒ rewardAmount = r0arBalance
     S->>T: safeTransfer(attacker, ALL 1R0R = 100,000,000.0999)
     T-->>A: 100,000,000.0999 1R0R
-    S->>S: withdrawableAmount = user.amount; lpBalance < it ⇒ = lpBalance
+    S->>S: withdrawableAmount = user.amount#59; lpBalance < it ⇒ = lpBalance
     S->>LP: safeTransfer(attacker, ALL LP = 26.777)
     LP-->>A: 26.777 LP
     S->>S: user.amount = 0

@@ -252,7 +252,7 @@ sequenceDiagram
     A->>J: approve(JuiceStaking, max)
     A->>S: stake(2,603.52, 3_000_000_000)
     S->>J: transferFrom(attacker, staking, 2,603.52)
-    Note over S: stakingWeek stored verbatim;<br/>JuiceStaked = 2,603.52
+    Note over S: stakingWeek stored verbatim#59;<br/>JuiceStaked = 2,603.52
     end
 
     rect rgb(255,243,224)
@@ -266,7 +266,7 @@ sequenceDiagram
     S->>S: pendingReward(): pending ≈ 0.00123 JUICE
     Note over S: bonus = pending * (3e9 - 1) * 9 / 100<br/>= pending * ~270,000,000<br/>= 332,238.46 JUICE
     S->>J: transfer(attacker, pending + bonus = 332,238.46 JUICE)
-    Note over S: rewardDebt only books `pending`;<br/>`bonus` funded from reward vault
+    Note over S: rewardDebt only books `pending`#59;<br/>`bonus` funded from reward vault
     end
 
     rect rgb(243,229,245)

@@ -252,14 +252,14 @@ sequenceDiagram
             T->>R: "swapTokensForCurrency: ATM -> WBNB (amountOutMin = 0)"
             T->>R: "reward swap: WBNB -> USDT (amountOutMin = 0)"
             A->>P: "pair.skim(attacker)  -> recover the ATM"
-            P-->>A: "ATM back; WBNB drained this round"
+            P-->>A: "ATM back#59; WBNB drained this round"
         end
         end
     end
 
     rect rgb(255,235,238)
     Note over A,T: "Cleanup loop (until pair_lost == 0)"
-    A->>T: "ATM.transfer(pair, balance); skim"
+    A->>T: "ATM.transfer(pair, balance)#59; skim"
     end
 
     rect rgb(227,242,253)

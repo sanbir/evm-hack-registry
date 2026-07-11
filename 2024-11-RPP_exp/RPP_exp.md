@@ -257,7 +257,7 @@ sequenceDiagram
         R->>P: "swap()"
         P-->>A: "~94,000 RPP out"
     end
-    Note over P: "1,175,794 USDT / 1,854,265 RPP<br/>RPP cornered; attacker holds 136.3M RPP"
+    Note over P: "1,175,794 USDT / 1,854,265 RPP<br/>RPP cornered#59; attacker holds 136.3M RPP"
     end
 
     rect rgb(255,235,238)

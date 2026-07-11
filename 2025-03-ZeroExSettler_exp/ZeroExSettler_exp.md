@@ -243,7 +243,7 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over S,U: Confused-deputy call
     S->>U: call(USDT, transferFrom(victim, attacker, 3_008_000_000))  // msg.sender = Settler = approved spender
-    U->>U: debit victim 3_008_000_000; credit attacker 3_008_000_000
+    U->>U: debit victim 3_008_000_000#59; credit attacker 3_008_000_000
     U-->>S: return true
     Note over V: victim balance: 3,008,000,000 → 0
     Note over A: attacker balance: 0 → 3,008,000,000

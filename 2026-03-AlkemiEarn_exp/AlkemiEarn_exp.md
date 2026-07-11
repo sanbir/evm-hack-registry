@@ -279,17 +279,17 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> S0
-    S0: "Start<br/>supply = 0 | debt = 0"
-    S1: "After supply 50 ETH<br/>supply = 50 | debt = 0"
-    S2: "After borrow 39.5 ETH<br/>supply = 50 | debt = 39.5395"
-    S3: "Inside liquidateBorrow<br/>computes from same snapshot:<br/>target.new = 50 − 43.49345 = 6.50655<br/>liquidator.new = 50 + 43.49345 = 93.49345"
-    S4: "After aliased writes<br/>(deduct first, credit LAST wins)<br/>supply = 93.49345 | debt = 0 ⚠️"
-    S5: "After withdraw(max)<br/>supply = 0 | paid out 93.49345 ETH"
+    S0: Start<br/>supply = 0 | debt = 0
+    S1: After supply 50 ETH<br/>supply = 50 | debt = 0
+    S2: After borrow 39.5 ETH<br/>supply = 50 | debt = 39.5395
+    S3: Inside liquidateBorrow<br/>computes from same snapshot#58;<br/>target.new = 50 − 43.49345 = 6.50655<br/>liquidator.new = 50 + 43.49345 = 93.49345
+    S4: After aliased writes<br/>(deduct first, credit LAST wins)<br/>supply = 93.49345 | debt = 0 ⚠️
+    S5: After withdraw(max)<br/>supply = 0 | paid out 93.49345 ETH
 
-    S0 --> S1: supply{value:50}
+    S0 --> S1: supply{value#58;50}
     S1 --> S2: borrow 39.5
-    S2 --> S3: liquidateBorrow{value:39.5395}
-    S3 --> S4: "alias: liquidator write overwrites target write"
+    S2 --> S3: liquidateBorrow{value#58;39.5395}
+    S3 --> S4: alias#58; liquidator write overwrites target write
     S4 --> S5: withdraw(uint256.max)
     S5 --> [*]: profit 43.4540 ETH
 

@@ -284,7 +284,7 @@ sequenceDiagram
     rect rgb(255,235,238)
     Note over A,P: Step B - remove_liquidity (lock SHOULD block re-entry, but 0.2.15 lock is broken)
     A->>P: remove_liquidity(32,431.42 LP)
-    Note over P: balances[0] debited; totalSupply NOT yet written
+    Note over P: balances[0] debited#59; totalSupply NOT yet written
     P->>A: "raw_call(value = 34,316 ETH)  -> receive()"
     end
 

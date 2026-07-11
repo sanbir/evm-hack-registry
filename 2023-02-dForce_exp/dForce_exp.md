@@ -381,7 +381,7 @@ flowchart LR
         Aa["repayAmountUSD = 560,525 USX<br/>collateralPrice = 314.87<br/>seize ≈ 1,904.76 VWSTETHCRVGAUGE"]
     end
     Before -->|"Curve.get_virtual_price() read mid-update<br/>(0.2038 instead of ~1.0)"| After
-    Aa --> Drain(["Attacker receives ~5x the<br/>fair collateral for the same debt repayment")]
+    Aa --> Drain(["Attacker receives ~5x the<br/>fair collateral for the same debt repayment"])
 
     style Aa fill:#ffcdd2,stroke:#c62828,stroke-width:2px
     style Drain fill:#c8e6c9,stroke:#2e7d32

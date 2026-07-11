@@ -291,7 +291,7 @@ sequenceDiagram
     rect rgb(243,229,245)
     Note over A,PMUG: Step 5 - repay flash-swap (in MU)
     A->>PMUG: transfer 580,731 MU (= loan * 1000/997 + 1000)
-    Note over PMUG: Repaid; invariant restored
+    Note over PMUG: Repaid#59; invariant restored
     end
 
     Note over A: Still holds 9,640 MUG (the loot)

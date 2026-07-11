@@ -186,10 +186,10 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    F1["swapTokensForExactTokens is public\n(no _onlyAdmin_)"] --> F2["recipient is caller-controlled"]
+    F1["swapTokensForExactTokens is public<br/>(no _onlyAdmin_)"] --> F2["recipient is caller-controlled"]
     F2 --> F3["exactOutput spends only part of amountInMaximum"]
     F3 --> F4["Line 127: safeTransfer recipient, balanceOf(this)"]
-    F4 --> F5["Entire remaining contract balance\nsent to attacker"]
+    F4 --> F5["Entire remaining contract balance<br/>sent to attacker"]
     F1 -.missing boundary.-> F5
     F4 -.wrong refund amount.-> F5
 ```

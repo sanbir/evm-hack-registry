@@ -355,7 +355,7 @@ sequenceDiagram
     LP->>LP: _withdraw(openDebt) → burn debt token
     end
 
-    Note over V,LP: control returns; final health gate passes<br/>(vault no longer a debtor)
+    Note over V,LP: control returns#59; final health gate passes<br/>(vault no longer a debtor)
     A->>FL: repay 29.86 WETH (+premium)
     Note over A: keeps 148.22 WETH profit
 ```

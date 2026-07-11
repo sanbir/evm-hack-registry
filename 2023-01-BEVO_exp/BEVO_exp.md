@@ -305,7 +305,7 @@ sequenceDiagram
     rect rgb(227,242,253)
     Note over A,T: Step 2 - buy BEVO with 192.5 WBNB
     A->>R: swapExactTokensForTokens(192.5 WBNB -> BEVO)
-    R->>P: transferFrom 192.5 WBNB; swap()
+    R->>P: transferFrom 192.5 WBNB#59; swap()
     P-->>A: ~3,028 BEVO (net of ~3 bps fee)
     Note over P: 338.22 WBNB / 2.298 BEVO
     end
@@ -329,7 +329,7 @@ sequenceDiagram
 
     rect rgb(232,245,233)
     Note over A,FU: Step 7 - repay flash
-    A->>FU: transfer 193 WBNB; swap returns 192.5 WBNB, keeps 0.5 fee
+    A->>FU: transfer 193 WBNB#59; swap returns 192.5 WBNB, keeps 0.5 fee
     end
 
     Note over A: Net +144 WBNB (the BEVO/WBNB pool's drained WBNB)

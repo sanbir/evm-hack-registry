@@ -314,14 +314,14 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> S0
-    S0: "Stage 0 - Initial<br/>WBNB 575.06 | LINK 19,683.02<br/>price 0.0292 WBNB/LINK"
-    S1: "Stage 1 - After attacker WBNB->LINK<br/>WBNB 4,875.06 | LINK 2,326.93<br/>price 2.095 (~72x) - CORNERED"
-    S2: "Stage 2 - After victim WBNB->LINK<br/>WBNB 4,909.49 | LINK 2,310.65<br/>+34.43 WBNB overpaid in"
-    S3: "Stage 3 - After attacker LINK->WBNB<br/>WBNB 578.09 | LINK 19,666.74<br/>price restored; attacker took the WBNB"
-    S0 --> S1: "swap 4,300 WBNB in (flash)"
-    S1 --> S2: "swapProfitFees(): victim buys LINK at inflated price"
-    S2 --> S3: "swap 17,356.09 LINK back out"
-    S3 --> [*]: "repay 4,300.43, keep 30.968 WBNB"
+    S0: Stage 0 - Initial<br/>WBNB 575.06 | LINK 19,683.02<br/>price 0.0292 WBNB/LINK
+    S1: Stage 1 - After attacker WBNB->LINK<br/>WBNB 4,875.06 | LINK 2,326.93<br/>price 2.095 (~72x) - CORNERED
+    S2: Stage 2 - After victim WBNB->LINK<br/>WBNB 4,909.49 | LINK 2,310.65<br/>+34.43 WBNB overpaid in
+    S3: Stage 3 - After attacker LINK->WBNB<br/>WBNB 578.09 | LINK 19,666.74<br/>price restored#59; attacker took the WBNB
+    S0 --> S1: swap 4,300 WBNB in (flash)
+    S1 --> S2: swapProfitFees()#58; victim buys LINK at inflated price
+    S2 --> S3: swap 17,356.09 LINK back out
+    S3 --> [*]: repay 4,300.43, keep 30.968 WBNB
 
     note right of S1
         Inflated LINK price makes

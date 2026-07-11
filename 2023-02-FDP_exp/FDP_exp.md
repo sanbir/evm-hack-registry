@@ -279,7 +279,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,T: Step 2 - buy FDP, thin the pool
     A->>R: swapExactTokensForTokensSupportingFee(16.32 WBNB -> FDP)
-    R->>P: transferFrom 16.32 WBNB in; swap()
+    R->>P: transferFrom 16.32 WBNB in#59; swap()
     P-->>A: 49,925.1 FDP out
     Note over P: Sync: ~50,070.8 FDP / ~32.6467 WBNB
     end

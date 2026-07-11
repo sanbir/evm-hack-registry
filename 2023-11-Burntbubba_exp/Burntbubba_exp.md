@@ -315,25 +315,25 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Honest
-    Honest: "FarmingLPToken (honest state)"
-    Honest: "withdrawableTotalLPs = 21,369,627,061,546"
-    Honest: "totalShares = 135,313.875e18 fLP"
+    Honest: FarmingLPToken (honest state)
+    Honest: withdrawableTotalLPs = 21,369,627,061,546
+    Honest: totalShares = 135,313.875e18 fLP
 
-    Honest --> Rigged: "create USDC/AST (10k:2M) and SUSHI/AST (10k:400k SUSHI)"
-    Rigged: "Fake routing pools live"
-    Rigged: "1 USDC quotes to ~66,462 SUSHI per unit through AST"
+    Honest --> Rigged: create USDC/AST (10k#58;2M) and SUSHI/AST (10k#58;400k SUSHI)
+    Rigged: Fake routing pools live
+    Rigged: 1 USDC quotes to ~66,462 SUSHI per unit through AST
 
-    Rigged --> Inflated: "deposit ~2 USDC of real LP"
-    Inflated: "shares minted = 132,925.9 fLP"
-    Inflated: "attacker = 98.2 percent of totalShares"
-    Inflated: "withdrawableTotalLPs only +25,156,809,832"
+    Rigged --> Inflated: deposit ~2 USDC of real LP
+    Inflated: shares minted = 132,925.9 fLP
+    Inflated: attacker = 98.2 percent of totalShares
+    Inflated: withdrawableTotalLPs only +25,156,809,832
 
-    Inflated --> Drained: "transfer split + emergencyWithdraw"
-    Drained: "redeem 20,144,470,251,713 USDC/WETH LP"
-    Drained: "burn LP -> 1,601.51 USDC + 0.7867 WETH"
+    Inflated --> Drained: transfer split + emergencyWithdraw
+    Drained: redeem 20,144,470,251,713 USDC/WETH LP
+    Drained: burn LP -> 1,601.51 USDC + 0.7867 WETH
 
-    Drained --> Repaid: "repay both flash loans"
-    Repaid: "net +1,597.51 USDC + 0.6549 WETH"
+    Drained --> Repaid: repay both flash loans
+    Repaid: net +1,597.51 USDC + 0.6549 WETH
     Repaid --> [*]
 ```
 

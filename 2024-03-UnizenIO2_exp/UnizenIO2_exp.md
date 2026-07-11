@@ -247,7 +247,7 @@ sequenceDiagram
     T->>I: delegatecall swap(info, calls)
     I->>V: balanceOf(T) = 30.252 VRA (pre snapshot)
     I->>V: transferFrom(H, T, 83222.657 VRA)
-    Note over V,H: T is msg.sender; allowance = max; succeeds
+    Note over V,H: T is msg.sender#59; allowance = max#59; succeeds
     V-->>I: true
     Note over H: H balance 83222.657 → 0
     Note over T: T balance 30.252 → 83252.909

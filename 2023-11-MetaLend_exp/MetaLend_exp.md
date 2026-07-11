@@ -336,16 +336,16 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Empty
-    Empty: "Empty market<br/>totalSupply = 0<br/>rate = initialExchangeRateMantissa (floor)"
-    Seeded: "Seeded<br/>totalSupply = 5e9, cash = 1 ETH<br/>rate ~= 2e26 (floats)"
-    Dust: "Dust supply<br/>totalSupply = 2, cash ~= 4e8 wei<br/>rate ~= 2e26"
-    Inflated: "Inflated (weaponised)<br/>totalSupply = 2, cash ~= 100 ETH<br/>rate = 5e37 -> 2 cTokens ~= 100 ETH"
-    Recovered: "Capital recovered<br/>totalSupply = 1, cash ~= 1 wei<br/>donation withdrawn"
+    Empty: Empty market<br/>totalSupply = 0<br/>rate = initialExchangeRateMantissa (floor)
+    Seeded: Seeded<br/>totalSupply = 5e9, cash = 1 ETH<br/>rate ~= 2e26 (floats)
+    Dust: Dust supply<br/>totalSupply = 2, cash ~= 4e8 wei<br/>rate ~= 2e26
+    Inflated: Inflated (weaponised)<br/>totalSupply = 2, cash ~= 100 ETH<br/>rate = 5e37 -> 2 cTokens ~= 100 ETH
+    Recovered: Capital recovered<br/>totalSupply = 1, cash ~= 1 wei<br/>donation withdrawn
 
-    Empty --> Seeded: "mint{value: 1 ETH}"
-    Seeded --> Dust: "redeem(totalSupply - 2)<br/>(rounds down, leaves 2)"
-    Dust --> Inflated: "selfdestruct-donate ~100 ETH<br/>(cash up, supply frozen)"
-    Inflated --> Recovered: "borrow mWBTC<br/>then redeemUnderlying(~100 ETH)"
+    Empty --> Seeded: mint{value#58; 1 ETH}
+    Seeded --> Dust: redeem(totalSupply - 2)<br/>(rounds down, leaves 2)
+    Dust --> Inflated: selfdestruct-donate ~100 ETH<br/>(cash up, supply frozen)
+    Inflated --> Recovered: borrow mWBTC<br/>then redeemUnderlying(~100 ETH)
     Recovered --> [*]
 ```
 

@@ -287,7 +287,7 @@ sequenceDiagram
     CT-->>T: true (Distributor IS registered)
     Note over T: cap: amount = MAX_STAKING − mintedStaking<br/>= 58,718,395.06 CVG
     T->>A: _mint(attacker, 58,718,395.06 CVG)
-    Note over A: Attacker holds 58.72M CVG;<br/>later dumped on Curve for ~$200K
+    Note over A: Attacker holds 58.72M CVG#59;<br/>later dumped on Curve for ~$200K
 ```
 
 ### State evolution of the CVG staking allocation

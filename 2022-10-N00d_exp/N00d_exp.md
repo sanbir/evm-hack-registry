@@ -293,7 +293,7 @@ sequenceDiagram
     A->>B: "leave(18,872.65 shares)"
     B->>A: "redeem 14,177.02 n00d (+10,147.76 surplus)"
     A->>P: "transfer repay = reserve x 1000/997 + 1000 n00d"
-    Note over A: "Flash loan repaid; surplus n00d kept"
+    Note over A: "Flash loan repaid#59; surplus n00d kept"
 ```
 
 ### Pool / vault state evolution

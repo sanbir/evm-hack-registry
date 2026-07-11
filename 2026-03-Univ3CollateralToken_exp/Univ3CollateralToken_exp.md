@@ -145,23 +145,23 @@ Attack sequence:
 ```mermaid
 sequenceDiagram
     participant Attacker as Attacker EOA
-    participant AC as Attack Contract\n(owns vaults 40..69)
+    participant AC as Attack Contract<br/>(owns vaults 40..69)
     participant NPM as NonfungiblePositionManager
-    participant UCT as Univ3CollateralToken\n(per-minter accounting)
+    participant UCT as Univ3CollateralToken<br/>(per-minter accounting)
     participant VC as VaultController
-    participant USDI as USDI Reserve\n(USDC + USDC.e)
+    participant USDI as USDI Reserve<br/>(USDC + USDC.e)
 
-    Attacker->>AC: run()\nwith 3 WETH seed
-    AC->>NPM: mint single-sided WETH Uni V3 NFT\n(tokenId 1077691)
+    Attacker->>AC: run()<br/>with 3 WETH seed
+    AC->>NPM: mint single-sided WETH Uni V3 NFT<br/>(tokenId 1077691)
     NPM-->>AC: NFT
     AC->>UCT: deposit(tokenId, vault=40)
-    Note over UCT: add_to_list(minter, tokenId)\nNFT now credited to minter\n=> counted for ALL 30 vaults
+    Note over UCT: add_to_list(minter, tokenId)<br/>NFT now credited to minter<br/>=> counted for ALL 30 vaults
     AC->>VC: borrowUSDCto(vault=40.., max, AC)
-    VC->>UCT: balanceOf(vault)\nNote over UCT: returns FULL NFT value\nfor every vault of this minter
+    VC->>UCT: balanceOf(vault)<br/>Note over UCT: returns FULL NFT value<br/>for every vault of this minter
     VC->>USDI: pay USDC from primary reserve
     AC->>VC: borrowUSDIto(vault=66.., max, AC)
-    VC->>USDI: mint USDI\n(inflated by same phantom collateral)
-    AC->>USDI: withdrawToSecondaryReserve(USDI)\n=> receive USDC.e
+    VC->>USDI: mint USDI<br/>(inflated by same phantom collateral)
+    AC->>USDI: withdrawToSecondaryReserve(USDI)<br/>=> receive USDC.e
     AC->>Attacker: transfer drained USDC + USDC.e
 ```
 
@@ -169,12 +169,12 @@ Flaw flowchart:
 
 ```mermaid
 flowchart TD
-    A[deposit NFT into vault 40] --> B[push tokenId to\n_underlyingOwners minter]
-    B --> C{balanceOf called for vault 41}\n(minter is identical)
-    C -->|no per-vault scoping| D[returns same NFT value]
-    D --> E[vault 41 gets full borrowing power]
-    E --> F[repeat for every vault\nthe minter owns]
-    F --> G[one real deposit\nbacked N borrows]
+    A["deposit NFT into vault 40"] --> B["push tokenId to<br/>_underlyingOwners minter"]
+    B --> C{"balanceOf called for vault 41<br/>(minter is identical)"}
+    C -->|no per-vault scoping| D["returns same NFT value"]
+    D --> E["vault 41 gets full borrowing power"]
+    E --> F["repeat for every vault<br/>the minter owns"]
+    F --> G["one real deposit<br/>backed N borrows"]
 ```
 
 ## Remediation

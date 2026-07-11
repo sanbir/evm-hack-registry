@@ -250,7 +250,7 @@ sequenceDiagram
     Note over A,W: "Tx1 @ block 21,912,408 — loop 100x"
     loop "100 times"
         A->>P: "withdrawWithoutHedge(2)"
-        Note over P: "state guard COMMENTED OUT<br/>amount = t.share * totalBalance / totalShare = 250,000 sat<br/>totalShare -= t.share; totalBalance -= amount<br/>t.share UNCHANGED"
+        Note over P: "state guard COMMENTED OUT<br/>amount = t.share * totalBalance / totalShare = 250,000 sat<br/>totalShare -= t.share#59; totalBalance -= amount<br/>t.share UNCHANGED"
         P->>W: "transfer(attacker, 250,000 sat)"
         W-->>A: "+0.0025 WBTC"
     end
@@ -269,7 +269,7 @@ sequenceDiagram
     Note over A: "Attacker WBTC: 0 -> 0.8275"
     end
 
-    Note over A: "Same tranche reused 431x — 1.0775 WBTC stolen here;<br/>full campaign drained the pools (~$104M)"
+    Note over A: "Same tranche reused 431x — 1.0775 WBTC stolen here#59;<br/>full campaign drained the pools (~$104M)"
 ```
 
 ### Pool / tranche state evolution

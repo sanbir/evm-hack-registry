@@ -261,10 +261,10 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Live : "stake() sets rewardReferenceEpoch = currentEpoch+1, amount = X"
-    Live --> Dead : "withdraw() pays amount=X, sets rewardReferenceEpoch = 0"
-    Dead --> Live : "claim() sets rewardReferenceEpoch = currentEpoch (BUG: no check, amount=X still stored)"
-    Live --> Dead : "withdraw() pays amount=X AGAIN"
+    [*] --> Live : stake() sets rewardReferenceEpoch = currentEpoch+1, amount = X
+    Live --> Dead : withdraw() pays amount=X, sets rewardReferenceEpoch = 0
+    Dead --> Live : claim() sets rewardReferenceEpoch = currentEpoch (BUG#58; no check, amount=X still stored)
+    Live --> Dead : withdraw() pays amount=X AGAIN
 
     note right of Dead
         amount=X is NEVER cleared.

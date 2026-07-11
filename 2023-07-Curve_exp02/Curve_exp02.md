@@ -277,7 +277,7 @@ sequenceDiagram
         P-->>A: 1,212,778 CRV
         end
 
-    Note over P: callback returns; remove_liquidity resumes
+    Note over P: callback returns#59; remove_liquidity resumes
     P-->>A: 517,589 CRV (second-coin payout)
     Note over P: self.D finally written (too late)
     end

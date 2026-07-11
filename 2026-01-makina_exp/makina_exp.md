@@ -271,7 +271,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,TP: Steps 1-3 - pump the backing pools
     A->>DP: add_liquidity 100M USDC + exchange 10M USDC -> 9.215M DUSD
-    A->>TP: add 170M USDC to 3Pool; skew MIM/3Crv with 120M+30M
+    A->>TP: add 170M USDC to 3Pool#59; skew MIM/3Crv with 120M+30M
     end
 
     rect rgb(255,235,238)
@@ -300,7 +300,7 @@ sequenceDiagram
     A->>M: updateTotalAum (NAV back to ~baseline)
     end
 
-    Note over A: Net +$3.04M (run 1); repeat -> +$4.30M total
+    Note over A: Net +$3.04M (run 1)#59; repeat -> +$4.30M total
 ```
 
 ### NAV / share-price state evolution

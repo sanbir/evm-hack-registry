@@ -250,12 +250,12 @@ sequenceDiagram
     loop "19 times"
         A->>C: "transfer(pair, ~balanceOf(pair))"
         C->>C: "_transfer: to==pair => sync()"
-        C->>P: "_tOwned[pair] -= 95% ; pair.sync()"
+        C->>P: "_tOwned[pair] -= 95% #59; pair.sync()"
         Note over P: "recorded CFC reserve crashes below real balance"
         A->>P: "skim(attacker)"
         P-->>A: "surplus CFC (balance - reserve)"
     end
-    Note over P: "CFC reserve -> 9 wei ; SAFE reserve ~3,766"
+    Note over P: "CFC reserve -> 9 wei #59; SAFE reserve ~3,766"
     end
 
     rect rgb(227,242,253)

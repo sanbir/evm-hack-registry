@@ -277,7 +277,7 @@ sequenceDiagram
     T-->>A: "393.6M free curve tokens (cost 17.45 WBNB, 2.545 refunded)"
     T->>R: "_makeLiquidityPool: addLiquidityETH(200M, ~20 WBNB)"
     R->>P: "pulls only 1.089M token vs 20 WBNB (rest wasted)"
-    Note over P: reserves 1.143e24 token : 21 WBNB ; listed = true
+    Note over P: reserves 1.143e24 token : 21 WBNB #59; listed = true
     end
 
     rect rgb(243,229,245)

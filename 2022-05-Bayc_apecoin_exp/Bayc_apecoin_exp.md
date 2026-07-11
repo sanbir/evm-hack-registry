@@ -237,7 +237,7 @@ sequenceDiagram
     rect rgb(255,243,224)
     Note over A,V: onFlashLoan callback
     A->>V: redeem(5, [])
-    V->>A: _burn 5e18 shares; safeTransferFrom 5 BAYC (#8214,#8167,#9915,#7594,#4755)
+    V->>A: _burn 5e18 shares#59; safeTransferFrom 5 BAYC (#8214,#8167,#9915,#7594,#4755)
     Note over A: owns 6 BAYC now
     A->>D: claimTokens()
     D->>B: balanceOf(A) == 6
@@ -246,13 +246,13 @@ sequenceDiagram
     Note over A: +60,564 APE  ⚠️ airdrop captured
     A->>B: setApprovalForAll(vault, true)
     A->>V: mint([7594,4755,9915,8214,8167,1060], [])
-    V->>A: pull 6 BAYC back; _mint 6e18 shares
+    V->>A: pull 6 BAYC back#59; _mint 6e18 shares
     A->>V: approve(vault, max)
     end
 
     A-->>V: return CALLBACK_SUCCESS
     V->>A: _burn (5.2e18 + fee)
-    Note over V: vault whole; BAYC back inside
+    Note over V: vault whole#59; BAYC back inside
     Note over A: net +60,564 APE
 ```
 

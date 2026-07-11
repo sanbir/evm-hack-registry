@@ -334,7 +334,7 @@ sequenceDiagram
     A->>D: flashLoan 315,517.00 USDT
     D->>A: DPPFlashLoanCall()
     A->>R: USDT->GDS 600,000 USDT  %% PRICE RAMP
-    Note over P: USDT reserve 290K -> 1.0M; pureUsdtToToken now ~92x inflated
+    Note over P: USDT reserve 290K -> 1.0M#59; pureUsdtToToken now ~92x inflated
     A->>P: addLiquidity (borrowed USDT + GDS)
     loop 100x
         A->>C: send LP, call withdraw()

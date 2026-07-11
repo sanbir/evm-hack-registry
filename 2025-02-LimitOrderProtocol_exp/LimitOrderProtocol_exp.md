@@ -146,16 +146,16 @@ Attacker After exploit BRAINS Balance: 2800000.000000000000000000
 ```mermaid
 sequenceDiagram
     participant Attacker as Attacker EOA
-    participant Proxy as LimitOrderProxy\n0xb5486f71
-    participant Impl as Implementation\n0xCe8D7C (transferTokens)
+    participant Proxy as LimitOrderProxy<br/>0xb5486f71
+    participant Impl as Implementation<br/>0xCe8D7C (transferTokens)
     participant BRAINS as BRAINS ERC20
-    participant Victim as Victim\n0xcaF77 (allowance=1e27)
+    participant Victim as Victim<br/>0xcaF77 (allowance=1e27)
 
-    Note over Victim: victim pre-approved proxy\nfor 1e27 BRAINS to place limit orders
+    Note over Victim: victim pre-approved proxy<br/>for 1e27 BRAINS to place limit orders
 
-    Attacker->>Proxy: transferTokens(BRAINS, victim, attacker, 2.8e24)\nNO onlyOperator / NO onlyOwner
+    Attacker->>Proxy: transferTokens(BRAINS, victim, attacker, 2.8e24)<br/>NO onlyOperator / NO onlyOwner
     Proxy->>Impl: delegatecall transferTokens(...)
-    Impl->>BRAINS: safeTransferFrom(victim, attacker, 2.8e24)\n(spender = proxy itself)
+    Impl->>BRAINS: safeTransferFrom(victim, attacker, 2.8e24)<br/>(spender = proxy itself)
     BRAINS->>BRAINS: Approval(victim, proxy, 9.972e26)
     BRAINS->>BRAINS: Transfer(victim, attacker, 2.8e24)
     BRAINS-->>Attacker: +2,800,000 BRAINS
@@ -164,9 +164,9 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["swap() / batchSwap()\nonlyOperator gate"] -->|"this.transferTokens(...)"| B["transferTokens(token, from, to, amount)\nexternal, NO modifier"]
-    B --> C["safeTransferFrom(from, to, amount)\nspends proxy allowance"]
-    X["ANY caller (the attacker)"] -.->|"bypasses onlyOperator\nbecause helper is unguarded"| B
+    A["swap() / batchSwap()<br/>onlyOperator gate"] -->|"this.transferTokens(...)"| B["transferTokens(token, from, to, amount)<br/>external, NO modifier"]
+    B --> C["safeTransferFrom(from, to, amount)<br/>spends proxy allowance"]
+    X["ANY caller (the attacker)"] -.->|"bypasses onlyOperator<br/>because helper is unguarded"| B
     style X stroke:#c00,stroke-width:2px
     style B stroke:#c00,stroke-width:2px
 ```

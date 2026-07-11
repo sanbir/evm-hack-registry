@@ -260,7 +260,7 @@ sequenceDiagram
         T->>P: _basicTransfer(pair → dead, 0.3% of pair.ARK)
         T->>D: ARK burned (Transfer event)
         T->>P: sync()   // adopt smaller ARK balance as reserve1
-        Note over P: WBNB unchanged; ARK ×0.997 each call
+        Note over P: WBNB unchanged#59; ARK ×0.997 each call
     end
     Note over P: WBNB 377.197 | ARK ≈ 1.7e-9<br/>k collapsed to ~6.4e11
     end

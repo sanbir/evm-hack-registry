@@ -313,7 +313,7 @@ sequenceDiagram
     M-->>A: 53,088.99 fUSD  (> the 51,192.78 we started with)
     end
 
-    Note over A: Net +1,896 fUSD this loop;<br/>gain accelerates each iteration (7th = +54,141)
+    Note over A: Net +1,896 fUSD this loop#59;<br/>gain accelerates each iteration (7th = +54,141)
 
     A->>E: exchange_underlying(140,274.69 fUSD → BUSD)
     E-->>A: 89,092.28 BUSD

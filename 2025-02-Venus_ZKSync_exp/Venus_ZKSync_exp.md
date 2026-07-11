@@ -321,7 +321,7 @@ sequenceDiagram
         HLP->>VUSDM: redeemUnderlying(55,000) (recycle wUSDM)
     end
     HLP->>VWETH: redeem(all seized vWETH) -> WETH
-    HLP->>VWETH: borrow(162.13 WETH) ; transfer WETH to target
+    HLP->>VWETH: borrow(162.13 WETH) #59; transfer WETH to target
     end
 
     TGT->>AAVE: repay 2,101.05 WETH

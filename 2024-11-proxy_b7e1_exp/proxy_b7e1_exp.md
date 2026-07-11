@@ -287,13 +287,13 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Initial
-    Initial: "Stage 0 · Initial\nproxy USDT = 8,484.92\nnextOrderId = 176\nattacker USDT = 0"
-    Forged: "Stage 1 · Order #177 forged\nproxy USDT = 8,484.92 (unchanged)\nnextOrderId = 177\ndeposited = 0"
-    Drained: "Stage 2 · Settled\nproxy USDT = 0\nnextOrderId = 178\nattacker USDT = 8,484.92\nreceipt minted = 33,939.68"
-    CashedOut: "Stage 3 · Cashed out\nattacker USDT = 0\nattacker BNB += 13.041"
+    Initial: "Stage 0 · Initial<br/>proxy USDT = 8,484.92<br/>nextOrderId = 176<br/>attacker USDT = 0"
+    Forged: "Stage 1 · Order #177 forged<br/>proxy USDT = 8,484.92 (unchanged)<br/>nextOrderId = 177<br/>deposited = 0"
+    Drained: "Stage 2 · Settled<br/>proxy USDT = 0<br/>nextOrderId = 178<br/>attacker USDT = 8,484.92<br/>receipt minted = 33,939.68"
+    CashedOut: "Stage 3 · Cashed out<br/>attacker USDT = 0<br/>attacker BNB += 13.041"
 
     Initial --> Forged: "0x9b3e9b92 create (0 USDT in)"
-    Forged --> Drained: "0x9b3e9b92 settle [177],[8,484.92]\n(uncompensated payout)"
+    Forged --> Drained: "0x9b3e9b92 settle [177],[8,484.92]<br/>(uncompensated payout)"
     Drained --> CashedOut: "swap USDT → BNB on PancakeSwap"
 
     note right of Drained

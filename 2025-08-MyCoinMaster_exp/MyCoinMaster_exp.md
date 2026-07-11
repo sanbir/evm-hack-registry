@@ -174,7 +174,7 @@ sequenceDiagram
     MC->>MYC: mintTokens(AC, 1e12)   1% airdrop = free MYC
     AC->>MYC: approve(MC, 120225946717)
     AC->>MC: swap(120225946717)
-    Note over MC: usd = tokens*price/1e8\nusdt = usd*1e10, minus 0.5% fee
+    Note over MC: usd = tokens*price/1e8<br/>usdt = usd*1e10, minus 0.5% fee
     MC->>MYC: transferFrom(AC, MC, 120225946717)
     MC->>USDT: transfer(AC, 653.63 USDT)
     Note over AC: profit ~= 653.63 USDT, cost = gas only
@@ -182,12 +182,12 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["buyBYAdmin(_tokens, _sponsor, _user)\nNO require(msg.sender==admin)"] --> B["lock(_tokens,_user):\nmint locked MYC to contract"]
-    A --> C["mintTokens(_user, _tokens*1/100)\n1% UNLOCKED airdrop to _user"]
+    A["buyBYAdmin(_tokens, _sponsor, _user)<br/>NO require(msg.sender==admin)"] --> B["lock(_tokens,_user):<br/>mint locked MYC to contract"]
+    A --> C["mintTokens(_user, _tokens*1/100)<br/>1% UNLOCKED airdrop to _user"]
     C --> D["Attacker holds free MYC"]
-    D --> E["swap(_tokens):\ngetSwapData prices MYC at admin-fixed tokenPriceUsd"]
-    E --> F["usdtContract.transfer(attacker, payout)\nUSDT leaves pool"]
-    F --> G["Pool drained\nno value ever entered"]
+    D --> E["swap(_tokens):<br/>getSwapData prices MYC at admin-fixed tokenPriceUsd"]
+    E --> F["usdtContract.transfer(attacker, payout)<br/>USDT leaves pool"]
+    F --> G["Pool drained<br/>no value ever entered"]
     style A stroke:#f00,stroke-width:3px
     style C stroke:#f00,stroke-width:3px
 ```

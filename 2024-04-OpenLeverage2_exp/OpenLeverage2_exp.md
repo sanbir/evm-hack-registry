@@ -232,7 +232,7 @@ sequenceDiagram
     EX->>OPB: borrow(24, true, 1,000,000 wei collateral, 0)
     OPB->>POOL: borrowBehalf (seed fragile position)
     end
-    AGG-->>OL: swap returns; Trade booked (held ~2.249e22)
+    AGG-->>OL: swap returns#59; Trade booked (held ~2.249e22)
 
     rect rgb(255,235,238)
     Note over A,POOL: Self-liquidation drains communal funds
@@ -275,16 +275,16 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Pre
-    Pre: "Pre-attack<br/>OPB: 56,744.6 BUSDT / 28.17 WBNB<br/>pair: 4.98M BUSDT / 8,455 WBNB"
-    Pre --> Borrowed: "marginTrade borrows 33.13 WBNB"
-    Borrowed: "Attacker holds 33.13 WBNB (in Executor)<br/>callback active"
-    Borrowed --> Seeded: "borrow(24): collateral = 1,000,000 wei BUSDT"
-    Seeded: "Fragile OPB position created<br/>(collateral << debt)"
-    Seeded --> UnderWater: "price arranged so collateral < debt"
-    UnderWater: "checkLiquidable = true<br/>buy() will revert 'sell amount not enough'"
-    UnderWater --> Socialized: "self-liquidate -> else branch"
-    Socialized: "sell collateral + repayBorrowEndByOpenLev<br/>insurance drained, pool writes off debt"
-    Socialized --> [*]: "Attacker keeps borrowed value (~$234K)"
+    Pre: Pre-attack<br/>OPB#58; 56,744.6 BUSDT / 28.17 WBNB<br/>pair#58; 4.98M BUSDT / 8,455 WBNB
+    Pre --> Borrowed: marginTrade borrows 33.13 WBNB
+    Borrowed: Attacker holds 33.13 WBNB (in Executor)<br/>callback active
+    Borrowed --> Seeded: borrow(24)#58; collateral = 1,000,000 wei BUSDT
+    Seeded: Fragile OPB position created<br/>(collateral << debt)
+    Seeded --> UnderWater: price arranged so collateral < debt
+    UnderWater: checkLiquidable = true<br/>buy() will revert 'sell amount not enough'
+    UnderWater --> Socialized: self-liquidate -> else branch
+    Socialized: sell collateral + repayBorrowEndByOpenLev<br/>insurance drained, pool writes off debt
+    Socialized --> [*]: Attacker keeps borrowed value (~$234K)
 ```
 
 ---

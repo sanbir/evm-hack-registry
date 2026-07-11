@@ -262,7 +262,7 @@ sequenceDiagram
     participant PX as "Proxy 0xA481…"
     participant L as "Logic 0x8aF9… (delegatecall)"
 
-    Note over A,L: balance(A) = 1 AVAX; share weights = 0
+    Note over A,L: balance(A) = 1 AVAX#59; share weights = 0
 
     A->>PX: "buySharesWithReferrer(self, 1, self) {value: 1 AVAX}"
     PX->>L: delegatecall

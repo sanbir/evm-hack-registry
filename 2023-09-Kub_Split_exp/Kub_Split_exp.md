@@ -311,7 +311,7 @@ sequenceDiagram
     A->>SP: create fakeUSDC/Split pair + setPair(fakeUSDC)
     A->>R: fakeUSDC -> Split -> BUSDT
     loop sell x100 / x10
-        A->>SR: sell(Split,KUB) ; sell(KUB,BUSDT)
+        A->>SR: sell(Split,KUB) #59; sell(KUB,BUSDT)
         SR-->>A: KUB / BUSDT (via removeLiquidity)
     end
     end

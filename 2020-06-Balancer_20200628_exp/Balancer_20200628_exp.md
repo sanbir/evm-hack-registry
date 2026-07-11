@@ -332,7 +332,7 @@ sequenceDiagram
     Note over A,S: "Phase A - borrow & warm up"
     A->>D: "operate(): flash-borrow 104,331.30 WETH"
     D-->>A: "104,331.30 WETH"
-    A->>B: "gulp(WETH); getBalance(WETH) = 455.92"
+    A->>B: "gulp(WETH)#59; getBalance(WETH) = 455.92"
     end
 
     rect rgb(232,245,233)
@@ -370,18 +370,18 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Synced
-    Synced: "Synced<br/>recorded STA == actual STA"
-    Drift: "Drift<br/>recorded STA &gt; actual STA<br/>(1% burned on every transfer)"
-    Collapsed: "Collapsed<br/>swapExactAmountOut leaves actual == 1"
-    Anchored: "Anchored<br/>gulp(STA): recorded := 1"
-    Drained: "Drained<br/>sell 1 wei -&gt; ~half of WETH reserve"
+    Synced: Synced<br/>recorded STA == actual STA
+    Drift: Drift<br/>recorded STA &gt#59; actual STA<br/>(1% burned on every transfer)
+    Collapsed: Collapsed<br/>swapExactAmountOut leaves actual == 1
+    Anchored: Anchored<br/>gulp(STA)#58; recorded #58;= 1
+    Drained: Drained<br/>sell 1 wei -&gt#59; ~half of WETH reserve
 
-    Synced --> Drift: "WETH&lt;-&gt;STA swaps, fee-on-transfer"
-    Drift --> Collapsed: "swapExactAmountOut(out = balanceOf-1)"
-    Collapsed --> Anchored: "gulp(STA)  (permissionless)"
-    Anchored --> Drained: "swapExactAmountIn(STA, 1)"
-    Drained --> Anchored: "gulp(STA) resets record to 1 (x20)"
-    Drained --> [*]: "WETH reserve emptied, repay loan"
+    Synced --> Drift: WETH&lt#59;-&gt#59;STA swaps, fee-on-transfer
+    Drift --> Collapsed: swapExactAmountOut(out = balanceOf-1)
+    Collapsed --> Anchored: gulp(STA)  (permissionless)
+    Anchored --> Drained: swapExactAmountIn(STA, 1)
+    Drained --> Anchored: gulp(STA) resets record to 1 (x20)
+    Drained --> [*]: WETH reserve emptied, repay loan
 ```
 
 ### Where the invariant breaks inside `BPool`

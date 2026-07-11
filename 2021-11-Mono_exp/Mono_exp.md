@@ -342,15 +342,15 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Honest
-    Honest: "MONO price = 5.218e18<br/>pool balance honest"
-    Thinned: "After draining 3 LPs + re-seed<br/>MONO balance = 196,875,656 wei"
-    Ratcheting: "Self-swap loop<br/>price climbs 5.2e18 → 5.277e29"
-    Drained: "USDC pool emptied<br/>0.000484 MONO buys 4,000,000 USDC"
+    Honest: MONO price = 5.218e18<br/>pool balance honest
+    Thinned: After draining 3 LPs + re-seed<br/>MONO balance = 196,875,656 wei
+    Ratcheting: Self-swap loop<br/>price climbs 5.2e18 → 5.277e29
+    Drained: USDC pool emptied<br/>0.000484 MONO buys 4,000,000 USDC
 
-    Honest --> Thinned: "removeLiquidity ×3 + addLiquidity"
-    Thinned --> Ratcheting: "swapExactTokenForToken(MONO, MONO) loop"
-    Ratcheting --> Ratcheting: "each self-swap: price ↑"
-    Ratcheting --> Drained: "swapTokenForExactToken(MONO, USDC)"
+    Honest --> Thinned: removeLiquidity ×3 + addLiquidity
+    Thinned --> Ratcheting: swapExactTokenForToken(MONO, MONO) loop
+    Ratcheting --> Ratcheting: each self-swap#58; price ↑
+    Ratcheting --> Drained: swapTokenForExactToken(MONO, USDC)
     Drained --> [*]
 ```
 

@@ -202,12 +202,12 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A["Flash-loan 26.88 WETH"] --> B["buy via StackMarket\nminTokens=1, priceLimit=0"]
-    B --> C["V3 pool: large WETH in\ntoken out - slot0 price UP"]
-    C --> D["Helper holds N tokens\npool price is inflated"]
-    D --> E["sell N tokens via public router\ninto the SAME pool"]
-    E --> F["Receive more WETH than spent\nexit price greater than entry price"]
-    F --> G["Repay flash loan\nkeep 0.56 WETH residual"]
+    A["Flash-loan 26.88 WETH"] --> B["buy via StackMarket<br/>minTokens=1, priceLimit=0"]
+    B --> C["V3 pool: large WETH in<br/>token out - slot0 price UP"]
+    C --> D["Helper holds N tokens<br/>pool price is inflated"]
+    D --> E["sell N tokens via public router<br/>into the SAME pool"]
+    E --> F["Receive more WETH than spent<br/>exit price greater than entry price"]
+    F --> G["Repay flash loan<br/>keep 0.56 WETH residual"]
 
     style B fill:#fdd
     style E fill:#fdd

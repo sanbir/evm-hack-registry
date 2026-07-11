@@ -167,24 +167,24 @@ sequenceDiagram
     A->>H: deploy helper
     A->>H: install()
     H->>T: changeRouterVersion(0, helper) [no onlyOwner]
-    Note over T: uniswapV2Router = helper\nuniswapPair = helper
+    Note over T: uniswapV2Router = helper<br/>uniswapPair = helper
     A->>T: transfer(helper, 0)
-    Note over T: balanceOf(this) > threshold\n-> swapAndLiquify()
+    Note over T: balanceOf(this) > threshold<br/>-> swapAndLiquify()
     T->>H: swapExactTokensForETHSupportingFeeOnTransferTokens(half tokens)
     Note over H: no-op, returns no BNB
-    Note over T: amountReceived = address(this).balance\n= 2.101... BNB from V
+    Note over T: amountReceived = address(this).balance<br/>= 2.101... BNB from V
     T->>H: addLiquidityETH{value: 2.101... BNB}
     H->>A: call value 2.101... BNB
-    Note over A,V: Attacker balance 0 -> 2.10 BNB\nBITDOG balance 2.10 -> 0
+    Note over A,V: Attacker balance 0 -> 2.10 BNB<br/>BITDOG balance 2.10 -> 0
 ```
 
 ```mermaid
 flowchart TD
-    F1["changeRouterVersion is public\nonlyOwner is only a comment"] --> F2["Anyone sets uniswapV2Router = attacker helper"]
-    F2 --> F3["transfer 0 tokens triggers swapAndLiquify\nbecause balanceOf(this) already > threshold"]
+    F1["changeRouterVersion is public<br/>onlyOwner is only a comment"] --> F2["Anyone sets uniswapV2Router = attacker helper"]
+    F2 --> F3["transfer 0 tokens triggers swapAndLiquify<br/>because balanceOf(this) already > threshold"]
     F3 --> F4["fake router.swap = no-op"]
-    F4 --> F5["amountReceived = address(this).balance\n= pre-existing BNB"]
-    F5 --> F6["addLiquidityETH forwards full BNB\nto attacker via helper"]
+    F4 --> F5["amountReceived = address(this).balance<br/>= pre-existing BNB"]
+    F5 --> F6["addLiquidityETH forwards full BNB<br/>to attacker via helper"]
 ```
 
 ## Remediation

@@ -257,7 +257,7 @@ sequenceDiagram
 
     rect rgb(255,235,238)
     Note over B,M: "No initiator check — bot runs attacker's plan"
-    B->>B: "delegatecall impl 0x770200a2… ; resolve modules via getMetadata"
+    B->>B: "delegatecall impl 0x770200a2… #59; resolve modules via getMetadata"
     B->>M: "transfer 187.745 WETH (bot's own balance)"
     B->>M: "execute(route)"
     M->>P: "swap WETH → USDC (recipient = Attacker)"

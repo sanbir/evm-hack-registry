@@ -236,7 +236,7 @@ sequenceDiagram
     N-->>O: "20,000,000,000.02 NOVA (doubled)"
 
     rect rgb(243,229,245)
-    Note over O,P: "Realize value (live incident; disabled in PoC)"
+    Note over O,P: "Realize value (live incident#59; disabled in PoC)"
     O->>N: "transfer/approve — owner is _marketersAndDevs ⇒ _canTransfer = true"
     O->>P: "swapExactTokensForETH(minted NOVA → WBNB)"
     P-->>O: "WBNB drained from the pool"

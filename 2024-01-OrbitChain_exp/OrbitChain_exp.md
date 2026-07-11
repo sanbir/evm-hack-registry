@@ -271,7 +271,7 @@ sequenceDiagram
     V->>L: delegatecall withdraw(...)
     L->>L: whash = sha256(hub‖fromChain‖chain‖<br/>fromAddr‖toAddr‖token‖bytes32s‖uints)
     Note over L: whash = 0x8df324c6…bf7b763d
-    L->>L: require(!isUsedWithdrawal[whash]); mark used
+    L->>L: require(!isUsedWithdrawal[whash])#59; mark used
 
     rect rgb(255,235,238)
     Note over L,EC: _validate — the entire authorization

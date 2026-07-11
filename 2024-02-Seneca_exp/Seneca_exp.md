@@ -265,7 +265,7 @@ sequenceDiagram
     Note over T: "msg.sender == Chamber<br/>allowance satisfied"
     T-->>V: "debit 1,385.24 PT"
     T-->>A: "credit 1,385.24 PT"
-    T-->>CL: "Transfer(victim → attacker); return true"
+    T-->>CL: "Transfer(victim → attacker)#59; return true"
     CL-->>CM: "return (0,0)"
     CM-->>A: "return (0,0)"
     Note over A: "Attacker now holds the victim's entire PT balance<br/>(repeat per user/token → ~$6.4M)"

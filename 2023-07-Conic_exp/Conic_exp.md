@@ -303,7 +303,7 @@ sequenceDiagram
     A->>O: getUSDPrice(rETH_ETH_LP)
     O-->>A: "13,263 USD (was 3,921, +238%)"
     A->>C: handleDepeggedCurvePool(pool)
-    Note over C: no _reentrancyCheck here;<br/>weight set to 0
+    Note over C: no _reentrancyCheck here#59;<br/>weight set to 0
     A->>C: withdraw(6,292 cncETH)
     C->>O: getTotalAndPerPoolUnderlying() ⇒ inflated
     C-->>A: 9,319 WETH (fair ≈ 6,292)

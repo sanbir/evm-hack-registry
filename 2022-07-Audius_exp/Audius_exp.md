@@ -248,7 +248,7 @@ sequenceDiagram
     Note over A,SP: Tx1 - fabricate voting stake
     A->>SP: initialize(attacker, attacker) [re-init]
     A->>SP: delegateStake(self, 1e31)
-    Note over SP: fake stake 1e31; totalStaked doubles<br/>attacker ~= 49.999%
+    Note over SP: fake stake 1e31#59; totalStaked doubles<br/>attacker ~= 49.999%
     end
 
     rect rgb(227,242,253)

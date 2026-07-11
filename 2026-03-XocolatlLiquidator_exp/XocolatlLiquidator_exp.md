@@ -200,7 +200,7 @@ sequenceDiagram
     AL->>AA: balanceOf(V, realReserveID)
     AL->>FR: getLatestPrice()
     FR-->>AL: 1
-    Note over AL: discountedPrice = 1*discount/1e18 = 0\namountTemp = 0\ncostofLiquidation = 0
+    Note over AL: discountedPrice = 1*discount/1e18 = 0<br/>amountTemp = 0<br/>costofLiquidation = 0
     AL->>AL: allowance >= 0  pass
     AL->>AA: safeTransferFrom(V, Att, realReserveID, collatPenaltyBal)
     Note over AA: real collateral moved to attacker
@@ -213,8 +213,8 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     A["caller supplies houseOfReserve"] --> B{"validated?"}
-    B --|"NO - no whitelist"|--> C["reserveTokenID/backedTokenID from arbitrary addr"]
-    B --|"should be YES"|--> Z["reject"]
+    B -->|"NO - no whitelist"| C["reserveTokenID/backedTokenID from arbitrary addr"]
+    B -->|"should be YES"| Z["reject"]
     C --> D["getLatestPrice from arbitrary addr"]
     D --> E["price=1 -> discountedPrice=0"]
     E --> F["costofLiquidation=0"]

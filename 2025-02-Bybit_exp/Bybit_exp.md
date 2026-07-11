@@ -307,12 +307,12 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Normal
-    Normal: "Normal Safe<br/>slot0 = 0x34cfac… (GnosisSafe v1.1.1)<br/>nonce = 71<br/>balance: 401,346 ETH + LSTs"
-    Compromised: "Backdoored wallet<br/>slot0 = 0xbdd077f6… (Backdoor)<br/>nonce = 72<br/>logic = sweepETH / sweepERC20"
-    Drained: "Empty wallet<br/>slot0 = 0xbdd077f6…<br/>balance: 0 ETH, 0 LSTs"
+    Normal: Normal Safe<br/>slot0 = 0x34cfac… (GnosisSafe v1.1.1)<br/>nonce = 71<br/>balance#58; 401,346 ETH + LSTs
+    Compromised: Backdoored wallet<br/>slot0 = 0xbdd077f6… (Backdoor)<br/>nonce = 72<br/>logic = sweepETH / sweepERC20
+    Drained: Empty wallet<br/>slot0 = 0xbdd077f6…<br/>balance#58; 0 ETH, 0 LSTs
 
-    Normal --> Compromised: "execTransaction(DelegateCall → Trojan.transfer)<br/>writes slot 0 (signed by real owners)"
-    Compromised --> Drained: "attacker calls sweepETH / sweepERC20<br/>(no signatures needed anymore)"
+    Normal --> Compromised: execTransaction(DelegateCall → Trojan.transfer)<br/>writes slot 0 (signed by real owners)
+    Compromised --> Drained: attacker calls sweepETH / sweepERC20<br/>(no signatures needed anymore)
     Drained --> [*]
 ```
 

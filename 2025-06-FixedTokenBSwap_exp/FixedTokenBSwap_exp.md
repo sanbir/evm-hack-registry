@@ -168,14 +168,14 @@ Why the price check is hollow (control-flow of the flaw):
 
 ```mermaid
 flowchart TD
-    A["swap(path, amountInMax)\npath is caller-controlled"] --> B{"path[last] == tokenB?"}
-    B -- yes --> C["tokenA = path[0]\nNO allowlist check"]
-    C --> D["getAmountsIn(10 RTV, path)\nreads attacker-created pair reserves"]
+    A["swap(path, amountInMax)<br/>path is caller-controlled"] --> B{"path[last] == tokenB?"}
+    B -- yes --> C["tokenA = path[0]<br/>NO allowlist check"]
+    C --> D["getAmountsIn(10 RTV, path)<br/>reads attacker-created pair reserves"]
     D --> E["amountsIn[0] = attacker-influenced quote"]
     E --> F["safeTransferFrom(tokenA) into FakeToken"]
-    F --> G{"FakeToken.transferFrom\nreturns true?"}
-    G -- yes, value=0 --> H["safeTransfer 10 real RTV to msg.sender\nUNCONDITIONAL"]
-    G -- yes --> I["payment = 0, payout = 10 RTV\nPROFIT"]
+    F --> G{"FakeToken.transferFrom<br/>returns true?"}
+    G -- yes, value=0 --> H["safeTransfer 10 real RTV to msg.sender<br/>UNCONDITIONAL"]
+    G -- yes --> I["payment = 0, payout = 10 RTV<br/>PROFIT"]
     style H fill:#fdd
     style I fill:#fdd
 ```

@@ -273,7 +273,7 @@ sequenceDiagram
     L->>PT: PT.call(transferFrom(V, A, 20,000e18))
     PT->>V: debit 20,000 PT (uses L's standing allowance)
     PT->>A: credit 20,000 PT
-    Note over PT: Transfer(V -> A, 2e22); allowance(V, L): 20000e18 -> 0
+    Note over PT: Transfer(V -> A, 2e22)#59; allowance(V, L): 20000e18 -> 0
     end
 
     L->>L: leverage loop satisfied on fake numbers -> break

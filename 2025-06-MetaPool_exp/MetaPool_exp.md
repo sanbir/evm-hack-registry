@@ -289,7 +289,7 @@ sequenceDiagram
     Note over A,S: Step 3 - the bug: FREE MINT
     A->>S: mint(97.0195 mpETH, self)   %% NOT payable, 0 ETH in
     S->>S: _deposit(assets=107 ETH, shares=97.0195)  -- no funds pulled
-    S-->>A: +97.0195 mpETH (free); totalUnderlying += 107
+    S-->>A: +97.0195 mpETH (free)#59; totalUnderlying += 107
     end
 
     rect rgb(227,242,253)

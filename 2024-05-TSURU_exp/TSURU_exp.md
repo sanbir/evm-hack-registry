@@ -287,12 +287,12 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Honest
-    Honest: "Stage 0 - Honest state<br/>totalSupply 264,074,000 TSURU<br/>pool: 70,030,241 TSURU / 137.9 WETH<br/>attacker: 0 TSURU / 0 WETH"
-    Inflated: "Stage 1 - After free mint<br/>totalSupply 431,274,000 TSURU<br/>attacker: 167,200,000 unbacked TSURU"
-    Drained: "Stage 2 - After dump<br/>pool: 237,230,241 TSURU / ~0 WETH<br/>attacker: 0 TSURU / 137.90 WETH"
+    Honest: Stage 0 - Honest state<br/>totalSupply 264,074,000 TSURU<br/>pool#58; 70,030,241 TSURU / 137.9 WETH<br/>attacker#58; 0 TSURU / 0 WETH
+    Inflated: Stage 1 - After free mint<br/>totalSupply 431,274,000 TSURU<br/>attacker#58; 167,200,000 unbacked TSURU
+    Drained: Stage 2 - After dump<br/>pool#58; 237,230,241 TSURU / ~0 WETH<br/>attacker#58; 0 TSURU / 137.90 WETH
 
-    Honest --> Inflated: "onERC1155Received(amount=418)<br/>+167.2M TSURU, no NFT in"
-    Inflated --> Drained: "pool.swap: sell 167.2M TSURU<br/>pull 137.90 WETH out"
+    Honest --> Inflated: onERC1155Received(amount=418)<br/>+167.2M TSURU, no NFT in
+    Inflated --> Drained: pool.swap#58; sell 167.2M TSURU<br/>pull 137.90 WETH out
 ```
 
 ---

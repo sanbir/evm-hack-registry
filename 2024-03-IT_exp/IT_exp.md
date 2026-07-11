@@ -255,7 +255,7 @@ sequenceDiagram
         T->>P: _mint(pair, huge IT top-up)
         Note over P: post-mint IT balance ⇒ k check passes
         P->>A: (reserve0-1) IT + amountout USDT
-        Note over P: IT reserve grows;<br/>USDT reserve shrinks
+        Note over P: IT reserve grows#59;<br/>USDT reserve shrinks
     end
     end
 

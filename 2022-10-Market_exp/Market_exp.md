@@ -323,13 +323,13 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> Settled0
-    Settled0: "Settled (pre-withdraw)<br/>totalSupply = 41,311,744<br/>self.D = D_full<br/>get_virtual_price ≈ 1.0e18"
-    Settled0 --> Burned: "burnFrom(LP) — step (1)"
-    Burned: "INCONSISTENT (reentrancy window)<br/>totalSupply = 6,761,718  (reduced)<br/>self.D = D_full  (NOT yet reduced)<br/>get_virtual_price = 6.121e18  ⚠️"
-    Burned --> Reenter: "raw_call value=WMATIC — step (2)"
-    Reenter: "receive(): borrow(250,000 MAI)<br/>oracle reads 6.121e18<br/>collateral ~6x over-valued"
-    Reenter --> Settled1: "self.D updated — step (3)"
-    Settled1: "Settled (post-withdraw)<br/>totalSupply reduced<br/>self.D reduced<br/>get_virtual_price ≈ 1.0e18"
+    Settled0: Settled (pre-withdraw)<br/>totalSupply = 41,311,744<br/>self.D = D_full<br/>get_virtual_price ≈ 1.0e18
+    Settled0 --> Burned: burnFrom(LP) — step (1)
+    Burned: INCONSISTENT (reentrancy window)<br/>totalSupply = 6,761,718  (reduced)<br/>self.D = D_full  (NOT yet reduced)<br/>get_virtual_price = 6.121e18  ⚠️
+    Burned --> Reenter: raw_call value=WMATIC — step (2)
+    Reenter: receive()#58; borrow(250,000 MAI)<br/>oracle reads 6.121e18<br/>collateral ~6x over-valued
+    Reenter --> Settled1: self.D updated — step (3)
+    Settled1: Settled (post-withdraw)<br/>totalSupply reduced<br/>self.D reduced<br/>get_virtual_price ≈ 1.0e18
     Settled1 --> [*]
 ```
 

@@ -148,7 +148,7 @@ sequenceDiagram
     Note over H,V: STEP 2: trigger victim's own swap
     H->>V: swapit()
     V->>P: swapExactTokensForTokens(victim USDC -> OFFICIALYE)
-    Note over P: victim pays inflated price\nits USDC drained into pool
+    Note over P: victim pays inflated price<br/>its USDC drained into pool
     Note over H,P: STEP 3: sell OFFICIALYE back at inflated price
     H->>P: swapExactTokensForTokens(all OFFICIALYE -> USDC)
     P-->>H: more USDC than spent in step 1
@@ -165,7 +165,7 @@ flowchart TD
     E --> G["Victim swap lands at inflated price"]
     F --> G
     G --> H["Attacker sells OFFICIALYE back"]
-    H --> I["Profit = price impact the victim swap created\n~980 USDC out of victim treasury"]
+    H --> I["Profit = price impact the victim swap created<br/>~980 USDC out of victim treasury"]
 ```
 
 ## Remediation

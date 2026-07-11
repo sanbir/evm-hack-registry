@@ -320,9 +320,9 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Uninitialized: "library deployed,<br/>m_numOwners == 0"
+    [*] --> Uninitialized: library deployed,<br/>m_numOwners == 0
 
-    Uninitialized --> Owned: "anyone calls initWallet([self],0,0)<br/>only_uninitialized: m_numOwners>0 ? NO ⇒ pass"
+    Uninitialized --> Owned: anyone calls initWallet([self],0,0)<br/>only_uninitialized#58; m_numOwners>0 ? NO ⇒ pass
     note right of Uninitialized
         Intended: only the deployer/factory
         ever reaches here, once.
@@ -331,14 +331,14 @@ stateDiagram-v2
         so the door is open to anyone.
     end note
 
-    Owned --> Owned: "re-init blocked now (m_numOwners>0 ⇒ throw)<br/>— too late, attacker already owns it"
-    Owned --> Destroyed: "owner calls kill() ⇒ suicide()"
+    Owned --> Owned: re-init blocked now (m_numOwners>0 ⇒ throw)<br/>— too late, attacker already owns it
+    Owned --> Destroyed: owner calls kill() ⇒ suicide()
     note right of Owned
         m_required == 0 ⇒ onlymanyowners
         clears on the FIRST confirmation.
     end note
 
-    Destroyed --> [*]: "library code gone forever<br/>all delegatecall consumers bricked"
+    Destroyed --> [*]: library code gone forever<br/>all delegatecall consumers bricked
 ```
 
 ---

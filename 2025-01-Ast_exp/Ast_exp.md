@@ -291,7 +291,7 @@ sequenceDiagram
     Note over A,T: Step 5-6 — the exploit
     A->>P: skim(attacker)
     P->>T: transfer surplus AST (pair -> attacker)
-    T->>T: checkLiquidityRm(attacker): LP 0 < phantom<br/>⇒ _burn(pair, 6.68835e18); recipient gets 0
+    T->>T: checkLiquidityRm(attacker): LP 0 < phantom<br/>⇒ _burn(pair, 6.68835e18)#59; recipient gets 0
     A->>P: sync()
     Note over P: 30,080,145 BUSD / 1 wei AST<br/>⚠️ invariant broken
     end

@@ -258,7 +258,7 @@ sequenceDiagram
     loop 10 times
         A->>X: stake(prevExploiter)
         X->>S: stake(QIQI, SELLC, USDT, up, 100 USDT)
-        Note over S: stakedOf[QIQI][X][1] += ~5,612.73e18<br/>mnu = 1; referral up-chain set
+        Note over S: stakedOf[QIQI][X][1] += ~5,612.73e18<br/>mnu = 1#59; referral up-chain set
     end
     end
 

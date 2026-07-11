@@ -343,12 +343,12 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Forked: "createSelectFork(mainnet, 11720049)"
-    Forked --> GotDIGG: "swap WETH→WBTC→DIGG (8590 DIGG)"
-    GotDIGG --> FakePairMade: "createPair(DIGG,WETH) = 0xf41E…8724"
-    FakePairMade --> Seeded: "addLiquidity ⇒ 2.07e9 LP"
-    Seeded --> ConvertCall: "sushiMaker.convert(WBTC, DIGG)"
-    ConvertCall --> Reverted: "interface marks convert() view<br/>⇒ STATICCALL ⇒ pair.transfer reverts<br/>'BentoBox: Transfer failed'"
+    [*] --> Forked: createSelectFork(mainnet, 11720049)
+    Forked --> GotDIGG: swap WETH→WBTC→DIGG (8590 DIGG)
+    GotDIGG --> FakePairMade: createPair(DIGG,WETH) = 0xf41E…8724
+    FakePairMade --> Seeded: addLiquidity ⇒ 2.07e9 LP
+    Seeded --> ConvertCall: sushiMaker.convert(WBTC, DIGG)
+    ConvertCall --> Reverted: interface marks convert() view<br/>⇒ STATICCALL ⇒ pair.transfer reverts<br/>'BentoBox#58; Transfer failed'
     Reverted --> [*]
 
     note right of ConvertCall

@@ -384,7 +384,7 @@ sequenceDiagram
     Note over A,G: Phase A - governance capture
     A->>P: deploy (block 17490837)
     P->>G: propose(_setCollateralFactor(fFTS, 0.7)) -> Proposal 11
-    Note over G: malicious voter 0x58f96 casts 119,774 FTS; forVotes < quorum in PoC, but proposal still queues
+    Note over G: malicious voter 0x58f96 casts 119,774 FTS#59; forVotes < quorum in PoC, but proposal still queues
     A->>G: queue(11) -> Timelock eta
     end
 

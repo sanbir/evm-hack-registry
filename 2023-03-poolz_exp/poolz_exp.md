@@ -240,7 +240,7 @@ sequenceDiagram
     A->>R: swapExactTokensForTokens(... -> WBNB)
     R-->>A: WBNB
     A->>FL: transfer(1 WBNB)  // repay
-    Note over A: surplus WBNB kept; repeat for next token
+    Note over A: surplus WBNB kept#59; repeat for next token
 ```
 
 ### Vault state evolution (per token)

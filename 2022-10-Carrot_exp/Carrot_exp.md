@@ -278,7 +278,7 @@ sequenceDiagram
     A->>C: "transferFrom(victim, attacker, 310,344.74 CARROT)"
     C->>P: "_beforeTransfer: ownership(pool).owner() == attacker?"
     P-->>C: "yes"
-    Note over C: "_isExcludedFromFee[attacker]=true; counter 0→1"
+    Note over C: "_isExcludedFromFee[attacker]=true#59; counter 0→1"
     Note over C: "exempt branch: _transfer + return<br/>(allowance check skipped)"
     C-->>A: "310,344.74 CARROT moved from victim"
     end

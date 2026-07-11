@@ -245,10 +245,10 @@ flowchart TD
 stateDiagram-v2
     direction LR
     [*] --> S0
-    S0: "Stage 0 - Initial\nHelper LP = 7.071e25\nAttacker WBNB = 0"
-    S1: "Stage 1 - After 0xf78283c7\nHelper approves attacker 7.071e25 LP\nAttacker calls back, transferFrom-s all LP\nHelper LP = 0 | Attacker LP = 7.071e25"
-    S2: "Stage 2 - After removeLiquidity (pair.burn)\nAttacker LP = 0\nAttacker += 3.472e32 HORS + 14.7994 WBNB\nPool reserves shrink to 5.036e28 HORS / 2.146e15 WBNB"
-    S3: "Stage 3 - After repay + sweep\nFlash loan repaid 0.10001 WBNB\nAttacker EOA = 14.799349 WBNB"
+    S0: "Stage 0 - Initial<br/>Helper LP = 7.071e25<br/>Attacker WBNB = 0"
+    S1: "Stage 1 - After 0xf78283c7<br/>Helper approves attacker 7.071e25 LP<br/>Attacker calls back, transferFrom-s all LP<br/>Helper LP = 0 | Attacker LP = 7.071e25"
+    S2: "Stage 2 - After removeLiquidity (pair.burn)<br/>Attacker LP = 0<br/>Attacker += 3.472e32 HORS + 14.7994 WBNB<br/>Pool reserves shrink to 5.036e28 HORS / 2.146e15 WBNB"
+    S3: "Stage 3 - After repay + sweep<br/>Flash loan repaid 0.10001 WBNB<br/>Attacker EOA = 14.799349 WBNB"
     S0 --> S1: "unprotected approval + callback"
     S1 --> S2: "redeem stolen LP"
     S2 --> S3: "repay flash loan, keep rest"

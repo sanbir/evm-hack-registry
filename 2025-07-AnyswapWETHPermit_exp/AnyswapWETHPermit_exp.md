@@ -140,7 +140,7 @@ sequenceDiagram
     Router->>MalToken: underlying()
     MalToken-->>Router: WETH
     Router->>WETH: permit(Victim, Router, 200e18, ...)
-    Note over WETH: no permit selector -> payable fallback\nemits Deposit(Router,0), returns\nNO allowance set, NO revert
+    Note over WETH: no permit selector -> payable fallback<br/>emits Deposit(Router,0), returns<br/>NO allowance set, NO revert
     WETH-->>Router: return (silent)
     Router->>WETH: transferFrom(Victim, MalToken, 200e18)
     Note over WETH: succeeds on Victim's STANDING allowance
@@ -155,11 +155,11 @@ sequenceDiagram
 ### The flaw in one picture
 ```mermaid
 flowchart TD
-    A[Router calls IERC20 underlying.permit(...)] --> B{Does underlying have a permit selector?}
+    A["Router calls IERC20 underlying.permit(...)"] --> B{Does underlying have a permit selector?}
     B -- YES, real EIP-2612 --> C[Allowance set for router]
     C --> D[transferFrom from signer: legitimate]
     B -- NO, e.g. WETH9 --> E[Falls into payable fallback]
-    E --> F[Deposit(0) emitted, call returns normally]
+    E --> F["Deposit(0) emitted, call returns normally"]
     F --> G[Router assumes permit succeeded]
     G --> H[transferFrom from victim on PRE-EXISTING allowance]
     H --> I[Victim funds drained]

@@ -255,7 +255,7 @@ sequenceDiagram
     Note over A,T: Step 2 — pump PendingMint (x100, net-zero AIS)
     loop 100 cycles
         A->>T: transfer(pair, 128,165 AIS)  (Pairs[to]: PendingMint += 8%)
-        A->>P: skim(self)  (returns 128,165 AIS; Pairs[from]: PendingMint += 4%)
+        A->>P: skim(self)  (returns 128,165 AIS#59; Pairs[from]: PendingMint += 4%)
     end
     Note over T: PendingMint inflated to ~1,543,728 AIS
     end

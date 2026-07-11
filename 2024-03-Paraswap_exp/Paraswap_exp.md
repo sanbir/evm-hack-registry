@@ -271,7 +271,7 @@ sequenceDiagram
     end
 
     rect rgb(255,235,238)
-    Note over V,Pool: Step 4 — pool re-enters; CREATE2 check passes; victim pays
+    Note over V,Pool: Step 4 — pool re-enters#59; CREATE2 check passes#59; victim pays
     Pool->>Aug: uniswapV3SwapCallback(+21,382.11 OPSEC, -10 WETH, …)
     Aug->>Aug: assert msg.sender == computedPool  ✓
     Aug->>V: OPSEC.transferFrom(V, Pool, 21,382.11)  ⚠️ uses V's standing approval
