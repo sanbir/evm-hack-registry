@@ -22,8 +22,9 @@ newly-created cache by diffing the chain's cache dir before/after the online run
 """
 import os, re, sys, json, glob, subprocess
 
-REG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SHARED = os.path.join(REG, "_shared")
+RUN_POC = os.path.dirname(os.path.abspath(__file__))
+REG = os.path.dirname(os.path.dirname(RUN_POC))
+SHARED = RUN_POC
 CACHE = os.path.expanduser("~/.foundry/cache/rpc")
 CONVERTER = os.path.join(SHARED, "cache2anvil.py")
 CACHE_DIR = {"mainnet":"mainnet","bsc":"bsc","arbitrum":"arbitrum","base":"base",

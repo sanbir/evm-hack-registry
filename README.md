@@ -13,10 +13,10 @@ git clone git@github.com:sanbir/evm-hack-registry.git
 cd evm-hack-registry
 
 # run one PoC fully offline (anvil serves the chain state from a committed snapshot)
-_shared/run_poc.sh 2018-04-BEC_exp -vvvvv
+_shared/run-poc/run_poc.sh 2018-04-BEC_exp -vvvvv
 
 # run all 841 in parallel
-_shared/run_all.sh
+_shared/run-poc/run_all.sh
 ```
 
 No RPC keys, no archive node, no internet required.

@@ -17,16 +17,18 @@ For each POC:
      fork block (so anvil reports the block the test requests).
   3. Rewrite the fork source alias -> http://127.0.0.1:<port> (port from chains.conf).
   4. Remove [rpc_endpoints] from foundry.toml.
-  5. lib/forge-std -> relative symlink ../../_shared/forge-std.
+  5. lib/forge-std -> relative symlink ../../_shared/run-poc/forge-std.
 
 POCs that can't be converted (no cache / pruned chain) are skipped and listed.
 """
 import os, re, sys, json, glob, subprocess, shutil
 
-REG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SHARED = os.path.join(REG, "_shared")
+RUN_POC = os.path.dirname(os.path.abspath(__file__))
+REG = os.path.dirname(os.path.dirname(RUN_POC))  # .../run-poc -> _shared -> registry
+SHARED = RUN_POC  # build/warm tools live next to this script
 CACHE = os.path.expanduser("~/.foundry/cache/rpc")
 CONVERTER = os.path.join(SHARED, "cache2anvil.py")
+FORGE_STD_REL = "../../_shared/run-poc/forge-std"
 
 CACHE_DIR = {"mainnet":"mainnet","bsc":"bsc","arbitrum":"arbitrum","base":"base",
              "polygon":"polygon","optimism":"optimism","avalanche":"avalanche",
@@ -139,12 +141,12 @@ def fix_forge_std(d):
     lib=os.path.join(d,"lib","forge-std")
     if os.path.islink(lib):
         tgt=os.readlink(lib)
-        if tgt=="../../_shared/forge-std": return
+        if tgt==FORGE_STD_REL: return
         os.remove(lib)
     elif os.path.exists(lib):
         try: shutil.rmtree(lib)
         except: return
-    os.symlink("../../_shared/forge-std", lib)
+    os.symlink(FORGE_STD_REL, lib)
 
 def process_poc(fol, chains):
     d=os.path.join(REG, fol)

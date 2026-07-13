@@ -1,14 +1,15 @@
 # Exclude build artifacts, results, and dev-only files from the Docker image.
-# Keeps only the POCs + _shared harness + committed anvil_state.json files.
+# Keeps only the POCs + _shared/run-poc harness + committed anvil_state.json files.
 **/out/
 **/cache/
 **/broadcast/
-_shared/results/
+_shared/run-poc/results/
+_shared/build-poc/
 **/.DS_Store
 **/*.log
 .git/
 .gitignore
 *.md
-!_shared/*.md
+!_shared/run-poc/*.md
 Dockerfile
 .dockerignore

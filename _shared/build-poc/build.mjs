@@ -30,7 +30,7 @@ const POC_VERSION = 1;
 const __filename = fileURLToPath(import.meta.url);
 const HERE = path.dirname(__filename);
 const REGISTRY_DIR = process.env.HACKS_REGISTRY_DIR || path.resolve(HERE, "../..");
-const CHAINS_CONF = path.join(HERE, "..", "chains.conf");
+const CHAINS_CONF = path.join(HERE, "..", "run-poc", "chains.conf");
 
 function fail(msg) {
   throw new Error(msg);

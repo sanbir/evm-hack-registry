@@ -9,8 +9,8 @@
 # This populates ~/.foundry/cache/rpc/<chain>/<block>. It does NOT modify any POC.
 set -u
 
-SHARED="$(cd "$(dirname "$0")" && pwd)"
-REG="$(cd "$SHARED/.." && pwd)"
+RUN_POC="$(cd "$(dirname "$0")" && pwd)"
+REG="$(cd "$RUN_POC/../.." && pwd)"
 cd "$REG"
 
 # Build the FOUNDRY_RPC_URLS override string from args

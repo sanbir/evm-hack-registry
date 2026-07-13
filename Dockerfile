@@ -1,7 +1,7 @@
 # Docker image: run all evm-hack-registry POCs fully offline via anvil.
 #
 # Builds a self-contained image with Foundry (forge + anvil) and the registry. At
-# runtime each POC is run by _shared/run_poc.sh, which spins up its own anvil loaded
+# runtime each POC is run by _shared/run-poc/run_poc.sh, which spins up its own anvil loaded
 # with the POC's committed anvil_state.json — no network needed.
 #
 # Build:  docker build -t evm-hack-registry .
@@ -45,4 +45,4 @@ RUN cd /registry && \
     done && \
     rm -rf /registry/*/out /registry/*/cache
 
-ENTRYPOINT ["/registry/_shared/docker_entrypoint.sh"]
+ENTRYPOINT ["/registry/_shared/run-poc/docker_entrypoint.sh"]

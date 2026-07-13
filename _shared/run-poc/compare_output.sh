@@ -7,8 +7,8 @@
 #
 # Usage: compare_output.sh <results_dir>
 set -u
-SHARED="$(cd "$(dirname "$0")" && pwd)"
-REG="$(cd "$SHARED/.." && pwd)"
+RUN_POC="$(cd "$(dirname "$0")" && pwd)"
+REG="$(cd "$RUN_POC/../.." && pwd)"
 OUT="$1"
 
 # Extract the canonical verdict from a forge log: the [PASS]/[FAIL] line.

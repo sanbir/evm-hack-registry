@@ -2,10 +2,10 @@
 # _worker.sh — run ONE POC and print "PASS/FAIL <poc>" for run_all.sh's xargs pool.
 # Kept as a standalone script (not a function) so it works reliably under xargs -P
 # without exporting functions (which is fragile on bash 3.2).
-# Args: $1 = poc folder, $2 = output dir, $3 = _shared dir
+# Args: $1 = poc folder, $2 = output dir, $3 = _shared/run-poc dir
 set -u
-fol="$1"; OUT="$2"; SHARED="$3"
-if timeout 300 "$SHARED/run_poc.sh" "$fol" >"$OUT/$fol.log" 2>&1; then
+fol="$1"; OUT="$2"; RUN_POC="$3"
+if timeout 300 "$RUN_POC/run_poc.sh" "$fol" >"$OUT/$fol.log" 2>&1; then
     echo "PASS  $fol"
 else
     fl=$(grep -oE "\[FAIL.*" "$OUT/$fol.log" 2>/dev/null | head -1)

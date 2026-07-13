@@ -79,4 +79,4 @@ The builder scans `test/*.sol` and `*.md` for:
 - `bytes32 …Tx… = 0x…` constants
 
 Chain is taken from `createSelectFork("…")` / localhost port mapped via
-`_shared/chains.conf`.
+`_shared/run-poc/chains.conf`.

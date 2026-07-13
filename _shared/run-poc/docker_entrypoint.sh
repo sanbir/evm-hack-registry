@@ -11,13 +11,13 @@
 set -u
 
 REG="/registry"
-SHARED="$REG/_shared"
+RUN_POC="$REG/_shared/run-poc"
 cd "$REG"
 
 if [ "$#" -ge 1 ] && [ -d "$REG/$1" ]; then
     FOL="$1"; shift
-    exec "$SHARED/run_poc.sh" "$FOL" "$@"
+    exec "$RUN_POC/run_poc.sh" "$FOL" "$@"
 else
     # No specific POC: run them all in parallel. In a container, use all CPUs.
-    exec "$SHARED/run_all.sh" "$(nproc)"
+    exec "$RUN_POC/run_all.sh" "$(nproc)"
 fi
