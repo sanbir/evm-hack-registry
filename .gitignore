@@ -5,6 +5,13 @@ cache/
 broadcast/
 .run.lock
 
+# Per-POC regenerable traces / runner dumps (not source of record).
+20*/20*.json
+20*/forge_trace.json
+20*/forge_trace.json.stderr
+20*/attack_tx.json
+20*/forge_trace.txt
+
 # Per-POC lib/ contents are NOT committed, EXCEPT the forge-std symlink that each POC
 # needs to resolve to _shared/forge-std. We force-add those symlinks; everything else
 # under <poc>/lib/ (if any) is ignored.
@@ -574,3 +581,7 @@ Thumbs.db
 2022-03-Agave_exp/test/2022-03-Agave.sol
 2023-09-Kub_Split_exp/test/2023-09-Kub_Split.sol
 2023-09-uniclyNFT_exp/test/2023-09-uniclyNFT.sol
+_shared/build-poc/missing-slugs.txt
+_shared/build-poc/build-all-status.tsv
+_shared/build-poc/build-all-folders.txt
+_shared/build-poc/ALL_JSONS_DONE

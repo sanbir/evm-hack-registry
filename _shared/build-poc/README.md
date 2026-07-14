@@ -1,82 +1,97 @@
-# build-poc — Config-free PoC JSON builder
+# build-poc — Offline crypto.training poc-data builder
 
-Produces a **native [evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer) POC**
-(`kind: "evm-hack-analyzer-poc"`) from any [evm-hack-registry](https://github.com/sanbir/evm-hack-registry)
-slug folder.
+Produces the **same JSON shape** as
+[`crypto-training/public/poc-data/<slug>.json`](https://github.com/sanbir/crypto-training)
+(`PocRunnerData` — see crypto-training `docs/poc-data-json-standard.md`).
 
-**No per-hack configs. No AI. No hardcoded secrets.** New slugs work as soon as
-they have `anvil_state.json` (and preferably `sources/` + an attack-tx comment).
+Loadable by both:
+
+- [evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer) (scripted path)
+- crypto.training `PocPlayground`
+
+## How crypto-training builds those files
+
+Producer: `crypto-training/scripts/build-poc-runner-data.mjs`  
+Spec: `crypto-training/docs/poc-data-json-standard.md`  
+Shape: `PocRunnerData` consumed by `recordExploit.ts` (browser EVM, no RPC).
+
+| Input | Output field |
+|-------|----------------|
+| Hand-authored `scripts/poc-configs/<slug>.mjs` | attacker, callScript **or** exploitContract, labels, expected, setup, vulnerability, story, profitToken |
+| Registry `anvil_state.json` | `accounts`, `block` |
+| Foundry artifact (`forge build`) | `exploitContract.abi/bytecode`, `exploitSource` |
+| Etherscan verified source | `contractSources` (pc→line maps) |
+
+Config fields that never appear in the JSON: `folder`, `testFile`, `exploitContractName`,
+`constructorArgTypes`, `syntheticExploit`, `maxContractSourceBytes`.
+
+## How this script does the same (offline, config-free)
+
+| Input | Output field |
+|-------|----------------|
+| `_shared/run-poc/run_poc.sh <folder> --json -vvv` | **callScript** (depth-1 CALLs with raw `data`) **or** **exploitContract** (when forge does `new Helper(); helper.f()`) |
+| `anvil_state.json` | `accounts`, `block` (hex, same as CT) |
+| forge test caller not in dump | injected EOA account with 100 ETH |
+| `sources/*/_meta.json` + `*.sol` | `labels`, `contractSources` via offline compile-match |
+| — | `vulnerability: null`, `story: []` (mark later in the UI) |
+| — | `expected.profitWei: "0"`, native ETH `profitToken` (placeholder) |
+
+**No Etherscan. No RPC. No per-hack configs. No attack-tx hash.**
+
+### Attack mode selection (mirrors CT)
+
+1. **callScript** — test body only calls pre-existing addresses (BEC, Parity, Poly). CT configs use `sig`+`args`; we emit raw `data` (also valid in `recordExploit`).
+2. **exploitContract** — test deploys a helper (`CREATE` depth 1) then calls it. Matched to `out/<file>/<Contract>.json` bytecode; `attackFunction`/`attackArgs` decoded from the CALL.
 
 ```
-<folder>/                          # e.g. 2017-07-Parity_first_hack_exp/
-  anvil_state.json                 # required
-  test/*.sol  *.md                 # attack-tx hash + chain hints
-  sources/                         # optional offline verified sources
-  attack_tx.json                   # optional; auto-created on first RPC fetch
-  <slug>.json                      # ← OUTPUT (slug = folder without _exp)
+<folder>/
+  anvil_state.json          # required
+  test/*.sol                # forge exploit
+  sources/                  # optional offline verified sources
+  forge_trace.json          # written by builder
+  <slug>.json               # ← OUTPUT (PocRunnerData)
 ```
 
 ## Prerequisites
 
 - Node.js ≥ 20
-- Optional: a public/archive JSON-RPC URL **only if** `attack_tx.json` is not
-  already in the folder (fetched once, then cached for offline rebuilds)
+- Foundry (`forge`, `anvil`) on `PATH`
 
 ```bash
 cd _shared/build-poc
 npm install
 ```
 
-## Build one hack
+## Build
 
 ```bash
-# Fully offline when attack_tx.json already exists:
-node build.mjs 2017-07-Parity_first_hack_exp
-
-# First time (fetch + cache attack_tx.json):
-ETH_RPC_URL=https://your.archive.rpc node build.mjs 2017-07-Parity_first_hack
-
-# Any clone location:
+node build.mjs 2021-08-PolyNetwork_exp
+node build.mjs 2018-04-BEC
 HACKS_REGISTRY_DIR=/path/to/evm-hack-registry node build.mjs <folder>
 ```
 
-Output: `$HACKS_REGISTRY_DIR/<folder>/<slug>.json`
+## Output schema (top-level keys)
 
-## What is in the JSON
+Matches crypto-training:
 
-| Field | Source |
-|-------|--------|
-| `accounts`, `block` | `anvil_state.json` |
-| `tx` | `attack_tx.json` (or one-shot RPC fetch) |
-| `contractSources` | offline compile-match from `sources/` (+ optional Etherscan cache) |
-| `labels` | `sources/*/_meta.json` names |
-| `vulnerability`, `story` | **always empty** — mark later in the UI |
+`slug`, `source`, `chainId`, `block`, `accounts`, `labels`, `attacker`,
+`exploitContract`, `helperContracts`, `callScript`, `setup`, `gasLimits`,
+`codeOverrides`, `profitToken`, `profitReceiver`, `expected`, `exploitSource`,
+`contractSources`, `vulnerability`, `story`
 
-## Annotate in the analyzer
+## Annotate later
 
-1. `npm run dev` in [evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer)
-2. Drop `<slug>.json` onto **Load an existing POC**
-3. **Mark vuln** / **Mark step** on source lines
-4. **⬇ poc.json** to re-export the full annotated artifact
+1. Drop `<slug>.json` on **Load an existing POC** in the analyzer
+2. **Mark vuln** / **Mark step**
+3. Re-export the annotated bundle
 
 ## Environment
 
-| Variable | Required | Meaning |
-|----------|----------|---------|
-| `HACKS_REGISTRY_DIR` | no | Registry root (default: two levels above this package) |
-| `ETH_RPC_URL` / `RPC_URL` / `<CHAIN>_RPC_URL` | only if no `attack_tx.json` | Fetch attack-tx envelope once |
-| `SOURCE_CACHE_DIR` | no | Full Etherscan response cache for source maps |
-| `ETHERSCAN_API_KEY` | no | Online source fetch when local `sources/` is incomplete |
+| Variable | Meaning |
+|----------|---------|
+| `HACKS_REGISTRY_DIR` | Registry root (default: two levels above this package) |
+| `FORGE_TIMEOUT_SEC` | Per-slug forge timeout (default `600`) |
+| `ALLOW_FORGE_FAIL=1` | Emit JSON even if forge fails |
+| `MAX_CONTRACT_SOURCE_BYTES` | Cap embedded source maps (default `10_000_000`) |
 
-Never commit API keys or RPC URLs into this package.
-
-## Attack-tx discovery
-
-The builder scans `test/*.sol` and `*.md` for:
-
-- explorer links: `etherscan.io/tx/0x…`, `bscscan.com/tx/0x…`, …
-- comments: `// Attack tx: 0x…`
-- `bytes32 …Tx… = 0x…` constants
-
-Chain is taken from `createSelectFork("…")` / localhost port mapped via
-`_shared/run-poc/chains.conf`.
+Etherscan API keys are **ignored** (deleted at process start).

@@ -1,12 +1,21 @@
-# evm-hack-registry
+# EVM Hack Registry
 
-A self-contained, offline-runnable archive of **841 DeFi exploit proof-of-concepts** spanning
-the full history of EVM hacks (2017 → 2026), across 15 chains.
+A self-contained, offline-runnable archive of **hundreds of DeFi / EVM exploit
+proof-of-concepts** spanning 2017 → 2026 across many chains.
 
-Each exploit lives in its own standalone Foundry project, comes with the **actual on-chain
-contract source code** (pulled from Etherscan), a captured **anvil block-state snapshot** so it
-runs with no network, and an **AI-analyzed write-up + stack trace** explaining the
-vulnerability. Everything is reproducible end-to-end from a `git clone`:
+Each exploit lives in its own standalone Foundry project, with the **actual
+on-chain contract source code** (pulled from Etherscan), a captured **anvil
+block-state snapshot** so it runs with no network, and an **AI-analyzed write-up
++ stack trace** explaining the vulnerability. Everything is reproducible
+end-to-end from a `git clone`.
+
+This registry is the **source of structured hack data** for the rest of the
+ecosystem:
+
+- [evm-hack-poc](https://github.com/sanbir/evm-hack-poc) — shareable ZIP archives
+  generated from this data (same dataset as [crypto.training/hacks](https://crypto.training/hacks/))
+- [evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer) — in-browser
+  debugger that loads those ZIPs (and can annotate / re-export research PoCs)
 
 ```bash
 git clone git@github.com:sanbir/evm-hack-registry.git
@@ -15,13 +24,20 @@ cd evm-hack-registry
 # run one PoC fully offline (anvil serves the chain state from a committed snapshot)
 _shared/run-poc/run_poc.sh 2018-04-BEC_exp -vvvvv
 
-# run all 841 in parallel
+# run all PoCs in parallel
 _shared/run-poc/run_all.sh
 ```
 
-No RPC keys, no archive node, no internet required.
+No RPC keys, no archive node, no internet required at run time.
 
----
+## Ecosystem
+
+| Project | Role |
+|---------|------|
+| [evm-hack-registry](https://github.com/sanbir/evm-hack-registry) (this repo) | Source registry / structured hack data |
+| [evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer) | Analyzer UI & tooling to inspect and annotate exploits |
+| [evm-hack-poc](https://github.com/sanbir/evm-hack-poc) | Shareable PoC ZIP archives for the community |
+| [crypto.training/hacks](https://crypto.training/hacks/) | Public browsable mirror of this dataset |
 
 ## Why this exists
 
@@ -34,7 +50,7 @@ to actually *run and study* its PoCs:
   Reproducing them needs an **archive** node for every chain (mainnet, BSC, Arbitrum, Optimism,
   Base, Polygon, Avalanche, Fantom, Gnosis, …) — public RPCs prune state, and free archive
   access is rare/rate-limited. Without a paid archive provider you simply cannot run most PoCs.
-- **Many chains, many blocks.** Hacks span 15 chains, each forking at a different historical
+- **Many chains, many blocks.** Hacks span many chains, each forking at a different historical
   block. Coordinating the right chain + block + a working archive endpoint for each is tedious
   and brittle.
 - **Incompatible Solidity versions.** PoCs were written for solc ranging from `0.4.x` to
@@ -49,7 +65,11 @@ to actually *run and study* its PoCs:
 The net effect: in DeFiHackLabs it is not easy to *run and analyze* the PoCs. That gap is what
 this project closes.
 
----
+We plan to expand our hack PoC research **beyond** the original DeFiHackLabs set.
+Your contributions are really welcomed and much appreciated — see
+[evm-hack-poc](https://github.com/sanbir/evm-hack-poc) and
+[evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer) for the community
+contribution path (analyze → annotate → ZIP → PR).
 
 ## What we did
 
@@ -68,34 +88,42 @@ study unit:
    reproduce the exploit was downloaded once and converted to an `anvil --load-state` snapshot
    (`anvil_state.json`). At run time a local `anvil` serves that state — **no archived RPC node
    needed**.
-5. **Analyzed the stack traces with AI.** Each PoC has a `<Name>.md` write-up explaining the
+5. **Analyzed the stack traces with AI.** Each PoC has a `<Name>_exp.md` write-up explaining the
    vulnerability, the attack flow, and the key contracts — generated from the `-vvvvv` trace.
 
 All artifacts are preserved and viewable/runnable offline:
 
-| artifact | what it is |
+| Artifact | What it is |
 |---|---|
-| `src/`, `test/`, `sources/` | the exploit harness + Etherscan-fetched victim contracts |
-| `anvil_state.json` | the on-chain block state (anvil snapshot) — runs offline |
-| `output.txt` | the reference `forge test` trace |
-| `<Name>.md` | the AI-analyzed write-up (root cause, attack flow, contracts) |
+| `src/`, `test/`, `sources/` | exploit harness + Etherscan-fetched victim contracts |
+| `anvil_state.json` | on-chain block state (anvil snapshot) — runs offline |
+| `output.txt` | reference `forge test` trace |
+| `<Name>_exp.md` | AI-analyzed write-up (root cause, attack flow, contracts) |
 
----
+Regenerable dumps such as `forge_trace.json`, per-folder runner `20*.json`, and
+`attack_tx.json` are **not** committed (see `.gitignore`).
 
 ## How to run
 
 ```bash
 # one PoC, fully offline (verbose trace)
-_shared/run_poc.sh 2021-08-PolyNetwork_exp -vvvvv
+_shared/run-poc/run_poc.sh 2021-08-PolyNetwork_exp -vvvvv
 
 # one PoC, default
-_shared/run_poc.sh 2021-08-PolyNetwork_exp
+_shared/run-poc/run_poc.sh 2021-08-PolyNetwork_exp
 
-# all 841 in parallel (bounded by CPU cores)
-_shared/run_all.sh
+# all PoCs in parallel (bounded by CPU cores)
+_shared/run-poc/run_all.sh
 
 # compare a run against each PoC's expected output.txt
-_shared/compare_output.sh _shared/results/<timestamp>
+_shared/run-poc/compare_output.sh _shared/results/<timestamp>
+```
+
+Compatibility shims still work for older docs:
+
+```bash
+_shared/run_poc.sh 2018-04-BEC_exp -vvvvv
+_shared/run_all.sh
 ```
 
 Each PoC runs in isolation: `run_poc.sh` spins up a private `anvil` (on an OS-assigned port)
@@ -113,38 +141,46 @@ docker run --rm --network none evm-hack-registry                    # all PoCs, 
 The image bakes in Foundry (`forge` + `anvil`), the registry, and pre-downloaded solc
 compilers, so `--network none` works.
 
----
+### Analyzer / ZIP pipeline
+
+Shared tooling under `_shared/` also builds artifacts used by the rest of the ecosystem:
+
+| Path | Purpose |
+|------|---------|
+| [`_shared/run-poc/`](_shared/run-poc/) | Offline forge/anvil harness |
+| [`_shared/build-poc/`](_shared/build-poc/) | Config-free builder for [evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer) / crypto.training `PocRunnerData` JSON |
+
+```bash
+# Build a scripted runner JSON for a single PoC (empty vulnerability/story — mark in the UI)
+cd _shared/build-poc && node build.mjs 2017-07-Parity_first_hack_exp
+```
+
+Packaged ZIPs for the community live in
+[evm-hack-poc](https://github.com/sanbir/evm-hack-poc). Open them in
+[evm-hack-analyzer](https://github.com/sanbir/evm-hack-analyzer), or browse the same
+dataset at [crypto.training/hacks](https://crypto.training/hacks/).
 
 ## Status
 
-**839 / 841** PoCs carry a committed `anvil_state.json` and run fully offline. **806 / 841**
-reproduce their exploit — `Suite result: ok` in the committed `output.txt` (96%). The
-remainder carry either a documented non-passing reference trace or an incomplete capture (see
-`_shared/README.md`).
+Approximate snapshot of the committed tree (counts drift as PoCs are added):
 
-- **2 PoCs** (`2022-02-Meter_exp` on moonriver, `2025-09-Kame_exp` on sei) cannot be reproduced:
-  their fork blocks are pruned on every public archive node, so they have no `anvil_state.json`.
-  These are the only PoCs on those two chains; the other 13 chains all have offline-runnable
-  reproductions.
-- **No** `[rpc_endpoints]` in any `foundry.toml`, **no** external dependencies, **no** secrets.
+| Metric | Count |
+|--------|------:|
+| PoC folders (`YYYY-MM-*`) | ~845 |
+| With `anvil_state.json` | ~845 |
+| `output.txt` with `Suite result: ok` | ~811 |
+| Reference traces with `Suite result: FAILED` | ~24 |
 
----
-
-## Credits
-
-Built on top of [**SunWeb3Sec/DeFiHackLabs**](https://github.com/SunWeb3Sec/DeFiHackLabs) —
-many thanks to its maintainers and contributors for assembling the original PoC collection that
-this registry organizes, completes, and makes offline-runnable.
-
-## License
-
-Same as the source — see the individual PoCs and [DeFiHackLabs](https://github.com/SunWeb3Sec/DeFiHackLabs)
-for licensing.
+- Most PoCs reproduce offline: `Suite result: ok` in the committed `output.txt`.
+- A small remainder carry a documented non-passing reference trace or an incomplete
+  capture (see [`_shared/README.md`](_shared/README.md)).
+- **No** `[rpc_endpoints]` in any `foundry.toml`, **no** external runtime dependencies,
+  **no** secrets required to run.
 
 ## Vulnerability classification
 
 Every PoC is tagged with one or more **vulnerability classes** drawn from the
-[**AuditVault**](https://github.com/forefy/AuditVault) smart-contract security taxonomy
+[**AuditVault**](https://github.com/AuditWare/AuditVault) smart-contract security taxonomy
 (`classifications/bug/vuln/`). Tags are written as a single visible line directly under each
 write-up's title, e.g.:
 
@@ -158,11 +194,10 @@ grep the registry:
 grep -rl "vuln/oracle/price-manipulation" --include='*_exp.md' .
 ```
 
-**Coverage:** 819 of 841 PoCs are tagged (22 untagged — multi-exploit variant folders such as
-`exp1`/`exp2`/`exploit` that the tagger skipped). Across the registry there are **1,851 tag
-instances** (avg **2.26** classes per PoC) spanning **70** distinct `vuln/` class slugs (the
-AuditVault canonical set plus a handful of classifier-assigned variants such as
-`vuln/business-logic/*`).
+**Coverage (approx.):** ~820 write-ups carry `Vulnerability classes:` tags. Across the registry
+there are **1,851+ tag instances** (avg **~2.3** classes per tagged PoC) spanning **70**
+distinct `vuln/` class slugs (the AuditVault canonical set plus a handful of
+classifier-assigned variants such as `vuln/business-logic/*`).
 
 ### By category
 
@@ -258,4 +293,28 @@ AuditVault canonical set plus a handful of classifier-assigned variants such as
 | `vuln/logic/missing-state-update` | 1 |
 | `vuln/bridge/replay` | 1 |
 
-> Tag counts are instances, not PoCs — a PoC tagged with N classes contributes N to the total. Classes reflect each exploit's root cause and primary enabling mechanism as described in the write-up; they are classifier-assigned labels, not formal audit verdicts.
+> Tag counts are instances, not PoCs — a PoC tagged with N classes contributes N to the total.
+> Classes reflect each exploit's root cause and primary enabling mechanism as described in the
+> write-up; they are classifier-assigned labels, not formal audit verdicts. Category totals above
+> are from the last full classification pass and may lag the latest PoC count.
+
+## Credits
+
+Built on top of [**SunWeb3Sec/DeFiHackLabs**](https://github.com/SunWeb3Sec/DeFiHackLabs) —
+many thanks to its maintainers and contributors for assembling the original PoC collection that
+this registry organizes, completes, and makes offline-runnable.
+
+Vulnerability class labels use the [AuditVault](https://github.com/AuditWare/AuditVault) taxonomy.
+
+## License
+
+Same as the source — see the individual PoCs and [DeFiHackLabs](https://github.com/SunWeb3Sec/DeFiHackLabs)
+for licensing.
+
+## Disclaimer
+
+These materials are for **educational and defensive security research only**.
+
+- Do not use this content to attack live systems or steal funds.
+- Always follow applicable law and responsible disclosure practices.
+- Reproducing historical exploits should be done in local / forked environments only.

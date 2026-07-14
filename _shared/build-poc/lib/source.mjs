@@ -275,7 +275,8 @@ export async function fetchVerifiedSource(chainId, address, hackDir) {
     if (local) return local;
   }
 
-  // 4. Online (optional)
+  // 4. Online (optional) — disabled when BUILD_POC_OFFLINE=1 (set by build.mjs)
+  if (process.env.BUILD_POC_OFFLINE === "1") return null;
   const apiKey = resolveApiKey();
   if (!apiKey) return null;
 

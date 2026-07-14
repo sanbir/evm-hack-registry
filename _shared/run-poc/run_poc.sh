@@ -59,8 +59,10 @@ rm -rf "$TMPROOT/out"
 
 # Start anvil on an OS-assigned free port (0). It prints the chosen port to stdout
 # (do NOT use --silent, or the "Listening on" line we parse is suppressed).
+# Run at lower priority to reduce chance of OOM-killing other work; the kernel
+# may still SIGKILL on very large states (some PoCs have GB-scale in-memory state).
 ANVIL_LOG="$TMPROOT/anvil.log"
-anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" >"$ANVIL_LOG" 2>&1 &
+nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" >"$ANVIL_LOG" 2>&1 &
 APID=$!
 ISOL_CLEAN="$ISOL"
 # Cleanup on exit OR any signal: kill anvil (SIGKILL to be sure) and remove temp dirs.
@@ -74,15 +76,27 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
+# Give anvil a moment; if it died immediately (e.g. OOM on --load-state), report it.
+sleep 0.2
+if ! kill -0 "$APID" 2>/dev/null; then
+  echo "anvil was killed immediately on launch (likely OOM / resource limit). See $ANVIL_LOG" >&2
+  # Do not exit hard here — let the caller (build.mjs) decide whether to emit partial JSON.
+  # We will still try the port wait (it will fail) and surface a useful exit code.
+fi
+
 # anvil writes "Listening on 127.0.0.1:<port>" — parse the assigned port.
 OWN_PORT=""
-for i in $(seq 1 50); do
+for i in $(seq 1 80); do
   OWN_PORT=$(grep -oE 'Listening on 127\.0\.0\.1:[0-9]+' "$ANVIL_LOG" 2>/dev/null | head -1 | grep -oE '[0-9]+$')
   [ -n "$OWN_PORT" ] && break
   sleep 0.1
 done
 if [ -z "$OWN_PORT" ]; then
-  echo "anvil failed to start (see $ANVIL_LOG)" >&2; exit 3
+  # Surface the last few lines of the log for diagnosis (often contains the kill reason).
+  echo "anvil failed to start or was killed (see $ANVIL_LOG)" >&2
+  tail -c 2048 "$ANVIL_LOG" >&2 || true
+  # Exit 3 signals "anvil problem" to build.mjs; with ALLOW_FORGE_FAIL it will still emit.
+  exit 3
 fi
 
 # rewrite the fork URL in the temp test sources to the assigned port.
