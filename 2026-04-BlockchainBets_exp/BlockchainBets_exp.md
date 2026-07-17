@@ -1,6 +1,6 @@
 # Blockchain Bets ERC-1155 stake/transform inflates redeemable BCB → UniV2 dump
 
-> **Vulnerability classes:** vuln/logic/incorrect-calculation · vuln/logic/share-inflation · vuln/token/erc1155 · vuln/logic/missing-check
+> **Vulnerability classes:** vuln/logic/incorrect-calculation · vuln/logic/missing-check · vuln/logic/reward-calculation
 
 > **Reproduction:** the PoC compiles & runs in an isolated Foundry project at
 > [this project folder](.). The fork is served offline from the bundled
