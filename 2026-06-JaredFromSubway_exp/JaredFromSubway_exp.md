@@ -41,9 +41,14 @@ arbitrage routes until residual approvals were large enough to sweep.
 
 **Still in-scope here** as a **bot-side approval-management flaw** reproducible on-chain:
 the victim contract held real WETH/USDC/USDT and had left non-zero allowances to attacker
-wrappers; a single coordinator call drained them via `transferFrom`. Document the bait
-honestly; the PoC is the **final residual-approval sweep**, not a re-creation of weeks of
-fake-pool staging.
+wrappers; a single coordinator call drained them via `transferFrom`. The registry test
+replays that **final residual-approval sweep** for the exact on-chain figures. The real
+weeks-long, off-chain-driven fake-pool staging cannot be replayed faithfully, so the
+crypto-training EVM Playground instead re-creates the full lifecycle as a **faithful model**
+(STAGE → LURE → SWEEP): the attacker deploys bait wrappers, a mock bot installed at the real
+victim address (via codeOverride, funded with its real 1,474.58 WETH) is lured into
+approving each bait, and the coordinator then sweeps the residual allowances — draining the
+same headline WETH figure.
 
 ---
 
