@@ -1,0 +1,16 @@
+Ran 2 tests for test/FEGSmartBridge_exp.sol:FEGSmartBridge
+[PASS] testExploit() (gas: 630112)
+Logs:
+  registered withdraw credit (raw): 57532022461471026362052505299
+  FEG before: 0.000000000000000000
+  FEG after: 57532022461.471026362052505299
+  FEG gained: 57532022461.471026362052505299
+
+[PASS] testRelayerForgedRegister() (gas: 225447)
+Logs:
+  forged credit FEG: 5782112810.198093101713819628
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.23s (588.29ms CPU time)
+
+Ran 1 test suite in 5.04s (3.23s CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+_shared/run-poc/run_poc.sh: line 71: 28063 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/2024-12-FEGSmartBridge_exp)
