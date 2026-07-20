@@ -147,7 +147,7 @@ sequenceDiagram
     Note over L: owner != msg.sender(proxy) -> guard passes
     Note over L: mint 2x deficit = 1.0 unbacked top-up
     O->>L: repay + withdraw + redeem
-    Note over O,L: attacker +1.0 token; lenders -1.0 (bad debt)
+    Note over O,L: attacker +1.0 token#59; lenders -1.0 (bad debt)
 ```
 
 ## Remediation

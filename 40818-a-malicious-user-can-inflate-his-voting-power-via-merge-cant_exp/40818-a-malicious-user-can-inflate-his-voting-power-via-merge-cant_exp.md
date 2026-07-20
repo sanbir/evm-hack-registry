@@ -151,10 +151,10 @@ sequenceDiagram
     participant L as ZeroLocker
     participant G as Governor (reads balanceOfNFT)
     U->>L: merge(from, to)
-    Note over L: moves whole stake into `to`, burns `from`\nMISSING: ownershipChange[to] = block.number
+    Note over L: moves whole stake into `to`, burns `from`<br/>MISSING: ownershipChange[to] = block.number
     U->>G: vote(to)
     G->>L: balanceOfNFT(to)
-    Note over L: ownershipChange[to] == 0 != block.number\nguard NOT triggered -> returns inflated weight
+    Note over L: ownershipChange[to] == 0 != block.number<br/>guard NOT triggered -> returns inflated weight
     L-->>G: inflated voting power
     Note over U,G: repeat forward through the lock chain -> same stake counted N times
 ```

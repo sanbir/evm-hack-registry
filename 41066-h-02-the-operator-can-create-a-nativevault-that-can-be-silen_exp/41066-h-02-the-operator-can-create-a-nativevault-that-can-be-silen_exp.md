@@ -123,7 +123,7 @@ From [output.txt](output.txt), two vaults contrasted:
 
 ```mermaid
 flowchart TD
-    A[Operator deploys vault via Core.deployVaults\nextraData = manager, slashStore, node] --> B[NativeVault.initialize stores slashStore\nNO validation vs whitelisted handler]
+    A["Operator deploys vault via Core.deployVaults<br/>extraData = manager, slashStore, node"] --> B["NativeVault.initialize stores slashStore<br/>NO validation vs whitelisted handler"]
     B --> C[Operator sets slashStore = address 666]
     D[Protocol slashes: SlasherLib passes assetSlashingHandlers ETH] --> E{slashingHandler == slashStore?}
     C --> E

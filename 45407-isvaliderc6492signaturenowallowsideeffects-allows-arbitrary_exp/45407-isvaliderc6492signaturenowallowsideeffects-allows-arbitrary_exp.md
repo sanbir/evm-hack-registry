@@ -127,13 +127,13 @@ From [output.txt](output.txt):
 
 ```mermaid
 flowchart TD
-    A[Depositor funds SimpleVault: 1,000 backing] --> B[Attacker crafts ERC-6492 payload\nfactory = backing, calldata = transfer drainer 1000]
+    A[Depositor funds SimpleVault: 1,000 backing] --> B["Attacker crafts ERC-6492 payload<br/>factory = backing, calldata = transfer drainer 1000"]
     B --> C[Anyone calls vault.transferWithSig with payload]
-    C --> D[Vault -> isValidERC6492SignatureNowAllowSideEffects inlined]
+    C --> D["Vault -> isValidERC6492SignatureNowAllowSideEffects inlined"]
     D --> E[First ERC-1271 check on drainer: reverts, drainer empty]
     E --> F{isValid == 0?}
     F -- yes --> G[Un-reverted call: backing.transfer drainer 1000 FROM vault]
-    G --> H[Drainer now funded -> re-check returns 0x1626ba7e -> valid]
+    G --> H["Drainer now funded -> re-check returns 0x1626ba7e -> valid"]
     H --> I[Vault drained: drainer holds 1,000, vault holds 0]
 ```
 
@@ -152,7 +152,7 @@ sequenceDiagram
     Bk-->>Dr: 1,000 backing
     Lib->>Dr: isValidSignature() again (now funded)
     Dr-->>Lib: 0x1626ba7e -> isValid = 1
-    Note over Atk,Dr: vault drained; attacker's helper holds 1,000
+    Note over Atk,Dr: vault drained#59; attacker's helper holds 1,000
 ```
 
 ## Remediation
