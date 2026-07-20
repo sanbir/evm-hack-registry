@@ -23,12 +23,47 @@ anvil state JSON is plain data that travels with the repo; at RUN time no python
 required — only `anvil --load-state` (shipped with Foundry).
 """
 import json
+import os
+import subprocess
 import sys
 
 Z32 = "0x" + "00" * 32
 BLOOM = "0x" + "00" * 256
-EMPTY_TRIE = "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+EMPTY_TRIE = "0x56e81f171bcc55a6ff8345e695c0f86e5b48e01b996cadc001622fb5e363b421"
 UNCLE_HASH = "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
+
+
+def load_foundry_cache(src_path):
+    """Load a Foundry RPC cache file.
+
+    Newer Foundry versions store caches as Zstandard-compressed JSON (magic 0x28 B5 2F FD).
+    Older caches are plain JSON. Accept either.
+    """
+    raw = open(src_path, "rb").read()
+    if not raw:
+        raise ValueError(f"empty cache file: {src_path}")
+    # zstd magic
+    if raw[:4] == b"\x28\xb5\x2f\xfd":
+        # Prefer `zstd` CLI (available after build/install); fall back to python module.
+        try:
+            r = subprocess.run(
+                ["zstd", "-d", "-c", src_path],
+                capture_output=True,
+                check=True,
+            )
+            text = r.stdout.decode("utf-8")
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            try:
+                import zstandard as zstd  # type: ignore
+            except ImportError as e:
+                raise RuntimeError(
+                    "Foundry cache is zstd-compressed but neither `zstd` CLI nor "
+                    "python `zstandard` is available"
+                ) from e
+            text = zstd.ZstdDecompressor().decompress(raw).decode("utf-8")
+        return json.loads(text)
+    # plain JSON (legacy)
+    return json.loads(raw.decode("utf-8"))
 
 
 def extract_code(code_field):
@@ -62,7 +97,7 @@ def extract_code(code_field):
 
 
 def convert(src_path, dst_path):
-    d = json.load(open(src_path))
+    d = load_foundry_cache(src_path)
     be = d["meta"]["block_env"]
 
     accounts = {}

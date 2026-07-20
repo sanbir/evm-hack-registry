@@ -58,13 +58,23 @@ def cache_listing(chain):
 
 def newest_nonstub_cache(chain):
     d = os.path.join(CACHE, CACHE_DIR.get(chain, chain))
+    if not os.path.isdir(d):
+        return None
     best=None; best_t=0
     for f in os.listdir(d):
         if not f.isdigit(): continue
         p=os.path.join(d,f)
         if os.path.getsize(p)<500: continue
         try:
-            j=json.load(open(p))
+            # Foundry may store zstd-compressed JSON; try plain first then zstd via converter helper.
+            raw=open(p,"rb").read()
+            if raw[:4]==b"\x28\xb5\x2f\xfd":
+                import subprocess
+                r=subprocess.run(["zstd","-d","-c",p], capture_output=True)
+                if r.returncode!=0: continue
+                j=__import__("json").loads(r.stdout)
+            else:
+                j=json.loads(raw)
             if len(j.get("accounts",{}))==0: continue
         except: continue
         t=os.path.getmtime(p)
@@ -88,18 +98,31 @@ def eval_block_expr(expr, text):
     if m:
         b=int(m.group(1).replace('_','')); n=int(m.group(3))
         return b-n if m.group(2)=='-' else b+n
-    # resolve a CONST from source: uint256 [constant] NAME = EXPR;
+    # resolve a CONST from source: uint256 [visibility] [constant] NAME = EXPR;
+    # Also handles `uint256 NAME = EXPR` and `uint256 private constant NAME = A - 1`.
     consts = {}
-    for cm in re.finditer(r'(?:uint256|uint)\s+(?:public\s+)?(?:constant\s+)?(\w+)\s*=\s*([^;]+);', text):
+    for cm in re.finditer(
+        r'(?:uint256|uint)\s+(?:(?:public|private|internal|constant)\s+)*(\w+)\s*=\s*([^;]+);',
+        text,
+    ):
         nm, ex = cm.group(1), cm.group(2).strip().split('//')[0].strip()
         e = ex.replace('_','')
         try: consts[nm] = int(e); continue
         except: pass
-        mm = re.match(r'^(\w+)\s*([+-])\s*(\d+)$', ex)
-        if mm and mm.group(1) in consts: consts[nm] = consts[mm.group(1)] + (-int(mm.group(3)) if mm.group(2)=='-' else int(mm.group(3)))
-    m = re.match(r'^([A-Za-z_]\w*)\s*([+-])\s*(\d+)$', expr)
+        mm = re.match(r'^(\w+)\s*([+-])\s*(\d[\d_]*)$', ex)
+        if mm and mm.group(1) in consts:
+            n = int(mm.group(3).replace('_',''))
+            consts[nm] = consts[mm.group(1)] + (-n if mm.group(2)=='-' else n)
+            continue
+        # bare `NUM - NUM` form used by some PoCs: `40_229_653 - 1`
+        mm2 = re.match(r'^(\d[\d_]*)\s*([+-])\s*(\d[\d_]*)$', ex)
+        if mm2:
+            a=int(mm2.group(1).replace('_','')); b=int(mm2.group(3).replace('_',''))
+            consts[nm] = a-b if mm2.group(2)=='-' else a+b
+    m = re.match(r'^([A-Za-z_]\w*)\s*([+-])\s*(\d[\d_]*)$', expr)
     if m and m.group(1) in consts:
-        return consts[m.group(1)] + (-int(m.group(3)) if m.group(2)=='-' else int(m.group(3)))
+        n = int(m.group(3).replace('_',''))
+        return consts[m.group(1)] + (-n if m.group(2)=='-' else n)
     if expr in consts: return consts[expr]
     return None
 
@@ -184,6 +207,13 @@ def main():
         fork_blocks = {block_env} if block_env is not None else set()
     lo = min(fork_blocks) if fork_blocks else (forced_block if forced_block is not None else block_env)
     hi = max(fork_blocks) if fork_blocks else lo
+    # Fall back to cache block_env / forced_block if expression evaluation left us with None
+    if lo is None:
+        lo = block_env if block_env is not None else forced_block
+    if hi is None:
+        hi = lo
+    if lo is None:
+        print(f"{fol}: WARM-FAILED (could not resolve fork block)"); return
     anvil_block = lo  # account-state block (most historical) = what the state was built from
 
     # 5. re-convert saturated cache -> anvil_state.json. Use the cache at/just-before lo
@@ -196,7 +226,16 @@ def main():
         base_cache = lo_cache
     rc = subprocess.run([sys.executable, CONVERTER, base_cache, state_dst], capture_output=True, text=True)
     if rc.returncode != 0:
-        print(f"{fol}: CONVERT-FAILED {rc.stderr[:80]}"); return
+        # Always restore localhost URL even on convert failure so the tree is not left pointing
+        # at a live chain alias (which would break subsequent offline run_poc.sh).
+        port = chains[chain][0]
+        alias_re = re.compile(ALIAS_RE_TMPL.format(chain=re.escape(chain)))
+        for sf in solfiles:
+            t=open(sf).read()
+            nt=alias_re.sub(lambda m: f'{m.group(1)}"http://127.0.0.1:{port}"', t)
+            if nt!=t: open(sf,"w").write(nt)
+        err = (rc.stderr or rc.stdout or "")[:200]
+        print(f"{fol}: CONVERT-FAILED {err}"); return
     j = json.load(open(state_dst))
     # set base block number to lo, then add headers lo+1..hi
     j["block"]["number"] = hex(lo); j["best_block_number"] = lo
