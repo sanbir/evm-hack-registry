@@ -175,7 +175,7 @@ sequenceDiagram
     loop ~100 clones
         F->>C: CREATE claim clone
         C->>V: claimBonus(referrer)
-        Note over V,C: lastClaimedRound[C]=blastRound\nC gets ~5-20% of remaining bonusPool
+        Note over V,C: lastClaimedRound[C]=blastRound<br/>C gets ~5-20% of remaining bonusPool
         V-->>C: BNB claimerReward
         C-->>F: selfdestruct / forward BNB
     end

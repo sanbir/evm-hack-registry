@@ -91,9 +91,9 @@ sequenceDiagram
     Note over I: TWAP observation ~1.05
     A->>H: fund 124M USDT
     H->>I: invest(124M, sponsor=A)
-    Note over I: directBonus[A]+=6.2M; LP spot→15k
+    Note over I: directBonus[A]+=6.2M#59; LP spot→15k
     A->>I: withdraw()
-    Note over I: updateTwap early-return; pay ~5.6M i6 @ 1.05
+    Note over I: updateTwap early-return#59; pay ~5.6M i6 @ 1.05
     A->>LP: dump i6 → ~125.2M USDT
     Note over A: net ~$274K after capital return
 ```

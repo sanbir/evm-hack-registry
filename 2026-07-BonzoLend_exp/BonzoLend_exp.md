@@ -230,12 +230,12 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  Sig["sig = (0,0)\nG1 identity"] --> Pair
-  Pk["pk = (0,0,0,0)\nG2 identity"] --> Pair
-  H["H = hashToPoint(root)\nvalid G1"] --> Pair
+  Sig["sig = (0,0)<br/>G1 identity"] --> Pair
+  Pk["pk = (0,0,0,0)<br/>G2 identity"] --> Pair
+  H["H = hashToPoint(root)<br/>valid G1"] --> Pair
   Pair["EIP-197 pairing product"] --> Q{"product == 1?"}
   Q -->|yes always for identities| Accept[Treat as valid committee sig]
-  Q -->|would be no for random junk<br/>with non-zero key| Reject[revert]
+  Q -->|"would be no for random junk<br/>with non-zero key"| Reject[revert]
   Accept --> Write[Write forged SAUCE price]
 ```
 

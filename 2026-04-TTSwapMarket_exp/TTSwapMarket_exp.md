@@ -141,7 +141,7 @@ sequenceDiagram
     C->>B: flashLoan 8 WETH
     B->>C: 8 WETH
     C->>M: approve + initGood(WETH, packed, Fake, config)
-    Note over M: Fake transferFrom "succeeds"; WETH real deposit seeds value
+    Note over M: Fake transferFrom "succeeds"#59; WETH real deposit seeds value
     loop buyGood / payGood
         C->>M: swap Fake vs inventory goods
         M-->>C: USDT/USDC/WBTC/BNB/SOL/WETH

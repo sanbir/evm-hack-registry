@@ -129,12 +129,12 @@ sequenceDiagram
   AC->>R: rebalance(fake, ..., swapData)
   R->>Fake: flashAction(R, actionData)
   Fake->>R: executeAction(rebalanceData)
-  R->>R: burn LP; _swapViaRouter(swapData)
-  Note over R,V: router = V; data = flashAction(drain)
+  R->>R: burn LP#59; _swapViaRouter(swapData)
+  Note over R,V: router = V#59; data = flashAction(drain)
   R->>V: call(flashAction...)
   V->>AC: withdraw NFT + ERC20s
   R->>Fake: redeposit new LP
-  AC->>AC: removeLiquidity; repay flash
+  AC->>AC: removeLiquidity#59; repay flash
 ```
 
 ---

@@ -59,7 +59,7 @@ sequenceDiagram
     participant A as Attacker
     participant S as Sparkle SPRK
     A->>S: mintSparkle{value: ETH}
-    Note over S: balance ≈ 97% of ETH/price; claim synced; tax to tobins
+    Note over S: balance ≈ 97% of ETH/price#59; claim synced#59; tax to tobins
     loop Self-transfer inflation
         A->>S: transfer(self, ~balance*100/102)
         Note over S: balanceOf applied twice before claim update
