@@ -1,0 +1,23 @@
+No files changed, compilation skipped
+
+Ran 4 tests for test/41691-h-04-initialization-of-dyadxpv2-is-impossible-pashov-audit-g_exp.sol:DyadXPv2InitDoSTest
+[PASS] test_exploit() (gas: 5978249)
+Logs:
+  initialize() gas @ 88-note sample: 4510777
+  per-note gas                     : 51258
+  extrapolated to 882 notes        : 45209556
+  mainnet block gas limit          : 30000000
+
+[PASS] test_fullSupply882_realCostExceedsBlockLimit() (gas: 45953065)
+Logs:
+  initialize() REAL gas @ 882 notes: 45056240
+
+[PASS] test_initialize_isOneShot() (gas: 968894)
+[PASS] test_smallSupply_initializesFine() (gas: 3473455)
+Logs:
+  initialize() gas @ 50 notes: 2573189
+  per-note cost extrapolated to 882: 45390366
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 7.09ms (8.43ms CPU time)
+
+Ran 1 test suite in 120.80ms (7.09ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)
