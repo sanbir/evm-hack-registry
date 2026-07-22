@@ -169,7 +169,7 @@ sequenceDiagram
     H->>Z: notifyLoss(20,000 - 0)
     Note over Z: transfer 5,000 reserve + mint 15,000 from nothing
     H->>Z: transfer(attacker, 20,000)
-    Note over A,Z: attacker +20,000 ZCHF; reserve = 0; supply inflated
+    Note over A,Z: attacker +20,000 ZCHF#59; reserve = 0#59; supply inflated
 ```
 
 ## Remediation

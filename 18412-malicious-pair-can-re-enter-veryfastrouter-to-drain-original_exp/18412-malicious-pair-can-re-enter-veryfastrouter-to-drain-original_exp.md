@@ -146,7 +146,7 @@ sequenceDiagram
     R->>A: safeTransferETH(100) to tokenRecipient
     P-->>R: (outer) return inputAmount=100
     Note over R: ethAmount -= 100 -> 0, no refund
-    Note over V,A: victim -100 ETH; attacker +100 ETH
+    Note over V,A: victim -100 ETH#59; attacker +100 ETH
 ```
 
 ## Remediation

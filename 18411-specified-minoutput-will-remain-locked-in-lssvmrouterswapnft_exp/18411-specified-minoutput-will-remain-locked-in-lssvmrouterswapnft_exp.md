@@ -148,7 +148,7 @@ sequenceDiagram
     P-->>A: NFT #4
     R-->>A: refund 0.21 (from reduced 1.11 - 0.9)
     Note over R: 0.79 ETH stuck — no path returns it
-    Note over A,R: Alice -0.79 ETH; router frozen +0.79 ETH
+    Note over A,R: Alice -0.79 ETH#59; router frozen +0.79 ETH
 ```
 
 ## Remediation

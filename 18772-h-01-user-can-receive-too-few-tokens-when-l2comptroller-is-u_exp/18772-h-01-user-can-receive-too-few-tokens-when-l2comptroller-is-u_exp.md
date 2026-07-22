@@ -156,9 +156,9 @@ sequenceDiagram
     participant D as Depositor
     Note over L: MTy pool empty
     R->>L: buyBackFromL1(dep, dep, 2e18)
-    Note over L: l1BurntAmountOf = 2e18; _buyBack fails; no claim
+    Note over L: l1BurntAmountOf = 2e18#59; _buyBack fails#59; no claim
     R->>L: buyBackFromL1(dep, dep, 1e18)
-    Note over L: assert(0 <= 1e18) ok; l1BurntAmountOf OVERWRITTEN -> 1e18
+    Note over L: assert(0 <= 1e18) ok#59; l1BurntAmountOf OVERWRITTEN -> 1e18
     Note over L: pool funded with MTy
     D->>L: claimAll(dep)
     Note over L: claimable = 1e18 - 0 = 1e18 -> transfer 1e18 MTy

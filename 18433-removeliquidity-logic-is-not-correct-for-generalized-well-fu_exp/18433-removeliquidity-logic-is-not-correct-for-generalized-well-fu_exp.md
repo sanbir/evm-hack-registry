@@ -125,7 +125,7 @@ sequenceDiagram
     A->>W: removeLiquidity 2.25e18 (proportional -> [2.25, 1.5])
     Note over W: proportional split ignores the Well function -> invariant broken
     H->>W: removeLiquidity 0.75e18 (proportional -> only [0.75, 0.5])
-    Note over H,A: honest LP -0.25/-0.5 ; first LP +0.25/+0.5
+    Note over H,A: honest LP -0.25/-0.5 #59; first LP +0.25/+0.5
 ```
 
 ## Remediation

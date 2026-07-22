@@ -123,14 +123,14 @@ the actor replays the finding's exact sequence of `addLiquidity` /
 
 ```mermaid
 flowchart TD
-    A[Healthy Well: totalSupply == calcLpTokenSupply reserves] --> B[removeLiquidity pays out proportionally]
-    B --> C[reserves/totalSupply drift off the constant-product relation]
-    C --> D[repeat over valid add/remove sequence]
-    D --> E[totalSupply > calcLpTokenSupply reserves]
-    E --> F[removeLiquidityOneToken: newReserveJ = calcReserve reserves,j,totalSupply-lpIn]
-    F --> G{newReserveJ > reserves[j]?}
-    G -- yes --> H[reserves[j] - newReserveJ underflows -> REVERT]
-    H --> I[valid withdrawal bricked -> LP locked / insolvency]
+    A["Healthy Well: totalSupply == calcLpTokenSupply reserves"] --> B["removeLiquidity pays out proportionally"]
+    B --> C["reserves/totalSupply drift off the constant-product relation"]
+    C --> D["repeat over valid add/remove sequence"]
+    D --> E["totalSupply > calcLpTokenSupply reserves"]
+    E --> F["removeLiquidityOneToken: newReserveJ = calcReserve reserves,j,totalSupply-lpIn"]
+    F --> G{"newReserveJ > reserves[j]?"}
+    G -- yes --> H["reserves[j] - newReserveJ underflows -> REVERT"]
+    H --> I["valid withdrawal bricked -> LP locked / insolvency"]
 ```
 
 ## Remediation

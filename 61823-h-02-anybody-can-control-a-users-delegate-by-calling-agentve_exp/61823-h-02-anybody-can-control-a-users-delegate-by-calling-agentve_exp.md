@@ -143,7 +143,7 @@ sequenceDiagram
     Note over V: only sender(attacker) balance/allowance checked
     V->>V: _mint(whale, 1)
     V->>V: _delegate(whale, attacker)  // unconditional
-    Note over W,A: delegates[whale]=attacker; attacker controls whale's votes
+    Note over W,A: delegates[whale]=attacker#59; attacker controls whale's votes
 ```
 
 ## Remediation

@@ -122,15 +122,15 @@ immediately, one with an open window so a `bid` can be attempted):
 
 ```mermaid
 flowchart TD
-    A[Owner: adjustPrice = type(uint256).max] --> B[No upper bound enforced]
+    A["Owner: adjustPrice = type(uint256).max"] --> B[No upper bound enforced]
     B --> C[Challenger escrows collateral in hub via launchChallenge]
     C --> D{Resolve the challenge}
     D -->|bid| E["tryAvertChallenge: price * _collateralAmount"]
     D -->|end| F["notifyChallengeSucceeded: _mulD18(price, _size)"]
-    E --> G[uint256 overflow -> revert]
-    F --> H[uint256 overflow -> revert]
+    E --> G["uint256 overflow -> revert"]
+    F --> H["uint256 overflow -> revert"]
     G --> I[No bid can avert]
-    H --> J[end() reverts -> escrow return rolled back]
+    H --> J["end() reverts -> escrow return rolled back"]
     I --> K[Challenge unresolvable]
     J --> K
     K --> L[Challenger collateral locked in hub forever, no reward]
@@ -148,7 +148,7 @@ sequenceDiagram
     H->>P: notifyChallengeSucceeded(...)
     P-->>H: revert (price * size overflow)
     Note over H: whole end() reverts -> escrow NOT returned
-    Note over C,H: challenger collateral locked forever; liquidation denied
+    Note over C,H: challenger collateral locked forever#59; liquidation denied
 ```
 
 ## Remediation

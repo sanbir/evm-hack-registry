@@ -159,7 +159,7 @@ sequenceDiagram
     Note over P: BUG: totalAmount 1000 -> 160 (should be 100)
     C->>P: deposit 100 (index inflated -> 25 shares)
     A->>P: redeem 40 shares -> 160 tokens
-    Note over A,P: attacker +60 (stolen yield); pool drained to 40
+    Note over A,P: attacker +60 (stolen yield)#59; pool drained to 40
     C->>P: redeem 25 shares (owed 100)
     Note over C,P: only 40 left -> Carol short 60, revert
 ```

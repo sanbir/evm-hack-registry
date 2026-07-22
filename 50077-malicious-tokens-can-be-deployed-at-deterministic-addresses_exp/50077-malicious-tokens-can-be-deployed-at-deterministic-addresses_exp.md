@@ -154,7 +154,7 @@ sequenceDiagram
     A->>T: initialize() -> _mint(attacker, 100M)
     B->>T: relayERC20 -> crosschainMint(attacker, 1B)
     Note over B,T: bridge trusts _token address == same token everywhere
-    Note over A,T: attacker holds 1.1B unbacked; honest holds 0
+    Note over A,T: attacker holds 1.1B unbacked#59; honest holds 0
 ```
 
 ## Remediation
