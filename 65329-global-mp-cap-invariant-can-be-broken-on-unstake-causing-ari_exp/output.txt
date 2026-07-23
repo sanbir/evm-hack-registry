@@ -1,0 +1,25 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/65329-global-mp-cap-invariant-can-be-broken-on-unstake-causing-ari_exp.sol:GlobalMpCapUnstakeDoSTest
+[PASS] test_control_healthy_update() (gas: 644048)
+[PASS] test_exploit() (gas: 1487734)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 352.42µs (236.67µs CPU time)
+
+Ran 1 test for test/65329-global-mp-cap-invariant-can-be-broken-on-unstake-causing-ari.sol:Exploit
+[PASS] invariantBroken() (runs: 256, calls: 128000, reverts: 68362)
+
+╭--------------+-------------------+-------+---------+----------╮
+| Contract     | Selector          | Calls | Reverts | Discards |
++===============================================================+
+| StakeManager | seedVault         | 31942 | 5471    | 0        |
+|--------------+-------------------+-------+---------+----------|
+| StakeManager | setGlobals        | 31942 | 0       | 0        |
+|--------------+-------------------+-------+---------+----------|
+| StakeManager | unstake           | 32098 | 32062   | 0        |
+|--------------+-------------------+-------+---------+----------|
+| StakeManager | updateGlobalState | 32018 | 30829   | 0        |
+╰--------------+-------------------+-------+---------+----------╯
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.73s (1.73s CPU time)
+
+Ran 2 test suites in 1.74s (1.73s CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
