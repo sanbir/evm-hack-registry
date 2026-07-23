@@ -238,7 +238,7 @@ warp past the timelock → execute → assert the vault's controller is handed t
 
 ```bash
 # offline (bundled state, no RPC)
-bash _shared/run-poc/run_poc.sh 2026-07-BarnBridgeSmartYield_exp -vv
+bash _shared/run-poc/run_poc.sh 2026-07-CompoundProvider_exp -vv
 
 # full from-scratch capture reconstruction (needs a mainnet archive RPC)
 BB_LIVE_RPC=$MAINNET_RPC_URL forge test --match-test test_CaptureFromScratch -vv
