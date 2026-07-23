@@ -1,24 +1,42 @@
-# BarnBridge CompoundProvider Drain — Hijacked Controller Sweeps 50 Stale USDC Approvals
+# BarnBridge SMART Yield — Governance Capture of an Abandoned DAO → Controller Swap → Approval Drain
 
-> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/access-control/centralization · vuln/logic/missing-validation
+> **Vulnerability classes:** vuln/governance/quorum-manipulation · vuln/governance/vote-weight-vs-quorum-asymmetry · vuln/access-control/live-admin-power-on-dormant-protocol · vuln/logic/leftover-approvals
 
 > **Reproduction:** compiles & runs in an isolated Foundry project at
 > [this project folder](.). The offline fork is served from the bundled
-> `anvil_state.json` (local anvil replays Ethereum state one block before the
-> drain, block `25535119`), so no public RPC is required. Full verbose trace:
-> [output.txt](output.txt). Verified vulnerable source:
-> [CompoundProvider.sol](sources/CompoundProvider_DAA037/contracts_providers_CompoundProvider.sol)
-> and [IController.sol](sources/CompoundProvider_DAA037/contracts_IController.sol)
-> (the pool being drained, `0xdaa037f9…`, is verified). The attacker's own
-> controller proxy (`0x66c6f3b4…`, EIP-1967) and its malicious implementation
-> (`0x769a9fa1…`) are **UNVERIFIED on Etherscan**; the batch-sweep call
-> (selector `0xe321fa05`) is RECONSTRUCTED below from the raw calldata and the
-> `-vvvvv` trace, not from published source.
+> `anvil_state.json` (local anvil replays Ethereum state at block `25535096`, one
+> block **before** the DAO proposal executed), so no public RPC is required.
+> Full verbose trace: [output.txt](output.txt).
+> Verified sources: [CompoundProvider.sol](sources/CompoundProvider_0xdaa037/CompoundProvider_DAA037/contracts_providers_CompoundProvider.sol),
+> [Governance.sol](sources/governance/Governance.sol),
+> [BarnFacet.sol](sources/governance/BarnFacet.sol),
+> [IController.sol](sources/governance/IController.sol) (holds `yieldControllTo`).
 
-> **Not Compound Finance.** Despite the name, `CompoundProvider` here is a
-> component of **BarnBridge's SMART Yield** protocol (a fixed/floating-yield
-> splitter that deposits user funds into Compound-style money markets). It is
-> unrelated to Compound Labs / Compound Finance's own contracts.
+<!-- non-defihacklabs -->
+
+---
+
+## The important part: obtaining access, not the drain
+
+The money left through the **front door of the DAO**. This was not a Solidity bug in
+the drain path — it was a **governance takeover of an abandoned protocol**. The whole
+attack is the *access acquisition*; the drain is a formality that follows once the
+attacker owns the vault's controller.
+
+```mermaid
+flowchart TB
+  A["1. BUY<br/>2 wallets buy 100,633 BOND<br/>from the Uniswap V2 BOND/USDC pool<br/>7 txs · ~$2,243"]
+  B["2. STAKE<br/>~100,000 BOND into the Barn<br/>with a ~365-day lock<br/>→ up to 2x voting-power multiplier"]
+  C["3. PROPOSE<br/>#14 yieldControllTo(attackerProxy)<br/>on the cUSDC controller<br/>titled 'migrate proxy implementation'"]
+  D["4. VOTE past a broken quorum<br/>quorum = 40% of RAW staked BOND<br/>votes = LOCK-MULTIPLIED power<br/>63,824 for  ·  0 against  ·  58,404 quorum"]
+  E["5. EXECUTE after 2d warm-up + 3d vote + 2d timelock<br/>execute(#14) → yieldControllTo →<br/>provider.setController(proxy) + smartYield.setController(proxy)<br/><b>ACCESS OBTAINED</b>"]
+  F["6. UPGRADE + DRAIN<br/>upgradeTo(malicious impl) →<br/>_takeUnderlying() pulls every residual<br/>USDC approval → transferFees() → attacker"]
+  A --> B --> C --> D --> E --> F
+```
+
+**Capture economics:** ~**$2,243** of BOND bought → **$774,943** drained from proposal
+#14 alone — a **~345x** return. A dormant protocol that still holds live token approvals
+and live admin power is not retired; it is a bug bounty with no expiration date.
 
 ---
 
@@ -26,391 +44,230 @@
 
 | | |
 |---|---|
-| **Loss** | **774,943.379409 USDC** in this transaction ([output.txt:1540](output.txt)) |
-| **Vulnerable contract** | `CompoundProvider` (BarnBridge SMART Yield bb_cUSDC pool) — [`0xDAA037F99d168b552c0c61B7Fb64cF7819D78310`](https://etherscan.io/address/0xDAA037F99d168b552c0c61B7Fb64cF7819D78310) (verified source) |
-| **Attacker's controller proxy** | [`0x66c6f3b4B4b458e6d764759Ecf122484ebEf7580`](https://etherscan.io/address/0x66c6f3b4B4b458e6d764759Ecf122484ebEf7580) (EIP-1967, unverified) |
-| **Malicious implementation** | [`0x769A9fA1E2414db14B35c46E4095D6e8f1694565`](https://etherscan.io/address/0x769A9fA1E2414db14B35c46E4095D6e8f1694565) (unverified) |
-| **Attacker EOA** | [`0xF908610E9174c7cd6e9dfD371e238be4511297A1`](https://etherscan.io/address/0xF908610E9174c7cd6e9dfD371e238be4511297A1) |
-| **Underlying token** | USDC — [`0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48) |
-| **Attack tx** | [`0xd191fead1b9a2244f2837560f35d4fc865404914d229bfcb0172d1a7a9895afb`](https://etherscan.io/tx/0xd191fead1b9a2244f2837560f35d4fc865404914d229bfcb0172d1a7a9895afb) |
-| **Chain / block / date** | Ethereum mainnet / block `25535120` / 2026-07-15 |
-| **Compiler** | `CompoundProvider.sol` — Solidity `v0.7.6+commit.7338295f`, optimizer enabled, 9999 runs (per `_meta.json`) |
-| **Bug class** | A hijacked pool `controller` calls the legitimately-gated `_takeUnderlying(from, amount)` in a loop over 50 addresses that still held a standing USDC approval to the pool, with no per-victim consent for *this specific* pull, then routes the entire swept balance to itself via `feesOwner()` |
+| **Loss (PoC scope)** | **776,575.547933 USDC** (drain #1 `774,943.379409` + drain #2 `1,632.168524`) |
+| **Capture cost** | ~**$2,243** (100,633.53 BOND bought across 7 Uniswap txs) |
+| **BOND token** | [`0x0391D2021f89DC339F60Fff84546EA23E337750f`](https://etherscan.io/address/0x0391D2021f89DC339F60Fff84546EA23E337750f) (10,000,000 supply) |
+| **Uniswap V2 BOND/USDC pool** | [`0x6591c4bcd6d7a1eb4e537da8b78676c1576ba244`](https://etherscan.io/address/0x6591c4bcd6d7a1eb4e537da8b78676c1576ba244) |
+| **Barn (staking / voting power)** | [`0x10e138877df69Ca44Fdc68655f86c88CDe142D7F`](https://etherscan.io/address/0x10e138877df69Ca44Fdc68655f86c88CDe142D7F) |
+| **DAO Governance** | [`0x4cAE362D7F227e3d306f70ce4878E245563F3069`](https://etherscan.io/address/0x4cAE362D7F227e3d306f70ce4878E245563F3069) |
+| **Old (legit) cUSDC controller** | [`0x41Ab25709e0C3EDf027F6099963fE9AD3EBaB3A3`](https://etherscan.io/address/0x41Ab25709e0C3EDf027F6099963fE9AD3EBaB3A3) — proposal #14 target |
+| **Attacker controller proxy** | [`0x66c6f3b4B4b458e6d764759Ecf122484ebEf7580`](https://etherscan.io/address/0x66c6f3b4B4b458e6d764759Ecf122484ebEf7580) (admin = attacker #1) |
+| **Malicious impl** | [`0x769a9fa1e2414db14b35c46e4095d6e8f1694565`](https://etherscan.io/address/0x769a9fa1e2414db14b35c46e4095d6e8f1694565) (unverified) |
+| **CompoundProvider (bb_cUSDC)** | [`0xdaa037f99d168b552c0c61b7fb64cf7819d78310`](https://etherscan.io/address/0xdaa037f99d168b552c0c61b7fb64cf7819d78310) — **BarnBridge, NOT Compound core** |
+| **SmartYield (bb_cUSDC)** | [`0x4B8d90D68F26DEF303Dcb6CFc9b63A1aAEC15840`](https://etherscan.io/address/0x4B8d90D68F26DEF303Dcb6CFc9b63A1aAEC15840) |
+| **Attacker #1 (prop #14)** | [`0xf908610e9174c7cd6e9dfd371e238be4511297a1`](https://etherscan.io/address/0xf908610e9174c7cd6e9dfd371e238be4511297a1) |
+| **Attacker #2 (prop #15)** | [`0xa8ce49a57400445c6a4118ae3460ed4e46c815b8`](https://etherscan.io/address/0xa8ce49a57400445c6a4118ae3460ed4e46c815b8) |
+| **Propose #14** | [`0x07ff84e9…7009`](https://etherscan.io/tx/0x07ff84e9372b9166f54f3de69b92371c113a370f08b1bef1e116c10ee48b7009) (block `25472231`, 2026-07-06) |
+| **Execute #14** | inside a throwaway contract-creation ([`0x2e28e0b1…`](https://etherscan.io/tx/0x2e28e0b1dda3fe40c2), block `25535097`, 2026-07-15 02:35:11 UTC) |
+| **Drain #1** | [`0xd191fead…5afb`](https://etherscan.io/tx/0xd191fead1b9a2244f2837560f35d4fc865404914d229bfcb0172d1a7a9895afb) (block `25535120`) |
+| **Drain #2** | [`0x7d722637…d238`](https://etherscan.io/tx/0x7d722637a58a7117dbca0182ec26d74e2be0c1052ac319f0150bc056e528d238) (block `25535160`) |
+| **Chain / fork / date** | Ethereum mainnet / fork `25535096` (pre-execute) / 2026-07-15 |
+| **Compiler** | Solidity `0.7.6` (BarnBridge Governance/Barn/providers) |
 
 ---
 
-## TL;DR
+## The governance parameters (verified on-chain)
 
-`CompoundProvider` is the vault half of a BarnBridge SMART Yield market: it holds
-users' USDC, mints cUSDC on Compound-fork markets, and tracks the pool's yield.
-Two roles are allowed to move funds through it — `smartYield` (the tranche
-contract users interact with) and `controller` (an operations contract that
-harvests COMP rewards and reports yield). Both are trusted by design.
+Read live from the Governance/Barn at the time of the attack:
 
-On 2026-07-15, `CompoundProvider.controller` for the bb_cUSDC market pointed to
-`0x66c6f3b4…` — an EIP-1967 proxy the attacker had gained control of via a
-**prior governance vote** (see the companion write-up,
-[2026-07-BarnBridgeSmartYield_exp](../2026-07-BarnBridgeSmartYield_exp/BarnBridgeSmartYield_exp.md),
-for that access-acquisition chain). This PoC starts **after** that point — one
-block before the drain — and demonstrates the drain step in isolation: the
-attacker had already swapped the proxy's implementation to a contract of their
-own choosing (`0x769a9fa1…`), which exposes a permissionless batch function
-(selector `0xe321fa05`) that:
+| Parameter | Value | Meaning |
+|-----------|-------|---------|
+| `warmUpDuration` | 172,800 s (**2 days**) | delay from proposal creation to the vote snapshot |
+| `activeDuration` | 259,200 s (**3 days**) | voting window |
+| `queueDuration` | 172,800 s (**2 days**) | timelock before execution |
+| `gracePeriodDuration` | 345,600 s (**4 days**) | window in which a queued proposal may execute |
+| `acceptanceThreshold` | **60** (%) | `forVotes` must be ≥ 60% of votes cast |
+| `minQuorum` | **40** (%) | turnout must reach 40% of **raw staked BOND** |
+| `ACTIVATION_THRESHOLD` | 400,000 BOND | one-time DAO activation gate (`isActive` has been `true` since launch, so `propose` no longer checks it) |
+| Barn `MAX_LOCK` | 365 days | a full-year lock yields the maximum **2x** voting-power multiplier |
 
-1. Iterates 50 attacker-chosen `(victim, amount)` pairs and calls
-   `CompoundProvider._takeUnderlying(victim, amount)` for each — a call the
-   pool accepts unconditionally because `msg.sender` really is the registered
-   `controller` ([CompoundProvider.sol:126-137](sources/CompoundProvider_DAA037/contracts_providers_CompoundProvider.sol)).
-   Every one of the 50 addresses had an old, unrevoked USDC approval to the
-   pool from ordinary past SMART Yield deposits — none of them consented to
-   *this* pull.
-2. Calls the pool's fee-sweep path, which reads `feesOwner()` off the
-   controller and forwards **the pool's entire USDC balance** to whatever
-   address that returns ([CompoundProvider.sol:210-219](sources/CompoundProvider_DAA037/contracts_providers_CompoundProvider.sol)).
-   Because the controller is the attacker's own contract, `feesOwner()`
-   resolves to the attacker's EOA.
-
-Net effect, replayed exactly by this PoC: attacker USDC balance rises from
-**0.000000** to **774,943.379409** in one call
-([output.txt:1539-1540](output.txt)).
-
----
-
-## Background — what CompoundProvider does
-
-BarnBridge SMART Yield splits variable-rate lending yield (e.g. Compound's
-cUSDC supply rate) into a fixed-rate "senior" bond and a leveraged "junior"
-token. Each supported market (cUSDC, cDAI, …) gets its own trio of contracts:
-
-- **`SmartYield`** — the user-facing pool (buys junior tokens, mints senior
-  bonds).
-- **`CompoundProvider`** — the vault: holds the underlying (USDC), mints/redeems
-  the Compound-fork cToken, and tracks `cTokenBalance` / `underlyingFees`.
-- **`CompoundController`** — the ops contract: harvests COMP rewards, updates
-  the yield oracle, and holds `feesOwner` (where accumulated protocol fees are
-  paid out).
-
-`CompoundProvider` deliberately keeps its money-moving functions internal-only
-from the outside world's perspective — `_takeUnderlying`, `_sendUnderlying`,
-`_depositProvider`, `_withdrawProvider` are all gated to `smartYield` or
-`controller`:
+The two load-bearing facts, straight from the source:
 
 ```solidity
-// CompoundProvider.sol
-modifier onlySmartYieldOrController {
-  require(
-    msg.sender == smartYield || msg.sender == controller,
-    "PPC: only smartYield/controller"
-  );
-  _;
+// Governance.sol — quorum is measured against RAW, UNMULTIPLIED staked BOND:
+function _getQuorum(Proposal storage p) internal view returns (uint256) {
+    return barn.bondStakedAtTs(_getSnapshotTimestamp(p)).mul(p.parameters.minQuorum).div(100);
 }
+// ...but votes are LOCK-MULTIPLIED voting power:
+uint256 votes = barn.votingPowerAtTs(msg.sender, _getSnapshotTimestamp(proposal));
+```
 
-// take underlyingAmount_ from from_
-function _takeUnderlying(address from_, uint256 underlyingAmount_)
-  external override
-  onlySmartYieldOrController
-{
-    uint256 balanceBefore = IERC20(uToken).balanceOf(address(this));
-    IERC20(uToken).safeTransferFrom(from_, address(this), underlyingAmount_);
-    uint256 balanceAfter = IERC20(uToken).balanceOf(address(this));
-    require(
-      0 == (balanceAfter - balanceBefore - underlyingAmount_),
-      "PPC: _takeUnderlying amount"
-    );
+```solidity
+// BarnFacet.sol — a max lock DOUBLES voting power, quorum sees none of it:
+function _stakeMultiplier(Stake memory s, uint256 t) internal view returns (uint256) {
+    if (t >= s.expiryTimestamp) return BASE_MULTIPLIER;              // 1e18
+    uint256 diff = s.expiryTimestamp - t;
+    if (diff >= MAX_LOCK) return BASE_MULTIPLIER.mul(2);            // 2e18 at full lock
+    return BASE_MULTIPLIER.add(diff.mul(BASE_MULTIPLIER).div(MAX_LOCK));
 }
 ```
 
-This check is **correct** in isolation: it only trusts two addresses. The
-entire design rests on the assumption that whoever holds the `controller` role
-will only ever call `_takeUnderlying(from, amount)` with a `from` that has
-*actually agreed*, in the current context, to have `amount` pulled (e.g. a
-`SmartYield.buyTokens()` call pulling the caller's own deposit). Nothing in
-`CompoundProvider` enforces that assumption — it is entirely up to whatever
-code the `controller` address happens to run.
-
-`controller` is not immutable. `IController.yieldControllTo()` — DAO-gated —
-lets governance repoint `CompoundProvider.controller` (and `SmartYield`'s
-controller) to a new address at any time:
-
-```solidity
-// IController.sol (verified)
-address public feesOwner; // fees are sent here
-...
-function setFeesOwner(address newVal_) public onlyDao { feesOwner = newVal_; }
-```
-
-Handing the `controller` role to a new contract — legitimately, via a DAO
-vote — hands that contract everything `_takeUnderlying` can reach: **every
-address that has ever approved the pool for USDC**, for any amount, with no
-further per-call consent check.
+That asymmetry — **quorum on raw stake, votes on multiplied stake** — is the root cause,
+and it is catastrophic once participation drains away from an abandoned DAO.
 
 ---
 
-## The vulnerable code
-
-### `_takeUnderlying` — correctly gated, but the gate only checks *who*, never *why*
-
-Shown above. The check `msg.sender == controller` is airtight as written; the
-vulnerability is what the protocol lets a legitimate `controller` do, combined
-with what happens when that role changes hands.
-
-### `transferFees()` — sweeps the pool's entire balance to an address the controller names
-
-```solidity
-// CompoundProvider.sol (verified)
-function transferFees()
-  external
-  override
-{
-  _withdrawProviderInternal(underlyingFees, 0);
-  underlyingFees = 0;
-
-  uint256 fees = IERC20(uToken).balanceOf(address(this));
-  address to = CompoundController(controller).feesOwner();
-
-  IERC20(uToken).safeTransfer(to, fees);
-
-  emit TransferFees(msg.sender, to, fees);
-}
-```
-
-Note `transferFees()` itself has **no** `onlySmartYieldOrController` modifier —
-anyone can call it — but that is harmless *by design* as long as `feesOwner()`
-only ever returns a legitimate DAO-set address and `underlyingFees` only ever
-holds actually-accrued protocol fees. Once the attacker's contract is the
-`controller`, both assumptions collapse: `feesOwner()` is answered by
-attacker-controlled code, and the balance being swept is no longer "accrued
-fees" — it's whatever the batch sweep just pulled in.
-
-### The exploited entrypoint — `0xe321fa05` on the attacker's own implementation
-
-The proxy at `0x66c6f3b4…` and its implementation `0x769a9fa1…` are both
-**unverified**. What follows is reconstructed from decoding the real exploit
-calldata and reading the `-vvvvv` internal-call trace, which resolves the
-Solidity-level function boundaries even without source:
-
-```
-Traces (output.txt, abridged):
-  CompoundProviderProxy::e321fa05(pool, victims[50], amounts[50])
-    -> 0x769A9fA1…::e321fa05(...)                          [delegatecall — the malicious impl runs]
-       -> CompoundProvider::_takeUnderlying(0x20C76D…, 125628402942)   [output.txt:1568]
-            -> USDC.transferFrom(0x20C76D…, pool, 125628402942)        [output.txt:1570]
-       -> CompoundProvider::_takeUnderlying(0xe77884…, 100149478376)   [output.txt:1589]
-       ... (48 more, one per victim) ...
-       -> 0x39AA39c0…(cUSDC)::redeemUnderlying(0)             [output.txt:~1545 — accounting refresh, 0 underlying]
-       -> CompoundProviderProxy::feesOwner() -> attacker EOA  [output.txt: feesOwner staticcall]
-       -> USDC.transfer(attacker, 774943379409)               [output.txt: final sweep]
-       -> emit TransferFees(caller: 0x66c6f3b4…, feesOwner: attacker, fees: 774943379409)
-```
-
-Decoding the raw calldata (`e321fa05` + ABI-encoded `(address pool, address[] victims, uint256[] amounts)`)
-gives the exact attack payload — a single `address` (the pool to operate on),
-followed by two 50-element arrays:
-
-```python
-# selector e321fa05, args = (address pool, address[50] victims, uint256[50] amounts)
-pool    = 0xdaa037f99d168b552c0c61b7fb64cf7819d78310   # the CompoundProvider being drained
-len(victims) == len(amounts) == 50
-sum(amounts) == 774_943_379409   # == 774,943.379409 USDC, exactly the reported loss
-```
-
-Every element of `victims[]` is an address with a live USDC approval to the
-pool from an ordinary past deposit; every element of `amounts[]` is (at most)
-that address's outstanding balance/allowance. There is no signature, no
-`SmartYield` call, and no consent from any of the 50 addresses in this
-transaction — the only "authorization" the pool checks is
-`msg.sender == controller`, and the attacker's contract *is* the controller.
-
----
-
-## Root cause
-
-The loss traces to a **trust boundary that moves with a single admin action**,
-not a broken check:
-
-1. `CompoundProvider._takeUnderlying` correctly restricts callers to
-   `smartYield` or `controller` — but neither `CompoundProvider` nor
-   `_takeUnderlying` places **any** further constraint on *which* `(from,
-   amount)` pairs a legitimate controller may submit, or how many, or how
-   often. The pool extends total, standing trust to the controller role over
-   every user who has ever approved it.
-2. `controller` is a single governance-settable address
-   (`yieldControllTo`/`setController`), with no per-user opt-out and no cap on
-   what a new controller may immediately do with old approvals. The moment
-   `controller` changes, every historical approval to the pool becomes
-   reachable by the new controller's code — code the approving users never
-   reviewed and cannot be reviewed for, because the swap can be followed
-   immediately by an `upgradeTo` on an attacker-owned proxy (as it was here).
-3. `feesOwner()` is read from the very same `controller` contract that just
-   pulled the funds — so the "fee sweep" destination and the "who is allowed
-   to pull user funds" role are controlled by the identical address, with zero
-   separation of duties once that address is compromised or hostile.
-
-This PoC replays only the mechanical consequence of point 1 and point 3 —
-the actual privilege acquisition (points 2's precondition: how the attacker
-became `controller` in the first place) is a governance-capture attack
-covered separately in
-[2026-07-BarnBridgeSmartYield_exp](../2026-07-BarnBridgeSmartYield_exp/BarnBridgeSmartYield_exp.md).
-That write-up shows the attacker bought ~$2,243 of the BOND governance token,
-staked it with a near-maximum lock multiplier, and passed a proposal titled
-"migrate proxy implementation" through a DAO with almost no remaining voter
-turnout — clearing quorum (measured on *raw* stake) with lock-multiplied
-voting power alone.
-
----
-
-## Preconditions
-
-- The attacker (or a colluding/compromised party) must hold the
-  `CompoundProvider.controller` role for the target market — in the real
-  incident, obtained via the governance vote described above; this PoC assumes
-  that role is already held (fork starts one block before the drain, with the
-  malicious implementation already installed at `0x66c6f3b4…`).
-- At least one address must hold a nonzero, unrevoked USDC `approve()` to the
-  pool contract (`0xDAA037F99…`) — in practice, every past SMART Yield
-  depositor to this market, since depositing requires exactly that approval
-  and BarnBridge's own products had been wound down for years with no prompt
-  to revoke.
-- No timelock or two-step handoff exists between "controller role changes"
-  and "new controller can move every approved balance" — the swap and the
-  drain can happen in back-to-back blocks (in the real incident: controller
-  swap and malicious upgrade at block `25535106`/`25535107`, drain at
-  `25535120`, minutes later).
-
----
-
-## Attack walkthrough
-
-All of this happens inside **one transaction** (`0xd191fead…`), replayed
-verbatim by the PoC via `vm.prank(ATTACKER, ATTACKER); PROVIDER.call(EXPLOIT_CALLDATA)`:
-
-1. **Before**: attacker EOA holds `0` USDC
-   ([output.txt:1539-1540](output.txt), `attacker USDC before: 0.000000`).
-   `CompoundProvider` (`0xDAA037F99…`) also holds `0` USDC at this point
-   ([output.txt:1566-1568](output.txt)) — the pool starts empty of underlying,
-   all of its value is currently parked in the cUSDC market plus outstanding
-   user approvals.
-2. **Sweep loop (50 iterations)**: the malicious implementation calls
-   `CompoundProvider._takeUnderlying(victim_i, amount_i)` for `i` in `0..49`.
-   Each call does `USDC.transferFrom(victim_i, pool, amount_i)`, consuming
-   that victim's standing allowance:
-
-   | # | Victim | Amount pulled (USDC) |
-   |---|--------|----------------------|
-   | 1 | `0x20C76D4203BF7490615804FE4fe9B132EE3E0935` | 125,628.402942 |
-   | 2 | `0xe77884CDdF148DD5f0e9191B33D8dBAdDB16DFB5` | 100,149.478376 |
-   | 3 | `0x71F12a5b0E60d2Ff8A87FD34E7dcff3c10c914b0` | 85,660.000000 |
-   | 4 | `0xB1C120957a5b5C45A15fd6e5E17f5A2B70bF49d0` | 78,218.427082 |
-   | 5 | `0x2d92441144E294d8eCEd55838d7665D04d64eA09` | 77,630.290322 |
-   | 6 | `0x0D4C7Abf6A1FBcBF4DbE7B98D4e1af26D5165cB0` | 43,879.660608 |
-   | 7 | `0xB8e4f6DEDFa4D4063D465536Bcb5926744319C69` | 32,704.854042 |
-   | 8 | `0x5d368c382Ae92FBA52233B95C633C96FE49D0Dc5` | 29,166.670000 |
-   | 9 | `0xAEbe2c167392E4b0d3e150ca80204eB327Db918b` | 27,049.579767 |
-   | 10 | `0x8FE02545E479Aa8bA77D84E51b1D9Ca17B88011A` | 26,850.000545 |
-   | … | 40 more addresses | — |
-   | 50 | `0x1dD01835e0Eb26abe597E2E69ffAc1a6cd00283a` | 160.787907 |
-   | | **Total (all 50)** | **774,943.379409** |
-
-   Each transferFrom is confirmed individually in the trace, e.g. victim #1
-   ([output.txt:1570](output.txt)):
-   `USDC::fallback(0x20C76D…, CompoundProvider: 0xDAA037…, 125628402942)`.
-3. **Accounting refresh**: the malicious controller calls
-   `0x39AA39c0…` (Compound's real cUSDC market)`.redeemUnderlying(0)` — a
-   zero-amount redeem that exists purely to run the pool's normal
-   before/after cToken-balance bookkeeping hooks, matching
-   `CompoundProvider._withdrawProviderInternal`'s code path with
-   `underlyingFees == 0`.
-4. **Fee sweep**: `feesOwner()` is read off the controller and resolves to the
-   attacker EOA; the pool's full USDC balance — now exactly the sum of all 50
-   pulls, since the pool started at `0` — is transferred out:
-   `USDC::fallback(Attacker, 774943379409)`, followed by
-   `emit TransferFees(caller: CompoundProviderProxy, feesOwner: Attacker, fees: 774943379409)`.
-5. **After**: attacker EOA balance is `774943.379409` USDC
-   ([output.txt:1540](output.txt), `attacker USDC after: 774943.379409`) — a
-   gain of exactly `774943.379409` USDC in one call, asserted by the PoC:
-   `assertApproxEqAbs(stolen, 774_943_379409, 1_000_000, ...)`, which
-   **passes** ([output.txt](output.txt), `[PASS] testExploit() (gas: 1181924)`).
-
----
-
-## Diagrams
-
-```mermaid
-sequenceDiagram
-    participant Attacker as Attacker EOA
-    participant Proxy as CompoundProviderProxy<br/>0x66c6f3b4… (controller role)
-    participant Pool as CompoundProvider<br/>0xDAA037F9… (bb_cUSDC vault)
-    participant Victims as 50 approved addresses
-    participant USDC as USDC token
-
-    Note over Proxy: Controller role already hijacked<br/>via a prior governance vote (see companion writeup)
-
-    Attacker->>Proxy: e321fa05(pool, victims[50], amounts[50])
-    loop 50 victims
-        Proxy->>Pool: _takeUnderlying(victim_i, amount_i)
-        Pool->>USDC: transferFrom(victim_i, pool, amount_i)
-        USDC-->>Pool: pulled (standing approval, no new consent)
-    end
-    Proxy->>Pool: redeemUnderlying(0) accounting refresh
-    Proxy->>Proxy: feesOwner() reads attacker EOA
-    Pool->>USDC: transfer(attacker, 774943.379409)
-    Pool-->>Attacker: 774,943.379409 USDC received
-```
+## The capture, with the real numbers
 
 ```mermaid
 flowchart LR
-    A["Attacker holds controller role<br/>(prior governance capture)"] --> B["Deploy/point implementation<br/>0x769a9fa1… (unverified)"]
-    B --> C["Call e321fa05<br/>50x (victim, amount) pairs"]
-    C --> D["_takeUnderlying pulls each<br/>victim's stale USDC approval"]
-    D --> E["Pool balance = sum of 50 pulls<br/>774,943.379409 USDC"]
-    E --> F["feesOwner() = attacker EOA"]
-    F --> G["Full pool balance -> attacker"]
+  subgraph P14 ["Proposal #14 (cUSDC market)"]
+    direction TB
+    RS["Attacker #1 raw stake<br/>32,000 BOND"]
+    QM["Quorum<br/>58,404 BOND<br/>(40% of 146,010 raw staked)"]
+    VP["Attacker #1 voting power<br/>63,824 BOND<br/>(32,000 x ~1.99 lock multiplier)"]
+    RS -->|"below quorum<br/>on its own"| QM
+    VP -->|"clears quorum<br/>thanks to the multiplier"| QM
+  end
+```
+
+- **Attacker #1** bought 32,795 BOND, staked **32,000** with a near-max lock. `balanceAtTs`
+  at the #14 snapshot = **32,000** raw BOND; `votingPowerAtTs` = **63,824.17** (≈1.99x).
+  Quorum for #14 = **58,404.32** (40% of the 146,010.80 BOND staked at snapshot). So the
+  attacker's *raw stake alone was below quorum*, but the lock multiplier pushed their
+  vote *above* it. Proposal #14 passed **63,824.17 for, 0 against**.
+- **Attacker #2** bought 67,838 BOND across 5 txs, staked **67,838** → **135,659.35**
+  voting power at the #15 snapshot. Together the two wallets held ≈**199,216** voting
+  power ≈ **92.6%** of the 213,848.80 BOND staked — for a token nobody else wanted.
+
+Only ~**2.14%** of BOND's 10M supply was staked, because holders had no reason to keep
+staking in a protocol whose products were wound down after a 2023 SEC settlement. Quorum
+tied to live stake collapses as the room empties out.
+
+---
+
+## The disguised proposal & the trust hand-over
+
+Proposal #14 carried a **single** action, titled the routine-sounding *"migrate proxy
+implementation"*, decoded from the on-chain `propose` calldata:
+
+```
+target      = 0x41Ab… (the old cUSDC controller)
+signature   = "yieldControllTo(address)"          // selector 0x5bb78d55
+calldata    = abi.encode(0x66c6…)                 // the attacker's proxy
+```
+
+`yieldControllTo` is `onlyDao`, which is *exactly* why the attacker had to capture
+governance — there is no other way to call it:
+
+```solidity
+// IController.sol (BarnBridge SMART Yield controller)
+function yieldControllTo(address newController_) public onlyDao {
+    IProvider(pool).setController(newController_);        // CompoundProvider now trusts the proxy
+    ISmartYield(smartYield).setController(newController_);
+}
+```
+
+The proxy `0x66c6…` was deployed by the attacker with its **initial implementation set to
+the legitimate controller**, so the proposal looked benign right up to execution. `execute`
+was buried inside a throwaway contract's **constructor** (tx `0x2e28e0b1…`, block
+`25535097`) — which is why no top-level `execute` appears in the Governance tx list.
+The instant it ran, `CompoundProvider.controller` flipped `0x41Ab… → 0x66c6…`.
+
+Only *after* the vote landed did the attacker `upgradeTo` a malicious implementation
+(`0x769a…`) and drain. The provider trusts its controller unconditionally:
+
+```solidity
+// CompoundProvider.sol
+function _takeUnderlying(address from_, uint256 amount_) external onlySmartYieldOrController {
+    IERC20(uToken).safeTransferFrom(from_, address(this), amount_);   // ANY residual approval
+}
+function transferFees() external {
+    // ...
+    address to = CompoundController(controller).feesOwner();          // malicious impl → attacker
+    IERC20(uToken).safeTransfer(to, IERC20(uToken).balanceOf(address(this)));
+}
 ```
 
 ---
 
-## Remediation
+## On-chain chronology (verified)
 
-1. **Never let a controller move an arbitrary user's funds without a
-   contextual consent check.** `_takeUnderlying(from, amount)` should only be
-   reachable through call paths that tie `from` to the actual depositor in the
-   current operation (e.g. `SmartYield.buyTokens()` pulling `msg.sender`'s own
-   funds) — not as a bare, batchable primitive any `controller` can invoke
-   against any address for any amount.
-2. **Separate the "can move funds" role from the "can name the fee
-   destination" role.** `transferFees()` reading `feesOwner()` off the same
-   `controller` that also holds pull rights means one compromised address
-   controls both ends of the flow.
-3. **Add a timelock / two-step handoff to controller/implementation changes.**
-   A DAO-approved controller swap should not be immediately followed, in the
-   same or next block, by an unrestricted `upgradeTo` on an attacker-owned
-   proxy with full legacy privileges. See the companion write-up's mitigations
-   for the governance-side fixes (quorum/vote-weight symmetry, a real
-   emergency brake, decommissioning admin power on wound-down markets).
-4. **Prompt users to revoke stale approvals** when a protocol's products are
-   sunset. A years-old unlimited `approve()` to a dormant vault is a standing
-   liability with no expiration, regardless of how the controller/admin key
-   later changes hands.
+| Block | UTC | Actor | Action |
+|------:|-----|-------|--------|
+| 25467881 / 25468111 | 07-05 | Attacker #1 | buys 32,795 BOND from the Uniswap V2 pool |
+| 25472195 | 07-06 08:08 | Attacker #1 | stakes 32,000 BOND with a ~365-day lock |
+| 25472231 | 07-06 08:15 | Attacker #1 | `propose(#14)` → `yieldControllTo(0x66c6…)` on `0x41Ab…` |
+| 25493552–25506508 | 07-09..07-11 | Attacker #2 | buys 67,838 BOND (5 txs); stakes 67,838 |
+| 25494106 | 07-09 09:24 | Attacker #2 | `propose(#15)` → 10 actions (the other 10 markets' controllers) |
+| 25507914 | 07-11 07:35 | Attacker #1 | `castVote(#14, true)` — 63,824.17 voting power |
+| 25508121 | 07-11 08:16 | Attacker #1 | `queue(#14)` (+ `startAbrogationProposal` — did not stop it) |
+| 25527946 / 25529980 | 07-14 | Attacker #2 | `castVote(#15)` (135,659) + `queue(#15)` |
+| **25535097** | **07-15 02:35** | Attacker #1 | **`execute(#14)`** via constructor → controller flips → **ACCESS** |
+| 25535106 / 25535107 | 07-15 02:37 | Attacker #1 | deploy malicious impl `0x769a…` + `upgradeTo` |
+| 25535120 | 07-15 02:39 | Attacker #1 | **drain #1** — 774,943.379409 USDC (50 approvers) |
+| 25535160 | 07-15 02:47 | Attacker #1 | **drain #2** — 1,632.168524 USDC (42 approvers) |
+| 25544335 | 07-16 09:28 | Attacker #2 | `execute(#15)` → 10 more markets (USDC/DAI/USDT/GUSD/RAI, Compound+Aave) |
+| 25540060 / 25541984 / 25544750 | 07-15..16 | various | aftermath: proposal #16 (attacker grabs Barn+pools), #17/#18 ("rescue") |
 
 ---
 
-## How to reproduce
+## The four stacked failures
+
+1. **Quorum tied to live stake, with a vote-weight vs quorum-weight asymmetry.** Quorum
+   is 40% of *raw* staked BOND; votes count *lock-multiplied* power (up to 2x). In a
+   depopulated DAO a few thousand dollars of BOND, staked with a max lock, clears a
+   supermajority.
+2. **Live administrative power over contracts that still hold value.** Winding down the
+   products never severed the DAO's ability to `yieldControllTo` a new controller.
+3. **Leftover approvals.** Users' years-old, unrevoked USDC allowances to the providers
+   are what the hijacked controller inherited. Without them the vault was empty.
+4. **No emergency brake that could actually fire.** Abrogation needs a majority of *all*
+   voting power — unreachable when the attacker already controls the active stake. No
+   guardian, no security-council veto.
+
+---
+
+## PoC
+
+**`testExploit()` (offline, bundled):** forks block `25535096` — one block *before* the
+real execute of proposal #14, with the attacker's BOND already bought+staked and the
+proposal already voted+queued in fork state. It then:
+
+1. Asserts the **capture economics** from real chain state:
+   `raw stake 32,000 < quorum 58,404.32 < lock-multiplied voting power 63,824.17`.
+2. `execute(#14)` on-chain → asserts `CompoundProvider.controller` flips `0x41Ab… → 0x66c6…`
+   (**ACCESS OBTAINED**).
+3. Upgrades the proxy to a minimal malicious controller and replays the two historical
+   drain batches for the **exact** on-chain profit **776,575.547933 USDC**.
+
+**`test_CaptureFromScratch()` (live-RPC only; set `BB_LIVE_RPC`):** forks a *pre-attack*
+block and reconstructs the ENTIRE access acquisition with a fresh wallet — buy BOND on
+Uniswap → stake with a max lock → propose → warp past the 2-day warm-up → vote → queue →
+warp past the timelock → execute → assert the vault's controller is handed to the attacker.
 
 ```bash
-cd ~/RustroverProjects/audits/evm-hack-registry
-_shared/run_poc.sh 2026-07-CompoundProvider_exp -vvvvv
+# offline (bundled state, no RPC)
+bash _shared/run-poc/run_poc.sh 2026-07-BarnBridgeSmartYield_exp -vv
+
+# full from-scratch capture reconstruction (needs a mainnet archive RPC)
+BB_LIVE_RPC=$MAINNET_RPC_URL forge test --match-test test_CaptureFromScratch -vv
 ```
 
-No RPC required — the fork is served from the bundled `anvil_state.json` at
-block `25535119` (one block before the drain). Expected tail of the output:
+---
 
-```
-Ran 1 test for test/CompoundProvider_exp.sol:CompoundProviderExp
-[PASS] testExploit() (gas: 1181924)
-Logs:
-  attacker USDC before: 0.000000
-  attacker USDC after: 774943.379409
-  USDC stolen: 774943.379409
-```
+## Mitigations
 
-*Reference: [ExVul — CompoundProvider allowance sweep (not Compound Protocol)](https://x.com/exvulsec/status/2077253565438194108); see also [Phalcon](https://x.com/Phalcon_xyz/status/2077243530280587721) and the companion governance-capture write-up, [2026-07-BarnBridgeSmartYield_exp](../2026-07-BarnBridgeSmartYield_exp/BarnBridgeSmartYield_exp.md).*
+1. **Fix the quorum/vote asymmetry:** measure quorum against the *same* multiplied voting
+   power used to count votes, and add an absolute quorum floor that does not fall to zero
+   as stake leaves.
+2. **Decommission deliberately:** when winding a protocol down, neutralize or renounce any
+   admin power that can still move funds (e.g. freeze `yieldControllTo` / controller
+   rotation once TVL is residual approvals only).
+3. **Get users to revoke approvals** as part of sunsetting; a live allowance to a dormant
+   contract is standing risk. Prefer session-scoped pulls over unlimited standing approvals.
+4. **A real emergency brake:** a guardian / security-council veto or a cancel path that
+   does not require out-voting an attacker who already owns the active stake.
+5. **Two-step controller rotation** with explicit acceptance + delay, so a single vote
+   cannot silently repoint a live vault at an attacker-controlled proxy.
+
+---
+
+## References
+
+* Blockful write-up (governance attack on an abandoned DAO): https://x.com/blockful_io
+* Phalcon: https://x.com/Phalcon_xyz/status/2077243530280587721
+* ExVul (CompoundProvider allowance sweep; **not Compound Protocol**): https://x.com/exvulsec/status/2077253565438194108
+* Drain #1: https://etherscan.io/tx/0xd191fead1b9a2244f2837560f35d4fc865404914d229bfcb0172d1a7a9895afb
+* Drain #2: https://etherscan.io/tx/0x7d722637a58a7117dbca0182ec26d74e2be0c1052ac319f0150bc056e528d238
+* Propose #14: https://etherscan.io/tx/0x07ff84e9372b9166f54f3de69b92371c113a370f08b1bef1e116c10ee48b7009
