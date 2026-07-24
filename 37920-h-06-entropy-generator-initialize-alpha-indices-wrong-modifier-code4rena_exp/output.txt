@@ -1,0 +1,102 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/37920-h-06-entropy-generator-initialize-alpha-indices-wrong-modifier-code4rena_exp.sol:InitializeAlphaIndicesDosTest
+[PASS] test_control_ownerCanInitialize() (gas: 1249303)
+Traces:
+  [1249303] InitializeAlphaIndicesDosTest::test_control_ownerCanInitialize()
+    ├─ [1186156] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [356936] → new EntropyGenerator@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Return] 1672 bytes of code
+    │   ├─ [247394] → new TraitForgeNft@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 2: 0 → 1
+    │   │   └─ ← [Return] 902 bytes of code
+    │   ├─ [22827] EntropyGenerator::setAllowedCaller(TraitForgeNft: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2241 bytes of code
+    ├─ [23621] Exploit::ownerInitialize()
+    │   ├─ [23029] EntropyGenerator::ownerInitializeAlphaIndices()
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 1
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [703] Exploit::entropy() [staticcall]
+    │   └─ ← [Return] EntropyGenerator: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [447] EntropyGenerator::alphaIndexVersion() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_nftCallerIsRejectedAtGenerationRollover() (gas: 1287984)
+Traces:
+  [1287984] InitializeAlphaIndicesDosTest::test_nftCallerIsRejectedAtGenerationRollover()
+    ├─ [1186156] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [356936] → new EntropyGenerator@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Return] 1672 bytes of code
+    │   ├─ [247394] → new TraitForgeNft@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 2: 0 → 1
+    │   │   └─ ← [Return] 902 bytes of code
+    │   ├─ [22827] EntropyGenerator::setAllowedCaller(TraitForgeNft: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2241 bytes of code
+    ├─ [682] Exploit::nft() [staticcall]
+    │   └─ ← [Return] TraitForgeNft: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [703] Exploit::entropy() [staticcall]
+    │   └─ ← [Return] EntropyGenerator: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [54931] Exploit::run()
+    │   ├─ [46544] TraitForgeNft::mintToken()
+    │   │   ├─ [846] EntropyGenerator::initializeAlphaIndices()
+    │   │   │   └─ ← [Revert] Ownable: caller is not the owner
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 1
+    │   │   │   @ 1: 1 → 2
+    │   │   │   @ 4: 0 → 1
+    │   │   └─ ← [Revert] Ownable: caller is not the owner
+    │   ├─ [2491] TraitForgeNft::totalMinted() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [469] TraitForgeNft::currentGeneration() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [2447] EntropyGenerator::alphaIndexVersion() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Stop]
+    ├─ [491] TraitForgeNft::totalMinted() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "reverted mint must not persist") [staticcall]
+    │   └─ ← [Return]
+    ├─ [469] TraitForgeNft::currentGeneration() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "generation must remain at one") [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] EntropyGenerator::alphaIndexVersion() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "indices were not initialized by NFT") [staticcall]
+    │   └─ ← [Return]
+    ├─ [509] EntropyGenerator::allowedCaller() [staticcall]
+    │   └─ ← [Return] TraitForgeNft: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [0] VM::assertEq(TraitForgeNft: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], TraitForgeNft: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 676.50µs (663.33µs CPU time)
+
+Ran 1 test suite in 13.77ms (676.50µs CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

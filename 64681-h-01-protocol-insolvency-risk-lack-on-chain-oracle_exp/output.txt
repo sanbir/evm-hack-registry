@@ -1,0 +1,46 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/64681-h-01-protocol-insolvency-risk-lack-on-chain-oracle_exp.sol:PoC_64681
+[PASS] test_underwater_pawn_cannot_liquidate_before_deadline() (gas: 1041421)
+Traces:
+  [1041421] PoC_64681::test_underwater_pawn_cannot_liquidate_before_deadline()
+    ├─ [835201] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [344778] → new Pawn@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1722 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2177 bytes of code
+    ├─ [167024] Exploit::run()
+    │   ├─ [111948] Pawn::pawn(2000, 1800, 1000)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb8: 0 → 1
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb7: 0 → 1000
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5: 0 → 1800
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 0 → 2000
+    │   │   └─ ← [Return] 0
+    │   ├─ [832] Pawn::updateCollateralValue(0, 1600)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 2000 → 1600
+    │   │   └─ ← [Stop]
+    │   ├─ [1314] Pawn::liquidate(0, 500)
+    │   │   └─ ← [Revert] deadline
+    │   ├─ [1468] Pawn::badDebt(0) [staticcall]
+    │   │   └─ ← [Return] 200
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 1
+    │   │   @ 2: 0 → 200
+    │   └─ ← [Stop]
+    ├─ [444] Exploit::earlyLiquidationBlocked() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::badDebt() [staticcall]
+    │   └─ ← [Return] 200
+    ├─ [0] VM::assertEq(200, 200) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 653.54µs (421.92µs CPU time)
+
+Ran 1 test suite in 28.54ms (653.54µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

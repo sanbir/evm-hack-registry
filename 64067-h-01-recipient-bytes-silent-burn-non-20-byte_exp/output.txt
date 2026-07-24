@@ -1,0 +1,44 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/64067-h-01-recipient-bytes-silent-burn-non-20-byte_exp.sol:PoC_64067
+[PASS] test_malformed_recipient_burns_source_tokens() (gas: 974546)
+Traces:
+  [994446] PoC_64067::test_malformed_recipient_burns_source_tokens()
+    ├─ [876069] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [383216] → new TokiBridge@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1914 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2189 bytes of code
+    ├─ [79109] Exploit::run()
+    │   ├─ [23017] TokiBridge::seed(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 100)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 100
+    │   │   └─ ← [Stop]
+    │   ├─ [1438] TokiBridge::transfer(0xdeadbeef, 100)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 100 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [1073] TokiBridge::onRecv(0xdeadbeef, 100, Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   └─ ← [Return] false
+    │   ├─ [867] TokiBridge::sourceBalance(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2846] TokiBridge::destinationBalance(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1
+    │   │   @ 1: 0 → 100
+    │   └─ ← [Stop]
+    ├─ [466] Exploit::unrecoverable() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [403] Exploit::lost() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ [0] VM::assertEq(100, 100) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 553.04µs (350.00µs CPU time)
+
+Ran 1 test suite in 22.42ms (553.04µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
