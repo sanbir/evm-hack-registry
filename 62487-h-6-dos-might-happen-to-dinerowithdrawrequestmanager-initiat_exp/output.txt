@@ -1,0 +1,18 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62487-h-6-dos-might-happen-to-dinerowithdrawrequestmanager-initiat_exp.sol:PoC_62487
+[PASS] test_exploit() (gas: 189257)
+Traces:
+  [209157] PoC_62487::test_exploit()
+    ├─ [130175] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 650 bytes of code
+    ├─ [46216] Exploit::run()
+    │   ├─ emit Proof(nonceAfter: 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 257.04µs (139.67µs CPU time)
+
+Ran 1 test suite in 4.57ms (257.04µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

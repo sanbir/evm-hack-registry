@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/44371-h-1-unsafe-type-casting-in-token-amount-handling-sherlock-ok_exp.sol:PoC_44371
+[PASS] test_exploit() (gas: 296615)
+Traces:
+  [296615] PoC_44371::test_exploit()
+    ├─ [216455] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1081 bytes of code
+    ├─ [47289] Exploit::run()
+    │   ├─ emit Proof(requested: 1461501637330902918203684832716283019655932542982 [1.461e48], pulled: 6)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000010000000000000000000000000000000000000006
+    │   │   @ 1: 0 → 0x0000000000000000000000010000000000000000000000000000000000000006
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 260.62µs (79.29µs CPU time)
+
+Ran 1 test suite in 4.79ms (260.62µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

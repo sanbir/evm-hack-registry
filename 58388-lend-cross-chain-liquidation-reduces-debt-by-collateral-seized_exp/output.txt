@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized_exp.sol:Finding58388Test
+[PASS] testFinding58388() (gas: 297872)
+Logs:
+  before: 100
+  after: 150
+  delta: 50
+
+Traces:
+  [297872] Finding58388Test::testFinding58388()
+    ├─ [161006] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 804 bytes of code
+    ├─ [89321] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 50
+    │   │   @ 0: 0 → 100
+    │   │   @ 1: 0 → 150
+    │   │   @ 3: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 150
+    ├─ emit log_named_uint(key: "after", val: 150)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 50
+    ├─ emit log_named_uint(key: "delta", val: 50)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 50
+    ├─ [0] VM::assertGt(50, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 368.42µs (186.79µs CPU time)
+
+Ran 1 test suite in 14.36ms (368.42µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

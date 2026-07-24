@@ -1,0 +1,45 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/35121-h-8-malicious-users-can-steal-reward-tokens-via-re-entrancy_exp.sol:PoC_35121
+[PASS] test_exploit() (gas: 753361)
+Traces:
+  [753361] PoC_35121::test_exploit()
+    ├─ [622357] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [213535] → new Rewarder@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 100
+    │   │   └─ ← [Return] 956 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 1770 bytes of code
+    ├─ [97670] Exploit::run()
+    │   ├─ [71168] Rewarder::claim(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ [67473] Exploit::onReward()
+    │   │   │   ├─ [44199] Rewarder::claim(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [704] Exploit::onReward()
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 1: 1 → 2
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0 → 1
+    │   │   │   │   │   @ 1: 0 → 100
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 1: 0 → 1
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 100 → 200
+    │   │   └─ ← [Stop]
+    │   ├─ [447] Rewarder::payouts() [staticcall]
+    │   │   └─ ← [Return] 200
+    │   ├─ [447] Rewarder::payouts() [staticcall]
+    │   │   └─ ← [Return] 200
+    │   ├─ emit Proof(payouts: 200)
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 497.83µs (306.79µs CPU time)
+
+Ran 1 test suite in 6.36ms (497.83µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

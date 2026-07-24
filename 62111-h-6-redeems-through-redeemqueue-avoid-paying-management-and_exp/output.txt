@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62111-h-6-redeems-through-redeemqueue-avoid-paying-management-and_exp.sol:PoC_62111
+[PASS] test_exploit() (gas: 302206)
+Traces:
+  [302206] PoC_62111::test_exploit()
+    ├─ [219941] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1000
+    │   └─ ← [Return] 988 bytes of code
+    ├─ [49418] Exploit::run()
+    │   ├─ emit Proof(burned: 100, fees: 0)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 100
+    │   │   @ 0: 1000 → 900
+    │   │   @ 3: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 342.17µs (140.88µs CPU time)
+
+Ran 1 test suite in 6.55ms (342.17µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

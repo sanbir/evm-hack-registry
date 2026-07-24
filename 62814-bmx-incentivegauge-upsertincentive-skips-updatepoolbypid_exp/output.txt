@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62814-bmx-incentivegauge-upsertincentive-skips-updatepoolbypid_exp.sol:Finding62814Test
+[PASS] testFinding62814() (gas: 297615)
+Logs:
+  before: 100
+  after: 125
+  delta: 25
+
+Traces:
+  [297615] Finding62814Test::testFinding62814()
+    ├─ [160806] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 803 bytes of code
+    ├─ [89221] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 125
+    │   │   @ 2: 0 → 25
+    │   │   @ 3: 0 → 1
+    │   │   @ 0: 0 → 100
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 125
+    ├─ emit log_named_uint(key: "after", val: 125)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 25
+    ├─ emit log_named_uint(key: "delta", val: 25)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 25
+    ├─ [0] VM::assertGt(25, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 533.79µs (337.67µs CPU time)
+
+Ran 1 test suite in 44.59ms (533.79µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,20 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62110-h-5-incorrect-performance-fee-calculation-in-feemanager-sher_exp.sol:PoC_62110
+[PASS] test_exploit() (gas: 326240)
+Traces:
+  [326240] PoC_62110::test_exploit()
+    ├─ [222661] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1112 bytes of code
+    ├─ [70699] Exploit::run()
+    │   ├─ emit Proof(buggy: 100, correct: 1)
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1
+    │   │   @ 0: 0 → 100
+    │   │   @ 1: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 270.12µs (107.58µs CPU time)
+
+Ran 1 test suite in 5.16ms (270.12µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

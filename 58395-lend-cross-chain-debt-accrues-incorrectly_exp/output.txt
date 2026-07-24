@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/58395-lend-cross-chain-debt-accrues-incorrectly_exp.sol:Finding58395Test
+[PASS] testFinding58395() (gas: 297616)
+Logs:
+  before: 100
+  after: 110
+  delta: 10
+
+Traces:
+  [297616] Finding58395Test::testFinding58395()
+    ├─ [160806] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 803 bytes of code
+    ├─ [89221] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 110
+    │   │   @ 3: 0 → 1
+    │   │   @ 0: 0 → 100
+    │   │   @ 2: 0 → 10
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 110
+    ├─ emit log_named_uint(key: "after", val: 110)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 10
+    ├─ emit log_named_uint(key: "delta", val: 10)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 10
+    ├─ [0] VM::assertGt(10, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 544.67µs (327.42µs CPU time)
+
+Ran 1 test suite in 41.09ms (544.67µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

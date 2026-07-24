@@ -1,0 +1,20 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/43732-h-1-fluidlocker-getunlockingpercentage-incorrectly-divides-o_exp.sol:PoC_43732
+[PASS] test_exploit() (gas: 247679)
+Traces:
+  [247679] PoC_43732::test_exploit()
+    ├─ [146188] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 730 bytes of code
+    ├─ [68709] Exploit::run()
+    │   ├─ emit Proof(buggy: 8000, expected: 2000)
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1
+    │   │   @ 1: 0 → 2000
+    │   │   @ 0: 0 → 8000
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 261.04µs (86.46µs CPU time)
+
+Ran 1 test suite in 5.38ms (261.04µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

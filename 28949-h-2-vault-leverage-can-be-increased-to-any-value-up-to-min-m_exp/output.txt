@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/28949-h-2-vault-leverage-can-be-increased-to-any-value-up-to-min-m_exp.sol:PoC_28949
+[PASS] test_exploit() (gas: 274259)
+Traces:
+  [274259] PoC_28949::test_exploit()
+    ├─ [194036] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 969 bytes of code
+    ├─ [47376] Exploit::run()
+    │   ├─ emit Proof(leverage: 51)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 51
+    │   │   @ 1: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 247.38µs (98.83µs CPU time)
+
+Ran 1 test suite in 5.70ms (247.38µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

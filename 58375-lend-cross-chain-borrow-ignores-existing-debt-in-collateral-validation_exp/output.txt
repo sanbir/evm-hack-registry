@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation_exp.sol:Finding58375Test
+[PASS] testFinding58375() (gas: 275782)
+Logs:
+  before: 100
+  after: 200
+  delta: 100
+
+Traces:
+  [275782] Finding58375Test::testFinding58375()
+    ├─ [139181] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 695 bytes of code
+    ├─ [89036] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 100
+    │   │   @ 0: 0 → 100
+    │   │   @ 3: 0 → 1
+    │   │   @ 1: 0 → 200
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 200
+    ├─ emit log_named_uint(key: "after", val: 200)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "delta", val: 100)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ [0] VM::assertGt(100, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 345.75µs (174.08µs CPU time)
+
+Ran 1 test suite in 13.71ms (345.75µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

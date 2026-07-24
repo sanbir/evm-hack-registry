@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/62106-h-1-consensuschecksignatures-doesnt-check-duplication-of-sig_exp.sol:PoC_62106
+[PASS] test_exploit() (gas: 279448)
+Traces:
+  [279448] PoC_62106::test_exploit()
+    ├─ [199843] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 998 bytes of code
+    ├─ [46750] Exploit::run()
+    │   ├─ emit Proof(supplied: 2, unique: 1)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 1
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 269.46µs (88.92µs CPU time)
+
+Ran 1 test suite in 7.20ms (269.46µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

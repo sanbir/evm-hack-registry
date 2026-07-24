@@ -1,0 +1,39 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/44373-h-3-lack-of-nonreentrant-modifier-in-fillorder-and-modifyord_exp.sol:PoC_44373
+[PASS] test_exploit() (gas: 1112514)
+Traces:
+  [1132414] PoC_44373::test_exploit()
+    ├─ [629262] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 3143 bytes of code
+    ├─ [469742] Exploit::run()
+    │   ├─ [239960] → new OrderBook@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 100
+    │   │   └─ ← [Return] 1088 bytes of code
+    │   ├─ [114297] → new ReenterTarget@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 458 bytes of code
+    │   ├─ [24530] OrderBook::fill(ReenterTarget: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   ├─ [23301] ReenterTarget::attack()
+    │   │   │   ├─ [22687] OrderBook::modify()
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 1: 0 → 100
+    │   │   │   │   │   @ 0: 100 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [403] OrderBook::stolen() [staticcall]
+    │   │   └─ ← [Return] 100
+    │   ├─ [403] OrderBook::stolen() [staticcall]
+    │   │   └─ ← [Return] 100
+    │   ├─ emit Proof(stolen: 100)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 450.42µs (249.54µs CPU time)
+
+Ran 1 test suite in 6.00ms (450.42µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

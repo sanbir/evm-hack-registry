@@ -1,0 +1,42 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/58391-lend-liquidation-validation-logic-is-wrong_exp.sol:Finding58391Test
+[PASS] testFinding58391() (gas: 276003)
+Logs:
+  before: 100
+  after: 2
+  delta: 1
+
+Traces:
+  [276003] Finding58391Test::testFinding58391()
+    ├─ [139381] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 696 bytes of code
+    ├─ [89036] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 100
+    │   │   @ 3: 0 → 1
+    │   │   @ 2: 0 → 1
+    │   │   @ 1: 0 → 2
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 2
+    ├─ emit log_named_uint(key: "after", val: 2)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ emit log_named_uint(key: "delta", val: 1)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertGt(1, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 351.33µs (189.58µs CPU time)
+
+Ran 1 test suite in 14.87ms (351.33µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

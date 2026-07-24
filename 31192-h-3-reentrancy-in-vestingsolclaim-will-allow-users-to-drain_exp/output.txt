@@ -1,0 +1,38 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/31192-h-3-reentrancy-in-vestingsolclaim-will-allow-users-to-drain_exp.sol:PoC_31192
+[PASS] test_exploit() (gas: 850879)
+Traces:
+  [850879] PoC_31192::test_exploit()
+    ├─ [478309] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2389 bytes of code
+    ├─ [339361] Exploit::run()
+    │   ├─ [189718] → new Vesting@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 100
+    │   │   └─ ← [Return] 837 bytes of code
+    │   ├─ [70574] Vesting::claim(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ [67198] Exploit::reenter()
+    │   │   │   ├─ [43902] Vesting::claim(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [726] Exploit::reenter()
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 1: 1 → 2
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0: 0 → 1
+    │   │   │   │   │   @ 2: 0 → 1
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 1: 0 → 1
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ emit Proof(calls: 2)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 2: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 286.54µs (153.96µs CPU time)
+
+Ran 1 test suite in 5.07ms (286.54µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

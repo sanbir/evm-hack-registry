@@ -1,0 +1,41 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing_exp.sol:Finding58390Test
+[PASS] testFinding58390() (gas: 255680)
+Logs:
+  before: 100
+  after: 0
+  delta: 100
+
+Traces:
+  [255680] Finding58390Test::testFinding58390()
+    ├─ [138981] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 694 bytes of code
+    ├─ [69135] Exploit::run()
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 100
+    │   │   @ 3: 0 → 1
+    │   │   @ 2: 0 → 100
+    │   └─ ← [Stop]
+    ├─ [490] Exploit::beforeValue() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "before", val: 100)
+    ├─ [425] Exploit::afterValue() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ emit log_named_uint(key: "after", val: 0)
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ emit log_named_uint(key: "delta", val: 100)
+    ├─ [444] Exploit::stateDiverged() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [447] Exploit::profit() [staticcall]
+    │   └─ ← [Return] 100
+    ├─ [0] VM::assertGt(100, 0) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 340.62µs (187.00µs CPU time)
+
+Ran 1 test suite in 20.92ms (340.62µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

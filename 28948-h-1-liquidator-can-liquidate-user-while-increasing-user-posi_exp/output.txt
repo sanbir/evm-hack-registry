@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/28948-h-1-liquidator-can-liquidate-user-while-increasing-user-posi_exp.sol:PoC_28948
+[PASS] test_exploit() (gas: 241020)
+Traces:
+  [241020] PoC_28948::test_exploit()
+    ├─ [159200] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 795 bytes of code
+    ├─ [49022] Exploit::run()
+    │   ├─ emit Proof(position: 1000000 [1e6])
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 257
+    │   │   @ 1: 0 → 0x00000000000000000000000000000000000000000000000000000000000f4240
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 228.04µs (69.50µs CPU time)
+
+Ran 1 test suite in 4.93ms (228.04µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

