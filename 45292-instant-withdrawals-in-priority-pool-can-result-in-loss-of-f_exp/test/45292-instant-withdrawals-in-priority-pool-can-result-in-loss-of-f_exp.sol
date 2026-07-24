@@ -1,0 +1,2 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;import "forge-std/Test.sol";import "./45292-instant-withdrawals-in-priority-pool-can-result-in-loss-of-f.sol";contract Test45292 is Test{function test_exploit() public{Exploit e=new Exploit();e.run();assertEq(e.proxy().lst(),0);assertEq(e.token().balanceOf(address(e.proxy())),0);assertEq(e.token().balanceOf(address(e.priority())),500);}}

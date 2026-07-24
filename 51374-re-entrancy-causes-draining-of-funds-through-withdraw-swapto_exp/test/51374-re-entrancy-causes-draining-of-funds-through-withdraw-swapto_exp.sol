@@ -1,0 +1,2 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;import "forge-std/Test.sol";import "./51374-re-entrancy-causes-draining-of-funds-through-withdraw-swapto.sol";contract Test51374 is Test{function test_exploit() public{Exploit e=new Exploit();e.run();assertEq(e.token().balanceOf(address(e.attacker())),300);assertEq(e.bridge().tokenStorage(address(e.token())),0);}}
