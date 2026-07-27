@@ -22,7 +22,7 @@ cd 16980-yield-v2-witch-buy-payall-no-auction_exp
 forge test -vvv
 ```
 
-Expected result: `2 passed`. The assertions in [`test/16980-yield-v2-witch-buy-payall-no-auction.sol`](test/16980-yield-v2-witch-buy-payall-no-auction.sol) verify that the caller receives 1,000 collateral and that the vault's collateral and debt balances are reduced to zero.
+Expected result: `2 passed`. The assertions in [`test/16980-yield-v2-witch-buy-payall-no-auction_exp.sol`](test/16980-yield-v2-witch-buy-payall-no-auction_exp.sol) verify that the caller receives 1,000 collateral and that the vault's collateral and debt balances are reduced to zero.
 
 ## Sources
 
