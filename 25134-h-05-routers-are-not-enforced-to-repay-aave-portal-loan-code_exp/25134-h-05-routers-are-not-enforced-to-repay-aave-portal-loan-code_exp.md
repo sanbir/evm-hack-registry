@@ -1,79 +1,9 @@
-# [H-05] Routers are not Enforced to Repay AAVE Portal Loan
+# Connext portal loan is not enforced to be repaid
 
-> **Vulnerability classes:** vuln/wrong-condition · vuln/direct-drain · vuln/bridge-message-validation · vuln/cross-contract-state-consistency · vuln/liquidation-underwater · vuln/oracle-freshness
->
-> **Reproduction:** local synthetic Foundry reduction; the passing trace is in [output.txt](output.txt).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.md -->
-<!-- date: 2022-06 -->
-
-## Key info
-
-| Field | Value |
-|---|---|
-| **Loss** | router liquidity was withdrawn while portal debt remained |
-| **Vulnerable contract** | `Exploit.vulnerable` in [test/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.sol](test/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.sol) (reconstructed from the prose finding) |
-| **Attacker EOA** | `0x1111111111111111111111111111111111111111` |
-| **Attack contract** | `Exploit` |
-| **Attack tx** | Local Foundry `Exploit.run()` |
-| **Chain / block / date** | Ethereum model · block 0 · synthetic |
-| **Compiler** | Solidity `^0.8.24` |
-| **Bug class** | router liquidity was withdrawn while portal debt remained |
-
-## TL;DR
-
-Connext router can withdraw liquidity without repaying the Aave Portal loan. The local C2 reduction copies the vulnerable state transition into an executable Solidity harness and asserts the reported harm.
-
-## The vulnerable code
-
-```solidity
-function vulnerable() public {
-    // The exact production dependencies are unavailable in the prose-only note.
-    // The executable statement below preserves the reported missing check.
-}
-```
-
-## Root cause
-
-Repayment is an out-of-band promise with no enforcement before router withdrawal.
-
-## Preconditions
-
-- The affected protocol path is reachable by a caller described in the AuditVault finding.
-- The missing validation or accounting invariant is not enforced.
-
-## Attack walkthrough
-
-1. The reduction initializes the state described by AuditVault.
-2. `Exploit.vulnerable()` executes the missing-check transition.
-3. The test asserts that router liquidity was withdrawn while portal debt remained.
-
-## Diagrams
-
-```mermaid
-flowchart LR
-    A[Attacker reaches vulnerable path] --> B[Missing validation]
-    B --> C[Incorrect state transition]
-    C --> D[router liquidity was withdrawn while portal debt remained]
-```
-
-## Remediation
-
-Whitelist portal routers and require repayment before releasing liquidity.
-
-## How to reproduce
+This POC executes the historical Connext `PortalFacet`/router code vendored under `src/connext/`. Boundary doubles implement only Aave/Connext external interfaces; the loan, router call, and repayment accounting are the real audited path.
 
 ```bash
-cd evm-hack-registry/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code_exp
-forge test -vvvvv
+forge test -vvv
 ```
 
-## Sources
-
-- [AuditVault finding #25134](https://github.com/Auditware/AuditVault/blob/main/findings/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.md)
-- [Original report](https://code4rena.com/reports/2022-06-connext)
-- [Synthetic reduction](test/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.sol)
-- AuditVault auditor(s): Code4rena
-
-*Reference: https://code4rena.com/reports/2022-06-connext*
+Sources: [AuditVault finding #25134](https://github.com/Auditware/AuditVault/blob/main/findings/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.md), [Connext repository](https://github.com/connext/monorepo).

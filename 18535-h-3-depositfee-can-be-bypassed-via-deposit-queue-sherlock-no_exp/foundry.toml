@@ -1,10 +1,14 @@
 [profile.default]
-src = 'src'
+src = 'src/src/v2/Carousel'
 out = 'out'
 libs = ['lib']
 test = 'test'
 evm_version = 'cancun'
 fs_permissions = [{ access = "read", path = "./" }]
+remappings = [
+    "@openzeppelin/=lib/openzeppelin-contracts/",
+    "@solmate/=lib/solmate/src/"
+]
 
 [fmt]
 line_length = 120

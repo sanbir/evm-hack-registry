@@ -1,79 +1,29 @@
-# H-12: Total cds deposited amount is incorrectly modified when cds depositor is at a loss, leading to stuck USDa
+# Autonomint CDS withdrawal mis-accounted a lossy depositor
 
-> **Vulnerability classes:** vuln/frozen-funds · vuln/direct-drain · vuln/locked-funds · vuln/integer-bounds
+> **Vulnerability classes:** vuln/reward-accounting · vuln/locked-funds · vuln/integer-bounds
 >
-> **Reproduction:** local synthetic Foundry reduction; the passing trace is in [output.txt](output.txt).
+> **Reproduction:** the test compiles the audited Autonomint `CDSLib.sol` at Sherlock snapshot `0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b` and calls the real `withdrawUserWhoNotOptedForLiq` path with only Treasury/USDa boundary doubles.
 
-<!-- non-defihacklabs -->
 <!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when.md -->
 <!-- date: 2024-11 -->
 
-## Key info
-
-| Field | Value |
-|---|---|
-| **Loss** | aggregate accounting left the remaining USDa withdrawal path stuck |
-| **Vulnerable contract** | `Exploit.vulnerable` in [test/45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when.sol](test/45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when.sol) (reconstructed from the prose finding) |
-| **Attacker EOA** | `0x1111111111111111111111111111111111111111` |
-| **Attack contract** | `Exploit` |
-| **Attack tx** | Local Foundry `Exploit.run()` |
-| **Chain / block / date** | Ethereum model · block 0 · synthetic |
-| **Compiler** | Solidity `^0.8.24` |
-| **Bug class** | aggregate accounting left the remaining USDa withdrawal path stuck |
-
-## TL;DR
-
-Autonomint total CDS deposits are reduced incorrectly after a loss. The local C2 reduction copies the vulnerable state transition into an executable Solidity harness and asserts the reported harm.
-
-## The vulnerable code
-
-```solidity
-function vulnerable() public {
-    // The exact production dependencies are unavailable in the prose-only note.
-    // The executable statement below preserves the reported missing check.
-}
-```
-
 ## Root cause
 
-The aggregate is decremented by the returned amount rather than the recorded deposit.
+After a lossy withdrawal, `CDS.withdraw` writes the loss-adjusted amount into `cdsDepositDetails.depositedAmount`. The audited library then subtracts that adjusted amount from `totalCdsDepositedAmount` (and the omnichain copy) rather than removing the original position. A 400-unit position reduced to 360 leaves a 1,000-unit pool recorded as 640 even though the other depositor owns 600.
 
-## Preconditions
+The exact library and interface sources are vendored at [`src/lib/CDSLib.sol`](src/lib/CDSLib.sol) and [`src/interface`](src/interface).
 
-- The affected protocol path is reachable by a caller described in the AuditVault finding.
-- The missing validation or accounting invariant is not enforced.
-
-## Attack walkthrough
-
-1. The reduction initializes the state described by AuditVault.
-2. `Exploit.vulnerable()` executes the missing-check transition.
-3. The test asserts that aggregate accounting left the remaining USDa withdrawal path stuck.
-
-## Diagrams
-
-```mermaid
-flowchart LR
-    A[Attacker reaches vulnerable path] --> B[Missing validation]
-    B --> C[Incorrect state transition]
-    C --> D[aggregate accounting left the remaining USDa withdrawal path stuck]
-```
-
-## Remediation
-
-Update totals using the original accounting unit.
-
-## How to reproduce
+## Reproduction
 
 ```bash
-cd evm-hack-registry/45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when_exp
-forge test -vvvvv
+cd 45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when_exp
+forge test -vvv
 ```
+
+Expected result: `2 passed`. The first test asserts the exact vulnerable return values (`640` recorded versus `600` actual remaining); the second exercises the exact `cdsAmountToReturn` implementation after an equal price loss/recovery and returns the original 1,000-unit position.
 
 ## Sources
 
 - [AuditVault finding #45465](https://github.com/Auditware/AuditVault/blob/main/findings/45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when.md)
-- [Original report](https://github.com/sherlock-audit/2024-11-autonomint-judging)
-- [Synthetic reduction](test/45465-h-12-total-cds-deposited-amount-is-incorrectly-modified-when.sol)
-- AuditVault auditor(s): 0x73696d616f
-
-*Reference: https://github.com/sherlock-audit/2024-11-autonomint-judging*
+- [Sherlock Autonomint source snapshot](https://github.com/sherlock-audit/2024-11-autonomint/tree/0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b/Blockchain/Blockchian/contracts)
+- [Sherlock issue #738](https://github.com/sherlock-audit/2024-11-autonomint-judging/issues/738)

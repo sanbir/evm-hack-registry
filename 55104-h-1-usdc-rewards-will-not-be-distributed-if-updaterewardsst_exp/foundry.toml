@@ -1,10 +1,14 @@
 [profile.default]
-src = 'src'
+src = 'src/symm/contracts/staking'
 out = 'out'
 libs = ['lib']
 test = 'test'
 evm_version = 'cancun'
 fs_permissions = [{ access = "read", path = "./" }]
+remappings = [
+    "@openzeppelin/contracts-upgradeable/=lib/oz-upgradeable-v5/contracts/",
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/"
+]
 
 [fmt]
 line_length = 120

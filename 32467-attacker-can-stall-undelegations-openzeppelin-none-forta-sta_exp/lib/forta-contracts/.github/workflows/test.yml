@@ -1,0 +1,31 @@
+name: Test
+
+# on:
+#  push:
+#    branches: [master]
+#  pull_request: {}
+on:
+  pull_request:
+    branches-ignore:
+      - 'release/**'
+      - 'release/*'
+      - 'proposal/**'
+
+jobs:
+  test:
+    if: "!startsWith(github.head_ref, 'release/')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - uses: actions/cache@v3.0.3
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: npm-
+      - run: yarn
+        if: steps.cache.outputs.cache-hit != 'true'
+      - run: npm run test

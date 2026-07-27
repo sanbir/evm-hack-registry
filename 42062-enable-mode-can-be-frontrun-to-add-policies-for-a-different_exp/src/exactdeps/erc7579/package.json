@@ -1,0 +1,57 @@
+{
+  "name": "erc7579-implementation",
+  "description": "Reference implementation for ERC-7579",
+  "license": "MIT",
+  "version": "0.3.1",
+  "author": {
+    "name": "ERC-7579",
+    "url": "https://erc7579.com/"
+  },
+  "scripts": {
+    "build": "forge build",
+    "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
+    "build:smt": "FOUNDRY_PROFILE=smt forge build",
+    "clean": "rm -rf artifacts broadcast cache docs out out-optimized out-svg",
+    "gas:report": "forge test --gas-report --mp \"./test/integration/**/*.sol\" --nmt \"test(Fuzz)?_RevertWhen_\\w{1,}?\"",
+    "gas:snapshot": "forge snapshot --mp \"./test/integration/**/*.sol\" --nmt \"test(Fuzz)?_RevertWhen_\\w{1,}?\"",
+    "gas:snapshot:optimized": "pnpm run build:optimized && FOUNDRY_PROFILE=test-optimized forge snapshot --mp \"./test/integration/**/*.sol\" --nmt \"test(Fork)?(Fuzz)?_RevertWhen_\\w{1,}?\"",
+    "lint:sol": "forge fmt --check && pnpm solhint \"{script,src,test}/**/*.sol\"",
+    "prepack": "pnpm install",
+    "test": "forge test",
+    "test:lite": "FOUNDRY_PROFILE=lite forge test",
+    "test:optimized": "pnpm run build:optimized && FOUNDRY_PROFILE=test-optimized forge test"
+  },
+  "dependencies": {
+    "@rhinestone/sentinellist": "github:rhinestonewtf/sentinellist",
+    "account-abstraction": "github:eth-infinitism/account-abstraction#develop",
+    "ds-test": "github:dapphub/ds-test",
+    "forge-std": "github:foundry-rs/forge-std",
+    "solady": "github:vectorized/solady"
+  },
+  "devDependencies": {
+    "solhint": "^5.0.1"
+  },
+  "files": [
+    "src",
+    "foundry.toml",
+    "remappings.txt"
+  ],
+  "homepage": "https://github.com/erc7579/erc7579-implementation#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erc7579/erc7579-implementation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/erc7579/erc7579-implementation/issues"
+  },
+  "keywords": [
+    "account abstraction",
+    "modular smart account",
+    "ERC",
+    "standard",
+    "reference implementation"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

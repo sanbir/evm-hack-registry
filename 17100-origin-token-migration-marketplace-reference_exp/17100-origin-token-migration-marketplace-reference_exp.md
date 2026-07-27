@@ -1,8 +1,8 @@
-# OriginToken migration leaves Marketplace listings and offers locked
+# OriginToken migration leaves V00 Marketplace escrow on the paused token
 
 > **Vulnerability classes:** vuln/dependency/upgradeable-contract · vuln/logic/incorrect-state-transition · vuln/dos/lockup
 >
-> **Reproduction:** local synthetic Foundry reduction; the passing trace is in [output.txt](output.txt).
+> **Reproduction:** the test deploys the audited OriginToken, TokenMigration, and V00_Marketplace sources. It migrates the Marketplace's real escrow balance, pauses the old token, and then follows the real `finalize` path. The passing trace is in [output.txt](output.txt).
 
 <!-- non-defihacklabs -->
 <!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/17100-origintoken-contract-migration-breaks-marketplace-ofer-refer.md -->
@@ -12,71 +12,85 @@
 
 | Field | Value |
 |---|---|
-| **Loss** | A listing deposit (1,000 units) and an offer (500 units) remain locked when the old token is paused. |
-| **Vulnerable contract** | `Marketplace.finalize` in [test/17100-origin-token-migration-marketplace-reference.sol](test/17100-origin-token-migration-marketplace-reference.sol) |
-| **Attacker EOA** | `0x1111111111111111111111111111111111111111` |
-| **Attack contract** | `Exploit` |
-| **Attack tx** | Local Foundry `Exploit.run()` |
-| **Chain / block / date** | Ethereum model · block 0 · synthetic |
-| **Compiler** | Solidity `^0.8.24` |
-| **Bug class** | Marketplace retains a paused pre-migration token address and cannot settle escrow |
+| **Loss** | A 10-token listing deposit and a 20-token offer remain in the Marketplace after migration, but neither can be settled. |
+| **Vulnerable contract** | `V00_Marketplace` from [src/contracts/marketplace/v00/Marketplace.sol](src/contracts/marketplace/v00/Marketplace.sol), specifically `tokenAddr`, `Offer.currency`, and `finalize`/`paySeller`. |
+| **Migration contracts** | Exact [OriginToken](src/contracts/token/OriginToken.sol) and [TokenMigration](src/contracts/token/TokenMigration.sol) sources from Origin's repository. |
+| **Attack transaction** | `PoC_17100.test_migrationLeavesMarketplacePointingAtPausedToken()` |
+| **Chain / block / date** | Ethereum-compatible execution · local Foundry · 2022-01 report |
+| **Compiler** | Solidity `^0.4.24` (the audited source pragma) |
+| **Bug class** | Migration pauses the old token, but Marketplace has no migration hook for its token reference or existing offer currencies. |
 
 ## TL;DR
 
-OriginToken migration pauses the old token and deploys a new token, but Marketplace keeps its immutable reference to the old contract. Existing listings and offers therefore attempt transfers through a paused token and cannot be finalized. The reduction deposits 1,000 and 500 units, pauses the old token, and proves settlement remains blocked.
+The Origin migration mints replacement balances in a new `OriginToken` and
+leaves the old token paused. `V00_Marketplace` stores the old address in
+`tokenAddr`, and every ERC20 offer stores the address supplied as
+`Offer.currency`. An accepted offer therefore continues to call the paused
+old token in `finalize`; the call reverts and the escrow remains in the
+Marketplace. The test proves this with the actual migration contracts and
+the actual Marketplace code.
 
-## Background
+## Source used by the test
 
-Marketplace escrow must use the same token contract that users can transfer after a migration. A token upgrade without an atomic Marketplace migration leaves all existing escrow tied to a disabled contract.
+The following files are vendored from the historical Origin source tree and
+compiled without replacing their Marketplace logic:
 
-## The vulnerable code
+- [V00 Marketplace](src/contracts/marketplace/v00/Marketplace.sol)
+- [OriginToken](src/contracts/token/OriginToken.sol)
+- [TokenMigration](src/contracts/token/TokenMigration.sol)
+- [WhitelistedPausableToken](src/contracts/token/WhitelistedPausableToken.sol)
+
+The OpenZeppelin Solidity `1.10.0` dependency required by those files is in
+[`node_modules/openzeppelin-solidity`](node_modules/openzeppelin-solidity).
+
+## Vulnerable code path
+
+The exact Marketplace constructor records the token once:
 
 ```solidity
-function finalize() external {
-    require(listingDeposit != 0 && offerAmount != 0, "missing listing or offer");
-    // FIX: atomically update currency and validate all outstanding listings/offers.
-    currency.transfer(listingSeller, listingDeposit); // @> VULN: Marketplace keeps the paused pre-migration token reference.
-    currency.transfer(offerBuyer, offerAmount);
+constructor(address _tokenAddr) public {
+    owner = msg.sender;
+    setTokenAddr(_tokenAddr);
 }
 ```
 
-## Root cause
+An ERC20 offer separately records the address passed by the buyer:
 
-The Marketplace currency address is immutable and is not updated by `TokenMigration`. Once the old OriginToken is paused, every settlement transfer reverts; deposits and offers remain in escrow indefinitely.
-
-## Preconditions
-
-- Users have created listings or offers denominated in the old OriginToken.
-- TokenMigration pauses the old token and activates a new token contract.
-- Marketplace has no migration hook or escrow conversion path.
-
-## Attack walkthrough
-
-1. Alice deposits 1,000 old-token units for a listing; Charlie deposits a 500-unit offer.
-2. Migration pauses `oldToken`; `newToken` is deployed but Marketplace still points to `oldToken`.
-3. `Exploit.run()` calls `Marketplace.finalize()`. The old token rejects the transfer.
-4. The passing trace asserts `completed == false` and reads both non-zero escrow amounts at [output.txt:413](output.txt#L413) and [output.txt:415](output.txt#L415).
-
-## Diagrams
-
-```mermaid
-sequenceDiagram
-    participant A as Alice/Charlie
-    participant M as Marketplace
-    participant O as Old OriginToken
-    participant N as New OriginToken
-    A->>M: Listing deposit + offer
-    M->>O: Store escrow under old token
-    O-->>O: Migration pauses old token
-    A->>M: finalize()
-    M->>O: transfer()
-    O-->>M: Revert (paused)
-    Note over M: Escrow remains locked and the new token is unused
+```solidity
+offers[listingID].push(Offer({
+    ...,
+    currency: _currency,
+    value: _value,
+    ...
+}));
 ```
 
-## Remediation
+`finalize` then calls `paySeller`, which transfers through that stored old
+currency. The paused `OriginToken` rejects the transfer, so the entire
+settlement reverts. The test invokes the replacement token only through the
+real migration contract; it does not replace the Marketplace logic.
 
-Provide an authorized migration hook that updates the Marketplace currency and validates every outstanding listing and offer before switching. Alternatively migrate escrow balances atomically and allow users to cancel/refund if settlement cannot complete. Test upgrade sequences end-to-end.
+## Reproduction walkthrough
+
+1. Deploy the real `OriginToken` with a 30-token supply and the real
+   `V00_Marketplace` pointing to it.
+2. Create a listing with a 10-token deposit and an accepted 20-token offer
+   denominated in the old token. The Marketplace now holds all 30 tokens.
+3. Deploy the real `TokenMigration`, transfer the new token's minting
+   ownership to it, pause the old token, and migrate the Marketplace holder.
+   The new token receives 30 tokens, while the Marketplace still stores the
+   old token address.
+4. Call `finalize(0, 0, ...)`. `paySeller` invokes `oldToken.transfer`, which
+   reverts because the old token is paused. The test confirms the old 30-token
+   escrow, the replacement 30-token balance, and the listing deposit remain.
+
+## Impact and remediation
+
+Existing listings and offers cannot be completed after migration. Unpausing
+the old token would settle against a token that is no longer the active OGN
+contract, while the newly minted balance is ignored. Migration must update
+the Marketplace token and every outstanding offer atomically, or provide a
+validated escrow conversion/refund path before pausing the old token.
 
 ## How to reproduce
 
@@ -89,6 +103,5 @@ forge test -vvvvv
 
 - [AuditVault finding #17100](https://github.com/Auditware/AuditVault/blob/main/findings/17100-origintoken-contract-migration-breaks-marketplace-ofer-refer.md)
 - [Trail of Bits Origin review](https://github.com/trailofbits/publications/blob/master/reviews/origin.pdf)
-- [Synthetic test](test/17100-origin-token-migration-marketplace-reference.sol)
-
-*Reference: https://github.com/trailofbits/publications/blob/master/reviews/origin.pdf*
+- [Origin source repository](https://github.com/OriginProtocol/origin-js)
+- [Real-source Forge test](test/17100-origin-token-migration-marketplace-reference_exp.sol)

@@ -1,79 +1,31 @@
-# [H-04] Unstaking does not update the mapping `sETHUserClaimForKnot`
+# Stakehouse `Syndicate.unstake` leaves the claim snapshot for removed shares
 
-> **Vulnerability classes:** vuln/wrong-condition · vuln/direct-drain · vuln/account-signer · vuln/reward-accounting
+> **Vulnerability classes:** vuln/wrong-condition · vuln/reward-accounting · vuln/availability
 >
-> **Reproduction:** local synthetic Foundry reduction; the passing trace is in [output.txt](output.txt).
+> **Reproduction:** the test compiles the audited Stakehouse `Syndicate.sol` source from the Code4rena snapshot and supplies only registry/token boundary doubles. A partial unstake leaves `sETHUserClaimForKnot` accounting for the pre-unstake balance, so the remaining holder's claim calculation underflows.
 
-<!-- non-defihacklabs -->
 <!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork.md -->
 <!-- date: 2022-11 -->
 
-## Key info
-
-| Field | Value |
-|---|---|
-| **Loss** | the stale claim record no longer matched the unstaked balance |
-| **Vulnerable contract** | `Exploit.vulnerable` in [test/43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork.sol](test/43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork.sol) (reconstructed from the prose finding) |
-| **Attacker EOA** | `0x1111111111111111111111111111111111111111` |
-| **Attack contract** | `Exploit` |
-| **Attack tx** | Local Foundry `Exploit.run()` |
-| **Chain / block / date** | Ethereum model · block 0 · synthetic |
-| **Compiler** | Solidity `^0.8.24` |
-| **Bug class** | the stale claim record no longer matched the unstaked balance |
-
-## TL;DR
-
-Stakehouse unstaking leaves a stale sETH claim mapping. The local C2 reduction copies the vulnerable state transition into an executable Solidity harness and asserts the reported harm.
-
-## The vulnerable code
-
-```solidity
-function vulnerable() public {
-    // The exact production dependencies are unavailable in the prose-only note.
-    // The executable statement below preserves the reported missing check.
-}
-```
-
 ## Root cause
 
-The unstake path transfers shares but does not clear sETHUserClaimForKnot.
+In the audited source, `unstake` decreases `sETHStakedBalanceForKnot` but never updates `sETHUserClaimForKnot`. The call first snapshots a claim for the full position, then removes only part of the position. Subsequent `calculateUnclaimedFreeFloatingETHShare`/`claimAsStaker` subtracts that full snapshot from the smaller position's entitlement and reverts on underflow.
 
-## Preconditions
+The exact source is vendored at [`src/syndicate/Syndicate.sol`](src/syndicate/Syndicate.sol), from snapshot commit `08a34ed4505173e7cad2d3b2bde92863b61716c8` in [`code-423n4/2022-11-stakehouse`](https://github.com/code-423n4/2022-11-stakehouse). The Stakehouse registry API is represented by the matching call-surface boundary in [`src/stakehouse-api/contracts/StakehouseAPI.sol`](src/stakehouse-api/contracts/StakehouseAPI.sol).
 
-- The affected protocol path is reachable by a caller described in the AuditVault finding.
-- The missing validation or accounting invariant is not enforced.
-
-## Attack walkthrough
-
-1. The reduction initializes the state described by AuditVault.
-2. `Exploit.vulnerable()` executes the missing-check transition.
-3. The test asserts that the stale claim record no longer matched the unstaked balance.
-
-## Diagrams
-
-```mermaid
-flowchart LR
-    A[Attacker reaches vulnerable path] --> B[Missing validation]
-    B --> C[Incorrect state transition]
-    C --> D[the stale claim record no longer matched the unstaked balance]
-```
-
-## Remediation
-
-Clear or consume the claim record atomically with unstaking.
-
-## How to reproduce
+## Reproduction
 
 ```bash
-cd evm-hack-registry/43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork_exp
-forge test -vvvvv
+cd 43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork_exp
+forge test -vvv
 ```
+
+The test stakes four sETH shares, credits eight ETH to the Syndicate (four ETH becomes the free-floating reward), and unstakes two shares. The audited implementation pays the four-ETH snapshot but leaves the claim mapping at four ETH while only two shares remain. Both the preview and claim paths then revert.
+
+Expected result: `1 passed`.
 
 ## Sources
 
 - [AuditVault finding #43027](https://github.com/Auditware/AuditVault/blob/main/findings/43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork.md)
+- [Code4rena Stakehouse source snapshot](https://github.com/code-423n4/2022-11-stakehouse/tree/08a34ed4505173e7cad2d3b2bde92863b61716c8)
 - [Original report](https://code4rena.com/reports/2022-11-stakehouse)
-- [Synthetic reduction](test/43027-h-04-unstaking-does-not-update-the-mapping-sethuserclaimfork.sol)
-- AuditVault auditor(s): HE1M
-
-*Reference: https://code4rena.com/reports/2022-11-stakehouse*

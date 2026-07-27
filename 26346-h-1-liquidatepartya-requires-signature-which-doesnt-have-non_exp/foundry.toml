@@ -1,10 +1,16 @@
 [profile.default]
-src = 'src'
+src = 'src/symm/contracts'
 out = 'out'
 libs = ['lib']
 test = 'test'
-evm_version = 'cancun'
-fs_permissions = [{ access = "read", path = "./" }]
+evm_version = 'paris'
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+remappings = [
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
+  '@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/'
+]
 
 [fmt]
 line_length = 120

@@ -1,79 +1,29 @@
-# H-10: Users can withdraw liquidated collateral
+# Autonomint `liquidationType2` did not mark the borrower liquidated
 
-> **Vulnerability classes:** vuln/liquidation-logic · vuln/direct-drain · vuln/liquidation-underwater
+> **Vulnerability classes:** vuln/liquidation-logic · vuln/direct-drain · vuln/accounting
 >
-> **Reproduction:** local synthetic Foundry reduction; the passing trace is in [output.txt](output.txt).
+> **Reproduction:** the test compiles the audited `BorrowLiquidation.sol` and `BorrowLib.sol` snapshot and invokes the real `liquidationType2` path through its `onlyBorrowingContract` entry point. WETH, wrapper, Synthetix, and Treasury are protocol-boundary doubles only.
 
-<!-- non-defihacklabs -->
 <!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton.md -->
 <!-- date: 2024-11 -->
 
-## Key info
-
-| Field | Value |
-|---|---|
-| **Loss** | liquidated collateral was withdrawn after liquidation |
-| **Vulnerable contract** | `Exploit.vulnerable` in [test/45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton.sol](test/45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton.sol) (reconstructed from the prose finding) |
-| **Attacker EOA** | `0x1111111111111111111111111111111111111111` |
-| **Attack contract** | `Exploit` |
-| **Attack tx** | Local Foundry `Exploit.run()` |
-| **Chain / block / date** | Ethereum model · block 0 · synthetic |
-| **Compiler** | Solidity `^0.8.24` |
-| **Bug class** | liquidated collateral was withdrawn after liquidation |
-
-## TL;DR
-
-Autonomint liquidated borrowers can still withdraw collateral. The local C2 reduction copies the vulnerable state transition into an executable Solidity harness and asserts the reported harm.
-
-## The vulnerable code
-
-```solidity
-function vulnerable() public {
-    // The exact production dependencies are unavailable in the prose-only note.
-    // The executable statement below preserves the reported missing check.
-}
-```
-
 ## Root cause
 
-withdraw checks debt repayment but not the liquidated state.
+`liquidationType1` sets `depositDetail.liquidated = true` and persists the updated detail. `liquidationType2` performs the short-position flow but never persists that state change. A subsequent borrowing withdrawal therefore still sees the position as live and can withdraw collateral already sent to Synthetix.
 
-## Preconditions
+The exact vulnerable sources are vendored at [`src/Core_logic/borrowLiquidation.sol`](src/Core_logic/borrowLiquidation.sol) and [`src/lib/BorrowLib.sol`](src/lib/BorrowLib.sol), from Sherlock snapshot `0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b`.
 
-- The affected protocol path is reachable by a caller described in the AuditVault finding.
-- The missing validation or accounting invariant is not enforced.
-
-## Attack walkthrough
-
-1. The reduction initializes the state described by AuditVault.
-2. `Exploit.vulnerable()` executes the missing-check transition.
-3. The test asserts that liquidated collateral was withdrawn after liquidation.
-
-## Diagrams
-
-```mermaid
-flowchart LR
-    A[Attacker reaches vulnerable path] --> B[Missing validation]
-    B --> C[Incorrect state transition]
-    C --> D[liquidated collateral was withdrawn after liquidation]
-```
-
-## Remediation
-
-Mark liquidated positions non-withdrawable before collateral transfer.
-
-## How to reproduce
+## Reproduction
 
 ```bash
-cd evm-hack-registry/45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton_exp
-forge test -vvvvv
+cd 45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton_exp
+forge test -vvv
 ```
+
+Expected result: `1 passed`. The assertion confirms that after the exact type-2 liquidation call the Treasury still reports `liquidated == false` and the full original collateral remains withdrawable.
 
 ## Sources
 
 - [AuditVault finding #45463](https://github.com/Auditware/AuditVault/blob/main/findings/45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton.md)
-- [Original report](https://github.com/sherlock-audit/2024-11-autonomint-judging)
-- [Synthetic reduction](test/45463-h-10-users-can-withdraw-liquidated-collateral-sherlock-auton.sol)
-- AuditVault auditor(s): volodya
-
-*Reference: https://github.com/sherlock-audit/2024-11-autonomint-judging*
+- [Sherlock Autonomint source snapshot](https://github.com/sherlock-audit/2024-11-autonomint/tree/0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b/Blockchain/Blockchian/contracts)
+- [Sherlock issue #696](https://github.com/sherlock-audit/2024-11-autonomint-judging/issues/696)

@@ -1,86 +1,31 @@
-# Yield V2 Witch.payAll liquidates vault collateral without an active auction
+# Yield V2 Witch `buy`/`payAll` accepted vaults that were not under auction
 
-> **Vulnerability classes:** vuln/logic/wrong-condition · vuln/logic/missing-check · vuln/defi/fee-manipulation
+> **Vulnerability classes:** vuln/logic/missing-check · vuln/defi/liquidation
 >
-> **Reproduction:** local synthetic Foundry reduction; the passing trace is in [output.txt](output.txt).
+> **Reproduction:** the test compiles and calls the historical Yield V2 `Witch` implementation, with only the Cauldron/Ladle/Join protocol boundary mocked. Both vulnerable entry points transfer the complete collateral balance while their auction records are empty.
 
-<!-- non-defihacklabs -->
 <!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/16980-witchs-buy-and-payall-functions-allow-users-to-buy-collatera.md -->
 <!-- date: 2021-06 -->
 
-## Key info
-
-| Field | Value |
-|---|---|
-| **Loss** | Anyone can seize the excess collateral (600 synthetic units) from an overcollateralized vault that is not in an auction. |
-| **Vulnerable contract** | `Witch.payAll` in [test/16980-yield-v2-witch-buy-payall-no-auction.sol](test/16980-yield-v2-witch-buy-payall-no-auction.sol) |
-| **Attacker EOA** | `0x1111111111111111111111111111111111111111` |
-| **Attack contract** | `Exploit` |
-| **Attack tx** | Local Foundry `Exploit.run()` |
-| **Chain / block / date** | Ethereum model · block 0 · synthetic |
-| **Compiler** | Solidity `^0.8.24` |
-| **Bug class** | Missing active-auction condition allows direct collateral drain |
-
-## TL;DR
-
-Yield V2's Witch `buy` and `payAll` paths are intended to operate only on vaults with an active liquidation auction. Without that state check, an arbitrary caller can invoke `payAll` on a healthy, overcollateralized vault and receive the difference between collateral and debt. The reduction drains 600 units from a 1,000/400 vault.
-
-## Background
-
-Liquidation auctions establish a price and a bounded window in which a Witch may transfer collateral. A vault outside an auction remains controlled by its owner; excess collateral must not be exposed to arbitrary buyers.
-
-## The vulnerable code
-
-```solidity
-Vault storage vault = vaults[id];
-uint256 excess = vault.collateralAmount - vault.debt;
-// FIX: require(activeAuction[id], "auction inactive");
-vault.collateralAmount = vault.debt; // @> VULN: payAll liquidates collateral without an active auction.
-collateral.transfer(msg.sender, excess);
-```
-
 ## Root cause
 
-`payAll` computes and transfers the vault's excess without consulting `activeAuction`. The function's economic precondition is therefore absent, turning a liquidation-only operation into an unrestricted withdrawal from every overcollateralized vault.
+The audited `Witch` source at commit `698ff848^` (the parent of Yield Protocol's fix commit `698ff848`, “draft: minimal fix for require on buy and payAll”) reads `auctions[vaultId].start` to compute the price but never checks that the timestamp is non-zero. A caller can therefore invoke liquidation-only functions for a normal vault. The fix adds `require (auctions[vaultId].start > 0, "Vault not under auction")` to both functions.
 
-## Preconditions
+The exact historical contract is vendored at [`src/vault/Witch.sol`](src/vault/Witch.sol). Its matching interface and utility sources are vendored under `src/vault/interfaces-package` and `src/vault/utils-v2`.
 
-- A vault has collateral greater than debt.
-- The vault has no active auction.
-- An arbitrary caller can invoke `payAll`.
+## Reproduction
 
-## Attack walkthrough
-
-1. Alice opens a 1,000-unit vault backed by 400 units of debt; `activeAuction` remains false.
-2. Bob calls `payAll(vaultId)` without bidding or starting an auction.
-3. Witch reduces the vault to its debt and transfers 600 collateral to Bob.
-4. The passing trace reads the attacker's 600-unit balance at [output.txt:398](output.txt#L398) and verifies the emptied excess.
-
-## Diagrams
-
-```mermaid
-flowchart TD
-    A[Healthy overcollateralized vault] --> B[No active auction]
-    B --> C[Attacker calls Witch.payAll]
-    C --> D[Excess collateral transferred]
-    D --> E[Owner loses 600 units]
-```
-
-## Remediation
-
-Require `activeAuction[id]` (and any other auction-state invariants) before `buy` or `payAll`. Clear the auction state only after settlement, and add tests proving both functions revert for healthy and non-auction vaults.
-
-## How to reproduce
+The fixture creates a 1,000-unit collateral / 400-unit debt vault with no auction entry, seeds the real Witch's collateral Join, and calls the real `payAll` and `buy` functions. Because `start` is zero, the historical implementation evaluates the final auction price and exits all 1,000 collateral to the caller.
 
 ```bash
-cd evm-hack-registry/16980-yield-v2-witch-buy-payall-no-auction_exp
-forge test -vvvvv
+cd 16980-yield-v2-witch-buy-payall-no-auction_exp
+forge test -vvv
 ```
+
+Expected result: `2 passed`. The assertions in [`test/16980-yield-v2-witch-buy-payall-no-auction.sol`](test/16980-yield-v2-witch-buy-payall-no-auction.sol) verify that the caller receives 1,000 collateral and that the vault's collateral and debt balances are reduced to zero.
 
 ## Sources
 
 - [AuditVault finding #16980](https://github.com/Auditware/AuditVault/blob/main/findings/16980-witchs-buy-and-payall-functions-allow-users-to-buy-collatera.md)
-- [Trail of Bits Yield V2 review](https://github.com/trailofbits/publications/blob/master/reviews/YieldV2.pdf)
-- [Synthetic test](test/16980-yield-v2-witch-buy-payall-no-auction.sol)
-
-*Reference: https://github.com/trailofbits/publications/blob/master/reviews/YieldV2.pdf*
+- [Yield V2 vulnerable `Witch.sol` parent commit](https://github.com/yieldprotocol/vault-v2/tree/698ff848ac817fc677e027e8edee346232a3718a^/contracts)
+- [Yield V2 fix commit `698ff848`](https://github.com/yieldprotocol/vault-v2/commit/698ff848ac817fc677e027e8edee346232a3718a)
