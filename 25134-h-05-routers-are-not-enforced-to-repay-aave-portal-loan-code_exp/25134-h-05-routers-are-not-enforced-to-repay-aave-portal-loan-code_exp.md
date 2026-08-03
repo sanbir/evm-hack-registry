@@ -1,5 +1,7 @@
 # [H-05] Connext routers are not enforced to repay the Aave Portal loan
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code.md -->
+
 Real-source PoC. It deploys the **actual audited Connext facets** — `BridgeFacet`,
 `RoutersFacet`, `PortalFacet` over the real `LibConnextStorage` `AppStorage`, plus the real
 `TokenRegistry` and `ConnextMessage`/`AssetLogic` libraries — and drives the real

@@ -1,5 +1,7 @@
 # BaseSwapCallback Exploit — Public `uniswapV3SwapCallback` Approval Drain
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
 
 > **Reproduction:** isolated Foundry project at [this project folder](.). Verbose run: [output.txt](output.txt).

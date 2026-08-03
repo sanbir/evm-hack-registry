@@ -1,5 +1,7 @@
 # Ajna H-06 — a bankrupt bucket wipes a lender's already-earned staking rewards
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/20074-h-06-the-lender-could-possibly-lose-unclaimed-rewards-in-cas.md -->
+
 Real, local (no-fork) reproduction. It deploys the **real** audited Ajna
 `ERC20PoolFactory` / `PositionManager` / `RewardsManager` / `ERC20Pool`
 (vendored unmodified under `src/ajna/`), stakes a real LP position, accrues

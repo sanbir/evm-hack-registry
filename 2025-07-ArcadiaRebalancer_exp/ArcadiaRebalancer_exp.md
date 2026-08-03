@@ -1,5 +1,7 @@
 # Arcadia RebalancerSpot — Unvalidated `swapData` → Arbitrary `router.call`
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/input-validation/missing · vuln/dependency/unsafe-external-call · vuln/access-control/broken-logic · vuln/logic/missing-validation
 
 > **Reproduction:** isolated Foundry project at [this project folder](.) · full run log: [output.txt](output.txt).

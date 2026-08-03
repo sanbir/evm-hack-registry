@@ -1,5 +1,7 @@
 # VaderPoolV2 synth redemption priced off manipulable spot reserves drains the pool
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/42333-h-02-redemption-value-of-synths-can-be-manipulated-to-drain.md -->
+
 > **Vulnerability classes:** vuln/defi/price-manipulation · vuln/oracle/spot-price · vuln/defi/direct-drain
 >
 > **Reproduction:** the test deploys the REAL, unmodified audited Vader dex-v2 stack (`VaderPoolV2`, `BasePoolV2`, `SynthFactory`, `Synth`, `LPWrapper`, `LPToken`, `VaderRouterV2`, `VaderMath`) vendored under `src/vader/` and executes the actual mint/redeem + router-swap attack. Only the opaque native/foreign ERC20s are minimal real tokens.

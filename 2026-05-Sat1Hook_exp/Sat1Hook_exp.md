@@ -1,5 +1,7 @@
 # Sat1Hook Forensics — Grindable Hook Identity, but No Confirmed Protocol Loss
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/input-validation/missing · vuln/logic/missing-validation · vuln/logic/state-update
 
 > **Reproduction:** The self-contained Foundry project in [this folder](.) replays the large SAT1 redemption immediately before the cited MEV transaction. It passes offline against the committed `anvil_state.json`; the canonical trace is [`output.txt`](output.txt).

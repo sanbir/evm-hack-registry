@@ -12,7 +12,6 @@
 > [BarnFacet.sol](sources/governance/BarnFacet.sol),
 > [IController.sol](sources/governance/IController.sol) (holds `yieldControllTo`).
 
-<!-- non-defihacklabs -->
 
 ---
 

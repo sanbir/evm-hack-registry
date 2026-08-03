@@ -1,5 +1,7 @@
 # GemPadLock reentrancy (Dec 2024) — multi-chain ~$2M
 
+<!-- non-defihacklabs -->
+
 ## Summary
 
 | Field | Value |

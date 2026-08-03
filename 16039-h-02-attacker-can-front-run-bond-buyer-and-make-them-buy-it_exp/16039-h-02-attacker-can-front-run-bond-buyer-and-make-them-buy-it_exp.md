@@ -1,5 +1,7 @@
 # [H-02] Attacker can front-run a MuteBond buyer and lower their payout
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/16039-h-02-attacker-can-front-run-bond-buyer-and-make-them-buy-it.md -->
+
 **Protocol:** Mute.io — bond sale (Code4rena `2023-03-mute`)
 **Vulnerable file:** `contracts/bonds/MuteBond.sol` @ `4d8b13add2907b17ac14627cfa04e0c3cc9a2bed`
 **Source finding:** AuditVault `#16039`, reporter 0xA5DF.

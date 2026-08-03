@@ -1,5 +1,7 @@
 # TraitForge H-01 — wrong minting logic based on total token count across generations
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/37915-h-01-wrong-minting-logic-based-on-total-token-count-across-g.md -->
+
 **Severity:** High · **Source:** Code4rena *2024-07-traitforge* · AuditVault finding **#37915**
 
 ## Root cause

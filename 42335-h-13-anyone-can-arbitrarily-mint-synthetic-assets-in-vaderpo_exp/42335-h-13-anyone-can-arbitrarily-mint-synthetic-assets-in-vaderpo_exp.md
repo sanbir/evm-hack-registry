@@ -1,5 +1,7 @@
 # VaderPoolV2 `mintSynth` mints a victim's deposit to an attacker (arbitrary `from`)
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/42335-h-13-anyone-can-arbitrarily-mint-synthetic-assets-in-vaderpo.md -->
+
 > **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/frontrun · fake-account-substitution
 >
 > **Reproduction:** the test deploys the REAL, unmodified audited Vader dex-v2 contracts (`VaderPoolV2`, `BasePoolV2`, `SynthFactory`, `Synth`, `LPWrapper`, `LPToken`, `VaderMath`) vendored under `src/vader/` and runs the actual `mintSynth` exploit end to end. Only the opaque native/foreign ERC20s are minimal real tokens.

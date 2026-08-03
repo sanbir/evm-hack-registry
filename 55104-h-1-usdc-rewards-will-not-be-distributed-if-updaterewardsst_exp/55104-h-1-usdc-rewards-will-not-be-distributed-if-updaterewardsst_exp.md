@@ -1,5 +1,7 @@
 # H-1: USDC rewards are never distributed if `_updateRewardsStates` is triggered too often
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/55104-h-1-usdc-rewards-will-not-be-distributed-if-updaterewardsst.md -->
+
 **Protocol:** Symmio — Staking & Vesting (`SymmStaking`)
 **Source:** Sherlock contest `2025-03-symm-io-stacking`, finding [#575](https://github.com/sherlock-audit/2025-03-symm-io-stacking-judging/issues/575) · AuditVault [#55104](https://github.com/Auditware/AuditVault/blob/main/findings/55104-h-1-usdc-rewards-will-not-be-distributed-if-updaterewardsst.md)
 **Real code:** [`token/contracts/staking/SymmStaking.sol`](https://github.com/sherlock-audit/2025-03-symm-io-stacking/blob/main/token/contracts/staking/SymmStaking.sol) @ `d7cf7fc96af1c25b53a7b500a98b411cd018c0d3`

@@ -1,5 +1,7 @@
 # Ajna H-05 — cross-pool reward-cap underflow bricks unstake / claimRewards
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/20073-h-05-incorrect-calculation-of-the-remaining-updatedrewards-l.md -->
+
 Real, local (no-fork) reproduction. It deploys the **real** audited Ajna
 `ERC20PoolFactory` / `PositionManager` / `RewardsManager` / two `ERC20Pool`s
 (vendored unmodified under `src/ajna/`), drives **real reserve-auction burns** in

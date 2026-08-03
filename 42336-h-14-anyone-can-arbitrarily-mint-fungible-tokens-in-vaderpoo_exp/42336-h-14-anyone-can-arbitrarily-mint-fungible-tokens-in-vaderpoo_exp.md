@@ -1,5 +1,7 @@
 # VaderPoolV2 `mintFungible` steals a victim's deposit to an attacker (arbitrary `from`)
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/42336-h-14-anyone-can-arbitrarily-mint-fungible-tokens-in-vaderpoo.md -->
+
 > **Vulnerability classes:** vuln/access-control/missing-auth · vuln/defi/frontrun · fake-account-substitution
 >
 > **Reproduction:** the test deploys the REAL, unmodified audited Vader dex-v2 contracts (`VaderPoolV2`, `BasePoolV2`, `SynthFactory`, `LPWrapper`, `LPToken`, `VaderMath`) vendored under `src/vader/` and runs the actual `mintFungible` + `burnFungible` exploit. Only the opaque native/foreign ERC20s are minimal real tokens.

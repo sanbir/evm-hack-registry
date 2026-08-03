@@ -1,5 +1,7 @@
 # NLX Oracle: multiple in-block price fetches enable risk-free arbitrage
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/50882-multiple-price-fetches-leading-to-arbitrage-in-oracle-implem.md -->
+
 **Protocol:** NLX (a fork of GMX-synthetics) · **Auditor:** Halborn · **Severity:** High
 **AuditVault:** [#50882](https://github.com/Auditware/AuditVault/blob/main/findings/50882-multiple-price-fetches-leading-to-arbitrage-in-oracle-implem.md) · **Report:** <https://www.halborn.com/audits/coredao/nlx>
 **Vulnerable source:** `src/nlx/contracts/oracle/Oracle.sol` — `_setPricesFromPriceFeeds` (L321-L362) / `_getPriceFeedPrice` (L283-L313)

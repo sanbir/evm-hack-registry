@@ -1,5 +1,7 @@
 # Ribbon Finance MarginPool — corrupted oToken expiry prices via pricer proxy takeover
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/access-control/broken-logic · vuln/logic/incorrect-calculation · vuln/dependency/upgradeable-contract
 >
 > **Reproduction:** offline via [`_shared/run_poc.sh 2025-12-RibbonMarginPool_exp -vvvvv`](.) · see [`output.txt`](output.txt)

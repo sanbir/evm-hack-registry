@@ -1,5 +1,7 @@
 # BankX Router — `swapXSDForETH` Reentrancy (BSC focus)
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/reentrancy/single-function · vuln/logic/incorrect-state-transition
 
 > **Reproduction:** Foundry PoC in [this project folder](.) — ONLINE BSC archive fork.

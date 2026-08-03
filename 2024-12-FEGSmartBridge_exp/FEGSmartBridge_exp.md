@@ -1,5 +1,7 @@
 # FEG SmartBridge — Wormhole relayer allowlist pollution → forged withdraw
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/bridge/message-spoofing · vuln/bridge/missing-validation · vuln/access-control/broken-logic
 >
 > **Reproduction:** offline via [`_shared/run_poc.sh 2024-12-FEGSmartBridge_exp -vvvvv`](.) · see [`output.txt`](output.txt)

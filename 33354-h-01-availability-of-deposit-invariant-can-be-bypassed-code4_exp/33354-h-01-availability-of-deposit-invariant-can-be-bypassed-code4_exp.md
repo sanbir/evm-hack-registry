@@ -1,5 +1,7 @@
 # LoopFi PrelaunchPoints — H-01: availability-of-deposit invariant can be bypassed
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/33354-h-01-availability-of-deposit-invariant-can-be-bypassed-code4.md -->
+
 **Protocol:** LoopFi (Loop Protocol prelaunch staking)
 **Source:** Code4rena *2024-05-loop* — [report](https://code4rena.com/reports/2024-05-loop) · finding [#33354](https://github.com/code-423n4/2024-05-loop-findings/issues/33)
 **Real code:** [`code-423n4/2024-05-loop` `src/PrelaunchPoints.sol`](https://github.com/code-423n4/2024-05-loop/blob/main/src/PrelaunchPoints.sol) (commit `20d9013`), Solidity 0.8.20, OpenZeppelin 5.0.2.

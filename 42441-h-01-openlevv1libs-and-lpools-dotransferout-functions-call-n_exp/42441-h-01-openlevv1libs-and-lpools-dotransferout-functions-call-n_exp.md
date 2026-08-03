@@ -1,5 +1,7 @@
 # OpenLeverage `LPool.doTransferOut` — native `transfer` 2300-gas stipend freezes contract lenders' funds
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/42441-h-01-openlevv1libs-and-lpools-dotransferout-functions-call-n.md -->
+
 **AuditVault #42441 (H-01)** — OpenLeverage (Code4rena, 2022-01)
 
 ## Root cause

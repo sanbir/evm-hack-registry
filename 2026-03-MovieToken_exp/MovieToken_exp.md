@@ -1,5 +1,7 @@
 # Movie Token (MT) double-count burn — BSC Mar 2026 ~$242K
 
+<!-- non-defihacklabs -->
+
 ## Summary
 
 | Field | Value |

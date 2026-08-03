@@ -1,5 +1,7 @@
 # [H-02] Canto asD — permissionless `lzCompose` lets anyone steal a bridged composed-message transfer
 
+<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/32130-h-02-dual-transaction-nature-of-composed-message-transfer-al.md -->
+
 Canto's `ASDRouter` receives USDC-style LayerZero OFTs and, via a **composed
 message**, swaps them to `$NOTE`, mints `asD`, and forwards the `asD` to the
 user. LayerZero V2 delivers a composed message in **two separate transactions**

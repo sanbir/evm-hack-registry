@@ -1,5 +1,7 @@
 # InfinitySix — Stale 1-min TWAP + Instant Referral Bonus Over-Mint
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/incorrect-calculation
 
 > **Reproduction:** Foundry PoC in [this project folder](.) — ONLINE archive fork (BSC).

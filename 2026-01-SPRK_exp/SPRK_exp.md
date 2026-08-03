@@ -1,5 +1,7 @@
 # 2026-01 Sparkle! (SPRK) Tobin-tax self-transfer inflation
 
+<!-- non-defihacklabs -->
+
 ## Summary
 
 | Field | Value |

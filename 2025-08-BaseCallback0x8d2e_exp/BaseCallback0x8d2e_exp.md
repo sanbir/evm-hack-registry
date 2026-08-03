@@ -1,5 +1,7 @@
 # BaseCallback `0x8d2e…` Exploit — Unauthenticated `uniswapV3SwapCallback` Self-Transfer
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/access-control/missing-auth
 
 > **Reproduction:** isolated Foundry project at [this project folder](.). Verbose run: [output.txt](output.txt).

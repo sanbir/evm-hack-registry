@@ -1,5 +1,7 @@
 # DayContract / Polarx — Spot Manip + Rigid Principal Guarantee
 
+<!-- non-defihacklabs -->
+
 > **Vulnerability classes:** vuln/oracle/price-manipulation · vuln/logic/missing-check
 
 > **Reproduction:** Foundry PoC in [this project folder](.) — ONLINE BSC archive fork.
