@@ -63,9 +63,9 @@ Concrete harm asserted: **0 NFTs minted where a correct guard mints ≥ 198** fo
 sequenceDiagram
     participant U as Whitelisted user
     participant NFT as TraitForgeNft
-    Note over NFT: generation 1 filled\n_tokenIds = 10000, gen1 = 10000
+    Note over NFT: generation 1 filled<br/>_tokenIds = 10000, gen1 = 10000
     U->>NFT: mintToken() x2
-    NFT->>NFT: _incrementGeneration()\ncurrentGeneration = 2, gen2 = 1, _tokenIds = 10001
+    NFT->>NFT: _incrementGeneration()<br/>currentGeneration = 2, gen2 = 1, _tokenIds = 10001
     U->>NFT: mintWithBudget{1 ETH}()
     Note over NFT: guard _tokenIds(10001) < maxTokensPerGen(10000) == false
     NFT-->>U: 0 minted, 1 ETH refunded

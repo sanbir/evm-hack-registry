@@ -65,14 +65,14 @@ sequenceDiagram
     participant Gov as Governor / Vault
     participant Strat as CompoundStrategy (real audited)
     participant CToken as Compound cUSDC (illiquid)
-    Note over Strat,CToken: strategy holds 5,000 cUSDC (=100 USDC); market cash = 0
+    Note over Strat,CToken: strategy holds 5,000 cUSDC (=100 USDC)#59; market cash = 0
     Gov->>Strat: liquidate()
     Strat->>CToken: redeem(5,000 cUSDC)
-    CToken-->>Strat: return 9 (INSUFFICIENT_CASH)\nno revert, no transfer
+    CToken-->>Strat: return 9 (INSUFFICIENT_CASH)<br/>no revert, no transfer
     Note over Strat: return value IGNORED (L78)
     Strat->>Strat: safeTransfer(vault, balanceOf=0)
     Strat-->>Gov: returns OK (no revert)
-    Note over Gov,CToken: 100 USDC stranded in Compound;\nprotocol believes strategy is liquidated
+    Note over Gov,CToken: 100 USDC stranded in Compound#59;<br/>protocol believes strategy is liquidated
 ```
 
 ## Reproduce

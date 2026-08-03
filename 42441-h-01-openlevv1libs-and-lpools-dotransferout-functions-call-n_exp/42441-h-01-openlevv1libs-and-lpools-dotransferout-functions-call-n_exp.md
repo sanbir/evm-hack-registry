@@ -62,7 +62,7 @@ sequenceDiagram
     P->>L: to.transfer(1 ETH)  (2300-gas stipend)
     Note over L: receive() needs > 2300 gas -> OOG
     L-->>P: revert
-    Note over P: redeem reverts\n1 ETH stays frozen in the pool
+    Note over P: redeem reverts<br/>1 ETH stays frozen in the pool
 ```
 
 ## Reproduce

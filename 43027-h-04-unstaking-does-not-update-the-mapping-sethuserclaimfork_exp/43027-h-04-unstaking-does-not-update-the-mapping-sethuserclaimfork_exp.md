@@ -79,7 +79,7 @@ sequenceDiagram
     Note over S: 8 ETH rewards -> accPerShare = 8e23
     A->>S: unstake 3 sETH
     S-->>A: pay 4 ETH owed
-    Note over S: BUG - debt snapshotted at accPerShare*5\nbut balance cut to 2 (debt stays 4 ETH)
+    Note over S: BUG - debt snapshotted at accPerShare*5<br/>but balance cut to 2 (debt stays 4 ETH)
     C->>S: stake 2 sETH (debt = accPerShare*2 = 1.6 ETH)
     Note over S: more rewards -> accPerShare = 3.3e24
     C->>S: claimAsStaker

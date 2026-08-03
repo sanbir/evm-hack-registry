@@ -80,18 +80,18 @@ sequenceDiagram
     participant T as BondTreasury
     participant D as dMute
     participant V as Victim
-    Note over B: epoch elapsed -> bondPrice = 200 (max)\nvictim expects payoutFor(10 LP) = 2000 MUTE
+    Note over B: epoch elapsed -> bondPrice = 200 (max)<br/>victim expects payoutFor(10 LP) = 2000 MUTE
     loop 20x minimum-size front-run buys
         A->>B: deposit(minValue, attacker, false)
         B->>T: sendPayoutTokens(payout)
         B->>D: LockTo(payout, 7d, attacker)
-        Note over B: epochStart += 5% * timeElapsed\n-> bondPrice drops
+        Note over B: epochStart += 5% * timeElapsed<br/>-> bondPrice drops
     end
     Note over B: bondPrice now ~135.85 (~68% of 200)
     V->>B: deposit(10 LP, victim, false)
     B->>T: sendPayoutTokens(1358.5)
     B->>D: LockTo(1358.5, 7d, victim)
-    Note over V,D: victim underlying = 1358.5 MUTE\nLOSS = 641.5 MUTE (~32%)
+    Note over V,D: victim underlying = 1358.5 MUTE<br/>LOSS = 641.5 MUTE (~32%)
 ```
 
 ## Reproduce

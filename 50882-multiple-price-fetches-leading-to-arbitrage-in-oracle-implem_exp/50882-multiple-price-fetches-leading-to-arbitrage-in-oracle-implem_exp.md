@@ -68,13 +68,13 @@ sequenceDiagram
     participant P as Pyth feed
     participant V as CashSettledLong (LP)
     K->>O: setPrices(pythBlob_A)  [valid @ t]
-    O->>P: updatePriceFeeds(A) ; getPrice()
+    O->>P: updatePriceFeeds(A) #59; getPrice()
     O-->>K: primaryPrice = 226,646,416,525
     K->>V: openLong(size)  @ price A
     K->>O: clearAllPrices()
     Note over K,O: same transaction
     K->>O: setPrices(pythBlob_B)  [valid @ t+11s]
-    O->>P: updatePriceFeeds(B) ; getPrice()
+    O->>P: updatePriceFeeds(B) #59; getPrice()
     O-->>K: primaryPrice = 226,649,088,828
     K->>V: closeLong()  @ price B
     V-->>K: pay size*(B-A) = 2,672,303,000,000 USD

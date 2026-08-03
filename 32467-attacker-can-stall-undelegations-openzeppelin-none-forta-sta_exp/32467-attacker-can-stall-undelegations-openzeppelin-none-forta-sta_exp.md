@@ -69,10 +69,10 @@ sequenceDiagram
     Op->>V: undelegate(subject)
     V->>D: undelegate()
     D->>S: withdraw() returns 100 FORT
-    D->>D: assetsReceived = balanceOf = 100 + 1 wei\n(ignores withdraw return)
+    D->>D: assetsReceived = balanceOf = 100 + 1 wei<br/>(ignores withdraw return)
     D->>V: forward 100 FORT + 1 wei
-    V->>V: _assetsPerSubject -= (100 + 1 wei)\nunderflow => REVERT
-    Note over V,S: whole tx reverts; 100 FORT trapped\nas an un-completable withdrawal; permanent stall
+    V->>V: _assetsPerSubject -= (100 + 1 wei)<br/>underflow => REVERT
+    Note over V,S: whole tx reverts#59; 100 FORT trapped<br/>as an un-completable withdrawal#59; permanent stall
 ```
 
 ## Sources

@@ -50,16 +50,16 @@ the bridge user still holds their legitimate 1,000,000 DAI.
 ```mermaid
 sequenceDiagram
     participant R as Rogue router
-    participant CX as Connext diamond\n(Bridge/Routers/Portal facets)
+    participant CX as Connext diamond<br/>(Bridge/Routers/Portal facets)
     participant AAVE as Aave Portal
     participant U as Bridge user
     R->>CX: execute() fast transfer (no liquidity)
     CX->>AAVE: mintUnbacked + withdraw 1,000,000 DAI
     AAVE-->>CX: 1,000,000 DAI (unbacked loan)
-    CX->>U: pay 1,000,000 DAI\nportalDebt = 1,000,000
+    CX->>U: pay 1,000,000 DAI<br/>portalDebt = 1,000,000
     Note over CX: slow nomad message arrives
     CX->>AAVE: backUnbacked(1,000,000)  [reverts]
-    Note over CX: repay fails -> credit router\nportalDebt stays 1,000,000
+    Note over CX: repay fails -> credit router<br/>portalDebt stays 1,000,000
     R->>CX: removeRouterLiquidity(1,000,000 DAI)
     CX-->>R: 1,000,000 DAI
     Note over R,AAVE: router +1,000,000 DAI, Aave unpaid 1,000,000 DAI

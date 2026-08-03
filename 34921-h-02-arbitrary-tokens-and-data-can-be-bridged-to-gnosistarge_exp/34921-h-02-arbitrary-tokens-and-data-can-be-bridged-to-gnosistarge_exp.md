@@ -64,12 +64,12 @@ Concrete harm asserted: `olas.balanceOf(attackerTarget) == 100 ether` and
 ```mermaid
 sequenceDiagram
     participant A as Attacker (not L1 processor)
-    participant B as HomeOmniBridge mediator\n(l2TokenRelayer)
-    participant D as GnosisTargetDispenserL2\n(real audited code)
+    participant B as HomeOmniBridge mediator<br/>(l2TokenRelayer)
+    participant D as GnosisTargetDispenserL2<br/>(real audited code)
     participant T as Attacker target
     A->>B: relayTokensAndCall(junk, dispenser, 1, forged[targets,amounts])
     B->>D: onTokenBridged(junk, 1, forged)   [msg.sender == mediator ✔]
-    Note over D: L1 sender NEVER checked\n_receiveMessage(_, l1DepositProcessor, data)
+    Note over D: L1 sender NEVER checked<br/>_receiveMessage(_, l1DepositProcessor, data)
     D->>D: _processData → verify target, approve(target, 100 OLAS)
     D->>T: deposit(100 OLAS)
     T->>D: transferFrom(dispenser, target, 100 OLAS)

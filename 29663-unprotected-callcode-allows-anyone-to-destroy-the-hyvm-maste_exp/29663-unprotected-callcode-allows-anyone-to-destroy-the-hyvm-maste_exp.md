@@ -80,7 +80,7 @@ sequenceDiagram
     participant HyVM as HyVM master (real audited bytecode)
     participant D as Destroyer (selfdestruct)
     Note over HyVM: deployed with 5 ETH, code = 5376 bytes
-    Eve->>HyVM: call(program = ...PUSH20 D; GAS; CALLCODE; STOP)
+    Eve->>HyVM: call(program = ...PUSH20 D#59; GAS#59; CALLCODE#59; STOP)
     HyVM->>D: CALLCODE (runs D's code in HyVM context)
     D-->>HyVM: SELFDESTRUCT(attacker) executes AS the master
     Note over HyVM: code wiped -> length 0, balance -> 0

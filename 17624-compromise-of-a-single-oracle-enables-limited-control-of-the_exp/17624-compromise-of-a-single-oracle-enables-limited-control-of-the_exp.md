@@ -94,7 +94,7 @@ checks appropriate to their risk.
 ```mermaid
 sequenceDiagram
     actor Eve as Attacker (owns compromised Airnode O2 key)
-    participant S as API3 BeaconUpdatesWithSignedData\n(real DataFeedServer + Median)
+    participant S as API3 BeaconUpdatesWithSignedData<br/>(real DataFeedServer + Median)
     Eve->>S: updateBeaconWithSignedData(O0, 603) [honest]
     Eve->>S: updateBeaconWithSignedData(O1, 598) [honest]
     Eve->>S: updateBeaconWithSignedData(O2, 598) [compromised]

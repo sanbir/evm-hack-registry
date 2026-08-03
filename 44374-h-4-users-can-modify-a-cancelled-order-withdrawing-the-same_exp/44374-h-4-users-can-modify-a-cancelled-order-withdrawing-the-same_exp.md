@@ -60,7 +60,7 @@ sequenceDiagram
     Note over OL: holds 2e18
     Att->>OL: cancelOrder(id)
     OL-->>Att: refund #1 = 1e18
-    Note over OL: orders[id] NOT cleared\namountIn still 1e18
+    Note over OL: orders[id] NOT cleared<br/>amountIn still 1e18
     Att->>OL: modifyOrder(id, delta=1e18-1, decrease)
     OL-->>Att: refund #2 = 1e18-1
     Note over OL: honest escrow drained to 1 wei

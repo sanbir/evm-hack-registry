@@ -67,10 +67,10 @@ sequenceDiagram
     participant Atk as Attacker
     participant Swap as Swap (vulnerable, real)
     participant Fix as SwapFixed (hardened, real)
-    Atk->>Atk: fabricate 4 notes over G\nsigma_i = G^k_i * H^a_i (attacker k)
+    Atk->>Atk: fabricate 4 notes over G<br/>sigma_i = G^k_i * H^a_i (attacker k)
     Atk->>Atk: challenge = keccak(sender||commitments||B_i) mod r
     Atk->>Swap: validateSwap(forgedProof, crs)
-    Swap->>Swap: on-curve + challenge OK\nNO pairing check
+    Swap->>Swap: on-curve + challenge OK<br/>NO pairing check
     Swap-->>Atk: proofOutputs (fabricated notes admitted)
     Atk->>Fix: validateSwap(same forgedProof, crs)
     Fix->>Fix: pairing check on notes

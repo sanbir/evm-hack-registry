@@ -68,14 +68,14 @@ sequenceDiagram
     participant Vault as Carousel
     Alice->>Vault: enlistInRollover (queue=[Alice,Bob])
     Bob->>Vault: enlistInRollover
-    Note over Vault: epoch resolves\nclaimTVL = 2x finalTVL
+    Note over Vault: epoch resolves<br/>claimTVL = 2x finalTVL
     Alice->>Vault: mintRollovers(next, 1)
-    Note over Vault: Alice rolled\nrolloverAccounting = 1
+    Note over Vault: Alice rolled<br/>rolloverAccounting = 1
     Alice->>Vault: delistInRollover(Alice)
-    Note over Vault: swap-and-pop\nBob -> idx 0, len = 1\ncursor stays 1
+    Note over Vault: swap-and-pop<br/>Bob -> idx 0, len = 1<br/>cursor stays 1
     Bob-->>Vault: mintRollovers(next, 100)
-    Note over Vault: index(1) == length(1)\noperations = 0 -> Bob skipped
-    Note over Bob: 0 new-epoch shares\n10e18 stranded
+    Note over Vault: index(1) == length(1)<br/>operations = 0 -> Bob skipped
+    Note over Bob: 0 new-epoch shares<br/>10e18 stranded
 ```
 
 ## Run

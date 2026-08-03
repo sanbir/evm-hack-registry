@@ -41,7 +41,7 @@ sequenceDiagram
     A->>P: mintSynth(USDC, 10, from=Victim, to=Attacker)
     P->>V: safeTransferFrom(Victim, pool, 10 VADER)
     P->>S: mint(Attacker, 8.264)
-    Note over A,S: Attacker receives 8.264 synth\nVictim loses 10 VADER
+    Note over A,S: Attacker receives 8.264 synth<br/>Victim loses 10 VADER
 ```
 
 ## Reproduction

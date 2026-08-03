@@ -68,7 +68,7 @@ sequenceDiagram
     BR->>RM: depositETH(0.9995 ETH)
     RM-->>BR: mint 0.4997 ezETH  (price 2.0)
     BR->>LB: lock 0.4997 ezETH, mint+burn 0.4997 xezETH
-    Note over Alice,LB: 0.999 xezETH circulating vs 0.4997 ezETH backing\n=> 0.4993 xezETH permanently unbacked
+    Note over Alice,LB: 0.999 xezETH circulating vs 0.4997 ezETH backing<br/>=> 0.4993 xezETH permanently unbacked
 ```
 
 ## Reproduce

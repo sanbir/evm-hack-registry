@@ -49,10 +49,10 @@ sequenceDiagram
     participant A as Attacker
     participant S as SymmStaking (real)
     participant V as Victim staker
-    Note over S: 1,000,000 SYMM staked\n1,209.6 USDC reward, rate = 2000/s
+    Note over S: 1,000,000 SYMM staked<br/>1,209.6 USDC reward, rate = 2000/s
     loop every 249 blocks (498s) for 1 week
         A->>S: deposit(1 wei) -> _updateRewardsStates
-        Note over S: increment = 498*2000*1e18/1e24 = 0\nperTokenStored stays 0, lastUpdated += 498s
+        Note over S: increment = 498*2000*1e18/1e24 = 0<br/>perTokenStored stays 0, lastUpdated += 498s
     end
     V->>S: claimRewards()
     S-->>V: 0 USDC (earned rounded to 0)

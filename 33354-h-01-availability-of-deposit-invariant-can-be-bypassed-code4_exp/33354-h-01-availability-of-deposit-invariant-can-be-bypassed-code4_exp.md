@@ -54,14 +54,14 @@ sequenceDiagram
 
     Note over P: deposits closed, convertAllETH done, balance = 0
     A->>P: lock(LRT, 1) earlier (locked position)
-    Note over P: 10 ETH stray/"locked forever" ETH arrives\nbalance = 10 ETH
+    Note over P: 10 ETH stray/"locked forever" ETH arrives<br/>balance = 10 ETH
     A->>P: claim(LRT, 100%, TransformERC20, data)
     P->>X: _fillQuote: swap 1 LRT
     X-->>P: send 1 ETH (balance = 11 ETH)
     Note over P: claimedAmount = address(this).balance = 11 ETH
     P->>L: deposit{value: 11 ETH}(attacker)
     L-->>A: mint 11 lpETH
-    Note over A: fair = 1 lpETH; stole 10 ETH
+    Note over A: fair = 1 lpETH#59; stole 10 ETH
 ```
 
 ## Reproduce

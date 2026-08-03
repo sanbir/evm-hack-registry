@@ -46,7 +46,7 @@ sequenceDiagram
     A->>P: burnFungible(LP)  crash reserveForeign back
     A->>P: burnSynth(8257 synth)  -> large native payout
     A->>P: router swap: rebalance foreign
-    Note over A,P: Attacker nets +97.46 VADER + 7.68 USDC\nPool native drained 1000 -> 902.5
+    Note over A,P: Attacker nets +97.46 VADER + 7.68 USDC<br/>Pool native drained 1000 -> 902.5
 ```
 
 ## Reproduction

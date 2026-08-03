@@ -72,8 +72,8 @@ sequenceDiagram
     participant A as Attacker
     participant ASD as asD OFT (real)
     LZ->>R: Tx1 receive — deliver 100 USDC-OFT
-    Note over R,A: OFT now sits in the router; compose is a separate, permissionless tx
-    A->>R: Tx2 lzCompose(_dstReceiver = Attacker)\nno caller check, composeFrom ignored
+    Note over R,A: OFT now sits in the router#59; compose is a separate, permissionless tx
+    A->>R: Tx2 lzCompose(_dstReceiver = Attacker)<br/>no caller check, composeFrom ignored
     R->>R: deposit -> swap -> mint 100 asD
     R->>ASD: transfer(Attacker, 100 asD)
     ASD-->>A: 100 asD stolen (victim gets 0)

@@ -75,13 +75,13 @@ sequenceDiagram
     participant S as SYMMIO diamond
     participant A as PartyA
 
-    Note over A: allocated=109, cva+lf=10\nliquidatable at upnl=-100
-    G->>L: sign liquidation payload (upnl=-100)\nNO nonce in the signed hash
-    A->>S: legitimate action -> partyANonce 0->1\nnow solvent (true upnl ~ -5)
+    Note over A: allocated=109, cva+lf=10<br/>liquidatable at upnl=-100
+    G->>L: sign liquidation payload (upnl=-100)<br/>NO nonce in the signed hash
+    A->>S: legitimate action -> partyANonce 0->1<br/>now solvent (true upnl ~ -5)
     L->>S: liquidatePartyA(partyA, freshSig upnl=-5)
     S-->>L: revert "PartyA is solvent"
     L->>S: liquidatePartyA(partyA, staleSig upnl=-100)
-    Note over S: verifyLiquidationSig recomputes the\nSAME nonce-free hash -> signature valid
+    Note over S: verifyLiquidationSig recomputes the<br/>SAME nonce-free hash -> signature valid
     S->>S: setSymbolsPrice + liquidatePositionsPartyA
     S->>A: allocated 109 -> 0 (solvent party drained)
 ```

@@ -73,7 +73,7 @@ sequenceDiagram
     Note over Direct: gets 97.5e18 shares
     Att->>Vault: deposit(0, 100e18)  [queue, no fee]
     Att->>Vault: mintDepositInQueue(1, 1)  [self-relay]
-    Note over Vault: mints 99e18 shares\nNO depositFee
+    Note over Vault: mints 99e18 shares<br/>NO depositFee
     Vault->>Att: relayerFee 1e18 returned
     Note over Treas: receives 0 from queue path
     Note over Att: 99e18 shares, net fee = 0

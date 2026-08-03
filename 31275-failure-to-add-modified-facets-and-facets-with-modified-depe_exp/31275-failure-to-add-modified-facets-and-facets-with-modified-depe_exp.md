@@ -54,7 +54,7 @@ sequenceDiagram
     D->>SV1: delegatecall
     SV1-->>U: 2e11  (20 Stalk, correct)
 
-    Note over D: BIP-39 diamondCut re-cuts WhitelistFacet V2\nbut OMITS re-cutting SiloFacet
+    Note over D: BIP-39 diamondCut re-cuts WhitelistFacet V2<br/>but OMITS re-cutting SiloFacet
     D->>WV2: updateStalkPerBdvPerSeasonForToken(BEAN)
     WV2->>D: milestoneStem = stemTipForTokenUntruncated (2e8, UNTRUNCATED)
 
