@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+  pull_request:
+
+jobs:
+  lint:
+    uses: "rhinestonewtf/reusable-workflows/.github/workflows/forge-lint.yaml@main"
+
+  build:
+    uses: "rhinestonewtf/reusable-workflows/.github/workflows/forge-build.yaml@main"

@@ -1,0 +1,278 @@
+Compiling 48 files with Solc 0.7.6
+Solc 0.7.6 finished in 1.88s
+Compiler run successful!
+
+Ran 1 test for test/31275-failure-to-add-modified-facets-and-facets-with-modified-depe_exp.sol:Test31275
+[PASS] test_31275_facet_omission_inflates_grown_stalk() (gas: 9446390)
+Logs:
+  grownStalk BEFORE upgrade (correct): 200000000000
+  milestoneStem after V2 write (untruncated): 200000000
+  grownStalk AFTER buggy upgrade (stale SiloFacet): 200000000000000000
+  grownStalk AFTER correct upgrade (SiloFacet re-cut): 200000000000
+  EXCESS Stalk over-issued (units, 1e10=1 Stalk): 199999800000000000
+
+Traces:
+  [9753590] Test31275::test_31275_facet_omission_inflates_grown_stalk()
+    ├─ [2669847] → new Diamond@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: Test31275: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [970208] → new DiamondCutFacet@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 4846 bytes of code
+    │   ├─ [304343] → new DiamondLoupeFacet@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 1520 bytes of code
+    │   ├─ emit DiamondCut(_diamondCut: [FacetCut({ facetAddress: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, action: 0, functionSelectors: [0x1f931c1c] }), FacetCut({ facetAddress: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, action: 0, functionSelectors: [0x7a0ed627, 0xadfca15e, 0x52ef6b2c, 0xcdffacc6, 0x01ffc9a7] })], _init: 0x0000000000000000000000000000000000000000, _calldata: 0x)
+    │   ├─  storage changes:
+    │   │   @ 0x3b9728e87d36aa4e6d6a128709343346f2a35e18ae1498ca98fcdaf6416c5f5d: 0 → 1
+    │   │   @ 0xb25bde920e601458e11d5ad41f6a8d6c760b763c71ad2ceb294befb92dad9d19: 0 → 1
+    │   │   @ 0xf28c593dd1d35d0d823affbd766f60b819a10f9cd173ae150c8250a393b85ced: 0 → 0x00000000000000000000000001ffc9a7cdffacc652ef6b2cadfca15e7a0ed627
+    │   │   @ 0xe0170198fbf08e9fdb945a6cf578a9db0e7d6ca0563331faab33b2c3d0c72a20: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0x3ec21c6dcd9382ec0fa3d18bee52adfd71ddb22b628a00f238170a821a6b2208: 0 → 0x000000000000000000000002037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf0: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0xb39d0149e9cc603f0708dbf7a5725f9e8dae333741e47e80fbb326d53dc83952: 0 → 0x000000000000000000000000000000000000000000000000000000001f931c1c
+    │   │   @ 0xc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c131e: 0 → 2
+    │   │   @ 0x3b9728e87d36aa4e6d6a128709343346f2a35e18ae1498ca98fcdaf6416c5f5c: 0 → 5
+    │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbef: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 0x9f0ce991cd9c4f6eaf19f214129f7a5c88ce0f46a01a0f164d4f0d44366a92a8: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 0xc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0x7e824bed63bf94881fc97011f0270acd50c389834ee37911f16b07808d890403: 0 → 0x000000000000000000000003037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0x87e39d749ae586f8bf058f9a62f77d96b9526676fee1fa0c841eaac56f135db9: 0 → 0x000000000000000000000001037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0x1195f22fc5c3c69ae18b72d73472cbf13573848de16f4899c9282958aa9adff2: 0 → 0x000000000000000000000004037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   └─ ← [Return] 4835 bytes of code
+    ├─ [205451] → new SetupFacet@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1026 bytes of code
+    ├─ [276518] → new SiloViewFacetV1@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1381 bytes of code
+    ├─ [291931] → new WhitelistFacetV1@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 1458 bytes of code
+    ├─ [513433] Diamond::fallback([FacetCut({ facetAddress: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, action: 0, functionSelectors: [0xa66b14c3, 0x4430c606, 0xa57c50ed, 0x64ad4402, 0x26ec43e7, 0xbcb39621] }), FacetCut({ facetAddress: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, action: 0, functionSelectors: [0xabed2d41, 0x8915ba24] }), FacetCut({ facetAddress: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, action: 0, functionSelectors: [0xf18d9ed0] })], 0x0000000000000000000000000000000000000000, 0x)
+    │   ├─ [511519] DiamondCutFacet::diamondCut([FacetCut({ facetAddress: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, action: 0, functionSelectors: [0xa66b14c3, 0x4430c606, 0xa57c50ed, 0x64ad4402, 0x26ec43e7, 0xbcb39621] }), FacetCut({ facetAddress: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, action: 0, functionSelectors: [0xabed2d41, 0x8915ba24] }), FacetCut({ facetAddress: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, action: 0, functionSelectors: [0xf18d9ed0] })], 0x0000000000000000000000000000000000000000, 0x) [delegatecall]
+    │   │   ├─ emit DiamondCut(_diamondCut: [FacetCut({ facetAddress: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, action: 0, functionSelectors: [0xa66b14c3, 0x4430c606, 0xa57c50ed, 0x64ad4402, 0x26ec43e7, 0xbcb39621] }), FacetCut({ facetAddress: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, action: 0, functionSelectors: [0xabed2d41, 0x8915ba24] }), FacetCut({ facetAddress: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, action: 0, functionSelectors: [0xf18d9ed0] })], _init: 0x0000000000000000000000000000000000000000, _calldata: 0x)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa5c3311f009c2c90654b7a4632a7d42eafc922ec26fc7266df98e60d72d32357: 0 → 0x00000000000000000000000000000000000000000000000000000000f18d9ed0
+    │   │   │   @ 0xb8f8470effb5db36bd5b721e13b2f60a40271efd3289d6c6155344b93713aa3b: 0 → 2
+    │   │   │   @ 0xc3548e526889d1c62e607933aa062f4742803e8099283d8db8e5cd9d0bceb1ed: 0 → 0x000000000000000000000001f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0xb8f8470effb5db36bd5b721e13b2f60a40271efd3289d6c6155344b93713aa3c: 0 → 3
+    │   │   │   @ 0x2c75552ef2a66483302eaa6acadec878713845865cf2b37ba80e16ed0ca46a3e: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf1: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   @ 0xc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c131e: 2 → 5
+    │   │   │   @ 0x999e34171103cfedd74f7b640e5f93054d5e80c581ca1ca3fd80e1c9180ca537: 0 → 6
+    │   │   │   @ 0x516fa633426e28f16cc0a08a036b23395cc433f764a8a2608b414c39eade30ca: 0 → 0x0000000000000000000000000000000000000000000000008915ba24abed2d41
+    │   │   │   @ 0x999e34171103cfedd74f7b640e5f93054d5e80c581ca1ca3fd80e1c9180ca538: 0 → 2
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf3: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   @ 0xac385e5d752c84bc1e0b55ca992ba4bae11feedfc8d36c16dfc3993c45a41ad7: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   @ 0x4a9d65de27d089c0d77455be3c3b45d00f075c57b528db9cb8e96bb14f0fd6ba: 0 → 0x0000000000000000000000042e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf2: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0x645440746548d62be797ec74687f8e2c2ef76c99369114d2568b91b6826af42f: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0x92e73bab9a84458b4464bd735edd2b121a6748033941e9ed3eb39a6c57967a43: 0 → 0x0000000000000000000000012e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   @ 0x618264d530f2c0ff6029c7e08ed96c5b52dfc20bffda09909181e0dd80e4eb69: 0 → 0x0000000000000000000000032e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   @ 0xdc7c2376f92d422a78f4cccafd99cf8e6a574335a81f8e858a83a9f73fa2ec80: 0 → 0x0000000000000000000000052e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   │   @ 0xdd0914eb04285ae72488c5bed4a11888835531e2c826acea0759143013458956: 0 → 4
+    │   │   │   @ 0x2a2ca4e1e596af640d920a935bbc8f81dd5826dea5bb91a2cdf54b490593302f: 0 → 0x0000000000000000bcb3962126ec43e764ad4402a57c50ed4430c606a66b14c3
+    │   │   │   @ 0xdd0914eb04285ae72488c5bed4a11888835531e2c826acea0759143013458955: 0 → 1
+    │   │   │   @ 0x1bd9292eb02beefe7bf182c8fa229f352c19ed70682f2c7c9a1c90ac446511e7: 0 → 0x0000000000000000000000022e234dae75c793f67a35089c9d99245e1c58470b
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [22949] Diamond::fallback(100)
+    │   ├─ [21201] SetupFacet::setSeason(100) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 100
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [23409] Diamond::fallback(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6], 100, 0)
+    │   ├─ [21646] SetupFacet::whitelistToken(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6], 100, 0) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4139433f517683aaea322b3ef75e342a50b32b00b4b7695992613e9830a91611: 0 → 0x000000000000000000000000000000000000006400000000001e848000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [23489] Diamond::fallback(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 0, 1000000000 [1e9])
+    │   ├─ [21726] SetupFacet::simulateDeposit(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 0, 1000000000 [1e9]) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb29f1343ab3744dae3c0345c6a76292b7e0c2c009d9f187b5cb6c16bc1165c02: 0 → 0x000000000000000000000000000000003b9aca00000000000000000000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [3749] Diamond::fallback(200)
+    │   ├─ [2001] SetupFacet::setSeason(200) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 100 → 200
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [9086] Diamond::fallback(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [staticcall]
+    │   ├─ [7332] SiloViewFacetV1::balanceOfGrownStalk(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [delegatecall]
+    │   │   └─ ← [Return] 200000000000 [2e11]
+    │   └─ ← [Return] 200000000000 [2e11]
+    ├─ emit log_named_uint(key: "grownStalk BEFORE upgrade (correct)", val: 200000000000 [2e11])
+    ├─ [0] VM::assertEq(200000000000 [2e11], 200000000000 [2e11], "pre-upgrade grown stalk baseline") [staticcall]
+    │   └─ ← [Return]
+    ├─ [239081] → new WhitelistFacetV2@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   └─ ← [Return] 1194 bytes of code
+    ├─ [137592] Diamond::fallback([FacetCut({ facetAddress: 0xc7183455a4C133Ae270771860664b6B7ec320bB1, action: 1, functionSelectors: [0xf18d9ed0] })], 0x0000000000000000000000000000000000000000, 0x)
+    │   ├─ [135787] DiamondCutFacet::diamondCut([FacetCut({ facetAddress: 0xc7183455a4C133Ae270771860664b6B7ec320bB1, action: 1, functionSelectors: [0xf18d9ed0] })], 0x0000000000000000000000000000000000000000, 0x) [delegatecall]
+    │   │   ├─ emit DiamondCut(_diamondCut: [FacetCut({ facetAddress: 0xc7183455a4C133Ae270771860664b6B7ec320bB1, action: 1, functionSelectors: [0xf18d9ed0] })], _init: 0x0000000000000000000000000000000000000000, _calldata: 0x)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xdd0914eb04285ae72488c5bed4a11888835531e2c826acea0759143013458955: 1 → 0
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf3: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0xdd0914eb04285ae72488c5bed4a11888835531e2c826acea0759143013458956: 4 → 0
+    │   │   │   @ 0xa5c3311f009c2c90654b7a4632a7d42eafc922ec26fc7266df98e60d72d32357: 0x00000000000000000000000000000000000000000000000000000000f18d9ed0 → 0
+    │   │   │   @ 0x54fb66139d682953bed69b323005eb068a85f4b872762d92062a245ccf71ca24: 0 → 4
+    │   │   │   @ 0x2c75552ef2a66483302eaa6acadec878713845865cf2b37ba80e16ed0ca46a3e: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0x027501f27ee97556f8efc518e1f71648e5b44df1545752e0430a5cfc8a244ef5: 0 → 0x00000000000000000000000000000000000000000000000000000000f18d9ed0
+    │   │   │   @ 0x54fb66139d682953bed69b323005eb068a85f4b872762d92062a245ccf71ca23: 0 → 1
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [13238] Diamond::fallback(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6])
+    │   ├─ [11487] WhitelistFacetV2::updateStalkPerBdvPerSeasonForToken(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6]) [delegatecall]
+    │   │   ├─ emit UpdatedStalkPerBdvPerSeason(token: 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, stalkEarnedPerSeason: 2000000 [2e6], season: 200)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4139433f517683aaea322b3ef75e342a50b32b00b4b7695992613e9830a91611: 0x000000000000000000000000000000000000006400000000001e848000000000 → 0x0000000000000000000000000bebc200000000c800000000001e848000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [3082] Diamond::fallback(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [staticcall]
+    │   ├─ [1331] SetupFacet::milestoneStem(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [delegatecall]
+    │   │   └─ ← [Return] 200000000 [2e8]
+    │   └─ ← [Return] 200000000 [2e8]
+    ├─ emit log_named_int(key: "milestoneStem after V2 write (untruncated)", val: 200000000 [2e8])
+    ├─ [0] VM::assertEq(200000000 [2e8], 200000000 [2e8], "milestoneStem rescaled untruncated") [staticcall]
+    │   └─ ← [Return]
+    ├─ [9086] Diamond::fallback(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [staticcall]
+    │   ├─ [7332] SiloViewFacetV1::balanceOfGrownStalk(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [delegatecall]
+    │   │   └─ ← [Return] 200000000000000000 [2e17]
+    │   └─ ← [Return] 200000000000000000 [2e17]
+    ├─ emit log_named_uint(key: "grownStalk AFTER buggy upgrade (stale SiloFacet)", val: 200000000000000000 [2e17])
+    ├─ [0] VM::assertEq(200000000000000000 [2e17], 200000000000000000 [2e17], "buggy grown stalk value") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(200000000000000000 [2e17], 200000000000000000 [2e17], "over-issuance factor is exactly 1e6") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(200000000000000000 [2e17], 200000000000 [2e11], "grown stalk inflated") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2669847] → new Diamond@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: Test31275: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [970208] → new DiamondCutFacet@0x83B4EEa426B7328eB3bE89cDb558F18BAF6A2Bf7
+    │   │   └─ ← [Return] 4846 bytes of code
+    │   ├─ [304343] → new DiamondLoupeFacet@0xf5Ba21691a8bC011B7b430854B41d5be0B78b938
+    │   │   └─ ← [Return] 1520 bytes of code
+    │   ├─ emit DiamondCut(_diamondCut: [FacetCut({ facetAddress: 0x83B4EEa426B7328eB3bE89cDb558F18BAF6A2Bf7, action: 0, functionSelectors: [0x1f931c1c] }), FacetCut({ facetAddress: 0xf5Ba21691a8bC011B7b430854B41d5be0B78b938, action: 0, functionSelectors: [0x7a0ed627, 0xadfca15e, 0x52ef6b2c, 0xcdffacc6, 0x01ffc9a7] })], _init: 0x0000000000000000000000000000000000000000, _calldata: 0x)
+    │   ├─  storage changes:
+    │   │   @ 0x9f0ce991cd9c4f6eaf19f214129f7a5c88ce0f46a01a0f164d4f0d44366a92a8: 0 → 0x00000000000000000000000083b4eea426b7328eb3be89cdb558f18baf6a2bf7
+    │   │   @ 0x7e824bed63bf94881fc97011f0270acd50c389834ee37911f16b07808d890403: 0 → 0x000000000000000000000003f5ba21691a8bc011b7b430854b41d5be0b78b938
+    │   │   @ 0xc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c131e: 0 → 2
+    │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbef: 0 → 0x00000000000000000000000083b4eea426b7328eb3be89cdb558f18baf6a2bf7
+    │   │   @ 0x3ec21c6dcd9382ec0fa3d18bee52adfd71ddb22b628a00f238170a821a6b2208: 0 → 0x000000000000000000000002f5ba21691a8bc011b7b430854b41d5be0b78b938
+    │   │   @ 0xf351bb3e9192d1eabca03dacafe105045bb9e97ad4498f383de550f2a3921140: 0 → 0x000000000000000000000000000000000000000000000000000000001f931c1c
+    │   │   @ 0x35622f1d0b04c07cb5a47e54720c020a70fad8f20e87cca4ffc3c7efe2b06154: 0 → 0x00000000000000000000000001ffc9a7cdffacc652ef6b2cadfca15e7a0ed627
+    │   │   @ 0xe0170198fbf08e9fdb945a6cf578a9db0e7d6ca0563331faab33b2c3d0c72a20: 0 → 0x000000000000000000000000f5ba21691a8bc011b7b430854b41d5be0b78b938
+    │   │   @ 0x3f29116674987e98eb0f96df01fa13e800fdb64781a14785d3f1362bac256536: 0 → 1
+    │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf0: 0 → 0x000000000000000000000000f5ba21691a8bc011b7b430854b41d5be0b78b938
+    │   │   @ 0x3f29116674987e98eb0f96df01fa13e800fdb64781a14785d3f1362bac256535: 0 → 5
+    │   │   @ 0x5621d05b0910e7a1266a379a87d1d35a494f8fd5c4a248b1d27660b9f3341a7c: 0 → 1
+    │   │   @ 0x1195f22fc5c3c69ae18b72d73472cbf13573848de16f4899c9282958aa9adff2: 0 → 0x000000000000000000000004f5ba21691a8bc011b7b430854b41d5be0b78b938
+    │   │   @ 0xc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0x87e39d749ae586f8bf058f9a62f77d96b9526676fee1fa0c841eaac56f135db9: 0 → 0x000000000000000000000001f5ba21691a8bc011b7b430854b41d5be0b78b938
+    │   └─ ← [Return] 4835 bytes of code
+    ├─ [205451] → new SetupFacet@0x1d1499e622D69689cdf9004d05Ec547d650Ff211
+    │   └─ ← [Return] 1026 bytes of code
+    ├─ [276518] → new SiloViewFacetV1@0xA4AD4f68d0b91CFD19687c881e50f3A00242828c
+    │   └─ ← [Return] 1381 bytes of code
+    ├─ [291931] → new WhitelistFacetV1@0x03A6a84cD762D9707A21605b548aaaB891562aAb
+    │   └─ ← [Return] 1458 bytes of code
+    ├─ [513433] Diamond::fallback([FacetCut({ facetAddress: 0x1d1499e622D69689cdf9004d05Ec547d650Ff211, action: 0, functionSelectors: [0xa66b14c3, 0x4430c606, 0xa57c50ed, 0x64ad4402, 0x26ec43e7, 0xbcb39621] }), FacetCut({ facetAddress: 0xA4AD4f68d0b91CFD19687c881e50f3A00242828c, action: 0, functionSelectors: [0xabed2d41, 0x8915ba24] }), FacetCut({ facetAddress: 0x03A6a84cD762D9707A21605b548aaaB891562aAb, action: 0, functionSelectors: [0xf18d9ed0] })], 0x0000000000000000000000000000000000000000, 0x)
+    │   ├─ [511519] DiamondCutFacet::diamondCut([FacetCut({ facetAddress: 0x1d1499e622D69689cdf9004d05Ec547d650Ff211, action: 0, functionSelectors: [0xa66b14c3, 0x4430c606, 0xa57c50ed, 0x64ad4402, 0x26ec43e7, 0xbcb39621] }), FacetCut({ facetAddress: 0xA4AD4f68d0b91CFD19687c881e50f3A00242828c, action: 0, functionSelectors: [0xabed2d41, 0x8915ba24] }), FacetCut({ facetAddress: 0x03A6a84cD762D9707A21605b548aaaB891562aAb, action: 0, functionSelectors: [0xf18d9ed0] })], 0x0000000000000000000000000000000000000000, 0x) [delegatecall]
+    │   │   ├─ emit DiamondCut(_diamondCut: [FacetCut({ facetAddress: 0x1d1499e622D69689cdf9004d05Ec547d650Ff211, action: 0, functionSelectors: [0xa66b14c3, 0x4430c606, 0xa57c50ed, 0x64ad4402, 0x26ec43e7, 0xbcb39621] }), FacetCut({ facetAddress: 0xA4AD4f68d0b91CFD19687c881e50f3A00242828c, action: 0, functionSelectors: [0xabed2d41, 0x8915ba24] }), FacetCut({ facetAddress: 0x03A6a84cD762D9707A21605b548aaaB891562aAb, action: 0, functionSelectors: [0xf18d9ed0] })], _init: 0x0000000000000000000000000000000000000000, _calldata: 0x)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf1: 0 → 0x0000000000000000000000001d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   │   @ 0xdc7c2376f92d422a78f4cccafd99cf8e6a574335a81f8e858a83a9f73fa2ec80: 0 → 0x0000000000000000000000051d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   │   @ 0xdc913fc575e94199d56fd110d3733e5b01d1315568978827dd20ea2d40bd5dd6: 0 → 2
+    │   │   │   @ 0x645440746548d62be797ec74687f8e2c2ef76c99369114d2568b91b6826af42f: 0 → 0x000000000000000000000000a4ad4f68d0b91cfd19687c881e50f3a00242828c
+    │   │   │   @ 0xc3548e526889d1c62e607933aa062f4742803e8099283d8db8e5cd9d0bceb1ed: 0 → 0x000000000000000000000001a4ad4f68d0b91cfd19687c881e50f3a00242828c
+    │   │   │   @ 0xac385e5d752c84bc1e0b55ca992ba4bae11feedfc8d36c16dfc3993c45a41ad7: 0 → 0x0000000000000000000000001d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   │   @ 0x7dde96a95422676bf9c5f7a60a6dc592d887b699df6d70cb971686708fb02d12: 0 → 6
+    │   │   │   @ 0x7dde96a95422676bf9c5f7a60a6dc592d887b699df6d70cb971686708fb02d13: 0 → 2
+    │   │   │   @ 0x618264d530f2c0ff6029c7e08ed96c5b52dfc20bffda09909181e0dd80e4eb69: 0 → 0x0000000000000000000000031d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   │   @ 0xdc913fc575e94199d56fd110d3733e5b01d1315568978827dd20ea2d40bd5dd7: 0 → 3
+    │   │   │   @ 0x1bd9292eb02beefe7bf182c8fa229f352c19ed70682f2c7c9a1c90ac446511e7: 0 → 0x0000000000000000000000021d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   │   @ 0xe0b1c829861b4a2d4ea828ec436e40176aa3767b3cef6a7a1b08a62cd05a7e60: 0 → 4
+    │   │   │   @ 0xe0b1c829861b4a2d4ea828ec436e40176aa3767b3cef6a7a1b08a62cd05a7e5f: 0 → 1
+    │   │   │   @ 0x92e73bab9a84458b4464bd735edd2b121a6748033941e9ed3eb39a6c57967a43: 0 → 0x0000000000000000000000011d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   │   @ 0x4820484d4a7f037d6db28597a011e618a38d9e620019dda6d0a58d997a200b19: 0 → 0x0000000000000000bcb3962126ec43e764ad4402a57c50ed4430c606a66b14c3
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf3: 0 → 0x00000000000000000000000003a6a84cd762d9707a21605b548aaab891562aab
+    │   │   │   @ 0x2c75552ef2a66483302eaa6acadec878713845865cf2b37ba80e16ed0ca46a3e: 0 → 0x00000000000000000000000003a6a84cd762d9707a21605b548aaab891562aab
+    │   │   │   @ 0xec0ec5c9d1a767958d1bffa5fb6e9548ebe7ec477a5134a3d94e02229ce28bf7: 0 → 0x0000000000000000000000000000000000000000000000008915ba24abed2d41
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf2: 0 → 0x000000000000000000000000a4ad4f68d0b91cfd19687c881e50f3a00242828c
+    │   │   │   @ 0xc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c131e: 2 → 5
+    │   │   │   @ 0xdf61ac85572f40598a0d004642b23c9f7bca2fd8906f451f92353b3d37d48943: 0 → 0x00000000000000000000000000000000000000000000000000000000f18d9ed0
+    │   │   │   @ 0x4a9d65de27d089c0d77455be3c3b45d00f075c57b528db9cb8e96bb14f0fd6ba: 0 → 0x0000000000000000000000041d1499e622d69689cdf9004d05ec547d650ff211
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [22949] Diamond::fallback(100)
+    │   ├─ [21201] SetupFacet::setSeason(100) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 100
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [23409] Diamond::fallback(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6], 100, 0)
+    │   ├─ [21646] SetupFacet::whitelistToken(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6], 100, 0) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4139433f517683aaea322b3ef75e342a50b32b00b4b7695992613e9830a91611: 0 → 0x000000000000000000000000000000000000006400000000001e848000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [23489] Diamond::fallback(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 0, 1000000000 [1e9])
+    │   ├─ [21726] SetupFacet::simulateDeposit(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 0, 1000000000 [1e9]) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb29f1343ab3744dae3c0345c6a76292b7e0c2c009d9f187b5cb6c16bc1165c02: 0 → 0x000000000000000000000000000000003b9aca00000000000000000000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [3749] Diamond::fallback(200)
+    │   ├─ [2001] SetupFacet::setSeason(200) [delegatecall]
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 100 → 200
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [239081] → new WhitelistFacetV2@0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF
+    │   └─ ← [Return] 1194 bytes of code
+    ├─ [278318] → new SiloViewFacetV2@0x15cF58144EF33af1e14b5208015d11F9143E27b9
+    │   └─ ← [Return] 1390 bytes of code
+    ├─ [309203] Diamond::fallback([FacetCut({ facetAddress: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, action: 1, functionSelectors: [0xf18d9ed0] }), FacetCut({ facetAddress: 0x15cF58144EF33af1e14b5208015d11F9143E27b9, action: 1, functionSelectors: [0xabed2d41, 0x8915ba24] })], 0x0000000000000000000000000000000000000000, 0x)
+    │   ├─ [307356] DiamondCutFacet::diamondCut([FacetCut({ facetAddress: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, action: 1, functionSelectors: [0xf18d9ed0] }), FacetCut({ facetAddress: 0x15cF58144EF33af1e14b5208015d11F9143E27b9, action: 1, functionSelectors: [0xabed2d41, 0x8915ba24] })], 0x0000000000000000000000000000000000000000, 0x) [delegatecall]
+    │   │   ├─ emit DiamondCut(_diamondCut: [FacetCut({ facetAddress: 0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF, action: 1, functionSelectors: [0xf18d9ed0] }), FacetCut({ facetAddress: 0x15cF58144EF33af1e14b5208015d11F9143E27b9, action: 1, functionSelectors: [0xabed2d41, 0x8915ba24] })], _init: 0x0000000000000000000000000000000000000000, _calldata: 0x)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf3: 0x00000000000000000000000003a6a84cd762d9707a21605b548aaab891562aab → 0x000000000000000000000000d6bbde9174b1cdaa358d2cf4d57d1a9f7178fbff
+    │   │   │   @ 0xdf61ac85572f40598a0d004642b23c9f7bca2fd8906f451f92353b3d37d48943: 0x00000000000000000000000000000000000000000000000000000000f18d9ed0 → 0
+    │   │   │   @ 0x2c75552ef2a66483302eaa6acadec878713845865cf2b37ba80e16ed0ca46a3e: 0x00000000000000000000000003a6a84cd762d9707a21605b548aaab891562aab → 0x000000000000000000000000d6bbde9174b1cdaa358d2cf4d57d1a9f7178fbff
+    │   │   │   @ 0x0d567c76554ff427cd46ae21cb43d2911770f8e32bd9041904e7d344ccdf4a46: 0 → 2
+    │   │   │   @ 0xb5c239a29faf02594141bbc5e6982a9b85ba2b4d59c3ed3baaf4cb8e5e11cbf2: 0x000000000000000000000000a4ad4f68d0b91cfd19687c881e50f3a00242828c → 0x00000000000000000000000015cf58144ef33af1e14b5208015d11f9143e27b9
+    │   │   │   @ 0xf0d0a4c1fa5634e057052951c52670ef24b6e543852a04e144506ddaea885d78: 0 → 1
+    │   │   │   @ 0xec0ec5c9d1a767958d1bffa5fb6e9548ebe7ec477a5134a3d94e02229ce28bf7: 0x0000000000000000000000000000000000000000000000008915ba24abed2d41 → 0
+    │   │   │   @ 0x0d567c76554ff427cd46ae21cb43d2911770f8e32bd9041904e7d344ccdf4a47: 0 → 3
+    │   │   │   @ 0x645440746548d62be797ec74687f8e2c2ef76c99369114d2568b91b6826af42f: 0x000000000000000000000000a4ad4f68d0b91cfd19687c881e50f3a00242828c → 0x00000000000000000000000015cf58144ef33af1e14b5208015d11f9143e27b9
+    │   │   │   @ 0xf0d0a4c1fa5634e057052951c52670ef24b6e543852a04e144506ddaea885d79: 0 → 4
+    │   │   │   @ 0xe0b1c829861b4a2d4ea828ec436e40176aa3767b3cef6a7a1b08a62cd05a7e5f: 1 → 0
+    │   │   │   @ 0xdc913fc575e94199d56fd110d3733e5b01d1315568978827dd20ea2d40bd5dd6: 2 → 0
+    │   │   │   @ 0xe0b1c829861b4a2d4ea828ec436e40176aa3767b3cef6a7a1b08a62cd05a7e60: 4 → 0
+    │   │   │   @ 0xaf2269555f2f0c79c09915f4af1884a4405b216ac7b29920f7284d634727acca: 0 → 0x0000000000000000000000000000000000000000000000008915ba24abed2d41
+    │   │   │   @ 0xdc913fc575e94199d56fd110d3733e5b01d1315568978827dd20ea2d40bd5dd7: 3 → 0
+    │   │   │   @ 0x06548d578c65e6b6a92e8017e07c8a87d1f79cac75b40782711505b35ab5b058: 0 → 0x00000000000000000000000000000000000000000000000000000000f18d9ed0
+    │   │   │   @ 0xc3548e526889d1c62e607933aa062f4742803e8099283d8db8e5cd9d0bceb1ed: 0x000000000000000000000001a4ad4f68d0b91cfd19687c881e50f3a00242828c → 0x00000000000000000000000115cf58144ef33af1e14b5208015d11f9143e27b9
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [13238] Diamond::fallback(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6])
+    │   ├─ [11487] WhitelistFacetV2::updateStalkPerBdvPerSeasonForToken(0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, 2000000 [2e6]) [delegatecall]
+    │   │   ├─ emit UpdatedStalkPerBdvPerSeason(token: 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab, stalkEarnedPerSeason: 2000000 [2e6], season: 200)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4139433f517683aaea322b3ef75e342a50b32b00b4b7695992613e9830a91611: 0x000000000000000000000000000000000000006400000000001e848000000000 → 0x0000000000000000000000000bebc200000000c800000000001e848000000000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [9120] Diamond::fallback(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [staticcall]
+    │   ├─ [7366] SiloViewFacetV2::balanceOfGrownStalk(0xd2905170720000000000000000000000000d0001, 0xBEA0000029AD1c77D3d5D23Ba2D8893dB9d1Efab) [delegatecall]
+    │   │   └─ ← [Return] 200000000000 [2e11]
+    │   └─ ← [Return] 200000000000 [2e11]
+    ├─ emit log_named_uint(key: "grownStalk AFTER correct upgrade (SiloFacet re-cut)", val: 200000000000 [2e11])
+    ├─ [0] VM::assertEq(200000000000 [2e11], 200000000000 [2e11], "correct upgrade is backward-compatible") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(200000000000 [2e11], 200000000000 [2e11], "correct grown stalk value") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertTrue(true, "facet omission causes the over-issuance") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_uint(key: "EXCESS Stalk over-issued (units, 1e10=1 Stalk)", val: 199999800000000000 [1.999e17])
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 6.59ms (6.32ms CPU time)
+
+Ran 1 test suite in 127.34ms (6.59ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

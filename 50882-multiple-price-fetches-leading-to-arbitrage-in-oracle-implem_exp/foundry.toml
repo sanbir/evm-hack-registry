@@ -1,0 +1,16 @@
+[profile.default]
+src = 'src/nlx/contracts/oracle'
+out = 'out'
+libs = ['lib']
+test = 'test'
+evm_version = 'paris'
+remappings = [
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
+  '@pythnetwork/pyth-sdk-solidity/=src/pyth/',
+  'prb-math/=src/prb-math/',
+  'hardhat/=src/hardhat/'
+]
+
+[fmt]
+line_length = 120
+tab_width = 4

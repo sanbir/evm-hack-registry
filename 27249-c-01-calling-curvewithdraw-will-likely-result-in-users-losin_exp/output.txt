@@ -1,0 +1,163 @@
+Compiling 36 files with Solc 0.8.18
+Solc 0.8.18 finished in 1.71s
+Compiler run successful!
+
+Ran 2 tests for test/27249-c-01-calling-curvewithdraw-will-likely-result-in-users-losin_exp.sol:Pino_Curve_Withdraw_StrandsETH
+[PASS] test_27249_withdrawOneCoin_wraps_and_is_recoverable() (gas: 140700)
+Traces:
+  [2937736] Pino_Curve_Withdraw_StrandsETH::setUp()
+    ├─ [379618] → new MockWETH9@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1896 bytes of code
+    ├─ [398116] → new MockERC20@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1758 bytes of code
+    ├─ [548263] → new MockCurveEthPool@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2737 bytes of code
+    ├─ [1409026] → new Curve@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: Pino_Curve_Withdraw_StrandsETH: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 6795 bytes of code
+    └─ ← [Stop]
+
+  [181141] Pino_Curve_Withdraw_StrandsETH::test_27249_withdrawOneCoin_wraps_and_is_recoverable()
+    ├─ [0] VM::deal(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return]
+    ├─ [63406] Curve::deposit{value: 1000000000000000000}([1000000000000000000 [1e18], 0], 0, MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ [46763] MockCurveEthPool::add_liquidity{value: 1000000000000000000}([1000000000000000000 [1e18], 0], 0)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─ emit Deposit(_caller: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], _pool: MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─  storage changes:
+    │   │   @ 0: 1 → 2
+    │   └─ ← [Stop]
+    ├─ [562] MockCurveEthPool::balanceOf(Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "router should hold LP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "user spent 1 ETH into the position") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return]
+    ├─ [43948] Curve::withdrawOneCoinU(1000000000000000000 [1e18], 0, 0, MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ [8135] MockCurveEthPool::remove_liquidity_one_coin(1000000000000000000 [1e18], 0, 0)
+    │   │   ├─ [55] Curve::receive{value: 1000000000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   @ 0: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   ├─ [23917] MockWETH9::deposit{value: 1000000000000000000}()
+    │   │   ├─ emit Deposit(dst: Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], wad: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6aabb5e3159f63e459180f984db14c38dd83524ae5f05f37086f1b3a53e50715: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─ emit Withdraw(_caller: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], _pool: MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [544] MockWETH9::balanceOf(Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "one-coin path wraps ETH to WETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "no raw ETH stranded on the one-coin path") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return]
+    ├─ [42738] Curve::unwrapWETH9(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   ├─ [544] MockWETH9::balanceOf(Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   ├─ [9095] MockWETH9::withdraw(1000000000000000000 [1e18])
+    │   │   ├─ [55] Curve::receive{value: 1000000000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], wad: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6aabb5e3159f63e459180f984db14c38dd83524ae5f05f37086f1b3a53e50715: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [0] user::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "user fully recovers 1 ETH on the one-coin path") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_27249_withdraw_strands_user_eth() (gas: 123512)
+Traces:
+  [2937736] Pino_Curve_Withdraw_StrandsETH::setUp()
+    ├─ [379618] → new MockWETH9@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1896 bytes of code
+    ├─ [398116] → new MockERC20@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1758 bytes of code
+    ├─ [548263] → new MockCurveEthPool@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2737 bytes of code
+    ├─ [1409026] → new Curve@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: Pino_Curve_Withdraw_StrandsETH: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 6795 bytes of code
+    └─ ← [Stop]
+
+  [159656] Pino_Curve_Withdraw_StrandsETH::test_27249_withdraw_strands_user_eth()
+    ├─ [0] VM::deal(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return]
+    ├─ [63406] Curve::deposit{value: 1000000000000000000}([1000000000000000000 [1e18], 0], 0, MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0)
+    │   ├─ [46763] MockCurveEthPool::add_liquidity{value: 1000000000000000000}([1000000000000000000 [1e18], 0], 0)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─ emit Deposit(_caller: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], _pool: MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─  storage changes:
+    │   │   @ 0: 1 → 2
+    │   └─ ← [Stop]
+    ├─ [562] MockCurveEthPool::balanceOf(Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "router should hold LP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "user spent 1 ETH into the position") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return]
+    ├─ [15035] Curve::withdraw(1000000000000000000 [1e18], [0, 0], MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ [12819] MockCurveEthPool::remove_liquidity(1000000000000000000 [1e18], [0, 0])
+    │   │   ├─ emit Transfer(from: Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: 0x0000000000000000000000000000000000000000, value: 1000000000000000000 [1e18])
+    │   │   ├─ [55] Curve::receive{value: 1000000000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ emit Withdraw(_caller: user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D], _pool: MockCurveEthPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "1 ETH stranded in router") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2544] MockWETH9::balanceOf(Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "withdraw did not wrap ETH to WETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   └─ ← [Return]
+    ├─ [1285] Curve::unwrapWETH9(user: [0x6CA6d1e2D5347Bfab1d91e883F1915560e09129D])
+    │   ├─ [544] MockWETH9::balanceOf(Curve: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(0, 0, "user recovered ZERO ETH from the withdrawal") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "ETH still stuck after unwrap attempt") [staticcall]
+    │   └─ ← [Return]
+    ├─ [34546] Curve::withdrawAdmin(attacker: [0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e])
+    │   ├─ [0] attacker::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "attacker/owner gains the user's 1 ETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "router drained by owner") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "user permanently lost 1 ETH") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 1.20ms (1.21ms CPU time)
+
+Ran 1 test suite in 122.92ms (1.20ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

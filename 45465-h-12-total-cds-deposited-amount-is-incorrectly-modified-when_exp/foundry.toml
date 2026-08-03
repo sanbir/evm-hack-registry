@@ -1,0 +1,14 @@
+[profile.default]
+src = 'src'
+out = 'out'
+libs = ['lib']
+test = 'test'
+solc = '0.8.22'
+evm_version = 'paris'
+optimizer = true
+optimizer_runs = 100
+via_ir = true
+libraries = [
+  'src/lib/CDSLib.sol:CDSLib:0x0000000000000000000000000000000000000cD5',
+  'src/lib/BorrowLib.sol:BorrowLib:0x0000000000000000000000000000000000000B0b'
+]

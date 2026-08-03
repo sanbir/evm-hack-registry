@@ -1,0 +1,191 @@
+Compiling 45 files with Solc 0.8.17
+Solc 0.8.17 finished in 2.73s
+Compiler run successful!
+
+Ran 1 test for test/18534-h-2-earlier-users-in-rollover-queue-can-grief-later-users-sh_exp.sol:PoC_18534
+[PASS] testEarlierUserGriefsLaterUserRollover() (gas: 404987)
+Traces:
+  [5745966] PoC_18534::setUp()
+    ├─ [0] VM::warp(1675884389 [1.675e9])
+    │   └─ ← [Return]
+    ├─ [389016] → new Y2KMockToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1602 bytes of code
+    ├─ [389016] → new Y2KMockToken@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1602 bytes of code
+    ├─ [4235069] → new Carousel@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 19779 bytes of code
+    ├─ [46659] Y2KMockToken::mint(0x00000000000000000000000000000000000A11cE, 100000000000000000000 [1e20])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, value: 100000000000000000000 [1e20])
+    │   └─ ← [Stop]
+    ├─ [24759] Y2KMockToken::mint(0x0000000000000000000000000000000000000B0b, 100000000000000000000 [1e20])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0000000000000000000000000000000000000B0b, value: 100000000000000000000 [1e20])
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Return]
+    ├─ [24523] Y2KMockToken::approve(Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: 0x00000000000000000000000000000000000A11cE, spender: Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000000B0b)
+    │   └─ ← [Return]
+    ├─ [24523] Y2KMockToken::approve(Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: 0x0000000000000000000000000000000000000B0b, spender: Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   └─ ← [Return] true
+    ├─ [67956] Carousel::setEpoch(1675970789 [1.675e9], 1676057189 [1.676e9], 1)
+    │   └─ ← [Stop]
+    ├─ [3008] Carousel::setEmissions(1, 0)
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Return]
+    ├─ [104015] Carousel::deposit(1, 10000000000000000000 [1e19], 0x00000000000000000000000000000000000A11cE)
+    │   ├─ [25442] Y2KMockToken::transferFrom(0x00000000000000000000000000000000000A11cE, Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 10000000000000000000 [1e19])
+    │   │   ├─ emit Transfer(from: 0x00000000000000000000000000000000000A11cE, to: Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 10000000000000000000 [1e19])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TransferSingle(operator: 0x00000000000000000000000000000000000A11cE, from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, id: 1, value: 10000000000000000000 [1e19])
+    │   ├─ emit TransferSingleEmissions(operator: 0x00000000000000000000000000000000000A11cE, from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, id: 1, value: 10000000000000000000 [1e19])
+    │   ├─ emit Deposit(caller: 0x00000000000000000000000000000000000A11cE, owner: 0x00000000000000000000000000000000000A11cE, id: 1, assets: 10000000000000000000 [1e19])
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000000B0b)
+    │   └─ ← [Return]
+    ├─ [60215] Carousel::deposit(1, 10000000000000000000 [1e19], 0x0000000000000000000000000000000000000B0b)
+    │   ├─ [3542] Y2KMockToken::transferFrom(0x0000000000000000000000000000000000000B0b, Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 10000000000000000000 [1e19])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000B0b, to: Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 10000000000000000000 [1e19])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TransferSingle(operator: 0x0000000000000000000000000000000000000B0b, from: 0x0000000000000000000000000000000000000000, to: 0x0000000000000000000000000000000000000B0b, id: 1, value: 10000000000000000000 [1e19])
+    │   ├─ emit TransferSingleEmissions(operator: 0x0000000000000000000000000000000000000B0b, from: 0x0000000000000000000000000000000000000000, to: 0x0000000000000000000000000000000000000B0b, id: 1, value: 10000000000000000000 [1e19])
+    │   ├─ emit Deposit(caller: 0x0000000000000000000000000000000000000B0b, owner: 0x0000000000000000000000000000000000000B0b, id: 1, assets: 10000000000000000000 [1e19])
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Return]
+    ├─ [114039] Carousel::enlistInRollover(1, 10000000000000000000 [1e19], 0x00000000000000000000000000000000000A11cE)
+    │   ├─ emit RolloverQueued(sender: 0x00000000000000000000000000000000000A11cE, assets: 10000000000000000000 [1e19], epochId: 1)
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x0000000000000000000000000000000000000B0b)
+    │   └─ ← [Return]
+    ├─ [92139] Carousel::enlistInRollover(1, 10000000000000000000 [1e19], 0x0000000000000000000000000000000000000B0b)
+    │   ├─ emit RolloverQueued(sender: 0x0000000000000000000000000000000000000B0b, assets: 10000000000000000000 [1e19], epochId: 1)
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+  [444987] PoC_18534::testEarlierUserGriefsLaterUserRollover()
+    ├─ [0] VM::warp(1676057190 [1.676e9])
+    │   └─ ← [Return]
+    ├─ [53656] Carousel::resolveEpoch(1)
+    │   ├─  storage changes:
+    │   │   @ 0x8c6065603763fec3f5742441d3833f3f43b982453612d76adb39a885e3006b5f: 0 → 1
+    │   │   @ 0xd421a5181c571bba3f01190c922c3b2a896fc1d84e86c9f17ac10e67ebef8b5c: 0 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   └─ ← [Stop]
+    ├─ [494] Carousel::finalTVL(1) [staticcall]
+    │   └─ ← [Return] 20000000000000000000 [2e19]
+    ├─ [23106] Carousel::setClaimTVL(1, 40000000000000000000 [4e19])
+    │   ├─  storage changes:
+    │   │   @ 0xfd54ff1ed53f34a900b24c5ba64f85761163b5d82d98a47b9bd80e45466993c5: 0 → 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000
+    │   └─ ← [Stop]
+    ├─ [74756] Carousel::setEpoch(1676143590 [1.676e9], 1676229990 [1.676e9], 2)
+    │   ├─  storage changes:
+    │   │   @ 0x08037d7b151cc412d25674a4e66b334d9ae9d2e5517a7feaae5cdb828bf1c628: 0 → 1
+    │   │   @ 11: 2 → 3
+    │   │   @ 0xa74ba3945261e09fde15ba3db55005b205e61eeb4ad811ac0faa2b315bffeead: 0 → 0x00000000000000000000000000000000000063e69a660063e93d660063e7ebe6
+    │   │   @ 0x0175b7a638427703f0dbe7bb9bbf987a2551717b34e79f33b5b1008d1fa01dbb: 0 → 2
+    │   └─ ← [Stop]
+    ├─ [2349] Carousel::getRolloverQueueLenght() [staticcall]
+    │   └─ ← [Return] 2
+    ├─ [0] VM::assertEq(2, 2, "queue should hold Alice + Bob") [staticcall]
+    │   └─ ← [Return]
+    ├─ [205595] Carousel::mintRollovers(2, 1)
+    │   ├─ emit TransferSingle(operator: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x00000000000000000000000000000000000A11cE, to: 0x0000000000000000000000000000000000000000, id: 1, value: 10000000000000000000 [1e19])
+    │   ├─ emit TransferSingleEmissions(operator: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x00000000000000000000000000000000000A11cE, to: 0x0000000000000000000000000000000000000000, id: 1, value: 10000000000000000000 [1e19])
+    │   ├─ [7151] Y2KMockToken::transfer(0x00000000000000000000000000000000000A11cE, 0)
+    │   │   ├─ emit Transfer(from: Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: 0x00000000000000000000000000000000000A11cE, value: 0)
+    │   │   └─ ← [Return] true
+    │   ├─ emit Withdraw(caller: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], receiver: 0x00000000000000000000000000000000000A11cE, owner: 0x00000000000000000000000000000000000A11cE, id: 2, assets: 10000000000000000000 [1e19], shares: 20000000000000000000 [2e19])
+    │   ├─ emit TransferSingle(operator: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, id: 2, value: 9000000000000000000 [9e18])
+    │   ├─ emit TransferSingleEmissions(operator: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, id: 2, value: 9000000000000000000 [9e18])
+    │   ├─ emit Deposit(caller: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], owner: 0x00000000000000000000000000000000000A11cE, id: 2, assets: 9000000000000000000 [9e18])
+    │   ├─ [29851] Y2KMockToken::transfer(PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000 [1e18])
+    │   │   ├─ emit Transfer(from: Carousel: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: PoC_18534: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0xd518eb0c450b7cb6cde9c89785309342131a13b97904292f190d4079230ea42c: 0x000000000000000000000000000000000000000000000001158e460913d00000 → 0x00000000000000000000000000000000000000000000000107ad8f556c6c0000
+    │   │   └─ ← [Return] true
+    │   ├─ emit RelayerMinted(epochId: 2, operations: 1)
+    │   ├─  storage changes:
+    │   │   @ 0xc3a24b0501bd2c13a7e57f2db4369ec4c223447539fc0724a9d55ac4a06ebd4d: 0 → 0x0000000000000000000000000000000000000000000000007ce66c50e2840000
+    │   │   @ 0xeb9d989538bb39bcb81c753ed1f0d92fa6239277d60b38a1e202b7696c61547a: 0 → 0x0000000000000000000000000000000000000000000000007ce66c50e2840000
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c17: 1 → 2
+    │   │   @ 0x002c94f5e711752cf0b4c609ff090fd8e1c6e71d970edf2aac848779f307a7e7: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0
+    │   │   @ 0xa15bc60c955c405d20d9149c709e2460f1c2d9a497496a7f46004d1772c3054c: 0x000000000000000000000000000000000000000000000001158e460913d00000 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   @ 0x5300c494a21453d466bf7f2d490d7777e515d9d6173e6fa230d3d98827ffe916: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0
+    │   │   @ 0x6f678ad17c55bce407239525f4bf7f1fe99197d3eb69bfdd9a0db84a9a11b581: 0 → 1
+    │   │   @ 0x57f041239ef5286bfe0a168d057982c2becbbd67da4ed4c0e7da8bdcb36fa7a1: 0 → 0x0000000000000000000000000000000000000000000000007ce66c50e2840000
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c15: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0x0000000000000000000000000000000000000000000000007ce66c50e2840000
+    │   └─ ← [Stop]
+    ├─ [538] Carousel::rolloverAccounting(2) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "accounting advanced past Alice") [staticcall]
+    │   └─ ← [Return]
+    ├─ [3680] Carousel::getRolloverBalance(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 9000000000000000000 [9e18], 2
+    ├─ [0] VM::assertEq(2, 2, "Alice rolled into the new epoch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [746] Carousel::balanceOf(0x00000000000000000000000000000000000A11cE, 2) [staticcall]
+    │   └─ ← [Return] 9000000000000000000 [9e18]
+    ├─ [0] VM::assertEq(9000000000000000000 [9e18], 9000000000000000000 [9e18], "Alice minted new-epoch shares") [staticcall]
+    │   └─ ← [Return]
+    ├─ [3680] Carousel::getRolloverBalance(0x0000000000000000000000000000000000000B0b) [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19], 1
+    ├─ [0] VM::assertEq(1, 1, "Bob still queued for the resolved epoch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2746] Carousel::balanceOf(0x0000000000000000000000000000000000000B0b, 2) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "Bob has no new-epoch shares yet") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Return]
+    ├─ [23639] Carousel::delistInRollover(0x00000000000000000000000000000000000A11cE)
+    │   ├─  storage changes:
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c15: 0x0000000000000000000000000000000000000000000000007ce66c50e2840000 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c18: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0
+    │   │   @ 0x22ed3f1effc2118815b63c0386ec1b6f97dcdd908da173a400618cdee8dd2423: 2 → 1
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c16: 659918 → 2827
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c19: 2827 → 0
+    │   │   @ 0x12bd5d98e5ee2e53a841db13fde4aba15ff1f55f73889e210863245f3a534861: 1 → 0
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c1a: 1 → 0
+    │   │   @ 23: 2 → 1
+    │   │   @ 0xc624b66cc0138b8fabc209247f72d758e1cf3343756d543badbf24212bed8c17: 2 → 1
+    │   └─ ← [Stop]
+    ├─ [349] Carousel::getRolloverQueueLenght() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "queue shrank after delist") [staticcall]
+    │   └─ ← [Return]
+    ├─ [538] Carousel::rolloverAccounting(2) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "accounting NOT rewound") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1680] Carousel::getRolloverBalance(0x0000000000000000000000000000000000000B0b) [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19], 1
+    ├─ [0] VM::assertEq(1, 1, "Bob swapped into index 0, still on old epoch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [7969] Carousel::mintRollovers(2, 100)
+    │   ├─ emit RelayerMinted(epochId: 2, operations: 0)
+    │   └─ ← [Stop]
+    ├─ [746] Carousel::balanceOf(0x0000000000000000000000000000000000000B0b, 2) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "HARM: Bob got ZERO new-epoch shares") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1680] Carousel::getRolloverBalance(0x0000000000000000000000000000000000000B0b) [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19], 1
+    ├─ [0] VM::assertEq(1, 1, "HARM: Bob's rollover still stuck on the resolved epoch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2746] Carousel::balanceOf(0x0000000000000000000000000000000000000B0b, 1) [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19]
+    ├─ [0] VM::assertEq(10000000000000000000 [1e19], 10000000000000000000 [1e19], "HARM: Bob's funds stranded in old epoch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [538] Carousel::rolloverAccounting(2) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "HARM: relayer cannot advance past Bob") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.19ms (1.58ms CPU time)
+
+Ran 1 test suite in 135.93ms (3.19ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

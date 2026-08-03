@@ -1,0 +1,619 @@
+Compiling 89 files with Solc 0.8.17
+Solc 0.8.17 finished in 22.27s
+Compiler run successful!
+
+Ran 1 test for test/27331-h-01-custom-redemption-might-revert-if-old-assets-were-unreg_exp.sol:PoC_27331
+[PASS] test_customRedemption_bricked_after_old_asset_unregistered() (gas: 1470068)
+Traces:
+  [9113559] PoC_27331::setUp()
+    ├─ [0] VM::etch(0x8a6A5771513Da286B191417a57BAeb151F5D3320, 0x6080604052600436101561001257600080fd5b6000803560e01c63bb7dca481461002857600080fd5b307f00000000000000000000000000000000000000000000000000000000000000001461008d57608036600319011261008d57606435906001600160a01b038216820361008d576020610083836044356024356004356101bc565b6040519015158152f35b80fd5b600019811461009f5760010190565b634e487b7160e01b600052601160045260246000fd5b80548210156100cd5760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b90601f8019910116810190811067ffffffffffffffff82111761010557604052565b634e487b7160e01b600052604160045260246000fd5b67ffffffffffffffff81116101055760051b60200190565b9061013d8261011b565b61014a60405191826100e3565b828152809261015b601f199161011b565b0190602036910137565b80518210156100cd5760209160051b010190565b9081602091031261019857516001600160a01b03811681036101985790565b600080fd5b9081602091031261019857516001600160c01b03811681036101985790565b9092935b8354156101df576101d960206000868152205485610949565b506101c0565b815460005b81811061087a57505081546000835580610853575b5060005b8354811015610247578061021461024292866100b5565b60018060a01b0391549060031b1c166000526002850160205261023c604060002054876108c2565b50610090565b6101fd565b5092939093805461025781610133565b61026082610133565b9160005b86548110156105125760005b8281106104be575b828110156104a85761028a82896100b5565b919060018060a01b03809154600394851b1c1660005260209160018b01835260018060c01b0391604093828a856102c981896000205416968793610165565b51160185811161009f578d8f61032192888f866102e591610165565b91169052856102f48c836100b5565b9054908c1b1c16600052600281018552856103148c8b60002054936100b5565b9054908c1b1c1690610ba7565b8061049f575b610341575b5050505050505061033c90610090565b610264565b838561034d838d610165565b5116019685881161009f57828f988f9261038d8c8f610380828f8c9a978f6103778d9a8b97610165565b911690526100b5565b905490851b1c169c6100b5565b9054911b1c1691602489518095819363015e89a960e61b835260049687840152165afa9182156104945790839291600092610465575b508751630d9e8e6760e41b81529485928391165afa94851561045b57509361033c9695936104139361040e9361041a97600094610426575b505061040690610a39565b911690610a7c565b610a56565b908c610ab1565b9038808080808061032c565b610406929450908161044c92903d10610454575b61044481836100e3565b81019061019d565b9290386103fb565b503d61043a565b513d6000823e3d90fd5b610486919250833d851161048d575b61047e81836100e3565b810190610179565b90386103c3565b503d610474565b87513d6000823e3d90fd5b50831515610327565b634e487b7160e01b600052600160045260246000fd5b6104c881876100b5565b90546104d4848b6100b5565b9054600391821b1c6001600160a01b0316600090815260028c01602052604090205492901b1c1461050d5761050890610090565b610270565b610278565b5091949392909695966000955b838710610533575050505050505054151590565b60018060c09a989a999394959697991b0361054e8a83610165565b51166001600160c01b036105628b86610165565b51161015610842576000966105778a866100b5565b90549060031b1c885260038901602052604088208899600182019788549b5b8c811080610838575b15610605576105dd8b8f6105c5846105b88f938f6100b5565b90549060031b1c926100b5565b905460039190911b1c6001600160a01b031690610ba7565b6105f0575b6105eb90610090565b610596565b9a6105fd6105eb91610090565b9b90506105e2565b509b9499969a509190509693919685156108285760009a8b5b885481108061081f575b156108035761064c8761063b888f6100b5565b90549060031b1c6105c5848d6100b5565b61065f575b61065a90610090565b61061e565b9b61066a8d8a6100b5565b905460039190911b1c6001600160a01b03166001600160c01b0361068e888d610165565b51166001600160c01b036106a28989610165565b511690036001600160c01b03811161009f576106be8f8c6100b5565b60018060a01b0391549060031b1c1660405163015e89a960e61b815260049182820152806020818d602494859160018060a01b03165afa9081156107da5783916020916000916107e6575b50604051630d9e8e6760e41b815292839182906001600160a01b03165afa9081156107da576000916107bb575b506001600160c01b03169182158d84028490048e1417156107a85750508d6107a09361079561040e61065a97958f6107756107849161079b9802610a56565b916001600160c01b0316610a39565b6001600160c01b0390911690610a7c565b91610ab1565b610090565b9c9050610651565b601190634e487b7160e01b600052526000fd5b6107d4915060203d6020116104545761044481836100e3565b38610736565b6040513d6000823e3d90fd5b6107fd9150823d841161048d5761047e81836100e3565b38610709565b50989994965099509593509061081890610090565b959261051f565b50878d10610628565b9950505050505050505050600090565b5083548c1061059f565b929190969493959761081890610090565b826000526020600020908101905b81811061086e57506101f9565b60008155600101610861565b806108886108bd92866100b5565b905460039190911b1c6001600160a01b03166000908152600186016020526040902080546001600160c01b0319169055610090565b6101e4565b9190600183016000908282528060205260408220541560001461094357845494600160401b86101561092f578361091f610906886001604098999a018555846100b5565b819391549060031b600019811b9283911b169119161790565b9055549382526020522055600190565b634e487b7160e01b83526041600452602483fd5b50925050565b90600182019060009281845282602052604084205490811515600014610a325760001991808301818111610a1e57825490848201918211610a0a578082036109d5575b505050805480156109c1578201916109a483836100b5565b909182549160031b1b191690555582526020526040812055600190565b634e487b7160e01b86526031600452602486fd5b6109f56109e561090693866100b5565b90549060031b1c928392866100b5565b9055865284602052604086205538808061098c565b634e487b7160e01b88526011600452602488fd5b634e487b7160e01b87526011600452602487fd5b5050505090565b90670de0b6b3a76400009182810292818404149015171561009f57565b6001600160c01b0390808210610a6a571690565b60405163f44398f560e01b8152600490fd5b908015610a9b578082049106610a8f5790565b610a9890610090565b90565b634e487b7160e01b600052601260045260246000fd5b92916001600160c01b03908116918215610ba0576001600160a01b039081166000818152600187016020819052604082205491949093918116610b585750865496600160401b881015610b4457610b1388849260016040999a9b0181556100b5565b909283549160031b90811b9283911b169119161790558252602052209067ffffffffffffffff60c01b825416179055565b634e487b7160e01b85526041600452602485fd5b949195965050836040842054160193838511610b8c5782526020526040902080546001600160c01b03191691909216179055565b634e487b7160e01b83526011600452602483fd5b5050509050565b91906001600160a01b03908116908115610dcf578060409384519063015e89a960e61b825260049485830152816024816020968794165afa60009181610db0575b50610bf857505050505050600090565b845163fdfd591760e01b815291169482828581895afa918215610da557600092610d76575b50149384610cf1575b84610c92575b84610c38575050505090565b8382939495505193848092630d9e8e6760e41b82525afa92831561045b5750600092610c75575b50506001600160c01b0316151538808080610a32565b610c8b9250803d106104545761044481836100e3565b3880610c5f565b835163a7fa0faf60e01b815290945081818481885afa908115610ce657600091610cc9575b506001600160c01b0316151593610c2c565b610ce09150823d84116104545761044481836100e3565b38610cb7565b84513d6000823e3d90fd5b8351631006976960e11b815290945081818481885afa908115610ce657600091610d3c575b506003811015610d27571593610c26565b602183634e487b7160e01b6000525260246000fd5b8281813d8311610d6f575b610d5181836100e3565b81010312610d6b575190600382101561008d575038610d16565b5080fd5b503d610d47565b90918382813d8311610d9e575b610d8d81836100e3565b8101031261008d5750519038610c1d565b503d610d83565b85513d6000823e3d90fd5b610dc8919250843d861161048d5761047e81836100e3565b9038610be8565b5050505060009056fea164736f6c6343000811000a)
+    │   └─ ← [Return]
+    ├─ [145196] → new PoCMain@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 725 bytes of code
+    ├─ [114165] → new PoCBackingManager@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 570 bytes of code
+    ├─ [384684] → new MiniERC20@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1581 bytes of code
+    ├─ [384684] → new MiniERC20@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 1581 bytes of code
+    ├─ [384684] → new MiniERC20@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   └─ ← [Return] 1581 bytes of code
+    ├─ [171302] → new MiniCollateral@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   └─ ← [Return] 854 bytes of code
+    ├─ [171302] → new MiniCollateral@0x1d1499e622D69689cdf9004d05Ec547d650Ff211
+    │   └─ ← [Return] 854 bytes of code
+    ├─ [171302] → new MiniCollateral@0xA4AD4f68d0b91CFD19687c881e50f3A00242828c
+    │   └─ ← [Return] 854 bytes of code
+    ├─ [1771564] → new AssetRegistryP1@0x03A6a84cD762D9707A21605b548aaaB891562aAb
+    │   ├─ emit Initialized(version: 1)
+    │   └─ ← [Return] 8730 bytes of code
+    ├─ [57821] → new ERC1967Proxy@0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF
+    │   ├─ emit Upgraded(implementation: AssetRegistryP1: [0x03A6a84cD762D9707A21605b548aaaB891562aAb])
+    │   └─ ← [Return] 168 bytes of code
+    ├─ [4009684] → new BasketHandlerP1@0x15cF58144EF33af1e14b5208015d11F9143E27b9
+    │   ├─ emit Initialized(version: 1)
+    │   └─ ← [Return] 19907 bytes of code
+    ├─ [57821] → new ERC1967Proxy@0x212224D2F2d262cd093eE13240ca4873fcCBbA3C
+    │   ├─ emit Upgraded(implementation: BasketHandlerP1: [0x15cF58144EF33af1e14b5208015d11F9143E27b9])
+    │   └─ ← [Return] 168 bytes of code
+    ├─ [133346] PoCMain::setComponents(ERC1967Proxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], PoCBackingManager: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], ERC1967Proxy: [0x212224D2F2d262cd093eE13240ca4873fcCBbA3C], 0x0000000000000000000000000000000000dead01, 0x0000000000000000000000000000000000DEaD02, 0x0000000000000000000000000000000000deaD03)
+    │   └─ ← [Return]
+    ├─ [334110] ERC1967Proxy::fallback(PoCMain: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [0xa0Cb889707d426A7A386870A03bc70d1b0697598, 0x1d1499e622D69689cdf9004d05Ec547d650Ff211, 0xA4AD4f68d0b91CFD19687c881e50f3A00242828c])
+    │   ├─ [333749] AssetRegistryP1::init(PoCMain: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [0xa0Cb889707d426A7A386870A03bc70d1b0697598, 0x1d1499e622D69689cdf9004d05Ec547d650Ff211, 0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]) [delegatecall]
+    │   │   ├─ [313] PoCMain::basketHandler() [staticcall]
+    │   │   │   └─ ← [Return] ERC1967Proxy: [0x212224D2F2d262cd093eE13240ca4873fcCBbA3C]
+    │   │   ├─ [533] PoCMain::backingManager() [staticcall]
+    │   │   │   └─ ← [Return] PoCBackingManager: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ emit AssetRegistered(erc20: MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], asset: MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [182] PoCMain::frozen() [staticcall]
+    │   │   │   └─ ← [Return] false
+    │   │   ├─ [174] PoCBackingManager::grantRTokenAllowance(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ emit AssetRegistered(erc20: MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], asset: MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211])
+    │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [182] PoCMain::frozen() [staticcall]
+    │   │   │   └─ ← [Return] false
+    │   │   ├─ [174] PoCBackingManager::grantRTokenAllowance(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]
+    │   │   ├─ emit AssetRegistered(erc20: MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], asset: MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c])
+    │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [182] PoCMain::frozen() [staticcall]
+    │   │   │   └─ ← [Return] false
+    │   │   ├─ [174] PoCBackingManager::grantRTokenAllowance(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit Initialized(version: 1)
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [208655] ERC1967Proxy::fallback(PoCMain: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 60)
+    │   ├─ [208318] BasketHandlerP1::init(PoCMain: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 60) [delegatecall]
+    │   │   ├─ [445] PoCMain::assetRegistry() [staticcall]
+    │   │   │   └─ ← [Return] ERC1967Proxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]
+    │   │   ├─ [533] PoCMain::backingManager() [staticcall]
+    │   │   │   └─ ← [Return] PoCBackingManager: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+    │   │   ├─ [511] PoCMain::rsr() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000dead01
+    │   │   ├─ [335] PoCMain::rToken() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000DEaD02
+    │   │   ├─ [357] PoCMain::stRSR() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000deaD03
+    │   │   ├─ [339] PoCMain::hasRole(0x4f574e4552000000000000000000000000000000000000000000000000000000, PoC_27331: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit WarmupPeriodSet(oldVal: 0, newVal: 60)
+    │   │   ├─ emit Initialized(version: 1)
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+  [1842851] PoC_27331::test_customRedemption_bricked_after_old_asset_unregistered()
+    ├─ [304775] ERC1967Proxy::fallback([0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 0xc7183455a4C133Ae270771860664b6B7ec320bB1], [900000000000000000 [9e17], 50000000000000000 [5e16], 50000000000000000 [5e16]])
+    │   ├─ [299890] BasketHandlerP1::setPrimeBasket([0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 0xc7183455a4C133Ae270771860664b6B7ec320bB1], [900000000000000000 [9e17], 50000000000000000 [5e16], 50000000000000000 [5e16]]) [delegatecall]
+    │   │   ├─ [339] PoCMain::hasRole(0x4f574e4552000000000000000000000000000000000000000000000000000000, PoC_27331: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [9745] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [4908] AssetRegistryP1::toAsset(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [5245] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   ├─ [4908] AssetRegistryP1::toAsset(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [5245] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [4908] AssetRegistryP1::toAsset(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit PrimeBasketSet(erc20s: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 0xc7183455a4C133Ae270771860664b6B7ec320bB1], targetAmts: [900000000000000000 [9e17], 50000000000000000 [5e16], 50000000000000000 [5e16]], targetNames: [0x5553440000000000000000000000000000000000000000000000000000000000, 0x5553440000000000000000000000000000000000000000000000000000000000, 0x5553440000000000000000000000000000000000000000000000000000000000])
+    │   │   ├─  storage changes:
+    │   │   │   @ 206: 0 → 3
+    │   │   │   @ 0xd36cd1c74ef8d7326d8021b776c18fb5a5724b7f7bc93c2f42e43e10ef27d12a: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0x0a209eb196bf967d439066f8b7823564937718c204a5a4a06593b08c2dd8712d: 0 → 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   @ 0xde9b4c85c8853ffb24b691c6dd5b6e28223dcf76387ae28783ae06236d6d3f3a: 0 → 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   @ 0xd36cd1c74ef8d7326d8021b776c18fb5a5724b7f7bc93c2f42e43e10ef27d12b: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   @ 0x5f01b1db27ef510e38306bf21eae110c258c5f4c8f0b835ba055a8a29d679144: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   @ 0xdece9ddce981383386a8ef27bf39b1f0adeca4aeee2263b2b5d279ffd21d034c: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   @ 0xd36cd1c74ef8d7326d8021b776c18fb5a5724b7f7bc93c2f42e43e10ef27d12c: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0x17c673cdcf27d58a162200dd505fb9a423126ce08f99bf5bdca20636612422a5: 0 → 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   @ 0xa9017bd0f2800a36375f73f48e3ab19017e14decd0d103c39de6146a78d0ff2c: 0 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [668118] ERC1967Proxy::fallback()
+    │   ├─ [667787] BasketHandlerP1::refreshBasket() [delegatecall]
+    │   │   ├─ [45025] ERC1967Proxy::fallback()
+    │   │   │   ├─ [44694] AssetRegistryP1::refresh() [delegatecall]
+    │   │   │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [7181] ERC1967Proxy::fallback()
+    │   │   │   │   │   ├─ [6850] BasketHandlerP1::trackStatus() [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 206: 0 → 1
+    │   │   │   │   └─ ← [Return]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [339] PoCMain::hasRole(0x4f574e4552000000000000000000000000000000000000000000000000000000, PoC_27331: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [269954] 0x8a6A5771513Da286B191417a57BAeb151F5D3320::nextBasket() [delegatecall]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xdb164ed023a52ede3c14dee0eb311853a504b984dcffda156d3ab610ba46847c: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   │   @ 0x8a012a6de2943a5aa4d77acf5e695d4456760a3f1f30a5d6dc2079599187a073: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   │   @ 0x8a012a6de2943a5aa4d77acf5e695d4456760a3f1f30a5d6dc2079599187a072: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   │   @ 0x23452a64b91668be92e78dbea66dab386cddff82118f574d1b0fcae5e5bc06d9: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   │   @ 0x8ae1ed4397b09efaf0122d6371f9de5bc0222b79a303d62a342f4183624f8592: 0 → 1
+    │   │   │   │   @ 215: 0 → 3
+    │   │   │   │   @ 0x8a012a6de2943a5aa4d77acf5e695d4456760a3f1f30a5d6dc2079599187a071: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   │   @ 213: 0 → 1
+    │   │   │   │   @ 0x51858de9989bf7441865ebdadbf7382c8838edbf830f5d86a9a51ac773676dd6: 0 → 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   @ 0xd8c38222cdc7019a72724add36ea1526ceeaa26e4383e36d8ac348df85e859c2: 0 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─ emit BasketSet(nonce: 1, erc20s: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 0xc7183455a4C133Ae270771860664b6B7ec320bB1], refAmts: [900000000000000000 [9e17], 50000000000000000 [5e16], 50000000000000000 [5e16]], disabled: false)
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit BasketStatusChanged(oldStatus: 2, newStatus: 0)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6547: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   @ 0x111fc714774906fcaaefbaa4632084fe48ca5e5d6ed7fddf177ce21918541da7: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 210: 0 → 3
+    │   │   │   @ 0x111fc714774906fcaaefbaa4632084fe48ca5e5d6ed7fddf177ce21918541da6: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6548: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0x5c76748e096737486642f9e9771b2c3f0e7eb8a81e099b0dd8bf3454e67a55f0: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6546: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0x133f093f7d028f8a67c421410605326a1861861adb2e2fe4ad1fbc1a59c11f7b: 0 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   @ 0xec591a93557cf3b8a8437617263ab64317f4f5cac864ef4828f0617f0d4ae0b2: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   @ 0xeaeb95c9e14a6bf0964619d492536872257efb353478bb15327684716f5defaa: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   @ 0x6f5189339e0ca11dfbc0edf31f71ccecfb260325e1c94946ee6dfb0d72df0ea1: 0 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   @ 0x111fc714774906fcaaefbaa4632084fe48ca5e5d6ed7fddf177ce21918541da5: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0x886488c216350051cd561d37c9cd95ff3db0641814bd534cd5380467bddb77ce: 0 → 3
+    │   │   │   @ 212: 0x0000000000000000000000000000000000000001000000000000000000000000 → 0x0000000000000000000000000000000000000000000000000001000000000001
+    │   │   │   @ 217: 0x000000000000000000000000000000000000000200000000000100000000003c → 0x000000000000000000000000000000000000000000000000000100000000003c
+    │   │   │   @ 0x7f63268d6a2d5e86b5cb92e668241dbcccb01d523a89464bb11a802ba3889908: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [1013] ERC1967Proxy::fallback() [staticcall]
+    │   ├─ [679] BasketHandlerP1::nonce() [delegatecall]
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "historical basket nonce") [staticcall]
+    │   └─ ← [Return]
+    ├─ [870] ERC1967Proxy::fallback() [staticcall]
+    │   ├─ [536] AssetRegistryP1::size() [delegatecall]
+    │   │   └─ ← [Return] 3
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertEq(3, 3, "registry has 3 assets") [staticcall]
+    │   └─ ← [Return]
+    ├─ [51871] ERC1967Proxy::fallback([1], [1000000000000000000 [1e18]], 1000000000000000000 [1e18]) [staticcall]
+    │   ├─ [51468] BasketHandlerP1::quoteCustomRedemption([1], [1000000000000000000 [1e18]], 1000000000000000000 [1e18]) [delegatecall]
+    │   │   ├─ [870] ERC1967Proxy::fallback() [staticcall]
+    │   │   │   ├─ [536] AssetRegistryP1::size() [delegatecall]
+    │   │   │   │   └─ ← [Return] 3
+    │   │   │   └─ ← [Return] 3
+    │   │   ├─ [1245] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [908] AssetRegistryP1::toAsset(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   ├─ [1026] PoCBackingManager::mulDiv(1000000000000000000 [1e18], 900000000000000000 [9e17], 1000000000000000000 [1e18], 0) [staticcall]
+    │   │   │   └─ ← [Return] 900000000000000000 [9e17]
+    │   │   ├─ [5507] MiniCollateral::erc20Decimals() [staticcall]
+    │   │   │   ├─ [2374] MiniERC20::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [1245] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   ├─ [908] AssetRegistryP1::toAsset(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   ├─ [1026] PoCBackingManager::mulDiv(1000000000000000000 [1e18], 50000000000000000 [5e16], 1000000000000000000 [1e18], 0) [staticcall]
+    │   │   │   └─ ← [Return] 50000000000000000 [5e16]
+    │   │   ├─ [5507] MiniCollateral::erc20Decimals() [staticcall]
+    │   │   │   ├─ [2374] MiniERC20::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 6
+    │   │   │   └─ ← [Return] 6
+    │   │   ├─ [1245] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [908] AssetRegistryP1::toAsset(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   ├─ [1026] PoCBackingManager::mulDiv(1000000000000000000 [1e18], 50000000000000000 [5e16], 1000000000000000000 [1e18], 0) [staticcall]
+    │   │   │   └─ ← [Return] 50000000000000000 [5e16]
+    │   │   ├─ [5507] MiniCollateral::erc20Decimals() [staticcall]
+    │   │   │   ├─ [2374] MiniERC20::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   └─ ← [Return] 18
+    │   │   └─ ← [Return] [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 0xc7183455a4C133Ae270771860664b6B7ec320bB1], [900000 [9e5], 50000 [5e4], 50000000000000000 [5e16]]
+    │   └─ ← [Return] [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 0xc7183455a4C133Ae270771860664b6B7ec320bB1], [900000 [9e5], 50000 [5e4], 50000000000000000 [5e16]]
+    ├─ [0] VM::assertEq(3, 3, "custom redemption returns the 3 backing assets") [staticcall]
+    │   └─ ← [Return]
+    ├─ [278232] ERC1967Proxy::fallback([0xc7183455a4C133Ae270771860664b6B7ec320bB1, 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], [900000000000000000 [9e17], 100000000000000000 [1e17]])
+    │   ├─ [277859] BasketHandlerP1::setPrimeBasket([0xc7183455a4C133Ae270771860664b6B7ec320bB1, 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], [900000000000000000 [9e17], 100000000000000000 [1e17]]) [delegatecall]
+    │   │   ├─ [339] PoCMain::hasRole(0x4f574e4552000000000000000000000000000000000000000000000000000000, PoC_27331: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [1245] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [908] AssetRegistryP1::toAsset(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [1245] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [908] AssetRegistryP1::toAsset(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit PrimeBasketSet(erc20s: [0xc7183455a4C133Ae270771860664b6B7ec320bB1, 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], targetAmts: [900000000000000000 [9e17], 100000000000000000 [1e17]], targetNames: [0x5553440000000000000000000000000000000000000000000000000000000000, 0x5553440000000000000000000000000000000000000000000000000000000000])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa9017bd0f2800a36375f73f48e3ab19017e14decd0d103c39de6146a78d0ff2c: 0x0000000000000000000000000000000000000000000000000c7d713b49da0000 → 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   │   @ 0x5f01b1db27ef510e38306bf21eae110c258c5f4c8f0b835ba055a8a29d679144: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0
+    │   │   │   @ 0x17c673cdcf27d58a162200dd505fb9a423126ce08f99bf5bdca20636612422a5: 0x5553440000000000000000000000000000000000000000000000000000000000 → 0
+    │   │   │   @ 206: 3 → 2
+    │   │   │   @ 0xd36cd1c74ef8d7326d8021b776c18fb5a5724b7f7bc93c2f42e43e10ef27d12a: 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0xd36cd1c74ef8d7326d8021b776c18fb5a5724b7f7bc93c2f42e43e10ef27d12b: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0xdece9ddce981383386a8ef27bf39b1f0adeca4aeee2263b2b5d279ffd21d034c: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   @ 0xd36cd1c74ef8d7326d8021b776c18fb5a5724b7f7bc93c2f42e43e10ef27d12c: 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1 → 0
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [457944] ERC1967Proxy::fallback()
+    │   ├─ [457613] BasketHandlerP1::refreshBasket() [delegatecall]
+    │   │   ├─ [18773] ERC1967Proxy::fallback()
+    │   │   │   ├─ [18442] AssetRegistryP1::refresh() [delegatecall]
+    │   │   │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [427] MiniCollateral::refresh()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [12829] ERC1967Proxy::fallback()
+    │   │   │   │   │   ├─ [12498] BasketHandlerP1::trackStatus() [delegatecall]
+    │   │   │   │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [339] PoCMain::hasRole(0x4f574e4552000000000000000000000000000000000000000000000000000000, PoC_27331: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [198645] 0x8a6A5771513Da286B191417a57BAeb151F5D3320::nextBasket() [delegatecall]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   ├─ [447] MiniCollateral::targetName() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x5553440000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   ├─ [429] MiniCollateral::targetPerRef() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x8a012a6de2943a5aa4d77acf5e695d4456760a3f1f30a5d6dc2079599187a073: 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1 → 0
+    │   │   │   │   @ 0xdb164ed023a52ede3c14dee0eb311853a504b984dcffda156d3ab610ba46847c: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0
+    │   │   │   │   @ 0x8a012a6de2943a5aa4d77acf5e695d4456760a3f1f30a5d6dc2079599187a071: 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   │   @ 0x8a012a6de2943a5aa4d77acf5e695d4456760a3f1f30a5d6dc2079599187a072: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   │   @ 0x23452a64b91668be92e78dbea66dab386cddff82118f574d1b0fcae5e5bc06d9: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   │   @ 215: 3 → 2
+    │   │   │   │   @ 0xd8c38222cdc7019a72724add36ea1526ceeaa26e4383e36d8ac348df85e859c2: 0x0000000000000000000000000000000000000000000000000c7d713b49da0000 → 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─ emit BasketSet(nonce: 2, erc20s: [0xc7183455a4C133Ae270771860664b6B7ec320bB1, 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], refAmts: [900000000000000000 [9e17], 100000000000000000 [1e17]], disabled: false)
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c]
+    │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [delegatecall]
+    │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   │   └─ ← [Return] MiniCollateral: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]
+    │   │   ├─ [162] MiniCollateral::status() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─  storage changes:
+    │   │   │   @ 212: 0x0000000000000000000000000000000000000000000000000001000000000001 → 0x0000000000000000000000000000000000000000000000000001000000000002
+    │   │   │   @ 0x5c76748e096737486642f9e9771b2c3f0e7eb8a81e099b0dd8bf3454e67a55f0: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   @ 0xc742201944f80731969e1804adf7ad99b406c6195b48a6381bdc62db74fd3b16: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0xc742201944f80731969e1804adf7ad99b406c6195b48a6381bdc62db74fd3b17: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0x0a65f5d473023a41f4dbd8eb42f9a6fb5bfcd501bc5a42674203effdb51667f5: 0 → 2
+    │   │   │   @ 0xefada9710ff827dcca66eb34dfdfd2e9e2ebb767e3cef815cc2e1a54f2fd5484: 0 → 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6548: 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1 → 0
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6547: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   │   @ 0xec591a93557cf3b8a8437617263ab64317f4f5cac864ef4828f0617f0d4ae0b2: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0
+    │   │   │   @ 0x7df7a8bb730221f2f5fdbc0001409354e83606f2164a5c13ac67c70a8be551c9: 0 → 0x0000000000000000000000000000000000000000000000000c7d713b49da0000
+    │   │   │   @ 0xf2192e1030363415d7b4fb0406540a0060e8e2fc8982f3f32289379e11fa6546: 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 210: 3 → 2
+    │   │   │   @ 0x133f093f7d028f8a67c421410605326a1861861adb2e2fe4ad1fbc1a59c11f7b: 0x0000000000000000000000000000000000000000000000000c7d713b49da0000 → 0x000000000000000000000000000000000000000000000000016345785d8a0000
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [35201] ERC1967Proxy::fallback(MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211])
+    │   ├─ [34867] AssetRegistryP1::unregister(MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]) [delegatecall]
+    │   │   ├─ [339] PoCMain::hasRole(0x4f574e4552000000000000000000000000000000000000000000000000000000, PoC_27331: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ [5134] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   ├─ [4797] BasketHandlerP1::quantity(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   ├─ [2166] ERC1967Proxy::fallback(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   │   ├─ [1829] AssetRegistryP1::toColl(MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [delegatecall]
+    │   │   │   │   │   │   ├─ [386] MiniCollateral::isCollateral() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   │   │   └─ ← [Return] MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211]
+    │   │   │   │   ├─ [385] MiniCollateral::refPerTok() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ [294] MiniCollateral::erc20() [staticcall]
+    │   │   │   └─ ← [Return] MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]
+    │   │   ├─ emit AssetUnregistered(erc20: MiniERC20: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], asset: MiniCollateral: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xad58d9b0194145adc70d2935d27ca0814a51f20c8e58158513b8aec9af36dfb8: 0x0000000000000000000000001d1499e622d69689cdf9004d05ec547d650ff211 → 0
+    │   │   │   @ 0xa7ce836d032b2bf62b7e2097a8e0a6d8aeb35405ad15271e96d3b0188a1d06fc: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   │   │   @ 0xa7ce836d032b2bf62b7e2097a8e0a6d8aeb35405ad15271e96d3b0188a1d06fd: 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1 → 0
+    │   │   │   @ 0xaec58357429ceca951a81fec37f4d003ab6e0a86cac2b530017a8f8a820fc13c: 2 → 0
+    │   │   │   @ 0xf3e2c53b446a8ddd230b67b2f8e98cb2edef85720259880fa4eeaa50ae2a9246: 3 → 2
+    │   │   │   @ 203: 3 → 2
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [870] ERC1967Proxy::fallback() [staticcall]
+    │   ├─ [536] AssetRegistryP1::size() [delegatecall]
+    │   │   └─ ← [Return] 2
+    │   └─ ← [Return] 2
+    ├─ [0] VM::assertEq(2, 2, "registry now has 2 assets, old basket still has 3") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  $NH{q2)
+    │   └─ ← [Return]
+    ├─ [8665] ERC1967Proxy::fallback([1], [1000000000000000000 [1e18]], 1000000000000000000 [1e18]) [staticcall]
+    │   ├─ [8291] BasketHandlerP1::quoteCustomRedemption([1], [1000000000000000000 [1e18]], 1000000000000000000 [1e18]) [delegatecall]
+    │   │   ├─ [870] ERC1967Proxy::fallback() [staticcall]
+    │   │   │   ├─ [536] AssetRegistryP1::size() [delegatecall]
+    │   │   │   │   └─ ← [Return] 2
+    │   │   │   └─ ← [Return] 2
+    │   │   └─ ← [Revert] panic: array out-of-bounds access (0x32)
+    │   └─ ← [Revert] panic: array out-of-bounds access (0x32)
+    └─ ← [Return]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.37ms (6.48ms CPU time)
+
+Ran 1 test suite in 125.75ms (7.37ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

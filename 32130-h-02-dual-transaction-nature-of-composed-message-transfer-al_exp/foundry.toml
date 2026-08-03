@@ -1,0 +1,19 @@
+[profile.default]
+src = 'src/canto/contracts'
+out = 'out'
+libs = ['lib']
+test = 'test'
+solc = '0.8.26'
+evm_version = 'paris'
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+remappings = [
+    '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
+    '@layerzerolabs/lz-evm-oapp-v2/=src/canto/lz-evm-oapp-v2/',
+    '@layerzerolabs/lz-evm-protocol-v2/=src/canto/lz-evm-protocol-v2/'
+]
+
+[fmt]
+line_length = 120
+tab_width = 4

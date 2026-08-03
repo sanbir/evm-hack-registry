@@ -1,0 +1,428 @@
+Compiling 64 files with Solc 0.8.19
+Solc 0.8.19 finished in 786.23ms
+Compiler run successful!
+warning: invalid natspec tag '@property', custom tags must use format '@custom:name'
+  --> src/selected/Bridge/Connext/libraries/LibConnextStorage.sol:17:1
+   |
+17 | / /**
+18 | |  * @notice These are the parameters that will remain constant between the
+19 | |  * two chains. They are supplied on `xcall` and should be asserted on `execute`
+20 | |  * @property to - The account that receives funds, in the event of a crosschain call,
+...  |
+36 | |  * @param canonicalId - The unique identifier of the canonical token corresponding to bridge assets
+37 | |  */
+   | |___^
+
+
+Ran 1 test for test/33493-h-06-the-amount-of-xezeth-in-circulation-will-not-represent_exp.sol:PoC_33493
+[PASS] test_xezETHSupplyDesyncsFromEzETHBacking() (gas: 740353)
+Logs:
+  circulating xezETH: 0.999000250000000000
+  ezETH backing     : 0.499749999999999921
+  unbacked xezETH   : 0.499250250000000079
+
+Traces:
+  [20471849] PoC_33493::setUp()
+    ├─ [3618211] → new XERC20@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Initialized(version: 255)
+    │   └─ ← [Return] 17952 bytes of code
+    ├─ [68737] → new DelegateProxy@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 341 bytes of code
+    ├─ [171900] DelegateProxy::fallback("xezETH", "xezETH", PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [171597] XERC20::initialize("xezETH", "xezETH", PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─ emit OwnershipTransferred(previousOwner: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], newOwner: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─ emit Initialized(version: 1)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1079855] → new MintableERC20@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 5158 bytes of code
+    ├─ [1350712] → new WETH@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 6519 bytes of code
+    ├─ [1350712] → new WETH@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   └─ ← [Return] 6519 bytes of code
+    ├─ [1079855] → new MintableERC20@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   └─ ← [Return] 5158 bytes of code
+    ├─ [1079855] → new MintableERC20@0x1d1499e622D69689cdf9004d05Ec547d650Ff211
+    │   └─ ← [Return] 5158 bytes of code
+    ├─ [419396] → new RestakeManagerStub@0xA4AD4f68d0b91CFD19687c881e50f3A00242828c
+    │   └─ ← [Return] 1982 bytes of code
+    ├─ [70771] RestakeManagerStub::seed(100000000000000000000 [1e20])
+    │   ├─ [47272] MintableERC20::mint(PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 100000000000000000000 [1e20])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 100000000000000000000 [1e20])
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1045041] → new XERC20Lockbox@0x03A6a84cD762D9707A21605b548aaaB891562aAb
+    │   ├─ emit Initialized(version: 255)
+    │   └─ ← [Return] 5101 bytes of code
+    ├─ [68737] → new DelegateProxy@0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF
+    │   └─ ← [Return] 341 bytes of code
+    ├─ [48572] DelegateProxy::fallback(DelegateProxy: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MintableERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], false)
+    │   ├─ [48293] XERC20Lockbox::initialize(DelegateProxy: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], MintableERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], false) [delegatecall]
+    │   │   ├─ emit Initialized(version: 1)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [24347] DelegateProxy::fallback(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF])
+    │   ├─ [24077] XERC20::setLockbox(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]) [delegatecall]
+    │   │   ├─ emit LockboxSet(_lockbox: DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF])
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [664628] → new MockConnext@0x15cF58144EF33af1e14b5208015d11F9143E27b9
+    │   └─ ← [Return] 3095 bytes of code
+    ├─ [0] VM::deal(MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 10000000000000000000 [1e19])
+    │   └─ ← [Return]
+    ├─ [3151032] → new xRenzoBridge@0x212224D2F2d262cd093eE13240ca4873fcCBbA3C
+    │   ├─ emit Initialized(version: 255)
+    │   └─ ← [Return] 15619 bytes of code
+    ├─ [68737] → new DelegateProxy@0x2a07706473244BC757E10F2a9E86fB532828afe3
+    │   └─ ← [Return] 341 bytes of code
+    ├─ [254066] DelegateProxy::fallback(MintableERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], DelegateProxy: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], RestakeManagerStub: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c], WETH: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 0x00000000000000000000000000000000000000C1, 0x00000000000000000000000000000000000000c2, MintableERC20: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211], 0x00000000000000000000000000000000000000C3)
+    │   ├─ [253745] xRenzoBridge::initialize(MintableERC20: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], DelegateProxy: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], RestakeManagerStub: [0xA4AD4f68d0b91CFD19687c881e50f3A00242828c], WETH: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 0x00000000000000000000000000000000000000C1, 0x00000000000000000000000000000000000000c2, MintableERC20: [0x1d1499e622D69689cdf9004d05Ec547d650Ff211], 0x00000000000000000000000000000000000000C3) [delegatecall]
+    │   │   ├─ [432] MintableERC20::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ [659] DelegateProxy::fallback() [staticcall]
+    │   │   │   ├─ [389] XERC20::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ [454] WETH::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ [432] MintableERC20::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ emit Initialized(version: 1)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [3321639] → new xRenzoDeposit@0x3D7Ebc40AF7092E3F1C81F2e996cbA5Cae2090d7
+    │   ├─ emit Initialized(version: 255)
+    │   └─ ← [Return] 16471 bytes of code
+    ├─ [68737] → new DelegateProxy@0xD16d567549A2a2a2005aEACf7fB193851603dd70
+    │   └─ ← [Return] 341 bytes of code
+    ├─ [323586] DelegateProxy::fallback(1000000000000000000 [1e18], DelegateProxy: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], WETH: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MintableERC20: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 0x7377617000000000000000000000000000000000000000000000000000000000, 0x00000000000000000000000000000000000000D1, 1, DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 0x0000000000000000000000000000000000000000)
+    │   ├─ [323265] xRenzoDeposit::initialize(1000000000000000000 [1e18], DelegateProxy: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], WETH: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MintableERC20: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 0x7377617000000000000000000000000000000000000000000000000000000000, 0x00000000000000000000000000000000000000D1, 1, DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 0x0000000000000000000000000000000000000000) [delegatecall]
+    │   │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─ [454] WETH::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ [432] MintableERC20::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ [659] DelegateProxy::fallback() [staticcall]
+    │   │   │   ├─ [389] XERC20::decimals() [delegatecall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   └─ ← [Return] 18
+    │   │   ├─ emit Initialized(version: 1)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [183940] DelegateProxy::fallback(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], 1000000000000000000000000000 [1e27], 1000000000000000000000000000 [1e27])
+    │   ├─ [183661] XERC20::setLimits(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], 1000000000000000000000000000 [1e27], 1000000000000000000000000000 [1e27]) [delegatecall]
+    │   │   ├─ emit BridgeLimitsSet(_mintingLimit: 1000000000000000000000000000 [1e27], _burningLimit: 1000000000000000000000000000 [1e27], _bridge: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70])
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [183940] DelegateProxy::fallback(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 1000000000000000000000000000 [1e27], 1000000000000000000000000000 [1e27])
+    │   ├─ [183661] XERC20::setLimits(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 1000000000000000000000000000 [1e27], 1000000000000000000000000000 [1e27]) [delegatecall]
+    │   │   ├─ emit BridgeLimitsSet(_mintingLimit: 1000000000000000000000000000 [1e27], _burningLimit: 1000000000000000000000000000 [1e27], _bridge: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3])
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [25121] DelegateProxy::fallback(PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true)
+    │   ├─ [24848] xRenzoDeposit::setAllowedBridgeSweeper(PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], true) [delegatecall]
+    │   │   ├─ emit BridgeSweeperAddressUpdated(sweeper: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], allowed: true)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [930707] PoC_33493::test_xezETHSupplyDesyncsFromEzETHBacking()
+    ├─ [0] VM::deal(0x00000000000000000000000000000000000A11cE, 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Return]
+    ├─ [46828] WETH::deposit{value: 1000000000000000000}()
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, value: 1000000000000000000 [1e18])
+    │   ├─  storage changes:
+    │   │   @ 0x9ee878158fd03ad640d4a0705a30c697ca9fe067e51ec5dde8bf6b55f41c298c: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [25256] WETH::approve(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ emit Approval(owner: 0x00000000000000000000000000000000000A11cE, spender: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0xacccdcfc4ab6260b6b0ec4287ef1a7f80aa25af4ee015e8670abf678428b5388: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [290947] DelegateProxy::fallback(1000000000000000000 [1e18], 0, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [288165] xRenzoDeposit::deposit(1000000000000000000 [1e18], 0, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ [26368] WETH::transferFrom(0x00000000000000000000000000000000000A11cE, DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], 1000000000000000000 [1e18])
+    │   │   │   ├─ emit Transfer(from: 0x00000000000000000000000000000000000A11cE, to: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], value: 1000000000000000000 [1e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x9ee878158fd03ad640d4a0705a30c697ca9fe067e51ec5dde8bf6b55f41c298c: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   @ 0x837a4d20d8931b469df358aa563d50228eb50c74bde6d7d95b951c9d9754b887: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [3241] WETH::allowance(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [23156] WETH::approve(MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 999500000000000000 [9.995e17])
+    │   │   │   ├─ emit Approval(owner: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], spender: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 999500000000000000 [9.995e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x82a1c0aa36e73f80214b76b98f2be53ca1af17a13a9eb7779056d053c5b1e106: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [81683] MockConnext::swapExact(0x7377617000000000000000000000000000000000000000000000000000000000, 999500000000000000 [9.995e17], WETH: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MintableERC20: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 0, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─ [28756] WETH::transferFrom(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 999500000000000000 [9.995e17])
+    │   │   │   │   ├─ emit Approval(owner: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], spender: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 0)
+    │   │   │   │   ├─ emit Transfer(from: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], to: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 999500000000000000 [9.995e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x837a4d20d8931b469df358aa563d50228eb50c74bde6d7d95b951c9d9754b887: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000000001c6bf52634000
+    │   │   │   │   │   @ 0x82a1c0aa36e73f80214b76b98f2be53ca1af17a13a9eb7779056d053c5b1e106: 0x0000000000000000000000000000000000000000000000000ddeeff45500c000 → 0
+    │   │   │   │   │   @ 0x45c03afa3186dd0cb1158261ab2ae6dd73027a9eecdcb9cffb02f87aea4cee3f: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [47272] MintableERC20::mint(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], 999500000000000000 [9.995e17])
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], value: 999500000000000000 [9.995e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   │   @ 0x837a4d20d8931b469df358aa563d50228eb50c74bde6d7d95b951c9d9754b887: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] 999500000000000000 [9.995e17]
+    │   │   ├─ [65764] DelegateProxy::fallback(0x00000000000000000000000000000000000A11cE, 999000250000000000 [9.99e17])
+    │   │   │   ├─ [62991] XERC20::mint(0x00000000000000000000000000000000000A11cE, 999000250000000000 [9.99e17]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x00000000000000000000000000000000000A11cE, value: 999000250000000000 [9.99e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1c8d988b928f5d0fa0de5adb89fbf1e425f2b7fda3b316cb18bcd01b258a4b8c: 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 → 0x0000000000000000000000000000000000000000033b2e3c91f356cdb0393c00
+    │   │   │   │   │   @ 53: 0 → 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400
+    │   │   │   │   │   @ 0x7b655fd51c12cb596e0d9b461b9518fc4d7c2357b172a5457f19a0cc1e0c46a2: 0 → 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit Deposit(user: 0x00000000000000000000000000000000000A11cE, amountIn: 999500000000000000 [9.995e17], amountOut: 999000250000000000 [9.99e17])
+    │   │   ├─  storage changes:
+    │   │   │   @ 101: 0 → 1
+    │   │   │   @ 165: 0 → 0x0000000000000000000000000000000000000000000000000001c6bf52634000
+    │   │   └─ ← [Return] 999000250000000000 [9.99e17]
+    │   └─ ← [Return] 999000250000000000 [9.99e17]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [1225] DelegateProxy::fallback(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   ├─ [952] XERC20::balanceOf(0x00000000000000000000000000000000000A11cE) [delegatecall]
+    │   │   └─ ← [Return] 999000250000000000 [9.99e17]
+    │   └─ ← [Return] 999000250000000000 [9.99e17]
+    ├─ [0] VM::assertEq(999000250000000000 [9.99e17], 999000250000000000 [9.99e17], "alice holds all minted xezETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(999000250000000000 [9.99e17], 999000250000000000 [9.99e17], "L2 minted xezETH amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [5665] RestakeManagerStub::accrueRewards(100000000000000000000 [1e20])
+    │   ├─  storage changes:
+    │   │   @ 1: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000
+    │   └─ ← [Stop]
+    ├─ [409655] DelegateProxy::fallback()
+    │   ├─ [409388] xRenzoDeposit::sweep() [delegatecall]
+    │   │   ├─ [863] MintableERC20::balanceOf(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70]) [staticcall]
+    │   │   │   └─ ← [Return] 999500000000000000 [9.995e17]
+    │   │   ├─ [3263] MintableERC20::allowance(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [23156] MintableERC20::approve(MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 999500000000000000 [9.995e17])
+    │   │   │   ├─ emit Approval(owner: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], spender: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 999500000000000000 [9.995e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x82a1c0aa36e73f80214b76b98f2be53ca1af17a13a9eb7779056d053c5b1e106: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [347489] MockConnext::xcall(1, DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], MintableERC20: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 999500000000000000 [9.995e17], 0, 0x0000000000000000000000000000000000000000000000000ddeeff45500c000)
+    │   │   │   ├─ [28756] MintableERC20::transferFrom(DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], 999500000000000000 [9.995e17])
+    │   │   │   │   ├─ emit Approval(owner: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], spender: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 0)
+    │   │   │   │   ├─ emit Transfer(from: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], to: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 999500000000000000 [9.995e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x45c03afa3186dd0cb1158261ab2ae6dd73027a9eecdcb9cffb02f87aea4cee3f: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   │   @ 0x82a1c0aa36e73f80214b76b98f2be53ca1af17a13a9eb7779056d053c5b1e106: 0x0000000000000000000000000000000000000000000000000ddeeff45500c000 → 0
+    │   │   │   │   │   @ 0x837a4d20d8931b469df358aa563d50228eb50c74bde6d7d95b951c9d9754b887: 0x0000000000000000000000000000000000000000000000000ddeeff45500c000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [46828] WETH::deposit{value: 999500000000000000}()
+    │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], value: 999500000000000000 [9.995e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   │   @ 0x45c03afa3186dd0cb1158261ab2ae6dd73027a9eecdcb9cffb02f87aea4cee3f: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [25723] WETH::transfer(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 999500000000000000 [9.995e17])
+    │   │   │   │   ├─ emit Transfer(from: MockConnext: [0x15cF58144EF33af1e14b5208015d11F9143E27b9], to: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], value: 999500000000000000 [9.995e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x45c03afa3186dd0cb1158261ab2ae6dd73027a9eecdcb9cffb02f87aea4cee3f: 0x0000000000000000000000000000000000000000000000000ddeeff45500c000 → 0
+    │   │   │   │   │   @ 0x4ba3fc2df1c8422299fee1fcefd1dc114a1966e26c7554649abb8dfdf202a548: 0 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [226034] DelegateProxy::fallback(0x0000000000000000000000000000000000000000000000000000000000000000, 999500000000000000 [9.995e17], WETH: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1, 0x0000000000000000000000000000000000000000000000000ddeeff45500c000)
+    │   │   │   │   ├─ [223219] xRenzoBridge::xReceive(0x0000000000000000000000000000000000000000000000000000000000000000, 999500000000000000 [9.995e17], WETH: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1, 0x0000000000000000000000000000000000000000000000000ddeeff45500c000) [delegatecall]
+    │   │   │   │   │   ├─ [10438] WETH::withdraw(999500000000000000 [9.995e17])
+    │   │   │   │   │   │   ├─ emit Transfer(from: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], to: 0x0000000000000000000000000000000000000000, value: 999500000000000000 [9.995e17])
+    │   │   │   │   │   │   ├─ [55] DelegateProxy::receive{value: 999500000000000000}()
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000000ddeeff45500c000 → 0
+    │   │   │   │   │   │   │   @ 0x4ba3fc2df1c8422299fee1fcefd1dc114a1966e26c7554649abb8dfdf202a548: 0x0000000000000000000000000000000000000000000000000ddeeff45500c000 → 0
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [2863] MintableERC20::balanceOf(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [34371] RestakeManagerStub::depositETH{value: 999500000000000000}()
+    │   │   │   │   │   │   ├─ [2482] MintableERC20::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   │   │   │   │   ├─ [26172] MintableERC20::mint(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], value: 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x4ba3fc2df1c8422299fee1fcefd1dc114a1966e26c7554649abb8dfdf202a548: 0 → 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1
+    │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000572b6d6278d905fb1
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 1: 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000 → 0x00000000000000000000000000000000000000000000000ae56dac4f1b20c000
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [863] MintableERC20::balanceOf(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 499749999999999921 [4.997e17]
+    │   │   │   │   │   ├─ [3263] MintableERC20::allowance(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [23156] MintableERC20::approve(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   ├─ emit Approval(owner: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], spender: DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], value: 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x022c69c74bf30d5d08dd9a9326596dfbf6a4da3414b9580a7785c392d92ac199: 0 → 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [3225] DelegateProxy::fallback(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3]) [staticcall]
+    │   │   │   │   │   │   ├─ [2952] XERC20::balanceOf(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   ├─ [65167] DelegateProxy::fallback(499749999999999921 [4.997e17])
+    │   │   │   │   │   │   ├─ [62397] XERC20Lockbox::deposit(499749999999999921 [4.997e17]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [28756] MintableERC20::transferFrom(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   │   ├─ emit Approval(owner: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], spender: DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], value: 0)
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], to: DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], value: 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xe9e42d879ecb45c49499fc4e3ac7bb81edbe3f5579c6b7a5dd31825fc4783f1c: 0 → 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1
+    │   │   │   │   │   │   │   │   │   @ 0x4ba3fc2df1c8422299fee1fcefd1dc114a1966e26c7554649abb8dfdf202a548: 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1 → 0
+    │   │   │   │   │   │   │   │   │   @ 0x022c69c74bf30d5d08dd9a9326596dfbf6a4da3414b9580a7785c392d92ac199: 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1 → 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [23989] DelegateProxy::fallback(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   │   ├─ [23716] XERC20::mint(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 499749999999999921 [4.997e17]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], value: 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 53: 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400 → 0x00000000000000000000000000000000000000000000000014cca169624723b1
+    │   │   │   │   │   │   │   │   │   │   @ 0xdc2ac02f2e6b6019aac8d695a25d7e885565bf1f24a9b04849f06e1c8fc33410: 0 → 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─ emit Deposit(_sender: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], _amount: 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ [1225] DelegateProxy::fallback(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3]) [staticcall]
+    │   │   │   │   │   │   ├─ [952] XERC20::balanceOf(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 499749999999999921 [4.997e17]
+    │   │   │   │   │   │   └─ ← [Return] 499749999999999921 [4.997e17]
+    │   │   │   │   │   ├─ [17431] DelegateProxy::fallback(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   ├─ [17158] XERC20::burn(DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], 499749999999999921 [4.997e17]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], to: 0x0000000000000000000000000000000000000000, value: 499749999999999921 [4.997e17])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 53: 0x00000000000000000000000000000000000000000000000014cca169624723b1 → 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400
+    │   │   │   │   │   │   │   │   @ 0xdc2ac02f2e6b6019aac8d695a25d7e885565bf1f24a9b04849f06e1c8fc33410: 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1 → 0
+    │   │   │   │   │   │   │   │   @ 0x5ea62f3f67d92b0a9d69f224e83387d1ef65cb035acbe56d3b9c2617593e20af: 0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000 → 0x0000000000000000000000000000000000000000033b2e3c98e10842bd7fa04f
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ emit EzETHMinted(transferId: 0x0000000000000000000000000000000000000000000000000000000000000000, amountDeposited: 999500000000000000 [9.995e17], origin: 1, originSender: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], ezETHMinted: 499749999999999921 [4.997e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 1: 0 → 1
+    │   │   │   │   │   └─ ← [Return] 0x
+    │   │   │   │   └─ ← [Return] 0x
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ [10438] WETH::withdraw(500000000000000 [5e14])
+    │   │   │   ├─ emit Transfer(from: DelegateProxy: [0xD16d567549A2a2a2005aEACf7fB193851603dd70], to: 0x0000000000000000000000000000000000000000, value: 500000000000000 [5e14])
+    │   │   │   ├─ [55] DelegateProxy::receive{value: 500000000000000}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x837a4d20d8931b469df358aa563d50228eb50c74bde6d7d95b951c9d9754b887: 0x0000000000000000000000000000000000000000000000000001c6bf52634000 → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000000ddeeff45500c000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [55] PoC_33493::receive{value: 500000000000000}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit SweeperBridgeFeeCollected(sweeper: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], feeCollected: 500000000000000 [5e14])
+    │   │   ├─ emit BridgeSwept(destinationDomain: 1, destinationTarget: DelegateProxy: [0x2a07706473244BC757E10F2a9E86fB532828afe3], delegate: PoC_33493: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 999500000000000000 [9.995e17])
+    │   │   ├─  storage changes:
+    │   │   │   @ 165: 0x0000000000000000000000000000000000000000000000000001c6bf52634000 → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [863] MintableERC20::balanceOf(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]) [staticcall]
+    │   └─ ← [Return] 499749999999999921 [4.997e17]
+    ├─ [0] VM::assertGt(499749999999999921 [4.997e17], 0, "some ezETH backing was created") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertLt(499749999999999921 [4.997e17], 999000250000000000 [9.99e17], "backing is short of circulating supply") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertApproxEqRel(499749999999999921 [4.997e17], 499500125000000000 [4.995e17], 10000000000000000 [1e16], "backing ~= half circulating") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "circulating xezETH", val: 999000250000000000 [9.99e17], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "ezETH backing     ", val: 499749999999999921 [4.997e17], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "unbacked xezETH   ", val: 499250250000000079 [4.992e17], decimals: 18)
+    ├─ [0] VM::assertApproxEqRel(499250250000000079 [4.992e17], 499500125000000000 [4.995e17], 10000000000000000 [1e16], "~half the supply is unbacked") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::startPrank(0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Return]
+    ├─ [25600] DelegateProxy::fallback(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─ [25324] XERC20::approve(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   ├─ emit Approval(owner: 0x00000000000000000000000000000000000A11cE, spender: DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x40e48b87977da8a35fde9bc1f47d92c9bc648cb62699e472783f9e7a143d8e01: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [10994] DelegateProxy::fallback(999000250000000000 [9.99e17])
+    │   ├─ [10702] XERC20Lockbox::withdraw(999000250000000000 [9.99e17]) [delegatecall]
+    │   │   ├─ emit Withdraw(_sender: 0x00000000000000000000000000000000000A11cE, _amount: 999000250000000000 [9.99e17])
+    │   │   ├─ [4458] DelegateProxy::fallback(0x00000000000000000000000000000000000A11cE, 999000250000000000 [9.99e17])
+    │   │   │   ├─ [4185] XERC20::burn(0x00000000000000000000000000000000000A11cE, 999000250000000000 [9.99e17]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x00000000000000000000000000000000000A11cE, to: 0x0000000000000000000000000000000000000000, value: 999000250000000000 [9.99e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7b655fd51c12cb596e0d9b461b9518fc4d7c2357b172a5457f19a0cc1e0c46a2: 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400 → 0
+    │   │   │   │   │   @ 53: 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [1427] MintableERC20::transfer(0x00000000000000000000000000000000000A11cE, 999000250000000000 [9.99e17])
+    │   │   │   └─ ← [Revert] ERC20: transfer amount exceeds balance
+    │   │   └─ ← [Revert] ERC20: transfer amount exceeds balance
+    │   └─ ← [Revert] ERC20: transfer amount exceeds balance
+    ├─ [35731] DelegateProxy::fallback(499749999999999921 [4.997e17])
+    │   ├─ [35461] XERC20Lockbox::withdraw(499749999999999921 [4.997e17]) [delegatecall]
+    │   │   ├─ emit Withdraw(_sender: 0x00000000000000000000000000000000000A11cE, _amount: 499749999999999921 [4.997e17])
+    │   │   ├─ [4458] DelegateProxy::fallback(0x00000000000000000000000000000000000A11cE, 499749999999999921 [4.997e17])
+    │   │   │   ├─ [4185] XERC20::burn(0x00000000000000000000000000000000000A11cE, 499749999999999921 [4.997e17]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x00000000000000000000000000000000000A11cE, to: 0x0000000000000000000000000000000000000000, value: 499749999999999921 [4.997e17])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x7b655fd51c12cb596e0d9b461b9518fc4d7c2357b172a5457f19a0cc1e0c46a2: 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400 → 0x00000000000000000000000000000000000000000000000006edb1750d46644f
+    │   │   │   │   │   @ 53: 0x0000000000000000000000000000000000000000000000000ddd296f37c6c400 → 0x00000000000000000000000000000000000000000000000006edb1750d46644f
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [25767] MintableERC20::transfer(0x00000000000000000000000000000000000A11cE, 499749999999999921 [4.997e17])
+    │   │   │   ├─ emit Transfer(from: DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF], to: 0x00000000000000000000000000000000000A11cE, value: 499749999999999921 [4.997e17])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe9e42d879ecb45c49499fc4e3ac7bb81edbe3f5579c6b7a5dd31825fc4783f1c: 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1 → 0
+    │   │   │   │   @ 0x9ee878158fd03ad640d4a0705a30c697ca9fe067e51ec5dde8bf6b55f41c298c: 0 → 0x00000000000000000000000000000000000000000000000006ef77fa2a805fb1
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [863] MintableERC20::balanceOf(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 499749999999999921 [4.997e17]
+    ├─ [0] VM::assertEq(499749999999999921 [4.997e17], 499749999999999921 [4.997e17], "alice redeemed only the backed half") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1225] DelegateProxy::fallback(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   ├─ [952] XERC20::balanceOf(0x00000000000000000000000000000000000A11cE) [delegatecall]
+    │   │   └─ ← [Return] 499250250000000079 [4.992e17]
+    │   └─ ← [Return] 499250250000000079 [4.992e17]
+    ├─ [0] VM::assertEq(499250250000000079 [4.992e17], 499250250000000079 [4.992e17], "remaining xezETH is unredeemable") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(499250250000000079 [4.992e17], 0, "stranded xezETH exists") [staticcall]
+    │   └─ ← [Return]
+    ├─ [863] MintableERC20::balanceOf(DelegateProxy: [0xD6BbDE9174b1CdAa358d2Cf4D57D1a9F7178FBfF]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "lockbox drained of ezETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf4844814)
+    │   └─ ← [Return]
+    ├─ [10994] DelegateProxy::fallback(1)
+    │   ├─ [10702] XERC20Lockbox::withdraw(1) [delegatecall]
+    │   │   ├─ emit Withdraw(_sender: 0x00000000000000000000000000000000000A11cE, _amount: 1)
+    │   │   ├─ [4458] DelegateProxy::fallback(0x00000000000000000000000000000000000A11cE, 1)
+    │   │   │   ├─ [4185] XERC20::burn(0x00000000000000000000000000000000000A11cE, 1) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: 0x00000000000000000000000000000000000A11cE, to: 0x0000000000000000000000000000000000000000, value: 1)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 53: 0x00000000000000000000000000000000000000000000000006edb1750d46644f → 0x00000000000000000000000000000000000000000000000006edb1750d46644e
+    │   │   │   │   │   @ 0x7b655fd51c12cb596e0d9b461b9518fc4d7c2357b172a5457f19a0cc1e0c46a2: 0x00000000000000000000000000000000000000000000000006edb1750d46644f → 0x00000000000000000000000000000000000000000000000006edb1750d46644e
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [1427] MintableERC20::transfer(0x00000000000000000000000000000000000A11cE, 1)
+    │   │   │   └─ ← [Revert] ERC20: transfer amount exceeds balance
+    │   │   └─ ← [Revert] ERC20: transfer amount exceeds balance
+    │   └─ ← [Revert] ERC20: transfer amount exceeds balance
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 7.47ms (6.09ms CPU time)
+
+Ran 1 test suite in 148.88ms (7.47ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

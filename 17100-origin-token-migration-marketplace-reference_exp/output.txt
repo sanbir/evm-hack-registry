@@ -1,0 +1,160 @@
+Compiling 16 files with Solc 0.4.26
+Solc 0.4.26 finished in 370.58ms
+Compiler run successful with warnings:
+Warning: Different number of components on the left hand side (2) than on the right hand side (1).
+test/17100-origin-token-migration-marketplace-reference_exp.sol:32:9: Warning: Different number of components on the left hand side (2) than on the right hand side (1).
+        (bool offered, ) = address(marketplace).call(
+        ^ (Relevant source part starts here and spans across multiple lines).
+Warning: Different number of components on the left hand side (2) than on the right hand side (1).
+test/17100-origin-token-migration-marketplace-reference_exp.sol:71:9: Warning: Different number of components on the left hand side (2) than on the right hand side (1).
+        (bool finalized, ) = address(marketplace).call(
+        ^ (Relevant source part starts here and spans across multiple lines).
+Warning: Different number of components on the left hand side (2) than on the right hand side (1).
+test/17100-origin-token-migration-marketplace-reference_exp.sol:83:9: Warning: Different number of components on the left hand side (2) than on the right hand side (1).
+        (bool withdrawn, ) = address(marketplace).call(
+        ^ (Relevant source part starts here and spans across multiple lines).
+
+Ran 1 test for test/17100-origin-token-migration-marketplace-reference_exp.sol:PoC_17100
+[PASS] test_migrationLeavesMarketplacePointingAtPausedToken() (gas: 6424488)
+Traces:
+  [6462888] PoC_17100::test_migrationLeavesMarketplacePointingAtPausedToken()
+    ├─ [1471086] → new OriginToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ emit Mint(to: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 30000000000000000000 [3e19])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 30000000000000000000 [3e19])
+    │   ├─  storage changes:
+    │   │   @ 6: 0 → 0x4f726967696e546f6b656e000000000000000000000000000000000000000016
+    │   │   @ 8: 0 → 18
+    │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   @ 1: 0 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   @ 7: 0 → 0x4f474e0000000000000000000000000000000000000000000000000000000006
+    │   │   @ 3: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 6674 bytes of code
+    ├─ [1432686] → new OriginToken@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─ emit Mint(to: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 0)
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 6: 0 → 0x4f726967696e546f6b656e000000000000000000000000000000000000000016
+    │   │   @ 7: 0 → 0x4f474e0000000000000000000000000000000000000000000000000000000006
+    │   │   @ 8: 0 → 18
+    │   └─ ← [Return] 6674 bytes of code
+    ├─ [2334160] → new V00_Marketplace@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   ├─  storage changes:
+    │   │   @ 0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92eff: 0 → 1
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 4: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   └─ ← [Return] 11340 bytes of code
+    ├─ [23344] OriginToken::approve(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 30000000000000000000 [3e19])
+    │   ├─ emit Approval(owner: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], spender: V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 30000000000000000000 [3e19])
+    │   ├─  storage changes:
+    │   │   @ 0x8c751065697b68fb8dacbebd9925c8b35e381f7b8867b2e9391852832cfb44b4: 0 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   └─ ← [Return] true
+    ├─ [120354] V00_Marketplace::createListing(0x6c697374696e6700000000000000000000000000000000000000000000000000, 10000000000000000000 [1e19], PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [31423] OriginToken::transferFrom(PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 10000000000000000000 [1e19])
+    │   │   ├─ emit Transfer(from: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 10000000000000000000 [1e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb3024e141922907eb80bf787d622b0c592108908135c35e38e6ebb7d5636f1e4: 0 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   │   @ 0x8c751065697b68fb8dacbebd9925c8b35e381f7b8867b2e9391852832cfb44b4: 0x000000000000000000000000000000000000000000000001a055690d9db80000 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000001a055690d9db80000 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(party: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], listingID: 0, ipfsHash: 0x6c697374696e6700000000000000000000000000000000000000000000000000)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 1
+    │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf7: 0 → 0x0000000000000000000000000000000000000000000000008ac7230489e80000
+    │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf8: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [149346] V00_Marketplace::makeOffer(0, 0x6f66666572000000000000000000000000000000000000000000000000000000, 0, 0x0000000000000000000000000000000000000000, 0, 20000000000000000000 [2e19], OriginToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [12223] OriginToken::transferFrom(PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 20000000000000000000 [2e19])
+    │   │   ├─ emit Transfer(from: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 20000000000000000000 [2e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb3024e141922907eb80bf787d622b0c592108908135c35e38e6ebb7d5636f1e4: 0x0000000000000000000000000000000000000000000000008ac7230489e80000 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   │   @ 0x5ff10565516c110180bb9cc111cdbc2b0a68e09ff7fac17290373c3aa4a1bb03: 0x000000000000000000000000000000000000000000000001158e460913d00000 → 0
+    │   │   │   @ 0x8c751065697b68fb8dacbebd9925c8b35e381f7b8867b2e9391852832cfb44b4: 0x000000000000000000000000000000000000000000000001158e460913d00000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ emit OfferCreated(party: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], listingID: 0, offerID: 0, ipfsHash: 0x6f66666572000000000000000000000000000000000000000000000000000000)
+    │   ├─  storage changes:
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c32: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c2f: 0 → 0x000000000000000000000000000000000000000000000001158e460913d00000
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c33: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0xac33ff75c19e70fe83507db0d683fd3465c996598dc972688b7ace676c89077b: 0 → 1
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c37: 0 → 1
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c35: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [33688] V00_Marketplace::acceptOffer(0, 0, 0x6163636570740000000000000000000000000000000000000000000000000000)
+    │   ├─ emit OfferAccepted(party: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], listingID: 0, offerID: 0, ipfsHash: 0x6163636570740000000000000000000000000000000000000000000000000000)
+    │   ├─  storage changes:
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c37: 1 → 2
+    │   │   @ 0x7d2944a272ac5bae96b5bd2f67b6c13276d541dc09eb1cf414d96b19a09e1c36: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [1515] OriginToken::balanceOf(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Return] 30000000000000000000 [3e19]
+    ├─ [568254] → new TokenMigration@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 1: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 2: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 2525 bytes of code
+    ├─ [5996] OriginToken::transferOwnership(TokenMigration: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ emit OwnershipTransferred(previousOwner: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], newOwner: TokenMigration: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─  storage changes:
+    │   │   @ 3: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   └─ ← [Stop]
+    ├─ [4776] OriginToken::pause()
+    │   ├─ emit Pause()
+    │   ├─  storage changes:
+    │   │   @ 3: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x0000000000000000000001007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [79664] TokenMigration::migrateAccount(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ [1515] OriginToken::balanceOf(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   │   └─ ← [Return] 30000000000000000000 [3e19]
+    │   ├─ [47661] OriginToken::mint(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 30000000000000000000 [3e19])
+    │   │   ├─ emit Mint(to: V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], amount: 30000000000000000000 [3e19])
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 30000000000000000000 [3e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb3024e141922907eb80bf787d622b0c592108908135c35e38e6ebb7d5636f1e4: 0 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   │   @ 1: 0 → 0x000000000000000000000000000000000000000000000001a055690d9db80000
+    │   │   └─ ← [Return] true
+    │   ├─ emit Migrated(account: V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], balance: 30000000000000000000 [3e19])
+    │   ├─  storage changes:
+    │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [39264] TokenMigration::finish(PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ [1070] OriginToken::totalSupply()
+    │   │   └─ ← [Return] 30000000000000000000 [3e19]
+    │   ├─ [1070] OriginToken::totalSupply()
+    │   │   └─ ← [Return] 30000000000000000000 [3e19]
+    │   ├─ [5996] OriginToken::transferOwnership(PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─ emit OwnershipTransferred(previousOwner: TokenMigration: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], newOwner: PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   └─ ← [Stop]
+    │   ├─ emit MigrationFinished()
+    │   ├─  storage changes:
+    │   │   @ 4: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [1332] OriginToken::paused()
+    │   └─ ← [Return] true
+    ├─ [1515] OriginToken::balanceOf(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Return] 30000000000000000000 [3e19]
+    ├─ [1267] V00_Marketplace::tokenAddr()
+    │   └─ ← [Return] OriginToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    ├─ [16441] V00_Marketplace::finalize(0, 0, 0x66696e616c697a65000000000000000000000000000000000000000000000000)
+    │   ├─ [2544] OriginToken::transfer(PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   └─ ← [Revert] EvmError: Revert
+    │   └─ ← [Revert] EvmError: Revert
+    ├─ [8433] V00_Marketplace::withdrawListing(0, PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x7769746864726177000000000000000000000000000000000000000000000000)
+    │   ├─ [2544] OriginToken::transfer(PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000 [1e19])
+    │   │   └─ ← [Revert] EvmError: Revert
+    │   └─ ← [Revert] EvmError: Revert
+    ├─ [1515] OriginToken::balanceOf(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Return] 30000000000000000000 [3e19]
+    ├─ [1515] OriginToken::balanceOf(V00_Marketplace: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Return] 30000000000000000000 [3e19]
+    ├─ [4302] V00_Marketplace::listings(0)
+    │   └─ ← [Return] PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 10000000000000000000 [1e19], PoC_17100: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.63ms (1.40ms CPU time)
+
+Ran 1 test suite in 121.91ms (1.63ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

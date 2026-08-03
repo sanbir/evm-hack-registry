@@ -1,0 +1,18 @@
+[profile.default]
+src = 'src/reserve/target'
+out = 'out'
+libs = ['lib']
+test = 'test'
+evm_version = 'paris'
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+remappings = [
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
+  '@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/',
+  '@chainlink/contracts/=lib/chainlink/'
+]
+
+[fmt]
+line_length = 120
+tab_width = 4

@@ -1,0 +1,27 @@
+[profile.default]
+src = 'src/reserve/target'
+out = 'out'
+libs = ['lib']
+test = 'test'
+evm_version = 'paris'
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+# Strip trailing metadata so BasketLibP1's creationCode (and thus its CREATE2 address) is
+# independent of the `libraries` link value below, avoiding a self-referential address.
+bytecode_hash = 'none'
+cbor_metadata = false
+remappings = [
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
+  '@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/',
+  '@chainlink/contracts/=lib/chainlink/'
+]
+# BasketHandlerP1 links the external library BasketLibP1. Link it at a fixed address so the
+# playground exploit bytecode is fully linked; the exploit CREATE2-self-deploys the library
+# at exactly this address (deployer = the Exploit at attacker nonce 0, salt 0), and the forge
+# test vm.etch()es the same runtime code there.
+libraries = ['src/reserve/target/p1/mixins/BasketLib.sol:BasketLibP1:0x8a6A5771513Da286B191417a57BAeb151F5D3320']
+
+[fmt]
+line_length = 120
+tab_width = 4

@@ -1,0 +1,16 @@
+[profile.default]
+src = 'src/poc'
+out = 'out'
+libs = ['lib']
+test = 'test'
+evm_version = 'istanbul'
+optimizer = true
+optimizer_runs = 200
+remappings = [
+    '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
+    '@uniswap/v2-core/=lib/uniswap/v2-core/'
+]
+
+[fmt]
+line_length = 120
+tab_width = 4

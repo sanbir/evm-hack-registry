@@ -1,0 +1,105 @@
+Compiling 13 files with Solc 0.5.11
+Solc 0.5.11 finished in 1.09s
+Compiler run successful with warnings:
+Warning: Function state mutability can be restricted to pure
+test/18210-lack-of-return-value-checks-can-lead-to-unexpected-results-t_exp.sol:68:5: Warning: Function state mutability can be restricted to pure
+    function supplyRatePerBlock() external view returns (uint256) {
+    ^ (Relevant source part starts here and spans across multiple lines).
+Warning: Function state mutability can be restricted to view
+test/18210-lack-of-return-value-checks-can-lead-to-unexpected-results-t_exp.sol:72:5: Warning: Function state mutability can be restricted to view
+    function balanceOfUnderlying(address owner) external returns (uint256) {
+    ^ (Relevant source part starts here and spans across multiple lines).
+
+Ran 1 test for test/18210-lack-of-return-value-checks-can-lead-to-unexpected-results-t_exp.sol:PoC_18210
+[PASS] test_liquidateIgnoresFailedCompoundRedeem() (gas: 120134)
+Traces:
+  [3101164] PoC_18210::setUp()
+    ├─ [637851] → new MockUSDC@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2870 bytes of code
+    ├─ [408976] → new MockCErc20@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1838 bytes of code
+    ├─ [1627995] → new CompoundStrategy@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   ├─ emit GovernorshipTransferred(previousGovernor: 0x0000000000000000000000000000000000000000, newGovernor: PoC_18210: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 8019 bytes of code
+    ├─ [149326] CompoundStrategy::initialize(MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], PoC_18210: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000000, [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   ├─ emit PTokenAdded(_asset: MockUSDC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], _pToken: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   ├─ [3239] MockUSDC::approve(MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0)
+    │   │   ├─ emit Approval(owner: CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], spender: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 0)
+    │   │   └─ ← [Return] true
+    │   ├─ [1360] MockUSDC::allowance(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [22439] MockUSDC::approve(MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], spender: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [44090] MockUSDC::mint(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 100000000 [1e8])
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], value: 100000000 [1e8])
+    │   └─ ← [Stop]
+    ├─ [59523] CompoundStrategy::deposit(MockUSDC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 100000000 [1e8])
+    │   ├─ [53949] MockCErc20::mint(100000000 [1e8])
+    │   │   ├─ [29414] MockUSDC::transferFrom(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100000000 [1e8])
+    │   │   │   ├─ emit Transfer(from: CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 100000000 [1e8])
+    │   │   │   ├─ emit Approval(owner: CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], spender: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], value: 115792089237316195423570985008687907853269984665640564039457584007913029639935 [1.157e77])
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 0
+    │   ├─ emit Deposit(_asset: MockUSDC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], _pToken: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], _amount: 100000000 [1e8])
+    │   └─ ← [Return] 100000000 [1e8]
+    └─ ← [Stop]
+
+  [135134] PoC_18210::test_liquidateIgnoresFailedCompoundRedeem()
+    ├─ [1146] MockCErc20::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 500000000000 [5e11]
+    ├─ [7031] CompoundStrategy::checkBalance(MockUSDC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [1146] MockCErc20::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 500000000000 [5e11]
+    │   ├─ [999] MockCErc20::exchangeRateStored() [staticcall]
+    │   │   └─ ← [Return] 200000000000000 [2e14]
+    │   └─ ← [Return] 100000000 [1e8]
+    ├─ [1167] MockUSDC::balanceOf(PoC_18210: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [32368] MockCErc20::borrowCashOut(0x0000000000000000000000000000000000000B0b, 100000000 [1e8])
+    │   ├─ [29540] MockUSDC::transfer(0x0000000000000000000000000000000000000B0b, 100000000 [1e8])
+    │   │   ├─ emit Transfer(from: MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], to: 0x0000000000000000000000000000000000000B0b, value: 100000000 [1e8])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x3df664546288c9c5a7b1d0ce1ee5ae748f9a5691336ac256941d65602eb592aa: 0 → 0x0000000000000000000000000000000000000000000000000000000005f5e100
+    │   │   │   @ 0xc6bd81b73d1fd76b6ab7b2a3e675f602f162633118b2ec0b74d6456669dd8579: 0x0000000000000000000000000000000000000000000000000000000005f5e100 → 0
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [3868] MockCErc20::getCash() [staticcall]
+    │   ├─ [1167] MockUSDC::balanceOf(MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [51391] CompoundStrategy::liquidate()
+    │   ├─ [1146] MockCErc20::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 500000000000 [5e11]
+    │   ├─ [1146] MockCErc20::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 500000000000 [5e11]
+    │   ├─ [24882] MockCErc20::redeem(500000000000 [5e11])
+    │   │   ├─ [1167] MockUSDC::balanceOf(MockCErc20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 9
+    │   │   └─ ← [Return] 9
+    │   ├─ [1167] MockUSDC::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [6140] MockUSDC::transfer(PoC_18210: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0)
+    │   │   ├─ emit Transfer(from: CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], to: PoC_18210: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [1021] MockCErc20::lastRedeemError() [staticcall]
+    │   └─ ← [Return] 9
+    ├─ [1167] MockUSDC::balanceOf(PoC_18210: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [1146] MockCErc20::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 500000000000 [5e11]
+    ├─ [7031] CompoundStrategy::checkBalance(MockUSDC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [1146] MockCErc20::balanceOf(CompoundStrategy: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   │   └─ ← [Return] 500000000000 [5e11]
+    │   ├─ [999] MockCErc20::exchangeRateStored() [staticcall]
+    │   │   └─ ← [Return] 200000000000000 [2e14]
+    │   └─ ← [Return] 100000000 [1e8]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 960.08µs (518.13µs CPU time)
+
+Ran 1 test suite in 143.28ms (960.08µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
