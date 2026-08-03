@@ -89,11 +89,28 @@ movement and making dAPI computations robust to partial compromise. Consumers
 should additionally enforce source quorum, freshness, and maximum-deviation
 checks appropriate to their risk.
 
+## Attack sequence
+
+```mermaid
+sequenceDiagram
+    actor Eve as Attacker (owns compromised Airnode O2 key)
+    participant S as API3 BeaconUpdatesWithSignedData\n(real DataFeedServer + Median)
+    Eve->>S: updateBeaconWithSignedData(O0, 603) [honest]
+    Eve->>S: updateBeaconWithSignedData(O1, 598) [honest]
+    Eve->>S: updateBeaconWithSignedData(O2, 598) [compromised]
+    Eve->>S: updateBeaconSetWithBeacons([b0,b1,b2])
+    S-->>Eve: median(603,598,598) = 598
+    Eve->>S: updateBeaconWithSignedData(O2, 601) [only compromised report changes]
+    Eve->>S: updateBeaconSetWithBeacons([b0,b1,b2])
+    S-->>Eve: median(603,598,601) = 601
+    Note over Eve,S: One source moved the dAPI median +3, to any point in [598,603]
+```
+
 ## How to reproduce
 
 ```bash
-cd evm-hack-registry/17624-compromise-of-a-single-oracle-enables-limited-control-of-the_exp
-forge test -vvvvv
+cd evm-hack-registry
+_shared/run-poc/run_poc.sh 17624-compromise-of-a-single-oracle-enables-limited-control-of-the_exp -vvvvv
 ```
 
 ## Sources

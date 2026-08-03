@@ -77,8 +77,7 @@ contract CarouselFactory is VaultFactoryV2 {
                 treasury,
                 address(emissionsToken),
                 _marketCalldata.relayerFee,
-                _marketCalldata.depositFee,
-                _marketCalldata.minQueueDeposit
+                _marketCalldata.depositFee
             )
         );
 
@@ -96,8 +95,7 @@ contract CarouselFactory is VaultFactoryV2 {
                 treasury,
                 address(emissionsToken),
                 _marketCalldata.relayerFee,
-                _marketCalldata.depositFee,
-                _marketCalldata.minQueueDeposit
+                _marketCalldata.depositFee
             )
         );
 
@@ -214,7 +212,6 @@ contract CarouselFactory is VaultFactoryV2 {
         address controller;
         uint256 relayerFee;
         uint256 depositFee;
-        uint256 minQueueDeposit;
     }
 
     /*//////////////////////////////////////////////////////////////

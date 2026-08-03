@@ -20,7 +20,6 @@ contract Carousel is VaultV2 {
     // Earthquake parameters
     uint256 public relayerFee;
     uint256 public depositFee;
-    uint256 public minQueueDeposit;
     IERC20 public immutable emissionsToken;
 
     mapping(address => uint256) public ownerToRollOverQueueIndex;
@@ -56,7 +55,6 @@ contract Carousel is VaultV2 {
         emissionsToken = IERC20(_data.emissionsToken);
         relayerFee = _data.relayerFee;
         depositFee = _data.depositFee;
-        minQueueDeposit = _data.minQueueDeposit;
 
         // set epoch 0 to be allways available to deposit into Queue
         epochExists[0] = true;
@@ -73,8 +71,7 @@ contract Carousel is VaultV2 {
     //////////////////////////////////////////////////////////////*/
 
     /** @notice Deposit function
-        @dev if receiver intends to deposit into queue and is contract, it must implement 1155 receiver interface otherwise funds will be stuck
-        @param  _id epoch id, if 0 deposit will be queued;
+        @param  _id epoch id
         @param _assets   uint256 of how many assets you want to deposit;
         @param _receiver  address of the receiver of the shares provided by this function, that represent the ownership of the deposited asset;
      */
@@ -87,7 +84,7 @@ contract Carousel is VaultV2 {
         override(VaultV2)
         epochIdExists(_id)
         epochHasNotStarted(_id)
-        minRequiredDeposit(_assets, _id)
+        minRequiredDeposit(_assets)
         nonReentrant
     {
         // make sure that epoch exists
@@ -105,7 +102,7 @@ contract Carousel is VaultV2 {
         external
         payable
         override(VaultV2)
-        minRequiredDeposit(msg.value, _id)
+        minRequiredDeposit(msg.value)
         epochIdExists(_id)
         epochHasNotStarted(_id)
         nonReentrant
@@ -242,7 +239,7 @@ contract Carousel is VaultV2 {
         uint256 _epochId,
         uint256 _assets,
         address _receiver
-    ) public epochIdExists(_epochId) minRequiredDeposit(_assets, _epochId) {
+    ) public epochIdExists(_epochId) minRequiredDeposit(_assets) {
         // check if sender is approved by owner
         if (
             msg.sender != _receiver &&
@@ -334,26 +331,16 @@ contract Carousel is VaultV2 {
         while ((length - _operations) <= i) {
             // this loop impelements FILO (first in last out) stack to reduce gas cost and improve code readability
             // changing it to FIFO (first in first out) would require more code changes and would be more expensive
-            // @note non neglectable mint deposit creates barriers for attackers to DDOS the queue
-
-            uint256 assetsToDeposit = queue[i].assets;
-
-            if (depositFee > 0) {
-                (uint256 feeAmount, uint256 assetsAfterFee) = getEpochDepositFee(_epochId, assetsToDeposit);
-                assetsToDeposit = assetsAfterFee;
-                _asset().safeTransfer(treasury, feeAmount);
-            }
-
             _mintShares(
                 queue[i].receiver,
                 _epochId,
-                assetsToDeposit - relayerFee
+                queue[i].assets - relayerFee
             );
             emit Deposit(
                 msg.sender,
                 queue[i].receiver,
                 _epochId,
-                assetsToDeposit - relayerFee
+                queue[i].assets - relayerFee
             );
             depositQueue.pop();
             if (i == 0) break;
@@ -406,40 +393,35 @@ contract Carousel is VaultV2 {
         while ((index - prevIndex) < (_operations)) {
             // only roll over if last epoch is resolved
             if (epochResolved[queue[index].epochId]) {
-                uint256 entitledAmount = previewWithdraw(
+                uint256 entitledShares = previewWithdraw(
                     queue[index].epochId,
                     queue[index].assets
                 );
                 // mint only if user won epoch he is rolling over
-                if (entitledAmount > queue[index].assets) {
-                uint256 diff = entitledAmount - queue[index].assets;
-                // get diff amount in assets 
-                uint256 diffInAssets = diff.mulDivUp(finalTVL[queue[index].epochId], claimTVL[queue[index].epochId]);
+                if (entitledShares > queue[index].assets) {
                     // skip the rollover for the user if the assets cannot cover the relayer fee instead of revert.
                     if (queue[index].assets < relayerFee) {
                         index++;
                         continue;
                     }
-
-                    uint256 originalDepositValue = queue[index].assets - diffInAssets;
                     // @note we know shares were locked up to this point
                     _burn(
                         queue[index].receiver,
                         queue[index].epochId,
-                        originalDepositValue
+                        queue[index].assets
                     );
                     // transfer emission tokens out of contract otherwise user could not access them as vault shares are burned
                     _burnEmissions(
                         queue[index].receiver,
                         queue[index].epochId,
-                        originalDepositValue
+                        queue[index].assets
                     );
                     // @note emission token is a known token which has no before transfer hooks which makes transfer safer
                     emissionsToken.safeTransfer(
                         queue[index].receiver,
                         previewEmissionsWithdraw(
                             queue[index].epochId,
-                            originalDepositValue
+                            queue[index].assets
                         )
                     );
 
@@ -448,8 +430,8 @@ contract Carousel is VaultV2 {
                         queue[index].receiver,
                         queue[index].receiver,
                         _epochId,
-                        originalDepositValue,
-                        entitledAmount
+                        queue[index].assets,
+                        entitledShares
                     );
                     uint256 assetsToMint = queue[index].assets - relayerFee;
                     _mintShares(queue[index].receiver, _epochId, assetsToMint);
@@ -495,8 +477,14 @@ contract Carousel is VaultV2 {
             uint256 assetsToDeposit = _assets;
 
             if (depositFee > 0) {
-                (uint256 feeAmount, uint256 assetsAfterFee) = getEpochDepositFee(_id, _assets);
-                assetsToDeposit = assetsAfterFee;
+                (uint256 maxX, , uint256 minX) = getEpochConfig(_id);
+                // deposit fee is calcualted linearly between time of epoch creation and epoch starting (deposit window)
+                // this is because late depositors have an informational advantage
+                uint256 fee = _calculateFeePercent(int256(minX), int256(maxX));
+                // min minRequiredDeposit modifier ensures that _assets has high enough value to not devide by 0
+                // 0.5% = multiply by 10000 then divide by 50
+                uint256 feeAmount = _assets.mulDivDown(fee, 10000);
+                assetsToDeposit = _assets - feeAmount;
                 _asset().safeTransfer(treasury, feeAmount);
             }
 
@@ -634,27 +622,6 @@ contract Carousel is VaultV2 {
         return ownerToRollOverQueueIndex[_owner] - 1;
     }
 
-    /** @notice retruns deposit fee at this time
-     * @param _id epoch id
-     * @param _assets amount of assets
-     * @return feeAmount fee amount
-     * @return _assetsAfterFee assets after fee
-    */
-    function getEpochDepositFee(uint256 _id, uint256 _assets)
-        public
-        view
-        returns (uint256 feeAmount, uint256 _assetsAfterFee)
-    {
-        (uint256 maxX, , uint256 minX) = getEpochConfig(_id);
-        // deposit fee is calcualted linearly between time of epoch creation and epoch starting (deposit window)
-        // this is because late depositors have an informational advantage
-        uint256 fee = _calculateFeePercent(int256(minX), int256(maxX));
-        // min minRequiredDeposit modifier ensures that _assets has high enough value to not devide by 0
-        // 0.5% = multiply by 10000 then divide by 50
-        feeAmount = _assets.mulDivDown(fee, 10000);
-        _assetsAfterFee = _assets - feeAmount;
-    }
-
     /** @notice returns the emissions to withdraw
      * @param _id epoch id
      * @param _assets amount of assets to withdraw
@@ -760,7 +727,6 @@ contract Carousel is VaultV2 {
         address emissionsToken;
         uint256 relayerFee;
         uint256 depositFee;
-        uint256 minQueueDeposit;
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -770,8 +736,8 @@ contract Carousel is VaultV2 {
     /** @notice checks if deposit is greater than relayer fee
      * @param _assets amount of assets to deposit
      */
-    modifier minRequiredDeposit(uint256 _assets, uint256 _epochId) {
-        if (_epochId == 0 && _assets < minQueueDeposit) revert MinDeposit();
+    modifier minRequiredDeposit(uint256 _assets) {
+        if (_assets < relayerFee) revert MinDeposit();
         _;
     }
 

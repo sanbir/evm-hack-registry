@@ -61,11 +61,11 @@ contract InitializableAbstractStrategy is Initializable, Governable {
     /**
      * @dev Collect accumulated reward token (COMP) and send to Vault.
      */
-    function collectRewardToken() external onlyVault nonReentrant {
+    function collectRewardToken() external onlyVault {
         IERC20 rewardToken = IERC20(rewardTokenAddress);
         uint256 balance = rewardToken.balanceOf(address(this));
-        emit RewardTokenCollected(vaultAddress, balance);
         rewardToken.safeTransfer(vaultAddress, balance);
+        emit RewardTokenCollected(vaultAddress, balance);
     }
 
     function _initialize(
@@ -224,7 +224,9 @@ contract InitializableAbstractStrategy is Initializable, Governable {
      * @param _amount              Units of asset to deposit
      * @return amountDeposited     Quantity of asset that was deposited
      */
-    function deposit(address _asset, uint256 _amount) external;
+    function deposit(address _asset, uint256 _amount)
+        external
+        returns (uint256 amountDeposited);
 
     /**
      * @dev Withdraw an amount of asset from the platform.
@@ -237,7 +239,7 @@ contract InitializableAbstractStrategy is Initializable, Governable {
         address _recipient,
         address _asset,
         uint256 _amount
-    ) external;
+    ) external returns (uint256 amountWithdrawn);
 
     /**
      * @dev Liquidate entire contents of strategy sending assets to Vault.

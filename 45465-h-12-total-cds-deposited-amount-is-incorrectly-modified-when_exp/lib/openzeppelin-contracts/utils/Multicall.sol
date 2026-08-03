@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.9.5) (utils/Multicall.sol)
+// OpenZeppelin Contracts (last updated v5.0.1) (utils/Multicall.sol)
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-import "./Address.sol";
-import "./Context.sol";
+import {Address} from "./Address.sol";
+import {Context} from "./Context.sol";
 
 /**
  * @dev Provides a function to batch together multiple calls in a single external call.
@@ -17,8 +17,6 @@ import "./Context.sol";
  * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
  * to the subcall. This makes it safe to use with {ERC2771Context}. Contexts that don't affect the resolution of
  * {_msgSender} are not propagated to subcalls.
- *
- * _Available since v4.1._
  */
 abstract contract Multicall is Context {
     /**

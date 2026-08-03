@@ -16,7 +16,6 @@ library CarouselCreator {
         address emissionsToken;
         uint256 relayerFee;
         uint256 depositFee;
-        uint256 minQueueDeposit;
     }
 
     function createCarousel(CarouselMarketConfiguration memory _marketConfig)
@@ -38,8 +37,7 @@ library CarouselCreator {
                         _marketConfig.treasury,
                         _marketConfig.emissionsToken,
                         _marketConfig.relayerFee,
-                        _marketConfig.depositFee,
-                        _marketConfig.minQueueDeposit
+                        _marketConfig.depositFee
                     )
                 )
             );

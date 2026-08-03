@@ -1,22 +1,4 @@
-No files changed, compilation skipped
-
 Ran 1 test for test/44374-h-4-users-can-modify-a-cancelled-order-withdrawing-the-same_exp.sol:PoC_44374
-[PASS] testExploit() (gas: 343987)
-Traces:
-  [343987] PoC_44374::testExploit()
-    ├─ [259098] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
-    │   └─ ← [Return] 1294 bytes of code
-    ├─ [47473] Exploit::run()
-    │   ├─  storage changes:
-    │   │   @ 0: 0 → 200
-    │   │   @ 9: 0 → 65536
-    │   └─ ← [Stop]
-    ├─ [540] Exploit::proven() [staticcall]
-    │   └─ ← [Return] true
-    ├─ [0] VM::assertTrue(true, "harm was not reproduced") [staticcall]
-    │   └─ ← [Return]
-    └─ ← [Stop]
-
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 300.96µs (138.08µs CPU time)
-
-Ran 1 test suite in 9.28ms (300.96µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+[PASS] test_cancelled_order_modified_to_double_withdraw_drains_other_depositor() (gas: 170769)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 696.33µs (138.92µs CPU time)
+Ran 1 test suite in 131.93ms (696.33µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

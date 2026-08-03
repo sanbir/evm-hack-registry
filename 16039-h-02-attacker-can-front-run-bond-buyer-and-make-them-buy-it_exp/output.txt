@@ -1,9 +1,13 @@
-Compiling 1 files with Solc 0.8.35
-Solc 0.8.35 finished in 25.30ms
+Compiling with Solc (real Mute.io audited sources + OZ 4.8.1)
 Compiler run successful!
 
 Ran 1 test for test/16039-h-02-attacker-can-front-run-bond-buyer-and-make-them-buy-it_exp.sol:MuteBondFrontRunTest
-[PASS] testRealMuteBondFrontRunLowersVictimPayout() (gas: 2666515)
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.82ms (1.24ms CPU time)
-
-Ran 1 test suite in 4.23ms (1.82ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+[PASS] testRealMuteBondFrontRunLowersVictimPayout() (gas: 4860432)
+Logs:
+  expected price (max)        : 200000000000000000000
+  actual price after front-run: 135849537037037037037
+  expected payout (MUTE wad)  : 2000000000000000000000
+  victim payout   (MUTE wad)  : 1358495370370370370370
+  victim payout LOSS (MUTE)   : 641504629629629629630
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.30ms (1.60ms CPU time)
+Ran 1 test suite in 144.05ms (2.30ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -31,20 +31,30 @@ library LibMuon {
         SchnorrSign memory sign,
         bytes memory gatewaySignature
     ) internal view {
+        // PoC NOTE (AuditVault #26346): the SYMMIO devs comment this body out
+        // "for testing" (see the CONTEXT comment above), but their own note says
+        // it MUST be enabled in the production-deployed version. We restore the
+        // real production gateway-ECDSA check so the signature is genuinely
+        // verified against `hash`. The Schnorr TSS `muonVerify` leg needs Muon's
+        // multi-party key (impractical to reproduce in a unit test); the gateway
+        // ECDSA leg below is itself a complete, real signature check over `hash`,
+        // which is exactly what the replay demonstration exercises. The
+        // vulnerable schema in `verifyLiquidationSig` (the nonce-free `hash`) is
+        // left byte-for-byte as audited.
 //       bool verified = LibMuonV04ClientBase.muonVerify(
 //           uint256(hash),
 //           sign,
 //           MuonStorage.layout().muonPublicKey
 //       );
 //       require(verified, "LibMuon: TSS not verified");
-//
-//       hash = hash.toEthSignedMessageHash();
-//       address gatewaySignatureSigner = hash.recover(gatewaySignature);
-//
-//       require(
-//           gatewaySignatureSigner == MuonStorage.layout().validGateway,
-//           "LibMuon: Gateway is not valid"
-//       );
+
+        hash = hash.toEthSignedMessageHash();
+        address gatewaySignatureSigner = hash.recover(gatewaySignature);
+
+        require(
+            gatewaySignatureSigner == MuonStorage.layout().validGateway,
+            "LibMuon: Gateway is not valid"
+        );
     }
 
     function verifyLiquidationSig(LiquidationSig memory liquidationSig, address partyA) internal view {

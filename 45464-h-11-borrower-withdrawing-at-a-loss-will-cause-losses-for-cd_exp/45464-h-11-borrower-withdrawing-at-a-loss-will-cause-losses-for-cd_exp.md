@@ -1,29 +1,60 @@
-# Autonomint CDS loss accounting let an earlier depositor recover at later depositors' expense
+# Autonomint: borrower downside protection is recovered into the whole CDS pool
 
-> **Vulnerability classes:** vuln/liquidation-logic · vuln/reward-accounting · vuln/first-deposit
+> **Vulnerability classes:** liquidation-logic · reward-accounting · integer-bounds · locked-funds
 >
-> **Reproduction:** the test calls the audited `CDSLib.cdsAmountToReturn` implementation from the Sherlock Autonomint snapshot. It models the exact 10% cumulative loss followed by an equal recovery.
+> **Reproduction:** deploys the REAL audited Autonomint protocol (full `Core_logic` +
+> `lib` at Sherlock snapshot `0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b`) with minimal
+> real doubles only for the opaque external venues (Ionic, WETH, Synthetix, RedStone
+> oracle) and the repo's own `EndpointV2Mock` LayerZero stack. No mainnet fork.
 
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/45464-h-11-borrower-withdrawing-at-a-loss-will-cause-losses-for-cd.md -->
+<!-- source-auditvault: https://github.com/sherlock-audit/2024-11-autonomint-judging/issues/734 -->
 <!-- date: 2024-11 -->
 
 ## Root cause
 
-The first CDS depositor's return is calculated from the cumulative value at deposit and withdrawal. A down-then-up price path brings that cumulative value back to its original value, so the first depositor receives the full original deposit even though downside protection was consumed during the loss. Later depositors absorb that shortfall.
+When a borrower withdraws while underwater, `BorrowLib.withdraw` increases
+`omniChainData.downsideProtected` and the CDS realizes that loss by subtracting it from
+`totalCdsDepositedAmount` (`CDS.withdraw` / `CDSLib`). When the price later recovers, the
+protection is credited back to the pool **at large** (divided by the full
+`totalCdsDepositedAmount`) rather than to the specific depositor that funded it. The
+aggregate therefore drifts below the sum of the individual deposits and a later depositor
+cannot be made whole.
 
-The exact library is vendored at [`src/lib/CDSLib.sol`](src/lib/CDSLib.sol), from snapshot commit `0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b`.
+Vulnerable sources: [`src/lib/BorrowLib.sol`](src/lib/BorrowLib.sol) (downside protection
+increase) and [`src/Core_logic/CDS.sol`](src/Core_logic/CDS.sol) (`withdraw`, downside
+realization + return-amount calculation).
+
+## Exploit walkthrough (real numbers)
+
+1. CDS depositor #1 deposits **6,000 USDT**.
+2. A borrower deposits **1 ETH** at $1,000.
+3. Price drops to **$900**; the borrower withdraws at a loss — this adds ~100 USDa of
+   downside protection that is deducted from the pool aggregate (0.5 ETH is paid to a
+   fresh EOA).
+4. A second borrower deposits 1 ETH at $900; price recovers to **$1,000**.
+5. CDS depositor #2 deposits **6,000 USDT**.
+6. Both depositors put in 6,000 each (12,000 total) at the same net price, yet
+   `totalCdsDepositedAmount` reads **11,900** — a permanent **100 USDa** shortfall that
+   strands the later depositor.
+
+`test/…_exp.sol` asserts `totalCdsDepositedAmount < 12,000e6`.
+
+```mermaid
+sequenceDiagram
+    participant C1 as CDS depositor 1
+    participant B as Borrower
+    participant C2 as CDS depositor 2
+    participant P as CDS pool
+    C1->>P: deposit 6000
+    B->>P: borrow (price 1000 -> 900)
+    B->>P: withdraw at loss (downside -100 from pool)
+    Note over P: price recovers to 1000
+    C2->>P: deposit 6000
+    Note over P: aggregate = 11900 < 12000 (100 stuck)
+```
 
 ## Reproduction
 
 ```bash
-cd 45464-h-11-borrower-withdrawing-at-a-loss-will-cause-losses-for-cd_exp
-forge test -vvv
+_shared/run-poc/run_poc.sh 45464-h-11-borrower-withdrawing-at-a-loss-will-cause-losses-for-cd_exp -vvvvv
 ```
-
-Expected result: `1 passed`. The test obtains 900 after the loss, then 1,000 after the equal recovery using the real `cdsAmountToReturn` implementation.
-
-## Sources
-
-- [AuditVault finding #45464](https://github.com/Auditware/AuditVault/blob/main/findings/45464-h-11-borrower-withdrawing-at-a-loss-will-cause-losses-for-cd.md)
-- [Sherlock Autonomint source snapshot](https://github.com/sherlock-audit/2024-11-autonomint/tree/0d324e04d4c0ca306e1ae4d4c65f0cb9d681751b/Blockchain/Blockchian/contracts)
-- [Sherlock issue #734](https://github.com/sherlock-audit/2024-11-autonomint-judging/issues/734)

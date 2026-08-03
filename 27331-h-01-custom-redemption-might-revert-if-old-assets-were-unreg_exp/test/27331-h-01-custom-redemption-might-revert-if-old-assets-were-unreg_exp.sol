@@ -2,134 +2,127 @@
 pragma solidity 0.8.17;
 
 import "forge-std/Test.sol";
+import "../src/reserve/target/p1/AssetRegistry.sol";
 import "../src/reserve/target/p1/BasketHandler.sol";
-import "../src/reserve/target/interfaces/IAsset.sol";
-import "../src/reserve/target/interfaces/IAssetRegistry.sol";
+import "../src/reserve/target/p1/mixins/BasketLib.sol";
 import "../src/reserve/target/interfaces/IMain.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "../src/reserve/target/interfaces/IAsset.sol";
+import "../src/reserve/target/poc/PoCEnv.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
-contract MockReserveToken is ERC20 {
-    constructor(string memory name_) ERC20(name_, name_) {}
-}
-
-contract MockReserveCollateral {
-    IERC20Metadata public immutable token;
-    bytes32 public immutable targetNameValue;
-
-    constructor(IERC20Metadata token_, bytes32 targetName_) {
-        token = token_;
-        targetNameValue = targetName_;
-    }
-
-    function erc20() external view returns (IERC20Metadata) { return token; }
-    function erc20Decimals() external view returns (uint8) { return token.decimals(); }
-    function isCollateral() external pure returns (bool) { return true; }
-    function status() external pure returns (CollateralStatus) { return CollateralStatus.SOUND; }
-    function refPerTok() external pure returns (uint192) { return 1e18; }
-    function targetPerRef() external pure returns (uint192) { return 1e18; }
-    function targetName() external view returns (bytes32) { return targetNameValue; }
-    function refresh() external {}
-    function price() external pure returns (uint192, uint192) { return (1e18, 1e18); }
-    function bal(address) external pure returns (uint192) { return 0; }
-    function maxTradeVolume() external pure returns (uint192) { return 1e30; }
-    function lastSave() external pure returns (uint48) { return 0; }
-    function savedPegPrice() external pure returns (uint192) { return 1e18; }
-}
-
-contract MockReserveRegistry {
-    mapping(address => IAsset) internal assets;
-    mapping(address => bool) internal registered;
-    uint256 internal registrySize;
-
-    function add(IERC20 token, IAsset asset) external {
-        assets[address(token)] = asset;
-        registered[address(token)] = true;
-        registrySize++;
-    }
-
-    function unregister(IERC20 token) external {
-        registered[address(token)] = false;
-        registrySize--;
-    }
-
-    function refresh() external {}
-    function size() external view returns (uint256) { return registrySize; }
-    function isRegistered(IERC20 token) external view returns (bool) { return registered[address(token)]; }
-    function toAsset(IERC20 token) external view returns (IAsset) {
-        require(registered[address(token)], "erc20 unregistered");
-        return assets[address(token)];
-    }
-    function toColl(IERC20 token) external view returns (ICollateral) {
-        require(registered[address(token)], "erc20 unregistered");
-        return ICollateral(address(assets[address(token)]));
-    }
-}
-
-contract MockReserveMain {
-    IAssetRegistry internal registry;
-
-    constructor(IAssetRegistry registry_) { registry = registry_; }
-    function assetRegistry() external view returns (IAssetRegistry) { return registry; }
-    function backingManager() external pure returns (IBackingManager) { return IBackingManager(address(0)); }
-    function rsr() external pure returns (IERC20) { return IERC20(address(0)); }
-    function rToken() external pure returns (IRToken) { return IRToken(address(0)); }
-    function stRSR() external pure returns (IStRSR) { return IStRSR(address(0)); }
-    function hasRole(bytes32, address) external pure returns (bool) { return true; }
-    function tradingPausedOrFrozen() external pure returns (bool) { return false; }
-}
-
+/// @notice Real-source reproduction of Reserve H-01 (Code4rena 2023-06, commit c4ec2473).
+///         Deploys the REAL AssetRegistryP1 and the REAL (vulnerable) BasketHandlerP1 and
+///         drives them through the real governance path: register 3 collateral, record a
+///         3-asset historical basket, switch the prime basket to 2 assets, then unregister
+///         one of the old assets. AssetRegistry.size() (a REAL EnumerableSet) drops to 2
+///         while basketHistory[1] still holds 3 erc20s. quoteCustomRedemption then sizes
+///         erc20sAll from registry.size()=2 and writes index 2 -> index-out-of-bounds.
 contract PoC_27331 is Test {
-    BasketHandlerP1 internal handler;
-    MockReserveRegistry internal registry;
-    MockReserveToken internal token1;
-    MockReserveToken internal token2;
-    MockReserveToken internal token3;
+    AssetRegistryP1 internal assetRegistry;
+    BasketHandlerP1 internal basketHandler;
+    PoCMain internal main;
+    PoCBackingManager internal backingManager;
+
+    MiniERC20 internal usdc;
+    MiniERC20 internal usdt;
+    MiniERC20 internal dai;
+    MiniCollateral internal collUSDC;
+    MiniCollateral internal collUSDT;
+    MiniCollateral internal collDAI;
+
+    bytes32 internal constant USD = bytes32("USD");
+
+    // Must match foundry.toml `libraries` link for BasketLibP1.
+    address internal constant BASKET_LIB = 0x8a6A5771513Da286B191417a57BAeb151F5D3320;
 
     function setUp() public {
-        registry = new MockReserveRegistry();
-        token1 = new MockReserveToken("USDC");
-        token2 = new MockReserveToken("USDT");
-        token3 = new MockReserveToken("DAI");
-        registry.add(token1, IAsset(address(new MockReserveCollateral(token1, bytes32("USD")))));
-        registry.add(token2, IAsset(address(new MockReserveCollateral(token2, bytes32("USD")))));
-        registry.add(token3, IAsset(address(new MockReserveCollateral(token3, bytes32("USD")))));
+        // BasketHandlerP1 is linked to BasketLibP1 at a fixed address; place its runtime
+        // code there (the playground exploit CREATE2-self-deploys the same code).
+        vm.etch(BASKET_LIB, type(BasketLibP1).runtimeCode);
 
-        MockReserveMain main = new MockReserveMain(IAssetRegistry(address(registry)));
-        // BasketHandler is an upgradeable implementation whose constructor
-        // locks the implementation initializer. Exercise the production
-        // initialization path through an ERC1967 proxy.
-        BasketHandlerP1 implementation = new BasketHandlerP1();
-        bytes memory initData = abi.encodeCall(BasketHandlerP1.init, (IMain(address(main)), 60));
-        ERC1967Proxy proxy = new ERC1967Proxy(address(implementation), initData);
-        handler = BasketHandlerP1(address(proxy));
+        main = new PoCMain();
+        backingManager = new PoCBackingManager();
 
-        IERC20[] memory assets = new IERC20[](3);
-        assets[0] = token1;
-        assets[1] = token2;
-        assets[2] = token3;
-        uint192[] memory weights = new uint192[](3);
-        weights[0] = 1e18;
-        weights[1] = 1e18;
-        weights[2] = 1e18;
-        handler.setPrimeBasket(assets, weights);
-        handler.refreshBasket();
+        usdc = new MiniERC20("USD Coin", "USDC", 6);
+        usdt = new MiniERC20("Tether", "USDT", 6);
+        dai = new MiniERC20("Dai", "DAI", 18);
+        collUSDC = new MiniCollateral(usdc, USD);
+        collUSDT = new MiniCollateral(usdt, USD);
+        collDAI = new MiniCollateral(dai, USD);
 
-        // Governance unregisters the third asset after the old basket is
-        // recorded. The actual registry now has only two entries.
-        registry.unregister(token3);
+        // Deploy the REAL upgradeable components behind proxies with EMPTY init data,
+        // then wire Main and call init() manually (breaks the component init cycle the
+        // production Deployer resolves the same way).
+        AssetRegistryP1 arImpl = new AssetRegistryP1();
+        ERC1967Proxy arProxy = new ERC1967Proxy(address(arImpl), "");
+        assetRegistry = AssetRegistryP1(address(arProxy));
+
+        BasketHandlerP1 bhImpl = new BasketHandlerP1();
+        ERC1967Proxy bhProxy = new ERC1967Proxy(address(bhImpl), "");
+        basketHandler = BasketHandlerP1(address(bhProxy));
+
+        main.setComponents(
+            IAssetRegistry(address(assetRegistry)),
+            IBackingManager(address(backingManager)),
+            IBasketHandler(address(basketHandler)),
+            IERC20(address(0xDEAD01)), // rsr sentinel (must differ from basket erc20s)
+            IRToken(address(0xDEAD02)), // rToken sentinel
+            IStRSR(address(0xDEAD03)) // stRSR sentinel
+        );
+
+        IAsset[] memory assets = new IAsset[](3);
+        assets[0] = IAsset(address(collUSDC));
+        assets[1] = IAsset(address(collUSDT));
+        assets[2] = IAsset(address(collDAI));
+        assetRegistry.init(IMain(address(main)), assets);
+
+        basketHandler.init(IMain(address(main)), 60);
     }
 
-    function test_old_three_asset_basket_exceeds_current_registry_array() public {
+    function _quote() internal view returns (address[] memory erc20s, uint256[] memory qtys) {
         uint48[] memory nonces = new uint48[](1);
-        nonces[0] = 1;
+        nonces[0] = 1; // the historical 3-asset basket
         uint192[] memory portions = new uint192[](1);
         portions[0] = 1e18;
+        return basketHandler.quoteCustomRedemption(nonces, portions, 1e18);
+    }
 
-        // In the vulnerable BasketHandlerP1 at c4ec2473, erc20sAll is sized
-        // from registry.size() (=2), then the three-token historical basket
-        // writes index 2 before checking registration.
-        vm.expectRevert();
-        handler.quoteCustomRedemption(nonces, portions, 1e18);
+    function test_customRedemption_bricked_after_old_asset_unregistered() public {
+        // === Governance records the initial 3-asset prime basket (0.9 USDC, 0.05 USDT, 0.05 DAI) ===
+        IERC20[] memory e3 = new IERC20[](3);
+        e3[0] = IERC20(address(usdc));
+        e3[1] = IERC20(address(usdt));
+        e3[2] = IERC20(address(dai));
+        uint192[] memory w3 = new uint192[](3);
+        w3[0] = 0.9e18;
+        w3[1] = 0.05e18;
+        w3[2] = 0.05e18;
+        basketHandler.setPrimeBasket(e3, w3);
+        basketHandler.refreshBasket(); // nonce 1 = {USDC, USDT, DAI}
+        assertEq(basketHandler.nonce(), 1, "historical basket nonce");
+        assertEq(assetRegistry.size(), 3, "registry has 3 assets");
+
+        // Redemption of the historical basket WORKS while all three assets are registered.
+        (address[] memory before, ) = _quote();
+        assertEq(before.length, 3, "custom redemption returns the 3 backing assets");
+
+        // === Governance switches to a 2-asset basket (0.9 DAI, 0.1 USDC) and unregisters USDT ===
+        IERC20[] memory e2 = new IERC20[](2);
+        e2[0] = IERC20(address(dai));
+        e2[1] = IERC20(address(usdc));
+        uint192[] memory w2 = new uint192[](2);
+        w2[0] = 0.9e18;
+        w2[1] = 0.1e18;
+        basketHandler.setPrimeBasket(e2, w2);
+        basketHandler.refreshBasket(); // nonce 2 = {DAI, USDC}
+
+        assetRegistry.unregister(IAsset(address(collUSDT))); // REAL size 3 -> 2
+        assertEq(assetRegistry.size(), 2, "registry now has 2 assets, old basket still has 3");
+
+        // === Harm: the SAME legitimate redemption request now reverts with index-out-of-bounds ===
+        // quoteCustomRedemption sizes erc20sAll from registry.size()=2 but iterates the
+        // 3-erc20 historical basket, writing erc20sAll[2] out of bounds -> Panic(0x32).
+        vm.expectRevert(stdError.indexOOBError);
+        _quote();
     }
 }

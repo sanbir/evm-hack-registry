@@ -71,8 +71,7 @@ contract Carousel is VaultV2 {
     //////////////////////////////////////////////////////////////*/
 
     /** @notice Deposit function
-        @dev if receiver intends to deposit into queue and is contract, it must implement 1155 receiver interface otherwise funds will be stuck
-        @param  _id epoch id, if 0 deposit will be queued;
+        @param  _id epoch id
         @param _assets   uint256 of how many assets you want to deposit;
         @param _receiver  address of the receiver of the shares provided by this function, that represent the ownership of the deposited asset;
      */
@@ -394,40 +393,35 @@ contract Carousel is VaultV2 {
         while ((index - prevIndex) < (_operations)) {
             // only roll over if last epoch is resolved
             if (epochResolved[queue[index].epochId]) {
-                uint256 entitledAmount = previewWithdraw(
+                uint256 entitledShares = previewWithdraw(
                     queue[index].epochId,
                     queue[index].assets
                 );
                 // mint only if user won epoch he is rolling over
-                if (entitledAmount > queue[index].assets) {
-                uint256 diff = entitledAmount - queue[index].assets;
-                // get diff amount in assets 
-                uint256 diffInAssets = diff.mulDivUp(finalTVL[queue[index].epochId], claimTVL[queue[index].epochId]);
+                if (entitledShares > queue[index].assets) {
                     // skip the rollover for the user if the assets cannot cover the relayer fee instead of revert.
                     if (queue[index].assets < relayerFee) {
                         index++;
                         continue;
                     }
-
-                    uint256 originalDepositValue = queue[index].assets - diffInAssets;
                     // @note we know shares were locked up to this point
                     _burn(
                         queue[index].receiver,
                         queue[index].epochId,
-                        originalDepositValue
+                        queue[index].assets
                     );
                     // transfer emission tokens out of contract otherwise user could not access them as vault shares are burned
                     _burnEmissions(
                         queue[index].receiver,
                         queue[index].epochId,
-                        originalDepositValue
+                        queue[index].assets
                     );
                     // @note emission token is a known token which has no before transfer hooks which makes transfer safer
                     emissionsToken.safeTransfer(
                         queue[index].receiver,
                         previewEmissionsWithdraw(
                             queue[index].epochId,
-                            originalDepositValue
+                            queue[index].assets
                         )
                     );
 
@@ -436,8 +430,8 @@ contract Carousel is VaultV2 {
                         queue[index].receiver,
                         queue[index].receiver,
                         _epochId,
-                        originalDepositValue,
-                        entitledAmount
+                        queue[index].assets,
+                        entitledShares
                     );
                     uint256 assetsToMint = queue[index].assets - relayerFee;
                     _mintShares(queue[index].receiver, _epochId, assetsToMint);

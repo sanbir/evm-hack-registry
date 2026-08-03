@@ -6,6 +6,17 @@ test = 'test'
 evm_version = 'paris'
 optimizer = true
 optimizer_runs = 500
+bytecode_hash = 'none'
+libraries = [
+  'src/ajna/src/libraries/external/SettlerActions.sol:SettlerActions:0x0000000000000000000000000000000000000105',
+  'src/ajna/src/libraries/external/BorrowerActions.sol:BorrowerActions:0x0000000000000000000000000000000000000101',
+  'src/ajna/src/libraries/external/KickerActions.sol:KickerActions:0x0000000000000000000000000000000000000102',
+  'src/ajna/src/libraries/external/LenderActions.sol:LenderActions:0x0000000000000000000000000000000000000103',
+  'src/ajna/src/libraries/external/TakerActions.sol:TakerActions:0x0000000000000000000000000000000000000104',
+  'src/ajna/src/libraries/external/PoolCommons.sol:PoolCommons:0x0000000000000000000000000000000000000106',
+  'src/ajna/src/libraries/external/LPActions.sol:LPActions:0x0000000000000000000000000000000000000107',
+  'src/ajna/src/libraries/external/PositionNFTSVG.sol:PositionNFTSVG:0x0000000000000000000000000000000000000108'
+]
 remappings = [
   '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
   '@prb-math/=lib/prb-math/',

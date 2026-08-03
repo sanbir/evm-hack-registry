@@ -1,7 +1,173 @@
-No files changed, compilation skipped
-
 Ran 1 test for test/42441-h-01-openlevv1libs-and-lpools-dotransferout-functions-call-n_exp.sol:PoC_42441_OpenLevTransferOut
-[PASS] testDoTransferOutRevertsForContractRecipient() (gas: 28073)
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 437.29µs (85.79µs CPU time)
+[PASS] testDoTransferOutFreezesContractLenderFunds() (gas: 355941)
+Traces:
+  [6247038] PoC_42441_OpenLevTransferOut::setUp()
+    ├─ [478819] → new WETH@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 2076 bytes of code
+    ├─ [86135] → new MockController@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 430 bytes of code
+    ├─ [4062830] → new LPool@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 20087 bytes of code
+    ├─ [752615] → new LPoolDelegator@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 3551 bytes of code
+    ├─ [247545] LPoolDelegator::initialize(WETH: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], true, MockController: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0, 0, 0, 0, 1000000000000000000 [1e18], "OpenLeverage ETH", "lETH", 18, PoC_42441_OpenLevTransferOut: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], LPool: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ [218782] LPool::initialize(WETH: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], true, MockController: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0, 0, 0, 0, 1000000000000000000 [1e18], "OpenLeverage ETH", "lETH", 18) [delegatecall]
+    │   │   ├─ [245] WETH::totalSupply() [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: PoC_42441_OpenLevTransferOut: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], value: 0)
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [126771] → new CheapLender@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   └─ ← [Return] 633 bytes of code
+    ├─ [174420] → new ContractLender@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   └─ ← [Return] 871 bytes of code
+    ├─ [0] VM::deal(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::deal(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    └─ ← [Stop]
 
-Ran 1 test suite in 3.10ms (437.29µs CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+  [375141] PoC_42441_OpenLevTransferOut::testDoTransferOutFreezesContractLenderFunds()
+    ├─ [119516] CheapLender::deposit(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000 [1e18])
+    │   ├─ [110955] LPoolDelegator::fallback{value: 1000000000000000000}()
+    │   │   ├─ [108998] LPool::mintEth{value: 1000000000000000000}() [delegatecall]
+    │   │   │   ├─ [22546] WETH::deposit{value: 1000000000000000000}()
+    │   │   │   │   ├─ emit Deposit(dst: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], wad: 1000000000000000000 [1e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [327] MockController::mintAllowed(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Mint(minter: CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], mintAmount: 1000000000000000000 [1e18], mintTokens: 1000000000000000000 [1e18])
+    │   │   │   ├─ emit Transfer(from: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], value: 1000000000000000000 [1e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 25: 0 → 1
+    │   │   │   │   @ 7: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   @ 0x3cdedecd1b50bb52b9bd30dab2ec34a9bd204af44381ec0234237580af6b2d39: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   └─ ← [Stop]
+    ├─ [67432] ContractLender::deposit(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000 [1e18])
+    │   ├─ [58871] LPoolDelegator::fallback{value: 1000000000000000000}()
+    │   │   ├─ [56914] LPool::mintEth{value: 1000000000000000000}() [delegatecall]
+    │   │   │   ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [3346] WETH::deposit{value: 1000000000000000000}()
+    │   │   │   │   ├─ emit Deposit(dst: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], wad: 1000000000000000000 [1e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [327] MockController::mintAllowed(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Mint(minter: ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], mintAmount: 1000000000000000000 [1e18], mintTokens: 1000000000000000000 [1e18])
+    │   │   │   ├─ emit Transfer(from: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], value: 1000000000000000000 [1e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 7: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   │   │   │   @ 0xd22395998742bcc4b878e8416cfa885ff61b9ca1359315e8b7d3b519250362d3: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   └─ ← [Stop]
+    ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 2000000000000000000 [2e18]
+    ├─ [0] VM::assertEq(2000000000000000000 [2e18], 2000000000000000000 [2e18], "pool holds both lenders' 2 ETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [3270] LPoolDelegator::fallback(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   ├─ [1231] LPool::balanceOf(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "cheap minted 1e18 lTokens") [staticcall]
+    │   └─ ← [Return]
+    ├─ [3270] LPoolDelegator::fallback(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   ├─ [1231] LPool::balanceOf(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [delegatecall]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "hungry minted 1e18 lTokens") [staticcall]
+    │   └─ ← [Return]
+    ├─ [58417] CheapLender::redeemAll(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ [3270] LPoolDelegator::fallback(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [staticcall]
+    │   │   ├─ [1231] LPool::balanceOf(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1]) [delegatecall]
+    │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   ├─ [51504] LPoolDelegator::fallback(1000000000000000000 [1e18])
+    │   │   ├─ [49541] LPool::redeem(1000000000000000000 [1e18]) [delegatecall]
+    │   │   │   ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2000000000000000000 [2e18]
+    │   │   │   ├─ [349] MockController::redeemAllowed(CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2000000000000000000 [2e18]
+    │   │   │   ├─ [11884] WETH::withdraw(1000000000000000000 [1e18])
+    │   │   │   │   ├─ [98] LPoolDelegator::receive{value: 1000000000000000000}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], wad: 1000000000000000000 [1e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x0000000000000000000000000000000000000000000000001bc16d674ec80000 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [55] CheapLender::receive{value: 1000000000000000000}()
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ emit Transfer(from: CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], to: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 1000000000000000000 [1e18])
+    │   │   │   ├─ emit Redeem(redeemer: CheapLender: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], redeemAmount: 1000000000000000000 [1e18], redeemTokens: 1000000000000000000 [1e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x3cdedecd1b50bb52b9bd30dab2ec34a9bd204af44381ec0234237580af6b2d39: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   @ 7: 0x0000000000000000000000000000000000000000000000001bc16d674ec80000 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   └─ ← [Stop]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "cheap lender withdrew its full 1 ETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "pool now backs only hungry's deposit") [staticcall]
+    │   └─ ← [Return]
+    ├─ [56121] ContractLender::tryRedeemAll(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ [3270] LPoolDelegator::fallback(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   │   ├─ [1231] LPool::balanceOf(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [delegatecall]
+    │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   ├─ [49377] LPoolDelegator::fallback(1000000000000000000 [1e18])
+    │   │   ├─ [47413] LPool::redeem(1000000000000000000 [1e18]) [delegatecall]
+    │   │   │   ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [349] MockController::redeemAllowed(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   │   │   ├─ [11884] WETH::withdraw(1000000000000000000 [1e18])
+    │   │   │   │   ├─ [98] LPoolDelegator::receive{value: 1000000000000000000}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Withdrawal(src: LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], wad: 1000000000000000000 [1e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [869] ContractLender::receive{value: 1000000000000000000}()
+    │   │   │   │   └─ ← [ReentrancySentryOOG] EvmError: ReentrancySentryOOG
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 25: 1 → 2
+    │   │   │   │   @ 7: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   @ 0xd22395998742bcc4b878e8416cfa885ff61b9ca1359315e8b7d3b519250362d3: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   └─ ← [Revert] EvmError: Revert
+    │   │   └─ ← [Revert] EvmError: Revert
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertTrue(true, "redeem must revert for a contract lender needing > 2300 gas") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "hungry lender received nothing") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1028] ContractLender::received() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "hungry lender's receive never executed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [3270] LPoolDelegator::fallback(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [staticcall]
+    │   ├─ [1231] LPool::balanceOf(ContractLender: [0xa0Cb889707d426A7A386870A03bc70d1b0697598]) [delegatecall]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "hungry still holds unredeemable lTokens") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1146] WETH::balanceOf(LPoolDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "hungry's 1 ETH is permanently frozen in the pool") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.00ms (1.46ms CPU time)
+
+Ran 1 test suite in 123.16ms (2.00ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

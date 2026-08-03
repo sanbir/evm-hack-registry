@@ -6,6 +6,10 @@ test = 'test'
 evm_version = 'paris'
 optimizer = true
 optimizer_runs = 200
+# Deterministic, metadata-free runtime so the 36KB ConnextPortalHarness can be injected
+# byte-for-byte into anvil_state.json (browser Playground) and aliased to its source.
+bytecode_hash = 'none'
+cbor_metadata = false
 remappings = [
   '@openzeppelin/contracts/=lib/openzeppelin-contracts/',
   '@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/'
