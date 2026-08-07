@@ -1,0 +1,400 @@
+Compiling 36 files with Solc 0.8.24
+Solc 0.8.24 finished in 1.19s
+Compiler run successful!
+
+Ran 2 tests for test/55523-double-counting-of-the-migrated-stake-mixbytes-none-euler-ma_exp.sol:PoC_55523_DoubleCountMigratedStake
+[PASS] test_DoubleCountMigratedStake_reverts_migration_deposit() (gas: 3170336)
+Logs:
+  migrated stake S (double-counted): 100000000000000000000
+  new deposit A: 40000000000000000000
+  share tokens the buggy hook tried to stake to OWNER (A + S): 140000000000000000000
+  share tokens actually available to the hook (A): 40000000000000000000
+  => migration deposit reverts (ERC20InsufficientBalance): permanent DoS
+
+Traces:
+  [3249936] PoC_55523_DoubleCountMigratedStake::test_DoubleCountMigratedStake_reverts_migration_deposit()
+    ├─ [61909] → new MockEVC@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 309 bytes of code
+    ├─ [262967] → new MockEVault@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x655445535400000000000000000000000000000000000000000000000000000a
+    │   │   @ 0: 0 → 0x45756c6572205661756c743a2054455354000000000000000000000000000022
+    │   └─ ← [Return] 1087 bytes of code
+    ├─ [419853] → new MockRewardVaultFactory@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2097 bytes of code
+    ├─ [1548339] → new HookTargetStakeDelegator@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: MockEVault: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   ├─ [237] MockEVault::EVC() [staticcall]
+    │   │   └─ ← [Return] MockEVC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   ├─ [538692] → new ERC20ShareRepresentation@0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294
+    │   │   ├─ [1165] MockEVault::name() [staticcall]
+    │   │   │   └─ ← [Return] "Euler Vault: TEST"
+    │   │   ├─ [1165] MockEVault::symbol() [staticcall]
+    │   │   │   └─ ← [Return] "eTEST"
+    │   │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 5: 0 → 0x65544553542d5354414b45000000000000000000000000000000000000000016
+    │   │   │   @ 0: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   │   @ 4: 0 → 0x45756c6572205661756c743a20544553542d5354414b4500000000000000002e
+    │   │   └─ ← [Return] 2324 bytes of code
+    │   ├─ [5619] MockRewardVaultFactory::predictRewardVaultAddress(ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294]) [staticcall]
+    │   │   └─ ← [Return] MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b]
+    │   ├─ [24758] ERC20ShareRepresentation::approve(MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], spender: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1df134d6ecc48dcc5099d4a421e850f1c430678a89ca9593115141042bc0546e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 4598 bytes of code
+    ├─ [293] HookTargetStakeDelegator::erc20() [staticcall]
+    │   └─ ← [Return] ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294]
+    ├─ [318566] MockRewardVaultFactory::createRewardVault(ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294])
+    │   ├─ [285372] → new MockRewardVault@0x70118120f411b28d235868A56e77b13F50D0643b
+    │   │   └─ ← [Return] 1424 bytes of code
+    │   └─ ← [Return] MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b]
+    ├─ [294] HookTargetStakeDelegator::rewardVault() [staticcall]
+    │   └─ ← [Return] MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b]
+    ├─ [293] HookTargetStakeDelegator::erc20() [staticcall]
+    │   └─ ← [Return] ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294]
+    ├─ [73517] MockEVault::snapshotDeposit(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 100000000000000000000 [1e20], 0x000000000000000000000000000000000000Acc0)
+    │   ├─ [72648] HookTargetStakeDelegator::deposit(100000000000000000000 [1e20], 0x000000000000000000000000000000000000Acc0)
+    │   │   ├─ [2561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0 → 1
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 0 → 44224
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Stop]
+    ├─ [20467] MockEVault::setBalance(0x000000000000000000000000000000000000Acc0, 100000000000000000000 [1e20])
+    │   ├─  storage changes:
+    │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   └─ ← [Stop]
+    ├─ [148904] MockEVault::runCheck(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ [148177] HookTargetStakeDelegator::checkVaultStatus()
+    │   │   ├─ [561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─ [46994] ERC20ShareRepresentation::mint(100000000000000000000 [1e20])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 100000000000000000000 [1e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 3: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2555] MockEVC::getAccountOwner(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [93253] MockRewardVault::delegateStake(0x000000000000000000000000000000000000Acc0, 100000000000000000000 [1e20])
+    │   │   │   ├─ [25561] ERC20ShareRepresentation::transferFrom(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x17e03cdeee15e95949b540b7747069aaab28980d1cd468c370afaa53bf6a7025: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x5c925afc62e02f8d4046d764488d0928ed340d29199c9045f1beed2335156cec: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 44224 → 0
+    │   │   │   @ 1: 1 → 0
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 1 → 0
+    │   │   └─ ← [Return] 0x00000000
+    │   └─ ← [Stop]
+    ├─ [811] MockRewardVault::getDelegateStake(0x000000000000000000000000000000000000Acc0, HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20], "phase1: ACCOUNT should hold S") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2811] MockRewardVault::getDelegateStake(0x00000000000000000000000000000000000A11cE, HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "phase1: OWNER holds nothing yet") [staticcall]
+    │   └─ ← [Return]
+    ├─ [623] ERC20ShareRepresentation::balanceOf(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "phase1: hook holds no surplus share tokens") [staticcall]
+    │   └─ ← [Return]
+    ├─ [348] ERC20ShareRepresentation::totalSupply() [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20], "phase1: exactly S share tokens exist") [staticcall]
+    │   └─ ← [Return]
+    ├─ [20605] MockEVC::setAccountOwner(0x000000000000000000000000000000000000Acc0, 0x00000000000000000000000000000000000A11cE)
+    │   ├─  storage changes:
+    │   │   @ 0x9ce0b7bd9350061014a4a29e6eb0e64b6b84ce9e5380c7670d659630f7bae99d: 0 → 659918
+    │   └─ ← [Stop]
+    ├─ [83217] MockEVault::snapshotDeposit(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 40000000000000000000 [4e19], 0x000000000000000000000000000000000000Acc0)
+    │   ├─ [82348] HookTargetStakeDelegator::deposit(40000000000000000000 [4e19], 0x000000000000000000000000000000000000Acc0)
+    │   │   ├─ [561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 0 → 44224
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0 → 1
+    │   │   │   @ 0xbd88a7bc8d1991155b9f67cf5e6e7986811261f5ceedae6cd7d59bc11c3c1768: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Stop]
+    ├─ [567] MockEVault::setBalance(0x000000000000000000000000000000000000Acc0, 140000000000000000000 [1.4e20])
+    │   ├─  storage changes:
+    │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   └─ ← [Stop]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3: 00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000064e450d38c0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a90000000000000000000000000000000000000000000000022b1c8c1227a0000000000000000000000000000000000000000000000000000796e3ea3f8ab0000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ [125791] MockEVault::runCheck(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ [125238] HookTargetStakeDelegator::checkVaultStatus()
+    │   │   ├─ [561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 140000000000000000000 [1.4e20]
+    │   │   ├─ [23094] ERC20ShareRepresentation::mint(40000000000000000000 [4e19])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 40000000000000000000 [4e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0 → 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000
+    │   │   │   │   @ 3: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [555] MockEVC::getAccountOwner(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000A11cE
+    │   │   ├─ [811] MockRewardVault::getDelegateStake(0x000000000000000000000000000000000000Acc0, HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─ [5384] MockRewardVault::delegateWithdraw(0x000000000000000000000000000000000000Acc0, 100000000000000000000 [1e20])
+    │   │   │   ├─ [3251] ERC20ShareRepresentation::transfer(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], to: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5c925afc62e02f8d4046d764488d0928ed340d29199c9045f1beed2335156cec: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   @ 0x17e03cdeee15e95949b540b7747069aaab28980d1cd468c370afaa53bf6a7025: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [87253] MockRewardVault::delegateStake(0x00000000000000000000000000000000000A11cE, 100000000000000000000 [1e20])
+    │   │   │   ├─ [23561] ERC20ShareRepresentation::transferFrom(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000 → 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x6203dd68657862fa26bd7c4a12a3a2b3bbf2220be739d51860c5d12e036c38ec: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x16b016a30d81c6fb7d5e821ea19f82aa9b407da774b2228d122bdbebe578b7bf: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3111] MockRewardVault::delegateStake(0x00000000000000000000000000000000000A11cE, 140000000000000000000 [1.4e20])
+    │   │   │   ├─ [1280] ERC20ShareRepresentation::transferFrom(HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 140000000000000000000 [1.4e20])
+    │   │   │   │   └─ ← [Revert] ERC20InsufficientBalance(0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 40000000000000000000 [4e19], 140000000000000000000 [1.4e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000d02ab486cedc00000
+    │   │   │   │   @ 0x6203dd68657862fa26bd7c4a12a3a2b3bbf2220be739d51860c5d12e036c38ec: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000d02ab486cedc00000
+    │   │   │   │   @ 0x16b016a30d81c6fb7d5e821ea19f82aa9b407da774b2228d122bdbebe578b7bf: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000d02ab486cedc00000
+    │   │   │   └─ ← [Revert] ERC20InsufficientBalance(0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 40000000000000000000 [4e19], 140000000000000000000 [1.4e20])
+    │   │   └─ ← [Revert] ERC20InsufficientBalance(0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 40000000000000000000 [4e19], 140000000000000000000 [1.4e20])
+    │   └─ ← [Revert] ERC20InsufficientBalance(0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9, 40000000000000000000 [4e19], 140000000000000000000 [1.4e20])
+    ├─ [811] MockRewardVault::getDelegateStake(0x000000000000000000000000000000000000Acc0, HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20], "post: ACCOUNT stake unchanged (op reverted)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [811] MockRewardVault::getDelegateStake(0x00000000000000000000000000000000000A11cE, HookTargetStakeDelegator: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "post: OWNER never credited (op reverted)") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_uint(key: "migrated stake S (double-counted)", val: 100000000000000000000 [1e20])
+    ├─ emit log_named_uint(key: "new deposit A", val: 40000000000000000000 [4e19])
+    ├─ emit log_named_uint(key: "share tokens the buggy hook tried to stake to OWNER (A + S)", val: 140000000000000000000 [1.4e20])
+    ├─ emit log_named_uint(key: "share tokens actually available to the hook (A)", val: 40000000000000000000 [4e19])
+    ├─ emit log_string(val: "=> migration deposit reverts (ERC20InsufficientBalance): permanent DoS")
+    └─ ← [Stop]
+
+[PASS] test_Fix_removes_double_count_and_operation_succeeds() (gas: 2756131)
+Traces:
+  [3014831] PoC_55523_DoubleCountMigratedStake::test_Fix_removes_double_count_and_operation_succeeds()
+    ├─ [61909] → new MockEVC@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 309 bytes of code
+    ├─ [262967] → new MockEVault@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x45756c6572205661756c743a2054455354000000000000000000000000000022
+    │   │   @ 1: 0 → 0x655445535400000000000000000000000000000000000000000000000000000a
+    │   └─ ← [Return] 1087 bytes of code
+    ├─ [419853] → new MockRewardVaultFactory@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 2097 bytes of code
+    ├─ [1321712] → new HookTargetStakeDelegatorFixed@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: MockEVault: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   ├─ [237] MockEVault::EVC() [staticcall]
+    │   │   └─ ← [Return] MockEVC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   ├─ [538692] → new ERC20ShareRepresentation@0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294
+    │   │   ├─ [1165] MockEVault::name() [staticcall]
+    │   │   │   └─ ← [Return] "Euler Vault: TEST"
+    │   │   ├─ [1165] MockEVault::symbol() [staticcall]
+    │   │   │   └─ ← [Return] "eTEST"
+    │   │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 5: 0 → 0x65544553542d5354414b45000000000000000000000000000000000000000016
+    │   │   │   @ 4: 0 → 0x45756c6572205661756c743a20544553542d5354414b4500000000000000002e
+    │   │   │   @ 0: 0 → 0x0000000000000000000000005991a2df15a8f6a256d3ec51e99254cd3fb576a9
+    │   │   └─ ← [Return] 2324 bytes of code
+    │   ├─ [5619] MockRewardVaultFactory::predictRewardVaultAddress(ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294]) [staticcall]
+    │   │   └─ ← [Return] MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b]
+    │   ├─ [24758] ERC20ShareRepresentation::approve(MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], spender: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1df134d6ecc48dcc5099d4a421e850f1c430678a89ca9593115141042bc0546e: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 3466 bytes of code
+    ├─ [204] HookTargetStakeDelegatorFixed::erc20() [staticcall]
+    │   └─ ← [Return] ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294]
+    ├─ [318566] MockRewardVaultFactory::createRewardVault(ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294])
+    │   ├─ [285372] → new MockRewardVault@0x70118120f411b28d235868A56e77b13F50D0643b
+    │   │   └─ ← [Return] 1424 bytes of code
+    │   └─ ← [Return] MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b]
+    ├─ [227] HookTargetStakeDelegatorFixed::rewardVault() [staticcall]
+    │   └─ ← [Return] MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b]
+    ├─ [204] HookTargetStakeDelegatorFixed::erc20() [staticcall]
+    │   └─ ← [Return] ERC20ShareRepresentation: [0x5B0091f49210e7B2A57B03dfE1AB9D08289d9294]
+    ├─ [73562] MockEVault::snapshotDeposit(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 100000000000000000000 [1e20], 0x000000000000000000000000000000000000Acc0)
+    │   ├─ [72693] HookTargetStakeDelegatorFixed::deposit(100000000000000000000 [1e20], 0x000000000000000000000000000000000000Acc0)
+    │   │   ├─ [2561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0 → 1
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 0 → 44224
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Stop]
+    ├─ [20467] MockEVault::setBalance(0x000000000000000000000000000000000000Acc0, 100000000000000000000 [1e20])
+    │   ├─  storage changes:
+    │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   └─ ← [Stop]
+    ├─ [148859] MockEVault::runCheck(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ [148132] HookTargetStakeDelegatorFixed::checkVaultStatus()
+    │   │   ├─ [561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─ [46994] ERC20ShareRepresentation::mint(100000000000000000000 [1e20])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 100000000000000000000 [1e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [2555] MockEVC::getAccountOwner(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    │   │   ├─ [93253] MockRewardVault::delegateStake(0x000000000000000000000000000000000000Acc0, 100000000000000000000 [1e20])
+    │   │   │   ├─ [25561] ERC20ShareRepresentation::transferFrom(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5c925afc62e02f8d4046d764488d0928ed340d29199c9045f1beed2335156cec: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x17e03cdeee15e95949b540b7747069aaab28980d1cd468c370afaa53bf6a7025: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 1 → 0
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 1 → 0
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 44224 → 0
+    │   │   └─ ← [Return] 0x00000000
+    │   └─ ← [Stop]
+    ├─ [811] MockRewardVault::getDelegateStake(0x000000000000000000000000000000000000Acc0, HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20], "fix phase1: ACCOUNT holds S") [staticcall]
+    │   └─ ← [Return]
+    ├─ [20605] MockEVC::setAccountOwner(0x000000000000000000000000000000000000Acc0, 0x00000000000000000000000000000000000A11cE)
+    │   ├─  storage changes:
+    │   │   @ 0x9ce0b7bd9350061014a4a29e6eb0e64b6b84ce9e5380c7670d659630f7bae99d: 0 → 659918
+    │   └─ ← [Stop]
+    ├─ [83262] MockEVault::snapshotDeposit(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 40000000000000000000 [4e19], 0x000000000000000000000000000000000000Acc0)
+    │   ├─ [82393] HookTargetStakeDelegatorFixed::deposit(40000000000000000000 [4e19], 0x000000000000000000000000000000000000Acc0)
+    │   │   ├─ [561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbd88a7bc8d1991155b9f67cf5e6e7986811261f5ceedae6cd7d59bc11c3c1768: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 0 → 44224
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0 → 1
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Stop]
+    ├─ [567] MockEVault::setBalance(0x000000000000000000000000000000000000Acc0, 140000000000000000000 [1.4e20])
+    │   ├─  storage changes:
+    │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   └─ ← [Stop]
+    ├─ [132035] MockEVault::runCheck(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   ├─ [131308] HookTargetStakeDelegatorFixed::checkVaultStatus()
+    │   │   ├─ [561] MockEVault::balanceOf(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 140000000000000000000 [1.4e20]
+    │   │   ├─ [23094] ERC20ShareRepresentation::mint(40000000000000000000 [4e19])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 40000000000000000000 [4e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0 → 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [555] MockEVC::getAccountOwner(0x000000000000000000000000000000000000Acc0) [staticcall]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000A11cE
+    │   │   ├─ [811] MockRewardVault::getDelegateStake(0x000000000000000000000000000000000000Acc0, HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   │   ├─ [5384] MockRewardVault::delegateWithdraw(0x000000000000000000000000000000000000Acc0, 100000000000000000000 [1e20])
+    │   │   │   ├─ [3251] ERC20ShareRepresentation::transfer(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], to: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x5c925afc62e02f8d4046d764488d0928ed340d29199c9045f1beed2335156cec: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   @ 0x17e03cdeee15e95949b540b7747069aaab28980d1cd468c370afaa53bf6a7025: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [89253] MockRewardVault::delegateStake(0x00000000000000000000000000000000000A11cE, 100000000000000000000 [1e20])
+    │   │   │   ├─ [23561] ERC20ShareRepresentation::transferFrom(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 100000000000000000000 [1e20])
+    │   │   │   │   ├─ emit Transfer(from: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 100000000000000000000 [1e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000 → 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x16b016a30d81c6fb7d5e821ea19f82aa9b407da774b2228d122bdbebe578b7bf: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 0x6203dd68657862fa26bd7c4a12a3a2b3bbf2220be739d51860c5d12e036c38ec: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [5653] MockRewardVault::delegateStake(0x00000000000000000000000000000000000A11cE, 40000000000000000000 [4e19])
+    │   │   │   ├─ [3661] ERC20ShareRepresentation::transferFrom(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], 40000000000000000000 [4e19])
+    │   │   │   │   ├─ emit Transfer(from: HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], to: MockRewardVault: [0x70118120f411b28d235868A56e77b13F50D0643b], value: 40000000000000000000 [4e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x81f11a7cff5417a02beca49462b5a234f4eeb7635c5cea215183159cb00a5d8e: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   │   │   @ 0x82fa90e26d934e00bcccf43631fcd41813cd95e22aa87aeb76b957c96ae9c7ec: 0x0000000000000000000000000000000000000000000000022b1c8c1227a00000 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   │   @ 0x16b016a30d81c6fb7d5e821ea19f82aa9b407da774b2228d122bdbebe578b7bf: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   │   @ 0x6203dd68657862fa26bd7c4a12a3a2b3bbf2220be739d51860c5d12e036c38ec: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x00000000000000000000000000000000000000000000000796e3ea3f8ab00000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf6: 44224 → 0
+    │   │   │   @ 1: 1 → 0
+    │   │   │   @ 0xbd88a7bc8d1991155b9f67cf5e6e7986811261f5ceedae6cd7d59bc11c3c1768: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   │   @ 0xb2fe7bcffed9c34da11077c6be56b0bda0c6ed31555afc204c7a90f9ce3d4692: 1 → 0
+    │   │   └─ ← [Return] 0x00000000
+    │   └─ ← [Stop]
+    ├─ [811] MockRewardVault::getDelegateStake(0x00000000000000000000000000000000000A11cE, HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 140000000000000000000 [1.4e20]
+    ├─ [0] VM::assertEq(140000000000000000000 [1.4e20], 140000000000000000000 [1.4e20], "fix: OWNER credited exactly A + S") [staticcall]
+    │   └─ ← [Return]
+    ├─ [811] MockRewardVault::getDelegateStake(0x000000000000000000000000000000000000Acc0, HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "fix: ACCOUNT stake fully migrated away") [staticcall]
+    │   └─ ← [Return]
+    ├─ [261] MockRewardVault::totalSupply() [staticcall]
+    │   └─ ← [Return] 140000000000000000000 [1.4e20]
+    ├─ [0] VM::assertEq(140000000000000000000 [1.4e20], 140000000000000000000 [1.4e20], "fix: total delegated == total shares (S + A)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [348] ERC20ShareRepresentation::totalSupply() [staticcall]
+    │   └─ ← [Return] 140000000000000000000 [1.4e20]
+    ├─ [0] VM::assertEq(140000000000000000000 [1.4e20], 140000000000000000000 [1.4e20], "fix: exactly S + A share tokens minted") [staticcall]
+    │   └─ ← [Return]
+    ├─ [623] ERC20ShareRepresentation::balanceOf(HookTargetStakeDelegatorFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "fix: no leftover share tokens") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.71ms (4.76ms CPU time)
+
+Ran 1 test suite in 134.15ms (2.71ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+_shared/run-poc/run_poc.sh: line 71: 82746 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/55523-double-counting-of-the-migrated-stake-mixbytes-none-euler-ma_exp)

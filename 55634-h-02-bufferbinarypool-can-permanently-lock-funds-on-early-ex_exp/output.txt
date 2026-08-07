@@ -1,0 +1,14 @@
+Compiling 54 files with Solc 0.8.4
+Solc 0.8.4 finished in 3.96s
+Compiler run successful with warnings:
+Ran 2 tests for test/55634-h-02-bufferbinarypool-can-permanently-lock-funds-on-early-ex_exp.sol:PoC_55634
+[PASS] test_H02_fullExerciseLocksNothing() (gas: 9973536)
+[PASS] test_H02_partialExerciseLocksLpFundsForever() (gas: 10167173)
+Logs:
+  permanently locked (USDC 1e6): 50137589
+  partial profit paid (USDC 1e6): 49862411
+    ├─ [0] VM::assertGt(50137589 [5.013e7], 0, "funds permanently locked") [staticcall]
+    ├─ emit log_named_uint(key: "permanently locked (USDC 1e6)", val: 50137589 [5.013e7])
+    ├─ emit log_named_uint(key: "partial profit paid (USDC 1e6)", val: 49862411 [4.986e7])
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 5.74ms (8.47ms CPU time)
+Ran 1 test suite in 142.08ms (5.74ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

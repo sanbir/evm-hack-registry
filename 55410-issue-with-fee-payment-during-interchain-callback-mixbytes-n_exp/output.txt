@@ -1,0 +1,339 @@
+Compiling 43 files with Solc 0.8.26
+Solc 0.8.26 finished in 801.40ms
+Compiler run successful!
+
+Ran 3 tests for test/55410-issue-with-fee-payment-during-interchain-callback-mixbytes-n_exp.sol:PoC_55410_FeeDuringInterchainCallback
+[PASS] test_buggyHandle_permanentlyDoSsCallback() (gas: 254234)
+Traces:
+  [4261595] PoC_55410_FeeDuringInterchainCallback::setUp()
+    ├─ [0] VM::txGasPrice(3000000000 [3e9])
+    │   └─ ← [Return]
+    ├─ [118563] → new MinimalDIAOracle@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 592 bytes of code
+    ├─ [22561] MinimalDIAOracle::set(200000000000 [2e11], 1)
+    │   └─ ← [Stop]
+    ├─ [379218] → new ProtocolFeeHook@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 1665 bytes of code
+    ├─ [250092] → new MailboxDouble@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1249 bytes of code
+    ├─ [22473] MailboxDouble::setRequiredHook(ProtocolFeeHook: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   └─ ← [Stop]
+    ├─ [1622524] → new OracleTrigger@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 7080 bytes of code
+    ├─ [24104] OracleTrigger::setMailBox(MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ emit MailboxUpdated(newMailbox: MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Stop]
+    ├─ [24081] OracleTrigger::updateMetadataContract(MinimalDIAOracle: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─ emit MetadataContractUpdated(newMetadata: MinimalDIAOracle: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   └─ ← [Stop]
+    ├─ [605438] → new OracleRequestRecipient@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 2795 bytes of code
+    ├─ [22727] OracleRequestRecipient::setOracleTriggerAddress(OracleTrigger: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Stop]
+    ├─ [22765] OracleRequestRecipient::addToWhitelist(42, 0x000000000000000000000000000000000000000000000000000000000000beef)
+    │   └─ ← [Stop]
+    ├─ [75094] OracleTrigger::addOwner(OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit OwnerAdded(account: OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], addedBy: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], timestamp: 1)
+    │   └─ ← [Stop]
+    ├─ [606038] → new FixedOracleRequestRecipient@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 2798 bytes of code
+    ├─ [22727] FixedOracleRequestRecipient::setOracleTriggerAddress(OracleTrigger: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Stop]
+    ├─ [22765] FixedOracleRequestRecipient::addToWhitelist(42, 0x000000000000000000000000000000000000000000000000000000000000beef)
+    │   └─ ← [Stop]
+    ├─ [73094] OracleTrigger::addOwner(FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit OwnerAdded(account: FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], addedBy: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], timestamp: 1)
+    │   └─ ← [Stop]
+    ├─ [372] ProtocolFeeHook::gasUsedPerTx() [staticcall]
+    │   └─ ← [Return] 97440 [9.744e4]
+    ├─ [0] VM::deal(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [254234] PoC_55410_FeeDuringInterchainCallback::test_buggyHandle_permanentlyDoSsCallback()
+    ├─ [22518] MailboxDouble::setRecipient(OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000c7183455a4c133ae270771860664b6b7ec320bb1
+    │   └─ ← [Stop]
+    ├─ [2328] MailboxDouble::dispatchCount() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "precondition") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Insufficient fee paid)
+    │   └─ ← [Return]
+    ├─ [57061] MailboxDouble::process{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   ├─ [46663] OracleRequestRecipient::handle{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   ├─ [2375] OracleTrigger::getMailBox() [staticcall]
+    │   │   │   └─ ← [Return] MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ emit ReceivedCall(caller: 0x000000000000000000000000000000000000bEEF, key: "BTC/USD")
+    │   │   ├─ [27845] OracleTrigger::dispatch(42, 0x000000000000000000000000000000000000bEEF, "BTC/USD")
+    │   │   │   ├─ [2767] MinimalDIAOracle::getValue("BTC/USD") [staticcall]
+    │   │   │   │   └─ ← [Return] 200000000000 [2e11], 1
+    │   │   │   ├─ [10097] MailboxDouble::dispatch(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [4364] ProtocolFeeHook::postDispatch(0x, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ emit DispatchFeePaid(requiredFee: 292320000000000 [2.923e14], actualFee: 0)
+    │   │   │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 1 → 2
+    │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 1 → 2
+    │   │   └─ ← [Revert] Insufficient fee paid
+    │   └─ ← [Revert] Insufficient fee paid
+    ├─ [0] VM::prank(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Insufficient fee paid)
+    │   └─ ← [Return]
+    ├─ [57061] MailboxDouble::process{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   ├─ [46663] OracleRequestRecipient::handle{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   ├─ [2375] OracleTrigger::getMailBox() [staticcall]
+    │   │   │   └─ ← [Return] MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ emit ReceivedCall(caller: 0x000000000000000000000000000000000000bEEF, key: "BTC/USD")
+    │   │   ├─ [27845] OracleTrigger::dispatch(42, 0x000000000000000000000000000000000000bEEF, "BTC/USD")
+    │   │   │   ├─ [2767] MinimalDIAOracle::getValue("BTC/USD") [staticcall]
+    │   │   │   │   └─ ← [Return] 200000000000 [2e11], 1
+    │   │   │   ├─ [10097] MailboxDouble::dispatch(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [4364] ProtocolFeeHook::postDispatch(0x, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ emit DispatchFeePaid(requiredFee: 292320000000000 [2.923e14], actualFee: 0)
+    │   │   │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 1 → 2
+    │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 1 → 2
+    │   │   └─ ← [Revert] Insufficient fee paid
+    │   └─ ← [Revert] Insufficient fee paid
+    ├─ [0] VM::prank(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Insufficient fee paid)
+    │   └─ ← [Return]
+    ├─ [57061] MailboxDouble::process{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   ├─ [46663] OracleRequestRecipient::handle{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   ├─ [2375] OracleTrigger::getMailBox() [staticcall]
+    │   │   │   └─ ← [Return] MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ emit ReceivedCall(caller: 0x000000000000000000000000000000000000bEEF, key: "BTC/USD")
+    │   │   ├─ [27845] OracleTrigger::dispatch(42, 0x000000000000000000000000000000000000bEEF, "BTC/USD")
+    │   │   │   ├─ [2767] MinimalDIAOracle::getValue("BTC/USD") [staticcall]
+    │   │   │   │   └─ ← [Return] 200000000000 [2e11], 1
+    │   │   │   ├─ [10097] MailboxDouble::dispatch(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [4364] ProtocolFeeHook::postDispatch(0x, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ emit DispatchFeePaid(requiredFee: 292320000000000 [2.923e14], actualFee: 0)
+    │   │   │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 1 → 2
+    │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 1 → 2
+    │   │   └─ ← [Revert] Insufficient fee paid
+    │   └─ ← [Revert] Insufficient fee paid
+    ├─ [328] MailboxDouble::dispatchCount() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "0 of N requests answered: callback fully DoS'd") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2284] MailboxDouble::latestDispatchedId() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::assertEq(0x0000000000000000000000000000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000000000000000000000000000, "no response message produced") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_fixedHandle_callbackSucceeds() (gas: 179530)
+Traces:
+  [4261595] PoC_55410_FeeDuringInterchainCallback::setUp()
+    ├─ [0] VM::txGasPrice(3000000000 [3e9])
+    │   └─ ← [Return]
+    ├─ [118563] → new MinimalDIAOracle@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 592 bytes of code
+    ├─ [22561] MinimalDIAOracle::set(200000000000 [2e11], 1)
+    │   └─ ← [Stop]
+    ├─ [379218] → new ProtocolFeeHook@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 1665 bytes of code
+    ├─ [250092] → new MailboxDouble@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1249 bytes of code
+    ├─ [22473] MailboxDouble::setRequiredHook(ProtocolFeeHook: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   └─ ← [Stop]
+    ├─ [1622524] → new OracleTrigger@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 7080 bytes of code
+    ├─ [24104] OracleTrigger::setMailBox(MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ emit MailboxUpdated(newMailbox: MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Stop]
+    ├─ [24081] OracleTrigger::updateMetadataContract(MinimalDIAOracle: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─ emit MetadataContractUpdated(newMetadata: MinimalDIAOracle: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   └─ ← [Stop]
+    ├─ [605438] → new OracleRequestRecipient@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 2795 bytes of code
+    ├─ [22727] OracleRequestRecipient::setOracleTriggerAddress(OracleTrigger: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Stop]
+    ├─ [22765] OracleRequestRecipient::addToWhitelist(42, 0x000000000000000000000000000000000000000000000000000000000000beef)
+    │   └─ ← [Stop]
+    ├─ [75094] OracleTrigger::addOwner(OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit OwnerAdded(account: OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], addedBy: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], timestamp: 1)
+    │   └─ ← [Stop]
+    ├─ [606038] → new FixedOracleRequestRecipient@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 2798 bytes of code
+    ├─ [22727] FixedOracleRequestRecipient::setOracleTriggerAddress(OracleTrigger: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Stop]
+    ├─ [22765] FixedOracleRequestRecipient::addToWhitelist(42, 0x000000000000000000000000000000000000000000000000000000000000beef)
+    │   └─ ← [Stop]
+    ├─ [73094] OracleTrigger::addOwner(FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit OwnerAdded(account: FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], addedBy: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], timestamp: 1)
+    │   └─ ← [Stop]
+    ├─ [372] ProtocolFeeHook::gasUsedPerTx() [staticcall]
+    │   └─ ← [Return] 97440 [9.744e4]
+    ├─ [0] VM::deal(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [185130] PoC_55410_FeeDuringInterchainCallback::test_fixedHandle_callbackSucceeds()
+    ├─ [22518] MailboxDouble::setRecipient(FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000a0cb889707d426a7a386870a03bc70d1b0697598
+    │   └─ ← [Stop]
+    ├─ [2328] MailboxDouble::dispatchCount() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "precondition") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8])
+    │   └─ ← [Return]
+    ├─ [123572] MailboxDouble::process{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   ├─ [113172] FixedOracleRequestRecipient::handle{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   ├─ [2375] OracleTrigger::getMailBox() [staticcall]
+    │   │   │   └─ ← [Return] MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]
+    │   │   ├─ emit ReceivedCall(caller: 0x000000000000000000000000000000000000bEEF, key: "BTC/USD")
+    │   │   ├─ [87524] OracleTrigger::dispatch{value: 292320000000000}(42, 0x000000000000000000000000000000000000bEEF, "BTC/USD")
+    │   │   │   ├─ [2767] MinimalDIAOracle::getValue("BTC/USD") [staticcall]
+    │   │   │   │   └─ ← [Return] 200000000000 [2e11], 1
+    │   │   │   ├─ [61082] MailboxDouble::dispatch{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [4281] ProtocolFeeHook::postDispatch{value: 292320000000000}(0x, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   │   │   ├─ emit DispatchFeePaid(requiredFee: 292320000000000 [2.923e14], actualFee: 292320000000000 [2.923e14])
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit Dispatched(destination: 42, recipient: 0x000000000000000000000000000000000000000000000000000000000000beef, id: 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0 → 1
+    │   │   │   │   │   @ 3: 0 → 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17
+    │   │   │   │   └─ ← [Return] 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17
+    │   │   │   ├─ emit MessageDispatched(chainId: 42, recipientAddress: 0x000000000000000000000000000000000000bEEF, messageId: 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17)
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [328] MailboxDouble::dispatchCount() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "response dispatched back to origin") [staticcall]
+    │   └─ ← [Return]
+    ├─ [284] MailboxDouble::latestDispatchedId() [staticcall]
+    │   └─ ← [Return] 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17
+    ├─ [0] VM::assertTrue(true, "response message id produced") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_isolation_missingValueIsTheCause() (gas: 146146)
+Traces:
+  [4261595] PoC_55410_FeeDuringInterchainCallback::setUp()
+    ├─ [0] VM::txGasPrice(3000000000 [3e9])
+    │   └─ ← [Return]
+    ├─ [118563] → new MinimalDIAOracle@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 592 bytes of code
+    ├─ [22561] MinimalDIAOracle::set(200000000000 [2e11], 1)
+    │   └─ ← [Stop]
+    ├─ [379218] → new ProtocolFeeHook@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 1665 bytes of code
+    ├─ [250092] → new MailboxDouble@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1249 bytes of code
+    ├─ [22473] MailboxDouble::setRequiredHook(ProtocolFeeHook: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   └─ ← [Stop]
+    ├─ [1622524] → new OracleTrigger@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 7080 bytes of code
+    ├─ [24104] OracleTrigger::setMailBox(MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   ├─ emit MailboxUpdated(newMailbox: MailboxDouble: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a])
+    │   └─ ← [Stop]
+    ├─ [24081] OracleTrigger::updateMetadataContract(MinimalDIAOracle: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─ emit MetadataContractUpdated(newMetadata: MinimalDIAOracle: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   └─ ← [Stop]
+    ├─ [605438] → new OracleRequestRecipient@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 2795 bytes of code
+    ├─ [22727] OracleRequestRecipient::setOracleTriggerAddress(OracleTrigger: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Stop]
+    ├─ [22765] OracleRequestRecipient::addToWhitelist(42, 0x000000000000000000000000000000000000000000000000000000000000beef)
+    │   └─ ← [Stop]
+    ├─ [75094] OracleTrigger::addOwner(OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit OwnerAdded(account: OracleRequestRecipient: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], addedBy: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], timestamp: 1)
+    │   └─ ← [Stop]
+    ├─ [606038] → new FixedOracleRequestRecipient@0xa0Cb889707d426A7A386870A03bc70d1b0697598
+    │   ├─ emit OwnershipTransferred(previousOwner: 0x0000000000000000000000000000000000000000, newOwner: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   └─ ← [Return] 2798 bytes of code
+    ├─ [22727] FixedOracleRequestRecipient::setOracleTriggerAddress(OracleTrigger: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Stop]
+    ├─ [22765] FixedOracleRequestRecipient::addToWhitelist(42, 0x000000000000000000000000000000000000000000000000000000000000beef)
+    │   └─ ← [Stop]
+    ├─ [73094] OracleTrigger::addOwner(FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598])
+    │   ├─ emit RoleGranted(role: 0xb19546dff01e856fb3f010c267a7b1c60363cf8a4664e21cc89c26224620214e, account: FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], sender: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─ emit OwnerAdded(account: FixedOracleRequestRecipient: [0xa0Cb889707d426A7A386870A03bc70d1b0697598], addedBy: PoC_55410_FeeDuringInterchainCallback: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], timestamp: 1)
+    │   └─ ← [Stop]
+    ├─ [372] ProtocolFeeHook::gasUsedPerTx() [staticcall]
+    │   └─ ← [Return] 97440 [9.744e4]
+    ├─ [0] VM::deal(relayer: [0x011f44c68A9877B052C5DE168e499e05573F8dB8], 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [148946] PoC_55410_FeeDuringInterchainCallback::test_isolation_missingValueIsTheCause()
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Insufficient fee paid)
+    │   └─ ← [Return]
+    ├─ [32345] OracleTrigger::dispatch(42, 0x000000000000000000000000000000000000bEEF, "BTC/USD")
+    │   ├─ [2767] MinimalDIAOracle::getValue("BTC/USD") [staticcall]
+    │   │   └─ ← [Return] 200000000000 [2e11], 1
+    │   ├─ [10097] MailboxDouble::dispatch(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   ├─ [4364] ProtocolFeeHook::postDispatch(0x, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   ├─ emit DispatchFeePaid(requiredFee: 292320000000000 [2.923e14], actualFee: 0)
+    │   │   │   └─ ← [Revert] Insufficient fee paid
+    │   │   └─ ← [Revert] Insufficient fee paid
+    │   ├─  storage changes:
+    │   │   @ 2: 1 → 2
+    │   └─ ← [Revert] Insufficient fee paid
+    ├─ [2328] MailboxDouble::dispatchCount() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [89524] OracleTrigger::dispatch{value: 292320000000000}(42, 0x000000000000000000000000000000000000bEEF, "BTC/USD")
+    │   ├─ [2767] MinimalDIAOracle::getValue("BTC/USD") [staticcall]
+    │   │   └─ ← [Return] 200000000000 [2e11], 1
+    │   ├─ [61082] MailboxDouble::dispatch{value: 292320000000000}(42, 0x000000000000000000000000000000000000000000000000000000000000beef, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   ├─ [4281] ProtocolFeeHook::postDispatch{value: 292320000000000}(0x, 0x000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002e90edd00000000000000000000000000000000000000000000000000000000000000000074254432f55534400000000000000000000000000000000000000000000000000)
+    │   │   │   ├─ emit DispatchFeePaid(requiredFee: 292320000000000 [2.923e14], actualFee: 292320000000000 [2.923e14])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Dispatched(destination: 42, recipient: 0x000000000000000000000000000000000000000000000000000000000000beef, id: 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17)
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17
+    │   │   │   @ 2: 0 → 1
+    │   │   └─ ← [Return] 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17
+    │   ├─ emit MessageDispatched(chainId: 42, recipientAddress: 0x000000000000000000000000000000000000bEEF, messageId: 0x7adcfa6cf7a5b734b3d331046d0b6ed5541e37f15f8dac8ce7957bbb4623da17)
+    │   └─ ← [Stop]
+    ├─ [328] MailboxDouble::dispatchCount() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "same call succeeds once value is forwarded") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 1.90ms (2.53ms CPU time)
+
+Ran 1 test suite in 133.59ms (1.90ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

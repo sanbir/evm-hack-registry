@@ -1,0 +1,28 @@
+Compiling 61 files with Solc 0.8.27
+Solc 0.8.27 finished in 6.32s
+Compiler run successful!
+
+Ran 3 tests for test/56954-h-5-attacker-captures-unclaimed-fees-by-timing-deposit-with_exp.sol:PoC_56954_BurveJITFeeCapture
+[PASS] test_attacker_capturesUnclaimedFees() (gas: 6644444)
+Logs:
+  stuck fees (token1)          : 100000000000000000000
+  bob token0 deposited         : 239988360746108263667
+  bob token1 withdrawn         : 268357155072349398416
+  bob fair token1 (no capture) : 239988360746108263666
+  bob SKIMMED fees (token1)    : 28368794326241134750
+  skim as bps of stuck fees    : 2836
+
+[PASS] test_control_noTiming_noCapture() (gas: 6585411)
+Logs:
+  control token1 captured: 0
+
+[PASS] test_honestLP_losesExactlyAttackerSkim() (gas: 13185048)
+Logs:
+  alice token1 out (no attacker): 698980802855369669060
+  alice token1 out (attacked)   : 670892887680873496044
+  alice LOSS                    : 28087915174496173016
+  bob SKIM                      : 28368794326241134750
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 1.88ms (3.00ms CPU time)
+
+Ran 1 test suite in 129.78ms (1.88ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
