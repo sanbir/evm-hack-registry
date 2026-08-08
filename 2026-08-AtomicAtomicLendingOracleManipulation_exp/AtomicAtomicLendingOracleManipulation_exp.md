@@ -1,4 +1,4 @@
-# Atomic (AtomicLending) — Signature Replay + Flash-Loan Spot Manip on Arbitrum (~$29.9K)
+# Atomic (AtomicLending) — Signature Replay + Flash-Loan Spot Manipulation on Arbitrum (~$29,984)
 
 <!-- non-defihacklabs: Crypto Training original detection & analysis (Twitter hack alerting) -->
 
@@ -10,107 +10,151 @@
 
 | | |
 |---|---|
-| **Loss** | **~$29,984 USDC** (native USDC on Arbitrum) |
+| **Loss** | **~$29,984.27 USDC** (native USDC on Arbitrum) |
 | **Chain** | Arbitrum One (chainId **42161**) |
-| **Protocol** | Atomic / AtomicLending (`@atomic__green`) |
-| **Attacker EOA** | [`0xf8803DaE…6C7E`](https://arbiscan.io/address/0xf8803dae13a6757e53711214769b5fb52ec26c7e) |
+| **Protocol** | Atomic — non-custodial leveraged trading + isolated **AtomicLending** (`@atomic__green`) |
+| **Date** | 2026-08-07 |
+| **Attacker EOA** | [`0xf8803DaE…6C7E`](https://arbiscan.io/address/0xf8803dae13a6757e53711214769b5fb52ec26c7e) (fresh, nonce 1) |
 | **Exploit contract** | [`0x44d2D34E…7255`](https://arbiscan.io/address/0x44d2d34e148e1da5c4291c110f6ff0e472037255) |
-| **Victim vault** | [`0x51ff48f2…42A8`](https://arbiscan.io/address/0x51ff48f2d43966be796692bdddfae96a435242a8) (unverified) |
-| **Position manager / strategy** | [`0xF617a3Ad…69d9`](https://arbiscan.io/address/0xf617a3ad1f0ab9d9fe39e48d688bfe44562769d9) |
-| **Business logic (sig check)** | [`0x62cc5522…4a0a`](https://arbiscan.io/address/0x62cc552215303341f9651e89db40e7336a394a0a) — selector **`0xa806010f`** |
+| **Vulnerable business contract (proxy)** | [`0x51ff48f2…42A8`](https://arbiscan.io/address/0x51ff48f2d43966be796692bdddfae96a435242a8) (unverified) |
+| **Vulnerable business logic** | [`0x62cc5522…4a0a`](https://arbiscan.io/address/0x62cc552215303341f9651e89db40e7336a394a0a) — selector **`0xa806010f`** (`partialBurn`) |
+| **Victim position manager (proxy)** | [`0xF617a3Ad…69d9`](https://arbiscan.io/address/0xf617a3ad1f0ab9d9fe39e48d688bfe44562769d9) |
 | **AtomicLending** | [`0xc1b67703…2504`](https://arbiscan.io/address/0xc1b677039892c048f2efb7e9c5da1b51fde92504) |
 | **Price source** | Uni V3 ARB/USDC.e [`0xcDa53B1F…DaD8`](https://arbiscan.io/address/0xcda53b1f66614552f834ceef361a8d12a0b8dad8) |
 | **Flash lender** | Aave V3 Pool [`0x794a6135…14aD`](https://arbiscan.io/address/0x794a61358d6845594f94dc1db02a252b5b4814ad) |
 | **Attack tx** | [`0xbd4a009c…3a9a`](https://arbiscan.io/tx/0xbd4a009cd609a05f1a64458969a1e2c2065472f0ee06a322246f155be12e3a9a) (block **492104035**) |
-| **Alert** | [SlowMist TI](https://x.com/SlowMist_Team/status/2086042810265055619) (root cause) · [DefimonAlerts](https://x.com/DefimonAlerts/status/2085979711163826236) |
-| **Bug class** | **Signature replay** on manager-authorized `partialBurn` (`0xa806010f`) — digest missing position ID, manager, caller, nonce, deadline, chain ID — combined with same-tx Uni V3 **spot** manip under flash loan |
+| **Alerts** | [DefimonAlerts](https://x.com/DefimonAlerts/status/2085979711163826236) (first responder, by Decurity) · [SlowMist TI](https://x.com/SlowMist_Team/status/2086042810265055619) (root cause) |
+| **Bug class** | **Signature replay** on manager-authorized `partialBurn` (`0xa806010f`) — signed digest omits positionId / manager / caller / nonce / deadline / chainId — combined with same-tx Uni V3 **spot** manipulation under an Aave flash loan (no TWAP / slippage) |
 
 ---
 
 ## TL;DR
 
-1. **Auth bug (primary, SlowMist):** a manager signature for Uni V3 LP operations did **not bind** position ID / manager / caller / nonce / deadline / chain ID, so the **same signature was replayed across 21 position IDs** to authorize full burns (`partialBurn` / `0xa806010f`).
-2. **Oracle bug (amplifier):** burns / valuation run under a **flash-loan-skewed** Uni V3 ARB/USDC.e spot (no TWAP / slippage guard).
-3. Attacker flash-borrows **~2.23M ARB** via Aave V3, executes the replayed burns under the skewed mark, routes proceeds to **~29,984 USDC**.
-4. Core vault / strategy / business logic are **unverified** (or proxy-only) on-chain.
+Two independent alerts describe the **same** drain from two depths:
+
+- **DefimonAlerts** (first responder) reported the *observable* pattern: a fresh EOA flash-loaned ARB from Aave V3, **manipulated the Uniswap V3 ARB/USDC.e pool** used to value the protocol's concentrated-liquidity position and lending collateral, then unwound the mispriced LP and **withdrew more than deposited**, routing ARB→WETH→**USDC** for ~$29,984.
+- **SlowMist TI** then pinned the *primary root cause*: a **signature replay** in business logic `0x62cc…4a0a` (selector `0xa806010f`, `partialBurn`). The signed manager digest did **not bind** the position ID, position manager, caller, nonce, deadline, or chain ID — so **one manager signature was replayed across 21 different position IDs**, authorizing unauthorized full Uniswap V3 LP burns. The flash-loan spot manipulation is the **economic amplifier** that maximized what those unauthorized burns extracted.
+
+Net: an unbound signature (authorization) × a spot-price oracle (valuation) × a flash loan (size) = a risk-free, self-repaying ~$29,984 USDC drain in a single transaction. Core vault / strategy / business-logic contracts are **unverified proxies** on-chain.
 
 ---
 
 ## Root cause
 
-**Primary root cause (SlowMist TI): signature replay in `0xa806010f`.**
+### Primary — signature replay in `0xa806010f` (SlowMist)
 
-Business logic at [`0x62cc5522…4a0a`](https://arbiscan.io/address/0x62cc552215303341f9651e89db40e7336a394a0a)
-implements manager-authorized Uni V3 LP burns via selector **`0xa806010f`**
-(`partialBurn` path). The **signed digest did not bind** fields that must be unique per
-authorization:
+The vulnerable business logic at
+[`0x62cc5522…4a0a`](https://arbiscan.io/address/0x62cc552215303341f9651e89db40e7336a394a0a)
+(reached through proxy `0x51ff48f2…42A8`) authorizes Uniswap V3 LP burns with a **manager
+signature** via selector **`0xa806010f`** (`partialBurn`). The digest that the manager signed
+— and that `ecrecover` validates — **omitted every field that must make an authorization
+unique**:
 
-| Missing in digest | Why it matters |
+| Missing in the signed digest | Consequence |
 |---|---|
-| **Position ID** | One sig authorizes **any** NFT / LP id |
-| **Position manager** | Cross-manager reuse |
-| **Caller** | Anyone can submit the sig |
-| **Nonce** | Unlimited replay |
-| **Deadline** | No expiry |
-| **Chain ID** | Cross-chain replay risk |
+| **Position ID** | One signature authorizes an operation on **any** LP/NFT id |
+| **Position manager** | The same signature is honored across managers |
+| **Caller** | **Anyone** can submit the signature (not just the intended actor) |
+| **Nonce** | **Unlimited replay** — no one-time-use invalidation |
+| **Deadline** | No expiry window |
+| **Chain ID** | Cross-chain replay of the same signature |
 
-The **same manager signature was replayed across 21 different position IDs**, authorizing
-unauthorized full Uni V3 LP burns. A correctly bound EIP-712 (or equivalent) digest would
-have limited that signature to a single position, caller, chain, and one-time use.
+Because none of these are bound, a **single valid manager signature became a skeleton key**:
+SlowMist observed the **same `(v,r,s)` replayed across 21 different position IDs**, each time
+passing the `ecrecover` check and authorizing a full `partialBurn` of a Uniswap V3 position
+the attacker had no legitimate right to burn. A correctly constructed **EIP-712** digest —
+binding positionId, manager, caller, a consumed nonce, a deadline, and `chainId` via a domain
+separator — would have confined that signature to exactly one position, one caller, one chain,
+and one use.
 
-**Economic amplifier (not the primary auth bug):** burns / settlement also trust the **live
-Uniswap V3 ARB/USDC.e `slot0` spot** (no TWAP / slippage bound). Aave V3 flash-lends
-~2.23M ARB so the attacker can skew that spot in the same transaction, maximizing what
-the replayed burns extract. Flash is repaid in-tx; attacker keeps ~29,984 native USDC.
+The business logic is unverified bytecode, so the exact digest layout is not on explorers.
+What **is** confirmed on-chain and reproduced here opcode-for-opcode: the **selector**
+(`0xa806010f`), the **logic address** (`0x62cc…4a0a`), the **`ecrecover` STATICCALL** that
+validates the replayed signature (runtime **PC 15552**), the **21× replay** (SlowMist), the
+**flash + spot** path, and the **native-USDC outcome**. The PoC pins the root-cause step to
+that real `ecrecover` call via a reconstructed source overlay (`AtomicVaultLogic.sol`), which
+is explicitly editorial where it is not byte-verifiable.
+
+### Amplifier — spot-as-oracle valuation (DefimonAlerts)
+
+The burns and the lending/strategy settlement value the ARB/USDC.e position from the **live
+Uniswap V3 `slot0` spot** of a single pool — **no TWAP, no external feed, no deviation bound,
+no slippage guard**. `slot0.sqrtPriceX96` is not an oracle: it is whatever the *last swap in
+the current transaction* left behind, and Uniswap V3 lets anyone move it arbitrarily within a
+block. Aave V3 flash-lends **~2.23M ARB** so the attacker can skew that spot in the same
+transaction and maximize the value the (replay-authorized) burns extract, then repays the
+flash loan atomically.
 
 ```solidity
-// contracts/UniswapV3Pool.sol — amplifier only (spot the protocol reads under the burns)
-601: function swap(...) { ... }
-752:     slot0.sqrtPriceX96 = state.sqrtPriceX96;
+// contracts/UniswapV3Pool.sol — the spot the protocol trusts (amplifier)
+601: function swap(address recipient, bool zeroForOne, int256 amountSpecified, ...) {
+       ...
+752:     slot0.sqrtPriceX96 = state.sqrtPriceX96;   // ← attacker's own swap sets this
 ```
 
-Business logic / strategy modules are largely **unverified bytecode**, so the exact digest
-layout is opaque on explorers — but the *selector*, *logic address*, *21× replay*
-(SlowMist), *flash + spot path*, and *USDC outcome* are confirmed on-chain. This PoC
-replays historical exploit `run(...)` end-to-end.
+The signature replay is the **authorization** failure (it should never have been possible to
+burn those positions); the spot oracle is the **valuation** failure (it inflated how much the
+burns were worth). Either fix alone breaks the attack.
 
 ## Why it's exploitable here
 
-1. **Root cause — unbound manager signature on `0xa806010f`** → one sig is a skeleton key for many position IDs.
-2. **Amplifier — spot, not TWAP** → same-block writable price for burn / valuation accounting.
-3. **Flash-funded** → no capital at risk; self-repaying within one transaction.
+1. **Unbound manager signature (`0xa806010f`)** — one signature authorizes `partialBurn`
+   across unbounded position IDs, callers, nonces, and chains. *Authorization* fails.
+2. **Spot, not TWAP** — a single ARB/USDC.e pool's same-block-writable `slot0` is the sole
+   price, with no deviation bound or slippage check. *Valuation* fails.
+3. **Flash-funded, self-repaying** — Aave V3 lends ~2.23M ARB with no collateral for one
+   transaction, so the attacker moves the pool, extracts against the skewed mark, and repays
+   in-tx with **no capital at risk**.
 
 ---
 
 ## Attack walkthrough
 
 ```mermaid
-flowchart LR
-  A[Aave flash ARB] --> B[Skew Uni V3 ARB/USDC.e spot]
-  B --> C["Replay manager sig 0xa806010f across 21 position IDs"]
-  C --> D[Unauthorized partialBurn of Uni V3 LPs]
-  D --> E[Route proceeds to native USDC]
-  E --> F[Profit to attacker EOA]
-  F --> G[Repay Aave]
+flowchart TD
+  A["Aave V3 flash-loan ~2.23M ARB"] --> B["Swap into Uni V3 ARB/USDC.e — skew slot0 spot"]
+  B --> C["Replay ONE manager signature across 21 position IDs (0xa806010f)"]
+  C --> D["Unauthorized partialBurn of Uni V3 LP positions under the skewed mark"]
+  D --> E["AtomicLending / strategy unwind — withdraw more than deposited"]
+  E --> F["Route ARB -> WETH -> native USDC (~29,984)"]
+  F --> G["Repay Aave flash loan; keep the USDC"]
 ```
 
-1. **Flash ARB** — Aave V3 flash-sends ~2.23M ARB to the historical exploit.
-2. **Skew the pool (amplifier)** — exploit swaps into Uni V3 ARB/USDC.e so live `slot0`
-   moves (no TWAP guard on settlement).
-3. **VULN — signature replay `0xa806010f`** — same manager signature is submitted for
-   **many** position IDs against business logic `0x62cc…4a0a` (digest missing positionId /
-   manager / caller / nonce / deadline / chainId).
-4. **Unauthorized LP burns** — `partialBurn` fully burns positions the attacker was not
-   legitimately authorized for, under the skewed mark.
-5. **Profit in native USDC** — extracted value → attacker EOA (~29,984.270865 USDC).
-6. **Repay** — Aave flash ARB repaid in the same transaction.
+The EVM Playground pins each step to a real executed source line (jump via **"Watch exploit
+live"**), in execution order:
 
-Setup: exploit at `0x44d2…7255` (owner = attacker EOA); drain is
-`run(2_230_717.8e18, 1, 25_000e6)` at block 492104035.
+1. **Flash ARB** — Aave V3 flash-sends ~2.23M ARB to the exploit; the ARB token credits it
+   (`L2ArbitrumToken` → `ERC20Upgradeable.sol:237`).
+2. **Skew the spot (amplifier)** — the exploit swaps flash ARB into the Uni V3 ARB/USDC.e pool
+   (`UniswapV3Pool.sol:601`), moving live `slot0`.
+3. **Unbound digest built** — business logic `0x62cc…4a0a` constructs the manager digest
+   **without** binding positionId / manager / caller / nonce / deadline / chainId
+   (`AtomicVaultLogic.sol:58`) — the replay surface.
+4. **VULN — signature replay** — `ecrecover` validates the replayed manager `(v,r,s)` over
+   that unbound digest (`AtomicVaultLogic.sol:66`, the real `ecrecover` STATICCALL at runtime
+   **PC 15552**); the **same signature authorizes `partialBurn` across 21 position IDs**.
+5. **AtomicLending / strategy unwind** — the mispriced LP is unwound and withdrawn through the
+   lending/strategy modules (`0xc1b67703…`) under the flash-skewed mark.
+6. **Profit in native USDC** — extracted value is routed ARB→WETH→**native USDC** and credited
+   to the attacker EOA — **~29,984.270865 USDC** — after the flash loan is repaid.
+
+Replay entrypoint (historical, `onlyOwner`): the drain is a single
+`run(2_230_717.8e18, flag=1, minUsdc=25_000e6)` call from the attacker EOA
+`0xf880…6C7E` against the pre-deployed exploit `0x44d2…7255`, at block **492104035**
+(exploit deployed one block earlier).
 
 ---
 
 ## PoC
+
+**Online (Arbitrum archive RPC — forks one block before the attack and re-calls the historical
+`run(...)`):**
+
+```bash
+cd 2026-08-AtomicAtomicLendingOracleManipulation_exp
+source docs/evm-hack-registry/ct_secrets.sh   # or export ARBITRUM_ONE_RPC_URL=...
+forge test --match-test testExploit -vvv
+```
 
 **Offline (committed `anvil_state.json`):**
 
@@ -120,56 +164,38 @@ anvil --load-state anvil_state.json --port 8547 --chain-id 42161 &
 forge test --match-test testExploit -vvv
 ```
 
-**Online (Arbitrum archive RPC):**
-
-```bash
-# prefers ARBITRUM_ONE_RPC_URL from ct_secrets.sh (Infura archive)
-source docs/evm-hack-registry/ct_secrets.sh   # or export ARBITRUM_ONE_RPC_URL=...
-forge test --match-test testExploit -vvv
-```
-
-Expected: `[PASS]` with **≥ 29,984.270865 USDC** to the attacker.
-
-Replay entrypoint (historical):
-
-```text
-IAtomicExploit(0x44d2…7255).run(2_230_717.8e18, 1, 25_000e6)
-// onlyOwner — prank attacker EOA 0xf880…6C7E
-```
+Expected: `[PASS]` with **≥ 29,984.270865 USDC** credited to the attacker EOA. The browser EVM
+Playground is served at `/hacks/2026-08-AtomicAtomicLendingOracleManipulation/`.
 
 ---
 
 ## Remediation
 
-**Signatures / authorization**
+**Authorization / signatures (fixes the root cause)**
 
 - Bind **every** security-critical field in the signed digest: `positionId`, `positionManager`,
-  `msg.sender` (or explicit caller), **nonce**, **deadline**, **chainId**, and action
+  the explicit `caller`, a consumed **nonce**, a **deadline**, the **chainId**, and the action
   parameters (amounts, token ids, burn mode).
-- Prefer **EIP-712** domain separation; invalidate nonces on use; reject expired deadlines.
-- Never accept a manager sig that can authorize **full burn** across unbounded ids.
+- Use **EIP-712** with a domain separator (name, version, chainId, verifying contract);
+  invalidate the nonce on use; reject expired deadlines.
+- Never let one manager signature authorize a **full burn** across unbounded position IDs — a
+  signature must be single-position, single-caller, single-chain, single-use.
 
-**Oracle / settlement**
+**Valuation / oracle (removes the amplifier)**
 
-- **Never value collateral from a single pool's live `slot0` spot.** Use a Uni V3 **TWAP**,
-  Chainlink, or the **minimum** of several independent sources.
-- **Bound deviation / slippage** on burn / withdraw paths so a same-block skew cannot
-  maximize extractable value.
-- Make profitable manip **multi-block** (TWAP window + settlement delay).
+- Never value collateral or LP from a single pool's live `slot0` spot. Use a Uniswap V3
+  **TWAP** (`observe()` over a meaningful window), a Chainlink feed, or the **minimum** of
+  several independent sources.
+- **Bound deviation and slippage** on burn / withdraw paths so a same-block skew cannot
+  inflate extractable value; make a profitable manipulation **multi-block** (TWAP window +
+  settlement delay), exposing the attacker to arbitrage and removing the risk-free path.
 
 ---
 
 ## References
 
-- https://x.com/SlowMist_Team/status/2086042810265055619 — SlowMist TI: signature replay in `0xa806010f` (primary root cause)
-- https://x.com/DefimonAlerts/status/2085979711163826236 — DefimonAlerts initial drain alert
-- https://arbiscan.io/tx/0xbd4a009cd609a05f1a64458969a1e2c2065472f0ee06a322246f155be12e3a9a
-- https://arbiscan.io/address/0x62cc552215303341f9651e89db40e7336a394a0a
-- https://arbiscan.io/address/0x44d2d34e148e1da5c4291c110f6ff0e472037255
-
-## References
-
-- https://x.com/DefimonAlerts/status/2085979711163826236
-- https://arbiscan.io/tx/0xbd4a009cd609a05f1a64458969a1e2c2065472f0ee06a322246f155be12e3a9a
-- https://arbiscan.io/address/0x44d2d34e148e1da5c4291c110f6ff0e472037255
-- https://arbiscan.io/address/0x51ff48f2d43966be796692bdddfae96a435242a8
+- [SlowMist TI](https://x.com/SlowMist_Team/status/2086042810265055619) — signature replay in `0xa806010f` (`0x62cc…4a0a`); same manager signature replayed across 21 position IDs; **primary root cause**.
+- [DefimonAlerts](https://x.com/DefimonAlerts/status/2085979711163826236) (by Decurity) — first-responder alert; flash-loan Uni V3 ARB/USDC.e spot manipulation; ARB→WETH→USDC; ~$29,984.
+- Attack tx: [`0xbd4a009c…3a9a`](https://arbiscan.io/tx/0xbd4a009cd609a05f1a64458969a1e2c2065472f0ee06a322246f155be12e3a9a)
+- Vulnerable business logic: [`0x62cc5522…4a0a`](https://arbiscan.io/address/0x62cc552215303341f9651e89db40e7336a394a0a) · proxy [`0x51ff48f2…42A8`](https://arbiscan.io/address/0x51ff48f2d43966be796692bdddfae96a435242a8)
+- Exploit contract: [`0x44d2D34E…7255`](https://arbiscan.io/address/0x44d2d34e148e1da5c4291c110f6ff0e472037255)
