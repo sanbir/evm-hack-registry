@@ -1,100 +1,125 @@
-# User-controlled trade type steals vault funds — AuditVault synthetic reduction
+# Notional Exponent H-10: caller-controlled TradeType (EXACT_IN → EXACT_OUT) drains the vault on redemption
 
-> **Vulnerability classes:** vuln/input-validation/missing · vuln/logic/wrong-condition
+> **Vulnerability classes:** caller-controlled trade semantics · EXACT_IN vs EXACT_OUT confusion · vault fund drain
 >
-> **Reproduction:** self-contained Foundry PoC with an offline synthetic contract. Full trace: [output.txt](output.txt).
+> **Reproduction:** a faithful minimal reproduction of
+> `AbstractSingleSidedLP._executeRedemptionTrades` (Sherlock `2025-06-notional-exponent`,
+> `src/single-sided-lp/AbstractSingleSidedLP.sol` L222-250). The redemption-trade loop is
+> reproduced **verbatim** (marked `@>`); the DEX, tokens, and a minimal vault are faithful
+> minimal doubles. Local deploy, no fork.
 
-<!-- non-defihacklabs -->
 <!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds.md -->
 <!-- date: 2025-06 -->
 
-**AuditVault finding:** `62491` · `H-10: Malicious user can change the `TradeType` to steal funds from the vault or withdraw request manager`
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — User-controlled trade type steals vault funds |
-| **Protocol** | [[Notional]] Exponent |
-| **Finding** | AuditVault #62491 |
-| **Report** | [https://github.com/sherlock-audit/2025-06-notional-exponent-judging](https://github.com/sherlock-audit/2025-06-notional-exponent-judging) |
-| **Source** | [AuditVault finding](https://github.com/Auditware/AuditVault/blob/main/findings/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds.md) |
-| **Compiler** | `^0.8.24` (synthetic reduction) |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-This bug report discusses a vulnerability found in the Notional Exponent protocol. The vulnerability allows malicious users to exploit the protocol and steal funds from the Yield Strategy vault. The root cause of the issue is a flaw in the `_executeRedemptionTrades` function, where the `t.tradeType` can be set to any value by the caller. This allows the user to set it to `TradeType.EXACT_OUT_SINGLE` and receive an arbitrary amount of tokens instead of the expected amount. The same issue is also found in the `AbstractWithdrawRequestManager._preStakingTrade()` function. The impact of this vulnerability is high and can be mitigated by hardcoding the trade type to `TradeType.EXACT_IN_SINGLE` in both functions. The protocol team has fixed this issue in the latest PRs/commits.
-
-## Background
-
-The upstream report is a Solidity finding. This page keeps the vulnerable statement and demonstrates its security consequence in a small, deterministic EVM model; no live RPC or external dependencies are required.
-
-## The vulnerable code
-
-```solidity
-// The exact vulnerable pattern is retained in test/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds.sol.
-// @> see the marked statement in the synthetic reduction
-```
-
 ## Root cause
 
-The caller-controlled input or stale state is trusted before the required uniqueness, bounds, authorization, accounting, or reentrancy invariant is enforced. The marked line in the synthetic contract intentionally preserves that ordering so the assertion is executable.
+On redemption, the vault trades every non-asset exit balance into the primary asset. The
+comment says the intent plainly — *"Always sell the entire exit balance to the primary
+token"* — an **EXACT_IN** swap: sell exactly `exitBalances[i]` of the sell token for as much
+asset as the market gives. But the `Trade` is built with a **caller-supplied** trade type:
 
-## Preconditions
+```solidity
+TradeParams memory t = redemptionTrades[i];   // caller-controlled
+Trade memory trade = Trade({
+    tradeType: t.tradeType,                    // @> should be hardcoded EXACT_IN_SINGLE
+    sellToken: address(tokens[i]),
+    buyToken:  address(asset),
+    amount:    exitBalances[i],                // meant as the SELL amount
+    limit:     t.minPurchaseAmount,
+    deadline:  block.timestamp,
+    exchangeData: t.exchangeData
+});
+(, uint256 amountBought) = _executeTrade(trade, t.dexId);
+```
 
-- The vulnerable contract is deployed with the state described by the report.
-- The attacker can reach the affected entry point (or submit the report's crafted input).
+`amount` is fixed to `exitBalances[i]`, but its **meaning depends on `tradeType`**:
 
-## Attack walkthrough
+- `EXACT_IN_SINGLE` → `amount` is the **input** (sell exactly `exitBalances[i]`).
+- `EXACT_OUT_SINGLE` → `amount` is the **output** (buy exactly `exitBalances[i]` of the
+  *asset*), and the DEX pulls however much sell token it needs.
 
-1. `Exploit.run()` initializes the minimal state from the report.
-2. The marked vulnerable operation executes without its required check.
-3. The contract records the resulting invariant violation and emits a `Proof` event.
-4. The test asserts the harm; the passing trace is recorded at [output.txt:4](output.txt).
+By setting `tradeType = EXACT_OUT_SINGLE`, a redeemer flips `exitBalances[i]` from a sell
+amount into a **buy amount of the valuable asset**. The DEX then delivers that large asset
+amount to the redemption and drains the sell token it needs from the vault's own reserves.
 
-## Diagrams
+## Why it's exploitable here
+
+- **The trade type is attacker input, with no validation.** Anyone triggering a redemption
+  supplies `redemptionTrades`, including `tradeType`.
+- **The amount is valued in the wrong denomination after the flip.** `exitBalances[i]` was
+  sized as a sell amount; as an *output* amount of a more valuable asset it represents far
+  more value (the finding notes the 8-vs-18 decimal gap makes it astronomically larger on
+  real tokens — `10000e18` "WBTC" = `1e14` WBTC).
+- **The sell token comes from the vault, not the attacker.** Excess sell token on the vault
+  (e.g. a reward token that happens to be the sell token) funds the over-purchase, so the
+  loss is borne by all depositors.
+
+In the PoC (1 asset = 100 sell token), an honest `EXACT_IN` redemption of 1,000 sell token
+yields **10 asset**. Flipping to `EXACT_OUT` buys **1,000 asset** — 100× more — pulling
+**100,000 sell token** from the vault's reserves. The 1,000 asset is credited to the
+redeemer and forwarded to the attacker.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Attacker supplies crafted input] --> B[Vulnerable operation]
-    B --> C{Missing invariant check}
-    C --> D[Security impact demonstrated]
+  A["Redeemer supplies redemptionTrades[i].tradeType = EXACT_OUT_SINGLE"] --> B["_executeRedemptionTrades builds Trade with tradeType: t.tradeType"]
+  B --> C["amount = exitBalances[i] = 1000 now means BUY 1000 asset"]
+  C --> D["DEX delivers 1000 asset, pulls 100,000 sell token from the vault"]
+  D --> E["finalPrimaryBalance = 1000 asset credited to the redeemer"]
+  E --> F["Attacker walks away with 1000 asset (fair EXACT_IN = 10)"]
 ```
 
-```mermaid
-sequenceDiagram
-    participant A as Attacker
-    participant V as Vulnerable contract
-    participant S as State
-    A->>V: invoke affected entry point
-    V->>S: apply unchecked update
-    S-->>A: harm is observable
+## Marked-line walkthrough (Playground)
+
+The EVM Playground pins each step to the exact executed source line in `YieldVault`:
+
+1. **Line 135** — `for (uint256 i; i < exitBalances.length; i++)`: the redemption loop is
+   meant to sell the entire exit balance (1,000 sell token) into the asset (EXACT_IN → ~10).
+2. **Line 145** (root cause) — `tradeType: t.tradeType`: the trade type is taken from the
+   caller. The redeemer set `EXACT_OUT_SINGLE`, so the exit balance `1000` is now the asset
+   **output** amount, not the sell amount.
+3. **Line 153** — `_executeTrade(trade, t.dexId)`: the DEX buys 1,000 asset (100× the fair
+   10) and drains 100,000 sell token from the vault's reserves.
+
+## PoC
+
+Registry (Foundry, local deploy — exploit path + a hardcoded-EXACT_IN control):
+
+```bash
+cd 62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds_exp
+forge test -vv
 ```
+
+Expected: `test_exploit_exactOutFlip_drainsVault` PASS (fair EXACT_IN yields 10 asset; the
+EXACT_OUT flip yields 1,000 asset and drains 100,000 sell token from the vault; the attacker
+receives 1,000 asset) and `test_control_fixedVault_exactInOnly` PASS (the fixed vault
+hardcodes `EXACT_IN_SINGLE`, ignores the attacker's trade type, and yields only the fair 10
+asset, spending only the 1,000 sell-token exit balance). The browser EVM Playground is served
+at `/hacks/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds/`.
 
 ## Remediation
 
-Apply the invariant before mutating state: accrue interest before adding principal; reject duplicate signers; use checked casts and bounded lengths; validate token/target/DAO identities; use `nonReentrant`; enforce slippage and fee equality; and validate the canonical authority or ownership relationship described by the report.
+Hardcode the trade type to `EXACT_IN_SINGLE` in both `_executeRedemptionTrades` and
+`AbstractWithdrawRequestManager._preStakingTrade`, so the fixed `amount` is always the sell
+amount and can never be reinterpreted as an output amount:
 
-## How to reproduce
-
-```bash
-cd evm-hack-registry/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds_exp
-forge test -vvvvv
+```solidity
+Trade memory trade = Trade({
+-   tradeType: t.tradeType,
++   tradeType: TradeType.EXACT_IN_SINGLE,
+    sellToken: address(tokens[i]),
+    buyToken:  address(asset),
+    amount:    exitBalances[i],
+    ...
+});
 ```
 
-The test is offline and uses only the shared `forge-std` library. The corresponding Playground bundle is generated from `scripts/poc-configs/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds.mjs`.
+Notional fixed this in
+[notional-v4 PR #18](https://github.com/notional-finance/notional-v4/pull/18).
 
-## Sources
+## References
 
-- [AuditVault finding](https://github.com/Auditware/AuditVault/blob/main/findings/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds.md)
-- [https://github.com/sherlock-audit/2025-06-notional-exponent-judging](https://github.com/sherlock-audit/2025-06-notional-exponent-judging)
-- [Synthetic test](test/62491-h-10-malicious-user-can-change-the-tradetype-to-steal-funds.sol)
-
-*Reference: https://github.com/sherlock-audit/2025-06-notional-exponent-judging*
+- Sherlock 2025-06-notional-exponent, issue #715: https://github.com/sherlock-audit/2025-06-notional-exponent-judging/issues/715
+- Vulnerable code: https://github.com/sherlock-audit/2025-06-notional-exponent/blob/main/notional-v4/src/single-sided-lp/AbstractSingleSidedLP.sol#L222-L250
+- Second instance (`_preStakingTrade`): https://github.com/sherlock-audit/2025-06-notional-exponent/blob/main/notional-v4/src/withdraws/AbstractWithdrawRequestManager.sol#L268

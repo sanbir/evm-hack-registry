@@ -1,0 +1,15 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/62487-h-6-dos-might-happen-to-dinerowithdrawrequestmanager-initi_exp.sol:PoC_62487_DineroNonceOverflow
+[PASS] test_control_wideNonce_withdrawSucceeds() (gas: 737071)
+Logs:
+  fixed requestId (no revert past 65535): 6646139978924579364519035301401722885
+
+[PASS] test_nonceOverflow_bricksWithdrawals() (gas: 2212488)
+Logs:
+  s_batchNonce (uint16 max): 65535
+  pxETH locked (un-withdrawable): 50.000000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.12ms (2.45ms CPU time)
+
+Ran 1 test suite in 138.81ms (4.12ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
