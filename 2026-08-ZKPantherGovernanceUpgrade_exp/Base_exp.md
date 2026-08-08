@@ -4,7 +4,7 @@
 
 > **Vulnerability classes:** vuln/governance/proposal-manipulation · vuln/access-control/centralization · vuln/dependency/upgradeable-contract
 
-> **Reproduction:** offline Foundry project in [.](.) · canonical trace [output.txt](output.txt) · test [test/Base_exp.sol](test/Base_exp.sol)
+> **Reproduction:** offline Foundry project in [.](.) · canonical trace [output.txt](output.txt) · governance-takeover test [test/2026-08-ZKPantherGovernanceUpgrade_exp.sol](test/2026-08-ZKPantherGovernanceUpgrade_exp.sol) (synthetic [2026-08-ZKPantherGovernanceUpgrade.sol](test/2026-08-ZKPantherGovernanceUpgrade.sol))
 
 ---
 
@@ -97,9 +97,29 @@ function upgradeToAndCall(address newImplementation, bytes calldata data)
 
 `owner()` of the EIP173 proxies is the **Panther Safe**. Once the Reality module can `exec` as the Safe, **`upgradeTo` / `upgradeToAndCall` become attacker-reachable**.
 
-### 3. Economic endpoint (PoC)
+### 3. The reproduced takeover (PoC)
 
-Attacker helper `0x9400…` exposes **`sweep()`** (unverified). After the CREATE upgrade/drain at block **49,625,945**, it holds **5,124,773.626006184526790998 ZKP**. Calling `sweep()` transfers full ZKP balance (and residual ETH ~0.123) to the attacker EOA — replaying historical [`0xead225…`](https://basescan.org/tx/0xead22569665b4749709c069271e21f437bc99869fd94f23a6479c0d110fe332d).
+The Foundry test + EVM Playground reproduce the **root-cause chain**, not just the
+final sweep, with the real vulnerable patterns wired end-to-end:
+
+1. `RealityModule.executeProposalWithIndex` — the exec gate above, reproduced
+   verbatim: the ONLY approval check is an unchallenged Reality `"yes"` (0.5 ETH
+   bond), with **no allowlist on the proposal's `(to, data)`**.
+2. `Safe.execTransactionFromModule` — the enabled module execs the attacker's tx
+   **as the Safe**.
+3. `EIP173Proxy.upgradeToAndCall` (`onlyOwner` = Safe) — the Safe swaps a
+   ZKP-holding proxy's implementation to the attacker's drainer and delegatecalls
+   its init data.
+4. `Drainer.drain` — running in the proxy's context, transfers the proxy's entire
+   **5,124,773.626006184526790998 ZKP** to the attacker EOA.
+
+Multi-day Reality bonding timing is abstracted (module cooldown 0, oracle
+pre-finalized `"yes"`) — the historical 12h+8h challenge window cannot be
+re-simulated in a single replay — but every access-control step (module exec gate,
+Safe module-exec, EIP-173 `upgradeToAndCall`, delegatecall drain) runs unmodified.
+The original on-chain attacker helper `0x9400…` `sweep()` (historical
+[`0xead225…`](https://basescan.org/tx/0xead22569665b4749709c069271e21f437bc99869fd94f23a6479c0d110fe332d))
+was only the *last mile* of exactly this chain.
 
 ---
 
@@ -161,7 +181,11 @@ Attacker ZKP profit:     5124773.626006184526790998
 
 Also observed in the trace: helper forwards residual **ETH ~0.123291500437368375** to the attacker during `sweep()`.
 
-> **PoC scope.** Full multi-day Reality bonding is not re-simulated. The Foundry test forks **after** the CREATE upgrade/drain (block **49,625,945**) and replays **`sweep()`**, matching StrongBlock-style economic reproductions of post-governance drains.
+> **PoC scope.** The PoC reproduces the **governance takeover itself** — unchallenged
+> Reality `"yes"` → module exec as the Safe → `upgradeToAndCall(drainer)` → drain —
+> using the real vulnerable patterns (module exec gate, Safe module-exec, EIP-173
+> upgrade, delegatecall drain). Only the multi-day bonding *timing* is abstracted
+> (cooldown 0, pre-finalized `"yes"`); every access-control step runs unmodified.
 
 ---
 
@@ -205,28 +229,24 @@ flowchart TB
 
 ## How to reproduce
 
-```bash
-# Offline (registry harness; anvil loads anvil_state.json)
-cd /path/to/evm-hack-registry
-_shared/run_poc.sh 2026-08-ZKPantherGovernanceUpgrade_exp -vvvvv
+The governance-takeover PoC is self-contained (local deploy, no fork or RPC needed):
 
-# Or manual offline (Foundry 1.7.x Base isthmus workaround: chain-id 1 + port 8545)
-anvil --load-state 2026-08-ZKPantherGovernanceUpgrade_exp/anvil_state.json \
-  --chain-id 1 --port 8545 --hardfork cancun &
+```bash
 cd 2026-08-ZKPantherGovernanceUpgrade_exp
-forge test --match-contract Base_exp -vvvvv
+forge test -vv
 ```
 
-Expect `[PASS] testExploit()` and **~5,124,773.626 ZKP** profit on the attacker EOA.
+Expect both tests green:
 
-> **Note:** Foundry **1.7.1** panics on live Base **isthmus** forks (`Missing operator fee scalar for isthmus L1 Block`). The committed `anvil_state.json` is Base block **49,625,945** state served under **chain-id 1** so offline replay works. A newer Foundry with isthmus support can fork Base directly.
+- `test_governanceTakeover_drainsViaRealityModule` — **~5,124,773.626 ZKP** drained to
+  the attacker EOA via `addProposal → unchallenged Reality "yes" → executeProposal →
+  Safe upgradeToAndCall(proxy → drainer) → drain`, and the proxy's implementation slot
+  is asserted to now point at the drainer.
+- `test_control_noApprovalNoExec` — without an approved Reality `"yes"`, the module's
+  exec gate reverts (`"Transaction was not approved"`); no upgrade, no drain.
 
----
-
-## How to reproduce (online sketch)
-
-1. `anvil --fork-url $BASE_RPC --fork-block-number 49625945 --chain-id 1 --port 8545`
-2. `BASE_RPC_URL=http://127.0.0.1:8545 forge test --match-contract Base_exp -vvv`
+The same synthetic drives the in-browser EVM Playground (opcode-level replay + marked
+source lines) at `/hacks/2026-08-ZKPantherGovernanceUpgrade/`.
 
 ---
 
