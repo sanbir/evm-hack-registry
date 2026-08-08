@@ -1,0 +1,17 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/58380-h-11-users-will-lose-funds-due-to-token-decimal-mismatches_exp.sol:PoC_58380_LendDecimalMismatch
+[PASS] test_attacker_overborrowsViaDecimalMismatch() (gas: 1815316)
+Logs:
+  intended dest amount (1_000 USDC, 6-dec) : 1000000000
+  actually delivered (raw source units)    : 1000000000000000000000
+  overborrow routed to sink                : 999999999999000000000
+  overborrow factor (x)                    : 1000000000000
+
+[PASS] test_control_fixedNormalizesDecimals() (gas: 787720)
+Logs:
+  fixed delivered (6-dec units): 1000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 5.19ms (3.99ms CPU time)
+
+Ran 1 test suite in 141.98ms (5.19ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

@@ -1,0 +1,18 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/56955-h-6-fee-bypass-in-valuefacetremovevaluesingle-sherlock-bur_exp.sol:PoC_56955_BurveFeeBypass
+[PASS] test_attacker_bypassesRemoveFee() (gas: 2308457)
+Logs:
+  fee the closure priced (nominalTax): 5000000000000000000
+  fee actually booked by protocol    : 0
+  fee bypassed (skimmed to sink)     : 5000000000000000000
+  remover received (of 100 removed)  : 100000000000000000000
+
+[PASS] test_control_fixedChargesFee() (gas: 1053491)
+Logs:
+  fee booked (fixed)     : 5000000000000000000
+  remover received (fixed): 95000000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.68ms (3.57ms CPU time)
+
+Ran 1 test suite in 143.44ms (4.68ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
