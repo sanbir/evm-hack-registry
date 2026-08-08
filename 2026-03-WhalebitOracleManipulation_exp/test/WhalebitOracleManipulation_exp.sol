@@ -58,7 +58,14 @@ interface IAlgebraPoolState {
 contract ContractTest is BaseTestWithBalanceLog {
     function setUp() public {
         uint256 forkBlock = 84_938_871;
-        vm.createSelectFork("http://127.0.0.1:8549", forkBlock);
+        // Offline: anvil --load-state anvil_state.json --port 8549 --chain-id 137
+        //   WHALEBIT_FORK_URL=http://127.0.0.1:8549 forge test --match-test testExploit -vvv
+        // Online: POLYGON_RPC_URL=... forge test ...
+        string memory rpc = vm.envOr(
+            "WHALEBIT_FORK_URL",
+            vm.envOr("POLYGON_RPC_URL", string("https://polygon.drpc.org"))
+        );
+        vm.createSelectFork(rpc, forkBlock);
         fundingToken = CES;
 
         vm.label(ATTACKER, "Attacker EOA");
@@ -72,7 +79,8 @@ contract ContractTest is BaseTestWithBalanceLog {
     }
 
     function testExploit() public {
-        WhalebitExploit exploit = new WhalebitExploit();
+        // CREATE2 salt avoids collision with Foundry default CREATE addr 0x5615… if occupied
+        WhalebitExploit exploit = new WhalebitExploit{salt: bytes32(uint256(0x7768616c65626974))}();
 
         // step 1: model the trace-start CES inventory that was already in the attack contract.
         uint256 traceStartCes = 140_956.392_485_016_353_593_75 ether;
