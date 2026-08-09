@@ -1,0 +1,142 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.04s
+Compiler run successful!
+
+Ran 2 tests for test/63683-c-01-incorrect-reward-calculation-pashov-audit-group-none-hy_exp.sol:IncorrectRewardCalculationTest
+[PASS] test_control_fixedClaimsForSender_userReceivesRewards() (gas: 1010287)
+Traces:
+  [1089887] IncorrectRewardCalculationTest::test_control_fixedClaimsForSender_userReceivesRewards()
+    ├─ [254026] → new MockRewardToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1040 bytes of code
+    ├─ [87141] → new MockERC721@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 435 bytes of code
+    ├─ [318317] → new NFTStakingFixed@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 1367 bytes of code
+    ├─ [104270] → new StakingRouterFixed@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 409 bytes of code
+    ├─ [22501] NFTStakingFixed::setStakingRouter(StakingRouterFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9])
+    │   └─ ← [Return]
+    ├─ [22465] MockERC721::mint(NFTStakingFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 42)
+    │   └─ ← [Stop]
+    ├─ [67512] NFTStakingFixed::seedPosition(0x000000000000000000000000000000000000a11c, [42], 1000000000000000000000 [1e21])
+    │   └─ ← [Return]
+    ├─ [44680] MockRewardToken::mint(NFTStakingFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000000 [1e21])
+    │   └─ ← [Stop]
+    ├─ [27526] StakingRouterFixed::unstakeNFTs(0x000000000000000000000000000000000000a11c, [42])
+    │   ├─ [26615] NFTStakingFixed::unstakeNFTsRouter(0x000000000000000000000000000000000000a11c, [42])
+    │   │   ├─ [22903] MockRewardToken::transfer(0x000000000000000000000000000000000000a11c, 1000000000000000000000 [1e21])
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [815] MockERC721::transferFrom(NFTStakingFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0x000000000000000000000000000000000000a11c, 42)
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [486] MockRewardToken::balanceOf(0x000000000000000000000000000000000000a11c) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "Alice receives her full reward") [staticcall]
+    │   └─ ← [Return]
+    ├─ [486] MockRewardToken::balanceOf(NFTStakingFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "reward pool fully disbursed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [398] NFTStakingFixed::rewards(0x000000000000000000000000000000000000a11c) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "no residual accrual") [staticcall]
+    │   └─ ← [Return]
+    ├─ [379] MockERC721::ownerOf(42) [staticcall]
+    │   └─ ← [Return] 0x000000000000000000000000000000000000a11c
+    ├─ [0] VM::assertEq(0x000000000000000000000000000000000000a11c, 0x000000000000000000000000000000000000a11c, "NFT returned to Alice") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_routerUnstake_forfeitsUserRewards() (gas: 2144973)
+Traces:
+  [2204673] IncorrectRewardCalculationTest::test_exploit_routerUnstake_forfeitsUserRewards()
+    ├─ [1898493] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [254026] → new MockRewardToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1040 bytes of code
+    │   ├─ [87141] → new MockERC721@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 435 bytes of code
+    │   ├─ [316917] → new NFTStaking@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 1360 bytes of code
+    │   ├─ [104270] → new StakingRouter@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   └─ ← [Return] 409 bytes of code
+    │   ├─ [254026] → new MockRewardToken@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   └─ ← [Return] 1040 bytes of code
+    │   ├─ [22501] NFTStaking::setStakingRouter(StakingRouter: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773])
+    │   │   └─ ← [Return]
+    │   └─ ← [Return] 2373 bytes of code
+    ├─ [252353] Exploit::run()
+    │   ├─ [22465] MockERC721::mint(NFTStaking: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 42)
+    │   │   └─ ← [Stop]
+    │   ├─ [67512] NFTStaking::seedPosition(0x000000000000000000000000000000000000a11c, [42], 1000000000000000000000 [1e21])
+    │   │   └─ ← [Return]
+    │   ├─ [44680] MockRewardToken::mint(NFTStaking: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000000000000000 [1e21])
+    │   │   └─ ← [Stop]
+    │   ├─ [6089] StakingRouter::unstakeNFTs(0x000000000000000000000000000000000000a11c, [42])
+    │   │   ├─ [5178] NFTStaking::unstakeNFTsRouter(0x000000000000000000000000000000000000a11c, [42])
+    │   │   │   ├─ [815] MockERC721::transferFrom(NFTStaking: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 0x000000000000000000000000000000000000a11c, 42)
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [2486] MockRewardToken::balanceOf(0x000000000000000000000000000000000000a11c) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2486] MockRewardToken::balanceOf(StakingRouter: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [398] NFTStaking::rewards(0x000000000000000000000000000000000000a11c) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [516] NFTStaking::stakedCount(0x000000000000000000000000000000000000a11c) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [379] MockERC721::ownerOf(42) [staticcall]
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000a11c
+    │   ├─ [44680] MockRewardToken::mint(0x000000000000000000000000000000000000D00d, 1000000000000000000000 [1e21])
+    │   │   └─ ← [Stop]
+    │   ├─ [486] MockRewardToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   └─ ← [Return]
+    ├─ [501] Exploit::aliceRewardBalance() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "Alice was paid nothing") [staticcall]
+    │   └─ ← [Return]
+    ├─ [484] Exploit::routerRewardBalance() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "router (no position) received nothing either") [staticcall]
+    │   └─ ← [Return]
+    ├─ [371] Exploit::alicePendingAfter() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "Alice's accrued reward wiped") [staticcall]
+    │   └─ ← [Return]
+    ├─ [283] Exploit::aliceStakedAfter() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "Alice's position cleared") [staticcall]
+    │   └─ ← [Return]
+    ├─ [271] Exploit::stakingAddr() [staticcall]
+    │   └─ ← [Return] NFTStaking: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [346] NFTStaking::nft() [staticcall]
+    │   └─ ← [Return] MockERC721: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [379] MockERC721::ownerOf(42) [staticcall]
+    │   └─ ← [Return] 0x000000000000000000000000000000000000a11c
+    ├─ [0] VM::assertEq(0x000000000000000000000000000000000000a11c, 0x000000000000000000000000000000000000a11c, "NFT returned to Alice") [staticcall]
+    │   └─ ← [Return]
+    ├─ [462] Exploit::lostAmount() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "1000 HYBUX forfeited") [staticcall]
+    │   └─ ← [Return]
+    ├─ [439] Exploit::markerAddr() [staticcall]
+    │   └─ ← [Return] MockRewardToken: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]
+    ├─ [486] MockRewardToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "marker records forfeited amount at SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [373] Exploit::rewardAddr() [staticcall]
+    │   └─ ← [Return] MockRewardToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [271] Exploit::stakingAddr() [staticcall]
+    │   └─ ← [Return] NFTStaking: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [486] MockRewardToken::balanceOf(NFTStaking: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "reward pool never paid out") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 518.33µs (580.04µs CPU time)
+
+Ran 1 test suite in 127.13ms (518.33µs CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

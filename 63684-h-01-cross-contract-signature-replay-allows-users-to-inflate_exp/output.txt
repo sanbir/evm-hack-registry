@@ -1,0 +1,29 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.44s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/63684-h-01-cross-contract-signature-replay-allows-users-to-inflate_exp.sol:136:5:
+    |
+136 |     function _signer() internal returns (uint256 pk, address addr) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/63684-h-01-cross-contract-signature-replay-allows-users-to-inflate_exp.sol:141:5:
+    |
+141 |     function _signVulnerable(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/63684-h-01-cross-contract-signature-replay-allows-users-to-inflate_exp.sol:153:5:
+    |
+153 |     function _sign(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 3 tests for test/63684-h-01-cross-contract-signature-replay-allows-users-to-inflate_exp.sol:CrossContractSignatureReplayTest
+[PASS] test_control_fixedDomainSeparation_rejectsReplay() (gas: 2587961)
+[PASS] test_exploit_crossContractSignatureReplay_inflatesRewards() (gas: 3441528)
+[PASS] test_exploit_vmSigned_replayAcrossDeployments() (gas: 2632229)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 865.92µs (1.59ms CPU time)
+
+Ran 1 test suite in 126.72ms (865.92µs CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

