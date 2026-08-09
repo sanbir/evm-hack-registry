@@ -8,12 +8,6 @@ contract Hinkal60149Test is Test {
     address internal constant SINK = 0x000000000000000000000000000000000000D00d;
     uint256 internal constant TRUE_ROOT_LEVEL = 4;
 
-    function _markerBalanceOfSink(Exploit e) internal view returns (uint256) {
-        // Re-derive the marker token address (2nd `new` in run(), nonce 2 of Exploit).
-        // Simpler: read via the public result vars instead.
-        return e.totalLocked();
-    }
-
     function test_exploit_funds_irredeemable_when_tree_half_full() public {
         Exploit e = new Exploit();
         e.run();
