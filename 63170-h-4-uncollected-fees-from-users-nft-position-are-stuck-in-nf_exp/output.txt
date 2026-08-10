@@ -1,0 +1,35 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 1.96s
+Compiler run successful with warnings:
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/63170-h-4-uncollected-fees-from-users-nft-position-are-stuck-in-nf.sol:142:9:
+    |
+142 |         bool isCompounding,
+    |         ^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/63170-h-4-uncollected-fees-from-users-nft-position-are-stuck-in-nf.sol:143:9:
+    |
+143 |         uint160 minSqrtPriceX96,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/63170-h-4-uncollected-fees-from-users-nft-position-are-stuck-in-nf.sol:144:9:
+    |
+144 |         uint160 maxSqrtPriceX96,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/63170-h-4-uncollected-fees-from-users-nft-position-are-stuck-in-nf.sol:145:9:
+    |
+145 |         bytes calldata rftData
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/63170-h-4-uncollected-fees-from-users-nft-position-are-stuck-in-nf_exp.sol:UncollectedFeesStuckTest
+[PASS] test_control_fixedForwardsResidualToUser() (gas: 1920930)
+[PASS] test_exploit_uncollectedFeesStuckInNFTManager() (gas: 4040817)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 902.38µs (688.33µs CPU time)
+
+Ran 1 test suite in 114.76ms (902.38µs CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+_shared/run-poc/run_poc.sh: line 71: 39281 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/63170-h-4-uncollected-fees-from-users-nft-position-are-stuck-in-nf_exp)
