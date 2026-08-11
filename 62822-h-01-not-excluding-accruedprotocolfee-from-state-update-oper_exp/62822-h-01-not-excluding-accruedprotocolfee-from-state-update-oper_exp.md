@@ -27,16 +27,30 @@ With protocol fees on, a full/last redeem sets amountOut=baseTokenSupply (== the
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Base supply view"]
+  S1["Initialize market supplies"]
+  S2["Compute market state"]
+  S3["Load market state"]
+  S4["Compute redeem amount out"]
   H["With protocol fees on, a full/last redeem sets amountOut=baseTokenSupp"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L146** — VULN step 1: full redeem sets amountOut=baseTokenSupply(==baseSupply, fee never excluded); subtracting protocolFees>0 underflows -> full/last redeem reverts, base supply locked
+1. **L89** — Base supply view: Setup: view returning a market's base token supply.
+2. **L99** — Initialize market supplies: Setup: seeds a market with its base, Z, and A token supplies for the test.
+3. **L110** — Compute market state: Recomputes the market's current state, including the accrued `protocolFees`.
+4. **L115** — Load market state: Copies the stored market state into memory for the redeem calculation.
+5. **L126** — Compute redeem amount out: Computes the redeem payout; on a full/last redeem this equals the entire `baseSupply` without excluding the accrued fee.
+6. **L139** — Redeem entry point: The `redeem` function that pays out `amountOut` and then updates the market's base supply.
+7. **L146** — Double-subtracting fee underflows: Root cause: on a full redeem `amountOut` equals the whole `baseSupply` (fee not excluded), so subtracting `protocolFees` underflows and reverts, locking funds.
 
 ## PoC
 

@@ -27,19 +27,30 @@ A third-party direct deposit into the underlying ERC4626 vault is mislabeled as 
 
 ```mermaid
 flowchart TD
-  S0["VULN: totalAssets-based revenue counts third-party deposits"]
-  S1["Collector drains the manager principal"]
+  S0["Setup: token symbol field"]
+  S1["Setup: token balance ledger"]
+  S2["Setup: enter reentrancy guard"]
+  S3["Setup: grant collector role"]
+  S4["Revenue read from raw vault balance"]
   H["A third-party direct deposit into the underlying ERC4626 vault is misl"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L200** — VULN: totalAssets-based revenue counts third-party deposits: The manager treats any rise in vault.totalAssets() as protocol revenue, so a third party depositing D inflates the recorded revenue even though the protocol earned nothing.
-2. **L215** — Collector drains the manager principal: withdrawRevenue then transfers D of the manager's OWN collateral principal out as fake revenue.
+1. **L53** — Setup: token symbol field: Setup: declares the mock collateral token's `symbol`; harness scaffolding with no role in the exploit.
+2. **L56** — Setup: token balance ledger: Setup: the mock ERC20's `balanceOf` mapping, used to fund the manager and vault before the drain.
+3. **L147** — Setup: enter reentrancy guard: Setup: sets the reentrancy-guard slot to the entered state; wiring on the withdraw path, not the bug.
+4. **L184** — Setup: grant collector role: Setup: grants `COLLECTOR_ROLE` to the account that will later pull the mislabeled revenue out as real funds.
+5. **L200** — Revenue read from raw vault balance: Root-cause bug: `_computeNewRevenue` treats the underlying vault's asset balance as profit, so a stranger's direct deposit is booked as protocol revenue.
+6. **L215** — Collector withdraws phantom revenue: `withdrawRevenue`, gated only by `COLLECTOR_ROLE`, lets the collector pull the falsely-counted revenue out as the manager's own principal.
+7. **L222** — Cap check against inflated total: The only guard checks `amount` against `totalRevenue`, which the direct deposit already inflated, so the 1000-collateral drain passes.
 
 ## PoC
 

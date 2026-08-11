@@ -27,16 +27,30 @@ Stale totalExcludedSupply (1,000,000e18) exceeds the shrunken totalSupply (100,0
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Gate outflow hook to real holders"]
+  S1["Outflow hook on burn or transfer"]
+  S2["Cut balance, not excluded supply"]
+  S3["Configure epoch reward distribution"]
+  S4["Fixed rewards engine variant"]
   H["Stale totalExcludedSupply (1,000,000e18) exceeds the shrunken totalSup"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L170** — VULN step 1: BUG: excluded-account outflow never decrements totalExcludedSupply -> drift, then underflow DoS
+1. **L160** — Gate outflow hook to real holders: Setup: only runs the outflow bookkeeping for genuine holders, skipping mints (`from==0`) and the token's own transfers.
+2. **L168** — Outflow hook on burn or transfer: The per-holder bookkeeping hook that fires whenever `from` sends or burns tokens, meant to keep the reward accounting in sync.
+3. **L170** — Cut balance, not excluded supply: Reduces the excluded holder's balance on burn but never decrements `totalExcludedSupply`, leaving that aggregate stale above `totalSupply`.
+4. **L179** — Configure epoch reward distribution: Later computes `totalSupply() - totalExcludedSupply`; once the stale excluded figure exceeds real supply this underflows and reverts forever.
+5. **L190** — Fixed rewards engine variant: Setup: the corrected `RewardsEngineFixed` contract used for comparison, which keeps excluded supply in sync on outflow.
+6. **L197** — Per-account state mapping: Setup: stores each account's balance and exclusion flag used by the reward bookkeeping.
+7. **L202** — Token-only access modifier: Setup: restricts the outflow hook so only the token contract may invoke it.
 
 ## PoC
 

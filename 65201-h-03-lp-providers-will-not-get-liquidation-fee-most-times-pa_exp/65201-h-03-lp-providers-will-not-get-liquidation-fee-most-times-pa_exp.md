@@ -27,19 +27,30 @@ A 3 USDC liquidation fee routed via OstiumVault.receiveAssets enters the vault's
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Setup: uint-to-int cast helper"]
+  S1["Trader-PnL accumulator threshold"]
+  S2["Set used PnL accumulator"]
+  S3["Compute PnL clamp ceiling"]
+  S4["Correct LP-reward accrual path"]
   H["A 3 USDC liquidation fee routed via OstiumVault.receiveAssets enters t"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L219** — VULN step 1: liquidation fee sunk into accPnlPerToken (not accRewardsPerToken) with no share-price update; when trader net PnL is negative the clamp in updateShareToAssetsPrice() neutralizes it, so the LP share pr
-2. **L220** — VULN step 2: liquidation fee sunk into accPnlPerToken (not accRewardsPerToken) with no share-price update; when trader net PnL is negative the clamp in updateShareToAssetsPrice() neutralizes it, so the LP share pr
+1. **L68** — Setup: uint-to-int cast helper: Setup: `toInt256` casts unsigned amounts to signed for the PnL accounting; a helper, not the bug.
+2. **L132** — Trader-PnL accumulator threshold: Declares `accPnlPerTokenThreshold`, the signed PnL accumulator into which the liquidation fee is wrongly folded instead of LP rewards.
+3. **L166** — Set used PnL accumulator: Stores `accPnlPerTokenUsed`, the value the share-price clamp reads when deciding whether the routed fee lifts LP value.
+4. **L174** — Compute PnL clamp ceiling: `maxAccPnlPerToken` gives the cap that neutralizes the routed fee when net trader PnL is negative, so LP value stays flat.
+5. **L202** — Correct LP-reward accrual path: The fixed path credits the fee into `accRewardsPerToken`, raising every LP's claimable value — the accumulator the buggy route skips.
+6. **L220** — Fee enters vault as PnL: `receiveAssets` emits after depositing the 3 USDC fee into the PnL accumulator, so no share-price update ever rewards the LP.
+7. **L232** — Convert shares to LP assets: `convertToAssets` computes LP claimable value, which stays flat because the fee never lifted the share price.
 
 ## PoC
 

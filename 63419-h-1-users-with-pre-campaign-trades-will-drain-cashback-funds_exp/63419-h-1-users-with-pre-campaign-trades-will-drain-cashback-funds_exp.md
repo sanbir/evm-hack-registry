@@ -27,19 +27,30 @@ A trade created 5.5 epochs BEFORE the campaign start claims retroactive cashback
 
 ```mermaid
 flowchart TD
-  S0["_isTradeValid ignores campaign start"]
-  S1["Pre-campaign time counted as completed epochs"]
-  H["A trade created 5.5 epochs BEFORE the campaign start claims retroactiv"]
+  S0["Internal safeTransfer helper"]
+  S1["Cashback contract declaration"]
+  S2["Read trade cashback status"]
+  S3["Compute pending cashback"]
+  S4["Elapsed from trade start, unclamped"]
+  H["timeElapsed = currentTime - trade.startTime is not clamped to the camp"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L332** — _isTradeValid ignores campaign start: Validity never checks trade.startTime >= cashbackClaim.startTime, so a pre-campaign trade qualifies.
-2. **L347** — Pre-campaign time counted as completed epochs: timeElapsed spans before the campaign start, so 5 pre-campaign epochs are paid — 50 USDC drained to the attacker.
+1. **L45** — Internal safeTransfer helper: Setup: internal ERC20 transfer helper used to pay cashback out of the USDC pool.
+2. **L192** — Cashback contract declaration: Setup: the `SuperDCACashback` contract that pays trade-based cashback per completed epoch.
+3. **L267** — Read trade cashback status: View reporting a trade's owed/pending cashback — the figure that decides how much the attacker can claim.
+4. **L294** — Compute pending cashback: Calls the calculator that turns elapsed time into owed cashback — the amount inflated by counting pre-campaign epochs.
+5. **L347** — Elapsed from trade start, unclamped: Root cause: elapsed time is measured from the trade's own `startTime` and never clamped to campaign start, so pre-campaign epochs earn cashback.
+6. **L356** — Cast flow rate to uint: Converts the signed DCA flow rate to unsigned; multiplied by the inflated elapsed time to size the payout.
+7. **L425** — Fetch trade with early start: Loads the trade from the external trade contract, carrying the pre-campaign `startTime` the elapsed-time bug trusts.
 
 ## PoC
 

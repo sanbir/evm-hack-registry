@@ -27,19 +27,30 @@ A smart-contract wallet's partial invoice payment (40e18 tokens) is permanently 
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Declare credible-account role"]
+  S1["Mark invoice open for solver"]
+  S2["Grant admin role to owner"]
+  S3["Credit paid tokens to invoice"]
+  S4["Check if token fully paid"]
   H["A smart-contract wallet's partial invoice payment (40e18 tokens) is pe"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L305** — VULN step 1: wipes all credited-token accounting; tokens the SCW already paid in are NEVER refunded
-2. **L308** — VULN step 2: wipes all credited-token accounting; tokens the SCW already paid in are NEVER refunded
+1. **L124** — Declare credible-account role: Setup: defines the `CREDIBLE_ACCOUNT_ROLE` constant used to gate access on the invoice manager.
+2. **L171** — Mark invoice open for solver: Records that a solver's session key now has an open invoice — the object a smart-contract wallet later pays into.
+3. **L192** — Grant admin role to owner: Setup: constructor gives the owner `DEFAULT_ADMIN_ROLE`, the same role that controls the only fund-exit path.
+4. **L225** — Credit paid tokens to invoice: `creditTokensToInvoice` books a paying wallet's tokens against the invoice — where the wallet's 40e18 partial payment is recorded.
+5. **L251** — Check if token fully paid: Compares `creditedAmount` against the required `amount` to decide whether this invoice token line is fully settled.
+6. **L283** — Cancel wipes credited accounting: `cancelInvoice` deletes the whole invoice record, erasing the wallet's credited-token balance with no refund to the payer.
+7. **L307** — Only exit sweeps to admin: `emergencyWithdraw` is the sole way tokens leave, and it sends them to the admin role — never back to the locked-out payer.
 
 ## PoC
 

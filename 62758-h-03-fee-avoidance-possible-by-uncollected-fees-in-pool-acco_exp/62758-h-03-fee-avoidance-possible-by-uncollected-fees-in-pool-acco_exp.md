@@ -27,16 +27,30 @@ YuzuILP._withdraw subtracts only the net payout (gross minus redeem fee) from po
 
 ```mermaid
 flowchart TD
-  S0["VULN: redeem fee stays in poolSize"]
-  H["YuzuILP._withdraw subtracts only the net payout (gross minus redeem fe"]
-  S0 --> H
+  S0["Math helper returns result"]
+  S1["Rounding direction helper"]
+  S2["Share decimals offset"]
+  S3["Compute redeem fee"]
+  S4["Deposit entry point"]
+  H["poolSize -= assets subtracts only the net payout, leaving the redeem f"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L194** — VULN: redeem fee stays in poolSize: Only the net payout leaves poolSize; the redeem fee remains, inflating share price for remaining holders — ~8.26 yzUSD escapes the fee treasury.
+1. **L54** — Math helper returns result: Setup: internal math library helper returning a computed value.
+2. **L57** — Rounding direction helper: Setup: helper deciding whether a rounding mode rounds up.
+3. **L128** — Share decimals offset: Setup: returns the vault's share/asset decimals offset used in conversions.
+4. **L157** — Compute redeem fee: Computes the redeem fee taken out of a redemption amount.
+5. **L169** — Deposit entry point: Setup: standard deposit function minting shares against incoming assets.
+6. **L193** — Withdraw path (net payout): The withdraw core, where `assets` is the net payout after the redeem fee has already been deducted.
+7. **L194** — Fee left in pool, not collected: Root cause: subtracts only the net payout from `poolSize`, so the redeem fee stays in the pool, inflating share price for holders instead of reaching the treasury.
 
 ## PoC
 

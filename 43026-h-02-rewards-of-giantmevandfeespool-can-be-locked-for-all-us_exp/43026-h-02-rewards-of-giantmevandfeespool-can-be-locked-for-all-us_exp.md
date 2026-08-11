@@ -27,19 +27,30 @@ A malicious LP holder uses GiantLP's unprotected ERC20 transfer to move LP into 
 
 ```mermaid
 flowchart TD
-  S0["VULN: reward claim path"]
-  S1["Locked ETH"]
+  S0["Pool can hold its own LP"]
+  S1["Claim rewards by LP balance"]
+  S2["Accrue ETH per LP share"]
+  S3["Total rewards feeding the split"]
+  S4["Per-user reward from LP balance"]
   H["A malicious LP holder uses GiantLP's unprotected ERC20 transfer to mov"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L302** — VULN: reward claim path: The GiantMevAndFeesPool reward-claim accounting leaves honest LP ETH unclaimable — the claim path fails to release the ETH, permanently locking it.
-2. **L307** — Locked ETH: The honest LP cannot withdraw its share; the ETH stays stuck in the pool.
+1. **L311** — Pool can hold its own LP: `GiantMevAndFeesPoolBase` splits MEV/fee rewards by LP balance — including any LP transferred to the pool's own address.
+2. **L317** — Claim rewards by LP balance: `claimRewards` pays each holder pro-rata to their LP, but no code path ever claims for the pool's self-held share.
+3. **L329** — Accrue ETH per LP share: `updateAccumulatedETHPerLP` spreads rewards across `totalSupply`, so the pool's self-held LP silently earns an undistributable slice.
+4. **L364** — Total rewards feeding the split: `totalRewardsReceived` is the numerator divided across all LP — including the phantom self-held share that can never be paid out.
+5. **L371** — Per-user reward from LP balance: Entitlement is `accumulatedETHPerLPShare * balanceOf(user)`; the pool's own balance yields a share with no owner, locking that ETH.
+6. **L384** — Deploy the unprotected LP token: The pool deploys `GiantLP`, whose plain ERC20 `transfer` has no guard against sending LP to the pool's own address — the root enabler.
+7. **L401** — Setup: LP token decimals: Setup: `GiantLP` fixes 18 decimals — boilerplate of the LP token whose missing transfer-guard enables the reward freeze.
 
 ## PoC
 

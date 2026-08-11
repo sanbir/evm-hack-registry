@@ -27,19 +27,30 @@ A RequestPrice redeemer who locked a 100-asset guarantee at request-time price (
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Return current share price"]
+  S1["Assign new request ID"]
+  S2["Record pending shares"]
+  S3["Reduce fulfilled request"]
+  S4["Abstract fulfill declaration"]
   H["A RequestPrice redeemer who locked a 100-asset guarantee at request-ti"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L177** — VULN step 1: ignores processingMode==RequestPrice: uses CURRENT sharePrice() not stored request.sharePrice
-2. **L192** — VULN step 2: ignores processingMode==RequestPrice: uses CURRENT sharePrice() not stored request.sharePrice
+1. **L119** — Return current share price: Returns the vault's live `_currentSharePrice` — the fulfilment-time price wrongly used to settle request-price redeems.
+2. **L132** — Assign new request ID: Increments `_nextRequestId` to tag a fresh redeem request.
+3. **L144** — Record pending shares: Adds the caller's shares to `pendingShares` when a redeem request is opened.
+4. **L155** — Reduce fulfilled request: `_reduce` decrements a controller's request as its shares get fulfilled.
+5. **L167** — Abstract fulfill declaration: Declares the virtual `fulfillRedeemRequest` that concrete strategies must implement.
+6. **L171** — Read request-time locked price: Returns the request's stored `sharePrice` — the 1e18 guarantee that fulfilment ignores when the market price drops.
+7. **L195** — Fulfill ignores locked price: Root cause: this `fulfillRedeemRequest` settles at fulfilment-time price instead of the request's locked price, underpaying the redeemer 50 assets.
 
 ## PoC
 

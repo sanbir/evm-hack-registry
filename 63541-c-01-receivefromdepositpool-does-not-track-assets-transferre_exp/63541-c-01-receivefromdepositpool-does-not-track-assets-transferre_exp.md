@@ -27,16 +27,30 @@ receiveFromDepositPool reads balanceBefore and balanceAfter with no transfer bet
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Read balance after, no transfer"]
+  S1["received always computes to zero"]
+  S2["Withdrawer calls claim()"]
+  S3["Read vault asset balance"]
+  S4["Pay is min(owed, balance)"]
   H["receiveFromDepositPool reads balanceBefore and balanceAfter with no tr"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L88** — VULN step 1: balanceBefore and balanceAfter are read with NO transfer between them, so received is ALWAYS 0
+1. **L87** — Read balance after, no transfer: Reads `balanceAfter` right after `balanceBefore`, but no token transfer happens between the two snapshots.
+2. **L88** — received always computes to zero: Root cause: `received = balanceAfter - balanceBefore` with no transfer in between is always 0, so `claimableAssets` never grows.
+3. **L95** — Withdrawer calls claim(): The `claim` function is the path a withdrawer uses to pull their owed assets out to `to`.
+4. **L97** — Read vault asset balance: Reads the vault's current `asset` balance to cap the payout at whatever is actually on hand.
+5. **L98** — Pay is min(owed, balance): `pay` is the lesser of `owed` and balance; since `owed` was never credited it resolves to 0, so the claim pays nothing.
+6. **L111** — claimableAssets never increases: `claimableAssets` maps asset to owed amount — the accounting the broken `received` calc leaves permanently at zero.
+7. **L116** — Restrict caller to deposit pool: Setup: guards `receiveFromDepositPool` so only the deposit pool can invoke it.
 
 ## PoC
 

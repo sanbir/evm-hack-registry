@@ -27,16 +27,30 @@ A maker order ground to a sub-minimum one-lot dust rests at the front of the boo
 
 ```mermaid
 flowchart TD
-  S0["VULN: dust order left resting → ZeroCostTrade on next fill"]
+  S0["Order-ID counter helper"]
+  S1["Credit quote to maker"]
+  S2["Best price from tree"]
+  S3["Post order onto book"]
+  S4["Delete emptied ask limit"]
   H["A maker order ground to a sub-minimum one-lot dust rests at the front "]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L687** — VULN: dust order left resting → ZeroCostTrade on next fill: The round-down of quoteDelta to 0 for a sub-minimum dust order makes the next taker fill revert ZeroCostTrade, blocking order posting at that price.
+1. **L73** — Order-ID counter helper: Setup: increments and returns a monotonic counter used to assign order IDs.
+2. **L164** — Credit quote to maker: Setup: credits filled quote-token proceeds back to the maker's account.
+3. **L261** — Best price from tree: Setup: returns the smallest key in the red-black tree — the front-of-book price where the dust order will rest.
+4. **L364** — Post order onto book: Setup: inserts a resting maker order at its price level, including the sub-minimum dust lot the attacker leaves.
+5. **L431** — Delete emptied ask limit: Setup: clears an ask price level once its last order is removed.
+6. **L528** — Initialize market book: Setup: configures the book's market parameters at creation.
+7. **L687** — Fill against dust maker: Matches the front dust maker, cutting its tiny `amount` by `baseDelta`; the sub-minimum lot makes quoteDelta==0 and the fill reverts ZeroCostTrade — no dust guard.
 
 ## PoC
 

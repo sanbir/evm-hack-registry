@@ -27,16 +27,30 @@ A currentTick misaligned to tickSpacing makes AntiSandwichHook's verbatim `tick 
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Loop until tick equals currentTick"]
+  S1["Count snapshot iterations"]
+  S2["Blank line in loop body"]
+  S3["Blank line in loop body"]
+  S4["Blank line in loop body"]
   H["A currentTick misaligned to tickSpacing makes AntiSandwichHook's verba"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L69** — VULN step 1: misaligned currentTick is stepped over: `tick != currentTick` never becomes false -> infinite loop -> OOG / int24-overflow revert on every swap
+1. **L69** — Loop until tick equals currentTick: Root-cause: the `tick != currentTick` condition steps by `tickSpacing`, so a misaligned `currentTick` is skipped over and never hit — infinite loop, OOG revert.
+2. **L73** — Count snapshot iterations: Increments an iteration counter each pass; on a misaligned tick this never stops until the call runs out of gas.
+3. **L78** — Blank line in loop body: Setup: blank line inside the top-of-block snapshot loop that fails to terminate on a misaligned tick.
+4. **L79** — Blank line in loop body: Setup: blank line within the non-terminating snapshot loop region.
+5. **L80** — Blank line in loop body: Setup: blank line inside the snapshot loop that never reaches its exit condition when `currentTick` is off-grid.
+6. **L87** — Checkpoint entry with tick params: Setup: entry point taking `lastTick`, `currentTick`, and `tickSpacing`, which drives the top-of-block snapshot loop above.
+7. **L88** — Pick loop direction: Chooses the step sign by comparing `currentTick` to `lastTick`; stepping by `tickSpacing` is what lets the loop overshoot a misaligned target.
 
 ## PoC
 

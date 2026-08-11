@@ -27,19 +27,30 @@ A veALCX holder calls poke() 3x within one epoch (poke lacks the onlyNewEpoch gu
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Once-per-epoch guard vote() has"]
+  S1["poke's only gate is admin check"]
+  S2["Loop over the token's pools"]
+  S3["Copy existing per-pool votes"]
+  S4["Funnel into internal _vote"]
   H["A veALCX holder calls poke() 3x within one epoch (poke lacks the onlyN"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L138** — VULN step 1: BUG: missing onlyNewEpoch guard (vote()/reset() have it) -> re-accrues FLUX on every call within one epoch
-2. **L155** — VULN step 2: BUG: missing onlyNewEpoch guard (vote()/reset() have it) -> re-accrues FLUX on every call within one epoch
+1. **L138** — Once-per-epoch guard vote() has: `vote()` enforces one action per epoch via this `lastVoted` check — the exact guard `poke()` is missing, which is the whole bug.
+2. **L155** — poke's only gate is admin check: Root cause: `poke()`'s sole check is `msg.sender != admin`, with no per-epoch guard, so any holder can re-poke repeatedly within one epoch.
+3. **L163** — Loop over the token's pools: poke iterates the token's pools to rebuild its current vote weights before re-casting them.
+4. **L164** — Copy existing per-pool votes: Each pool's prior weight is read from `votes[_tokenId]`, so poke replays the same vote and re-triggers FLUX accrual every call.
+5. **L170** — Funnel into internal _vote: poke calls `_vote`, the shared routine that accrues FLUX — with no epoch check, each poke re-runs it and re-accrues.
+6. **L176** — Stamp lastVoted timestamp: `_vote` updates `lastVoted`, but because poke never reads it, this stamp never stops the repeated accrual.
+7. **L185** — Epoch length is two weeks: `DURATION` defines the 2-week epoch that the missing guard was meant to bound FLUX accrual to.
 
 ## PoC
 

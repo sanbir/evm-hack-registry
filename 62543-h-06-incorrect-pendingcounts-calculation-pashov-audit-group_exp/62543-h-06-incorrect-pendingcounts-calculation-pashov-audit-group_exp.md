@@ -27,16 +27,30 @@ A single attacker spin with a large user-controlled _prizeCount over-reserves th
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Configure lottery parameters"]
+  S1["View reserved prize count"]
+  S2["Loop over rarity tiers"]
+  S3["Read tier's pending count"]
+  S4["Distributable is one per spin"]
   H["A single attacker spin with a large user-controlled _prizeCount over-r"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L160** — VULN step 1: user-controlled _prizeCount scales the reservation; a spin only ever distributes 1 prize
+1. **L99** — Configure lottery parameters: Setup: sets max rarity, total weight, available prizes, and per-tier weight for the harness.
+2. **L114** — View reserved prize count: Setup: view returning how many prizes a rarity currently has reserved as pending.
+3. **L127** — Loop over rarity tiers: Iterates rarity tiers to tally reservations across the prize pools.
+4. **L138** — Read tier's pending count: Loads a rarity's current pending (reserved) count, which the attacker's spin will inflate to the full supply.
+5. **L154** — Distributable is one per spin: A spin can actually hand out at most 1 prize — the mismatch against a large reservation is what causes over-reservation.
+6. **L160** — Reserve scales with user _prizeCount: Root-cause: reservation scales with attacker-controlled `_prizeCount`, so a large value reserves the whole pool while only 1 prize is distributable per spin.
+7. **L162** — Min-guarantee branch: The min-guarantee fallback reserves 1 when the weighted allocation rounds to 0, compounding the over-reservation from the line above.
 
 ## PoC
 

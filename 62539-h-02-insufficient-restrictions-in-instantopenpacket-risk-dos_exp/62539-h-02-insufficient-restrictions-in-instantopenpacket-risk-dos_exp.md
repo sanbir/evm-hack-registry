@@ -27,16 +27,30 @@ Two same-block INSTANT_OPEN_PACKET requests for a packetType with only 1 bundle 
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Store packet NFT address"]
+  S1["Admin adds a card bundle"]
+  S2["Check only bundle count is nonzero"]
+  S3["Request VRF randomness"]
+  S4["VRF request helper"]
   H["Two same-block INSTANT_OPEN_PACKET requests for a packetType with only"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L137** — VULN step 1: request-time check does NOT reserve/decrement a bundle: two same-block requests both pass while only one bundle exists (TOCTOU DoS)
+1. **L121** — Store packet NFT address: Setup: constructor wires the Packet NFT contract address used when packets are opened.
+2. **L125** — Admin adds a card bundle: Setup: admin registers a card bundle for a `packetType`; the target type is given only one bundle.
+3. **L137** — Check only bundle count is nonzero: Root-cause: request-time check only rejects zero bundles and reserves nothing per in-flight request, so two same-block requests both pass with only 1 bundle.
+4. **L140** — Request VRF randomness: Kicks off a Chainlink VRF request for the packet; both same-block requests reach here since neither reserved the lone bundle.
+5. **L147** — VRF request helper: Setup: internal helper that submits the VRF randomness request and returns its `requestId`.
+6. **L158** — VRF fulfillment callback: The VRF callback that pops a bundle and serves the user; the second user's callback finds no bundle left and reverts.
+7. **L169** — Mark request fulfilled: Marks the request done for the served user; the reverting second callback never reaches here, so that packet stays permanently stuck.
 
 ## PoC
 

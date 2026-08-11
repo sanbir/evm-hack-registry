@@ -27,19 +27,30 @@ A spin with prizeCount=2 makes SpinLottery's min-guarantee reserve the lone scar
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Configure a rarity tier"]
+  S1["Sum active rarity weights"]
+  S2["Read total active weight"]
+  S3["Min-guarantee reserves a scarce prize"]
+  S4["Loop over rarity tiers"]
   H["A spin with prizeCount=2 makes SpinLottery's min-guarantee reserve the"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L115** — VULN step 1: min-guarantee reserves a scarce prize even when the weighted allocation is 0 -> locks the whole scarce supply
-2. **L139** — VULN step 2: min-guarantee reserves a scarce prize even when the weighted allocation is 0 -> locks the whole scarce supply
+1. **L78** — Configure a rarity tier: Setup: admin sets a rarity's weight, price, and prize supply — the scarce high-rarity tier gets very few prizes.
+2. **L94** — Sum active rarity weights: Setup: helper that totals the weights of all active rarities, used to size each spin's allocation.
+3. **L111** — Read total active weight: Caches the summed active weight before computing how many prizes each rarity should reserve for this spin.
+4. **L115** — Min-guarantee reserves a scarce prize: Root-cause: this min-guarantee force-reserves 1 prize whenever a weighted allocation rounds to 0, locking the lone scarce prize's whole supply as pending.
+5. **L126** — Loop over rarity tiers: Iterates every rarity tier to accumulate the reservations computed above.
+6. **L135** — Check tier has reservations: Gates the commit on tiers that actually reserved prizes this spin.
+7. **L149** — Commit reserved pending counts: Adds the reserved amounts into each pool's `pendingCount`; the force-reserved scarce prize now sits locked, so later spins revert InsufficientPrizes.
 
 ## PoC
 

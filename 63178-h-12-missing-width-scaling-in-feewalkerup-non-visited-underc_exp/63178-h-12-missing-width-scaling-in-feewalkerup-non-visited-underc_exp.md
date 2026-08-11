@@ -27,16 +27,30 @@ A compounding maker on a width-8 non-visited node is credited only 1/8 (1 ether)
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Liquidity struct declared"]
+  S1["Non-compounding liquidity field"]
+  S2["Taker fee-rate parameter"]
+  S3["Accrue maker per-liq fee rate"]
+  S4["Compounding liq missing width scaling"]
   H["A compounding maker on a width-8 non-visited node is credited only 1/8"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L100** — VULN step 1: missing `* key.width()`: compounding maker fees undercredited by a factor of width on non-visited nodes
+1. **L41** — Liquidity struct declared: Setup: the `Liq` struct holds a node's compounding and non-compounding liquidity figures.
+2. **L43** — Non-compounding liquidity field: Setup: `ncLiq` is the node's non-compounding liquidity, subtracted to isolate compounding liq.
+3. **L87** — Taker fee-rate parameter: Setup: incoming `colTakerYRateX128` fee-rate input for the walk-up accrual.
+4. **L97** — Accrue maker per-liq fee rate: Adds `colMakerXRateX128` into the node's per-liquidity maker fee accumulator.
+5. **L100** — Compounding liq missing width scaling: Root cause: `compoundingLiq` is raw `mLiq - ncLiq` with no node-width multiplier, so a width-8 node credits only 1/8 of earned fees.
+6. **L107** — Fold under-scaled fees in: Adds the under-scaled compounding fees into `yCFees`, locking in the ~87.5% shortfall the maker can never claim.
+7. **L123** — Fee-summation helper: Setup: `add128Fees` sums the base and addend fee amounts — here summing the already-undercredited value.
 
 ## PoC
 

@@ -27,16 +27,30 @@ The first depositor into a fresh (totalSupply==0) sUSH vault receives 0 shares f
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Share token name field"]
+  S1["Vault total supply state"]
+  S2["Share balances mapping"]
+  S3["totalAssets reads raw balance"]
+  S4["Share formula rounds to zero"]
   H["The first depositor into a fresh (totalSupply==0) sUSH vault receives "]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L103** — VULN step 1: shares = assets*(totalSupply+decimalsOffset)/(totalAssets+1): a direct USH transfer inflates totalAssets() so the first depositor floors to 0 shares
+1. **L38** — Share token name field: Setup: declares the sUSH share token's `name` metadata.
+2. **L41** — Vault total supply state: Setup: `totalSupply` is 0 on a fresh vault — the empty-state precondition the attack requires.
+3. **L42** — Share balances mapping: Setup: `balanceOf` tracks each account's sUSH share holdings.
+4. **L99** — totalAssets reads raw balance: `totalAssets()` returns the vault's live USH balance, so an attacker's direct token transfer inflates it with no shares minted.
+5. **L103** — Share formula rounds to zero: Root-cause bug: with `totalSupply==0` and an attacker-donated USH balance inflating `totalAssets()`, `mulDiv` floors the victim's shares to 0.
+6. **L111** — Deposit entrypoint: `deposit` pulls `assets` USH from the victim and mints the shares computed above — here 0, locking the funds.
+7. **L127** — Underlying token balances mapping: Setup: another `balanceOf` mapping — this one on the USH token being deposited.
 
 ## PoC
 

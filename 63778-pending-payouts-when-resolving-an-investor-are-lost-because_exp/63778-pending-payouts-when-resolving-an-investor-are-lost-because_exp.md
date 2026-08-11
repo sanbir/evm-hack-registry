@@ -27,16 +27,30 @@ resolveUser migrates a departing investor's pending dividend into DividendManage
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Token symbol storage"]
+  S1["Holder-management storage accessor"]
+  S2["Clear the holder's pending dividend"]
+  S3["Migrate payout to new address"]
+  S4["Write into a mapping nothing reads"]
   H["resolveUser migrates a departing investor's pending dividend into Divi"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L122** — VULN step 1: migrates payout into _resolvedPay[newAddress], but NO function ever reads it -> funds locked; also overwrites any prior value
+1. **L48** — Token symbol storage: Setup: token metadata field, part of the same security-token contract state layout.
+2. **L107** — Holder-management storage accessor: Setup: returns the storage struct holding each investor's `pending` dividends and the `_resolvedPay` mapping written on resolve.
+3. **L116** — Clear the holder's pending dividend: `_claimPayout` zeroes the old holder's `pending` balance and returns it — this returned amount is what resolve then misfiles.
+4. **L121** — Migrate payout to new address: `_resolvePay` moves a departing investor's pending dividend from `oldAddress` to their `newAddress` during a resolve.
+5. **L122** — Write into a mapping nothing reads: Root cause: the migrated payout is stored in `_resolvedPay[newAddress]`, which no claim function ever reads, so the 1,000 USDC is permanently locked.
+6. **L149** — Read-only view of resolved pay: `resolvedPayOf` merely views `_resolvedPay`; there is no matching function to withdraw it, confirming the funds have no exit.
+7. **L161** — Emit payment-resolved event: Setup: emits `PaymentResolved` on the migration; the event fires even though the moved dividend is now unclaimable.
 
 ## PoC
 

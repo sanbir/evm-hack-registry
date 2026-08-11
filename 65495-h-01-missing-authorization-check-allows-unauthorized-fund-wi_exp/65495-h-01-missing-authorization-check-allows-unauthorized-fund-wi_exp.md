@@ -27,16 +27,30 @@ Any unauthorized caller invokes WERC7575Vault.withdraw(assets, attacker, victim)
 
 ```mermaid
 flowchart TD
-  S0["VULN: no owner/allowance check on withdraw"]
-  H["Any unauthorized caller invokes WERC7575Vault.withdraw(assets, attacke"]
-  S0 --> H
+  S0["Declare invalid-sender error"]
+  S1["Fix share token decimals to 18"]
+  S2["Track per-address share balances"]
+  S3["Preview shares for an asset amount"]
+  S4["Convert shares back to assets"]
+  H["_withdraw(assets, shares, receiver, owner) runs with no check that msg"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L230** — VULN: no owner/allowance check on withdraw: The attacker calls withdraw(assets, attacker, victim); the missing authorization check lets them burn the victim's shares and pull 1000 underlying to themselves.
+1. **L50** — Declare invalid-sender error: Setup: declares the `ERC20InvalidSender` custom error used by the underlying token implementation.
+2. **L66** — Fix share token decimals to 18: Setup: hardcodes the share token's `decimals` to 18, feeding the later asset-to-share conversion math.
+3. **L68** — Track per-address share balances: Setup: `balanceOf` maps each holder to their share balance — the victim's 1000 shares sit here until burned.
+4. **L184** — Preview shares for an asset amount: `previewWithdraw` quotes how many shares an `assets` withdrawal would burn — a read-only helper with no authorization.
+5. **L199** — Convert shares back to assets: `_convertToAssets` computes the underlying owed for a share count with directional rounding — the pure math behind withdraw.
+6. **L228** — Enter withdraw with owner param: `withdraw(assets, receiver, owner)` accepts an arbitrary `owner` to pull from and `receiver` to pay, guarded only by reentrancy/pause.
+7. **L230** — Burn owner's shares — no auth check: Root-cause bug: `_withdraw` runs with no `msg.sender==owner` or allowance check, so any caller burns the victim's shares and sends assets to `receiver`.
 
 ## PoC
 

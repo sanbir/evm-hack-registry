@@ -27,19 +27,30 @@ A one-time signed order authorizing a single 100-makerToken fill is replayed aft
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["EIP-1271 magic value"]
+  S1["Signed-order registry mapping"]
+  S2["Signer contract constructor"]
+  S3["Mark order as signed"]
+  S4["Re-approve enables replay"]
   H["A one-time signed order authorizing a single 100-makerToken fill is re"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3ce…`:
 
-1. **L114** — VULN step 1: balance used as a nonce: recovers -> order replayable
-2. **L118** — VULN step 2: balance used as a nonce: recovers -> order replayable
+1. **L105** — EIP-1271 magic value: Setup: the EIP-1271 `isValidSignature` magic return value used to validate the maker's signed order.
+2. **L107** — Signed-order registry mapping: Setup: maps an order hash to whether the maker signed it — tracking validity, but not one-time consumption.
+3. **L109** — Signer contract constructor: Setup: initializes the maker/signer contract.
+4. **L115** — Mark order as signed: Records an order hash as authorized; this flag stays true, so the same signature keeps validating on repeat fills.
+5. **L118** — Re-approve enables replay: Root cause: fill eligibility is gated by maker balance/allowance as an implicit nonce, so re-approving here lets one signed order fill twice.
+6. **L166** — Consumed-order guard mapping: Declares a per-order `consumed` replay guard, but the fill path leans on maker balance instead, leaving the order replayable.
+7. **L171** — Hash the order: Computes the order's hash used to look up its signed/consumed status when filling.
 
 ## PoC
 

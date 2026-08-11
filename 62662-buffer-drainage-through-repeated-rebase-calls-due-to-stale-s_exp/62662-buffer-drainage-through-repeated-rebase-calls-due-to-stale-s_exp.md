@@ -27,19 +27,30 @@ Because rebase()'s oldD>newD branch never syncs balances/totalSupply, 3 permissi
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Scale balance by feed decimals"]
+  S1["Normalize balance by precision"]
+  S2["oldD>newD branch never syncs state"]
+  S3["Mark reserves non-empty"]
+  S4["Newton loop for invariant D"]
   H["Because rebase()'s oldD>newD branch never syncs balances/totalSupply, "]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3ce…`:
 
-1. **L192** — VULN step 1: drains buffer but never updates `balances`/`totalSupply`, so the SAME gap re-triggers every call
-2. **L194** — VULN step 2: drains buffer but never updates `balances`/`totalSupply`, so the SAME gap re-triggers every call
+1. **L187** — Scale balance by feed decimals: Divides each token's balance by its exchange-rate provider's decimals to bring it to a common scale.
+2. **L188** — Normalize balance by precision: `_balances[i]` is rescaled by `precisions[i]` so all tokens share one fixed-point basis before computing the invariant `D`.
+3. **L194** — oldD>newD branch never syncs state: Root-cause bug: this drain branch burns the D gap from the buffer but never writes back `balances`/`totalSupply`, so each repeat `rebase()` redrains the same gap.
+4. **L219** — Mark reserves non-empty: Sets `allZero=false` once a non-zero reserve is seen while computing `D`.
+5. **L230** — Newton loop for invariant D: Iterates up to 255 times to converge the StableSwap invariant `D` from the current balances.
+6. **L273** — Wire pool token list: Setup: constructor stores the pool's `tokens` array.
+7. **L274** — Wire per-token precisions: Setup: constructor stores each token's `precisions` scaling factor.
 
 ## PoC
 

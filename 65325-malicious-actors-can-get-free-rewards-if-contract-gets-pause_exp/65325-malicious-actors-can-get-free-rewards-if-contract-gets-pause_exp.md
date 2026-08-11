@@ -27,16 +27,30 @@ Attacker recovers their full staked principal via the paused-revert catch path w
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Owner stakes and locks tokens"]
+  S1["Exit path returns principal"]
+  S2["Catch swallows paused revert"]
+  S3["Require lock period expired"]
+  S4["Verify principal transfer"]
   H["Attacker recovers their full staked principal via the paused-revert ca"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3ce…`:
 
-1. **L176** — VULN step 1: try/catch swallows StakeManager.leave() revert: vault returns staked tokens while the manager keeps counting the stake
+1. **L158** — Owner stakes and locks tokens: Setup: `stake()` locks the owner's tokens and registers the position with the StakeManager.
+2. **L166** — Exit path returns principal: Setup: `leave()` is the exit that tries to unstake from the manager and send principal to a destination.
+3. **L176** — Catch swallows paused revert: Root cause: on a paused-manager revert this `catch` returns principal but leaves the phantom stake the manager still counts, so the attacker keeps free rewards.
+4. **L177** — Require lock period expired: Only proceeds to return funds once the lock has elapsed (`lockUntil <= block.timestamp`).
+5. **L180** — Verify principal transfer: Checks the principal transfer to the destination actually succeeded.
+6. **L203** — Declare NotOwner error: Setup: declares the `StakeVault__NotOwner` custom error.
+7. **L207** — Owner-only access guard: Setup: restricts vault actions to the owner via a `msg.sender != owner` check.
 
 ## PoC
 

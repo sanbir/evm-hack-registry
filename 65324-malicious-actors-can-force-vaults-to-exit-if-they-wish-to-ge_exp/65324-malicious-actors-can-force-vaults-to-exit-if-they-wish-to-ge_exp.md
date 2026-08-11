@@ -27,22 +27,30 @@ An attacker registers many same-codehash vaults naming the victim as owner, infl
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
-  S2["VULN step 3"]
+  S0["Setup: reward index field"]
+  S1["Setup: wire reward token"]
+  S2["Attacker sets vault owner"]
+  S3["Loop over account's vaults"]
+  S4["Accrue multiplier points"]
   H["An attacker registers many same-codehash vaults naming the victim as o"]
   S0 --> S1
   S1 --> S2
-  S2 --> H
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L195** — VULN step 1: no factory-only gate: any caller with the trusted vault codehash can register a vault for ANY owner
-2. **L196** — VULN step 2: no factory-only gate: any caller with the trusted vault codehash can register a vault for ANY owner
-3. **L197** — VULN step 3: no factory-only gate: any caller with the trusted vault codehash can register a vault for ANY owner
+1. **L133** — Setup: reward index field: Setup: declares `rewardIndex` in the vault's reward-accounting struct; state scaffolding.
+2. **L180** — Setup: wire reward token: Setup: constructor stores `REWARD_TOKEN`, the KARMA rewards that will become locked for the victim.
+3. **L197** — Attacker sets vault owner: `registerVault` records `vaultOwners[vault] = owner` from an attacker-supplied owner, attaching junk vaults to the victim's account.
+4. **L218** — Loop over account's vaults: `updateAccount` iterates every vault owned by the account — the unbounded loop the attacker inflates until it exceeds block gas.
+5. **L261** — Accrue multiplier points: Each iteration adds `accruedMP` to `totalMPStaked`, per-vault work that compounds the loop's gas cost.
+6. **L302** — Return accrued points: Returns the vault's newly accrued multiplier points — computation repeated for every attacker-registered vault.
+7. **L383** — Accrual math stub: Setup: `_calculateAccrual` is the harness stub standing in for the reward-accrual formula.
 
 ## PoC
 

@@ -27,16 +27,30 @@ acceptOffer books the offerCurrency fee into the single acceptedCurrency-denomin
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Build listing signature hash"]
+  S1["Hash includes tokenId"]
+  S2["Add offer fee to one scalar"]
+  S3["Pay seller in offer currency"]
+  S4["Pull fee in offer currency"]
   H["acceptOffer books the offerCurrency fee into the single acceptedCurren"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xce01759b82…`:
 
-1. **L228** — VULN step 1: fee booked into the single acceptedCurrency-denominated scalar while it is actually collected in offerCurrency below (no offerCurrency==acceptedCurrency check) -> phantom, unbacked fees
+1. **L158** — Build listing signature hash: Setup: pure helper that hashes a listing request for signature checks — unrelated to the fee-accounting bug.
+2. **L162** — Hash includes tokenId: Setup: `tokenId` is one of the fields folded into the listing signature hash.
+3. **L228** — Add offer fee to one scalar: Root-cause: the offer's fee (in arbitrary `offerCurrency`) is added to the single acceptedCurrency-denominated `totalPendingFees`, with no currency validation.
+4. **L230** — Pay seller in offer currency: Transfers the sale amount to the seller in the buyer-chosen `offerCurrency`, which can be a worthless token.
+5. **L231** — Pull fee in offer currency: Pulls the fee into the contract in `offerCurrency`, so a worthless-token fee counts toward `totalPendingFees` but holds no real value.
+6. **L236** — Only fee-withdrawal path: The sole path that pays out accrued fees; it must move `totalPendingFees` worth of the real acceptedCurrency.
+7. **L245** — Reset accepted currency: Would clear `acceptedCurrency` on shutdown, but the inflated `totalPendingFees` makes the preceding real-USDC transfer revert, locking the fees.
 
 ## PoC
 

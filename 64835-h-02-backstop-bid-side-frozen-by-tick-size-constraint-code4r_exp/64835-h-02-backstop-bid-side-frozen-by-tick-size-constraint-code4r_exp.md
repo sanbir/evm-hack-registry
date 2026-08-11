@@ -27,16 +27,30 @@ An attacker parks a SELL backstop maker (MOC) at price == tickSize, so getBestAs
 
 ```mermaid
 flowchart TD
-  S0["VULN: non-strict <= traps the min-tick bid"]
-  H["An attacker parks a SELL backstop maker (MOC) at price == tickSize, so"]
-  S0 --> H
+  S0["Place a new order"]
+  S1["Non-strict crossing check bug"]
+  S2["Raise best-bid marker"]
+  S3["Increment resting bid count"]
+  S4["Execute a sell order"]
+  H["if (ds.getBestAsk() <= newOrder.price) uses a non-strict <=, so a back"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L124** — VULN: non-strict <= traps the min-tick bid: A min-tick backstop bid meets a min-tick ask; the <= comparison flags it as crossing and reverts, so the bid side is frozen.
+1. **L109** — Place a new order: Setup: entry point that posts `newOrder` into the book, routing bids through the post-only crossing check below.
+2. **L124** — Non-strict crossing check bug: The post-only guard uses `<=`, so a bid priced exactly at the best ask (both at min tick) is wrongly seen as crossing and reverts; should be `<`.
+3. **L128** — Raise best-bid marker: Updates `bidMax` when this bid is the new highest — code that never runs because the crossing check above reverts first.
+4. **L129** — Increment resting bid count: Bumps `numBids` to record the posted bid, also unreachable for a min-tick backstop bid due to the revert.
+5. **L132** — Execute a sell order: Setup: handles the SELL side; the attacker uses it to park a min-tick maker ask that pins `getBestAsk()` to `tickSize`.
+6. **L151** — Place-order library overload: Setup: a second `placeOrder` overload in the order-book library.
+7. **L224** — Initialize best-bid to zero: Setup: resets `bidMax` to its minimum value when the book is first created.
 
 ## PoC
 

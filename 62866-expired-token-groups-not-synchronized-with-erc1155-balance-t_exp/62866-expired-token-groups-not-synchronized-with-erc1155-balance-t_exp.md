@@ -27,16 +27,30 @@ Expired auth tokens are pruned from the custom group ledger but never burned fro
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["ERC1155 approval setter"]
+  S1["Guard transfer against balance"]
+  S2["Real burn function exists"]
+  S3["Load account's token groups"]
+  S4["Init expired-amount accumulator"]
   H["Expired auth tokens are pruned from the custom group ledger but never "]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L157** — VULN step 1: removes expired records and emits "burned", but NEVER burns the underlying ERC1155 balance -> phantom balance stays transferable
+1. **L57** — ERC1155 approval setter: Setup: standard `setApprovalForAll` on the ERC1155 auth-token contract.
+2. **L73** — Guard transfer against balance: Checks the sender holds enough ERC1155 balance — the authoritative ledger that the expiry logic fails to update.
+3. **L91** — Real burn function exists: `_burn` actually reduces ERC1155 balance — the call the expiry path should make but never does.
+4. **L125** — Load account's token groups: Reads the custom per-account `_group` ledger that tracks token batches and their expiry timestamps.
+5. **L139** — Init expired-amount accumulator: Starts `expiredAmount`, the counter summing how many tokens across the groups have expired.
+6. **L156** — Some tokens have expired: Branch taken when `expiredAmount > 0` after expired entries are pruned from the group ledger.
+7. **L157** — Emits burn event without burning: Root cause: only emits `ExpiredTokensBurned` — it prunes the group ledger but never calls `_burn`, so phantom expired tokens stay transferable.
 
 ## PoC
 

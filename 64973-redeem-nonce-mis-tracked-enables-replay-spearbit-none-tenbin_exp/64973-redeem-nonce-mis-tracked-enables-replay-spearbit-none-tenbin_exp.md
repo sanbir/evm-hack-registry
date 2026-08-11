@@ -27,16 +27,30 @@ One delegated redeem order replayed 3x drains 3000e18 collateral to the attacker
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Token decimals constant"]
+  S1["Verify an account's nonce"]
+  S2["Verify redeem order signature"]
+  S3["Public verify visibility"]
+  S4["Return recovered signer"]
   H["One delegated redeem order replayed 3x drains 3000e18 collateral to th"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3ce…`:
 
-1. **L179** — VULN step 1: records SIGNER's nonce, not the payer's — the payer nonce checked above is never consumed, so a delegated order replays
+1. **L42** — Token decimals constant: Setup: declares the token's 18 decimals.
+2. **L160** — Verify an account's nonce: Setup: checks that `nonce` is unused for a given account — called on the payer, whose slot is what must actually be consumed.
+3. **L167** — Verify redeem order signature: Setup: validates the order signature and recovers the delegated `signer` who authorized it.
+4. **L168** — Public verify visibility: Setup: `verifyOrder` is publicly callable — this keyword is part of its signature.
+5. **L170** — Return recovered signer: Setup: hands back the recovered `signer` address and a validity flag to the caller.
+6. **L177** — Redeem entry, minter-gated: Setup: `redeem` burns the payer's assets and pays collateral to `order.recipient`, guarded by `MINTER_ROLE`.
+7. **L179** — Nonce marked under wrong account: Records the nonce under the recovered `signer`'s slot, but validation checks the payer's slot, so the payer nonce is never consumed and the order replays.
 
 ## PoC
 

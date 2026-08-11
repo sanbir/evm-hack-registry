@@ -27,19 +27,30 @@ A user who cancels a pending redeem has their per-controller accumulatorShares/a
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Per-controller state struct field"]
+  S1["Accumulate shares on deposit"]
+  S2["Request a redeem"]
+  S3["Record pending redeem amount"]
+  S4["Cancel guards zero controller"]
   H["A user who cancels a pending redeem has their per-controller accumulat"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L142** — VULN step 1: BUG: wipes accumulatorShares/accumulatorCostBasis, not just the pending request
-2. **L144** — VULN step 2: BUG: wipes accumulatorShares/accumulatorCostBasis, not just the pending request
+1. **L90** — Per-controller state struct field: Setup: `averageWithdrawPrice` is one field of the per-controller state that cancel will wipe.
+2. **L111** — Accumulate shares on deposit: Deposit grows `accumulatorShares`, the cost-basis that backs the controller's future redeem.
+3. **L118** — Request a redeem: `requestRedeem` marks how many shares the controller intends to redeem.
+4. **L129** — Record pending redeem amount: Stores the request into `pendingRedeemRequest` for later fulfillment.
+5. **L137** — Cancel guards zero controller: Cancel-redeem rejects a zero `controller` address before proceeding.
+6. **L142** — Cancel wipes all controller state: Root cause: cancel runs `delete superVaultState[controller]`, wiping accumulatorShares/costBasis — all backing, not just the pending request.
+7. **L147** — Fulfill now reverts forever: `fulfillRedeem` reverts `INSUFFICIENT_SHARES` after cancel, freezing the user's 100 shares' 100e18 backing.
 
 ## PoC
 

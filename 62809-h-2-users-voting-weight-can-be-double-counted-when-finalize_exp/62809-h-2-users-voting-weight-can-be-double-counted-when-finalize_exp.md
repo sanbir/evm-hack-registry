@@ -27,16 +27,30 @@ An attacker with two addresses in different finalizeEpoch tally batches unstakes
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Load epoch tally state"]
+  S1["Batch through voter list"]
+  S2["Read live balance during tally"]
+  S3["Credit balance to option"]
+  S4["Mark tally finished"]
   H["An attacker with two addresses in different finalizeEpoch tally batche"]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x671d353a77…`:
 
-1. **L97** — VULN step 1: live balance read at tally time — enables cross-batch double-count
+1. **L84** — Load epoch tally state: Loads the epoch's tally storage that accumulates each option's vote weight.
+2. **L86** — Batch through voter list: Iterates voters in bounded batches — the multi-transaction tally that makes the double-count possible.
+3. **L97** — Read live balance during tally: Root cause: reads a voter's live staked `balanceOf` mid-tally, so an attacker can move the same balance to an untallied address and have it counted twice.
+4. **L103** — Credit balance to option: Adds that read balance to the voter's chosen option's accumulated weight.
+5. **L108** — Mark tally finished: Flags the epoch tally complete once the cursor has processed every voter in the list.
+6. **L119** — Pending removals list: Setup: loads the epoch's pending voter-removals list.
+7. **L157** — Per-option weight storage: Setup: the mapping that stores accumulated vote weight per option.
 
 ## PoC
 

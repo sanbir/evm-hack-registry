@@ -27,16 +27,30 @@ An insider slasher dodges the commit-reveal delay queue by committing against an
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
+  S0["Identity commitment index"]
+  S1["Commitment reveal-time mapping"]
+  S2["slashReveal discloses the slash"]
+  S3["Zero reveal-time bypasses delay"]
+  S4["Slash mints reward, no delay"]
   H["An insider slasher dodges the commit-reveal delay queue by committing "]
-  S0 --> H
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3ce…`:
 
-1. **L167** — VULN step 1: pays out without ever checking account == members[poseidonHash(privateKey)] — an unrelated account skips the reveal-delay queue
+1. **L107** — Identity commitment index: Setup: counter tracking registered identity commitments.
+2. **L111** — Commitment reveal-time mapping: Setup: maps each account+hash to its `revealStartTime`, the moment its slash reveal becomes valid.
+3. **L146** — slashReveal discloses the slash: Setup: `slashReveal` is the second step that reveals a committed slash and pays the reward.
+4. **L158** — Zero reveal-time bypasses delay: Branches on `revealStartTime == 0`; committing against an unused, unrelated account leaves it zero so no delay applies.
+5. **L167** — Slash mints reward, no delay: Root cause: reaches `slash()` and pays the reward without enforcing the reveal delay, since the commit was bound to an unrelated, same-block-revealable account.
+6. **L171** — Internal slash pays recipient: Setup: `slash()` burns the target and mints the slashing reward to `rewardRecipient`.
+7. **L196** — Define SLASHER_ROLE constant: Setup: the `SLASHER_ROLE` identifier gating who may slash.
 
 ## PoC
 

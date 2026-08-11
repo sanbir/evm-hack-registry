@@ -27,19 +27,30 @@ After 257 distinct assets are registered, uint8 index truncation makes asset #25
 
 ```mermaid
 flowchart TD
-  S0["Asset #257 registered with truncated index 0"]
-  S1["removeAsset(#257) invoked → wrong slot zeroed"]
-  H["After 257 distinct assets are registered, uint8 index truncation makes"]
+  S0["Setup: role revocation helper"]
+  S1["Guard: asset must not exist"]
+  S2["Guard: feeder must not exist"]
+  S3["Enter removeAsset"]
+  S4["uint8 cast truncates the index"]
+  H["assetFeederMap'_asset'.index = uint8(assets.length - 1) (L176) truncat"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L177** — Asset #257 registered with truncated index 0: _addAsset stores uint8(assets.length-1) == uint8(256) == 0 for asset #257 — the same index already held by asset #1 — then emits AssetAdded.
-2. **L149** — removeAsset(#257) invoked → wrong slot zeroed: The attacker removes asset #257; its stored index truncated to 0, so the removal runs delete assets[0] (L193), zeroing the slot of the still-registered asset #1 — a corrupted, internally inconsistent oracle registry.
+1. **L45** — Setup: role revocation helper: Setup: `_roles[role][account] = false` is access-control plumbing used while wiring up the oracle's admin and feeder roles.
+2. **L129** — Guard: asset must not exist: Setup: `onlyWhenAssetNotExisted` limits registration to new assets, but checks the map — not the truncated array index — so it misses collisions.
+3. **L140** — Guard: feeder must not exist: Setup: registration also requires the feeder be new — routine wiring that runs for each of the 257 assets being added.
+4. **L149** — Enter removeAsset: `removeAsset` is the sink: it reads the asset's stored `index` and runs `delete assets[index]`, where a collided index corrupts the registry.
+5. **L176** — uint8 cast truncates the index: Root cause: casting `assets.length - 1` to `uint8` wraps past 255, so asset #257 stores index 0, colliding with asset #1's slot.
+6. **L177** — Emit AssetAdded event: The asset logs as added while its map entry holds a truncated index that silently aliases an earlier asset's array slot.
+7. **L204** — Same truncation for feeders: The identical `uint8(feeders.length - 1)` cast corrupts the feeder registry the same way once more than 256 feeders exist.
 
 ## PoC
 

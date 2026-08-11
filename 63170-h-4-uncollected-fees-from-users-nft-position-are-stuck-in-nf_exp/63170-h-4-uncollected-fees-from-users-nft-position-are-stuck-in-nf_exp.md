@@ -27,19 +27,30 @@ A user's 100+100 uncollected UniV3 position fees are collected by the decomposer
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["ERC721 already-minted guard"]
+  S1["Decompose sweeps fees to manager"]
+  S2["Emit decompose-and-mint event"]
+  S3["Fixed NFTManager variant"]
+  S4["Immutable decomposer reference"]
   H["A user's 100+100 uncollected UniV3 position fees are collected by the "]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3ce…`:
 
-1. **L201** — VULN step 1: swept uncollected fees now sit in NFTManager; decomposeAndMint never forwards them to msg.sender (no residual transfer, RFTPayer unused)
-2. **L214** — VULN step 2: swept uncollected fees now sit in NFTManager; decomposeAndMint never forwards them to msg.sender (no residual transfer, RFTPayer unused)
+1. **L95** — ERC721 already-minted guard: Setup: reverts if `tokenId` was already minted before wrapping the position into a new NFT.
+2. **L201** — Decompose sweeps fees to manager: Root cause: `decompose` sweeps the position's uncollected fees to this NFTManager, but `decomposeAndMint` never forwards them to the user.
+3. **L214** — Emit decompose-and-mint event: Emits the decompose/mint event — with no accompanying fee transfer, so the collected fees stay stranded.
+4. **L222** — Fixed NFTManager variant: Setup: `NFTManagerFixed`, the patched contract that does forward the collected fees to the user.
+5. **L223** — Immutable decomposer reference: Setup: immutable `DECOMPOSER` used to unwind the UniV3 position.
+6. **L226** — Internal supply counter: Setup: `_currentSupply` tracks the number of minted asset NFTs.
+7. **L236** — Constructor stores decomposer: Setup: constructor records the `DECOMPOSER` address.
 
 ## PoC
 

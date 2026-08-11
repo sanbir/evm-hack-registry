@@ -27,19 +27,30 @@ An attacker uses dust redeems (no minimum rawDebt) to append 800+ child nodes to
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Write bitfield into packed word"]
+  S1["Read bitfield from packed word"]
+  S2["Token decimals constant"]
+  S3["Token totalSupply storage"]
+  S4["Store position under a tick node"]
   H["An attacker uses dust redeems (no minimum rawDebt) to append 800+ chil"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L159** — VULN step 1: unbounded recursion: reverts (stack overflow / OOG) on attacker-lengthened chains
-2. **L162** — VULN step 2: unbounded recursion: reverts (stack overflow / OOG) on attacker-lengthened chains
+1. **L53** — Write bitfield into packed word: Setup: assembly helper that clears a slot and ORs a value into a packed storage word — bit-packing plumbing for the tick tree.
+2. **L59** — Read bitfield from packed word: Setup: assembly helper that shifts and masks a sub-field out of a packed word — the read side of the tick-tree bit packing.
+3. **L69** — Token decimals constant: Setup: declares the mock token's 18 decimals — test scaffolding, unrelated to the tick-chain gas bug.
+4. **L70** — Token totalSupply storage: Setup: the mock token's `totalSupply` slot, part of the harness rather than the vulnerable traversal path.
+5. **L141** — Store position under a tick node: Setup: records the victim's position (collateral and debt) pointing at tick `nodeId`, whose parent chain the attacker will later bloat.
+6. **L148** — Load tick node metadata: Reads the tick node's packed metadata as `_getRootNodeAndCompress` starts walking the parent-pointer chain toward the root.
+7. **L159** — Compound debt ratio per chain node: Root-cause: recursive `_getRootNodeAndCompress` compounds `debtRatio` once per parent node, so a dust-grown 800+ node chain exhausts the 30M block gas limit.
 
 ## PoC
 

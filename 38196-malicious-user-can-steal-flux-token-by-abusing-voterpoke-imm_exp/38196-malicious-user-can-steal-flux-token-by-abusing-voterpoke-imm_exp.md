@@ -27,19 +27,30 @@ A malicious veALCX holder pokes 3x in one epoch, tripling unclaimedFlux via accr
 
 ```mermaid
 flowchart TD
-  S0["VULN step 1"]
-  S1["VULN step 2"]
+  S0["Setup: token name"]
+  S1["Internal FLUX mint helper"]
+  S2["Setup: ERC20 helper returns true"]
+  S3["Setup: wire the Voter address"]
+  S4["Claim reads inflated FLUX amount"]
   H["A malicious veALCX holder pokes 3x in one epoch, tripling unclaimedFlu"]
   S0 --> S1
-  S1 --> H
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
 ## Marked-line walkthrough (Playground)
 
 The EVM Playground pins each step to the exact executed source line in `0x8ea53755a6…`:
 
-1. **L126** — VULN step 1: no claimed/per-epoch tracking: repeated pokes accumulate claimableFlux without bound
-2. **L131** — VULN step 2: no claimed/per-epoch tracking: repeated pokes accumulate claimableFlux without bound
+1. **L41** — Setup: token name: Setup: constructor wiring assigns the FLUX token's `name`.
+2. **L45** — Internal FLUX mint helper: Setup: `_mint` is the routine that will over-issue FLUX once the claim reads the inflated, accumulated balance.
+3. **L58** — Setup: ERC20 helper returns true: Setup: standard ERC20 boilerplate returning `true` — plumbing of the FLUX token.
+4. **L105** — Setup: wire the Voter address: Setup: `setVoter` links the escrow to the Voter whose unguarded `poke` drives the repeated accrual.
+5. **L126** — Claim reads inflated FLUX amount: Root cause: this reads `claimableFlux`, which `accrueFlux` let accumulate with no epoch cap — after 3 pokes it returns 3x the fair amount, then minted.
+6. **L132** — updateFlux adjusts accrual: `updateFlux` is part of the accrual bookkeeping the repeated pokes exploit to run `unclaimedFlux` up.
+7. **L164** — unclaimedFlux accumulator storage: `unclaimedFlux` is the per-token accumulator that grows unbounded across pokes, holding the tripled claimable amount.
 
 ## PoC
 
