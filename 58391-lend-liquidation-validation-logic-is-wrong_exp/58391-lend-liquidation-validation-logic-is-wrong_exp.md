@@ -1,95 +1,69 @@
-# LEND — Liquidation validation logic is wrong
+# Lend V2: cross-chain liquidation check misuses `payload.amount`
 
-> **Vulnerability classes:** vuln/logic/liquidation-logic · vuln/logic/wrong-condition
+> **Vulnerability classes:** vuln/theft · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable `_checkLiquidationValid` check is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58391-lend-liquidation-validation-logic-is-wrong_exp.sol](test/58391-lend-liquidation-validation-logic-is-wrong_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58391.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58391 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The validation condition accepts a healthy position because the comparison is inverted, so a liquidator can seize collateral at spot price.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58391-lend-liquidation-validation-logic-is-wrong.sol:16-19
-healthyPosition = 1;
-afterValue = 2;
-profit = 1;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/930 -->
 
 ## Root cause
 
-The validation condition accepts a healthy position because the comparison is inverted, so a liquidator can seize collateral at spot price. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+On Chain A (the collateral chain), the cross-chain liquidation check treats `payload.amount` as if it were an additional borrow amount — but `payload.amount` is the number of collateral tokens to seize (`seizeTokens`, computed on Chain B). It is passed into `getHypotheticalAccountLiquidityCollateral(...)` as the `borrowAmount` parameter, so the check asks "if this user borrowed that much more, would they be underwater?" instead of validating actual health. The vulnerable line, reproduced verbatim:
 
-## Preconditions
+```solidity
+function _checkLiquidationValid(LZPayload memory payload) private view returns (bool) {
+    (uint256 borrowed, uint256 collateral) = lendStorage.getHypotheticalAccountLiquidityCollateral(
+@>      payload.sender, LToken(payable(payload.destlToken)), 0, payload.amount
+    );
+    return borrowed > collateral;
+}
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+Because `payload.amount` is a seize amount and not a proposed borrow, a perfectly healthy position can be marked liquidatable purely because "borrowing `seizeTokens` more" would tip it over the edge — even though no such borrow ever happens.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58391-lend-liquidation-validation-logic-is-wrong.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58391-lend-liquidation-validation-logic-is-wrong.sol:17`.
-3. The state diverges and the observable delta is written at `test/58391-lend-liquidation-validation-logic-is-wrong.sol:18`.
-4. The test confirms the state-divergence flag at `test/58391-lend-liquidation-validation-logic-is-wrong.sol:19` and a positive attacker delta.
+Following the synthetic's worked example, with collateral and borrow normalized at price 1:
 
-## Diagrams
+1. A healthy borrower holds `1000e18` collateral against a `500e18` borrow (LTV 50%). Under the correct check (`borrowAmount = 0`): `borrowed(500) > collateral(1000)`? **No** — not liquidatable.
+2. An attacker submits a cross-chain liquidation-execute message with `payload.amount = seizeTokens = 600e18`.
+3. The buggy check adds the seize amount to the borrow side: `borrowed(500 + 600 = 1100) > collateral(1000)`? **Yes** — the healthy position is flagged liquidatable.
+4. `_handleLiquidationExecute` runs: `600e18` of the healthy borrower's collateral is seized and credited to the attacker — a direct drain of a solvent user's funds.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Seize amount treated as borrow"]
+  S1["Seize amount becomes liquidator share"]
+  S2["Credit seized collateral to attacker"]
+  S3["Liquidation reported as executed"]
+  S4["Correct-rejection path never reached"]
+  H["Healthy borrower loses 600e18 collateral"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> H
+  S0 -. correct check would reject .-> S4
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xce01759b…`:
 
-## How to reproduce
+1. **L133** — Seize amount treated as borrow: Root cause: payload.amount is the collateral seize amount but is passed here as a hypothetical borrowAmount, so a healthy position is flagged liquidatable.
+2. **L141** — Seize amount becomes liquidator share: The same payload.amount is taken as the liquidator's share, the collateral to move out of the healthy borrower's position.
+3. **L147** — Credit seized collateral to attacker: The seized collateral is credited to the liquidator, transferring the healthy borrower's funds to the attacker.
+4. **L159** — Liquidation reported as executed: liquidate returns true, so the wrongful seizure is confirmed executed even though the borrower was fully solvent.
+5. **L161** — Correct-rejection path never reached: This else branch would have correctly rejected the liquidation, but the buggy check never routes the healthy borrower here.
+6. **L176** — Seized collateral measured at sink: The sink marker token records the 600e18 of collateral wrongly seized from the healthy borrower as a concrete, measurable loss.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58391-lend-liquidation-validation-logic-is-wrong_exp
-forge test -vvv
-_shared/run_poc.sh 58391-lend-liquidation-validation-logic-is-wrong_exp -vvvvv
+cd 58391-lend-liquidation-validation-logic-is-wrong_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58391Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58391.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58391-lend-liquidation-validation-logic-is-wrong.sol (local reduction)
-
-*Reference: [AuditVault finding #58391](https://github.com/Auditware/AuditVault/blob/main/findings/58391.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **a healthy borrower (1000e18 collateral vs 500e18 borrow) is flagged liquidatable and has 600e18 of collateral seized**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

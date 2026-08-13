@@ -1,95 +1,80 @@
-# Burve — Incorrect implementation of ERC4626ViewAdjustor
+# Burve: `ERC4626ViewAdjustor` reverses `toNominal`/`toReal`, inflating LST deposits
 
-> **Vulnerability classes:** vuln/logic/price-calculation · vuln/arithmetic/decimal-mismatch
+> **Vulnerability classes:** vuln/logic · vuln/accounting
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the `toNominal`/`toReal` conversion helpers are reproduced **verbatim** (the vulnerable line marked `@>`) with faithful minimal doubles (an ERC4626 LST vault with a real 1.1x peg and a pool that sizes a single-token deposit via `toReal`); local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/56951-burve-incorrect-implementation-of-erc4626viewadjustor_exp.sol](test/56951-burve-incorrect-implementation-of-erc4626viewadjustor_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/56951.md -->
-<!-- date: 2025-04 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | Burve |
-| **Finding** | AuditVault/Sherlock high finding #56951 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The view adjustor applies the fee conversion in the wrong direction, reporting nominal shares where callers expect net assets.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-Burve uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/56951-burve-incorrect-implementation-of-erc4626viewadjustor.sol:16-19
-nominalAssets = 100;
-afterValue = nominalAssets + 20;
-profit = 20;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-04-burve-judging/issues/113 -->
 
 ## Root cause
 
-The view adjustor applies the fee conversion in the wrong direction, reporting nominal shares where callers expect net assets. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+The adjustor's two conversion helpers are swapped: `toNominal` (real→nominal) calls `convertToShares` and `toReal` (nominal→real) calls `convertToAssets`, so every conversion applies the ERC4626 share/asset peg in the *wrong* direction. When the pool sizes a single-token LST deposit through `toReal`, it therefore pulls roughly `1.1x` too many shares from the user. The two helpers, reproduced verbatim from the finding:
 
-## Preconditions
+```solidity
+    function toNominal(
+        address token,
+        uint256 real,
+        bool
+    ) external view returns (uint256 nominal) {
+        IERC4626 vault = getVault(token);
+        return vault.convertToShares(real);
+    }
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+    function toReal(
+        address token,
+        uint256 nominal,
+        bool
+    ) external view returns (uint256 real) {
+        IERC4626 vault = getVault(token);
+@>      return vault.convertToAssets(nominal);
+    }
+```
 
-## Attack walkthrough
+`toReal` is meant to convert a nominal (base-denominated) value into the real share amount, which requires `convertToShares`. Returning `convertToAssets` instead inflates the result: the pool pulls the inflated share amount straight from the user.
 
-1. The contract records the baseline at `test/56951-burve-incorrect-implementation-of-erc4626viewadjustor.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/56951-burve-incorrect-implementation-of-erc4626viewadjustor.sol:17`.
-3. The state diverges and the observable delta is written at `test/56951-burve-incorrect-implementation-of-erc4626viewadjustor.sol:18`.
-4. The test confirms the state-divergence flag at `test/56951-burve-incorrect-implementation-of-erc4626viewadjustor.sol:19` and a positive attacker delta.
+## Why it's exploitable here
 
-## Diagrams
+Following the finding's worked example, with an LST vault where `1 share = 1.1 base tokens` (`convertToAssets(x) = x * 1.1`, `convertToShares(x) = x / 1.1`):
+
+1. Alice adds `100e18` of nominal value via a single LST token. The pool calls `toReal(100e18)` to size the real share amount to pull.
+2. The fair amount is `convertToShares(100e18) = 100e18 / 1.1 ≈ 90.9e18` shares.
+3. The buggy `toReal` returns `convertToAssets(100e18) = 110e18` shares instead — the peg applied backwards.
+4. `addValueSingle` pulls the full `110e18` shares from Alice. She is charged `110e18` for a position worth only `~90.9e18`, overpaying `~19.09e18` shares that sit stuck in the pool — a direct loss of funds.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["toNominal converts real to nominal"]
+  S1["toReal sizes the deposit"]
+  S2["Resolve the ERC4626 LST vault"]
+  S3["toReal calls convertToAssets"]
+  S4["Pool wired to the adjustor"]
+  H["User charged 110e18 for a ~90.9e18 position — ~19e18 overpaid, stuck"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3…`:
 
-## How to reproduce
+1. **L133** — toNominal converts real to nominal: toNominal is declared to turn a real (share) amount into a nominal (base) value; like toReal, its conversion body is wired backwards.
+2. **L138** — toReal sizes the deposit: The pool calls toReal to convert the nominal value it wants to add into the real share amount to pull from the user.
+3. **L139** — Resolve the ERC4626 LST vault: toReal resolves the ERC4626 LST vault for the token so it can query the peg between shares and assets.
+4. **L140** — toReal calls convertToAssets: Root cause: toReal (nominal-to-real) returns convertToAssets instead of convertToShares, applying the peg backwards so the required share amount is inflated ~1.1x.
+5. **L150** — Pool wired to the adjustor: Setup: the pool manager stores the E4626ViewAdjustor it will use to size single-token LST deposits.
+6. **L154** — addValueSingle pulls inflated shares: addValueSingle sizes the deposit via the buggy toReal and pulls 110e18 shares for a ~90.9e18 position, so the user overpays ~19e18 shares.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/56951-burve-incorrect-implementation-of-erc4626viewadjustor_exp
-forge test -vvv
-_shared/run_poc.sh 56951-burve-incorrect-implementation-of-erc4626viewadjustor_exp -vvvvv
+cd 56951-burve-incorrect-implementation-of-erc4626viewadjustor_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding56951Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/56951.md
-- Original report: https://github.com/sherlock-audit/2025-04-burve-judging
-- Synthetic reduction: test/56951-burve-incorrect-implementation-of-erc4626viewadjustor.sol (local reduction)
-
-*Reference: [AuditVault finding #56951](https://github.com/Auditware/AuditVault/blob/main/findings/56951.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **add 100e18 of nominal value, get charged the inflated 110e18 shares instead of the fair ~90.9e18, overpaying ~19e18 shares stuck in the pool**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

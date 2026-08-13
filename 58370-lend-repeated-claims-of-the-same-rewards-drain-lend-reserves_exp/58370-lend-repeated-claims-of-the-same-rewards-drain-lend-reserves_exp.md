@@ -1,95 +1,72 @@
-# LEND — Repeated claims of the same rewards drain LEND reserves
+# LEND: `claimLend` never resets accrued rewards, draining LEND reserves
 
-> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/state-update
+> **Vulnerability classes:** vuln/theft · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the `claimLend` reward-grant loop and `grantLendInternal` are reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves_exp.sol](test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58370.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58370 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-claimLend() transfers the reward but fails to mark the epoch as claimed, allowing the same reward to be collected repeatedly.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves.sol:16-19
-firstClaim = 100;
-afterValue = firstClaim * 2;
-profit = firstClaim * 2;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/148 -->
 
 ## Root cause
 
-claimLend() transfers the reward but fails to mark the epoch as claimed, allowing the same reward to be collected repeatedly. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`Lend-V2/src/LayerZero/CoreRouter.sol`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CoreRouter.sol#L402)'s `claimLend()`, the final loop grants each holder their accrued LEND via `grantLendInternal()` but ignores its return value and never resets `lendStorage.lendAccrued`. Because the accrued balance survives the payout, a user can call `claimLend()` again and again and re-collect the same reward every time. The vulnerable lines, reproduced verbatim:
 
-## Preconditions
+```solidity
+for (uint256 j = 0; j < holders.length;) {
+    uint256 accrued = lendStorage.lendAccrued(holders[j]);
+    if (accrued > 0) {
+@>      grantLendInternal(holders[j], accrued);
+    }
+    unchecked {
+        ++j;
+    }
+}
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+`grantLendInternal()` transfers the LEND and returns the un-granted remainder (0 on success), but the caller discards it. Compound's correct implementation writes that remainder back — `lendAccrued[holders[j]] = grantLendInternal(holders[j], lendAccrued[holders[j]]);` — zeroing the balance so a reward is paid exactly once. Here the balance is left untouched.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves.sol:17`.
-3. The state diverges and the observable delta is written at `test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves.sol:18`.
-4. The test confirms the state-divergence flag at `test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves.sol:19` and a positive attacker delta.
+Following the synthetic reproduction:
 
-## Diagrams
+1. The attacker legitimately accrues `100e18` LEND exactly once. The router holds `1000e18` of LEND reserves funded for all other users.
+2. The attacker calls `claimLend([attacker], …)`. `grantLendInternal` transfers `100e18` but leaves `lendStorage.lendAccrued[attacker] == 100e18`.
+3. The attacker calls `claimLend` again — the same `100e18` is paid out. Five repeats pay `500e18` more.
+4. After 6 calls the attacker holds `600e18` for a single `100e18` entitlement — `500e18` drained straight out of other users' reserves.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Deploy the LEND reward token"]
+  S1["Iterate the claim's markets"]
+  S2["Distribute supplier accrual"]
+  S3["Accrued reward is never reset"]
+  S4["Read the router's LEND reserve"]
+  H["Same reward re-paid 6x — 500e18 drained"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3…`:
 
-## How to reproduce
+1. **L42** — Deploy the LEND reward token: Setup: the LEND reward token is deployed and minted into the router as the shared reserve that backs every user's accrued rewards.
+2. **L115** — Iterate the claim's markets: claimLend walks the caller-supplied markets, running the accrual bookkeeping before it reaches the final reward-granting loop.
+3. **L127** — Distribute supplier accrual: For each holder, claimLend triggers supplier LEND distribution to bring the accrued reward up to date before it is paid out.
+4. **L133** — Accrued reward is never reset: Root cause: the grant loop pays out lendStorage.lendAccrued via grantLendInternal but never resets it, so the same reward is re-claimable every call.
+5. **L156** — Read the router's LEND reserve: grantLendInternal reads the router's LEND balance, the shared reserve, to confirm it can still cover the unchanged accrued amount.
+6. **L158** — Pay the same reward again: While the reserve still covers the accrued amount the router transfers it once more, so each repeated claim re-pays the same reward until reserves drain.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves_exp
-forge test -vvv
-_shared/run_poc.sh 58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves_exp -vvvvv
+cd 58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58370Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58370.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58370-lend-repeated-claims-of-the-same-rewards-drain-lend-reserves.sol (local reduction)
-
-*Reference: [AuditVault finding #58370](https://github.com/Auditware/AuditVault/blob/main/findings/58370.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **accrue 100e18 once, call `claimLend` 6x to receive 600e18, draining 500e18 of other users' LEND reserves**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

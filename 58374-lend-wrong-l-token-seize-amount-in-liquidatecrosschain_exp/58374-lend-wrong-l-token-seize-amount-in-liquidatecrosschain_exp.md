@@ -1,95 +1,68 @@
-# LEND — Wrong L-token seize amount in liquidateCrossChain
+# Lend V2: wrong lToken seize amount in cross-chain liquidation
 
-> **Vulnerability classes:** vuln/logic/liquidation-logic · vuln/logic/price-calculation
+> **Vulnerability classes:** vuln/theft · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the `liquidateCalculateSeizeTokens` call site and the Compound-style seize math are reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain_exp.sol](test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58374.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58374 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The cross-chain liquidation converts debt to seized L-tokens with the collateral-side exchange rate, overstating the amount seized from a borrower.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain.sol:16-19
-debt = 100;
-afterValue = 500;
-profit = afterValue - debt;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/321 -->
 
 ## Root cause
 
-The cross-chain liquidation converts debt to seized L-tokens with the collateral-side exchange rate, overstating the amount seized from a borrower. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+Cross-chain liquidation executes on Chain B (where the debt lives), but the number of collateral lTokens to seize is computed from `params.lTokenToSeize` — the **Chain B** twin of the collateral lToken. `liquidateCalculateSeizeTokens` divides by that lToken's `exchangeRateStored()`, i.e. Chain B's exchange rate, even though the seize is later applied on **Chain A** against a collateral lToken whose exchange rate is different. The vulnerable call, reproduced verbatim:
 
-## Preconditions
+```solidity
+        (uint256 amountSeizeError, uint256 seizeTokens) = LendtrollerInterfaceV2(lendtroller)
+@>          .liquidateCalculateSeizeTokens(borrowedlToken, params.lTokenToSeize, params.repayAmount);
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+`seizeTokens` therefore represents a count of *Chain B* collateral lTokens, but it is shipped to Chain A and seized against *Chain A* collateral lTokens one-for-one. Because the two chains' exchange rates diverge, the borrower is seized the wrong amount.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain.sol:17`.
-3. The state diverges and the observable delta is written at `test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain.sol:18`.
-4. The test confirms the state-divergence flag at `test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain.sol:19` and a positive attacker delta.
+The synthetic follows the finding with equal prices on both chains, a 10% liquidation incentive, and diverging collateral exchange rates: Chain B = 0.2, Chain A = 0.4.
 
-## Diagrams
+1. A liquidator repays `100e18` of the borrower's Chain B debt and passes the Chain B collateral lToken (`lCOL-B`) as `lTokenToSeize`.
+2. `seizeTokens = repayAmount * incentive * priceBorrowed / (priceCollateral * exchangeRate)` = `110e18 / 0.2` = **550e18**.
+3. Computed correctly against the Chain A collateral lToken (rate 0.4) the seize should be `110e18 / 0.4` = **275e18**.
+4. Chain A seizes the full `550e18` from the borrower and credits it to the liquidator — the borrower is robbed of an **extra 275e18** collateral lTokens (2× the correct amount).
+
+Whenever the Chain A rate is higher than Chain B's the borrower is over-seized; whenever it is lower the seize is too small and the liquidation can revert or leave bad debt.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Liquidator opens cross-chain liquidation"]
+  S1["Validation guard passes"]
+  S2["Dispatch to seize core"]
+  S3["Seize computed with wrong lToken"]
+  S4["Wrong seize sent to Chain A"]
+  H["Borrower over-seized 550e18 vs 275e18 — excess handed to liquidator"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xaf38a9c5…`:
 
-## How to reproduce
+1. **L293** — Liquidator opens cross-chain liquidation: The liquidator calls liquidateCrossChain and records repayAmount into the params, targeting a cross-chain borrower whose collateral sits on Chain A.
+2. **L309** — Validation guard passes: `_validateAndPrepareLiquidation` only checks the liquidator isn't the borrower and repayAmount > 0, so the malformed cross-chain seize proceeds.
+3. **L317** — Dispatch to seize core: `_executeLiquidation` forwards the params into `_executeLiquidationCore`, where the number of collateral lTokens to seize is computed.
+4. **L325** — Seize computed with wrong lToken: Root cause: seizeTokens is computed from `params.lTokenToSeize`, the Chain B collateral lToken, whose exchange rate differs from Chain A's, so the count is wrong.
+5. **L333** — Wrong seize sent to Chain A: The router sends the miscomputed seizeTokens over LayerZero to Chain A to execute the seize against the borrower's real collateral position.
+6. **L352** — Chain A collateral is the target: On Chain A, `_destlToken` is the collateral lToken with the different exchange rate that is actually seized from the borrower.
+7. **L374** — Chain B twin has divergent rate: `collateralLTokenB` is the Chain B twin lToken at exchange rate 0.2 versus Chain A's 0.4 — the mismatch the seize calc wrongly reads.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain_exp
-forge test -vvv
-_shared/run_poc.sh 58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain_exp -vvvvv
+cd 58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58374Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58374.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58374-lend-wrong-l-token-seize-amount-in-liquidatecrosschain.sol (local reduction)
-
-*Reference: [AuditVault finding #58374](https://github.com/Auditware/AuditVault/blob/main/findings/58374.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **repay 100e18, seize 550e18 collateral lTokens against the borrower when the correct amount is 275e18 — the borrower is robbed of an extra 275e18 and the liquidator pockets it**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

@@ -1,95 +1,75 @@
-# LEND — Cross-chain liquidation reduces debt by collateral seized
+# Lend V2: cross-chain liquidation reduces debt by the collateral seized
 
-> **Vulnerability classes:** vuln/logic/liquidation-logic · vuln/bridge/missing-validation
+> **Vulnerability classes:** vuln/logic · vuln/accounting · cross-chain-message
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the cross-chain liquidation functions of `CrossChainRouter` (`_executeLiquidationCore`, `_handleLiquidationExecute`, `_handleLiquidationSuccess`, `repayCrossChainBorrowInternal`) are reproduced **verbatim** (the finding's anchor line marked `@>`) with faithful minimal doubles and an in-process LayerZero transport; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized_exp.sol](test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58388.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58388 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The cross-chain message reduces debt using collateral seized rather than the actual repayment, allowing debt to be erased at an incorrect rate.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized.sol:16-19
-repayment = 100;
-afterValue = 150;
-profit = afterValue - repayment;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/836 -->
 
 ## Root cause
 
-The cross-chain message reduces debt using collateral seized rather than the actual repayment, allowing debt to be erased at an incorrect rate. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+Cross-chain liquidation reuses a single generic `Payload.amount` field across every LayerZero hop. `_executeLiquidationCore` writes `seizeTokens` (the amount of collateral to seize, in collateral-lToken units) into that field, and the return hop hands the very same value to `repayCrossChainBorrowInternal` as the repay amount — so the borrower's debt is reduced by the collateral seized, not by the liquidator's actual `params.repayAmount`. The vulnerable send, reproduced verbatim from the finding's Root Cause:
 
-## Preconditions
+```solidity
+        // Send message to Chain A to execute the seize
+        _send(
+            params.srcEid,
+@>          seizeTokens,
+            params.storedBorrowIndex,
+            0,
+            params.borrower,
+            lendStorage.crossChainLTokenMap(params.lTokenToSeize, params.srcEid), // Convert to Chain A version before sending
+            msg.sender,
+            params.borrowedAsset,
+            ContractType.CrossChainLiquidationExecute
+        );
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+Placing `seizeTokens` here is correct for the seize step on Chain A. The bug is that the return hop (`_handleLiquidationExecute`) forwards this same `payload.amount` back to Chain B, where `_handleLiquidationSuccess` passes it straight into `repayCrossChainBorrowInternal` as the debt repay amount.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized.sol:17`.
-3. The state diverges and the observable delta is written at `test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized.sol:18`.
-4. The test confirms the state-divergence flag at `test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized.sol:19` and a positive attacker delta.
+Following the finding's worked example — `liquidationIncentive = 1.08`, equal borrowed/collateral prices, `exchangeRate = 1`:
 
-## Diagrams
+1. A liquidator initiates a cross-chain liquidation with `repayAmount = 500e18` against a borrower whose Chain B debt principle is `1000e18`.
+2. `liquidateCalculateSeizeTokens` computes `seizeTokens = 500e18 * 1.08 = 540e18` of collateral to seize.
+3. `540e18` is packed into `Payload.amount`, seized on Chain A, then bounced back unchanged and consumed by `repayCrossChainBorrowInternal` as the repay amount.
+4. The borrower's debt is reduced by `540e18` instead of the `500e18` actually repaid — a `40e18` discrepancy of debt erased with **no matching repayment**, corrupting protocol accounting (over-repayment here; under-repayment whenever `seizeTokens < repayAmount`).
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Seize amount scaled from repay"]
+  S1["Repay signal reports seize amount"]
+  S2["Seize amount reused as repay"]
+  S3["Chain A forwards the seize amount"]
+  S4["Load borrower's debt position"]
+  H["Debt cut by 540e18 seized, not 500e18 repaid"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xd3760b84…`:
 
-## How to reproduce
+1. **L58** — Seize amount scaled from repay: The liquidation math scales the 500e18 repayAmount by the 1.08 incentive, computing seizeTokens = 540e18 of collateral to seize.
+2. **L294** — Repay signal reports seize amount: RepaySuccess fires when the borrow is repaid; its reported amount becomes the 540e18 seize value, masking the mis-accounting as a normal repayment.
+3. **L327** — Seize amount reused as repay: Root cause: seizeTokens (540e18 collateral) is packed into the generic Payload.amount and later consumed as the debt repay amount, cutting debt by the seize value.
+4. **L368** — Chain A forwards the seize amount: Chain A executes the seize, emits LiquidateBorrow, then sends the same payload.amount (still 540e18 seizeTokens) back to Chain B as the repay message.
+5. **L448** — Load borrower's debt position: Back on Chain B, `_getBorrowDetails` loads the borrower's cross-chain borrow (principle 1000e18) so the incoming repay message can be applied.
+6. **L523** — Same amount reused everywhere: Every hop, even this failure-bounce path, reuses one generic payload.amount, so the 1000e18 debt is cut by 540e18 seized, not the 500e18 repaid.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized_exp
-forge test -vvv
-_shared/run_poc.sh 58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized_exp -vvvvv
+cd 58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58388Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58388.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58388-lend-cross-chain-liquidation-reduces-debt-by-collateral-seized.sol (local reduction)
-
-*Reference: [AuditVault finding #58388](https://github.com/Auditware/AuditVault/blob/main/findings/58388.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **liquidator repays 500e18, but the borrower's debt is reduced by the 540e18 seize amount — a 40e18 mis-accounting with no matching repayment**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

@@ -1,95 +1,74 @@
-# LEND — Malicious liquidator can liquidate without providing collateral
+# LEND (Lend-V2): cross-chain liquidator seizes collateral without providing repayment
 
-> **Vulnerability classes:** vuln/logic/missing-check · vuln/access-control/missing-auth
+> **Vulnerability classes:** vuln/theft · vuln/logic · vuln/cross-chain
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the Chain-B cross-chain liquidation entry-point and its internal helpers are reproduced **verbatim** (marked `@>`) with faithful minimal doubles for LendStorage, the Lendtroller seize math, the Chain-A seize handler and the LayerZero transport; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral_exp.sol](test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58379.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58379 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The liquidation path checks the borrower's debt but never verifies that the liquidator supplied the required repayment collateral.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral.sol:16-19
-requiredCollateral = 100;
-afterValue = 0;
-profit = requiredCollateral;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/636 -->
 
 ## Root cause
 
-The liquidation path checks the borrower's debt but never verifies that the liquidator supplied the required repayment collateral. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`Lend-V2/src/LayerZero/CrossChainRouter.sol`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CrossChainRouter.sol#L172-L192), the Chain-B (debt chain) liquidation entry-point validates the borrower's position and immediately calls `_executeLiquidation`, which dispatches a collateral-seize message to Chain A — but it never transfers or escrows the repayment token from the liquidator. The vulnerable lines, reproduced verbatim:
 
-## Preconditions
+```solidity
+    function liquidateCrossChain(
+        ...
+    ) external {
+        LendStorage.LiquidationParams memory params = LendStorage.LiquidationParams({
+            ...
+        });
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+        _validateAndPrepareLiquidation(params);
+@>      _executeLiquidation(params);
+    }
+```
 
-## Attack walkthrough
+The seize on Chain A executes as an **independent** LayerZero message and hands the borrower's collateral to the liquidator. The return `LiquidationSuccess` message then tries to pull the repayment from the liquidator on Chain B via `transferFrom` — if the liquidator never approved, that message reverts forever while the Chain-A seize is already committed. Net effect: the liquidator receives the liquidatee's collateral for free and the borrower's debt is never deducted.
 
-1. The contract records the baseline at `test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral.sol:17`.
-3. The state diverges and the observable delta is written at `test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral.sol:18`.
-4. The test confirms the state-divergence flag at `test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral.sol:19` and a positive attacker delta.
+## Why it's exploitable here
 
-## Diagrams
+Following the finding's flow with the reproduction's concrete values:
+
+1. A borrower has `100e18` of outstanding cross-chain debt on Chain B, with `50e18` of collateral seizable on Chain A. The 50% close factor bounds a single liquidation to `repayAmount = 50e18`.
+2. The malicious liquidator holds **no** borrow token and grants **no** approval, then calls the verbatim `liquidateCrossChain(borrower, 50e18, ...)`. Validation passes; `_executeLiquidation` dispatches the seize to Chain A without escrowing anything.
+3. Chain A seizes the collateral, withholds the 2.8% protocol share, and transfers the `48.6e18` liquidator share to the liquidator.
+4. The returning `LiquidationSuccess` repayment `transferFrom` reverts (no approval), so that independent Chain-B message is stuck forever — the borrower's `100e18` debt is never deducted.
+5. The liquidator walks away with `48.6e18` of the liquidatee's collateral, paid `0`, and the position remains fully indebted — a direct drain.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Seed the borrower's debt"]
+  S1["Build the liquidation params"]
+  S2["Liquidate with no repayment escrow"]
+  S3["Bound repay by close factor"]
+  S4["Dispatch seize to Chain A"]
+  H["Collateral seized for free; borrower debt never deducted"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xaf38a9c5…`:
 
-## How to reproduce
+1. **L55** — 18-decimal collateral and debt tokens: Setup: MiniToken declares the 18-decimal collateral and borrowed-underlying doubles used across both chains for the seize and the repayment.
+2. **L246** — Seed the borrower's debt: Setup: the harness seeds the borrower's 100e18 outstanding debt into Chain B's debt book, the amount an honest liquidation would deduct.
+3. **L266** — Build the liquidation params: The verbatim liquidateCrossChain packs borrower, repayAmount and collateral into LiquidationParams, with borrowedlToken resolved during validation.
+4. **L270** — Liquidate with no repayment escrow: Root cause: _executeLiquidation dispatches the collateral seize to the source chain without ever transferring or escrowing the repayment token from the liquidator.
+5. **L324** — Bound repay by close factor: _prepareLiquidationValues accrues interest and applies the 50% close factor to bound repayAmount, still pulling no repayment from the liquidator.
+6. **L371** — Dispatch seize to Chain A: _send encodes the seize payload and forwards it to Chain A as an independent message, so the collateral is seized while the liquidator escrows nothing.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral_exp
-forge test -vvv
-_shared/run_poc.sh 58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral_exp -vvvvv
+cd 58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58379Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58379.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58379-lend-malicious-liquidator-can-liquidate-without-providing-collateral.sol (local reduction)
-
-*Reference: [AuditVault finding #58379](https://github.com/Auditware/AuditVault/blob/main/findings/58379.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **liquidate with no approval, receive 48.6e18 of the liquidatee's collateral for free while the borrower's 100e18 debt is never deducted**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

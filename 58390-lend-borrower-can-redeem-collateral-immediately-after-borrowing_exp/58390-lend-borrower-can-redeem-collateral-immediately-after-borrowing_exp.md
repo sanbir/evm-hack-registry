@@ -1,95 +1,78 @@
-# LEND — Borrower can redeem collateral immediately after borrowing
+# Lend: borrower can redeem collateral immediately after a cross-chain borrow
 
-> **Vulnerability classes:** vuln/logic/incorrect-state-transition · vuln/logic/missing-check
+> **Vulnerability classes:** vuln/theft · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable `borrowCrossChain` body is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing_exp.sol](test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58390.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58390 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The collateral redemption path does not account for a borrow initiated in the same epoch, enabling an immediately undercollateralized position.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing.sol:16-19
-borrowed = 100;
-afterValue = 0;
-profit = borrowed;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CrossChainRouter.sol#L113C5-L154 -->
 
 ## Root cause
 
-The collateral redemption path does not account for a borrow initiated in the same epoch, enabling an immediately undercollateralized position. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`Lend-V2/src/LayerZero/CrossChainRouter.sol#L113`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CrossChainRouter.sol#L113), `borrowCrossChain()` adds collateral tracking and snapshots the current collateral into the LayerZero message, then fires the borrow — **without locking the collateral on the source chain**. The vulnerable body is reproduced verbatim:
 
-## Preconditions
+```solidity
+function borrowCrossChain(uint256 _amount, address _borrowToken, uint32 _destEid) external payable {
+    // ... validations ...
+    // Then adding collateral tracking on source chain
+    lendStorage.addUserSuppliedAsset(msg.sender, _lToken);
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+    if (!isMarketEntered(msg.sender, _lToken)) {
+        enterMarkets(_lToken);
+    }
 
-## Attack walkthrough
+    // Get current collateral amount for the LayerZero message
+    (, uint256 collateral) =
+        lendStorage.getHypotheticalAccountLiquidityCollateral(msg.sender, LToken(_lToken), 0, 0);
 
-1. The contract records the baseline at `test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing.sol:17`.
-3. The state diverges and the observable delta is written at `test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing.sol:18`.
-4. The test confirms the state-divergence flag at `test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing.sol:19` and a positive attacker delta.
+    // Send message to destination chain with verified sender
+@>  _send(_destEid, _amount, 0 /* borrowIndex */, collateral, msg.sender, destLToken, address(0), _borrowToken, ContractType.BorrowCrossChain);
+}
+```
 
-## Diagrams
+Because no lock is placed and the pending borrow is not recorded on the source chain, the user can immediately call `redeem()` on the source chain — the liquidity check sees no debt and releases all collateral. When the LayerZero message lands on the destination chain, the borrow is authorized against the **stale** collateral snapshot and pays out.
+
+## Why it's exploitable here
+
+1. The attacker supplies 100e18 collateral on Chain A.
+2. The attacker calls `borrowCrossChain(75e18, ...)`. The current collateral (100e18) is snapshotted into the message; no lock is set.
+3. The attacker immediately `redeem()`s all 100e18 collateral on Chain A — the pending cross-chain borrow is unrecorded, so the liquidity check passes.
+4. The message lands on Chain B and authorizes the 75e18 borrow against the stale snapshot. The attacker keeps the full collateral **and** the borrowed funds — an entirely unbacked position that drains the destination pool.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Resolve source collateral token"]
+  S1["Enter collateral market"]
+  S2["Snapshot collateral, set no lock"]
+  S3["Fire cross-chain borrow"]
+  S4["Forward the verified sender"]
+  H["Redeem all collateral, then borrow pays out against stale snapshot"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0x8f111d8b…`:
 
-## How to reproduce
+1. **L364** — Resolve source collateral token: Resolves the source-chain lToken for the collateral the pending cross-chain borrow will draw against.
+2. **L376** — Enter collateral market: Ensures the borrower has entered the collateral market before the cross-chain borrow message is sent.
+3. **L382** — Snapshot collateral, set no lock: Root cause: snapshots current collateral into the message but sets NO source-chain lock, so the position stays fully redeemable.
+4. **L389** — Fire cross-chain borrow: Sends the borrow to the destination chain carrying the pre-redeem snapshot; the pending debt is recorded nowhere on the source chain.
+5. **L391** — Forward the verified sender: The borrower is forwarded as the verified sender used for the destination-chain borrow authorization.
+6. **L396** — Tag as cross-chain borrow: Marks the message as a cross-chain borrow; delivery on Chain B later pays out against the stale collateral snapshot after the attacker has redeemed everything.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing_exp
+cd 58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing_exp
 forge test -vvv
-_shared/run_poc.sh 58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing_exp -vvvvv
 ```
 
-Expected trace includes a passing `Finding58390Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58390.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58390-lend-borrower-can-redeem-collateral-immediately-after-borrowing.sol (local reduction)
-
-*Reference: [AuditVault finding #58390](https://github.com/Auditware/AuditVault/blob/main/findings/58390.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **supply 100e18, borrow 75e18 cross-chain, redeem 100e18 — the attacker keeps its full collateral AND the borrowed funds**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

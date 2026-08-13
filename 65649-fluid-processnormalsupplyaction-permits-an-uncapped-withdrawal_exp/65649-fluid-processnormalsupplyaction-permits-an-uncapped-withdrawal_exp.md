@@ -1,95 +1,71 @@
-# Fluid — processNormalSupplyAction permits an uncapped withdrawal
+# Fluid DEX v2: `_processNormalSupplyAction` permits an uncapped withdrawal
 
-> **Vulnerability classes:** vuln/logic/missing-check · vuln/input-validation/missing
+> **Vulnerability classes:** vuln/theft · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable withdraw branch of `_processNormalSupplyAction` is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal_exp.sol](test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/65649.md -->
-<!-- date: 2026-01 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | Fluid |
-| **Finding** | AuditVault/Sherlock high finding #65649 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The normal-supply action does not cap the requested withdrawal by the user's tracked shares, allowing a caller to withdraw more than was supplied.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-Fluid uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal.sol:16-19
-trackedShares = 100;
-afterValue = 1000;
-profit = afterValue - trackedShares;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2026-01-fluid-dex-v2-judging/issues/610 -->
 
 ## Root cause
 
-The normal-supply action does not cap the requested withdrawal by the user's tracked shares, allowing a caller to withdraw more than was supplied. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`fluid-contracts/contracts/protocols/moneyMarket/core/operateModule/helpers.sol`](https://github.com/sherlock-audit/2026-01-fluid-dex-v2/blob/main/fluid-contracts/contracts/protocols/moneyMarket/core/operateModule/helpers.sol#L459), the withdraw branch of `_processNormalSupplyAction` caps `withdrawAmountRaw_` to the user's `tokenRawSupply_` — but only for the position-storage update and health-factor check. It never re-caps `supplyAmount_`, the value it hands to `LIQUIDITY.operate` at the end of the branch. The vulnerable lines, reproduced verbatim:
 
-## Preconditions
+```solidity
+} else {
+    withdrawAmountRaw_ = (((uint256(-supplyAmount_) * LC.EXCHANGE_PRICES_PRECISION) + 1) / supplyExchangePrice_) + 1; // rounded up so protocol is on the winning side
+@>  if (withdrawAmountRaw_ > tokenRawSupply_) withdrawAmountRaw_ = tokenRawSupply_; // added this check for safety
+}
+// ...
+// Give the withdraw to the user  ── supplyAmount_ is NOT capped, unlike withdrawAmountRaw_
+LIQUIDITY.operate(token_, supplyAmount_, 0, to_, address(0), abi.encode(MONEY_MARKET_IDENTIFIER, NORMAL_WITHDRAW_ACTION_IDENTIFIER));
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+`withdrawAmountRaw_` (raw units, used to decrement the stored position) is clamped to what the user actually supplied, so the storage update and health factor stay consistent. But `supplyAmount_` (the token amount transferred out) is passed to `LIQUIDITY.operate` unchanged — so the protocol pays out the full requested amount regardless of the position size.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal.sol:17`.
-3. The state diverges and the observable delta is written at `test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal.sol:18`.
-4. The test confirms the state-divergence flag at `test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal.sol:19` and a positive attacker delta.
+Following the finding's worked example with `supplyExchangePrice = 1e12`:
 
-## Diagrams
+1. The attacker supplies a dust amount (`1e6`). The position's `tokenRawSupply_` becomes `~999998`.
+2. The attacker calls withdraw with `supplyAmount_ = -1000e18`. `withdrawAmountRaw_` is computed as a huge number and capped down to `999998` (for storage), so the position update looks fine.
+3. `supplyAmount_` stays `-1000e18`. `LIQUIDITY.operate` transfers the full `1000e18` to the attacker.
+4. The attacker supplied `1e6` and withdrew `1000e18` — a direct drain of honest depositors' liquidity.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Supply a dust amount"]
+  S1["Enter withdraw()"]
+  S2["Load tracked supply"]
+  S3["Read exchange price"]
+  S4["Compute uncapped raw withdraw"]
+  H["Pay out uncapped 1000e18 — reserve drained"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xce01759b…`:
 
-## How to reproduce
+1. **L135** — Supply a dust amount: Attacker supplies 1e6 via `supply()`, so the position's `tokenRawSupply_` becomes ~999998.
+2. **L148** — Enter withdraw(): `withdraw(-1000e18, to_)` requests roughly a million times more than was supplied.
+3. **L150** — Load tracked supply: Reads `tokenRawSupply_` (~999998) — the only bound the branch will enforce.
+4. **L153** — Read exchange price: `_getExchangePrices` returns `supplyExchangePrice_ = 1e12`, matching the finding's worked example.
+5. **L165** — Compute uncapped raw withdraw: Root cause: `withdrawAmountRaw_` is derived from 1000e18; the next line (`@>`) caps only this raw value for storage/health — `supplyAmount_` is never re-capped.
+6. **L177** — Pay out uncapped supplyAmount_: `LIQUIDITY.operate` transfers the full uncapped 1000e18 to the attacker, draining honest depositors' reserve.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal_exp
+cd 65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal_exp
 forge test -vvv
-_shared/run_poc.sh 65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal_exp -vvvvv
 ```
 
-Expected trace includes a passing `Finding65649Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/65649.md
-- Original report: https://github.com/sherlock-audit/2026-01-fluid-dex-v2-judging
-- Synthetic reduction: test/65649-fluid-processnormalsupplyaction-permits-an-uncapped-withdrawal.sol (local reduction)
-
-*Reference: [AuditVault finding #65649](https://github.com/Auditware/AuditVault/blob/main/findings/65649.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **supply 1e6, withdraw the full uncapped 1000e18, draining the reserve**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

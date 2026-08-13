@@ -1,95 +1,97 @@
-# LEND — Incorrect distribution of LEND tokens to users
+# Lend V2: `_handleBorrowCrossChainRequest` distributes LEND on an already-inflated balance
 
-> **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/state-update
+> **Vulnerability classes:** vuln/logic · vuln/accounting
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable `_handleBorrowCrossChainRequest` ordering is reproduced **verbatim** (marked `@>`) alongside the verbatim `distributeBorrowerLend` / `borrowWithInterest` reward accounting, with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58384-lend-incorrect-distribution-of-lend-tokens-to-users_exp.sol](test/58384-lend-incorrect-distribution-of-lend-tokens-to-users_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58384.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58384 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The distribution loop credits a user's reward before applying the global index delta, resulting in an over-credit that the reserve must fund.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58384-lend-incorrect-distribution-of-lend-tokens-to-users.sol:16-19
-globalIndexDelta = 20;
-afterValue = 120;
-profit = globalIndexDelta;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/773 -->
 
 ## Root cause
 
-The distribution loop credits a user's reward before applying the global index delta, resulting in an over-credit that the reserve must fund. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`Lend-V2/src/LayerZero/CrossChainRouter.sol`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CrossChainRouter.sol#L581-L660), `_handleBorrowCrossChainRequest` first **updates** the borrower's `crossChainCollaterals` entry — adding `payload.amount` to `principle` — and only **afterwards** calls `distributeBorrowerLend`. But `distributeBorrowerLend` derives the borrower's LEND reward from that very mapping (via `borrowWithInterest`), so distribution runs on the already-inflated balance. The vulnerable ordering, reproduced verbatim:
 
-## Preconditions
+```solidity
+        /**
+         * @dev If existing cross-chain collateral, update it. Otherwise, add new collateral.
+         */
+        if (found) {
+            uint256 newPrincipleWithAmount = (userCrossChainCollaterals[index].principle * currentBorrowIndex)
+                / userCrossChainCollaterals[index].borrowIndex;
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+            userCrossChainCollaterals[index].principle = newPrincipleWithAmount + payload.amount;
+            userCrossChainCollaterals[index].borrowIndex = currentBorrowIndex;
 
-## Attack walkthrough
+            lendStorage.updateCrossChainCollateral(
+                payload.sender, destUnderlying, index, userCrossChainCollaterals[index]
+            );
+        } else {
+            lendStorage.addCrossChainCollateral(
+                payload.sender,
+                destUnderlying,
+                LendStorage.Borrow({
+                    srcEid: srcEid,
+                    destEid: currentEid,
+                    principle: payload.amount,
+                    borrowIndex: currentBorrowIndex,
+                    borrowedlToken: payload.destlToken,
+                    srcToken: payload.srcToken
+                })
+            );
+        }
 
-1. The contract records the baseline at `test/58384-lend-incorrect-distribution-of-lend-tokens-to-users.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58384-lend-incorrect-distribution-of-lend-tokens-to-users.sol:17`.
-3. The state diverges and the observable delta is written at `test/58384-lend-incorrect-distribution-of-lend-tokens-to-users.sol:18`.
-4. The test confirms the state-divergence flag at `test/58384-lend-incorrect-distribution-of-lend-tokens-to-users.sol:19` and a positive attacker delta.
+        // Track borrowed asset
+        lendStorage.addUserBorrowedAsset(payload.sender, payload.destlToken);
 
-## Diagrams
+        // Distribute LEND rewards on destination chain
+@>      lendStorage.distributeBorrowerLend(payload.destlToken, payload.sender);
+```
+
+`distributeBorrowerLend` computes `borrowerAmount` from `borrowWithInterest(...) + borrowWithInterestSame(...)` and multiplies it by the elapsed LEND index delta. Because the mapping already contains the newly-borrowed `payload.amount`, the borrower is rewarded LEND for the entire prior index-delta period on funds it received only this instant. The fix is to distribute **first**, then update the mapping.
+
+## Why it's exploitable here
+
+Following the finding, using the reproduction's concrete values (`EXISTING_PRINCIPLE = 1000e18`, `NEW_BORROW = 1000e18`):
+
+1. A borrower already holds a cross-chain collateral position of `1000e18` principle, checkpointed at the LEND index `1e36`; the LEND borrow index has since advanced one full period to `2e36`, so `deltaIndex = 1.0`.
+2. A new cross-chain borrow of `1000e18` is handled. The router adds it to `principle` first, so the stored balance becomes `2000e18` **before** any reward is paid.
+3. `distributeBorrowerLend` then reads that inflated `2000e18` via `borrowWithInterest` and credits `2000e18 * 1.0 = 2000e18` LEND.
+4. Distributing in the correct order (before the update) would credit only `1000e18 * 1.0 = 1000e18` LEND. The borrower is over-credited exactly `1000e18` LEND — the reward on funds borrowed only this instant, for a period it never held them — draining the protocol's LEND reserve.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Enter cross-chain borrow handler"]
+  S1["Load borrower's existing collateral entries"]
+  S2["Find the matching collateral entry"]
+  S3["Check collateral covers total borrow"]
+  S4["Update collateral before rewards"]
+  H["Distribute LEND on inflated balance — 1000e18 over-credit"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xaf38a9c5…`:
 
-## How to reproduce
+1. **L407** — Enter cross-chain borrow handler: The destination-chain handler receives the LayerZero borrow message, accrues interest, and resolves the borrowed lToken's underlying token.
+2. **L421** — Load borrower's existing collateral entries: Reads the borrower's existing `crossChainCollaterals` array for this underlying — the very mapping the LEND reward math will read later.
+3. **L430** — Find the matching collateral entry: Scans the array for the entry matching this `srcEid` and `srcToken`, setting `found` so the existing position is updated rather than appended.
+4. **L443** — Check collateral covers total borrow: Reads the borrower's total borrowed for the collateral-sufficiency `require`, then disburses the freshly requested borrow to the user.
+5. **L454** — Update collateral before rewards: The matched entry's `principle` is bumped by `payload.amount`, inflating the stored balance ahead of any LEND reward payout.
+6. **L464** — Write inflated principle to mapping: `updateCrossChainCollateral` persists the new principle into `crossChainCollaterals`, so the mapping now holds an amount just received this instant.
+7. **L485** — Distribute LEND on inflated balance: Root cause: `distributeBorrowerLend` runs on the just-inflated mapping, so `borrowWithInterest` rewards the new borrow over the prior index delta — over-crediting LEND.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58384-lend-incorrect-distribution-of-lend-tokens-to-users_exp
-forge test -vvv
-_shared/run_poc.sh 58384-lend-incorrect-distribution-of-lend-tokens-to-users_exp -vvvvv
+cd 58384-lend-incorrect-distribution-of-lend-tokens-to-users_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58384Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58384.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58384-lend-incorrect-distribution-of-lend-tokens-to-users.sol (local reduction)
-
-*Reference: [AuditVault finding #58384](https://github.com/Auditware/AuditVault/blob/main/findings/58384.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: the buggy update-then-distribute order runs the verbatim `distributeBorrowerLend` on the inflated balance and over-credits the borrower `1000e18` LEND versus the correct distribute-then-update order. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

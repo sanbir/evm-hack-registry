@@ -1,95 +1,80 @@
-# LEND — Cross-chain liquidation computes maxLiquidatable incorrectly
+# LEND V2: cross-chain liquidation computes `maxLiquidatable` incorrectly
 
-> **Vulnerability classes:** vuln/logic/liquidation-logic · vuln/logic/incorrect-state-transition
+> **Vulnerability classes:** vuln/logic · vuln/dos · sector/cross-chain
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — `getMaxLiquidationRepayAmount` and the `borrowWithInterest` helper it calls are reproduced **verbatim** (the vulnerable line marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly_exp.sol](test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58377.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58377 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The maximum liquidation amount is derived from collateral seized rather than outstanding debt, making valid liquidations fail or leaving bad debt.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly.sol:16-19
-maxLiquidatable = 0;
-afterValue = 200;
-profit = 100;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/578 -->
 
 ## Root cause
 
-The maximum liquidation amount is derived from collateral seized rather than outstanding debt, making valid liquidations fail or leaving bad debt. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`Lend-V2/src/LayerZero/LendStorage.sol`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/LendStorage.sol#L573-L591), `getMaxLiquidationRepayAmount` sizes the cross-chain liquidation cap with `borrowWithInterest()`. That helper only sums cross-chain borrows that **originated from** the current chain; it never includes borrows whose **destination** is the current chain. So for a genuine inbound cross-chain debt the cap resolves to `0`. The vulnerable function, reproduced verbatim from the finding:
 
-## Preconditions
+```solidity
+function getMaxLiquidationRepayAmount(address borrower, address lToken, bool isSameChain)
+    external
+    view
+    returns (uint256)
+{
+    uint256 currentBorrow = 0;
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+    currentBorrow += isSameChain
+        ? borrowWithInterestSame(borrower, lToken)
+@>      : borrowWithInterest(borrower, lToken);
 
-## Attack walkthrough
+    uint256 closeFactorMantissa = LendtrollerInterfaceV2(lendtroller).closeFactorMantissa();
+    uint256 maxRepay = (currentBorrow * closeFactorMantissa) / 1e18;
 
-1. The contract records the baseline at `test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly.sol:17`.
-3. The state diverges and the observable delta is written at `test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly.sol:18`.
-4. The test confirms the state-divergence flag at `test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly.sol:19` and a positive attacker delta.
+    return maxRepay;
+}
+```
 
-## Diagrams
+`borrowWithInterest()` iterates `crossChainCollaterals` but only accumulates an entry when `collaterals[i].destEid == currentEid && collaterals[i].srcEid == currentEid`. A cross-chain borrow whose destination is this chain has `srcEid != currentEid`, so it is filtered out, `currentBorrow` stays `0`, and `maxRepay = (0 * closeFactor) / 1e18 = 0`.
+
+## Why it's exploitable here
+
+Following the finding's worked example, with a 50% (`0.5e18`) close factor:
+
+1. Alice has a real **$1,000** cross-chain borrow whose destination chain is Chain B (this chain); it **originated** on Chain A, so `srcEid = ChainA != currentEid`.
+2. The position is underwater and should be liquidatable. A liquidator submits a valid **$500** repay on Chain B — exactly the 50% close-factor cap of the $1,000 debt.
+3. `getMaxLiquidationRepayAmount(Alice, lToken, false)` calls `borrowWithInterest()`, which skips Alice's debt (its `srcEid` is not the current chain), so `currentBorrow = 0` and `maxLiquidationAmount = 0`.
+4. The destination-chain cap check `require(repayAmount <= maxLiquidationAmount)` compares `500e18 <= 0` and reverts. The valid liquidation is permanently blocked and the bad debt cannot be cleared.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Cross-chain collateral ledger"]
+  S1["Only local-origin borrows summed"]
+  S2["Inbound dest-chain debt filtered out"]
+  S3["Enter liquidation cap calculation"]
+  S4["Liquidation cap collapses to zero"]
+  H["Valid $500 liquidation reverts — bad debt stuck"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xce01759b…`:
 
-## How to reproduce
+1. **L88** — Cross-chain collateral ledger: Setup: crossChainCollaterals records borrows whose destination is this chain, the inbound debt the liquidation cap must count but never will.
+2. **L117** — Only local-origin borrows summed: borrowWithInterest's first branch sums a borrow only when its source chain equals the current chain, already biased toward locally-originated debt.
+3. **L125** — Inbound dest-chain debt filtered out: The collateral branch counts a borrow only if it both started and ends on this chain, so an inbound cross-chain debt (srcEid != currentEid) is skipped.
+4. **L141** — Enter liquidation cap calculation: The router enters getMaxLiquidationRepayAmount with isSameChain=false to size the cross-chain liquidation cap for the underwater borrower.
+5. **L149** — Liquidation cap collapses to zero: Root cause: borrowWithInterest returns 0 for a cross-chain (dest-chain) borrow, so currentBorrow stays 0 and the whole liquidation cap collapses to zero.
+6. **L153** — Close factor multiplies zero: closeFactorMantissa (50%) is read, but maxRepay = currentBorrow * closeFactor / 1e18 multiplies zero, so the cap stays 0.
+7. **L164** — Router reverts valid liquidation: The router's require(repayAmount <= maxLiquidationAmount) checks 500e18 against 0 and reverts, permanently blocking a valid liquidation of real debt.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly_exp
-forge test -vvv
-_shared/run_poc.sh 58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly_exp -vvvvv
+cd 58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58377Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58377.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58377-lend-cross-chain-liquidation-computes-maxliquidatable-incorrectly.sol (local reduction)
-
-*Reference: [AuditVault finding #58377](https://github.com/Auditware/AuditVault/blob/main/findings/58377.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **a real $1,000 cross-chain debt whose destination is this chain yields `maxLiquidationAmount = 0`, so a valid $500 liquidation reverts and the underwater position stays un-liquidatable**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

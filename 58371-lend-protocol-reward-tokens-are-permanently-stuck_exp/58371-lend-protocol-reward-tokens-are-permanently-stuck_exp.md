@@ -1,95 +1,65 @@
-# LEND — Protocol reward tokens are permanently stuck
+# Lend: liquidation `protocolReward` is permanently stuck
 
-> **Vulnerability classes:** vuln/dos/frozen-funds · vuln/logic/missing-check
+> **Vulnerability classes:** vuln/frozen-funds · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable `liquidateSeizeUpdate` reward accrual is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58371-lend-protocol-reward-tokens-are-permanently-stuck_exp.sol](test/58371-lend-protocol-reward-tokens-are-permanently-stuck_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58371.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58371 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The protocol accrues rewards but has no reachable sweep/claim path for the reserve account, permanently locking the tokens.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58371-lend-protocol-reward-tokens-are-permanently-stuck.sol:16-19
-accruedRewards = 25;
-afterValue = 0;
-profit = accruedRewards;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/184 -->
 
 ## Root cause
 
-The protocol accrues rewards but has no reachable sweep/claim path for the reserve account, permanently locking the tokens. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`Lend-V2/src/LayerZero/CoreRouter.sol`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CoreRouter.sol#L300), every liquidation carves out `PROTOCOL_SEIZE_SHARE_MANTISSA` (2.8%) of the seized collateral and records it in `protocolReward` via `updateProtocolReward`. That mapping is only ever incremented — no function in `LendStorage.sol`, `CoreRouter.sol`, or `CrossChainRouter.sol` ever redeems, transfers, or decrements it. The vulnerable lines, reproduced verbatim:
 
-## Preconditions
+```solidity
+uint256 currentReward = mul_(seizeTokens, Exp({mantissa: lendStorage.PROTOCOL_SEIZE_SHARE_MANTISSA()}));
+@>  lendStorage.updateProtocolReward(lTokenCollateral, lendStorage.protocolReward(lTokenCollateral) + currentReward);
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+`updateProtocolReward` can only raise the balance; the 2.8% share's backing collateral is left in the router with no owner and no withdrawal path. The borrower is debited the full `seizeTokens`, the liquidator is credited `seizeTokens - currentReward`, and the protocol's cut is stranded forever.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58371-lend-protocol-reward-tokens-are-permanently-stuck.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58371-lend-protocol-reward-tokens-are-permanently-stuck.sol:17`.
-3. The state diverges and the observable delta is written at `test/58371-lend-protocol-reward-tokens-are-permanently-stuck.sol:18`.
-4. The test confirms the state-divergence flag at `test/58371-lend-protocol-reward-tokens-are-permanently-stuck.sol:19` and a positive attacker delta.
+Following the finding with a single 1000e18 liquidation:
 
-## Diagrams
+1. The router custodies `1000e18` collateral backing the borrower's position; the borrower's `totalInvestment` is `1000e18`.
+2. A liquidator seizes the full `1000e18`. The protocol books `currentReward = 1000e18 * 0.028 = 28e18` into `protocolReward` and credits the liquidator `972e18`.
+3. The liquidator redeems its full `972e18` via `redeem`, which is keyed on `totalInvestment`.
+4. The borrower's `totalInvestment` is now `0` and nobody holds a claim on the `28e18`. That collateral sits in the router with no function able to move it — a permanent loss of protocol revenue on every liquidation.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Collateral token custodied by router"]
+  S1["Liquidator enters liquidate()"]
+  S2["Seize calculation succeeds"]
+  S3["Protocol reward accrued, never paid"]
+  S4["Distribute supplier LEND rewards"]
+  H["2.8% seized share stranded in router forever"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xe3a787a4…`:
 
-## How to reproduce
+1. **L55** — Collateral token custodied by router: Setup: the ERC20 collateral double the router holds for suppliers, and where the seized 2.8% protocol share ends up stranded.
+2. **L133** — Liquidator enters liquidate(): The liquidator calls the thin external entrypoint, which forwards straight into the verbatim internal liquidateSeizeUpdate on the position.
+3. **L148** — Seize calculation succeeds: The Lendtroller returns seizeTokens (1000e18) for the liquidation and the error-code guard passes, so reward accrual proceeds.
+4. **L161** — Protocol reward accrued, never paid: Root cause: 2.8% of the seized collateral is added to protocolReward, a mapping only ever incremented with no function anywhere that pays it out.
+5. **L164** — Distribute supplier LEND rewards: LEND rewards flow to liquidator and borrower, but the 2.8% collateral share just booked is left untouched by any distribution.
+6. **L184** — Only redeem path ignores reward: The sole collateral exit, redeem, is keyed on the caller's totalInvestment; nothing reads protocolReward, so the seized share stays stranded forever.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58371-lend-protocol-reward-tokens-are-permanently-stuck_exp
-forge test -vvv
-_shared/run_poc.sh 58371-lend-protocol-reward-tokens-are-permanently-stuck_exp -vvvvv
+cd 58371-lend-protocol-reward-tokens-are-permanently-stuck_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58371Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58371.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58371-lend-protocol-reward-tokens-are-permanently-stuck.sol (local reduction)
-
-*Reference: [AuditVault finding #58371](https://github.com/Auditware/AuditVault/blob/main/findings/58371.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **seize 1000e18, credit the liquidator 972e18 and let it redeem, and prove the protocol's 28e18 (2.8%) is stranded in the router with no withdrawal path**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

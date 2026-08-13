@@ -1,95 +1,75 @@
-# LEND — CoreRouter redemption payout is miscalculated
+# LEND: `CoreRouter.redeem` overpays a precomputed amount, draining its reserve
 
-> **Vulnerability classes:** vuln/logic/price-calculation · vuln/arithmetic/precision-loss
+> **Vulnerability classes:** vuln/theft · vuln/logic
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable `redeem` payout of `CoreRouter` is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58376-lend-corerouter-redemption-payout-is-miscalculated_exp.sol](test/58376-lend-corerouter-redemption-payout-is-miscalculated_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58376.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58376 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-redeem() computes the payout from the wrong exchange-rate side, paying more assets than the shares burned and depleting reserves.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58376-lend-corerouter-redemption-payout-is-miscalculated.sol:16-19
-reserve = 100;
-afterValue = 110;
-profit = afterValue - reserve;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/464 -->
 
 ## Root cause
 
-redeem() computes the payout from the wrong exchange-rate side, paying more assets than the shares burned and depleting reserves. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+`CoreRouter.redeem` computes `expectedUnderlying` from `exchangeRateStored()` **before** the redeem, then pays the user that fixed amount. It never checks how much underlying `LToken.redeem()` actually transferred back — so when the LToken returns less (a redemption fee, or a rate not reflected in the stored value), CoreRouter pays out more than it received. The vulnerable lines, reproduced verbatim:
 
-## Preconditions
+```solidity
+// Get exchange rate before redeem
+uint256 exchangeRateBefore = LTokenInterface(_lToken).exchangeRateStored();
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+// Calculate expected underlying tokens
+uint256 expectedUnderlying = (_amount * exchangeRateBefore) / 1e18;
 
-## Attack walkthrough
+// Perform redeem
+require(LErc20Interface(_lToken).redeem(_amount) == 0, "Redeem failed");
 
-1. The contract records the baseline at `test/58376-lend-corerouter-redemption-payout-is-miscalculated.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58376-lend-corerouter-redemption-payout-is-miscalculated.sol:17`.
-3. The state diverges and the observable delta is written at `test/58376-lend-corerouter-redemption-payout-is-miscalculated.sol:18`.
-4. The test confirms the state-divergence flag at `test/58376-lend-corerouter-redemption-payout-is-miscalculated.sol:19` and a positive attacker delta.
+// Transfer underlying tokens to the user
+@>  IERC20(_token).transfer(msg.sender, expectedUnderlying); // pays precomputed amount, never checks actual received
+```
 
-## Diagrams
+`expectedUnderlying` is fixed from the stored rate and used verbatim for the payout, while the amount `LToken.redeem()` actually delivered to CoreRouter is discarded — the two are never reconciled.
+
+## Why it's exploitable here
+
+Following the finding's discrepancy with a stored rate of `2e18` and a `10%` LToken redemption fee that is **not** reflected in `exchangeRateStored()`:
+
+1. A user holding `100e18` lTokens calls `CoreRouter.redeem(100e18, lToken)`. CoreRouter reads `exchangeRateBefore = 2e18` and computes `expectedUnderlying = 100e18 * 2e18 / 1e18 = 200e18`.
+2. `LToken.redeem(100e18)` computes gross `200e18`, retains the `10%` fee (`20e18`), and transfers only `net = 180e18` to CoreRouter.
+3. CoreRouter transfers the full precomputed `200e18` to the user — `20e18` more than it just received.
+4. That `20e18` shortfall is eaten from CoreRouter's `1000e18` reserve of other depositors' funds. Every redemption under this discrepancy drains the reserve by exactly the shortfall.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Check redeemer's lToken balance"]
+  S1["Read the stored exchange rate"]
+  S2["LToken redeem pays net underlying"]
+  S3["Pay unchecked precomputed amount"]
+  S4["Bookkeeping proceeds unaware"]
+  H["CoreRouter reserve drained by the shortfall"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3…`:
 
-## How to reproduce
+1. **L167** — Check redeemer's lToken balance: CoreRouter requires the redeemer already holds at least `_amount` lTokens, so the redeem path proceeds for a legitimately funded position.
+2. **L175** — Read the stored exchange rate: Reads `exchangeRateStored()` before redeeming — a value that ignores the redemption fee the LToken will actually charge on the way out.
+3. **L181** — LToken redeem pays net underlying: Calls `LToken.redeem`, which sends CoreRouter only the post-fee net underlying; the return value is checked for success but the amount is ignored.
+4. **L184** — Pay unchecked precomputed amount: Root cause: pays the user the pre-computed `expectedUnderlying` and never checks the smaller amount LToken actually sent, so CoreRouter overpays from its reserve.
+5. **L187** — Bookkeeping proceeds unaware: Distributes rewards and updates the position as if the payout matched receipts, so the reserve shortfall is never recorded or corrected.
+6. **L195** — Emit success hiding the shortfall: Emits `RedeemSuccess` reporting the inflated `expectedUnderlying`, so off-chain monitors see a clean redeem despite the drained reserve.
+7. **L207** — Declare the drained underlying token: Setup: declares the underlying token whose CoreRouter reserve of other depositors' funds is overpaid away by exactly the fee shortfall.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58376-lend-corerouter-redemption-payout-is-miscalculated_exp
-forge test -vvv
-_shared/run_poc.sh 58376-lend-corerouter-redemption-payout-is-miscalculated_exp -vvvvv
+cd 58376-lend-corerouter-redemption-payout-is-miscalculated_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58376Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58376.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58376-lend-corerouter-redemption-payout-is-miscalculated.sol (local reduction)
-
-*Reference: [AuditVault finding #58376](https://github.com/Auditware/AuditVault/blob/main/findings/58376.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **redeem `100e18` lTokens, CoreRouter receives `180e18` net but pays the user the full `200e18`, draining `20e18` from its reserve of other depositors' funds**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

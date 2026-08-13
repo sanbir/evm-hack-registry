@@ -1,17 +1,25 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
-import "forge-std/Test.sol";
-import "./56952-burve-incorrect-netting-logic-leads-to-excessive-withdrawal-amounts.sol";
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity ^0.8.27;
 
-contract Finding56952Test is Test {
-    function testFinding56952() public {
+import {Test} from "forge-std/Test.sol";
+import {Exploit} from "./56952-burve-incorrect-netting-logic-leads-to-excessive-withdrawal-amounts.sol";
+
+contract Burve56952Test is Test {
+    address internal constant SINK = 0x000000000000000000000000000000000000D00d;
+
+    function test_incorrectNettingExcessiveWithdrawal() public {
         Exploit e = new Exploit();
         e.run();
-        emit log_named_uint("before", e.beforeValue());
-        emit log_named_uint("after", e.afterValue());
-        emit log_named_uint("delta", e.profit());
-        assertTrue(e.stateDiverged());
-        assertGt(e.profit(), 0);
-        
+
+        // commit() withdrew the FULL pending amount instead of the net amount:
+        // the netting branch was a no-op because `assetsToDeposit` was zeroed
+        // before being subtracted.
+        assertEq(e.actualWithdrawn(), 300e18, "should withdraw full, not net");
+        assertEq(e.correctNet(), 200e18, "net amount reference");
+        assertEq(e.excessWithdrawn(), 100e18, "excess pulled from shared vault");
+        assertEq(e.sharesDecrement(), 300e18, "totalVaultShares over-decremented");
+
+        // Concrete harm magnitude: 100e18 of shared-vault assets over-withdrawn.
+        assertEq(e.marker().balanceOf(SINK), 100e18, "harm measured at sink");
     }
 }

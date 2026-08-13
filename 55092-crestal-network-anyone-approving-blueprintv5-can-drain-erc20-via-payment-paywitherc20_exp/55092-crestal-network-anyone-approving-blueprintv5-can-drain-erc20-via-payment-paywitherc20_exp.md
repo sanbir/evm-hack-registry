@@ -1,95 +1,70 @@
-# Crestal Network — Anyone approving BlueprintV5 can drain ERC20 via Payment::payWithERC20
+# Crestal Network: `Payment::payWithERC20` is public — anyone can drain an approved victim
 
-> **Vulnerability classes:** vuln/access-control/missing-auth · vuln/dependency/unsafe-external-call
+> **Vulnerability classes:** vuln/theft · vuln/access-control
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable function is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20_exp.sol](test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/55092.md -->
-<!-- date: 2025-03 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | Crestal Network |
-| **Finding** | AuditVault/Sherlock high finding #55092 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-Payment::payWithERC20 trusts an arbitrary payer/spender relationship, so any account that has approved BlueprintV5 can be charged by an untrusted caller.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-Crestal Network uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20.sol:16-19
-approved = 1000;
-afterValue = approved;
-profit = approved;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-03-crestal-network/blob/main/crestal-omni-contracts/src/Payment.sol#L25-L32 -->
 
 ## Root cause
 
-Payment::payWithERC20 trusts an arbitrary payer/spender relationship, so any account that has approved BlueprintV5 can be charged by an untrusted caller. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`crestal-omni-contracts/src/Payment.sol#L25-L32`](https://github.com/sherlock-audit/2025-03-crestal-network/blob/main/crestal-omni-contracts/src/Payment.sol#L25-L32), the token-pull helper is declared `public` (it should be `internal`), and it takes an arbitrary `fromAddress`. The function is reproduced verbatim:
 
-## Preconditions
+```solidity
+@>  function payWithERC20(address erc20TokenAddress, uint256 amount, address fromAddress, address toAddress) public {
+        // check from and to address
+        require(fromAddress != toAddress, "Cannot transfer to self address");
+        require(toAddress != address(0), "Invalid to address");
+        require(amount > 0, "Amount must be greater than 0");
+        IERC20 token = IERC20(erc20TokenAddress);
+        token.safeTransferFrom(fromAddress, toAddress, amount);
+    }
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+Because it is `public`, anyone can call it directly and supply any `fromAddress` that still has an allowance to the `BlueprintV5` (Payment) contract, moving those tokens to any `toAddress` of the attacker's choosing.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20.sol:17`.
-3. The state diverges and the observable delta is written at `test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20.sol:18`.
-4. The test confirms the state-divergence flag at `test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20.sol:19` and a positive attacker delta.
+1. A victim approves the `BlueprintV5`/Payment contract to spend their USDC (the normal flow to pay for a service) — here, the full 10,000 USDC.
+2. An unrelated attacker calls `payWithERC20(USDC, 10_000e6, victim, attacker)` directly.
+3. Every `require` passes (from ≠ to, to ≠ 0, amount > 0), and `safeTransferFrom` pulls the victim's entire approved balance straight to the attacker.
+4. The victim took no action beyond the ordinary approval and loses all 10,000 USDC.
 
-## Diagrams
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["SafeERC20 confirms the transfer"]
+  S1["USDC payment token in play"]
+  S2["Real allowance accounting enforced"]
+  S3["Public payWithERC20 takes any caller"]
+  S4["Honest victim approved the contract"]
+  H["Attacker drains the victim's full approved balance"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0x671d353a…`:
 
-## How to reproduce
+1. **L46** — SafeERC20 confirms the transfer: The SafeERC20 wrapper checks `transferFrom` succeeded, so the victim's approved tokens move exactly like real USDC.
+2. **L50** — USDC payment token in play: Setup: the payment token is a faithful USDC double with 6 decimals and real balance accounting.
+3. **L51** — Real allowance accounting enforced: Setup: allowances are tracked exactly like real USDC, so `transferFrom` only moves tokens the victim actually approved.
+4. **L100** — Public payWithERC20 takes any caller: Root cause: `payWithERC20` is `public` and takes an arbitrary `fromAddress`, so anyone can pull an approved victim's tokens.
+5. **L106** — Honest victim approved the contract: Setup: the victim is an ordinary user who approved the BlueprintV5 (Payment) contract to spend USDC.
+6. **L111** — Victim grants max allowance: Setup: the victim approves BlueprintV5 for the max amount, arming the exact allowance the attacker abuses.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20_exp
+cd 55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20_exp
 forge test -vvv
-_shared/run_poc.sh 55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20_exp -vvvvv
 ```
 
-Expected trace includes a passing `Finding55092Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/55092.md
-- Original report: https://github.com/sherlock-audit/2025-03-crestal-network-judging
-- Synthetic reduction: test/55092-crestal-network-anyone-approving-blueprintv5-can-drain-erc20-via-payment-paywitherc20.sol (local reduction)
-
-*Reference: [AuditVault finding #55092](https://github.com/Auditware/AuditVault/blob/main/findings/55092.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **an unrelated attacker drains the victim's full 10,000 USDC approved balance with zero victim action**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

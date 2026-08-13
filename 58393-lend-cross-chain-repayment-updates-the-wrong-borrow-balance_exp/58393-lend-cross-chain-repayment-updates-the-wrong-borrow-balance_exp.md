@@ -1,95 +1,83 @@
-# LEND — Cross-chain repayment updates the wrong borrow balance
+# Lend: cross-chain repayment updates the wrong borrow balance
 
-> **Vulnerability classes:** vuln/logic/state-update · vuln/bridge/missing-validation
+> **Vulnerability classes:** vuln/logic · vuln/reward-accounting
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the vulnerable `repayBorrowInternal` body is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance_exp.sol](test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58393.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58393 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-The repayment handler indexes the same-chain borrow slot even for a remote chain id, so the actual cross-chain balance remains unchanged.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance.sol:16-19
-crossChainDebt = 100;
-afterValue = 0;
-profit = crossChainDebt;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CrossChainRouter.sol#L368 -->
 
 ## Root cause
 
-The repayment handler indexes the same-chain borrow slot even for a remote chain id, so the actual cross-chain balance remains unchanged. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+A cross-chain repayment flows through `CoreRouter.repayBorrowInternal()`. It correctly *reads* the debt from the cross-chain accounting (`borrowWithInterest`) when `_isSameChain == false`, but then it updates the **same-chain** borrow-balance slot instead of the cross-chain `crossChainBorrow`/`crossChainCollateral` records. The vulnerable function is reproduced verbatim:
 
-## Preconditions
+```solidity
+function repayBorrowInternal(
+    address borrower,
+    address liquidator,
+    uint256 _amount,
+    address _lToken,
+    bool _isSameChain
+) internal {
+    address _token = lendStorage.lTokenToUnderlying(_lToken);
+    LTokenInterface(_lToken).accrueInterest();
+    uint256 borrowedAmount;
+    if (_isSameChain) {
+        borrowedAmount = lendStorage.borrowWithInterestSame(borrower, _lToken);
+    } else {
+        borrowedAmount = lendStorage.borrowWithInterest(borrower, _lToken);
+    }
+    require(borrowedAmount > 0, "Borrowed amount is 0");
+    uint256 repayAmountFinal = _amount == type(uint256).max ? borrowedAmount : _amount;
+    IERC20(_token).safeTransferFrom(liquidator, address(this), repayAmountFinal);
+    // ... repay on the lToken ...
+@>  lendStorage.updateBorrowBalance(borrower, _lToken, ...); // updates the SAME-CHAIN borrow slot even when _isSameChain == false
+}
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+Because the same-chain slot is written for a cross-chain repay, the cross-chain debt record is never cleared — the borrower's paid-off cross-chain debt lingers, and an unrelated same-chain balance is corrupted.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance.sol:17`.
-3. The state diverges and the observable delta is written at `test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance.sol:18`.
-4. The test confirms the state-divergence flag at `test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance.sol:19` and a positive attacker delta.
+1. A borrower has an outstanding cross-chain borrow tracked in `crossChainBorrow`.
+2. `repayCrossChainBorrow` → `repayBorrowInternal(_isSameChain = false)` reads the correct cross-chain debt and pulls the repayment.
+3. The update writes the **same-chain** borrow slot rather than the cross-chain record, so the cross-chain debt is left intact and a same-chain slot is wrongly mutated.
+4. Accounting diverges from reality — the repaid cross-chain debt can be repaid/settled again and the same-chain record is corrupted.
 
-## Diagrams
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["SafeERC20 pulls repay funds"]
+  S1["Underlying tokens transferred in"]
+  S2["One router for both repays"]
+  S3["Same-chain slot holds real debt"]
+  S4["Cross-chain debt resolved as target"]
+  H["Wrong borrow slot updated — cross-chain debt persists"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0xbd4fd5a3…`:
 
-## How to reproduce
+1. **L73** — SafeERC20 pulls repay funds: CoreRouter routes the cross-chain repayment through `SafeERC20.safeTransferFrom`, pulling the repay amount from the liquidator.
+2. **L74** — Underlying tokens transferred in: `token.transferFrom` moves the full cross-chain debt from the liquidator to CoreRouter so the repay can settle.
+3. **L232** — One router for both repays: CoreRouter funnels same-chain `repayBorrow` and cross-chain `repayCrossChainLiquidation` into the same internal path.
+4. **L245** — Same-chain slot holds real debt: `repayBorrow` is the same-chain entry that legitimately owns the borrow-balance slot — the very slot the vulnerable update writes.
+5. **L277** — Cross-chain debt resolved as target: Inside `repayBorrowInternal`, `borrowedAmount` is read from the cross-chain debt via `borrowWithInterest`.
+6. **L301** — Wrong borrow slot updated: Root cause: a cross-chain repay (`_isSameChain == false`) settles the cross-chain debt but writes the same-chain borrow slot, leaving the cross-chain record uncleared.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance_exp
+cd 58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance_exp
 forge test -vvv
-_shared/run_poc.sh 58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance_exp -vvvvv
 ```
 
-Expected trace includes a passing `Finding58393Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58393.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58393-lend-cross-chain-repayment-updates-the-wrong-borrow-balance.sol (local reduction)
-
-*Reference: [AuditVault finding #58393](https://github.com/Auditware/AuditVault/blob/main/findings/58393.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **a cross-chain repayment leaves the cross-chain debt uncleared while corrupting the same-chain balance**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

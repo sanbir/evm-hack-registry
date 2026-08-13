@@ -1,95 +1,66 @@
-# LEND — Cross-chain collateral is miscalculated in borrowWithInterest
+# Lend V2: cross-chain collateral is miscounted as zero in `borrowWithInterest`
 
-> **Vulnerability classes:** vuln/logic/price-calculation · vuln/bridge/missing-validation
+> **Vulnerability classes:** vuln/logic · vuln/accounting-error · vuln/dos
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the cross-chain-collateral branch of `borrowWithInterest` is reproduced **verbatim** (marked `@>`) with faithful minimal doubles; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest_exp.sol](test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58392.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58392 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-borrowWithInterest() counts only one side of the cross-chain collateral set, understating the required collateral and allowing excess debt.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest.sol:16-19
-remoteCollateral = 50;
-afterValue = 150;
-profit = remoteCollateral;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/946 -->
 
 ## Root cause
 
-borrowWithInterest() counts only one side of the cross-chain collateral set, understating the required collateral and allowing excess debt. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+When a user borrows cross-chain from source chain A to destination chain B, the collateral record is stored on chain B with `srcEid != destEid`. But while summing that debt, `borrowWithInterest` only counts a cross-chain collateral when `destEid == currentEid && srcEid == currentEid` — a condition that can never be satisfied because `srcEid` is always different from `destEid`. The vulnerable line, reproduced verbatim from the finding:
 
-## Preconditions
+```solidity
+// LendStorage.borrowWithInterest — cross-chain-collateral branch (LendStorage.sol L497)
+@> if (collaterals[i].destEid == currentEid && collaterals[i].srcEid == currentEid)
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+Because the guard is always false, the borrower's outstanding cross-chain debt is never added to `borrowedAmount`, and the function returns `0` for any live cross-chain borrow.
 
-## Attack walkthrough
+## Why it's exploitable here
 
-1. The contract records the baseline at `test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest.sol:17`.
-3. The state diverges and the observable delta is written at `test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest.sol:18`.
-4. The test confirms the state-divergence flag at `test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest.sol:19` and a positive attacker delta.
+Following the finding with a clean worked example (`borrowIndex = 1e18`, no accrual):
 
-## Diagrams
+1. The borrower has a live cross-chain borrow recorded on the destination chain (`currentEid = 2`) with `srcEid = 1`, `destEid = 2`, `principle = 100e18`. Their true outstanding debt is `100e18 * borrowIndex / storedIndex = 100e18`.
+2. `borrowWithInterest` takes the `collaterals` branch and evaluates `destEid == currentEid && srcEid == currentEid` → `2 == 2 && 1 == 2` → **false**, so nothing is added and it returns `0`.
+3. The cross-chain repay path (`repayBorrowInternal`) reads that `0` and hits `require(borrowedAmount > 0, "Borrowed amount is 0")`, which reverts.
+4. The borrower can never repay or close the `100e18` cross-chain borrow, and the debt is invisible to liquidity accounting.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Cross-chain debt ledgers declared"]
+  S1["Record the cross-chain collateral"]
+  S2["borrowWithInterest tallies cross-chain debt"]
+  S3["Borrows branch matches srcEid"]
+  S4["Enter the collaterals branch"]
+  H["Impossible condition zeroes debt — repayment reverts, 100e18 uncloseable"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0x671d353a…`:
 
-## How to reproduce
+1. **L76** — Cross-chain debt ledgers declared: Setup: crossChainBorrows holds locally-originated debts and stays empty for a pure cross-chain borrow, whose record instead lives in crossChainCollaterals.
+2. **L88** — Record the cross-chain collateral: Setup: addCrossChainCollateral stores the borrower's 100e18 cross-chain debt with srcEid=1 and destEid=2 (this chain), so srcEid never equals destEid.
+3. **L96** — borrowWithInterest tallies cross-chain debt: borrowWithInterest sums the borrower's outstanding cross-chain debt, relying on exactly one of the two ledgers being populated on a given chain.
+4. **L112** — Borrows branch matches srcEid: The crossChainBorrows branch correctly matches srcEid == currentEid, but it is skipped here because this cross-chain debt lives in the collaterals ledger.
+5. **L117** — Enter the collaterals branch: Execution enters the collaterals branch, which is meant to sum exactly the cross-chain-collateral debt the borrower is now trying to repay.
+6. **L120** — Impossible collateral match condition: Root cause: it needs destEid == currentEid AND srcEid == currentEid, but a cross-chain borrow always has srcEid != destEid, so it never matches and the debt counts as 0.
+7. **L133** — Repayment reverts on zeroed debt: The repay path reads the debt as 0 and its require(borrowedAmount > 0) reverts, so the borrower can never repay or close a live 100e18 cross-chain borrow.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest_exp
-forge test -vvv
-_shared/run_poc.sh 58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest_exp -vvvvv
+cd 58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58392Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58392.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58392-lend-cross-chain-collateral-is-miscalculated-in-borrowwithinterest.sol (local reduction)
-
-*Reference: [AuditVault finding #58392](https://github.com/Auditware/AuditVault/blob/main/findings/58392.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **a borrower's live 100e18 cross-chain debt is reported as 0, and their repayment reverts on the "Borrowed amount is 0" guard**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).

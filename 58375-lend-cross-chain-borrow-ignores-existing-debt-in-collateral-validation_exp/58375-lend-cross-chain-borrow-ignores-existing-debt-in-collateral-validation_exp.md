@@ -1,95 +1,75 @@
-# LEND — Cross-chain borrow ignores existing debt in collateral validation
+# LEND: Cross-chain borrow ignores existing debt in collateral validation
 
-> **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/liquidation-logic
+> **Vulnerability classes:** vuln/logic · vuln/theft · vuln/cross-chain
+>
+> **Reproduction:** a faithful minimal reproduction of the vulnerable finding — the source-chain `borrowCrossChain` collateral read is reproduced **verbatim** (marked `@>`) alongside the destination-chain `_handleBorrowCrossChainRequest` check, with faithful minimal doubles for LayerZero transport, LendStorage, and the token; local deploy, no fork.
 
-> **Reproduction:** self-contained Foundry reduction; no RPC or external state is required. Full trace: [output.txt](output.txt). Driver: [test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation_exp.sol](test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation_exp.sol).
-
-<!-- non-defihacklabs -->
-<!-- source-auditvault: https://github.com/Auditware/AuditVault/blob/main/findings/58375.md -->
-<!-- date: 2025-05 -->
-
-## Key info
-
-| | |
-|---|---|
-| **Impact** | **HIGH** — the vulnerable state transition produces an exploitable accounting delta. |
-| **Protocol** | LEND |
-| **Finding** | AuditVault/Sherlock high finding #58375 |
-| **Vulnerable code** | `Exploit.run` local reduction (the commented assignment is the bug model) |
-| **Compiler** | `^0.8.24` |
-| Loss | Reduced invariant reproduced; no live funds moved |
-| Attacker EOA | Configured synthetic caller |
-| Attack contract | `Exploit` |
-| Attack tx | Local Foundry `Exploit.attack()` call |
-| Chain · block · date | Ethereum model · block 1 · synthetic |
-| Vulnerable contract | Local synthetic vulnerable contract in `test/` |
-| Bug class | See vulnerability-class tags above |
-
-## TL;DR
-
-Validation considers only the new borrow and omits debt already recorded on the destination chain, admitting an undercollateralized position.
-
-The reduction initializes a correct baseline, executes the reachable buggy branch, and records the resulting value and attacker delta. The assertion in the companion test proves the invariant is broken.
-
-## Background
-
-LEND uses stateful accounting across users, markets, or cross-chain messages. A value that is intended to be bounded by an invariant is instead derived from an unchecked or stale input.
-
-## The vulnerable code
-
-```solidity
-// test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation.sol:16-19
-existingDebt = 100;
-afterValue = 200;
-profit = existingDebt;
-stateDiverged = afterValue != beforeValue;
-```
-
-The production report's vulnerable branch is represented by the assignment above; the reduction intentionally omits unrelated protocol plumbing while preserving the faulty state transition.
+<!-- source-auditvault: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging/issues/341 -->
 
 ## Root cause
 
-Validation considers only the new borrow and omits debt already recorded on the destination chain, admitting an undercollateralized position. There is no invariant check (or the check is applied to the wrong value) before the state is committed.
+In [`borrowCrossChain()`](https://github.com/sherlock-audit/2025-05-lend-audit-contest/blob/main/Lend-V2/src/LayerZero/CrossChainRouter.sol#L139), the collateral read destructures `getHypotheticalAccountLiquidityCollateral`, which returns `(totalBorrowed, totalCollateral)`, but keeps **only** the collateral value and discards `totalBorrowed`. The raw collateral — with no deduction for the user's existing debt — is then shipped to the destination chain as the sole liquidity check. The vulnerable lines, reproduced verbatim:
 
-## Preconditions
+```solidity
+@>  (, uint256 collateral) =
+        lendStorage.getHypotheticalAccountLiquidityCollateral(msg.sender, LToken(_lToken), 0, 0);
+```
 
-- A user or attacker can reach the affected entry point.
-- The relevant accounting value is non-zero.
-- No later reconciliation restores the invariant before funds/rewards are settled.
+The destination chain validates the inbound borrow only against this raw value:
 
-## Attack walkthrough
+```solidity
+require(payload.collateral >= totalBorrowed, "Insufficient collateral");
+```
 
-1. The contract records the baseline at `test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation.sol:14`.
-2. The attacker reaches the vulnerable branch at `test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation.sol:17`.
-3. The state diverges and the observable delta is written at `test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation.sol:18`.
-4. The test confirms the state-divergence flag at `test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation.sol:19` and a positive attacker delta.
+where `totalBorrowed` is only the *destination-chain* debt plus the new borrow. Because the source chain's existing debt was never subtracted, a user already borrowed near their limit on chain A can borrow again on chain B against the same collateral.
 
-## Diagrams
+## Why it's exploitable here
+
+Following the finding's worked example ($1 stablecoins, 80% collateral factor):
+
+1. The attacker supplies **1000 USDC** on chain A → $800 borrowing capacity.
+2. The attacker borrows **600 USDT** on chain A — an honest same-chain borrow, leaving only **$200** of capacity.
+3. The attacker calls `borrowCrossChain(700, USDT, chainB)`. The source reads collateral as the raw **$800** and ships that value — the $600 debt is dropped.
+4. Chain B receives `collateral = 800`, computes its own `totalBorrowed = 0 + 700`, and checks `require(800 >= 700)` → **passes**.
+5. `CoreRouter.borrowForCrossChain` pays out the full **700 USDT** from honest depositors' destination liquidity.
+
+Total exposure is now **$1300 against $800 capacity** (162.5% utilization). A correct check would have compared the borrow against the **$200** of available capacity and reverted. The reproduction asserts the concrete harm: `crossChainReceived == 700e18`, `dstPoolDrained == 700e18`, while `availableCapacity == 200e18`.
+
+## Attack path
 
 ```mermaid
 flowchart TD
-    A[Baseline accounting] --> B[Reachable buggy branch]
-    B --> C[Invariant diverges]
-    C --> D[Attacker captures delta]
+  S0["Wire the cross-chain peer"]
+  S1["Market-entry membership check"]
+  S2["Enter borrowCrossChain on source"]
+  S3["Confirm collateral market entered"]
+  S4["Ship raw collateral, drop debt"]
+  H["Destination approves 700 vs raw 800 — pool drained, $1300 debt on $800 capacity"]
+  S0 --> S1
+  S1 --> S2
+  S2 --> S3
+  S3 --> S4
+  S4 --> H
 ```
 
-## Remediation
+## Marked-line walkthrough (Playground)
 
-Validate the invariant immediately before committing state, use bounded batches for loops, and derive cross-chain values from the canonical debt/asset side. Add regression tests for zero, boundary, stale-rate, and repeated-call cases.
+The EVM Playground pins each step to the exact executed source line in `0x8f111d8b…`:
 
-## How to reproduce
+1. **L254** — Wire the cross-chain peer: Setup: `setPeer` stores the counterpart router as `peer`, the faithful LayerZero link the source chain uses to deliver its borrow messages.
+2. **L279** — Market-entry membership check: `isMarketEntered` scans the user's supplied assets to confirm the collateral lToken is an entered market before the cross-chain borrow proceeds.
+3. **L293** — Enter borrowCrossChain on source: The attacker calls `borrowCrossChain` on chain A to borrow 700 USDT on chain B, having already borrowed 600 against the same 1000 USDC collateral.
+4. **L312** — Confirm collateral market entered: `borrowCrossChain` checks whether the source collateral lToken is an entered market, entering it if needed, before computing the value to ship.
+5. **L319** — Ship raw collateral, drop debt: Root cause: the call returns `(totalBorrowed, collateral)` but only `collateral` is kept — raw $800 is shipped while the existing $600 debt is ignored.
+6. **L323** — Send message to destination chain: `_send` packs the payload — amount 700 and the inflated $800 `collateral` — and hands it to the faithful LayerZero transport bound for chain B.
+7. **L344** — Deliver payload across LayerZero hop: `_send` forwards the payload (sender, dest lToken, null liquidator, source token) to the peer router, delivering the inflated $800 collateral to chain B's check.
+
+## PoC
+
+Registry (Foundry, local deploy — verbatim vulnerable source + harm-asserting test):
 
 ```bash
-cd audits/evm-hack-registry/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation_exp
-forge test -vvv
-_shared/run_poc.sh 58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation_exp -vvvvv
+cd 58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation_exp && forge test -vvv
 ```
 
-Expected trace includes a passing `Finding58375Test` and the named `before`, `after`, and `delta` values.
-
-## Sources
-- AuditVault finding: https://github.com/Auditware/AuditVault/blob/main/findings/58375.md
-- Original report: https://github.com/sherlock-audit/2025-05-lend-audit-contest-judging
-- Synthetic reduction: test/58375-lend-cross-chain-borrow-ignores-existing-debt-in-collateral-validation.sol (local reduction)
-
-*Reference: [AuditVault finding #58375](https://github.com/Auditware/AuditVault/blob/main/findings/58375.md)*
+The browser Playground replays the same synthetic opcode-for-opcode and measures the harm: **supply 1000 USDC, borrow 600 on chain A, then cross-chain borrow 700 on chain B against the same collateral — draining the destination pool for a debt that should have been rejected**. Both gates are green (registry `forge test` PASS + Playground `_verify-poc` **VERDICT: PASS**).
