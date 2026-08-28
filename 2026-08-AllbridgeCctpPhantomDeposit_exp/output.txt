@@ -1,0 +1,28 @@
+Compiling 23 files with Solc 0.8.25
+Solc 0.8.25 finished in 1.11s
+Compiler run successful!
+
+Ran 1 test for test/AllbridgeCctpPhantomDeposit_exp.sol:AllbridgeCctpPhantomDepositFlash_exp
+[PASS] testStepByStepFlashLoanDrain() (gas: 646732)
+Logs:
+  Step-by-step harness USDC profit: 189751.554381
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 26.83ms (11.92ms CPU time)
+
+Ran 2 tests for test/AllbridgeCctpPhantomDeposit_exp.sol:AllbridgeCctpPhantomDeposit_exp
+[PASS] testExploit() (gas: 905819)
+Logs:
+  Attacker Before exploit USDC Balance: 0.000000
+  Router USDC before: 191155.976393
+  Harness USDC profit: 189751.554381
+  Router USDC after: 1000.000000
+  Attacker After exploit USDC Balance: 189751.554381
+
+[PASS] testPhantomCredit_noMint() (gas: 130749)
+Logs:
+  Phantom credit booked: 1000000.000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 26.82ms (16.09ms CPU time)
+
+Ran 2 test suites in 28.75ms (53.65ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 30406 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-08-AllbridgeCctpPhantomDeposit_exp)

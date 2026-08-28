@@ -101,3 +101,8 @@ Cross-chain release is non-functional under default options; every message needs
 
 - [AuditVault finding #50038](https://github.com/Auditware/AuditVault/blob/main/findings/50038-h-02-lzreceive-call-for-releaseoneid-results-in-oog-error-pa.md)
 - [Pashov NFTMirror security review 2024-12-30](https://github.com/pashov/audits/blob/master/team/md/NFTMirror-security-review_2024-12-30.md)
+
+
+## References
+
+- https://x.com/blockaid_/status/2091084691491164602 (@blockaid_ secondary analysis)

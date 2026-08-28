@@ -1,0 +1,13 @@
+Infura MAINNET returns 402 Payment Required — do not use FOUNDRY_ETH_RPC_URL / MAINNET_RPC_URL from ct_secrets.
+
+Try archive-capable public endpoints for fork @ 25816048:
+  https://eth.drpc.org
+  https://eth-mainnet.public.blastapi.io
+  https://ethereum.publicnode.com
+
+Prefer: put in foundry.toml:
+  [rpc_endpoints]
+  mainnet = "https://eth.drpc.org"
+and vm.createSelectFork("mainnet", FORK_BLOCK) — NOT http://127.0.0.1:8545 unless you started anvil yourself.
+
+After PASS: dump anvil_state.json, writeup, playground, then reconcile.

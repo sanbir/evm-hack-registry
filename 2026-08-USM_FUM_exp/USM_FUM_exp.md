@@ -182,11 +182,11 @@ sequenceDiagram
 ```mermaid
 flowchart LR
     A[Flash ~11.5k WETH] --> B[Unwrap to ETH]
-    B --> C["fund: mint FUM\ninflate ethUsdPrice"]
-    C --> D["defund x64\nFUM sell at inflated buffer"]
+    B --> C["fund: mint FUM<br/>inflate ethUsdPrice"]
+    C --> D["defund x64<br/>FUM sell at inflated buffer"]
     D --> E[Repay Morpho]
     E --> F["~70.83 ETH profit"]
-    C -.-> G["USM ethPool -70.83\nmid ~6.5M"]
+    C -.-> G["USM ethPool -70.83<br/>mid ~6.5M"]
 ```
 
 ---

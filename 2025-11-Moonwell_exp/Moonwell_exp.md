@@ -372,3 +372,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 
 *References: CertiK Alert (https://x.com/CertiKAlert/status/1985620452992253973); Halborn —
 "Explained: The Moonwell Hack, November 2025" (https://www.halborn.com/blog/post/explained-the-moonwell-hack-november-2025).*
+
+
+## References
+
+- https://x.com/PeckShieldAlert/status/2092929813959049347 (@PeckShieldAlert secondary analysis)

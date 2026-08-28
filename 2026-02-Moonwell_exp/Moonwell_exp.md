@@ -388,3 +388,16 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 857.14s
 *Sources downloaded to [`sources/`](sources/): `ChainlinkOracle` (vulnerable), `ChainlinkOEVWrapper`
 (cbETH feed), `Comptroller` + `Unitroller` (seize math), `mWETH` / `mcbETH` delegators, and the cbETH
 proxy. Full trace in [`output.txt`](output.txt); PoC in [`test/Moonwell_exp.sol`](test/Moonwell_exp.sol).*
+
+
+## References
+
+- https://x.com/blockaid_/status/2092912022555902094 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2092912743732937094 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2092914508666753081 (@blockaid_ secondary analysis)
+
+- https://x.com/CertiKAlert/status/2092917519946539061 (@CertiKAlert secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2092949807912689915 (@SlowMist_Team secondary analysis)
