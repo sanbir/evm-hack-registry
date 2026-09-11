@@ -27,7 +27,7 @@
 | **Chain / block / date** | BSC / fork `97306496` (attack `97306497`) / ~2026-05-09 |
 | **Compiler** | Solidity (Flap Vault V2 stack; verified on BscScan) |
 | **Bug class** | `claimBonus` anti-double-claim is only `lastClaimedRound[msg.sender]` — CREATE clones re-claim each round; reward is a live % of `bonusPool` with **no stake / identity binding** |
-| **Alert** | [ExVul](https://x.com/exvulsec/status/2053176958880747994) |
+| **Alert** | [ExVul](https://x.com/exvulsec/status/2053176958880747994) · [@SlowMist_Team](https://x.com/SlowMist_Team/status/2094373942291026287)|
 
 ---
 
@@ -226,3 +226,8 @@ PoC strategy: replay historical CREATE initcode at fork block `97306496` (see [t
 ---
 
 *Reference: [ExVul alert](https://x.com/exvulsec/status/2053176958880747994) · attack tx [`0x0e37a1ba…`](https://bscscan.com/tx/0x0e37a1ba8ae064a10286abbe6bc9c7f89078c252f5db9d3e78115be8d4f189f3)*
+
+
+## References
+
+- https://x.com/SlowMist_Team/status/2094373942291026287 (@SlowMist_Team secondary analysis)

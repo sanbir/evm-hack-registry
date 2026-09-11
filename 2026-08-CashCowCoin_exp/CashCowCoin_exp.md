@@ -209,3 +209,8 @@ Fork block is one before [attack tx `0x89d80506…ead43`](https://bscscan.com/tx
 ---
 
 *Reference: [https://x.com/TenArmorAlert/status/2093164984092274886](https://x.com/TenArmorAlert/status/2093164984092274886)*
+
+
+## References
+
+- https://x.com/SlowMist_Team/status/2093219144896557483 (@SlowMist_Team secondary analysis)
