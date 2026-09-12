@@ -265,3 +265,8 @@ PoC source: [test/ZentraFinance_exp.sol](test/ZentraFinance_exp.sol).
 *Root-cause write-up: https://x.com/Rarma_/status/2097796641973744102*
 *Citrea pause: https://x.com/citrea_xyz/status/2097692050389110982*
 *Live tx: https://explorer.mainnet.citrea.xyz/tx/0x9ac5df7e93988cd977e4b1b0564f559ec3096db2fe1abdd97e45c348e3074aa1*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2098415749421244566 (@DefimonAlerts secondary analysis)
