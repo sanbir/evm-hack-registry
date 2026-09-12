@@ -47,7 +47,7 @@ interface IAtomicQueue {
 
 contract EtherFiVedaAtomicQueue_exp is BaseTestWithBalanceLog {
     function setUp() public {
-        vm.createSelectFork("http://127.0.0.1:8545", FORK_BLOCK);
+        vm.createSelectFork("mainnet", FORK_BLOCK);
         fundingToken = LIQUID_ETH;
         attacker = ATTACKER;
 
