@@ -172,3 +172,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 ```
 
 *Reference: attack tx in the header of [test/MALT_exp.sol](test/MALT_exp.sol) — [`0x915eccb5791508aa89a0a3f1385b26346b127ebb648b046e4cb558474ce8445b`](https://polygonscan.com/tx/0x915eccb5791508aa89a0a3f1385b26346b127ebb648b046e4cb558474ce8445b). The test's fork URL is `http://127.0.0.1:8549`.*
+
+
+## References
+
+- https://x.com/SlowMist_Team/status/2106418632041668784 (@SlowMist_Team secondary analysis)

@@ -209,3 +209,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 Read the logged ETH profit together with [output.txt:341](output.txt). The WETH left after `settle` is **5.083148662083682304**. The extra **0.000577021548053172 ETH** in the log is the create address's pre-fork balance, swept with the profit.
 
 *Reference: [exploit tx 0xaca5f83f…](https://etherscan.io/tx/0xaca5f83ff3a206209f3d213c33d04e6febe345f6ad52ef476bd1c0ee1505ba65) (hash in [test/SetProtocol_exp.sol](test/SetProtocol_exp.sol))*
+
+
+## References
+
+- https://x.com/SlowMist_Team/status/2107382337654951943 (@SlowMist_Team secondary analysis)

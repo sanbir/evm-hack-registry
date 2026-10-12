@@ -83,6 +83,22 @@ function _swap(address tokenIn, address tokenOut, address router, bytes memory d
 
 ## Root cause
 
+
+## Secondary analysis (@DefimonAlerts)
+
+> FlashLoopAdapter.open authenticates by asking msg.sender whether the adapter is an enabled module, then _swap calls a caller-supplied router with caller-supplied calldata, so an attacker can make any Safe that enabled the module execute as itself.
+
+Source: https://x.com/DefimonAlerts/status/2105765575766990932
+
+
+
+## Secondary analysis (@SlowMist_Team)
+
+> Spoofable Safe-module auth: open()/close() trust ISafe(msg.sender).isModuleEnabled(address(this)); _swap() then performs an attacker-controlled router.call that invokes execTransactionFromModule on victim Safes that enabled the adapter.
+
+Source: https://x.com/SlowMist_Team/status/2105855276536725599
+
+
 1. **Authentication is delegated to the caller.** `ISafe(msg.sender).isModuleEnabled(address(this))` is true for any contract that implements the function to return true. A real Safe would answer honestly; an attacker answers yes. `_safe = msg.sender` then stores the lie for the rest of the operation.
 2. **`swapRouter` is an arbitrary call target.** No allowlist, no selector filter, no `msg.sender == router` relationship. `router.call(data)` is an open dispatch from a contract that real Safes trust as a module.
 3. **The victims opted into that module.** `execTransactionFromModule` from `0x16bb8B91…` succeeds on both Safes (`ExecutionFromModuleSuccess` at [output.txt:134](output.txt)). The drain is the module permission plus the two bugs, not a stolen owner key.
@@ -186,3 +202,16 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 ```
 
 *Reference: attack tx and fork RPC in the header of [test/FlashLoopAdapter_exp.sol](test/FlashLoopAdapter_exp.sol) — [`0x75328f916b1a0878724d364da5eb12b255160b894cb36c63ed5d718efc616fc4`](https://etherscan.io/tx/0x75328f916b1a0878724d364da5eb12b255160b894cb36c63ed5d718efc616fc4), RPC `https://eth.drpc.org`.*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2105695635647144370 (@DefimonAlerts secondary analysis)
+
+- https://x.com/exvulsec/status/2105701761554190847 (@exvulsec secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2105765575766990932 (@DefimonAlerts secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2105855276536725599 (@SlowMist_Team secondary analysis)
+
+- https://x.com/exvulsec/status/2105898901589184712 (@exvulsec secondary analysis)

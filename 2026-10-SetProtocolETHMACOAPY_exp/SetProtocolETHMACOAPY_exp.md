@@ -211,3 +211,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 ```
 
 *Reference: [exploit tx 0xb54c77da…](https://etherscan.io/tx/0xb54c77dae4c5ff8664779bacfb56d75242f39005b0b7778109d2f9033b9e8fc2) (hash in [test/SetProtocolETHMACOAPY_exp.sol](test/SetProtocolETHMACOAPY_exp.sol))*
+
+
+## References
+
+- https://x.com/exvulsec/status/2107426749281943634 (@exvulsec secondary analysis)

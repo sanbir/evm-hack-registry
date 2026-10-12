@@ -168,3 +168,10 @@ That command loads `anvil_state.json` and rewrites `http://127.0.0.1:8548` in a 
 The current test file forks `http://127.0.0.1:8548` at block 52,078,501 and warps to 1,790,946,351. Cancun is required (V4 transient storage); [foundry.toml](foundry.toml) sets `evm_version = 'cancun'`.
 
 *Reference: attack tx in the header of [test/GoldPesa_exp.sol](test/GoldPesa_exp.sol) — [`0x5c1febd5047c2a15c37988b6abd5c8b984236dddf6fd24eed96b0f43951ad2c9`](https://basescan.org/tx/0x5c1febd5047c2a15c37988b6abd5c8b984236dddf6fd24eed96b0f43951ad2c9). The test's fork URL is `http://127.0.0.1:8548`; the committed trace forked `"base"`.*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2106390298469318702 (@DefimonAlerts secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2106415554492059872 (@SlowMist_Team secondary analysis)

@@ -78,6 +78,22 @@ The PoC calls that selector with its own worker and `x = 0` [test/MakerDAOFlipKe
 `drip()` on the worker returns `1e27` [output.txt:34](output.txt)–[output.txt:35](output.txt). The keeper does not use a Maker `Jug.drip`. It just calls whatever the attacker deployed.
 
 ## Root cause — why it was possible
+
+
+## Secondary analysis (@DefimonAlerts)
+
+> Missing access control on keeper selector 0x8804d1de: it Vat.hopes a caller-supplied worker, which deals auctions 1457–1460 and GemJoin.exits 200 WETH. Other selectors check ds-auth; this one never reads authority.
+
+Source: https://x.com/DefimonAlerts/status/2107391959853600812
+
+
+
+## Secondary analysis (@CertiKAlert)
+
+> Missing access control on keeper selector 0x8804d1de: it hopes a caller-supplied worker on the keeper’s Vat account, then the worker deals auctions 1457–1460 and GemJoin.exit()s 200 WETH. Already documented; CertiK does not change the class.
+
+Source: https://x.com/CertiKAlert/status/2107813422817579518
+
 1. **`0x8804d1de` is ungated.** The implementation is a ds-auth contract on other selectors. This selector's dispatcher does the non-payable `CALLVALUE` check and jumps into the body. Authority is never loaded. "Authority is the zero address" is not why the call succeeded. A brand-new EOA with `vat.can(keeper, worker) == 0` before the call [output.txt:28](output.txt) completed it.
 2. **The body trusts the caller's contract.** `vat` and `drip` are getters on `worker`, an argument. The keeper then `hope`s that same address. `hope` is `Vat`'s normal "I authorize this usr" and it is correct that the keeper can authorize someone. It is not correct that any external caller can make the keeper do it.
 3. **`join` is an arbitrary external call after the grant.** The worker runs with `can[keeper][worker] == 1`, so `Vat.flux(ETH-A, keeper, worker, amt)` is legal. That is the state transition that moves the collateral. After the call, `can` is still 1 [output.txt:197](output.txt)–[output.txt:199](output.txt). The authorization is not scoped to one auction or one token and it is not revoked.
@@ -173,3 +189,10 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 ```
 
 *Reference: [exploit tx 0xbb6940f7…](https://etherscan.io/tx/0xbb6940f7c2a1e68cafbae7bb9b94d09af9af06ec3a114f6996f2cab993f3a88c) (hash in [test/MakerDAOFlipKeeper_exp.sol](test/MakerDAOFlipKeeper_exp.sol))*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2107391959853600812 (@DefimonAlerts secondary analysis)
+
+- https://x.com/CertiKAlert/status/2107813422817579518 (@CertiKAlert secondary analysis)
