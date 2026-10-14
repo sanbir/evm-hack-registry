@@ -1,7 +1,7 @@
 # MALT sLP — below-peg recovery deposits treasury DAI into the pair, and `swap` counts it as the caller's input
 
 > **Vulnerability classes:** vuln/logic/missing-check · vuln/logic/incorrect-order-of-operations · vuln/defi/price-manipulation
-> **Reproduction:** the PoC compiles and runs in an isolated Foundry project at [this project folder](.). Full verbose trace: [output.txt](output.txt). **Offline pass.** `anvil_state.json` is present. The trace forks `<rpc url>` at block 94,869,209 [output.txt:362](output.txt) and `[PASS] testExploit` finishes in **75.71ms** [output.txt:355](output.txt), [output.txt:1530](output.txt).
+> **Reproduction:** the PoC compiles and runs in an isolated Foundry project at [this project folder](.). Full verbose trace: [output.txt](output.txt). **Offline pass.** `anvil_state.json` is present. The trace forks `<rpc url>` at block 94,869,209 [output.txt:362](output.txt) and `[PASS] testExploit` finishes in **75.71ms** [output.txt:1530](output.txt).
 
 ---
 
@@ -78,7 +78,7 @@ Round 2 repeats the same selectors with **6,458.543380496071751952 DAI** [output
 1. **The invariant is applied after an exogenous deposit.** Constant product is supposed to compare reserves with balances that changed only by the swap's own input and output. DAI that the recovery pushed in raises `balance1` with no matching reduction of `amount1Out` and no matching "this DAI is not the caller's". The check passes, and the MALT output is released.
 2. **The recovery is on the public `swap` path.** Selling MALT into the pool is enough to get under peg. There is no keeper window and no `msg.sender` allowlist on `swap`. The Capital Source pays because the pair (via RewardThrottle) is an authorized allocator, which the trace shows as `allocation(...)` before the pull [output.txt:612](output.txt), [output.txt:1020](output.txt). The attacker never calls `19dc30ba`.
 3. **Input size is not related to output size by the caller's tokens alone.** 1 DAI in, 7,823.544 MALT out, is only possible because 6,286 DAI arrived from the treasury in the middle. A correct implementation would snapshot `balanceOf` before the recovery, or exclude tokens received from the Capital Source during this call, and would revert if `amountOut` is not backed by the caller's delta.
-4. **The 0.1% fee does not fix it.** The fee is a slice of the specified output (or of the input, on the sell leg). It is not a check that the caller funded the input the curve assumed.
+4. **The 0.1% fee does not fix it.** The fee is a slice of the specified output (or of the input, on the buy leg). It is not a check that the caller funded the input the curve assumed.
 
 ## Preconditions
 

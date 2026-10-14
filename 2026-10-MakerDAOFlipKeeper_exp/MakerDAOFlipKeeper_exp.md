@@ -79,6 +79,10 @@ The PoC calls that selector with its own worker and `x = 0` [test/MakerDAOFlipKe
 
 ## Root cause — why it was possible
 
+1. **`0x8804d1de` is ungated.** The implementation is a ds-auth contract on other selectors. This selector's dispatcher does the non-payable `CALLVALUE` check and jumps into the body. Authority is never loaded. "Authority is the zero address" is not why the call succeeded. A brand-new EOA with `vat.can(keeper, worker) == 0` before the call [output.txt:28](output.txt) completed it.
+2. **The body trusts the caller's contract.** `vat` and `drip` are getters on `worker`, an argument. The keeper then `hope`s that same address. `hope` is `Vat`'s normal "I authorize this usr" and it is correct that the keeper can authorize someone. It is not correct that any external caller can make the keeper do it.
+3. **`join` is an arbitrary external call after the grant.** The worker runs with `can[keeper][worker] == 1`, so `Vat.flux(ETH-A, keeper, worker, amt)` is legal. That is the state transition that moves the collateral. After the call, `can` is still 1 [output.txt:197](output.txt)–[output.txt:199](output.txt). The authorization is not scoped to one auction or one token and it is not revoked.
+4. **The collateral was already the keeper's.** `deal` on a finished flip only moves the lot from the Flipper into `vat.gem[ETH-A][guy]`. Four lots of 50 WETH is 200 WETH. No flash loan, no price move, no Maker parameter change.
 
 ## Secondary analysis (@DefimonAlerts)
 
@@ -86,18 +90,11 @@ The PoC calls that selector with its own worker and `x = 0` [test/MakerDAOFlipKe
 
 Source: https://x.com/DefimonAlerts/status/2107391959853600812
 
-
-
 ## Secondary analysis (@CertiKAlert)
 
 > Missing access control on keeper selector 0x8804d1de: it hopes a caller-supplied worker on the keeper’s Vat account, then the worker deals auctions 1457–1460 and GemJoin.exit()s 200 WETH. Already documented; CertiK does not change the class.
 
 Source: https://x.com/CertiKAlert/status/2107813422817579518
-
-1. **`0x8804d1de` is ungated.** The implementation is a ds-auth contract on other selectors. This selector's dispatcher does the non-payable `CALLVALUE` check and jumps into the body. Authority is never loaded. "Authority is the zero address" is not why the call succeeded. A brand-new EOA with `vat.can(keeper, worker) == 0` before the call [output.txt:28](output.txt) completed it.
-2. **The body trusts the caller's contract.** `vat` and `drip` are getters on `worker`, an argument. The keeper then `hope`s that same address. `hope` is `Vat`'s normal "I authorize this usr" and it is correct that the keeper can authorize someone. It is not correct that any external caller can make the keeper do it.
-3. **`join` is an arbitrary external call after the grant.** The worker runs with `can[keeper][worker] == 1`, so `Vat.flux(ETH-A, keeper, worker, amt)` is legal. That is the state transition that moves the collateral. After the call, `can` is still 1 [output.txt:197](output.txt)–[output.txt:199](output.txt). The authorization is not scoped to one auction or one token and it is not revoked.
-4. **The collateral was already the keeper's.** `deal` on a finished flip only moves the lot from the Flipper into `vat.gem[ETH-A][guy]`. Four lots of 50 WETH is 200 WETH. No flash loan, no price move, no Maker parameter change.
 
 ## Preconditions
 - The keeper proxy still points at the implementation that exposes ungated `0x8804d1de`. It did, at block 26,131,470.

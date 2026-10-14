@@ -83,6 +83,11 @@ function _swap(address tokenIn, address tokenOut, address router, bytes memory d
 
 ## Root cause
 
+1. **Authentication is delegated to the caller.** `ISafe(msg.sender).isModuleEnabled(address(this))` is true for any contract that implements the function to return true. A real Safe would answer honestly; an attacker answers yes. `_safe = msg.sender` then stores the lie for the rest of the operation.
+2. **`swapRouter` is an arbitrary call target.** No allowlist, no selector filter, no `msg.sender == router` relationship. `router.call(data)` is an open dispatch from a contract that real Safes trust as a module.
+3. **The victims opted into that module.** `execTransactionFromModule` from `0x16bb8B91…` succeeds on both Safes (`ExecutionFromModuleSuccess` at [output.txt:134](output.txt)). The drain is the module permission plus the two bugs, not a stolen owner key.
+4. **The rest of `Params` is attacker-controlled and is used as the Aave pool and the flash source.** Setting both to the attacker and `flashAmount` to 0 strips the function down to the single `call`. `flashAmount = 0` still enters `_swap` on the OPEN path (step 1 of `_run` runs before the borrow).
+5. **Collateral unlock is a separate, permissionless Aave action.** Repaying `onBehalfOf = victim` does not need the adapter. It is what makes Victim #1's `withdraw` succeed. The adapter bug is what makes the Safe be the one calling `withdraw`.
 
 ## Secondary analysis (@DefimonAlerts)
 
@@ -90,20 +95,11 @@ function _swap(address tokenIn, address tokenOut, address router, bytes memory d
 
 Source: https://x.com/DefimonAlerts/status/2105765575766990932
 
-
-
 ## Secondary analysis (@SlowMist_Team)
 
 > Spoofable Safe-module auth: open()/close() trust ISafe(msg.sender).isModuleEnabled(address(this)); _swap() then performs an attacker-controlled router.call that invokes execTransactionFromModule on victim Safes that enabled the adapter.
 
 Source: https://x.com/SlowMist_Team/status/2105855276536725599
-
-
-1. **Authentication is delegated to the caller.** `ISafe(msg.sender).isModuleEnabled(address(this))` is true for any contract that implements the function to return true. A real Safe would answer honestly; an attacker answers yes. `_safe = msg.sender` then stores the lie for the rest of the operation.
-2. **`swapRouter` is an arbitrary call target.** No allowlist, no selector filter, no `msg.sender == router` relationship. `router.call(data)` is an open dispatch from a contract that real Safes trust as a module.
-3. **The victims opted into that module.** `execTransactionFromModule` from `0x16bb8B91…` succeeds on both Safes (`ExecutionFromModuleSuccess` at [output.txt:134](output.txt)). The drain is the module permission plus the two bugs, not a stolen owner key.
-4. **The rest of `Params` is attacker-controlled and is used as the Aave pool and the flash source.** Setting both to the attacker and `flashAmount` to 0 strips the function down to the single `call`. `flashAmount = 0` still enters `_swap` on the OPEN path (step 1 of `_run` runs before the borrow).
-5. **Collateral unlock is a separate, permissionless Aave action.** Repaying `onBehalfOf = victim` does not need the adapter. It is what makes Victim #1's `withdraw` succeed. The adapter bug is what makes the Safe be the one calling `withdraw`.
 
 ## Preconditions
 

@@ -66,7 +66,7 @@ import "forge-std/Test.sol";
 // are read live from the Vault so the unitShares bump is what carries the surplus through.
 //
 // Run (self-contained mainnet archive fork):
-//   forge test --contracts ./src/test/2026-10/SetProtocolETHMACOAPY_exp.sol -vvv
+//   forge test --match-path test/SetProtocolETHMACOAPY_exp.sol --evm-version cancun -vvv
 
 interface IWETH {
     function approve(address, uint256) external returns (bool);

@@ -150,14 +150,22 @@ sequenceDiagram
 
 ## How to reproduce
 
-`anvil_state.json` is in this folder, so the offline harness can start:
+**The authoritative reproduction is the online Base fork** that produced [output.txt](output.txt), not the offline anvil replay. An `anvil_state.json` is present, but it does **not** currently reproduce the exploit: its snapshot lacks the warmed contract bytecode for USDC, Morpho, the Uniswap v4 PoolManager/PositionManager, and GPXHooks (`cast code` returns `0x` for them), so `_shared/run_poc.sh` reverts early regardless of the bug. Reproduce it online instead:
 
 ```bash
-# from the registry root
+# online Base fork — this is what produced the committed trace
+cd 2026-10-GoldPesa_exp
+forge test --match-contract GoldPesa --evm-version cancun --fork-url https://mainnet.base.org --fork-block-number 52078501 -vvvvv
+```
+
+To make the offline harness pass, regenerate `anvil_state.json` by warming it against a live Base fork at block 52,078,501 (the repo's `cache2anvil` / warm workflow), then:
+
+```bash
+# from the registry root (only after re-warming anvil_state.json)
 _shared/run_poc.sh 2026-10-GoldPesa_exp -vvvvv
 ```
 
-That command loads `anvil_state.json` and rewrites `http://127.0.0.1:8548` in a temp copy of the test. **It is not what produced the committed trace.** [output.txt](output.txt) records:
+The offline command loads `anvil_state.json` and rewrites `http://127.0.0.1:8548` in a temp copy of the test. **It is not what produced the committed trace.** [output.txt](output.txt) records:
 
 - `createSelectFork("base", 52078501)` [output.txt:12](output.txt) — the named Base endpoint, not a redacted `http://` URL
 - `[PASS] testExploit()` [output.txt:4](output.txt)
