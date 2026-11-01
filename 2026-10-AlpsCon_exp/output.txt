@@ -1,0 +1,32 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/AlpsCon_exp.sol:AlpsConExploitTest
+[PASS] testWhitelistStillTrustsHardhatAccount() (gas: 14684)
+Traces:
+  [771818] AlpsConExploitTest::setUp()
+    ├─ [0] VM::envOr("BSC_RPC_URL", "bsc") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::createSelectFork("bsc", 128315187 [1.283e8])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::label(HardhatAccount: [0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266], "HardhatAccount")
+    │   └─ ← [Return]
+    ├─ [0] VM::label(Attacker: [0x3d9DF7D20D8296286383ffe475aA7b9e548946b2], "Attacker")
+    │   └─ ← [Return]
+    ├─ [726758] → new AlpsConExploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 3630 bytes of code
+    └─ ← [Stop]
+
+  [14684] AlpsConExploitTest::testWhitelistStillTrustsHardhatAccount()
+    ├─ [2672] 0x9be357BD175ba6b40Ac20177B237Ec6641e98851::isInWhiteList(HardhatAccount: [0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266]) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000001
+    ├─ [0] VM::assertTrue(true, "Hardhat account must be whitelisted at fork block") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2672] 0x9be357BD175ba6b40Ac20177B237Ec6641e98851::isInWhiteList(0x000000000000000000000000000000000000dEaD) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [0] VM::assertFalse(false, "fresh account must not be whitelisted") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Stop]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 378.85ms (459.25µs CPU time)
+
+Ran 1 test suite in 1.24s (378.85ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
