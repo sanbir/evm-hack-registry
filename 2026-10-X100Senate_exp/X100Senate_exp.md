@@ -186,3 +186,40 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 ```
 
 *Reference: the attack transaction named in the test header — [`0x38c60844…`](https://etherscan.io/tx/0x38c60844f1923d53fdce7d99e9bc2a2d8c73a08e793341dfbb479f8cc74d81d0).*
+
+
+## References
+
+- https://x.com/blockaid_/status/2114006384735916278 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2114006439182135560 (@blockaid_ secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2114007082055700836 (@DefimonAlerts secondary analysis)
+
+- https://x.com/blockaid_/status/2114011721300086877 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2114011805337235485 (@blockaid_ secondary analysis)
+
+- https://x.com/Phalcon_xyz/status/2114020331925258732 (@Phalcon_xyz secondary analysis)
+
+- https://x.com/exvulsec/status/2114032078996332573 (@exvulsec secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2114100145151217832 (@DefimonAlerts secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324331174183222 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324335267913804 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324339516686713 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324343207739642 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324347292979574 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324350870675486 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2114324354561372638 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/PeckShieldAlert/status/2114732040960774614 (@PeckShieldAlert secondary analysis)
+
+- https://x.com/CertiKAlert/status/2115379172109586588 (@CertiKAlert secondary analysis)

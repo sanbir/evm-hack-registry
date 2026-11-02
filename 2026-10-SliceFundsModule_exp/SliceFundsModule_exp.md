@@ -177,3 +177,10 @@ _shared/run_poc.sh 2026-10-SliceFundsModule_exp -vvvvv
 That command is the offline runner. Expect a revert when it loads `anvil_state.json`. To match this `output.txt`, fork Base archive at block 52,866,121 (alias `base` or an archive URL) and run `forge test --match-path test/SliceFundsModule_exp.sol -vvvvv`. The checked-in test currently points at `http://127.0.0.1:8548`, which is the offline rewrite and is the run that reverted.
 
 *Reference: https://x.com/DefimonAlerts/status/2112804669865042308*
+
+
+## References
+
+- https://x.com/TenArmorAlert/status/2112714662064398524 (@TenArmorAlert secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2112746806585274454 (@SlowMist_Team secondary analysis)

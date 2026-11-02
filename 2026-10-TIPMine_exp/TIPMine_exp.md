@@ -194,3 +194,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 The **36,000 SOL** principal is `deal`'d. The profit line is already net of it.
 
 *Reference: [attack tx 0xa7b879b5…](https://bscscan.com/tx/0xa7b879b5d4252fa5b518db1f81be8a5cc670c5b978c7626fa287c0a1f37895a3) (hash in [test/TIPMine_exp.sol](test/TIPMine_exp.sol)).*
+
+
+## References
+
+- https://x.com/TenArmorAlert/status/2111993166752866498 (@TenArmorAlert secondary analysis)

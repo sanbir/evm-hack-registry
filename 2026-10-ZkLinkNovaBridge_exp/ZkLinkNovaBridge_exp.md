@@ -137,6 +137,14 @@ The gateway implementation source is not in this bundle (the fetched gateway art
 
 ## Root cause
 
+
+## Secondary analysis (@GoPlusSecurity)
+
+> missing access control on authorized relayer
+
+Source: https://x.com/GoPlusSecurity/status/2116089337641357461
+
+
 1. **Authentication is a latch, not a per-call proof.** `finalizeMessageHash` means “a gateway just told me this exact payload is the message I am claiming.” Leaving it set means the next claim in the transaction inherits that approval. Transient storage made the bug invisible across transactions and obvious inside one.
 
 2. **The claim target is an argument.** A relayer-gated function that then does `functionCall(callerSuppliedAddress, callerSuppliedBytes)` is an arbitrary call from the Arbitrator’s identity. The hash check was supposed to bind that call to a real message-service callback. It binds the call to whatever hash is still in the slot.
@@ -228,3 +236,28 @@ _shared/run_poc.sh 2026-10-ZkLinkNovaBridge_exp -vvvvv
 Expect `[PASS] testExploit()` with `ETH drained to attacker : 22431294525563808989`, eleven matching token lines, `[PASS] testWithoutRootInstallReverts()`, and `Suite result: ok. 2 passed`. The checked-in run finished in **3.14s** ([output.txt:890](output.txt)). No archive RPC is required.
 
 *Reference: https://x.com/SlowMist_Team/status/2115635114638250409*
+
+
+## References
+
+- https://x.com/blockaid_/status/2115630787169050800 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2115630789647868103 (@blockaid_ secondary analysis)
+
+- https://x.com/Phalcon_xyz/status/2115671779717083260 (@Phalcon_xyz secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2115672412486344960 (@DefimonAlerts secondary analysis)
+
+- https://x.com/exvulsec/status/2115677325752946703 (@exvulsec secondary analysis)
+
+- https://x.com/Phalcon_xyz/status/2115741196752765359 (@Phalcon_xyz secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2116089327172170186 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2116089332431978854 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2116089337641357461 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2116089340103442574 (@GoPlusSecurity secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2116523371911692616 (@SlowMist_Team secondary analysis)

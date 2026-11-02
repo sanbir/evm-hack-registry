@@ -194,3 +194,28 @@ _shared/run_poc.sh 2026-10-UNCXSmartTokenVesting_exp -vvvvv
 Expect that command to fail until an `anvil_state.json` exists. Re-run the test online against the archive URL above, Cancun, `-vvvvv`, and compare the five retained balances with [output.txt:6](output.txt)–[output.txt:10](output.txt).
 
 *Reference: https://x.com/UNCX_token/status/2111424972694368464*
+
+
+## References
+
+- https://x.com/blockaid_/status/2110406902752387455 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2110406987611508781 (@blockaid_ secondary analysis)
+
+- https://x.com/exvulsec/status/2110408967822381342 (@exvulsec secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2110417910048956515 (@DefimonAlerts secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2110565552083325032 (@SlowMist_Team secondary analysis)
+
+- https://x.com/blockaid_/status/2110616419939566029 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2110618211267854473 (@blockaid_ secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2110678453758329260 (@DefimonAlerts secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2110679746203767230 (@DefimonAlerts secondary analysis)
+
+- https://x.com/Phalcon_xyz/status/2110684882443870452 (@Phalcon_xyz secondary analysis)
+
+- https://x.com/GoPlusSecurity/status/2110719095058616680 (@GoPlusSecurity secondary analysis)

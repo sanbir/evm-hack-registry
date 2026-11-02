@@ -152,3 +152,10 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 A full online run of the same file is what executes the flash-loan leg. The test then logs `Attacker USDC gain` and asserts it within 1 USDC of **129,775.607409916739393535e18**. That line is not in the committed trace. The on-chain net remains **152,295.3625 USDC**.
 
 *Reference: [decompiled exploit contract](https://decompiler.exvul.com/bsc/0xbe5d79b429308f6be75898dd31c5f3c0bd4ed13d) (URL in [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol)). Attack tx [`0x824b83f9…5fc2`](https://bscscan.com/tx/0x824b83f94bdc2e69b81f1cb2dfdf9d4aeed066114e3de29e3af59bd2d9355fc2).*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2112102178026308045 (@DefimonAlerts secondary analysis)
+
+- https://x.com/exvulsec/status/2112118384464892127 (@exvulsec secondary analysis)

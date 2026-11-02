@@ -1,6 +1,6 @@
 # Argent relay modules — a public owner signature is replayed, and the recovery deadline can be wrapped into the past
 
-> **Vulnerability classes:** vuln/auth · vuln/arithmetic · vuln/logic
+> **Vulnerability classes:** vuln/auth · vuln/arithmetic · vuln/logic · vuln/auth/signature-replay
 > **Reproduction:** the PoC compiles and runs in an isolated Foundry project at [this project folder](.). Full verbose trace: [output.txt](output.txt). **The committed trace is not a pass.** `anvil_state.json` is present and is pinned at block **26,225,802**. `[PASS] test_relay_payloads_match_onchain` only. `[FAIL] test_5a79_leg` (`RM: Wrong number of signatures`). `[FAIL] test_e545_leg` (`BlockOutOfRangeError`, anvil height 26,225,802, requested 26,225,797). Suite: `1 passed; 2 failed` in **3.09s** [output.txt:471](output.txt).
 
 ---
@@ -80,6 +80,14 @@ The e545 payloads that pass the same test, and that the drain test never submits
 - Wallet swap selector `0xe92bdbf8`: ETH sentinel `0xEeee…`, amount in **1.061908909163406246 ETH** (`1061908909163406246`), min return `1014580053171`, MARK, extra field `25621353654900691` [output.txt:465](output.txt).
 
 ## Root cause
+
+
+## Secondary analysis (@SlowMist_Team)
+
+> Unrestricted recovery-period setter 0x254a2e49 wraps the deadline so finalizeRecovery is immediate; execute 0xaacaaf88 does not consume nonce or signed hash, so one owner/guardian signature replays
+
+Source: https://x.com/SlowMist_Team/status/2112157232624476254
+
 
 1. **A signature is a bearer token with no consumption.** `execute` takes a nonce and does not write it. Replaying the same bytes is a second authorization. The test's loops (19 and 9) exist only because of that. This trace never reaches iteration 2, because iteration 1 already reverts, so the missing nonce update is not what [output.txt](output.txt) demonstrates. It is what the test says the module does, and what the historical transactions required.
 2. **Expiry does not bind the signature to the time it was produced.** A signature from block 11,266,059 (2020-11-16) or 11,948,627 (2021-02-28) is still the credential in 2026. Combined with a deadline setter that accepts a period large enough to wrap `uint256` time math, `finalizeRecovery` becomes immediate. The e545 leg, which is the only place the PoC calls `0x254a2e49`, did not run.
@@ -164,3 +172,8 @@ Suite result: FAILED. 1 passed; 2 failed; 0 skipped
 ```
 
 *Reference: the two attack transactions named in the test header — [`0xbfed8d33…`](https://etherscan.io/tx/0xbfed8d33561ed5f9cbd0f4e62a5bbd20187a64f3e22180148dcb58ed6ebaa795) and [`0xa0ee8f91…`](https://etherscan.io/tx/0xa0ee8f914205a948c79eca039b7d8265537eb220472c9be1455d3321f1bd571b). The test file has no separate write-up URL.*
+
+
+## References
+
+- https://x.com/SlowMist_Team/status/2112157232624476254 (@SlowMist_Team secondary analysis)

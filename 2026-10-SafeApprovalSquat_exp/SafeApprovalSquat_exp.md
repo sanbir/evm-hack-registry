@@ -143,3 +143,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 ```
 
 *Reference: the approval transaction and the MEV drain named in the test header — [`0x6952f80b…`](https://snowtrace.io/tx/0x6952f80bbbcad4368b020bcda600965cf0a520a8694db431b6b1521842d3829e) and [`0xf88a7960…`](https://snowtrace.io/tx/0xf88a7960a07832e1bf5be64edbd12a9e615b4f63959a4b87a147f0c63c007ed5).*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2115005055619260758 (@DefimonAlerts secondary analysis)

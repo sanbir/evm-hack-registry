@@ -142,7 +142,7 @@ contract AlpsConExploitTest is Test {
     function setUp() public {
         // Fork one block before the attack. Needs a BSC archive endpoint; defaults to the repo's
         // foundry.toml "bsc" alias and honours BSC_RPC_URL when set.
-        vm.createSelectFork(vm.envOr("BSC_RPC_URL", string("bsc")), 128_315_187);
+        vm.createSelectFork("http://127.0.0.1:8546", 128_315_187);
         vm.label(HARDHAT_ACCOUNT, "HardhatAccount");
         vm.label(ATTACKER, "Attacker");
         exploit = new AlpsConExploit();

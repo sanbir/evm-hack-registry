@@ -512,3 +512,8 @@ Ran 1 test suite in 11.44s (10.90s CPU time): 3 tests passed, 0 failed, 0 skippe
 *Reference: Aztec V1 escape-hatch unbacked-withdrawal exploit — verified vulnerable source at
 https://etherscan.io/address/0x737901bea3eeb88459df9ef1be8ff3ae1b42a2ba#code (Ethereum mainnet, Jun 2026,
 ~$2.2M).*
+
+
+## References
+
+- https://x.com/CertiKAlert/status/2112365999764975923 (@CertiKAlert secondary analysis)

@@ -160,3 +160,20 @@ Suite result: ok. 2 passed; 0 failed; 0 skipped
 ```
 
 *Reference: the two draw transactions in the test header — [`0x19ab145e…`](https://snowtrace.io/tx/0x19ab145e7f771549ca2f1da4b1768d7f728834015b2480ddb5be19c9769899fd) and [`0x3f6b2329…`](https://snowtrace.io/tx/0x3f6b23292a2e9c2956c7ac56d0b1f79b0271b49edec2156d2675ddf1de058c77).*
+
+
+## References
+
+- https://x.com/blockaid_/status/2115249066787340562 (@blockaid_ secondary analysis)
+
+- https://x.com/blockaid_/status/2115249529029034120 (@blockaid_ secondary analysis)
+
+- https://x.com/SlowMist_Team/status/2115281126516490514 (@SlowMist_Team secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2115281514309026089 (@DefimonAlerts secondary analysis)
+
+- https://x.com/CertiKAlert/status/2115289650025923015 (@CertiKAlert secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2115328732181242351 (@DefimonAlerts secondary analysis)
+
+- https://x.com/Phalcon_xyz/status/2115371832593563761 (@Phalcon_xyz secondary analysis)

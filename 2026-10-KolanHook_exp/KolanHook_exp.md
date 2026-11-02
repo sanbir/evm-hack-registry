@@ -169,3 +169,10 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 The before-balance is a `deal` to zero, not the EOA's real historical balance. The after-balance is the profit.
 
 *Reference: [attack tx 0x7b131926…](https://etherscan.io/tx/0x7b131926e6f06491ae1aead3e419b208c8aa70ed7898e8c5a33d9f52e40915a9) (URL in [test/KolanHook_exp.sol](test/KolanHook_exp.sol)).*
+
+
+## References
+
+- https://x.com/exvulsec/status/2110708025753481600 (@exvulsec secondary analysis)
+
+- https://x.com/DefimonAlerts/status/2110776621087047818 (@DefimonAlerts secondary analysis)

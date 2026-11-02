@@ -174,3 +174,8 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 The before-balance is the test contract's starting WETH, not an attacker deposit. Profit is the middle line.
 
 *Reference: [profit tx 0x756c6805…](https://etherscan.io/tx/0x756c68055af7a0630aa0b56891ba4de14c56c39cbebe99e47eeb4728f4d6ad14) (URL in [test/BiFi_exp.sol](test/BiFi_exp.sol)). Deploy tx [`0x15b47e2c…a034`](https://etherscan.io/tx/0x15b47e2c0daf723dec64c75b435079d3a1f8a6058b21b9a64dda4844e877a034).*
+
+
+## References
+
+- https://x.com/DefimonAlerts/status/2111725425554571750 (@DefimonAlerts secondary analysis)

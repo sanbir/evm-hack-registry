@@ -200,4 +200,6 @@ Suite result: ok. 1 passed; 0 failed; 0 skipped
 
 ## References
 
+- https://x.com/DefimonAlerts/status/2112026636761633077 (@DefimonAlerts secondary analysis)
+
 - SlowMist alert: https://x.com/SlowMist_Team/status/2108427455572918626
