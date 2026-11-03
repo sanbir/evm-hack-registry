@@ -2,7 +2,7 @@
 
 > **Vulnerability classes:** vuln/logic/state-update · vuln/logic/incorrect-state-transition · vuln/logic/missing-check
 
-> **Reproduction:** the PoC compiles and passes as an **online** Ethereum archive fork. There is **no `anvil_state.json`** in this folder, so it is not an offline anvil replay. Canonical trace: [output.txt](output.txt) (`[PASS]`, fork block 26,191,744, RPC redacted as `<rpc url>`). Verified source: [sources/VestingManager_A98F06](sources/VestingManager_A98F06). Test: [test/UNCXSmartTokenVesting_exp.sol](test/UNCXSmartTokenVesting_exp.sol).
+> **Reproduction:** the PoC compiles and passes both as an **online** Ethereum archive fork and **offline** against the bundled **`anvil_state.json`** snapshot in this folder (`_shared/run_poc.sh` serves it on localhost — no RPC required). Canonical trace: [output.txt](output.txt) (`[PASS]`, fork block 26,191,744, RPC redacted as `<rpc url>`). Verified source: [sources/VestingManager_A98F06](sources/VestingManager_A98F06). Test: [test/UNCXSmartTokenVesting_exp.sol](test/UNCXSmartTokenVesting_exp.sol).
 
 ---
 
@@ -183,15 +183,15 @@ flowchart TD
 
 ## How to reproduce
 
-This folder has **no `anvil_state.json`**. `_shared/run_poc.sh` loads that snapshot and serves it on localhost; it cannot reproduce this case offline. The checked-in [output.txt](output.txt) is the **online** pass: `createSelectFork` of an archive RPC at block **26,191,744**, `vm.warp(1791992999)`, `[PASS] testExploit()` gas **8,017,284**, suite **ok** in **4.43s** ([output.txt:4](output.txt), [output.txt:14](output.txt), [output.txt:1188](output.txt)).
+This folder now ships an **`anvil_state.json`** snapshot, so it reproduces **offline**: `_shared/run_poc.sh` loads that snapshot and serves it on localhost, and the test runs against it with no RPC. The checked-in [output.txt](output.txt) is the equivalent **online** pass: `createSelectFork` of an archive RPC at block **26,191,744**, `vm.warp(1791992999)`, `[PASS] testExploit()` gas **8,017,284**, suite **ok** in **4.43s** ([output.txt:4](output.txt), [output.txt:14](output.txt), [output.txt:1188](output.txt)).
 
-The test hardcodes `https://eth-mainnet.public.blastapi.io` and must be run with `--evm-version cancun` because the Uniswap V4 legs use transient storage. From the registry root, the standard runner — which is what produced the other three traces, and which has nothing to load here — is:
+The test must be run with `--evm-version cancun` because the Uniswap V4 legs use transient storage. From the registry root, the standard runner loads the bundled `anvil_state.json` and reproduces this offline:
 
 ```bash
 _shared/run_poc.sh 2026-10-UNCXSmartTokenVesting_exp -vvvvv
 ```
 
-Expect that command to fail until an `anvil_state.json` exists. Re-run the test online against the archive URL above, Cancun, `-vvvvv`, and compare the five retained balances with [output.txt:6](output.txt)–[output.txt:10](output.txt).
+That command now passes against the local snapshot (no RPC). To reproduce online instead, re-run the test against the archive URL `https://eth-mainnet.public.blastapi.io`, Cancun, `-vvvvv`, and compare the five retained balances with [output.txt:6](output.txt)–[output.txt:10](output.txt).
 
 *Reference: https://x.com/UNCX_token/status/2111424972694368464*
 

@@ -1,7 +1,7 @@
 # KolanHook — expired buy windows settle on the pool's own spot, then the escrowed ETH is bought back with no price limit
 
 > **Vulnerability classes:** vuln/oracle/spot-price · vuln/oracle/price-manipulation · vuln/defi/slippage · vuln/logic/missing-check
-> **Reproduction:** online only. This folder has **no `anvil_state.json`**. Passing archival-fork trace: [output.txt](output.txt). Folder: [(.)](.). Verified source: [sources/KolanHook_0136fe](sources/KolanHook_0136fe).
+> **Reproduction:** offline (this folder ships an `anvil_state.json`) or online archival fork. Passing trace: [output.txt](output.txt). Folder: [(.)](.). Verified source: [sources/KolanHook_0136fe](sources/KolanHook_0136fe).
 ---
 ## Key info
 | | |
@@ -143,15 +143,13 @@ sequenceDiagram
 5. **The 1% swap tax is not a control.** It reduced the ETH that reached the pool from 6.7 to 6.633 and skimmed **0.080605196262208268 ETH** on the way out. The surplus was still **1.280491451506671761 ETH**.
 
 ## How to reproduce
-**There is no `anvil_state.json` in this folder.** The offline harness refuses to start:
+This folder now ships an **`anvil_state.json`**, so the offline harness replays the exploit with no network:
 
 ```bash
-_shared/run_poc.sh 2026-10-KolanHook_exp -vvvvv
-# no anvil_state.json in 2026-10-KolanHook_exp
-# exit 2, before forge
+_shared/run-poc/run_poc.sh 2026-10-KolanHook_exp --evm-version cancun -vv
 ```
 
-The test forks a live archival node itself. `setUp` calls `vm.createSelectFork("https://eth.drpc.org", 26_197_503)`. From this folder, with network access:
+The test itself still forks a live archival node when run directly (`setUp` calls `vm.createSelectFork("https://eth.drpc.org", 26_197_503)`). From this folder, with network access:
 
 ```bash
 forge test --match-path test/KolanHook_exp.sol -vvvvv

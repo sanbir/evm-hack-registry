@@ -137,14 +137,6 @@ The gateway implementation source is not in this bundle (the fetched gateway art
 
 ## Root cause
 
-
-## Secondary analysis (@GoPlusSecurity)
-
-> missing access control on authorized relayer
-
-Source: https://x.com/GoPlusSecurity/status/2116089337641357461
-
-
 1. **Authentication is a latch, not a per-call proof.** `finalizeMessageHash` means “a gateway just told me this exact payload is the message I am claiming.” Leaving it set means the next claim in the transaction inherits that approval. Transient storage made the bug invisible across transactions and obvious inside one.
 
 2. **The claim target is an argument.** A relayer-gated function that then does `functionCall(callerSuppliedAddress, callerSuppliedBytes)` is an arbitrary call from the Arbitrator’s identity. The hash check was supposed to bind that call to a real message-service callback. It binds the call to whatever hash is still in the slot.
@@ -152,6 +144,13 @@ Source: https://x.com/GoPlusSecurity/status/2116089337641357461
 3. **The whitelisted relayer is permissionless.** `onlyRelayer` is necessary and not sufficient. `SyncL2TxHashRelayer.claimPrimaryChainSyncL2TxHashMessage` forwards attacker-chosen source service, claim calldata, and gateway. Anyone who can send a transaction can drive the Arbitrator.
 
 4. **The bridge treats `syncBatchRoot` as authenticated because of who called the gateway.** Once the Arbitrator can be aimed at `sendMessage`, the L2 log root is attacker input, and the Merkle verifier does the rest. The proofs in this PoC are valid against the installed root. They are not valid against the previous root, which is what `testWithoutRootInstallReverts` shows.
+
+
+## Secondary analysis (@GoPlusSecurity)
+
+> missing access control on authorized relayer
+
+Source: https://x.com/GoPlusSecurity/status/2116089337641357461
 
 ---
 

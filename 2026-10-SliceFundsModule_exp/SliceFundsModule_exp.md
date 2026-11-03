@@ -2,7 +2,7 @@
 
 > **Vulnerability classes:** vuln/access-control/missing-auth · vuln/logic/missing-validation · vuln/dependency/unsafe-external-call
 
-> **Reproduction:** [output.txt](output.txt) is the **online** Base trace, not the offline anvil replay. The offline run against `anvil_state.json` **reverted**. The online trace **passes**: `Suite result: ok. 1 passed` ([output.txt:2790](output.txt)). Fork alias `base` at block **52,866,121** ([output.txt:11](output.txt)). The attack-block implementation is **unverified**; the release logic below is **RECONSTRUCTED** from that trace. Proxy scaffolding only: [sources/ERC1967Proxy_61bCd1](sources/ERC1967Proxy_61bCd1). Test: [test/SliceFundsModule_exp.sol](test/SliceFundsModule_exp.sol).
+> **Reproduction:** [output.txt](output.txt) is the **online** Base trace, not the offline anvil replay. The offline run against `anvil_state.json` **completes but fails the USDC balance assertion** (the offline snapshot's USDC reserves drift by ~$24; the ETH leg matches exactly). The online trace **passes**: `Suite result: ok. 1 passed` ([output.txt:2790](output.txt)). Fork alias `base` at block **52,866,121** ([output.txt:11](output.txt)). The attack-block implementation is **unverified**; the release logic below is **RECONSTRUCTED** from that trace. Proxy scaffolding only: [sources/ERC1967Proxy_61bCd1](sources/ERC1967Proxy_61bCd1). Test: [test/SliceFundsModule_exp.sol](test/SliceFundsModule_exp.sol).
 
 ---
 
@@ -27,7 +27,7 @@ Slice’s FundsModule is the settlement contract for Slice stores. One permissio
 
 The source address is not looked up in an allowlist. An attacker can pass their own contract, which returns the module’s live balance and transfers nothing. Before that, the same entry point with the flag clear is pointed at real Slice products so their unswept ETH and USDC are pulled into the module. The module held about **2 wei** and **1 USDC unit** before the attack. The drained money is other stores’ revenue.
 
-[output.txt](output.txt) result, online: **`[PASS] testExploit()` gas 7,033,656**. Logged drain **8,716,935,563,284,127,413 wei** and **19,820,734,001 USDC units** ([output.txt:4](output.txt)–[output.txt:7](output.txt)). Assertions accept a 1-wei / 1-unit gap versus the historical totals ([output.txt:2781](output.txt)–[output.txt:2783](output.txt)). **Suite result: ok. 1 passed; 0 failed** ([output.txt:2790](output.txt)). The offline anvil replay reverted; this file is the online fallback.
+[output.txt](output.txt) result, online: **`[PASS] testExploit()` gas 7,033,656**. Logged drain **8,716,935,563,284,127,413 wei** and **19,820,734,001 USDC units** ([output.txt:4](output.txt)–[output.txt:7](output.txt)). Assertions accept a 1-wei / 1-unit gap versus the historical totals ([output.txt:2781](output.txt)–[output.txt:2783](output.txt)). **Suite result: ok. 1 passed; 0 failed** ([output.txt:2790](output.txt)). The offline anvil replay completes but fails the USDC balance assertion (offline USDC drift ~$24; the ETH leg matches exactly); this file is the canonical online PASS.
 
 ---
 
@@ -131,7 +131,7 @@ Online fork of Base at **52,866,121** ([output.txt:11](output.txt)). Gas **7,033
 
 6. **Checks.** `console.log` prints `8716935563284127413` and `19820734001` ([output.txt:2777](output.txt)–[output.txt:2779](output.txt)). `assertApproxEqAbs` against `8716935563284127414` (tolerance 1e9) and `19820734002` (tolerance 10) both return success ([output.txt:2781](output.txt)–[output.txt:2783](output.txt)).
 
-**output.txt result:** online pass. `[PASS] testExploit()` at [output.txt:4](output.txt). Suite **ok, 1 passed, 0 failed**, finished in **156.54s** ([output.txt:2790](output.txt)–[output.txt:2792](output.txt)). This is not an offline PASS. The anvil snapshot in this folder does not replay the exploit; the numbers above are from the archive RPC run that forked alias `base`.
+**output.txt result:** online pass. `[PASS] testExploit()` at [output.txt:4](output.txt). Suite **ok, 1 passed, 0 failed**, finished in **156.54s** ([output.txt:2790](output.txt)–[output.txt:2792](output.txt)). This is not an offline PASS. The anvil snapshot in this folder reproduces the ETH drain exactly but fails the USDC balance assertion (its USDC reserves drift by ~$24), so the offline run completes without passing; the numbers above are from the archive RPC run that forked alias `base`.
 
 ---
 
@@ -161,7 +161,7 @@ flowchart TD
 
 ## How to reproduce
 
-`anvil_state.json` is present, but the **offline** `_shared/run_poc.sh` replay **reverted**. The canonical [output.txt](output.txt) is the **online** fallback:
+`anvil_state.json` is present, but the **offline** `_shared/run_poc.sh` replay **completes and then fails the USDC balance assertion** (offline USDC drift ~$24; the ETH leg matches exactly). The canonical [output.txt](output.txt) is the **online** PASS:
 
 - `createSelectFork("base", 52866121)` ([output.txt:11](output.txt))
 - `[PASS] testExploit()` gas **7,033,656** ([output.txt:4](output.txt))
@@ -174,7 +174,7 @@ From the registry root:
 _shared/run_poc.sh 2026-10-SliceFundsModule_exp -vvvvv
 ```
 
-That command is the offline runner. Expect a revert when it loads `anvil_state.json`. To match this `output.txt`, fork Base archive at block 52,866,121 (alias `base` or an archive URL) and run `forge test --match-path test/SliceFundsModule_exp.sol -vvvvv`. The checked-in test currently points at `http://127.0.0.1:8548`, which is the offline rewrite and is the run that reverted.
+That command is the offline runner. Expect the USDC balance assertion to fail (ETH matches exactly) when it loads `anvil_state.json`. To match this `output.txt`, fork Base archive at block 52,866,121 (alias `base` or an archive URL) and run `forge test --match-path test/SliceFundsModule_exp.sol -vvvvv`. The checked-in test currently points at `http://127.0.0.1:8548`, which is the offline rewrite and is the run that fails the USDC assertion.
 
 *Reference: https://x.com/DefimonAlerts/status/2112804669865042308*
 

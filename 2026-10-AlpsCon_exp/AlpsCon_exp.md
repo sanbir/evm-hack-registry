@@ -1,12 +1,12 @@
 # AlpsCon AI Trade Hub — a public Hardhat address is whitelisted, and a zero entry index pays the historical USDC index
 
 > **Vulnerability classes:** vuln/logic/reward-calculation · vuln/access-control/broken-logic · vuln/logic/missing-check
-> **Reproduction:** online only. This folder has **no `anvil_state.json`**. The committed trace [output.txt](output.txt) is the whitelist check, not `testExploit()`. Folder: [(.)](.). Verified source: [sources/AiTradeHubContract_9B210D](sources/AiTradeHubContract_9B210D) (V9), [sources/AiTradeHubContract_74F091](sources/AiTradeHubContract_74F091) (V6), [sources/SwapContract_9be357](sources/SwapContract_9be357) (whitelist).
+> **Reproduction:** offline. This folder has an `anvil_state.json`, so `_shared/run_poc.sh 2026-10-AlpsCon_exp` replays it with no network. The committed trace [output.txt](output.txt) is the full run — both `testExploit()` and `testWhitelistStillTrustsHardhatAccount()` pass (2/2). Folder: [(.)](.). Verified source: [sources/AiTradeHubContract_9B210D](sources/AiTradeHubContract_9B210D) (V9), [sources/AiTradeHubContract_74F091](sources/AiTradeHubContract_74F091) (V6), [sources/SwapContract_9be357](sources/SwapContract_9be357) (whitelist).
 ---
 ## Key info
 | | |
 |---|---|
-| **Loss** | On-chain net **152,295.3625 USDC** to the attacker EOA (header of [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol)). The standalone reconstruction asserts **129,775.607409916739393535 USDC**. The difference, about **22,519.75 USDC**, is the V7/V8 balance the real `claimServiceResults` pushed straight to the EOA and that a standalone claim does not replay. **That profit is not in [output.txt](output.txt)** — the saved trace ran only the whitelist test |
+| **Loss** | On-chain net **152,295.3625 USDC** to the attacker EOA (header of [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol)). The standalone reconstruction asserts **129,775.607409916739393535 USDC**. The difference, about **22,519.75 USDC**, is the V7/V8 balance the real `claimServiceResults` pushed straight to the EOA and that a standalone claim does not replay. The reconstructed profit **is** logged in [output.txt:360](output.txt) (`Attacker USDC gain: 129775607409916739393535`); only the 22,519.75 USDC V7/V8 cascade is absent |
 | **Vulnerable contract** | V9 hub `AiTradeHubContract` [`0x9B210Da482217afC24074e57f6F8337fe07F0124`](https://bscscan.com/address/0x9B210Da482217afC24074e57f6F8337fe07F0124). Deposit hub V6 [`0x74F091a719FdD47A95f378C7fb5C3D18a4582405`](https://bscscan.com/address/0x74F091a719FdD47A95f378C7fb5C3D18a4582405). Whitelist `SwapContract` [`0x9be357BD175ba6b40Ac20177B237Ec6641e98851`](https://bscscan.com/address/0x9be357BD175ba6b40Ac20177B237Ec6641e98851) |
 | **Attacker EOA** | [`0x3d9DF7D20D8296286383ffe475aA7b9e548946b2`](https://bscscan.com/address/0x3d9DF7D20D8296286383ffe475aA7b9e548946b2) |
 | **Delegated account** | Hardhat/Anvil account #0 [`0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`](https://bscscan.com/address/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266). On-chain exploit implementation [`0xbe5d79b429308f6be75898dd31c5f3c0bd4ed13d`](https://bscscan.com/address/0xbe5d79b429308f6be75898dd31c5f3c0bd4ed13d) |
@@ -20,7 +20,7 @@ AlpsCon's AI Trade Hub sells ALPS "service credits" and later pays USDC "service
 
 The second bug is the index. V9 `_getUserLockedAmount` adds the previous hub's locked balance while `contributors[user].migrated` is false, and `_calculateUserEarningByShares` multiplies that balance by `stats.profitPerShare` and subtracts `entryProfitPerShare`. A brand-new record has `entryProfitPerShare == 0`, so the account is paid the whole accumulated index, not the index growth since its own deposit.
 
-The PoC flash-borrows **1,027,990 USDC** (18-decimal BSC USDC) from Aave V3, buys ALPS, deposits on the still-open V6 hub, calls `V6.migrate()` so the new credits become locked, then `V9.claimServiceResults()`. It withdraws the stake, sells the ALPS, and repays the loan. The test asserts a reconstructed net of **129,775.607409916739393535 USDC**. The header's on-chain net is **152,295.3625 USDC**. [output.txt](output.txt) does not contain this leg. It only proves the whitelist: `isInWhiteList` returns true for the Hardhat account and false for `0x…dEaD` [output.txt:20](output.txt)–[output.txt:26](output.txt).
+The PoC flash-borrows **1,027,990 USDC** (18-decimal BSC USDC) from Aave V3, buys ALPS, deposits on the still-open V6 hub, calls `V6.migrate()` so the new credits become locked, then `V9.claimServiceResults()`. It withdraws the stake, sells the ALPS, and repays the loan. The test asserts a reconstructed net of **129,775.607409916739393535 USDC**, logged at [output.txt:360](output.txt). The header's on-chain net is **152,295.3625 USDC**. The committed [output.txt](output.txt) is the full offline run: `testExploit()` passes with the profit above, and `testWhitelistStillTrustsHardhatAccount()` proves the whitelist — `isInWhiteList` returns true for the Hardhat account [output.txt:1361](output.txt)–[output.txt:1362](output.txt) and false for `0x…dEaD` [output.txt:1365](output.txt)–[output.txt:1366](output.txt).
 
 ## Background — what the hubs do
 Each hub version holds ALPS as service credits (`payableERC20`) and pays USDC (`paymentERC20`). `purchaseServiceCredits` pulls ALPS, takes `contributionFee / 1000`, and credits the rest as `pendingAmount`. A later conversion moves pending into `lockedAmount`. Distributions do not pay users directly. `_distributeServiceResults` adds `amount * 1e10 / totalLocked` to `stats.profitPerShare`. A user's unpaid result is locked credits times the index gap since `entryProfitPerShare`.
@@ -43,7 +43,7 @@ function _isVerified(address wallet) internal view override returns (bool) {
 }
 ```
 
-`SwapContract.isInWhiteList` is a plain mapping read ([contracts_SwapContract.sol](sources/SwapContract_9be357/contracts_SwapContract.sol)). Nothing binds the entry to a signature, a deposit age, or "not a publicly known key". At block 128,315,187 the Hardhat account is in the mapping and a fresh address is not [output.txt:20](output.txt)–[output.txt:26](output.txt).
+`SwapContract.isInWhiteList` is a plain mapping read ([contracts_SwapContract.sol](sources/SwapContract_9be357/contracts_SwapContract.sol)). Nothing binds the entry to a signature, a deposit age, or "not a publicly known key". At block 128,315,187 the Hardhat account is in the mapping and a fresh address is not [output.txt:1361](output.txt)–[output.txt:1366](output.txt).
 
 ### The index pays a balance that never earned it
 `_getUserLockedAmount` adds the previous hub's locked credits whenever this hub's own `migrated` flag is still false. `_calculateUserEarningByShares` then treats `entryProfitPerShare == 0` as "never paid":
@@ -71,36 +71,36 @@ function _getUserLockedAmount(address user) internal view returns (uint256) {
 V6 `purchaseServiceCredits` only requires `onlyVerified`. Its `migrate()` ends in `_convertPendingToLocked`, so a deposit made in the same call sequence becomes `lockedAmount` on V6 before V9's claim reads back through the version chain. V6 `migrate()` is also `onlyVerified` and otherwise unrestricted ([contracts_AITradeHubContract.sol](sources/AiTradeHubContract_74F091/contracts_AITradeHubContract.sol) `_migrate`).
 
 ## Root cause — why it was possible
-1. **The whitelist credential is public.** `0xf39F…2266` is Hardhat account #0. Anyone can sign for it. EIP-7702 lets the attacker install their contract as that account's code and then call the hubs as the whitelisted address. A fresh address fails the same check [output.txt:24](output.txt).
+1. **The whitelist credential is public.** `0xf39F…2266` is Hardhat account #0. Anyone can sign for it. EIP-7702 lets the attacker install their contract as that account's code and then call the hubs as the whitelisted address. A fresh address fails the same check [output.txt:1365](output.txt)–[output.txt:1366](output.txt).
 2. **Unmigrated prior-hub balances are added to the earnings base.** V9 counts `getV8Stats(user).user_locked_amount` until `contributor.migrated` is set. A same-transaction deposit that lands in that view is indistinguishable from a balance that was locked when `profitPerShare` was accrued.
 3. **`entryProfitPerShare` defaults to zero and is not set when the foreign balance is first observed.** Gross earnings are `locked * profitPerShare / 1e10`. The subtraction term is zero, so the claim is the full historical index, not the delta since deposit.
 4. **Claim, deposit, and migrate are the same privilege.** Passing `onlyVerified` once is enough to buy credits, lock them, and cash the index. No keeper, age, or manager step sits between them.
 
 ## Preconditions
-- The Hardhat account is still in `SwapContract`'s whitelist. True at block 128,315,187 [output.txt:20](output.txt). False for an arbitrary address [output.txt:24](output.txt).
+- The Hardhat account is still in `SwapContract`'s whitelist. True at block 128,315,187 [output.txt:1362](output.txt). False for an arbitrary address [output.txt:1366](output.txt).
 - V6 still accepts `purchaseServiceCredits`. Later hubs are the ones that hold the accumulated `profitPerShare`.
 - The caller can sign an EIP-7702 authorization for the Hardhat account. That key is the published Hardhat default, not a user secret. The raw key is in [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol); it is not repeated here.
 - Working capital is a flash loan. Aave V3 `flashLoanSimple` of **1,027,990 USDC**, repaid with premium inside the callback. No privilege on Aave, the router, or the hubs beyond the whitelist.
 - The V7/V8 USDC that the real transaction also sent to the EOA is extra. The reconstruction does not depend on it.
 
 ## Attack walkthrough (with numbers from the trace)
-The committed [output.txt](output.txt) is one test. `forge` reports `Ran 1 test` and `[PASS] testWhitelistStillTrustsHardhatAccount()` at gas 14,684 [output.txt:4](output.txt). `setUp` forks `"bsc"` at block **128,315,187** [output.txt:9](output.txt). There is no `claimServiceResults` call, no USDC transfer, and no "Attacker USDC gain" log in this file. The steps below are the body of `testExploit()` in [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol). Amounts in this list are that file's constants and header, not trace lines.
+The committed [output.txt](output.txt) is the full offline run. `forge` reports `Ran 2 tests` [output.txt:354](output.txt), `[PASS] testExploit()` at gas 3,089,563 [output.txt:355](output.txt) and `[PASS] testWhitelistStillTrustsHardhatAccount()` at gas 14,684 [output.txt:1347](output.txt). `setUp` forks the replayed state at block **128,315,187** [output.txt:364](output.txt), and `testExploit()` logs `Attacker USDC gain: 129775607409916739393535` [output.txt:360](output.txt). The steps below are the body of `testExploit()` in [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol); amounts are that file's constants and header unless a trace line is cited.
 
 | Step | What happens | Figure |
 |---|---|---|
-| 1 | Fork one block before the attack tx | block 128,315,187 [output.txt:9](output.txt) |
-| 2 | `isInWhiteList(0xf39F…2266)` | `true` [output.txt:20](output.txt)–[output.txt:22](output.txt) |
-| 3 | `isInWhiteList(0x…dEaD)` | `false` [output.txt:24](output.txt)–[output.txt:26](output.txt) |
-| 4 | Sign EIP-7702 delegation of the Hardhat account to `AlpsConExploit`, `prank` the attacker EOA, call `run` | not in [output.txt](output.txt) |
+| 1 | Fork one block before the attack tx | block 128,315,187 [output.txt:364](output.txt) |
+| 2 | `isInWhiteList(0xf39F…2266)` | `true` [output.txt:1361](output.txt)–[output.txt:1362](output.txt) |
+| 3 | `isInWhiteList(0x…dEaD)` | `false` [output.txt:1365](output.txt)–[output.txt:1366](output.txt) |
+| 4 | Sign EIP-7702 delegation of the Hardhat account to `AlpsConExploit`, `prank` the attacker EOA, call `run` | traced in `testExploit()` [output.txt:355](output.txt) |
 | 5 | Aave V3 `flashLoanSimple` of USDC | **1,027,990 USDC**. Header repayment **1,028,503.995 USDC** (principal plus **513.995** premium) |
 | 6 | Router `swap` USDC to ALPS, `V6.purchaseServiceCredits` | Header: about **9,970,024 ALPS** bought, **8%** fee, **9,172,422.1045410368 ALPS** left staked (`STAKED_ALPS`) |
 | 7 | `V6.migrate()` then `V9.claimServiceResults()` | Header: about **312,915 USDC** paid to the delegated account on the reconstructed leg |
 | 8 | `V6.withdrawFunds(STAKED_ALPS)`, sell ALPS back | Header: about **845,364 USDC** |
-| 9 | Repay Aave, sweep surplus to the attacker EOA | Asserted net **129,775.607409916739393535 USDC** |
+| 9 | Repay Aave, sweep surplus to the attacker EOA | Asserted net **129,775.607409916739393535 USDC**, logged [output.txt:360](output.txt) |
 
-Header arithmetic for the reconstructed leg, rounded to the figures the test itself uses: claim plus ALPS sale, minus the **1,028,503.995 USDC** repayment, is the asserted net. The same header says the real transaction netted **152,295.3625 USDC**, of which **1,966.07 + 20,553.69 = 22,519.75 USDC** left the V7 and V8 hubs directly to the EOA inside the real `claimServiceResults`. Subtracting the asserted reconstruction from the on-chain net leaves **22,519.755090083260606465 USDC**, the same cascade. The test's `assertApproxEqAbs` tolerance is **1 USDC**. None of steps 4–9 appear in [output.txt](output.txt).
+Header arithmetic for the reconstructed leg, rounded to the figures the test itself uses: claim plus ALPS sale, minus the **1,028,503.995 USDC** repayment, is the asserted net. The same header says the real transaction netted **152,295.3625 USDC**, of which **1,966.07 + 20,553.69 = 22,519.75 USDC** left the V7 and V8 hubs directly to the EOA inside the real `claimServiceResults`. Subtracting the asserted reconstruction from the on-chain net leaves **22,519.755090083260606465 USDC**, the same cascade. The test's `assertApproxEqAbs` tolerance is **1 USDC**. Steps 4–9 all run inside `testExploit()` and are traced in [output.txt](output.txt), ending in the gain log [output.txt:360](output.txt).
 
-Suite tail of the file that was actually saved [output.txt:30](output.txt): `1 passed; 0 failed; 0 skipped`.
+Suite tail of the saved file [output.txt:1371](output.txt): `ok. 2 passed; 0 failed; 0 skipped`, confirmed by [output.txt:1373](output.txt): `2 tests passed, 0 failed, 0 skipped`.
 
 ## Diagrams
 ```mermaid
@@ -128,28 +128,32 @@ sequenceDiagram
 5. **Separate the USDC custody from the claim math.** The real transaction also moved V7 and V8 USDC to the EOA from inside the V9 claim. A claim should transfer only this contract's computed net, from this contract's balance, and never pull sibling-hub balances to `msg.sender`.
 
 ## How to reproduce
-**There is no `anvil_state.json` in this folder.** The offline harness refuses to start:
+**This folder has an `anvil_state.json`**, so the offline harness replays the attack with no network. It loads the state onto a free local anvil port and rewrites the test's `http://127.0.0.1:8546` fork URL to that port:
 
 ```bash
 _shared/run_poc.sh 2026-10-AlpsCon_exp -vvvvv
-# no anvil_state.json in 2026-10-AlpsCon_exp
-# exit 2, before forge
+# loads anvil_state.json, runs forge against the local replay
+# Suite result: ok. 2 passed; 0 failed; 0 skipped
 ```
 
-The test forks a live BSC archive node. `setUp` calls `vm.createSelectFork(vm.envOr("BSC_RPC_URL", string("bsc")), 128_315_187)`. [foundry.toml](foundry.toml) has no `[rpc_endpoints]`, so `BSC_RPC_URL` must be set. `evm_version` is `cancun` (EIP-7702). From this folder, with network access:
+`setUp` forks the replayed state at block **128,315,187**. `evm_version` is `cancun` (EIP-7702). The committed [output.txt](output.txt) is exactly this run — both tests pass.
+
+An online run against a live BSC archive node works the same way; point the test's fork URL (or `BSC_RPC_URL`) at the archive:
 
 ```bash
 BSC_RPC_URL=<bsc-archive> forge test --match-path test/AlpsCon_exp.sol -vvvvv
 ```
 
-[output.txt](output.txt) is an online run of **only** `testWhitelistStillTrustsHardhatAccount`. It does not include `testExploit()`, so it has no USDC profit line. Expected tail of this file:
+[output.txt](output.txt) is the full run of **both** tests. `testExploit()` executes the flash-loan leg, logs `Attacker USDC gain: 129775607409916739393535` [output.txt:360](output.txt), and asserts it within 1 USDC of **129,775.607409916739393535e18**. Expected tail:
 
 ```
+[PASS] testExploit() (gas: 3089563)
+...
 [PASS] testWhitelistStillTrustsHardhatAccount() (gas: 14684)
-Suite result: ok. 1 passed; 0 failed; 0 skipped
+Suite result: ok. 2 passed; 0 failed; 0 skipped
 ```
 
-A full online run of the same file is what executes the flash-loan leg. The test then logs `Attacker USDC gain` and asserts it within 1 USDC of **129,775.607409916739393535e18**. That line is not in the committed trace. The on-chain net remains **152,295.3625 USDC**.
+The on-chain net remains **152,295.3625 USDC**; the reconstruction replays 129,775.6074 of it.
 
 *Reference: [decompiled exploit contract](https://decompiler.exvul.com/bsc/0xbe5d79b429308f6be75898dd31c5f3c0bd4ed13d) (URL in [test/AlpsCon_exp.sol](test/AlpsCon_exp.sol)). Attack tx [`0x824b83f9…5fc2`](https://bscscan.com/tx/0x824b83f94bdc2e69b81f1cb2dfdf9d4aeed066114e3de29e3af59bd2d9355fc2).*
 

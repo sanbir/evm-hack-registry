@@ -1,7 +1,7 @@
 # BiFi USDT — one idle gap of 264,060 blocks is reapplied at a live utilization the attacker sets
 
 > **Vulnerability classes:** vuln/logic/reward-calculation · vuln/logic/incorrect-state-transition · vuln/logic/missing-check
-> **Reproduction:** online only. This folder has **no `anvil_state.json`**. Passing archival-fork trace: [output.txt](output.txt). Folder: [(.)](.). Verified source: [sources/UsdtHandlerProxy_808c3b](sources/UsdtHandlerProxy_808c3b), [sources/TokenHandler_47be3d](sources/TokenHandler_47be3d), [sources/interestModel_29ecab](sources/interestModel_29ecab).
+> **Reproduction:** offline or online. This folder now ships an `anvil_state.json` (703 KB), so the offline harness runs the PoC with no network. Passing archival-fork trace: [output.txt](output.txt). Folder: [(.)](.). Verified source: [sources/UsdtHandlerProxy_808c3b](sources/UsdtHandlerProxy_808c3b), [sources/TokenHandler_47be3d](sources/TokenHandler_47be3d), [sources/interestModel_29ecab](sources/interestModel_29ecab).
 ---
 ## Key info
 | | |
@@ -147,15 +147,15 @@ sequenceDiagram
 5. **The public surface can stay public.** `deposit` and `borrow` are supposed to be open. Restricting them would not fix an interest index that reprices 36 days of interest inside one transaction.
 
 ## How to reproduce
-**There is no `anvil_state.json` in this folder.** The offline harness refuses to start:
+**This folder now ships an `anvil_state.json` (703 KB)**, so the offline harness runs the PoC with no network and passes:
 
 ```bash
 _shared/run_poc.sh 2026-10-BiFi_exp -vvvvv
-# no anvil_state.json in 2026-10-BiFi_exp
-# exit 2, before forge
+# replays against the committed anvil_state.json, no live node
+# [PASS] testExploit()
 ```
 
-The test forks a live archival node itself. `setUp` calls `vm.createSelectFork("https://eth.drpc.org", 26_210_254)` and then `vm.roll(26_210_256)`. From this folder, with network access:
+The test can also fork a live archival node itself. `setUp` calls `vm.createSelectFork("https://eth.drpc.org", 26_210_254)` and then `vm.roll(26_210_256)`. From this folder, with network access:
 
 ```bash
 forge test --match-path test/BiFi_exp.sol -vvvvv
