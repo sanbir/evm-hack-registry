@@ -1,0 +1,19 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/12293-h-11-vaults-withdrawfromprotocol-incorrectly-scales-amount-t_exp.sol:Finding12293Test
+[PASS] test_control_underlying_scale_withdraws_one_million() (gas: 2624839)
+Logs:
+  control USDC received: 1000000000000
+  control cUSDC left: 199000000000000
+
+[PASS] test_withdraw_pulls_one_hundred_times_the_request() (gas: 3085755)
+Logs:
+  requested USDC raw: 1000000000000
+  buggy USDC received: 100000000000000
+  fair USDC: 1000000000000
+  cUSDC left raw: 100000000000000
+  position short raw: 99000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.62ms (4.48ms CPU time)
+
+Ran 1 test suite in 21.06ms (4.62ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
