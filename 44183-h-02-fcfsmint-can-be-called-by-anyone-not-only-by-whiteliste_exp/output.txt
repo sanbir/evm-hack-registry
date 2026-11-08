@@ -1,0 +1,21 @@
+Compiling 1 files with Solc 0.8.27
+Solc 0.8.27 finished in 7.76s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/44183-h-02-fcfsmint-can-be-called-by-anyone-not-only-by-whiteliste_exp.sol:35:5:
+   |
+35 |     function _sig(address who, uint256 salt) internal returns (bytes32 ethHash, bytes memory signature) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/44183-h-02-fcfsmint-can-be-called-by-anyone-not-only-by-whiteliste_exp.sol:Finding44183Test
+[PASS] test_control_unlisted_caller_reverts() (gas: 769558)
+[PASS] test_exploit_unlisted_wallet_receives_nft() (gas: 1513260)
+Logs:
+  whitelisted false
+  owner 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+  paid wei 60000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.19ms (3.60ms CPU time)
+
+Ran 1 test suite in 9.55ms (3.19ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

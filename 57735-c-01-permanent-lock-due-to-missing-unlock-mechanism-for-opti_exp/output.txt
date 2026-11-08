@@ -1,0 +1,16 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 6.14s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/57735-c-01-permanent-lock-due-to-missing-unlock-mechanism-for-opti_exp.sol:23:5:
+   |
+23 |     function exerciseOrLiquidate(uint256 payoff) external returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/57735-c-01-permanent-lock-due-to-missing-unlock-mechanism-for-opti_exp.sol:Finding57735Test
+[PASS] test_control_unlock_returns_the_tokens() (gas: 807886)
+[PASS] test_exploit_locks_tokens_with_no_withdraw() (gas: 1155791)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 1.87ms (1.83ms CPU time)
+
+Ran 1 test suite in 16.41ms (1.87ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

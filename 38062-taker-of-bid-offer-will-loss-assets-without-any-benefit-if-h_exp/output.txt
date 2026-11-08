@@ -1,0 +1,20 @@
+No files changed, compilation skipped
+
+Ran 3 tests for test/38062-taker-of-bid-offer-will-loss-assets-without-any-benefit-if-h_exp.sol:Finding38062Test
+[PASS] test_control_fixed_partial_reverts_and_moves_nothing() (gas: 664219)
+[PASS] test_control_full_settlement_returns_collateral_to_taker() (gas: 2694467)
+Logs:
+  control taker USDC 6000000000000000000
+  control maker USDC 0
+
+[PASS] test_exploit_partial_settle_pays_maker_and_takes_points() (gas: 3314706)
+Logs:
+  taker POINT before 100000000000000000000
+  taker POINT after  97000000000000000000
+  taker USDC received 0
+  maker USDC collateral 6000000000000000000
+  maker POINT received 3000000000000000000
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 3.24ms (4.16ms CPU time)
+
+Ran 1 test suite in 10.59ms (3.24ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

@@ -1,0 +1,21 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 8.59s
+Compiler run successful!
+
+Ran 2 tests for test/41859-h-01-loss-of-fees-due-to-rounding-down-pashov-audit-group-no_exp.sol:Finding41859Test
+[PASS] test_control_scale_1e18_pays_the_lp_the_full_usdc() (gas: 1163729)
+Logs:
+  control acc 500000
+  control paid 1000000
+
+[PASS] test_exploit_one_usdc_fee_accrues_as_zero() (gas: 1698056)
+Logs:
+  fee collected 1000000
+  liquidity 2000000000000000000
+  accFeePerShare delta 0
+  LP claim 0
+  shortfall 1000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 12.82ms (2.95ms CPU time)
+
+Ran 1 test suite in 17.04ms (12.82ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

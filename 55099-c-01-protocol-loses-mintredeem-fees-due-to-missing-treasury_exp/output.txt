@@ -1,0 +1,18 @@
+Compiling 2 files with Solc 0.8.27
+Solc 0.8.27 finished in 6.79s
+Compiler run successful!
+
+Ran 2 tests for test/55099-c-01-protocol-loses-mintredeem-fees-due-to-missing-treasury_exp.sol:Finding55099Test
+[PASS] test_control_forwards_both_fees_to_treasury() (gas: 808029)
+Logs:
+  CONTROL treasury balance: 200000000000000000000
+
+[PASS] test_exploit_fees_burned_and_treasury_stays_zero() (gas: 1653223)
+Logs:
+  HARM redeem fee burned: 100000000000000000000
+  HARM mint fee never minted: 100000000000000000000
+  HARM treasury balance: 0
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.10ms (1.81ms CPU time)
+
+Ran 1 test suite in 15.95ms (2.10ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
