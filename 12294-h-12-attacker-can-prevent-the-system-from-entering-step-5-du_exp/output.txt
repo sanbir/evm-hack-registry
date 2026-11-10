@@ -1,0 +1,20 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 19.70s
+Compiler run successful!
+
+Ran 2 tests for test/12294-h-12-attacker-can-prevent-the-system-from-entering-step-5-du_exp.sol:Finding12294Test
+[PASS] test_control_enters_step5_and_moves_12000_usdc() (gas: 3026898)
+Logs:
+  vault2 USDC 12000000000
+  control fundsReceived 3
+
+[PASS] test_exploit_blocks_step5_and_keeps_12000_usdc() (gas: 3047365)
+Logs:
+  stuck USDC 12000000000
+  fundsReceived 4
+  activeVaults 3
+  queued deposit 12000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.83ms (5.95ms CPU time)
+
+Ran 1 test suite in 15.59ms (4.83ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

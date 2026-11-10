@@ -1,0 +1,22 @@
+Compiling 1 files with Solc 0.8.27
+Solc 0.8.27 finished in 10.96s
+Compiler run successful!
+
+Ran 2 tests for test/18632-h-6-keepers-can-be-forced-to-waste-gas-with-long-revert-mess_exp.sol:Finding18632Test
+[PASS] test_control_isolates_revert_and_fills_honest_order() (gas: 4041747)
+Logs:
+  control paid 1000000000000000000000
+  control locked 0
+
+[PASS] test_long_revert_reverts_batch_and_locks_honest_collateral() (gas: 4443084)
+Logs:
+  revert bytes 32068
+  probe gas 412967
+  batch ok false
+  honest locked 1000000000000000000000
+  keeper budget 720000
+  vault balance 1000000000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 29.04ms (40.87ms CPU time)
+
+Ran 1 test suite in 30.20ms (29.04ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

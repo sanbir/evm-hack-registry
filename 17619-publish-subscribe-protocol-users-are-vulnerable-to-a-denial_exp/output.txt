@@ -1,0 +1,22 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/17619-publish-subscribe-protocol-users-are-vulnerable-to-a-denial_exp.sol:Finding17619Test
+[PASS] test_control_abi_encode_lets_publish_succeed() (gas: 4173000)
+Logs:
+  control opened id
+  0xc0b0b90e269717ad0585f6d8e55e78666e4fb5339d2be14a4e5088b0ec1971d1
+
+[PASS] test_exploit_publish_reverts_and_fee_stays() (gas: 4070464)
+Logs:
+  stuck API3 wei
+  1000000000000000000000
+  packed subscription id (alice ab|c and eve a|bc)
+  0x96faf2f485c5d18cba046041af39ed0dc0cb65ddf33b63b9da16993b1a7d8bbd
+  abi.encode id for alice parameters
+  0xc0b0b90e269717ad0585f6d8e55e78666e4fb5339d2be14a4e5088b0ec1971d1
+  abi.encode id for eve parameters
+  0x9650448e8b26875dc160d1ced4179a77c9b3b35dc011a27b69ec5282a9cfe006
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.13ms (5.00ms CPU time)
+
+Ran 1 test suite in 16.43ms (4.13ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

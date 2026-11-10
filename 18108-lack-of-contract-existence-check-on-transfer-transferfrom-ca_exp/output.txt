@@ -1,0 +1,24 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 6.79s
+Compiler run successful!
+
+Ran 2 tests for test/18108-lack-of-contract-existence-check-on-transfer-transferfrom-ca_exp.sol:Finding18108Test
+[PASS] test_control_code_size_blocks_the_post() (gas: 1340178)
+Logs:
+  control posted
+  0
+  pool USDC kept
+  1000000000
+
+[PASS] test_exploit_codeless_deposit_withdraws_real_usdc() (gas: 1483295)
+Logs:
+  phantom credit
+  1000000000
+  pool USDC while that credit was outstanding
+  1000000000
+  real USDC withdrawn
+  1000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.49ms (3.00ms CPU time)
+
+Ran 1 test suite in 17.53ms (2.49ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

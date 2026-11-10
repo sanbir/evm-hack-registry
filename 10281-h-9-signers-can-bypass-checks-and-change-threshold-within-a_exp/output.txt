@@ -1,0 +1,31 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 12.56s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> test/10281-h-9-signers-can-bypass-checks-and-change-threshold-within-a.sol:176:5:
+    |
+176 |     function checkAfterExecution(bytes32, bool) external override {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/10281-h-9-signers-can-bypass-checks-and-change-threshold-within-a.sol:220:5:
+    |
+220 |     function _payout() internal view returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/10281-h-9-signers-can-bypass-checks-and-change-threshold-within-a_exp.sol:Finding10281Test
+[PASS] test_control_keeps_threshold_and_blocks_two_signatures() (gas: 2523918)
+Logs:
+  control threshold 3
+  control paid 1000000000000000000000
+
+[PASS] test_exploit_lowers_threshold_and_pays_with_two_signatures() (gas: 2586367)
+Logs:
+  threshold 2
+  paid 1000000000000000000000
+  old threshold 3
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.76ms (4.88ms CPU time)
+
+Ran 1 test suite in 13.14ms (3.76ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

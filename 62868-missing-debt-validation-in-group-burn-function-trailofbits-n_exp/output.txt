@@ -1,0 +1,24 @@
+Compiling 2 files with Solc 0.8.27
+Solc 0.8.27 finished in 8.69s
+Compiler run successful!
+
+Ran 3 tests for test/62868-missing-debt-validation-in-group-burn-function-trailofbits-n_exp.sol:Finding62868Test
+[PASS] test_burn_leaves_debt_and_extracts_collateral() (gas: 1695644)
+Logs:
+  unsettled debt 2
+  bad debt 200000000000000000000
+  extracted 400000000000000000000
+  treasury left 100000000000000000000
+
+[PASS] test_control_exact_live_burn_succeeds() (gas: 1132368)
+Logs:
+  control live payout 200000000000000000000
+
+[PASS] test_control_reverts_while_debt_remains() (gas: 1124931)
+Logs:
+  control revert 1
+  control treasury 500000000000000000000
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 2.69ms (3.83ms CPU time)
+
+Ran 1 test suite in 18.43ms (2.69ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

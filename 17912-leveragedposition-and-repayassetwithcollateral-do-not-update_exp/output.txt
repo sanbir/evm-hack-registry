@@ -1,0 +1,26 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 10.48s
+Compiler run successful!
+
+Ran 2 tests for test/17912-leveragedposition-and-repayassetwithcollateral-do-not-update_exp.sol:Finding17912Test
+[PASS] test_control_update_rate_mints_fair_shares() (gas: 2104535)
+Logs:
+  control shares
+  500000000000000000000
+  control assets out
+  1000000000000000000000
+
+[PASS] test_exploit_second_user_mints_and_withdraws_too_much() (gas: 2312131)
+Logs:
+  stale shares minted
+  1000000000000000000000
+  fair shares at the updated rate
+  500000000000000000000
+  assets withdrawn on the stale mint
+  1500000000000000000000
+  assets left for the first depositor
+  1500000000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.89ms (4.72ms CPU time)
+
+Ran 1 test suite in 22.25ms (3.89ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
