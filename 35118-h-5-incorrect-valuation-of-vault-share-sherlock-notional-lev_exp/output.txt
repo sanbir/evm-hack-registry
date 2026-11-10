@@ -1,0 +1,21 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 7.21s
+Compiler run successful with warnings:
+Warning (8760): This declaration has the same name as another declaration.
+  --> test/35118-h-5-incorrect-valuation-of-vault-share-sherlock-notional-lev.sol:82:9:
+   |
+82 |         address borrow,
+   |         ^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> test/35118-h-5-incorrect-valuation-of-vault-share-sherlock-notional-lev.sol:105:5:
+    |
+105 |     function borrow(WithdrawRequest memory w, SplitWithdrawRequest memory s) external returns (uint256 amount) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/35118-h-5-incorrect-valuation-of-vault-share-sherlock-notional-lev_exp.sol:Finding35118Test
+[PASS] test_control_borrow_precision_matches_fair_share() (gas: 2146011)
+[PASS] test_exploit_share_value_overborrows() (gas: 1843896)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.72ms (2.95ms CPU time)
+
+Ran 1 test suite in 12.69ms (2.72ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

@@ -1,0 +1,24 @@
+Compiling 1 files with Solc 0.8.27
+Solc 0.8.27 finished in 20.76s
+Compiler run successful!
+
+Ran 2 tests for test/38333-usds-stability-can-be-compromised-as-collateral-deposited-to_exp.sol:Finding38333Test
+[PASS] test_control_counts_gamma_collateral() (gas: 5070115)
+Logs:
+  control seized shares 1000000000000000000000
+  control vault shares 0
+  control borrower WETH 0
+
+[PASS] test_liquidation_leaves_gamma_collateral() (gas: 5808999)
+Logs:
+  gamma collateral usd 1000000000000000000000
+  max mintable at crash 909090909090909090909
+  debt 1800000000000000000000
+  shares seized 0
+  shares left on vault 1000000000000000000000
+  borrower WETH 1000000000000000000000
+  borrower USDs 1800000000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 9.46ms (11.03ms CPU time)
+
+Ran 1 test suite in 16.45ms (9.46ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

@@ -1,0 +1,31 @@
+Compiling 1 files with Solc 0.8.27
+Solc 0.8.27 finished in 10.76s
+Compiler run successful with warnings:
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/27450-users-can-avoid-liquidation-while-being-under-the-primary-li.sol:192:9:
+    |
+192 |         address asset,
+    |         ^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/27450-users-can-avoid-liquidation-while-being-under-the-primary-li.sol:193:9:
+    |
+193 |         address shorter_,
+    |         ^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/27450-users-can-avoid-liquidation-while-being-under-the-primary-li_exp.sol:Finding27450Test
+[PASS] test_control_liquidates_the_same_window_without_merge() (gas: 2664991)
+Logs:
+  control liquidated last short, seized zETH wei 1200000000000000000000
+
+[PASS] test_last_short_keeps_1200_zeth() (gas: 2891736)
+Logs:
+  stayed zETH wei 1200000000000000000000
+  control seized zETH wei 1200000000000000000000
+  last cRatio 1199999999999999999
+  updatedAt 20
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.77ms (2.87ms CPU time)
+
+Ran 1 test suite in 11.34ms (2.77ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
