@@ -1,0 +1,33 @@
+No files changed, compilation skipped
+
+Ran 3 tests for test/18633-h-7-limit-orders-are-broken-when-there-are-price-gaps-sherlo_exp.sol:Finding18633Test
+[PASS] test_control_gap_fills_at_trigger_and_pays_fair() (gas: 3952609)
+Logs:
+  control filled true
+  control price 1900000000000000000000
+  control paid 1500000000000000000000
+  control trader 1500000000000000000000
+  control book 500000000000000000000
+  control size 0
+
+[PASS] test_gap_reverts_stop_and_trader_is_stuck() (gas: 3604087)
+Logs:
+  caught selector matches true
+  revert primary 1700000000000000000000
+  revert secondary 1600000000000000000000
+  revert trigger 1900000000000000000000
+  filled false
+  open size 10000000000000000000000
+  fair equity 1500000000000000000000
+  gap equity 0
+  stuck collateral 2000000000000000000000
+  trader balance 0
+
+[PASS] test_straddle_still_fills_at_trigger() (gas: 3302469)
+Logs:
+  straddle price 1900000000000000000000
+  straddle paid 1500000000000000000000
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 5.01ms (7.69ms CPU time)
+
+Ran 1 test suite in 24.21ms (5.01ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

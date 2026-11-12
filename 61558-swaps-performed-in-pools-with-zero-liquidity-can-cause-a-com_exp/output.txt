@@ -1,0 +1,22 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 8.13s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+  --> test/61558-swaps-performed-in-pools-with-zero-liquidity-can-cause-a-com.sol:72:5:
+   |
+72 |     function _rebalance() internal {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/61558-swaps-performed-in-pools-with-zero-liquidity-can-cause-a-com.sol:107:5:
+    |
+107 |     function _rebalance() internal {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/61558-swaps-performed-in-pools-with-zero-liquidity-can-cause-a-com_exp.sol:Finding61558Test
+[PASS] test_control_rejects_zero_liquidity() (gas: 978250)
+[PASS] test_exploit_zero_liq_swap_bricks_the_deposit() (gas: 1301993)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.26ms (2.23ms CPU time)
+
+Ran 1 test suite in 22.77ms (2.26ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

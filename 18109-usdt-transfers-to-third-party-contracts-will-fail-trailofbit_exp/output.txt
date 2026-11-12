@@ -1,0 +1,205 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 21.38s
+Compiler run successful!
+
+Ran 1 test for test/18109-usdt-transfers-to-third-party-contracts-will-fail-trailofbit_exp.sol:Finding18109Test
+[PASS] test_usdt_release_sticks_and_control_pays() (gas: 3125185)
+Logs:
+  parked USDT
+  1000000000
+  usdt release returned
+  0
+  USDT stuck in pool
+  1000000000
+  USDT paid to beneficiary
+  0
+  allowance left
+  0
+  control received
+  1000000000
+  standard left in pool
+  0
+
+Traces:
+  [3164985] Finding18109Test::test_usdt_release_sticks_and_control_pays()
+    ├─ [1584522] → new Exploit@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   └─ ← [Return] 7089 bytes of code
+    ├─ [1331879] Exploit::run()
+    │   ├─ [338753] → new UsdtLike@0x104fBc016F4bb334D775a19E8A6510109AC63E00
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x5465746865722055534400000000000000000000000000000000000000000014
+    │   │   │   @ 1: 0 → 0x5553445400000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 2: 0 → 6
+    │   │   └─ ← [Return] 1359 bytes of code
+    │   ├─ [357371] → new ReturningToken@0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3
+    │   │   ├─  storage changes:
+    │   │   │   @ 0: 0 → 0x436f6d706c69616e74205553440000000000000000000000000000000000001a
+    │   │   │   @ 1: 0 → 0x5553444300000000000000000000000000000000000000000000000000000008
+    │   │   │   @ 2: 0 → 6
+    │   │   └─ ← [Return] 1452 bytes of code
+    │   ├─ [80135] → new ContractWallet@0xDDc10602782af652bB913f7bdE1fD82981Db7dd9
+    │   │   └─ ← [Return] 400 bytes of code
+    │   ├─ [89141] → new MesonRelease@0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773
+    │   │   └─ ← [Return] 445 bytes of code
+    │   ├─ [44724] UsdtLike::mint(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000 [1e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x520092544966f6736fd4e1c0b4eccbcc744f052807f6ee0e27d8f3c65653a0b0: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   @ 3: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   └─ ← [Stop]
+    │   ├─ [530] UsdtLike::balanceOf(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [786] MesonRelease::releaseToContract(UsdtLike: [0x104fBc016F4bb334D775a19E8A6510109AC63E00], ContractWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 0x2222222222222222222222222222222222222222, 1000000000 [1e9])
+    │   │   ├─ [276] UsdtLike::increaseAllowance(ContractWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000 [1e9])
+    │   │   │   └─ ← [Revert] unrecognized function selector 0x39509351 for contract 0x104fBc016F4bb334D775a19E8A6510109AC63E00, which has no fallback function.
+    │   │   └─ ← [Revert] EvmError: Revert
+    │   ├─ [530] UsdtLike::balanceOf(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [2530] UsdtLike::balanceOf(0x2222222222222222222222222222222222222222) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [2760] UsdtLike::allowance(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], ContractWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [44746] ReturningToken::mint(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 1000000000 [1e9])
+    │   │   ├─  storage changes:
+    │   │   │   @ 0x520092544966f6736fd4e1c0b4eccbcc744f052807f6ee0e27d8f3c65653a0b0: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   @ 3: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   └─ ← [Stop]
+    │   ├─ [47927] MesonRelease::releaseToContract(ReturningToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], ContractWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 0x2222222222222222222222222222222222222222, 1000000000 [1e9])
+    │   │   ├─ [22641] ReturningToken::increaseAllowance(ContractWallet: [0xDDc10602782af652bB913f7bdE1fD82981Db7dd9], 1000000000 [1e9])
+    │   │   │   ├─  storage changes:
+    │   │   │   │   @ 0x236c4bf6588ca40ab6c226ea6572bd56b076f655bf83208fa91ec2b035c7af93: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [24077] ContractWallet::transferWithBeneficiary(ReturningToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3], 1000000000 [1e9], 0x2222222222222222222222222222222222222222, 1)
+    │   │   │   ├─ [23368] ReturningToken::transferFrom(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773], 0x2222222222222222222222222222222222222222, 1000000000 [1e9])
+    │   │   │   │   ├─  storage changes:
+    │   │   │   │   │   @ 0x236c4bf6588ca40ab6c226ea6572bd56b076f655bf83208fa91ec2b035c7af93: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   │   │   │   │   @ 0x520092544966f6736fd4e1c0b4eccbcc744f052807f6ee0e27d8f3c65653a0b0: 0x000000000000000000000000000000000000000000000000000000003b9aca00 → 0
+    │   │   │   │   │   @ 0xce53ef3e8d9aa7e18fc44d8378145f2cb4b18a8dcd1dde867638f7071daae985: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Stop]
+    │   ├─ [552] ReturningToken::balanceOf(0x2222222222222222222222222222222222222222) [staticcall]
+    │   │   └─ ← [Return] 1000000000 [1e9]
+    │   ├─ [552] ReturningToken::balanceOf(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─  storage changes:
+    │   │   @ 0: 0 → 0x000000000000000000000000104fbc016f4bb334d775a19e8a6510109ac63e00
+    │   │   @ 1: 0 → 0x000000000000000000000000037eda3adb1198021a9b2e88c22b464fd38db3f3
+    │   │   @ 2: 0 → 0x000000000000000000000000ddc10602782af652bb913f7bde1fd82981db7dd9
+    │   │   @ 3: 0 → 0x0000000000000000000000007fdb3132ff7d02d8b9e221c61cc895ce9a4bb773
+    │   │   @ 4: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   @ 6: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   │   @ 9: 0 → 0x000000000000000000000000000000000000000000000000000000003b9aca00
+    │   └─ ← [Return]
+    ├─ [2327] Exploit::parked() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [381] Exploit::N() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "parked") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2361] Exploit::usdtReleased() [staticcall]
+    │   └─ ← [Return] false
+    ├─ [0] VM::assertFalse(false, "usdt release returned") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2545] Exploit::stuck() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [381] Exploit::N() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "stuck") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2528] Exploit::usdtPaid() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "usdt paid") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2506] Exploit::allowanceLeft() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "allowance") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2437] Exploit::controlReceived() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [381] Exploit::N() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "control") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2415] Exploit::standardLeft() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "standard left") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2306] Exploit::usdt() [staticcall]
+    │   └─ ← [Return] UsdtLike: [0x104fBc016F4bb334D775a19E8A6510109AC63E00]
+    ├─ [2417] Exploit::standard() [staticcall]
+    │   └─ ← [Return] ReturningToken: [0x037eDa3aDB1198021A9b2e88C22B464fD38db3f3]
+    ├─ [2271] Exploit::pool() [staticcall]
+    │   └─ ← [Return] MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [2530] UsdtLike::balanceOf(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [381] Exploit::N() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "pool usdt") [staticcall]
+    │   └─ ← [Return]
+    ├─ [202] Exploit::BENEFICIARY() [staticcall]
+    │   └─ ← [Return] 0x2222222222222222222222222222222222222222
+    ├─ [2530] UsdtLike::balanceOf(0x2222222222222222222222222222222222222222) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "beneficiary usdt") [staticcall]
+    │   └─ ← [Return]
+    ├─ [202] Exploit::BENEFICIARY() [staticcall]
+    │   └─ ← [Return] 0x2222222222222222222222222222222222222222
+    ├─ [2552] ReturningToken::balanceOf(0x2222222222222222222222222222222222222222) [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [381] Exploit::N() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] VM::assertEq(1000000000 [1e9], 1000000000 [1e9], "beneficiary standard") [staticcall]
+    │   └─ ← [Return]
+    ├─ [2271] Exploit::pool() [staticcall]
+    │   └─ ← [Return] MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]
+    ├─ [2552] ReturningToken::balanceOf(MesonRelease: [0x7FdB3132Ff7D02d8B9e221c61cC895ce9a4bb773]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::assertEq(0, 0, "pool standard") [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] console::log("parked USDT") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2327] Exploit::parked() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] console::log(1000000000 [1e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("usdt release returned") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2361] Exploit::usdtReleased() [staticcall]
+    │   └─ ← [Return] false
+    ├─ [0] console::log(0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("USDT stuck in pool") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2545] Exploit::stuck() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] console::log(1000000000 [1e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("USDT paid to beneficiary") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2528] Exploit::usdtPaid() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] console::log(0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("allowance left") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2506] Exploit::allowanceLeft() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] console::log(0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("control received") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2437] Exploit::controlReceived() [staticcall]
+    │   └─ ← [Return] 1000000000 [1e9]
+    ├─ [0] console::log(1000000000 [1e9]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("standard left in pool") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2415] Exploit::standardLeft() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] console::log(0) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Return]
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 13.97ms (11.64ms CPU time)
+
+Ran 1 test suite in 41.99ms (13.97ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
