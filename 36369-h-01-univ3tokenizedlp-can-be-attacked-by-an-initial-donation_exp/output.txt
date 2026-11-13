@@ -1,0 +1,16 @@
+Compiling 2 files with Solc 0.8.27
+Solc 0.8.27 finished in 9.96s
+Compiler run successful with warnings:
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> test/36369-h-01-univ3tokenizedlp-can-be-attacked-by-an-initial-donation.sol:58:22:
+   |
+58 |     function deposit(uint256 amount0, uint256 amount1, address receiver) external virtual returns (uint256 shares) {
+   |                      ^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/36369-h-01-univ3tokenizedlp-can-be-attacked-by-an-initial-donation_exp.sol:Finding36369Test
+[PASS] test_control_virtual_offset_mints_shares_and_no_profit() (gas: 1653182)
+[PASS] test_exploit_second_depositor_gets_zero_shares() (gas: 1864511)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.29ms (2.60ms CPU time)
+
+Ran 1 test suite in 12.92ms (2.29ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

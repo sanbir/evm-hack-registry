@@ -1,0 +1,16 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 9.44s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/40578-if-operatorflag-false-attacker-can-steal-all-nfts-within-the.sol:153:5:
+    |
+153 |     function onRebalance(uint256[] calldata) external returns (uint256[] memory ids) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/40578-if-operatorflag-false-attacker-can-steal-all-nfts-within-the_exp.sol:Finding40578Test
+[PASS] test_control_operator_flag_blocks_rebalance() (gas: 181234)
+[PASS] test_exploit_swaps_the_victim_nft_out() (gas: 2123221)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 11.19ms (2.72ms CPU time)
+
+Ran 1 test suite in 16.37ms (11.19ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

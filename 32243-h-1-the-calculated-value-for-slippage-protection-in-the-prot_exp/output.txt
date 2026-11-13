@@ -1,0 +1,21 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 7.31s
+Compiler run successful!
+
+Ran 2 tests for test/32243-h-1-the-calculated-value-for-slippage-protection-in-the-prot_exp.sol:Finding32243Test
+[PASS] test_control_rejects_1980_and_fills_2475() (gas: 1623972)
+Logs:
+  rejected true
+  control filled 2475000000000000000000
+
+[PASS] test_fill_1980_is_below_the_2475_floor() (gas: 1831760)
+Logs:
+  expected 2000000000000000000000
+  quoted min 1980000000000000000000
+  intended min 2475000000000000000000
+  filled 1980000000000000000000
+  shortfall 495000000000000000000
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.63ms (2.77ms CPU time)
+
+Ran 1 test suite in 23.45ms (2.63ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

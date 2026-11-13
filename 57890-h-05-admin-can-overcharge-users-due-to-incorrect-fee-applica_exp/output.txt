@@ -1,0 +1,16 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 25.77s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/57890-h-05-admin-can-overcharge-users-due-to-incorrect-fee-applica.sol:92:5:
+   |
+92 |     function _sharesTradingFee(WithdrawData memory, uint256 _shares) internal view override returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/57890-h-05-admin-can-overcharge-users-due-to-incorrect-fee-applica_exp.sol:Finding57890Test
+[PASS] test_control_charges_the_trading_fee() (gas: 1043519)
+[PASS] test_withdrawal_charges_the_management_fee() (gas: 1537049)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 12.41ms (2.18ms CPU time)
+
+Ran 1 test suite in 18.22ms (12.41ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

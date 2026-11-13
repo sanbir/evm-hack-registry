@@ -1,0 +1,21 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 8.41s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/59428-incorrect-reward-updates-upon-xintx-minting-quantstamp-inten.sol:67:17:
+   |
+67 |     constructor(MiniERC20 _stake, MiniERC20 _reward) {
+   |                 ^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> test/59428-incorrect-reward-updates-upon-xintx-minting-quantstamp-inten.sol:81:5:
+   |
+81 |     function _stake(address who, uint256 amount) internal returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/59428-incorrect-reward-updates-upon-xintx-minting-quantstamp-inten_exp.sol:Finding59428Test
+[PASS] test_control_new_stake_gets_nothing() (gas: 2349168)
+[PASS] test_exploit_new_stake_takes_1000() (gas: 3559437)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.71ms (2.79ms CPU time)
+
+Ran 1 test suite in 10.42ms (2.71ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

@@ -1,0 +1,16 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 47.05s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> test/38089-missing-abort-status-check-allows-bid-taker-to-steal-users-f.sol:139:5:
+    |
+139 |     function closeBidTaker() external {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/38089-missing-abort-status-check-allows-bid-taker-to-steal-users-f_exp.sol:Finding38089Test
+[PASS] test_control_abort_check_blocks_the_premium() (gas: 1209858)
+[PASS] test_exploit_aborted_offer_pays_the_collateral_premium() (gas: 2155339)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.45ms (2.90ms CPU time)
+
+Ran 1 test suite in 16.46ms (4.45ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

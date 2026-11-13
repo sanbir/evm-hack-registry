@@ -1,0 +1,21 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 6.66s
+Compiler run successful with warnings:
+Warning (3628): This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+  --> test/37160-anyone-can-upgrade-an-implementation-zokyo-none-curra-markdo.sol:27:1:
+   |
+27 | contract VaultProxy {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+  --> test/37160-anyone-can-upgrade-an-implementation-zokyo-none-curra-markdo.sol:42:5:
+   |
+42 |     fallback() external payable {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/37160-anyone-can-upgrade-an-implementation-zokyo-none-curra-markdo_exp.sol:Finding37160Test
+[PASS] test_control_admin_check_blocks_upgrade() (gas: 944964)
+[PASS] test_exploit_anyone_upgrades_and_drains() (gas: 1363206)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.40ms (2.20ms CPU time)
+
+Ran 1 test suite in 13.01ms (2.40ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

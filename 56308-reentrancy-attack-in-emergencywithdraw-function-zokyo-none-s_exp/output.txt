@@ -1,0 +1,16 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 15.93s
+Compiler run successful with warnings:
+Warning (9302): Return value of low-level calls not used.
+  --> test/56308-reentrancy-attack-in-emergencywithdraw-function-zokyo-none-s.sol:61:13:
+   |
+61 |             to.call(abi.encodeWithSignature("onLP(address,uint256)", from, amount));
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/56308-reentrancy-attack-in-emergencywithdraw-function-zokyo-none-s_exp.sol:Finding56308Test
+[PASS] test_control_zero_before_transfer_pays_once() (gas: 1503465)
+[PASS] test_exploit_reenters_emergency_withdraw() (gas: 2442858)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.26ms (3.47ms CPU time)
+
+Ran 1 test suite in 19.02ms (3.26ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
