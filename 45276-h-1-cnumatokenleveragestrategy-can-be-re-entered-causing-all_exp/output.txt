@@ -1,0 +1,22 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 23.72s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/45276-h-1-cnumatokenleveragestrategy-can-be-re-entered-causing-all.sol:129:5:
+    |
+129 |     function mint(uint256) external returns (uint256) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/45276-h-1-cnumatokenleveragestrategy-can-be-re-entered-causing-all.sol:178:5:
+    |
+178 |     function mint(uint256) external returns (uint256) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/45276-h-1-cnumatokenleveragestrategy-can-be-re-entered-causing-all_exp.sol:Finding45276Test
+[PASS] test_control_reentrancy_guard_keeps_the_vault_whole() (gas: 1490122)
+[PASS] test_exploit_reentered_leverage_sticks_10_lst_in_cnuma() (gas: 1904689)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.19ms (4.29ms CPU time)
+
+Ran 1 test suite in 31.93ms (4.19ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

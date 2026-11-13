@@ -1,0 +1,43 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 20.43s
+Compiler run successful with warnings:
+Warning (3628): This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+  --> test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute.sol:60:1:
+   |
+60 | contract Handler {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+  --> test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute.sol:69:5:
+   |
+69 |     fallback() external payable {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (3628): This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+  --> test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute.sol:74:1:
+   |
+74 | contract NexusAccount {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+  --> test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute.sol:95:5:
+   |
+95 |     fallback() external payable withHook {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (3628): This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+   --> test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute.sol:114:1:
+    |
+114 | contract NexusAccountFixed {
+    | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+   --> test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute.sol:132:5:
+    |
+132 |     fallback() external payable {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/43809-fallback-logic-prevents-hooks-postcheck-from-getting-execute_exp.sol:Finding43809Test
+[PASS] test_control_postcheck_reverts_and_tokens_stay() (gas: 1384958)
+[PASS] test_exploit_fallback_return_skips_postcheck_and_drains() (gas: 1638298)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 4.40ms (4.84ms CPU time)
+
+Ran 1 test suite in 17.76ms (4.40ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

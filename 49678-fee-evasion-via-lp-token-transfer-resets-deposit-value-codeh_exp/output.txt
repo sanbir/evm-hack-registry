@@ -1,0 +1,22 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 28.37s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to pure
+  --> test/49678-fee-evasion-via-lp-token-transfer-resets-deposit-value-codeh.sol:68:5:
+   |
+68 |     function quote(uint256 depositValue) public view returns (uint256) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> test/49678-fee-evasion-via-lp-token-transfer-resets-deposit-value-codeh.sol:118:5:
+    |
+118 |     function quote(uint256 depositValue) public view returns (uint256) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/49678-fee-evasion-via-lp-token-transfer-resets-deposit-value-codeh_exp.sol:Finding49678Test
+[PASS] test_control_transfer_keeps_original_deposit_value() (gas: 1021863)
+[PASS] test_exploit_transfer_resets_uplift_fee() (gas: 1841135)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 5.04ms (2.94ms CPU time)
+
+Ran 1 test suite in 29.96ms (5.04ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
