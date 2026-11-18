@@ -1,0 +1,21 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 50.47s
+Compiler run successful with warnings:
+Warning (8760): This declaration has the same name as another declaration.
+  --> test/43911-c-02-the-lowest-contributor-of-the-top-contributors-list-can.sol:60:9:
+   |
+60 |         uint256 length = keys.length;
+   |         ^^^^^^^^^^^^^^
+Note: The other declaration is here:
+   --> test/43911-c-02-the-lowest-contributor-of-the-top-contributors-list-can.sol:111:5:
+    |
+111 |     function length() external view returns (uint256) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/43911-c-02-the-lowest-contributor-of-the-top-contributors-list-can_exp.sol:Finding43911Test
+[PASS] test_control_existing_depositor_does_not_kick() (gas: 6333196)
+[PASS] test_exploit_sybil_takes_the_kicked_seat() (gas: 5565536)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 7.71ms (11.61ms CPU time)
+
+Ran 1 test suite in 14.63ms (7.71ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

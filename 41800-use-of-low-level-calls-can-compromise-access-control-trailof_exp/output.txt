@@ -1,0 +1,16 @@
+Compiling 1 files with Solc 0.8.27
+Solc 0.8.27 finished in 15.81s
+Compiler run successful with warnings:
+Warning (9302): Return value of low-level calls not used.
+  --> test/41800-use-of-low-level-calls-can-compromise-access-control-trailof.sol:87:9:
+   |
+87 |         _params.target.call(_params.data); // @> VULN: user-chosen target and calldata run with module privileges
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/41800-use-of-low-level-calls-can-compromise-access-control-trailof_exp.sol:Finding41800Test
+[PASS] test_control_direct_pay_reverts_and_fixed_callback_keeps_bond() (gas: 1746632)
+[PASS] test_exploit_callback_pays_victim_bond_to_attacker() (gas: 1765502)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.61ms (2.77ms CPU time)
+
+Ran 1 test suite in 11.89ms (2.61ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

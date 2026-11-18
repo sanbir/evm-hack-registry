@@ -1,0 +1,15 @@
+Compiling 20 files with Solc 0.8.27
+Solc 0.8.27 finished in 29.97s
+Compiler run successful with warnings:
+Warning (9302): Return value of low-level calls not used.
+  --> test/41383-c-02-native-tokens-in-the-daos-are-stuck-pashov-audit-group.sol:53:13:
+   |
+53 |             payable(_daoDetails.assetsStoredOnGnosis ? _daoDetails.gnosisAddress : dao).call{value: _totalAmount}(""); // STORY: deposit
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 1 test for test/41383-c-02-native-tokens-in-the-daos-are-stuck-pashov-audit-group_exp.sol:Finding41383Test
+[PASS] test_native_deposit_stays_in_dao() (gas: 864332)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 5.53ms (4.33ms CPU time)
+
+Ran 1 test suite in 15.56ms (5.53ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

@@ -1,0 +1,16 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 16.05s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> test/38489-h-01-user-can-prevent-balance-updates-by-withdrawing-pashov.sol:117:5:
+    |
+117 |     function startSnapshot() external returns (uint256 nodeBalanceWei) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/38489-h-01-user-can-prevent-balance-updates-by-withdrawing-pashov_exp.sol:Finding38489Test
+[PASS] test_control_decrement_lets_the_snapshot_finish() (gas: 1159815)
+[PASS] test_exploit_withdraw_bricks_the_slash_snapshot() (gas: 1585578)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 12.72ms (3.46ms CPU time)
+
+Ran 1 test suite in 22.13ms (12.72ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

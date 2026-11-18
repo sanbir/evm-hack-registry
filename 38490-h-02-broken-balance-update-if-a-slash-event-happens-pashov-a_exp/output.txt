@@ -1,0 +1,22 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 17.63s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+  --> test/38490-h-02-broken-balance-update-if-a-slash-event-happens-pashov-a.sol:88:5:
+   |
+88 |     function startSnapshot() external returns (uint256 nodeBalanceWei) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> test/38490-h-02-broken-balance-update-if-a-slash-event-happens-pashov-a.sol:119:5:
+    |
+119 |     function startSnapshot() external returns (uint256 nodeBalanceWei) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/38490-h-02-broken-balance-update-if-a-slash-event-happens-pashov-a_exp.sol:Finding38490Test
+[PASS] test_control_slash_decrements_credit_and_snapshot_works() (gas: 1268276)
+[PASS] test_exploit_slash_freezes_the_remaining_eth() (gas: 1774111)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.83ms (2.34ms CPU time)
+
+Ran 1 test suite in 22.76ms (3.83ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

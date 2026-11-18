@@ -1,0 +1,21 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 38.55s
+Compiler run successful with warnings:
+Warning (3628): This contract has a payable fallback function, but no receive ether function. Consider adding a receive ether function.
+  --> test/37790-h-01-lost-roles-after-the-proxy-upgrade-pashov-audit-group-n.sol:73:1:
+   |
+73 | contract DiamondProxy {
+   | ^ (Relevant source part starts here and spans across multiple lines).
+Note: The payable fallback function is defined here.
+  --> test/37790-h-01-lost-roles-after-the-proxy-upgrade-pashov-audit-group-n.sol:82:5:
+   |
+82 |     fallback() external payable {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/37790-h-01-lost-roles-after-the-proxy-upgrade-pashov-audit-group-n_exp.sol:Finding37790Test
+[PASS] test_control_mapping_kept_at_slot_2() (gas: 861189)
+[PASS] test_exploit_upgrade_drops_role_and_bricks_gate() (gas: 1144098)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 22.41ms (4.69ms CPU time)
+
+Ran 1 test suite in 27.03ms (22.41ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)

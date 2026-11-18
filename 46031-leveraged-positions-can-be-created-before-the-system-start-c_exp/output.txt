@@ -1,0 +1,16 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 22.89s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> test/46031-leveraged-positions-can-be-created-before-the-system-start-c.sol:173:5:
+    |
+173 |     function leverage(uint256 collateral) external {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 2 tests for test/46031-leveraged-positions-can-be-created-before-the-system-start-c_exp.sol:Finding46031Test
+[PASS] test_control_guarded_leverage_reverts_before_start() (gas: 1080567)
+[PASS] test_exploit_leverage_before_start_takes_the_floor() (gas: 2846502)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 8.47ms (7.97ms CPU time)
+
+Ran 1 test suite in 25.34ms (8.47ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
