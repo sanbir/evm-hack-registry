@@ -1,0 +1,21 @@
+Compiling 21 files with Solc 0.8.27
+Solc 0.8.27 finished in 11.47s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/51786-incorrect-shares-calculation-due-to-shadowed-variable-halbor.sol:23:13:
+   |
+23 |             uint256 daysSinceLastDeposit = elapsedDays > 599 ? 599 : elapsedDays;
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> test/51786-incorrect-shares-calculation-due-to-shadowed-variable-halbor.sol:20:9:
+   |
+20 |         uint256 daysSinceLastDeposit = 0;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/51786-incorrect-shares-calculation-due-to-shadowed-variable-halbor_exp.sol:Finding51786Test
+[PASS] test_control_two_days_mint_9930() (gas: 143679)
+[PASS] test_exploit_decay_loop_does_not_run() (gas: 1206289)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 2.71ms (2.67ms CPU time)
+
+Ran 1 test suite in 23.66ms (2.71ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
