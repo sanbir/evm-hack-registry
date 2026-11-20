@@ -1,0 +1,21 @@
+Compiling 2 files with Solc 0.8.27
+Solc 0.8.27 finished in 13.50s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+  --> test/35125-h-12-the-withdrawvalue-calculation-in-calculatevalueofwithd.sol:30:31:
+   |
+30 |     function seed(uint256 id, uint256 piece, uint256 total, uint256 value) external {
+   |                               ^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> test/35125-h-12-the-withdrawvalue-calculation-in-calculatevalueofwithd.sol:28:5:
+   |
+28 |     uint256 public piece;
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 2 tests for test/35125-h-12-the-withdrawvalue-calculation-in-calculatevalueofwithd_exp.sol:Finding35125Test
+[PASS] test_control_scales_the_piece_to_40() (gas: 154141)
+[PASS] test_exploit_unfinalized_split_is_valued_at_100() (gas: 1411721)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 11.12ms (1.62ms CPU time)
+
+Ran 1 test suite in 22.68ms (11.12ms CPU time): 2 tests passed, 0 failed, 0 skipped (2 total tests)
